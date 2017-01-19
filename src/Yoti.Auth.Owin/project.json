@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
+    },
+    "net45": {
+      "dependencies": {
+        "Microsoft.AspNet.Identity.Owin": "2.2.1",
+        "Microsoft.Owin.Security": "3.0.1",
+        "System.Net.Http": "4.0.0"
+      }
+    },
+    "net451": {
+      "dependencies": {
+        "Microsoft.AspNet.Identity.Owin": "2.2.1",
+        "Microsoft.Owin.Security": "3.0.1",
+        "System.Net.Http": "4.0.0"
+      }
+    },
+    "net452": {
+      "dependencies": {
+        "Microsoft.AspNet.Identity.Owin": "2.2.1",
+        "Microsoft.Owin.Security": "3.0.1",
+        "System.Net.Http": "4.0.0"
+      }
+    },
+    "net46": {
+      "dependencies": {
+        "Microsoft.AspNet.Identity.Owin": "2.2.1",
+        "Microsoft.Owin.Security": "3.0.1",
+        "System.Net.Http": "4.1.0"
+      }
+    },
+    "net461": {
+      "dependencies": {
+        "Microsoft.AspNet.Identity.Owin": "2.2.1",
+        "Microsoft.Owin.Security": "3.0.1",
+        "System.Net.Http": "4.1.0"
+      }
+    }
+  },
+  "dependencies": {
+    "Yoti.Auth": { "target": "project" }
+  }
+}
