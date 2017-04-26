@@ -8,7 +8,7 @@ namespace Yoti.Auth
     public class YotiUserProfile
     {
         /// <summary>
-        /// Creates a <see cref="YotiUserProfile" /> 
+        /// Creates a <see cref="YotiUserProfile" />
         /// </summary>
         public YotiUserProfile()
         {
@@ -39,6 +39,11 @@ namespace Yoti.Auth
         /// MobileNumber represents the user's mobile phone number. This will be null if not provided by Yoti
         /// </summary>
         public string MobileNumber { get; set; }
+
+        /// <summary>
+        /// EmailAddress represents the user's email address. This will be null if not provided by Yoti
+        /// </summary>
+        public string EmailAddress { get; set; }
 
         /// <summary>
         /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti

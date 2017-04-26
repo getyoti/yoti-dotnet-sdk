@@ -105,6 +105,11 @@ namespace Yoti.Auth.Owin
                     context.Identity.AddClaim(new Claim("phone_number", context.User.MobileNumber, ClaimValueTypes.String, Options.AuthenticationType));
                 }
 
+                if (!string.IsNullOrEmpty(context.User.EmailAddress))
+                {
+                    context.Identity.AddClaim(new Claim("email_address", context.User.EmailAddress, ClaimValueTypes.String, Options.AuthenticationType));
+                }
+
                 if (context.User.DateOfBirth != null)
                 {
                     context.Identity.AddClaim(new Claim("date_of_birth", context.User.DateOfBirth.Value.ToString("yyyy-MM-dd"), ClaimValueTypes.String, Options.AuthenticationType));
@@ -112,7 +117,7 @@ namespace Yoti.Auth.Owin
 
                 if (!string.IsNullOrEmpty(context.User.Address))
                 {
-                    context.Identity.AddClaim(new Claim("post_code", context.User.Address, ClaimValueTypes.String, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("postal_address", context.User.Address, ClaimValueTypes.String, Options.AuthenticationType));
                 }
 
                 if (!string.IsNullOrEmpty(context.User.Gender))
@@ -130,7 +135,7 @@ namespace Yoti.Auth.Owin
                     var attributeValue = context.User.OtherAttributes[attributeName];
                     context.Identity.AddClaim(new Claim(attributeName, attributeValue.ToString(), attributeValue.Type.ToString(), Options.AuthenticationType));
                 }
-                
+
                 context.Properties = properties;
 
                 await Options.Provider.Authenticated(context);
@@ -171,7 +176,7 @@ namespace Yoti.Auth.Owin
                 {
                     properties.RedirectUri = currentUri;
                 }
-                
+
                 string authorizationEndpoint = AuthorizeEndpoint + Options.AppId;
 
                 string state = Options.StateDataFormat.Protect(properties);
@@ -181,7 +186,7 @@ namespace Yoti.Auth.Owin
                     HttpOnly = true,
                     Secure = Request.IsSecure
                 };
-                
+
                 string stateCookieKey = Constants.StatePrefix + Options.AuthenticationType;
                 Response.Cookies.Append(stateCookieKey, state, cookieOptions);
 
@@ -229,7 +234,7 @@ namespace Yoti.Auth.Owin
                     {
                         grantIdentity = new ClaimsIdentity(grantIdentity.Claims, context.SignInAsAuthenticationType, grantIdentity.NameClaimType, grantIdentity.RoleClaimType);
                     }
-                    
+
                     Context.Authentication.SignIn(context.Properties, grantIdentity);
                 }
 

@@ -110,6 +110,10 @@ namespace Yoti.Auth.Owin
                         profile.MobileNumber = claim.Value;
                         break;
 
+                    case "email_address":
+                        profile.EmailAddress = claim.Value;
+                        break;
+
                     case "date_of_birth":
                         {
                             DateTime date;
@@ -120,7 +124,7 @@ namespace Yoti.Auth.Owin
                         }
                         break;
 
-                    case "post_code":
+                    case "postal_address":
                         profile.Address = claim.Value;
                         break;
 
