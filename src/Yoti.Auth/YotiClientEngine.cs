@@ -86,7 +86,7 @@ namespace Yoti.Auth
                     var receipt = parsedResponse.receipt;
 
                     var attributes = DecryptCurrentUserReceipt(parsedResponse.receipt, keyPair);
-                    
+
                     var profile = new YotiUserProfile
                     {
                         Id = parsedResponse.receipt.remember_me_id
@@ -130,6 +130,10 @@ namespace Yoti.Auth
                                 profile.MobileNumber = Conversion.BytesToUtf8(data);
                                 break;
 
+                            case "email_address":
+                                profile.EmailAddress = Conversion.BytesToUtf8(data);
+                                break;
+
                             case "date_of_birth":
                                 {
                                     DateTime date;
@@ -140,7 +144,7 @@ namespace Yoti.Auth
                                 }
                                 break;
 
-                            case "post_code":
+                            case "postal_address":
                                 profile.Address = Conversion.BytesToUtf8(data);
                                 break;
 
@@ -220,10 +224,10 @@ namespace Yoti.Auth
             byte[] cipherText = encryptedData.CipherText.ToByteArray();
 
             byte[] decipheredBytes = CryptoEngine.DecipherAes(unwrappedKey, iv, cipherText);
-                
+
             return AttributeList.Parser.ParseFrom(decipheredBytes);
         }
-        
+
         private string GetAuthKey(AsymmetricCipherKeyPair keyPair)
         {
             byte[] publicKey = CryptoEngine.GetDerEncodedPublicKey(keyPair);
@@ -259,7 +263,7 @@ namespace Yoti.Auth
             byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
 
             byte[] decipheredBytes = CryptoEngine.DecryptRsa(cipherBytes, keyPair);
-            
+
             return Conversion.BytesToUtf8(decipheredBytes);
         }
 
