@@ -8,9 +8,9 @@ Welcome to the Yoti .NET SDK. This repo contains the tools and step by step inst
 1) [An Architectural view](#an-architectural-view) -
 High level overview of integration
 
-2) [Compiling the NuGet package](#compiling-the-nuget-package)- 
+2) [Compiling the NuGet package](#compiling-the-nuget-package)-
 Before you start make sure you have everything you need
- 
+
 3) [Enabling the SDK](#enabling-the-sdk)-
 How to install our SDK
 
@@ -19,7 +19,7 @@ Description on setting up your SDK
 
 5) [Profile retrieval](#profile-retrieval) -
 Description on setting up profile
- 
+
 6) [Handling users](#handling-users) -
 Description on handling user log on's
 
@@ -104,7 +104,7 @@ else
 {
     // handle unhappy path
 }
-``` 
+```
 
 ## Handling users
 
@@ -133,7 +133,7 @@ else
     // handle unhappy path
 }
 ```
-Where `yourUserSearchFunction` is a piece of logic in your app that is supposed to find a user, given a userId. 
+Where `yourUserSearchFunction` is a piece of logic in your app that is supposed to find a user, given a userId.
 No matter if the user is a new or an existing one, Yoti will always provide her/his profile, so you don't necessarily need to store it.
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
@@ -145,6 +145,6 @@ Please provide the following the get you up and working as quick as possible:
 
 - Computer Type
 - OS Version
-- Version of Go being used
+- Version of .NET being used
 - Screenshot
 
