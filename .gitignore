@@ -17,3 +17,6 @@
 # to a newer Visual Studio version. 
 UpgradeLog*.htm
 Backup*/
+
+# NuGet Packages
+*.nupkg
