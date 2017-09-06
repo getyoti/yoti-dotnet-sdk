@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Yoti.Auth", "Yoti.Auth\Yoti.Auth.xproj", "{FD86A254-0965-4748-9D10-782EEEA23D07}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Yoti.Auth.Owin", "Yoti.Auth.Owin\Yoti.Auth.Owin.xproj", "{BD1F1AA6-C506-4BFF-BE6D-145E4771F188}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Yoti.Auth.Tests", "..\test\Yoti.Auth.Tests\Yoti.Auth.Tests.xproj", "{A518E6F4-B553-4857-97C0-CC547163743B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE1F453E-BD56-4A3A-9B87-44A6C9D63D1A}"
 	ProjectSection(SolutionItems) = preProject
 		..\test\global.json = ..\test\global.json
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth", "Yoti.Auth\Yoti.Auth.csproj", "{FD86A254-0965-4748-9D10-782EEEA23D07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Owin", "Yoti.Auth.Owin\Yoti.Auth.Owin.csproj", "{BD1F1AA6-C506-4BFF-BE6D-145E4771F188}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Tests", "..\test\Yoti.Auth.Tests\Yoti.Auth.Tests.csproj", "{A518E6F4-B553-4857-97C0-CC547163743B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A3AE710-68BB-4034-921C-EBAE5186F5DF}
 	EndGlobalSection
 EndGlobal
