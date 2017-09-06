@@ -218,8 +218,6 @@ namespace Yoti.Auth.Owin
                     return true;
                 }
 
-
-
                 var context = new YotiReturnEndpointContext(Context, ticket);
                 context.SignInAsAuthenticationType = Options.SignInAsAuthenticationType;
                 context.RedirectUri = ticket.Properties.RedirectUri;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Yoti.Auth.Owin
+﻿namespace Yoti.Auth.Owin
 {
     internal static class Constants
     {

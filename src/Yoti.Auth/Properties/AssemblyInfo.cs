@@ -17,5 +17,4 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("fd86a254-0965-4748-9d10-782eeea23d07")]
-
 [assembly: InternalsVisibleTo("Yoti.Auth.Tests")]

@@ -1,4 +1,6 @@
-﻿using Org.BouncyCastle.Crypto;
+﻿using System;
+using System.IO;
+using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Modes;
@@ -7,12 +9,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yoti.Auth
 {
@@ -63,7 +59,7 @@ namespace Yoti.Auth
             var signer = SignerUtilities.GetSigner(DigestAlgorithm);
             signer.Init(true, keypair.Private);
             signer.BlockUpdate(digestBytes, 0, digestBytes.Length);
-            return  signer.GenerateSignature();
+            return signer.GenerateSignature();
         }
 
         public static byte[] GetDerEncodedPublicKey(AsymmetricCipherKeyPair keypair)
