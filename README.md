@@ -148,4 +148,4 @@ Please provide the following to get you up and working as quick as possible:
 - Version of .NET being used
 - Screenshot
 
-For further documentation, see [https://www.yoti.com/developers/documentation/?csharp][www.yoti.com/developers/documentation/?csharp]
+For further documentation, see [https://www.yoti.com/developers/documentation/?csharp](www.yoti.com/developers/documentation/?csharp)
