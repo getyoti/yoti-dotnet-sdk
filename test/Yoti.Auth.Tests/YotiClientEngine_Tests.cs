@@ -23,7 +23,7 @@ namespace Yoti.Auth.Tests
                 return CryptoEngine.LoadRsaKey(stream);
             }
         }
-        
+
         [TestMethod]
         public void YotiClientEngine_HttpFailure_ReturnsFailure()
         {
@@ -70,9 +70,8 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(ActivityOutcome.ProfileNotFound, activityDetails.Outcome);
         }
 
-
         [TestMethod]
-        public void YotiClientEngine_SharingFailure_ReturnsFailure()
+        public void YotiClientEngine_SharingFailure_ReturnsSharingFailure()
         {
             var keyPair = GetKeyPair();
             string sdkId = "fake-sdk-id";
@@ -84,6 +83,30 @@ namespace Yoti.Auth.Tests
                     Success = true,
                     StatusCode = 200,
                     Content = "{\"session_data\":null,\"receipt\":{\"receipt_id\": null,\"other_party_profile_content\": null,\"policy_uri\":null,\"personal_key\":null,\"remember_me_id\":null, \"sharing_outcome\":\"FAILURE\",\"timestamp\":\"2016-09-23T13:04:11Z\"}}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+
+            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+
+            Assert.IsNotNull(activityDetails);
+            Assert.AreEqual(ActivityOutcome.SharingFailure, activityDetails.Outcome);
+        }
+
+        [TestMethod]
+        public void YotiClientEngine_NullReceipt_ReturnsFailure()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = true,
+                    StatusCode = 200,
+                    Content = "{\"session_data\":null,\"receipt\":null}"
                 });
             });
 
