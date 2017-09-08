@@ -1,16 +1,12 @@
-﻿using AttrpubapiV1;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
+using System.Threading.Tasks;
+using AttrpubapiV1;
 using CompubapiV1;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Yoti.Auth.DataObjects;
 
 namespace Yoti.Auth
@@ -21,7 +17,8 @@ namespace Yoti.Auth
 
         private readonly IHttpRequester _httpRequester;
 
-        public YotiClientEngine(IHttpRequester httpRequester) {
+        public YotiClientEngine(IHttpRequester httpRequester)
+        {
             _httpRequester = httpRequester;
         }
 
@@ -74,7 +71,7 @@ namespace Yoti.Auth
                         Outcome = ActivityOutcome.Failure
                     };
                 }
-                else if ( parsedResponse.receipt.sharing_outcome != "SUCCESS")
+                else if (parsedResponse.receipt.sharing_outcome != "SUCCESS")
                 {
                     return new ActivityDetails
                     {
@@ -118,6 +115,7 @@ namespace Yoti.Auth
                                         break;
                                 }
                                 break;
+
                             case "given_names":
                                 profile.GivenNames = Conversion.BytesToUtf8(data);
                                 break;
@@ -185,7 +183,6 @@ namespace Yoti.Auth
                                 break;
                         }
                     }
-
 
                     return new ActivityDetails
                     {

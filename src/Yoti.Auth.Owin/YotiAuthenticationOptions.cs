@@ -39,14 +39,13 @@ namespace Yoti.Auth.Owin
         /// Gets or sets the sdk-id provided by Yoti
         /// </summary>
         public string SdkId { get; set; }
-        
+
         /// <summary>
         /// The request path within the application's base path where the user-agent will be returned.
         /// The middleware will process this request when it arrives.
         /// Default value is "/signin-yoti".
         /// </summary>
         public PathString CallbackPath { get; set; }
-
 
         /// <summary>
         /// Get or sets the text that the user can display on a sign in user interface.
@@ -66,7 +65,6 @@ namespace Yoti.Auth.Owin
         /// Gets or sets the <see cref="IYotiAuthenticationProvider"/> used to handle authentication events.
         /// </summary>
         public IYotiAuthenticationProvider Provider { get; set; }
-
 
         /// <summary>
         /// Gets or sets the type used to secure data handled by the middleware.

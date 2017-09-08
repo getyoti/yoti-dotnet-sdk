@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Yoti.Auth
+﻿namespace Yoti.Auth
 {
     /// <summary>
     /// A enum to represent the success state when requesting a <see cref="YotiUserProfile"/> from Yoti.

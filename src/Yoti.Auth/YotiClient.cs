@@ -1,16 +1,7 @@
-﻿using AttrpubapiV1;
-using CompubapiV1;
-using Newtonsoft.Json;
-using Org.BouncyCastle.Crypto;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Yoti.Auth.DataObjects;
+using Org.BouncyCastle.Crypto;
 
 namespace Yoti.Auth
 {
@@ -21,9 +12,9 @@ namespace Yoti.Auth
         private readonly string _sdkId = null;
         private readonly AsymmetricCipherKeyPair _keyPair = null;
         private readonly YotiClientEngine _yotiClientEngine = null;
-        
+
         /// <summary>
-        /// Create a <see cref="YotiClient"/> 
+        /// Create a <see cref="YotiClient"/>
         /// </summary>
         /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
         /// <param name="key">The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.</param>
@@ -62,7 +53,6 @@ namespace Yoti.Auth
         {
             return _yotiClientEngine.GetActivityDetails(encryptedToken, _sdkId, _keyPair);
         }
-        
 
         /// <summary>
         /// Asynchronously request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.

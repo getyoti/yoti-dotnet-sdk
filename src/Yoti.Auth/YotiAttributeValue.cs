@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Yoti.Auth
 {
@@ -18,6 +15,7 @@ namespace Yoti.Auth
             _type = type;
             _data = data;
         }
+
         public YotiAttributeValue(TypeEnum type, string data)
         {
             _type = type;
@@ -28,6 +26,7 @@ namespace Yoti.Auth
                 case TypeEnum.Png:
                     _data = Conversion.Base64ToBytes(data);
                     break;
+
                 default:
                     _data = Conversion.UtfToBytes(data);
                     break;
@@ -54,6 +53,7 @@ namespace Yoti.Auth
                 case TypeEnum.Jpeg:
                 case TypeEnum.Png:
                     return Conversion.BytesToBase64(_data);
+
                 default:
                     return Conversion.BytesToUtf8(_data);
             }
@@ -76,7 +76,6 @@ namespace Yoti.Auth
                 default:
                     return null;
             }
-
         }
 
         public string ToDataUrlString()
