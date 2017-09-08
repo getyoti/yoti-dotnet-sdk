@@ -25,7 +25,6 @@ namespace Example.Controllers
         {
             try
             {
-
                 string sdkId = ConfigurationManager.AppSettings["Yoti.SdkId"];
                 var privateKeyStream = System.IO.File.OpenText(Server.MapPath("~/application-key.pem"));
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
@@ -75,7 +74,8 @@ namespace Example.Controllers
                 {
                     return RedirectToAction("LoginFailure");
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 ViewBag.Error = e.ToString();
                 return View();

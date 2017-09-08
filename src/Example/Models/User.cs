@@ -9,7 +9,6 @@ namespace Example.Models
     {
         public User()
         {
-
         }
         public int Id { get; set; }
         public string YotiId { get; set; }
