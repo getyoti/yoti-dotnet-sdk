@@ -11,7 +11,6 @@ namespace Example.Data
     {
         public ApplicationContext() : base("DefaultConnection")
         {
-
         }
 
         public DbSet<User> Users { get; set; }

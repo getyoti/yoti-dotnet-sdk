@@ -22,7 +22,6 @@ namespace Example.Controllers
 
         private User GetUser()
         {
-
             var claimsIdentity = User.Identity as ClaimsIdentity;
             int userId = int.Parse(claimsIdentity.FindFirst(ClaimTypes.Name).Value);
 
