@@ -1,18 +1,3 @@
-/* NUGET: BEGIN LICENSE TEXT
- *
- * Microsoft grants you the right to use these script files for the sole
- * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online service, subject to the applicable licensing or use
- * terms; or (ii) using the files as included with a Microsoft product subject
- * to that product's license terms. Microsoft reserves all other rights to the
- * files not expressly granted by Microsoft, whether by implication, estoppel
- * or otherwise. Insofar as a script file is dual licensed under GPL,
- * Microsoft neither took the code under GPL nor distributes it thereunder but
- * under the terms set out in this paragraph. All notices and licenses
- * below are for informational purposes only.
- *
- * NUGET: END LICENSE TEXT */
-
 /**
 * bootstrap.js v3.0.0 by @fat and @mdo
 * Copyright 2013 Twitter Inc.
@@ -38,6 +23,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -73,6 +59,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $(function () {
     $.support.transition = transitionEnd()
   })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -93,6 +80,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -138,6 +126,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       removeElement()
   }
 
+
   // ALERT PLUGIN DEFINITION
   // =======================
 
@@ -155,6 +144,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.alert.Constructor = Alert
 
+
   // ALERT NO CONFLICT
   // =================
 
@@ -163,10 +153,12 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     return this
   }
 
+
   // ALERT DATA-API
   // ==============
 
   $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -187,6 +179,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -235,6 +228,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     this.$element.toggleClass('active')
   }
 
+
   // BUTTON PLUGIN DEFINITION
   // ========================
 
@@ -255,6 +249,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.button.Constructor = Button
 
+
   // BUTTON NO CONFLICT
   // ==================
 
@@ -262,6 +257,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.button = old
     return this
   }
+
 
   // BUTTON DATA-API
   // ===============
@@ -272,6 +268,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $btn.button('toggle')
     e.preventDefault()
   })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -292,6 +289,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -431,6 +429,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     return this
   }
 
+
   // CAROUSEL PLUGIN DEFINITION
   // ==========================
 
@@ -452,6 +451,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.carousel.Constructor = Carousel
 
+
   // CAROUSEL NO CONFLICT
   // ====================
 
@@ -459,6 +459,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.carousel = old
     return this
   }
+
 
   // CAROUSEL DATA-API
   // =================
@@ -485,6 +486,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       $carousel.carousel($carousel.data())
     })
   })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -505,6 +507,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -613,6 +616,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     this[this.$element.hasClass('in') ? 'hide' : 'show']()
   }
 
+
   // COLLAPSE PLUGIN DEFINITION
   // ==========================
 
@@ -631,6 +635,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.collapse.Constructor = Collapse
 
+
   // COLLAPSE NO CONFLICT
   // ====================
 
@@ -638,6 +643,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.collapse = old
     return this
   }
+
 
   // COLLAPSE DATA-API
   // =================
@@ -660,6 +666,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     $target.collapse(option)
   })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -680,6 +687,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -777,6 +785,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     return $parent && $parent.length ? $parent : $this.parent()
   }
 
+
   // DROPDOWN PLUGIN DEFINITION
   // ==========================
 
@@ -794,6 +803,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.dropdown.Constructor = Dropdown
 
+
   // DROPDOWN NO CONFLICT
   // ====================
 
@@ -801,6 +811,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.dropdown = old
     return this
   }
+
 
   // APPLY TO STANDARD DROPDOWN ELEMENTS
   // ===================================
@@ -810,6 +821,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
     .on('click.bs.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
     .on('keydown.bs.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -830,6 +842,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -989,6 +1002,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
           .one($.support.transition.end, callback)
           .emulateTransitionEnd(150) :
         callback()
+
     } else if (!this.isShown && this.$backdrop) {
       this.$backdrop.removeClass('in')
 
@@ -997,10 +1011,12 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
           .one($.support.transition.end, callback)
           .emulateTransitionEnd(150) :
         callback()
+
     } else if (callback) {
       callback()
     }
   }
+
 
   // MODAL PLUGIN DEFINITION
   // =======================
@@ -1021,6 +1037,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.modal.Constructor = Modal
 
+
   // MODAL NO CONFLICT
   // =================
 
@@ -1028,6 +1045,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.modal = old
     return this
   }
+
 
   // MODAL DATA-API
   // ==============
@@ -1050,6 +1068,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $(document)
     .on('show.bs.modal',  '.modal', function () { $(document.body).addClass('modal-open') })
     .on('hidden.bs.modal', '.modal', function () { $(document.body).removeClass('modal-open') })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -1071,6 +1090,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -1408,6 +1428,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     this.hide().$element.off('.' + this.type).removeData('bs.' + this.type)
   }
 
+
   // TOOLTIP PLUGIN DEFINITION
   // =========================
 
@@ -1426,6 +1447,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.tooltip.Constructor = Tooltip
 
+
   // TOOLTIP NO CONFLICT
   // ===================
 
@@ -1433,6 +1455,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.tooltip = old
     return this
   }
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -1454,6 +1477,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * limitations under the License.
  * ======================================================================== */
 
+
 +function ($) { "use strict";
 
   // POPOVER PUBLIC CLASS DEFINITION
@@ -1471,6 +1495,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   , content: ''
   , template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
   })
+
 
   // NOTE: POPOVER EXTENDS tooltip.js
   // ================================
@@ -1521,6 +1546,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     return this.$tip
   }
 
+
   // POPOVER PLUGIN DEFINITION
   // =========================
 
@@ -1539,6 +1565,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.popover.Constructor = Popover
 
+
   // POPOVER NO CONFLICT
   // ===================
 
@@ -1546,6 +1573,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.popover = old
     return this
   }
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -1566,6 +1594,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -1665,6 +1694,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     active.trigger('activate')
   }
 
+
   // SCROLLSPY PLUGIN DEFINITION
   // ===========================
 
@@ -1683,6 +1713,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.scrollspy.Constructor = ScrollSpy
 
+
   // SCROLLSPY NO CONFLICT
   // =====================
 
@@ -1690,6 +1721,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.scrollspy = old
     return this
   }
+
 
   // SCROLLSPY DATA-API
   // ==================
@@ -1700,6 +1732,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       $spy.scrollspy($spy.data())
     })
   })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -1720,6 +1753,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -1799,6 +1833,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $active.removeClass('in')
   }
 
+
   // TAB PLUGIN DEFINITION
   // =====================
 
@@ -1816,6 +1851,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.tab.Constructor = Tab
 
+
   // TAB NO CONFLICT
   // ===============
 
@@ -1824,6 +1860,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     return this
   }
 
+
   // TAB DATA-API
   // ============
 
@@ -1831,6 +1868,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     e.preventDefault()
     $(this).tab('show')
   })
+
 }(window.jQuery);
 
 /* ========================================================================
@@ -1851,6 +1889,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ======================================================================== */
+
 
 +function ($) { "use strict";
 
@@ -1911,6 +1950,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     }
   }
 
+
   // AFFIX PLUGIN DEFINITION
   // =======================
 
@@ -1929,6 +1969,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   $.fn.affix.Constructor = Affix
 
+
   // AFFIX NO CONFLICT
   // =================
 
@@ -1936,6 +1977,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.fn.affix = old
     return this
   }
+
 
   // AFFIX DATA-API
   // ==============
@@ -1953,4 +1995,5 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       $spy.affix(data)
     })
   })
+
 }(window.jQuery);
