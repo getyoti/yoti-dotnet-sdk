@@ -7,8 +7,6 @@ namespace Yoti.Auth
 {
     public class YotiClient
     {
-        private const string _apiUrl = @"https://api.yoti.com/api/v1"; // TODO: Make this configurable
-
         private readonly string _sdkId = null;
         private readonly AsymmetricCipherKeyPair _keyPair = null;
         private readonly YotiClientEngine _yotiClientEngine = null;
