@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Yoti.Auth
 {
     internal interface IHttpRequester
     {
-        Task<Response> DoRequest(Uri uri, Dictionary<string, string> headers);
+        Task<Response> DoRequest(HttpClient httpClient, Uri uri, Dictionary<string, string> headers);
     }
 }
