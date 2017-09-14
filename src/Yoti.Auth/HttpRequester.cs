@@ -7,7 +7,7 @@ namespace Yoti.Auth
 {
     internal class HttpRequester : IHttpRequester
     {
-        public async Task<Response> DoRequest(Uri uri, Dictionary<string, string> headers)
+        public async Task<Response> DoRequest(HttpClient httpClient, Uri uri, Dictionary<string, string> headers)
         {
             Response result = new Response
             {
@@ -16,7 +16,7 @@ namespace Yoti.Auth
                 Content = null,
             };
 
-            using (var client = new HttpClient())
+            using (var client = httpClient)
             {
                 using (var request = new HttpRequestMessage())
                 {
