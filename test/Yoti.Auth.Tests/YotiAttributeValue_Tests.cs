@@ -19,7 +19,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttributeValue_PngData_DoesntThrowException()
         {
-            string pngData = "pngData";
+            string pngData = "pngImageData";
 
             YotiAttributeValue yotiAttributeValue = new YotiAttributeValue(
                 TypeEnum.Png,
