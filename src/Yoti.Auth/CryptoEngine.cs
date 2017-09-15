@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using AttrpubapiV1;
+using CompubapiV1;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
@@ -75,6 +77,45 @@ namespace Yoti.Auth
             random.NextBytes(bytes);
 
             return new Guid(bytes).ToString("D");
+        }
+
+        public static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
+        {
+            // token was encoded as a urlsafe base64 so it can be transfered in a url
+            byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
+
+            byte[] decipheredBytes = DecryptRsa(cipherBytes, keyPair);
+
+            return Conversion.BytesToUtf8(decipheredBytes);
+        }
+
+        public static byte[] UnwrapKey(string wrappedKey, AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] cipherBytes = Conversion.Base64ToBytes(wrappedKey);
+
+            return DecryptRsa(cipherBytes, keyPair);
+        }
+
+        public static AttributeList DecryptCurrentUserReceipt(string wrappedReceiptKey, string otherPartyProfile, AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] unwrappedKey = UnwrapKey(wrappedReceiptKey, keyPair);
+
+            byte[] otherPartyProfileContentBytes = Conversion.Base64ToBytes(otherPartyProfile);
+            EncryptedData encryptedData = EncryptedData.Parser.ParseFrom(otherPartyProfileContentBytes);
+
+            byte[] iv = encryptedData.Iv.ToByteArray();
+            byte[] cipherText = encryptedData.CipherText.ToByteArray();
+
+            byte[] decipheredBytes = DecipherAes(unwrappedKey, iv, cipherText);
+
+            return AttributeList.Parser.ParseFrom(decipheredBytes);
+        }
+
+        public static string GetAuthKey(AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] publicKey = GetDerEncodedPublicKey(keyPair);
+
+            return Conversion.BytesToBase64(publicKey);
         }
     }
 }
