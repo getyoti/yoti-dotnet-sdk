@@ -8,19 +8,31 @@ namespace Yoti.Auth.Tests
     public class YotiAttributeValue_Tests
     {
         [TestMethod]
-        public void YotiAttributeValue_ToDateValidDate_DoesntThrowException()
+        public void YotiAttributeValue_ToDateValidDate_CorrectResult()
         {
-            string dateString = "01/01/1985";
-            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Text, dateString);
+            string dateString = "1985-01-13";
+            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Date, dateString);
             DateTime? outputValue = yotiAttribueValue.ToDate();
 
-            Assert.IsInstanceOfType(outputValue, typeof(DateTime));
+            Assert.AreEqual(
+                new DateTime(1985, 01, 13),
+                outputValue);
+        }
+
+        [TestMethod]
+        public void YotiAttributeValue_ToDateInvalidFormat_ReturnsNull()
+        {
+            string dateString = "1985/01/01";
+            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Date, dateString);
+            DateTime? outputValue = yotiAttribueValue.ToDate();
+
+            Assert.IsNull(outputValue);
         }
 
         [TestMethod]
         public void YotiAttributeValue_ToDateInvalidDate_ReturnsNull()
         {
-            string dateString = "01/13/1985";
+            string dateString = "1985-13-01";
             var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Date, dateString);
             DateTime? outputValue = yotiAttribueValue.ToDate();
 
