@@ -1,53 +1,39 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Yoti.Auth.Owin</id>
-    <version>1.0.1</version>
-    <authors>Ben Harpin</authors>
-    <owners>Ben Harpin</owners>
+    <id>Yoti.Owin</id>
+    <version>2.0.0</version>
+    <authors>Yoti</authors>
+    <owners>Yoti</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Yoti Owin .NET SDK</description>
-    <copyright>Copyright 2016</copyright>
+    <description>Yoti Owin .NET SDK. Yoti is an identity checking system that allows organisations to verify who people are.</description>
+    <copyright>Copyright 2017</copyright>
+	<tags>authentication auth login identity</tags>
 	<dependencies>
       <group targetFramework="net45">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
         <dependency id="Microsoft.Owin.Security" version="3.0.1" />
-        <dependency id="System.Net.Http" version="4.0.0" />
-		<dependency id="Google.Protobuf" version="3.0.0" />
-		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+        <dependency id="System.Net.Http" version="4.1.1" />		
       </group>
       <group targetFramework="net451">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
         <dependency id="Microsoft.Owin.Security" version="3.0.1" />
-        <dependency id="System.Net.Http" version="4.0.0" />
-		<dependency id="Google.Protobuf" version="3.0.0" />
-		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+        <dependency id="System.Net.Http" version="4.1.1" />		
       </group>
       <group targetFramework="net452">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
         <dependency id="Microsoft.Owin.Security" version="3.0.1" />
-        <dependency id="System.Net.Http" version="4.0.0" />
-		<dependency id="Google.Protobuf" version="3.0.0" />
-		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+        <dependency id="System.Net.Http" version="4.1.1" />		
       </group>
       <group targetFramework="net46">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
         <dependency id="Microsoft.Owin.Security" version="3.0.1" />
-        <dependency id="System.Net.Http" version="4.1.0" />
-		<dependency id="Google.Protobuf" version="3.0.0" />
-		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+        <dependency id="System.Net.Http" version="4.1.1" />		
       </group>
       <group targetFramework="net461">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
         <dependency id="Microsoft.Owin.Security" version="3.0.1" />
-        <dependency id="System.Net.Http" version="4.1.0" />
-		<dependency id="Google.Protobuf" version="3.0.0" />
-		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+        <dependency id="System.Net.Http" version="4.1.1" />				
       </group>
     </dependencies>
   </metadata>
