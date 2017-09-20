@@ -9,6 +9,8 @@
     <description>Yoti Owin .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</description>
     <copyright>Copyright 2017</copyright>
 	<tags>2FA multifactor authentication verification identity login register verify 2Factor</tags>
+	<projectUrl>https://www.yoti.com/developers/documentation/?csharp</projectUrl>
+	<iconUrl>https://static.yoti.com/images/logo.svg</iconUrl>
 	<dependencies>
       <group targetFramework="net45">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
