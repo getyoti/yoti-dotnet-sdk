@@ -6,9 +6,9 @@
     <authors>Yoti</authors>
     <owners>Yoti</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Yoti Owin .NET SDK. Yoti is an identity checking system that allows organisations to verify who people are.</description>
+    <description>Yoti Owin .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</description>
     <copyright>Copyright 2017</copyright>
-	<tags>authentication auth login identity</tags>
+	<tags>2FA multifactor authentication verification identity login register verify 2Factor</tags>
 	<dependencies>
       <group targetFramework="net45">
         <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.1" />
