@@ -15,6 +15,7 @@ namespace Example.Models
                 return _db.Users.FirstOrDefault(u => u.YotiId == yotiId);
             }
         }
+
         public static User GetUserById(int id)
         {
             using (ApplicationContext _db = new ApplicationContext())
@@ -23,14 +24,17 @@ namespace Example.Models
             }
         }
 
-        public static void SaveUser(User user)
+        public static void SaveUser(User newUser)
         {
             using (ApplicationContext _db = new ApplicationContext())
             {
-                if (user.Id == 0)
+                if (newUser.Id == 0)
                 {
-                    _db.Users.Add(user);
+                    _db.Users.Add(newUser);
                 }
+
+                User currentUser = _db.Users.Single(u => u.Id == newUser.Id);
+                _db.Entry(currentUser).CurrentValues.SetValues(newUser);
 
                 _db.SaveChanges();
             }
