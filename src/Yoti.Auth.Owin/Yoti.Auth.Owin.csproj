@@ -1,15 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <TargetFrameworks>netstandard1.6;net45;net451;net452;net46;net461</TargetFrameworks>
     <AssemblyName>Yoti.Auth.Owin</AssemblyName>
-    <PackageId>Yoti.Auth.Owin</PackageId>
+    <PackageId>Yoti.Owin</PackageId>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.0</NetStandardImplicitPackageVersion>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <DebugType>Full</DebugType>
+    <Authors>Yoti,Edward.Harrod</Authors>
+    <Description>Yoti Owin .NET SDK</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,5 +58,4 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-
 </Project>

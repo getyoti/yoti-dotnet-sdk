@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AttrpubapiV1;
 using Newtonsoft.Json;
@@ -57,7 +58,10 @@ namespace Yoti.Auth
             headers.Add("X-Yoti-Auth-Key", authKey);
             headers.Add("X-Yoti-Auth-Digest", authDigest);
 
-            var response = await _httpRequester.DoRequest(new Uri(_apiUrl + endpoint), headers);
+            var response = await _httpRequester.DoRequest(
+                new HttpClient(),
+                new Uri(_apiUrl + endpoint),
+                headers);
 
             if (response.Success)
             {

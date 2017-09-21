@@ -27,7 +27,7 @@ namespace Yoti.Auth.Tests
             var keyPair = GetKeyPair();
             string sdkId = "fake-sdk-id";
 
-            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, uri, headers) =>
             {
                 return Task.FromResult(new Response
                 {
@@ -50,7 +50,7 @@ namespace Yoti.Auth.Tests
             var keyPair = GetKeyPair();
             string sdkId = "fake-sdk-id";
 
-            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, uri, headers) =>
             {
                 return Task.FromResult(new Response
                 {
@@ -73,7 +73,7 @@ namespace Yoti.Auth.Tests
             var keyPair = GetKeyPair();
             string sdkId = "fake-sdk-id";
 
-            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, uri, headers) =>
             {
                 return Task.FromResult(new Response
                 {
@@ -97,7 +97,7 @@ namespace Yoti.Auth.Tests
             var keyPair = GetKeyPair();
             string sdkId = "fake-sdk-id";
 
-            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, uri, headers) =>
             {
                 return Task.FromResult(new Response
                 {
@@ -121,7 +121,7 @@ namespace Yoti.Auth.Tests
             var keyPair = GetKeyPair();
             string sdkId = "fake-sdk-id";
 
-            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, uri, headers) =>
             {
                 Assert.AreEqual("/api/v1/profile/" + token, uri.AbsolutePath);
 
@@ -147,7 +147,7 @@ namespace Yoti.Auth.Tests
             string other_party_profile_content = "ChCZAib1TBm9Q5GYfFrS1ep9EnAwQB5shpAPWLBgZgFgt6bCG3S5qmZHhrqUbQr3yL6yeLIDwbM7x4nuT/MYp+LDXgmFTLQNYbDTzrEzqNuO2ZPn9Kpg+xpbm9XtP7ZLw3Ep2BCmSqtnll/OdxAqLb4DTN4/wWdrjnFC+L/oQEECu646";
             string remember_me_id = "remember_me_id0123456789";
 
-            FakeHttpRequester httpRequester = new FakeHttpRequester((uri, headers) =>
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, uri, headers) =>
             {
                 return Task.FromResult(new Response
                 {

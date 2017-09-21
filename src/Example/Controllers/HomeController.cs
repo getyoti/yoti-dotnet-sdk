@@ -15,7 +15,10 @@ namespace Example.Controllers
         {
             var user = GetUser();
 
-            ViewBag.Photo = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+            if (user.Photo == null)
+                ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
+            else
+                ViewBag.Photo = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
 
             return View();
         }

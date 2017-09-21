@@ -1,46 +1,46 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Yoti.Auth</id>
-    <version>1.0.1</version>
-    <authors>Ben Harpin</authors>
-    <owners>Ben Harpin</owners>
+    <id>Yoti</id>
+    <version>2.0.0</version>
+    <authors>Yoti</authors>
+    <owners>Yoti</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Yoti .NET SDK</description>
-    <copyright>Copyright 2016</copyright>
+    <description>Yoti .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</description>
+    <copyright>Copyright 2017</copyright>
+	<tags>2FA multifactor authentication verification identity login register verify 2Factor</tags>
+	<projectUrl>https://www.yoti.com/developers/documentation/?csharp</projectUrl>
+	<iconUrl>https://static.yoti.com/images/logo.svg</iconUrl>
 	<dependencies>
       <group targetFramework="netstandard1.6">
-        <dependency id="NETStandard.Library" version="1.6.0" />
-		<dependency id="Google.Protobuf" version="3.0.0" />
-		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+        <dependency id="NETStandard.Library" version="1.6.0" />		
       </group>
       <group targetFramework="net45">
-        <dependency id="System.Net.Http" version="4.0.0" />
+        <dependency id="System.Net.Http" version="4.1.1" />		
 		<dependency id="Google.Protobuf" version="3.0.0" />
 		<dependency id="Newtonsoft.Json" version="9.0.1" />
 		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
       </group>
       <group targetFramework="net451">
-        <dependency id="System.Net.Http" version="4.0.0" />
+        <dependency id="System.Net.Http" version="4.1.1" />	
 		<dependency id="Google.Protobuf" version="3.0.0" />
 		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />		
       </group>
       <group targetFramework="net452">
-        <dependency id="System.Net.Http" version="4.0.0" />
+        <dependency id="System.Net.Http" version="4.1.1" />		
 		<dependency id="Google.Protobuf" version="3.0.0" />
 		<dependency id="Newtonsoft.Json" version="9.0.1" />
 		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
       </group>
       <group targetFramework="net46">
-        <dependency id="System.Net.Http" version="4.1.0" />
+        <dependency id="System.Net.Http" version="4.1.0" />	
 		<dependency id="Google.Protobuf" version="3.0.0" />
 		<dependency id="Newtonsoft.Json" version="9.0.1" />
-		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
+		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />		
       </group>
       <group targetFramework="net461">
-        <dependency id="System.Net.Http" version="4.1.0" />
+        <dependency id="System.Net.Http" version="4.1.0" />		
 		<dependency id="Google.Protobuf" version="3.0.0" />
 		<dependency id="Newtonsoft.Json" version="9.0.1" />
 		<dependency id="Portable.BouncyCastle" version="1.8.1.1" />
