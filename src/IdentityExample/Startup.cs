@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(IdentityExample.Startup))]
+
 namespace IdentityExample
 {
     public partial class Startup
