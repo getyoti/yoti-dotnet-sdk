@@ -1,8 +1,5 @@
-﻿using Example.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
+using Example.Data;
 
 namespace Example.Models
 {

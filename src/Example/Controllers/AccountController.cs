@@ -1,13 +1,9 @@
-﻿using Example.Data;
-using Example.Models;
-using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Configuration;
-using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using Example.Models;
 using Yoti.Auth;
 
 namespace Example.Controllers
@@ -81,6 +77,7 @@ namespace Example.Controllers
                 return View();
             }
         }
+
         public ActionResult Logout()
         {
             var ctx = Request.GetOwinContext();
