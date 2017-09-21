@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Configuration;
+using System.Web.Hosting;
+using IdentityExample.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Yoti.Auth.Owin;
 using Owin;
-using IdentityExample.Models;
-using System.Web.Hosting;
-using Microsoft.Owin.Security.Google;
+using Yoti.Auth.Owin;
 
 namespace IdentityExample
 {
@@ -51,10 +51,10 @@ namespace IdentityExample
 
             var privateKeyStream = System.IO.File.OpenText(HostingEnvironment.MapPath("~/application-key.pem"));
             app.UseYotiAuthentication(
-                appId: "Your-AppId-Here",
-                sdkId: "Your-SdkId-Here",
+                appId: ConfigurationManager.AppSettings["Yoti.AppId"],
+                sdkId: ConfigurationManager.AppSettings["Yoti.SdkId"],
                 privateKeyStream: privateKeyStream,
-                callbackPath: "Your-Callback-Path-Here");
+                callbackPath: ConfigurationManager.AppSettings["callbackPath"]);
 
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
