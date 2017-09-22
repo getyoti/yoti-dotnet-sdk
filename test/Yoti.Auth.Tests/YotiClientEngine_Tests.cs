@@ -134,7 +134,8 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            ActivityDetails activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            Assert.IsNotNull(activityDetails.Outcome);
         }
 
         [TestMethod]
