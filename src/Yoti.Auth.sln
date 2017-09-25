@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth", "Yoti.Auth\Yoti.Auth.csproj", "{FD86A254-0965-4748-9D10-782EEEA23D07}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Tests", "..\test\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{71A13BA3-9E5B-4A2E-BD90-274C7894453A}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet.Config = NuGet.Config
+		..\NuGet.Config = ..\NuGet.Config
 	EndProjectSection
 EndProject
 Global
