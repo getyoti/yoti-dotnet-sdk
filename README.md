@@ -39,27 +39,23 @@ Yoti SDK carries out for you steps 6, 7 ,8 and the profile decryption in step 9.
 
 Yoti also allows you to enable user details verification from your mobile app by means of the Android (TBA) and iOS (TBA) SDKs. In that scenario, your Yoti-enabled mobile app is playing both the role of the browser and the Yoti app. By the way, your back-end doesn't need to handle these cases in a significantly different way. You might just decide to handle the `User-Agent` header in order to provide different responses for web and mobile clients.
 
-## Compiling the NuGet package
-
-To compile the NuGet package you will need to install NuGet. You can find instructions to do that [here](http://docs.nuget.org/ndocs/guides/install-nuget)
-
-Next clone this repo and ensure that the Yoti.Auth project has been compiled in Release configuration.
-
-Finally run the following command from the `<repo-path>/src` folder:
-
-```
-nuget pack Yoti.Auth.nuspec
-```
-
 ## Enabling the SDK
 
-To import the Yoti SDK inside your project, you should use the NuGet Yoti.Auth Package
+To install the Yoti NuGet package you will need to install NuGet. You can find instructions to do that [here](http://docs.nuget.org/ndocs/guides/install-nuget)
+
+To import the latest Yoti SDK into your project, enter the following command from NuGet Package Manager Console in Visual Studio:
+
 
 ```
-Install-Package Yoti.Auth
+Install-Package Yoti
 ```
 
-_We are not yet on NuGet, so, for the moment, in order to use the SDK you need to clone this repo and run_ `Install-Package Yoti.Auth -Source "<repo-path>/src"` _from the Package Manager Console._
+For other installation methods, see [nuget.org/packages/Yoti](https://www.nuget.org/packages/Yoti)
+
+To install the [Yoti.Owin package](https://www.nuget.org/packages/Yoti.Owin), you can use:
+```
+Install-Package Yoti.Owin
+```
 
 ## Client initialisation
 
