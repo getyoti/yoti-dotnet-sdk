@@ -52,11 +52,14 @@ namespace Yoti.Auth
             // create request headers
             var authKey = CryptoEngine.GetAuthKey(keyPair);
             var authDigest = GetAuthDigest(endpoint, keyPair);
+            string sdkIdentifier = ".NET";
 
-            Dictionary<string, string> headers = new Dictionary<string, string>();
-
-            headers.Add("X-Yoti-Auth-Key", authKey);
-            headers.Add("X-Yoti-Auth-Digest", authDigest);
+            Dictionary<string, string> headers = new Dictionary<string, string>
+            {
+                { "X-Yoti-Auth-Key", authKey },
+                { "X-Yoti-Auth-Digest", authDigest },
+                { "X-SDK", sdkIdentifier }
+            };
 
             var response = await _httpRequester.DoRequest(
                 new HttpClient(),
