@@ -58,7 +58,7 @@ namespace Yoti.Auth
             {
                 { "X-Yoti-Auth-Key", authKey },
                 { "X-Yoti-Auth-Digest", authDigest },
-                { "X-SDK", sdkIdentifier }
+                { "X-Yoti-SDK", sdkIdentifier }
             };
 
             var response = await _httpRequester.DoRequest(
