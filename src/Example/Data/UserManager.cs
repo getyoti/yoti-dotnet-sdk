@@ -29,9 +29,11 @@ namespace Example.Models
                 {
                     _db.Users.Add(newUser);
                 }
-
-                User currentUser = _db.Users.Single(u => u.Id == newUser.Id);
-                _db.Entry(currentUser).CurrentValues.SetValues(newUser);
+                else
+                {
+                    User currentUser = _db.Users.Single(u => u.Id == newUser.Id);
+                    _db.Entry(currentUser).CurrentValues.SetValues(newUser);
+                }
 
                 _db.SaveChanges();
             }
