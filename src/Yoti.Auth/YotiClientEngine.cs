@@ -146,7 +146,8 @@ namespace Yoti.Auth
                                 profile.Selfie = new Image
                                 {
                                     Type = ImageType.Jpeg,
-                                    Data = data
+                                    Data = data,
+                                    Base64Data = Convert.ToBase64String(data)
                                 };
                                 break;
 
@@ -154,7 +155,8 @@ namespace Yoti.Auth
                                 profile.Selfie = new Image
                                 {
                                     Type = ImageType.Png,
-                                    Data = data
+                                    Data = data,
+                                    Base64Data = Convert.ToBase64String(data)
                                 };
                                 break;
                         }
