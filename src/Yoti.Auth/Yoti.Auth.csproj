@@ -12,7 +12,12 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <DebugType>Full</DebugType>
     <Authors>Yoti,Edward.Harrod</Authors>
-    <Description>Yoti .NET SDK</Description>
+    <Description>Yoti .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</Description>
+    <PackageProjectUrl>https://www.yoti.com/developers/documentation/?csharp</PackageProjectUrl>
+    <PackageIconUrl>https://static.yoti.com/images/logo.svg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/getyoti/yoti-dotnet-sdk</RepositoryUrl>
+    <PackageTags>2FA multifactor authentication verification identity login register verify 2Factor</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
