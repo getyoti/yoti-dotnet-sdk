@@ -147,7 +147,7 @@ namespace Yoti.Auth
                                 {
                                     Type = ImageType.Jpeg,
                                     Data = data,
-                                    Base64Data = Convert.ToBase64String(data)
+                                    Base64URI = "data:image/jpeg;base64," + Convert.ToBase64String(data)
                                 };
                                 break;
 
@@ -156,7 +156,7 @@ namespace Yoti.Auth
                                 {
                                     Type = ImageType.Png,
                                     Data = data,
-                                    Base64Data = Convert.ToBase64String(data)
+                                    Base64URI = "data:image/png;base64," + Convert.ToBase64String(data)
                                 };
                                 break;
                         }
