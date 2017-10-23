@@ -117,7 +117,17 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
     var user = YourUserSearchFunction(profile.Id);
     if (user != null)
     {
-        // handle login
+      string userId = profile.Id;
+      string Selfie = profile.Selfie;
+      string SelfieURI = profile.Selfie.Base64URI;
+      string GivenNames = profile.GivenNames;
+      string FamilyName = profile.FamilyName;
+      string MobileNumber = profile.MobileNumber;
+      string EmailAddress = profile.EmailAddress;
+      DateTime? DateOfBirth = profile.DateOfBirth;
+      string Address = profile.Address;
+      string Gender = profile.Gender;
+      string Nationality = profile.Nationality;
     }
     else
     {
