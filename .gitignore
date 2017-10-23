@@ -25,3 +25,7 @@ Backup*/
 **/packages/*
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
+
+# SQL Server files
+*.mdf
+*.ldf
