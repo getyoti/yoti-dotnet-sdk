@@ -151,8 +151,8 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Yoti.Auth, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Yoti.2.1.1\lib\net451\Yoti.Auth.dll</HintPath>
+    <Reference Include="Yoti.Auth, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Yoti.2.2.0\lib\net451\Yoti.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +170,10 @@
     <Compile Include="Migrations\201609290943445_Initial.cs" />
     <Compile Include="Migrations\201609290943445_Initial.Designer.cs">
       <DependentUpon>201609290943445_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710191343213_AddBase64Photo.cs" />
+    <Compile Include="Migrations\201710191343213_AddBase64Photo.Designer.cs">
+      <DependentUpon>201710191343213_AddBase64Photo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
@@ -235,6 +239,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609290943445_Initial.resx">
       <DependentUpon>201609290943445_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710191343213_AddBase64Photo.resx">
+      <DependentUpon>201710191343213_AddBase64Photo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

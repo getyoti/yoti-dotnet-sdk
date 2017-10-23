@@ -44,7 +44,7 @@ namespace Example.Controllers
                     // update user information
                     if (yotiProfile.Selfie != null)
                     {
-                        user.Photo = yotiProfile.Selfie.Data;
+                        user.Base64Photo = yotiProfile.Selfie.Base64URI;
                     }
 
                     if (!string.IsNullOrEmpty(yotiProfile.MobileNumber))
