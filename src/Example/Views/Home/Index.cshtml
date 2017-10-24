@@ -13,6 +13,11 @@
                 else
                 {
                     <img src="@Html.Raw(ViewBag.Photo)" alt="Responsive image">
+
+                    @Html.ActionLink(
+                        linkText: "Download Image",
+                        actionName: "DownloadImageFile",
+                        controllerName: "Home")
                 }
             </div>
         </div>
