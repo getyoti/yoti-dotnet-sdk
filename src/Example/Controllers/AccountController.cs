@@ -45,6 +45,7 @@ namespace Example.Controllers
                     if (yotiProfile.Selfie != null)
                     {
                         user.Base64Photo = yotiProfile.Selfie.Base64URI;
+                        user.Photo = yotiProfile.Selfie.Data;
                     }
 
                     if (!string.IsNullOrEmpty(yotiProfile.MobileNumber))
