@@ -74,11 +74,6 @@ Where:
 
 You'll need to add the `Callback URL` of your site to the integration settings section on your [Yoti Applications page](https://www.yoti.com/dashboard/applications). This is where the user will be redirected to upon successful authentication. For the Example project, you should append `/account/connect` to the end of this URL.
 
-For debugging purposes, you can use [ngrok](https://ngrok.com/) to create a secure tunnel to localhost by running the following command, and adding the https address generated to your callback URl:
-```
-ngrok http -host-header=localhost <yourLocalhostPort>
-```
-
 ## Profile retrieval
 
 When your application receives a token via the exposed endpoint (it will be assigned to a query string parameter named `token`), you can easily retrieve the user profile by adding the following to your endpoint handler:
