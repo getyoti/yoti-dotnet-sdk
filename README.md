@@ -8,22 +8,19 @@ Welcome to the Yoti .NET SDK. This repo contains the tools and step by step inst
 1) [An Architectural view](#an-architectural-view) -
 High level overview of integration
 
-2) [Compiling the NuGet package](#compiling-the-nuget-package)-
-Before you start make sure you have everything you need
-
-3) [Enabling the SDK](#enabling-the-sdk)-
+2) [Enabling the SDK](#enabling-the-sdk) -
 How to install our SDK
 
-4) [Client initialisation ](#client-initialisation)-
+3) [Client initialisation ](#client-initialisation) -
 Description on setting up your SDK
 
-5) [Profile retrieval](#profile-retrieval) -
+4) [Profile retrieval](#profile-retrieval) -
 Description on setting up profile
 
-6) [Handling users](#handling-users) -
+5) [Handling users](#handling-users) -
 Description on handling user log on's
 
-7) [Support](#support)-
+6) [Support](#support) -
 Please feel free to reach out
 
 ## An Architectural View
