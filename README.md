@@ -11,7 +11,7 @@ High level overview of integration
 2) [Enabling the SDK](#enabling-the-sdk) -
 How to install our SDK
 
-3) [Client initialisation ](#client-initialisation) -
+3) [Client initialisation](#client-initialisation) -
 Description on setting up your SDK
 
 4) [Profile retrieval](#profile-retrieval) -
@@ -33,7 +33,6 @@ Yoti SDK carries out for you steps 6, 7 ,8 and the profile decryption in step 9.
 
 ![alt text](login_flow.png "Login flow")
 
-
 Yoti also allows you to enable user details verification from your mobile app by means of the Android (TBA) and iOS (TBA) SDKs. In that scenario, your Yoti-enabled mobile app is playing both the role of the browser and the Yoti app. By the way, your back-end doesn't need to handle these cases in a significantly different way. You might just decide to handle the `User-Agent` header in order to provide different responses for web and mobile clients.
 
 ## Enabling the SDK
@@ -42,7 +41,6 @@ To install the Yoti NuGet package you will need to install NuGet. You can find i
 
 To import the latest Yoti SDK into your project, enter the following command from NuGet Package Manager Console in Visual Studio:
 
-
 ```
 Install-Package Yoti
 ```
@@ -50,6 +48,7 @@ Install-Package Yoti
 For other installation methods, see [nuget.org/packages/Yoti](https://www.nuget.org/packages/Yoti)
 
 To install the [Yoti.Owin package](https://www.nuget.org/packages/Yoti.Owin), you can use:
+
 ```
 Install-Package Yoti.Owin
 ```
@@ -137,6 +136,7 @@ else
     // handle unhappy path
 }
 ```
+
 Where `yourUserSearchFunction` is a piece of logic in your app that is supposed to find a user, given a userId.
 No matter if the user is a new or an existing one, Yoti will always provide her/his profile, so you don't necessarily need to store it.
 
@@ -145,11 +145,13 @@ The `profile` object provides a set of attributes corresponding to user attribut
 ## Support
 
 For any questions or support please email [sdksupport@yoti.com](mailto:sdksupport@yoti.com).
-Please provide the following to get you up and working as quick as possible:
+Please provide the following to get you up and working as quickly as possible:
 
-- Computer Type
-- OS Version
-- Version of .NET being used
-- Screenshot
+* Computer type
+* OS version
+* Version of .NET being used
+* Screenshot
+
+Once we have answered your question we may contact you again to discuss Yoti products and services. If you’d prefer us not to do this, please let us know when you e-mail.
 
 For further documentation, see [https://www.yoti.com/developers/documentation/?csharp](www.yoti.com/developers/documentation/?csharp)
