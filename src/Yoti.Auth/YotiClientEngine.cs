@@ -41,34 +41,18 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair)
         {
-            // query parameters
-            var token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
-            var nonce = CryptoEngine.GenerateNonce();
-            var timestamp = GetTimestamp();
+            string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
+            string nonce = CryptoEngine.GenerateNonce();
+            string timestamp = GetTimestamp();
             string path = "profile";
             byte[] httpContent = null;
             HttpMethod httpMethod = HttpMethod.Get;
 
-            // create http endpoint
-            var endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId, httpContent);
+            string endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId, httpContent);
 
-            // create request headers
-            var authKey = CryptoEngine.GetAuthKey(keyPair);
-            string authDigest = GetAuthDigest(httpMethod, endpoint, keyPair);
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint);
 
-            if (string.IsNullOrEmpty(authDigest))
-                throw new InvalidOperationException("Could not sign request");
-
-            string sdkIdentifier = ".NET";
-
-            Dictionary<string, string> headers = new Dictionary<string, string>
-            {
-                { "X-Yoti-Auth-Key", authKey },
-                { "X-Yoti-Auth-Digest", authDigest },
-                { "X-Yoti-SDK", sdkIdentifier }
-            };
-
-            var response = await _httpRequester.DoRequest(
+            Response response = await _httpRequester.DoRequest(
                 new HttpClient(),
                 HttpMethod.Get,
                 new Uri(_apiUrl + endpoint),
@@ -97,9 +81,29 @@ namespace Yoti.Auth
             }
         }
 
+        private Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint)
+        {
+            string authKey = CryptoEngine.GetAuthKey(keyPair);
+            string authDigest = GetAuthDigest(httpMethod, endpoint, keyPair);
+
+            if (string.IsNullOrEmpty(authDigest))
+                throw new InvalidOperationException("Could not sign request");
+
+            string sdkIdentifier = ".NET";
+
+            Dictionary<string, string> headers = new Dictionary<string, string>
+            {
+                { "X-Yoti-Auth-Key", authKey },
+                { "X-Yoti-Auth-Digest", authDigest },
+                { "X-Yoti-SDK", sdkIdentifier }
+            };
+
+            return headers;
+        }
+
         private ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
-            var parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
+            ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
 
             if (parsedResponse.receipt == null)
             {
@@ -117,9 +121,9 @@ namespace Yoti.Auth
             }
             else
             {
-                var receipt = parsedResponse.receipt;
+                ReceiptDO receipt = parsedResponse.receipt;
 
-                var attributes = CryptoEngine.DecryptCurrentUserReceipt(
+                AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
                     parsedResponse.receipt.wrapped_receipt_key,
                     parsedResponse.receipt.other_party_profile_content,
                     keyPair);
@@ -141,9 +145,9 @@ namespace Yoti.Auth
 
         private static void AddAttributesToProfile(AttributeList attributes, YotiUserProfile profile)
         {
-            foreach (var attribute in attributes.Attributes)
+            foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
             {
-                var data = attribute.Value.ToByteArray();
+                byte[] data = attribute.Value.ToByteArray();
                 switch (attribute.Name)
                 {
                     case "selfie":
