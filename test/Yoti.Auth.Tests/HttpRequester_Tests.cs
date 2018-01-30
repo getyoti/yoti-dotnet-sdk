@@ -35,7 +35,8 @@ namespace Yoti.Auth.Tests
               httpClient,
               HttpMethod.Get,
               new Uri(_apiUrl),
-              _headers);
+              _headers,
+              byteContent: null);
 
             Assert.IsTrue(response.Result.Success);
         }
@@ -52,7 +53,8 @@ namespace Yoti.Auth.Tests
                 httpClient,
                 HttpMethod.Get,
                 new Uri(_apiUrl),
-                _headers);
+                _headers,
+                byteContent: null);
 
             Assert.IsFalse(response.Result.Success);
         }

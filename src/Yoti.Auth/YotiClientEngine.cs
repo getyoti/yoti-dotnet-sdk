@@ -48,7 +48,7 @@ namespace Yoti.Auth
             byte[] httpContent = null;
             HttpMethod httpMethod = HttpMethod.Get;
 
-            string endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId, httpContent);
+            string endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId);
 
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint);
 
@@ -56,7 +56,8 @@ namespace Yoti.Auth
                 new HttpClient(),
                 HttpMethod.Get,
                 new Uri(_apiUrl + endpoint),
-                headers);
+                headers,
+                httpContent);
 
             if (response.Success)
             {
@@ -256,16 +257,9 @@ namespace Yoti.Auth
             }
         }
 
-        private string GetEndpoint(HttpMethod httpMethod, string path, string token, string nonce, string timestamp, string sdkId, byte[] payload)
+        private string GetEndpoint(HttpMethod httpMethod, string path, string token, string nonce, string timestamp, string sdkId)
         {
-            string endpoint = string.Format("/{0}/{1}?nonce={2}&timestamp={3}&appId={4}", path, token, nonce, timestamp, sdkId);
-            if (payload != null && payload.Length > 0)
-            {
-                string urlSafePayloadString = Conversion.BytesToUrlSafeBase64(payload);
-                endpoint += string.Format("&payload={0}", urlSafePayloadString);
-            }
-
-            return endpoint;
+            return string.Format("/{0}/{1}?nonce={2}&timestamp={3}&appId={4}", path, token, nonce, timestamp, sdkId);
         }
 
         private string GetAuthDigest(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair)
