@@ -45,13 +45,20 @@ namespace Yoti.Auth
             var token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
             var nonce = CryptoEngine.GenerateNonce();
             var timestamp = GetTimestamp();
+            string path = "profile";
+            byte[] httpContent = null;
+            HttpMethod httpMethod = HttpMethod.Get;
 
             // create http endpoint
-            var endpoint = GetEndpoint(token, nonce, timestamp, sdkId);
+            var endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId, httpContent);
 
             // create request headers
             var authKey = CryptoEngine.GetAuthKey(keyPair);
-            var authDigest = GetAuthDigest(endpoint, keyPair);
+            string authDigest = GetAuthDigest(httpMethod, endpoint, keyPair);
+
+            if (string.IsNullOrEmpty(authDigest))
+                throw new InvalidOperationException("Could not sign request");
+
             string sdkIdentifier = ".NET";
 
             Dictionary<string, string> headers = new Dictionary<string, string>
@@ -63,6 +70,7 @@ namespace Yoti.Auth
 
             var response = await _httpRequester.DoRequest(
                 new HttpClient(),
+                HttpMethod.Get,
                 new Uri(_apiUrl + endpoint),
                 headers);
 
@@ -244,14 +252,25 @@ namespace Yoti.Auth
             }
         }
 
-        private string GetEndpoint(string token, string nonce, string timestamp, string sdkId)
+        private string GetEndpoint(HttpMethod httpMethod, string path, string token, string nonce, string timestamp, string sdkId, byte[] payload)
         {
-            return string.Format("/profile/{0}?nonce={1}&timestamp={2}&appId={3}", token, nonce, timestamp, sdkId);
+            string endpoint = string.Format("/{0}/{1}?nonce={2}&timestamp={3}&appId={4}", path, token, nonce, timestamp, sdkId);
+            if (payload != null && payload.Length > 0)
+            {
+                string urlSafePayloadString = Conversion.BytesToUrlSafeBase64(payload);
+                endpoint += string.Format("&payload={0}", urlSafePayloadString);
+            }
+
+            return endpoint;
         }
 
-        private string GetAuthDigest(string endpoint, AsymmetricCipherKeyPair keyPair)
+        private string GetAuthDigest(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair)
         {
-            byte[] digestBytes = Conversion.UtfToBytes("GET&" + endpoint);
+            byte[] digestBytes = Conversion.UtfToBytes(
+                string.Format(
+                    "{0}&{1}",
+                    httpMethod.ToString(),
+                    endpoint));
 
             byte[] signedDigestBytes = CryptoEngine.SignDigest(digestBytes, keyPair);
 

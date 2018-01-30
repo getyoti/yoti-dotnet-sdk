@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Yoti.Auth
 {
     internal class HttpRequester : IHttpRequester
     {
-        public async Task<Response> DoRequest(HttpClient httpClient, Uri uri, Dictionary<string, string> headers)
+        public async Task<Response> DoRequest(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers)
         {
+            if (headers.Count < 1)
+                throw new ArgumentNullException("headers");
+
+            if (uri == null)
+                throw new ArgumentNullException("uri");
+
             Response result = new Response
             {
                 Success = false,
@@ -18,11 +25,9 @@ namespace Yoti.Auth
 
             using (var client = httpClient)
             {
-                using (var request = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage(httpMethod, uri))
                 {
                     request.RequestUri = uri;
-
-                    request.Method = HttpMethod.Get;
 
                     foreach (string headerName in headers.Keys)
                     {
