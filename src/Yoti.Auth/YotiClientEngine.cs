@@ -50,7 +50,7 @@ namespace Yoti.Auth
 
             string endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId);
 
-            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint);
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
             Response response = await _httpRequester.DoRequest(
                 new HttpClient(),
@@ -82,10 +82,10 @@ namespace Yoti.Auth
             }
         }
 
-        private Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint)
+        private Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
         {
             string authKey = CryptoEngine.GetAuthKey(keyPair);
-            string authDigest = GetAuthDigest(httpMethod, endpoint, keyPair);
+            string authDigest = GetAuthDigest(httpMethod, endpoint, keyPair, httpContent);
 
             if (string.IsNullOrEmpty(authDigest))
                 throw new InvalidOperationException("Could not sign request");
@@ -262,14 +262,17 @@ namespace Yoti.Auth
             return string.Format("/{0}/{1}?nonce={2}&timestamp={3}&appId={4}", path, token, nonce, timestamp, sdkId);
         }
 
-        private string GetAuthDigest(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair)
+        private string GetAuthDigest(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair, byte[] content)
         {
-            byte[] digestBytes = Conversion.UtfToBytes(
-                string.Format(
+            string stringToConvert = string.Format(
                     "{0}&{1}",
                     httpMethod.ToString(),
-                    endpoint));
+                    endpoint);
 
+            if (content != null)
+                stringToConvert += "&" + Conversion.BytesToBase64(content);
+
+            byte[] digestBytes = Conversion.UtfToBytes(stringToConvert);
             byte[] signedDigestBytes = CryptoEngine.SignDigest(digestBytes, keyPair);
 
             return Conversion.BytesToBase64(signedDigestBytes);
