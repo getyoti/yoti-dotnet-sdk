@@ -32,9 +32,11 @@ namespace Yoti.Auth.Tests
 
             var httpClient = new HttpClient(_fakeResponseHandler);
             Task<Response> response = _httpRequester.DoRequest(
-                httpClient,
-                new Uri(_apiUrl),
-                _headers);
+              httpClient,
+              HttpMethod.Get,
+              new Uri(_apiUrl),
+              _headers,
+              byteContent: null);
 
             Assert.IsTrue(response.Result.Success);
         }
@@ -49,8 +51,10 @@ namespace Yoti.Auth.Tests
             var httpClient = new HttpClient(_fakeResponseHandler);
             Task<Response> response = _httpRequester.DoRequest(
                 httpClient,
+                HttpMethod.Get,
                 new Uri(_apiUrl),
-                _headers);
+                _headers,
+                byteContent: null);
 
             Assert.IsFalse(response.Result.Success);
         }
