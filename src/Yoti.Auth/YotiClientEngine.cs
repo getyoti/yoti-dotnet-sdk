@@ -42,13 +42,11 @@ namespace Yoti.Auth
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair)
         {
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
-            string nonce = CryptoEngine.GenerateNonce();
-            string timestamp = GetTimestamp();
             string path = "profile";
             byte[] httpContent = null;
             HttpMethod httpMethod = HttpMethod.Get;
 
-            string endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId);
+            string endpoint = EndpointFactory.CreateProfileEndpoint(httpMethod, path, token, sdkId);
 
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
@@ -265,11 +263,6 @@ namespace Yoti.Auth
             }
         }
 
-        private string GetEndpoint(HttpMethod httpMethod, string path, string token, string nonce, string timestamp, string sdkId)
-        {
-            return string.Format("/{0}/{1}?nonce={2}&timestamp={3}&appId={4}", path, token, nonce, timestamp, sdkId);
-        }
-
         private string GetAuthDigest(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair, byte[] content)
         {
             string stringToConvert = string.Format(
@@ -284,14 +277,6 @@ namespace Yoti.Auth
             byte[] signedDigestBytes = CryptoEngine.SignDigest(digestBytes, keyPair);
 
             return Conversion.BytesToBase64(signedDigestBytes);
-        }
-
-        private string GetTimestamp()
-        {
-            // get unix style timestamp but in milliseconds
-            long milliseconds = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
-
-            return milliseconds.ToString();
         }
     }
 }
