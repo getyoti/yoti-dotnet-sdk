@@ -100,6 +100,11 @@ namespace Yoti.Auth.Owin
                     context.Identity.AddClaim(new Claim("family_name", context.User.FamilyName, ClaimValueTypes.String, Options.AuthenticationType));
                 }
 
+                 if (!string.IsNullOrEmpty(context.User.FullName))
+                {
+                    context.Identity.AddClaim(new Claim("full_name", context.User.FullName, ClaimValueTypes.String, Options.AuthenticationType));
+                }
+
                 if (!string.IsNullOrEmpty(context.User.MobileNumber))
                 {
                     context.Identity.AddClaim(new Claim("phone_number", context.User.MobileNumber, ClaimValueTypes.String, Options.AuthenticationType));

@@ -106,6 +106,10 @@ namespace Yoti.Auth.Owin
                         profile.FamilyName = claim.Value;
                         break;
 
+                    case "full_name":
+                        profile.FullName = claim.Value;
+                        break;
+
                     case "phone_number":
                         profile.MobileNumber = claim.Value;
                         break;
