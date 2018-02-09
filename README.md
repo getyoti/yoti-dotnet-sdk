@@ -8,19 +8,22 @@ Welcome to the Yoti .NET SDK. This repo contains the tools and step by step inst
 1) [An Architectural view](#an-architectural-view) -
 High level overview of integration
 
-2) [Enabling the SDK](#enabling-the-sdk) -
+1) [Enabling the SDK](#enabling-the-sdk) -
 How to install our SDK
 
-3) [Client initialisation](#client-initialisation) -
+1) [Client initialisation](#client-initialisation) -
 Description on setting up your SDK
 
-4) [Profile retrieval](#profile-retrieval) -
+1) [Profile retrieval](#profile-retrieval) -
 Description on setting up profile
 
-5) [Handling users](#handling-users) -
+1) [Handling users](#handling-users) -
 Description on handling user log on's
 
-6) [Support](#support) -
+1) [API Coverage](#api-coverage) -
+Attributes defined
+
+1) [Support](#support) -
 Please feel free to reach out
 
 ## An Architectural View
@@ -117,6 +120,7 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
       string userId = profile.Id;
       Image Selfie = profile.Selfie;
       string SelfieURI = profile.Selfie.Base64URI;
+	  string FullName = profile.FullName;
       string GivenNames = profile.GivenNames;
       string FamilyName = profile.FamilyName;
       string MobileNumber = profile.MobileNumber;
@@ -142,6 +146,24 @@ No matter if the user is a new or an existing one, Yoti will always provide her/
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
 
+## API Coverage
+
+* Activity Details
+  * [X] Profile
+    * [X] User ID `Id`
+    * [X] Selfie `Selfie`
+    * [X] Selfie URI `Selfie.Base64URI`
+    * [X] Given Names `GivenNames`
+    * [X] Family Name `FamilyName`
+    * [X] Full Name `FullName`
+    * [X] Mobile Number `MobileNumber`
+    * [X] Email Address `EmailAddress`
+    * [X] Age / Date of Birth `DateOfBirth`
+    * [X] Age / Verify Condition `age_[over|under]:[1-999]`
+    * [X] Postal Address `Address`
+    * [X] Gender `Gender`
+    * [X] Nationality `Nationality`
+    
 ## Support
 
 For any questions or support please email [sdksupport@yoti.com](mailto:sdksupport@yoti.com).
