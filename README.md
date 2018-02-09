@@ -146,6 +146,12 @@ No matter if the user is a new or an existing one, Yoti will always provide her/
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
 
+## Running the Example
+
+1) Open the Example.sln solution in Visual Studio, found in the [/src](/src) folder
+1) Run the [Example.csproj](src/Example/Example.csproj) with your browser of choice
+1) The page should open automatically with URL `http://localhost:57045/Account/Login`
+
 ## API Coverage
 
 * Activity Details
