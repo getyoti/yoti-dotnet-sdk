@@ -183,6 +183,10 @@ namespace Yoti.Auth
                         profile.FamilyName = Conversion.BytesToUtf8(data);
                         break;
 
+                    case "full_name":
+                        profile.FullName = Conversion.BytesToUtf8(data);
+                        break;
+
                     case "phone_number":
                         profile.MobileNumber = Conversion.BytesToUtf8(data);
                         break;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Reflection;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,8 @@ namespace Example.Controllers
 {
     public class AccountController : Controller
     {
+        public static byte[] PhotoBytes { get; set; }
+
         public ActionResult LogIn()
         {
             ViewBag.YotiAppId = ConfigurationManager.AppSettings["Yoti.AppId"];
@@ -32,7 +35,6 @@ namespace Example.Controllers
 
                     User user = UserManager.GetUserByYotiId(yotiProfile.Id);
 
-                    // create new user if none exists
                     if (user == null)
                     {
                         user = new User
@@ -41,17 +43,22 @@ namespace Example.Controllers
                         };
                     }
 
-                    // update user information
                     if (yotiProfile.Selfie != null)
                     {
                         user.Base64Photo = yotiProfile.Selfie.Base64URI;
                         user.Photo = yotiProfile.Selfie.Data;
+                        PhotoBytes = user.Photo;
+                    }
+                    else
+                    {
+                        ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
                     }
 
-                    if (!string.IsNullOrEmpty(yotiProfile.MobileNumber))
-                    {
-                        user.PhoneNumber = yotiProfile.MobileNumber;
-                    }
+                    UpdateAttributesIfPresent(yotiProfile, user);
+
+                    //This key uses the  format: age_[over|under]:[1-999] and is dynamically
+                    //generated based on the dashboard attribute Age / Verify Condition
+                    user.IsAgeVerified = yotiProfile.OtherAttributes["age_over:18"].ToString();
 
                     UserManager.SaveUser(user);
 
@@ -65,7 +72,7 @@ namespace Example.Controllers
 
                     authManager.SignIn(identity);
 
-                    return RedirectToAction("Index", "Home");
+                    return View(user);
                 }
                 else
                 {
@@ -76,6 +83,20 @@ namespace Example.Controllers
             {
                 ViewBag.Error = e.ToString();
                 return View();
+            }
+        }
+
+        private static void UpdateAttributesIfPresent(YotiUserProfile yotiProfile, User user)
+        {
+            Type userType = user.GetType();
+            foreach (PropertyInfo yotiProfileProperty in yotiProfile.GetType().GetProperties())
+            {
+                if (!yotiProfileProperty.CanRead || (yotiProfileProperty.GetIndexParameters().Length > 0))
+                    continue;
+
+                PropertyInfo userProperty = userType.GetProperty(yotiProfileProperty.Name);
+                if ((userProperty != null) && (userProperty.CanWrite) && yotiProfileProperty.Name != "Id")
+                    userProperty.SetValue(user, yotiProfileProperty.GetValue(yotiProfile, null), null);
             }
         }
 
@@ -94,6 +115,14 @@ namespace Example.Controllers
         {
             ViewBag.YotiAppId = ConfigurationManager.AppSettings["Yoti.AppId"];
             return View();
+        }
+
+        public FileContentResult DownloadImageFile()
+        {
+            if (PhotoBytes == null)
+                throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
+
+            return File(PhotoBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
         }
     }
 }
