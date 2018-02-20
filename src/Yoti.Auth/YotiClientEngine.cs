@@ -61,6 +61,10 @@ namespace Yoti.Auth
                 { "X-Yoti-SDK", sdkIdentifier }
             };
 
+#if !NETSTANDARD1_6
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+#endif
+
             var response = await _httpRequester.DoRequest(
                 new HttpClient(),
                 new Uri(_apiUrl + endpoint),
