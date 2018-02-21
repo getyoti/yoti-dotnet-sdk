@@ -151,8 +151,8 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Yoti.Auth, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Yoti.2.2.0\lib\net451\Yoti.Auth.dll</HintPath>
+    <Reference Include="Yoti.Auth, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Yoti.2.2.1\lib\net451\Yoti.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

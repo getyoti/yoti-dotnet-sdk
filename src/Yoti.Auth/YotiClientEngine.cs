@@ -52,6 +52,10 @@ namespace Yoti.Auth
 
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
+#if !NETSTANDARD1_6
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+#endif
+
             Response response = await _httpRequester.DoRequest(
                 new HttpClient(),
                 HttpMethod.Get,
