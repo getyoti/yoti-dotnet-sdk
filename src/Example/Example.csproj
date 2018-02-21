@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201710191343213_AddBase64Photo.Designer.cs">
       <DependentUpon>201710191343213_AddBase64Photo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081633397_AddProfileAttributes.cs" />
+    <Compile Include="Migrations\201802081633397_AddProfileAttributes.Designer.cs">
+      <DependentUpon>201802081633397_AddProfileAttributes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Data\UserManager.cs" />
@@ -242,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710191343213_AddBase64Photo.resx">
       <DependentUpon>201710191343213_AddBase64Photo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081633397_AddProfileAttributes.resx">
+      <DependentUpon>201802081633397_AddProfileAttributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

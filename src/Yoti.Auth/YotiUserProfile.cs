@@ -24,6 +24,11 @@ namespace Yoti.Auth
         public Image Selfie { get; set; }
 
         /// <summary>
+        /// FullName represents the user's full name. This will be null if not provided by Yoti
+        /// </summary>
+        public string FullName { get; set; }
+
+        /// <summary>
         // GivenNames represents the user's given names. This will be null if not provided by Yoti
         /// </summary>
         public string GivenNames { get; set; }

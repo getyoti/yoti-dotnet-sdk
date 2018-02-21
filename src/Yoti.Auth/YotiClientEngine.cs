@@ -41,34 +41,27 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair)
         {
-            // query parameters
-            var token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
-            var nonce = CryptoEngine.GenerateNonce();
-            var timestamp = GetTimestamp();
+            string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
+            string nonce = CryptoEngine.GenerateNonce();
+            string timestamp = GetTimestamp();
+            string path = "profile";
+            byte[] httpContent = null;
+            HttpMethod httpMethod = HttpMethod.Get;
 
-            // create http endpoint
-            var endpoint = GetEndpoint(token, nonce, timestamp, sdkId);
+            string endpoint = GetEndpoint(httpMethod, path, token, nonce, timestamp, sdkId);
 
-            // create request headers
-            var authKey = CryptoEngine.GetAuthKey(keyPair);
-            var authDigest = GetAuthDigest(endpoint, keyPair);
-            string sdkIdentifier = ".NET";
-
-            Dictionary<string, string> headers = new Dictionary<string, string>
-            {
-                { "X-Yoti-Auth-Key", authKey },
-                { "X-Yoti-Auth-Digest", authDigest },
-                { "X-Yoti-SDK", sdkIdentifier }
-            };
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
 #if !NETSTANDARD1_6
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 #endif
 
-            var response = await _httpRequester.DoRequest(
+            Response response = await _httpRequester.DoRequest(
                 new HttpClient(),
+                HttpMethod.Get,
                 new Uri(_apiUrl + endpoint),
-                headers);
+                headers,
+                httpContent);
 
             if (response.Success)
             {
@@ -93,9 +86,29 @@ namespace Yoti.Auth
             }
         }
 
+        private Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
+        {
+            string authKey = CryptoEngine.GetAuthKey(keyPair);
+            string authDigest = GetAuthDigest(httpMethod, endpoint, keyPair, httpContent);
+
+            if (string.IsNullOrEmpty(authDigest))
+                throw new InvalidOperationException("Could not sign request");
+
+            string sdkIdentifier = ".NET";
+
+            Dictionary<string, string> headers = new Dictionary<string, string>
+            {
+                { "X-Yoti-Auth-Key", authKey },
+                { "X-Yoti-Auth-Digest", authDigest },
+                { "X-Yoti-SDK", sdkIdentifier }
+            };
+
+            return headers;
+        }
+
         private ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
-            var parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
+            ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
 
             if (parsedResponse.receipt == null)
             {
@@ -113,9 +126,9 @@ namespace Yoti.Auth
             }
             else
             {
-                var receipt = parsedResponse.receipt;
+                ReceiptDO receipt = parsedResponse.receipt;
 
-                var attributes = CryptoEngine.DecryptCurrentUserReceipt(
+                AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
                     parsedResponse.receipt.wrapped_receipt_key,
                     parsedResponse.receipt.other_party_profile_content,
                     keyPair);
@@ -137,9 +150,9 @@ namespace Yoti.Auth
 
         private static void AddAttributesToProfile(AttributeList attributes, YotiUserProfile profile)
         {
-            foreach (var attribute in attributes.Attributes)
+            foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
             {
-                var data = attribute.Value.ToByteArray();
+                byte[] data = attribute.Value.ToByteArray();
                 switch (attribute.Name)
                 {
                     case "selfie":
@@ -172,6 +185,10 @@ namespace Yoti.Auth
 
                     case "family_name":
                         profile.FamilyName = Conversion.BytesToUtf8(data);
+                        break;
+
+                    case "full_name":
+                        profile.FullName = Conversion.BytesToUtf8(data);
                         break;
 
                     case "phone_number":
@@ -248,15 +265,22 @@ namespace Yoti.Auth
             }
         }
 
-        private string GetEndpoint(string token, string nonce, string timestamp, string sdkId)
+        private string GetEndpoint(HttpMethod httpMethod, string path, string token, string nonce, string timestamp, string sdkId)
         {
-            return string.Format("/profile/{0}?nonce={1}&timestamp={2}&appId={3}", token, nonce, timestamp, sdkId);
+            return string.Format("/{0}/{1}?nonce={2}&timestamp={3}&appId={4}", path, token, nonce, timestamp, sdkId);
         }
 
-        private string GetAuthDigest(string endpoint, AsymmetricCipherKeyPair keyPair)
+        private string GetAuthDigest(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair, byte[] content)
         {
-            byte[] digestBytes = Conversion.UtfToBytes("GET&" + endpoint);
+            string stringToConvert = string.Format(
+                    "{0}&{1}",
+                    httpMethod.ToString(),
+                    endpoint);
 
+            if (content != null)
+                stringToConvert += "&" + Conversion.BytesToBase64(content);
+
+            byte[] digestBytes = Conversion.UtfToBytes(stringToConvert);
             byte[] signedDigestBytes = CryptoEngine.SignDigest(digestBytes, keyPair);
 
             return Conversion.BytesToBase64(signedDigestBytes);

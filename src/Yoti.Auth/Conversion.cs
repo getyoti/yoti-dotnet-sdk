@@ -19,7 +19,7 @@ namespace Yoti.Auth
         /// UrlSafe Base64 uses '-' instead of '+', and '_' instead of '/' so it
         /// can be passed as a url parameter without extra encoding.
         /// </summary>
-        public static string BytesToUrlsafeBase64(byte[] bytes)
+        public static string BytesToUrlSafeBase64(byte[] bytes)
         {
             var base64 = BytesToBase64(bytes);
 
