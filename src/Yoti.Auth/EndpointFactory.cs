@@ -16,6 +16,15 @@ namespace Yoti.Auth
                 sdkId);
         }
 
+        public static string CreateAmlEndpoint(HttpMethod httpMethod, string appId)
+        {
+            return string.Format(
+                "/aml-check?appId={0}&timestamp={1}&nonce={2}",
+                appId,
+                GetTimestamp(),
+                CryptoEngine.GenerateNonce());
+        }
+
         private static string GetTimestamp()
         {
             long milliseconds = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;

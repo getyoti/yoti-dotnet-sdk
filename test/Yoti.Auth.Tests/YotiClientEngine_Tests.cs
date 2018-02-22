@@ -38,7 +38,7 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair, YotiConstants.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.Failure, activityDetails.Outcome);
@@ -61,7 +61,7 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair, YotiConstants.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.ProfileNotFound, activityDetails.Outcome);
@@ -85,7 +85,7 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair, YotiConstants.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.SharingFailure, activityDetails.Outcome);
@@ -109,7 +109,7 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair, YotiConstants.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.Failure, activityDetails.Outcome);
@@ -134,7 +134,7 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            ActivityDetails activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair, YotiConstants.DefaultYotiApiUrl);
             Assert.IsNotNull(activityDetails.Outcome);
         }
 
@@ -160,7 +160,7 @@ namespace Yoti.Auth.Tests
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
 
-            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair);
+            var activityDetails = engine.GetActivityDetails(encryptedToken, sdkId, keyPair, YotiConstants.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.Success, activityDetails.Outcome);

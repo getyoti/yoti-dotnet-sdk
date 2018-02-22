@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AttrpubapiV1;
-using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
-using Yoti.Auth.DataObjects;
+using Yoti.Auth.Aml;
 
 namespace Yoti.Auth
 {
     internal class YotiClientEngine
     {
-        private const string _apiUrl = @"https://api.yoti.com/api/v1"; // TODO: Make this configurable
-
         private readonly IHttpRequester _httpRequester;
+        private Activity _activity;
 
         public YotiClientEngine(IHttpRequester httpRequester)
         {
             _httpRequester = httpRequester;
+            _activity = new Activity();
+
+#if !NETSTANDARD1_6
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+#endif
         }
 
         /// <summary>
@@ -27,9 +28,9 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
-        public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair)
+        public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
         {
-            Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair));
+            Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair, apiUrl));
 
             return task.Result;
         }
@@ -39,7 +40,7 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
-        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair)
+        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
         {
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
             string path = "profile";
@@ -48,22 +49,19 @@ namespace Yoti.Auth
 
             string endpoint = EndpointFactory.CreateProfileEndpoint(httpMethod, path, token, sdkId);
 
-            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
-
-#if !NETSTANDARD1_6
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-#endif
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
 
             Response response = await _httpRequester.DoRequest(
                 new HttpClient(),
                 HttpMethod.Get,
-                new Uri(_apiUrl + endpoint),
+                new Uri(
+                    apiUrl + endpoint),
                 headers,
                 httpContent);
 
             if (response.Success)
             {
-                return HandleSuccessfulResponse(keyPair, response);
+                return _activity.HandleSuccessfulResponse(keyPair, response);
             }
             else
             {
@@ -84,7 +82,51 @@ namespace Yoti.Auth
             }
         }
 
-        private Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
+        /// <summary>
+        /// Request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
+        /// </summary>
+        /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
+        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
+        public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, AmlProfile amlProfile)
+        {
+            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(appId, keyPair, apiUrl, amlProfile));
+
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Asynchronously request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
+        /// </summary>
+        /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
+        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
+        public async Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, AmlProfile amlProfile)
+        {
+            if (apiUrl == null)
+            {
+                throw new ArgumentNullException(nameof(apiUrl));
+            }
+
+            if (amlProfile == null)
+            {
+                throw new ArgumentNullException(nameof(amlProfile));
+            }
+
+            string serializedProfile = Newtonsoft.Json.JsonConvert.SerializeObject(amlProfile);
+            byte[] httpContent = System.Text.Encoding.UTF8.GetBytes(serializedProfile);
+
+            HttpMethod httpMethod = HttpMethod.Post;
+
+            string endpoint = EndpointFactory.CreateAmlEndpoint(httpMethod, appId);
+
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
+
+            AmlResult result = await Task.Run(async () => await new RemoteAmlService(new SignedMessageFactory())
+                .PerformCheck(amlProfile, headers, apiUrl, endpoint, httpContent));
+
+            return result;
+        }
+
+        private static Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent, string contentType)
         {
             string authKey = CryptoEngine.GetAuthKey(keyPair);
             string authDigest = SignedMessageFactory.SignMessage(httpMethod, endpoint, keyPair, httpContent);
@@ -92,175 +134,14 @@ namespace Yoti.Auth
             if (string.IsNullOrEmpty(authDigest))
                 throw new InvalidOperationException("Could not sign request");
 
-            string sdkIdentifier = ".NET";
-
             Dictionary<string, string> headers = new Dictionary<string, string>
             {
-                { "X-Yoti-Auth-Key", authKey },
-                { "X-Yoti-Auth-Digest", authDigest },
-                { "X-Yoti-SDK", sdkIdentifier }
+                { YotiConstants.AuthKeyHeader, authKey },
+                { YotiConstants.DigestHeader, authDigest },
+                { YotiConstants.YotiSdkHeader, YotiConstants.SdkIdentifier }
             };
 
             return headers;
-        }
-
-        private ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
-        {
-            ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
-
-            if (parsedResponse.receipt == null)
-            {
-                return new ActivityDetails
-                {
-                    Outcome = ActivityOutcome.Failure
-                };
-            }
-            else if (parsedResponse.receipt.sharing_outcome != "SUCCESS")
-            {
-                return new ActivityDetails
-                {
-                    Outcome = ActivityOutcome.SharingFailure
-                };
-            }
-            else
-            {
-                ReceiptDO receipt = parsedResponse.receipt;
-
-                AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
-                    parsedResponse.receipt.wrapped_receipt_key,
-                    parsedResponse.receipt.other_party_profile_content,
-                    keyPair);
-
-                var profile = new YotiUserProfile
-                {
-                    Id = parsedResponse.receipt.remember_me_id
-                };
-
-                AddAttributesToProfile(attributes, profile);
-
-                return new ActivityDetails
-                {
-                    Outcome = ActivityOutcome.Success,
-                    UserProfile = profile
-                };
-            }
-        }
-
-        private static void AddAttributesToProfile(AttributeList attributes, YotiUserProfile profile)
-        {
-            foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
-            {
-                byte[] data = attribute.Value.ToByteArray();
-                switch (attribute.Name)
-                {
-                    case "selfie":
-
-                        switch (attribute.ContentType)
-                        {
-                            case ContentType.Jpeg:
-                                profile.Selfie = new Image
-                                {
-                                    Type = ImageType.Jpeg,
-                                    Data = data,
-                                    Base64URI = "data:image/jpeg;base64," + Convert.ToBase64String(data)
-                                };
-                                break;
-
-                            case ContentType.Png:
-                                profile.Selfie = new Image
-                                {
-                                    Type = ImageType.Png,
-                                    Data = data,
-                                    Base64URI = "data:image/png;base64," + Convert.ToBase64String(data)
-                                };
-                                break;
-                        }
-                        break;
-
-                    case "given_names":
-                        profile.GivenNames = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "family_name":
-                        profile.FamilyName = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "full_name":
-                        profile.FullName = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "phone_number":
-                        profile.MobileNumber = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "email_address":
-                        profile.EmailAddress = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "date_of_birth":
-                        {
-                            DateTime date;
-                            if (DateTime.TryParseExact(Conversion.BytesToUtf8(data), "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
-                            {
-                                profile.DateOfBirth = date;
-                            }
-                        }
-                        break;
-
-                    case "postal_address":
-                        profile.Address = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "gender":
-                        profile.Gender = Conversion.BytesToUtf8(data);
-                        break;
-
-                    case "nationality":
-                        profile.Nationality = Conversion.BytesToUtf8(data);
-                        break;
-
-                    default:
-                        HandleOtherAttributes(profile, attribute, data);
-                        break;
-                }
-            }
-        }
-
-        private static void HandleOtherAttributes(YotiUserProfile profile, AttrpubapiV1.Attribute attribute, byte[] data)
-        {
-            switch (attribute.ContentType)
-            {
-                case ContentType.Date:
-                    profile.OtherAttributes.Add(
-                        attribute.Name,
-                        new YotiAttributeValue(YotiAttributeValue.TypeEnum.Date, data));
-                    break;
-
-                case ContentType.String:
-                    profile.OtherAttributes.Add(
-                        attribute.Name,
-                        new YotiAttributeValue(YotiAttributeValue.TypeEnum.Text, data));
-                    break;
-
-                case ContentType.Jpeg:
-                    profile.OtherAttributes.Add(
-                        attribute.Name,
-                        new YotiAttributeValue(YotiAttributeValue.TypeEnum.Jpeg, data));
-                    break;
-
-                case ContentType.Png:
-                    profile.OtherAttributes.Add(
-                        attribute.Name,
-                        new YotiAttributeValue(YotiAttributeValue.TypeEnum.Png, data));
-                    break;
-
-                case ContentType.Undefined:
-                    // do not return attributes with undefined content types
-                    break;
-
-                default:
-                    break;
-            }
         }
     }
 }

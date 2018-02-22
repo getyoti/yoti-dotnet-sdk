@@ -10,6 +10,7 @@ namespace Yoti.Auth
         public static string YotiApiUrl = "yoti.api.url";
         public static string YotiApiPathPrefix = "/api/v1";
         public static string DefaultYotiApiUrl = DefaultYotiHost + YotiApiPathPrefix;
+        public static string StagingYotiApiUrl = "https://staging0.api.yoti.com" + YotiApiPathPrefix;
         public static string AuthKeyHeader = "X-Yoti-Auth-Key";
         public static string DigestHeader = "X-Yoti-Auth-Digest";
         public static string YotiSdkHeader = "X-Yoti-SDK";

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Yoti.Auth.Aml;
 
 namespace Yoti.Auth.Tests
 {
@@ -29,7 +32,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_NullAppId_ThrowsException()
+        public void YotiClient_NullSdkId_ThrowsException()
         {
             StreamReader keystream = GetValidKeyStream();
             string sdkId = null;
@@ -40,7 +43,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_EmptyAppId_ThrowsException()
+        public void YotiClient_EmptySdkId_ThrowsException()
         {
             StreamReader keystream = GetValidKeyStream();
             string sdkId = string.Empty;
@@ -75,10 +78,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiClient_GetActivityDetails()
         {
-            string sdkId = "fake-sdk-id";
-            var privateStreamKey = GetValidKeyStream();
-
-            YotiClient client = new YotiClient(sdkId, privateStreamKey);
+            YotiClient client = CreateYotiClient();
 
             ActivityDetails activityDetails = client.GetActivityDetails(encryptedToken);
 
@@ -88,14 +88,154 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public async Task YotiClient_GetActivityDetailsAsync()
         {
+            YotiClient client = CreateYotiClient();
+
+            ActivityDetails activityDetails = await client.GetActivityDetailsAsync(encryptedToken);
+
+            Assert.IsNotNull(activityDetails.Outcome);
+        }
+
+        [TestMethod]
+        public void YotiClient_PerformAmlCheck_NullAmlProfile_ThrowsException()
+        {
             string sdkId = "fake-sdk-id";
             var privateStreamKey = GetValidKeyStream();
 
             YotiClient client = new YotiClient(sdkId, privateStreamKey);
 
-            ActivityDetails activityDetails = await client.GetActivityDetailsAsync(encryptedToken);
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = client.PerformAmlCheck(amlProfile: null);
+            });
 
-            Assert.IsNotNull(activityDetails.Outcome);
+            Assert.IsTrue(IsExceptionInAggregateException<ArgumentNullException>(client, aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClient_PerformAmlCheck_NullAmlAddress_ThrowsException()
+        {
+            string sdkId = "fake-sdk-id";
+            var privateStreamKey = GetValidKeyStream();
+
+            YotiClient client = new YotiClient(sdkId, privateStreamKey);
+
+            AmlProfile amlProfile = new AmlProfile(
+                           givenNames: "Edward Richard George",
+                           familyName: "Heath",
+                           ssn: null,
+                           amlAddress: null);
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+            });
+
+            Assert.IsTrue(IsExceptionInAggregateException<JsonSerializationException>(client, aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClient_PerformAmlCheck_NullGivenName_ThrowsException()
+        {
+            string sdkId = "fake-sdk-id";
+            var privateStreamKey = GetValidKeyStream();
+
+            YotiClient client = new YotiClient(sdkId, privateStreamKey);
+
+            AmlProfile amlProfile = new AmlProfile(
+                givenNames: null,
+                familyName: "Heath",
+                ssn: null,
+                amlAddress: CreateStandardAmlAddress());
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+            });
+
+            Assert.IsTrue(IsExceptionInAggregateException<JsonSerializationException>(client, aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClient_PerformAmlCheck_NullFamilyName_ThrowsException()
+        {
+            string sdkId = "fake-sdk-id";
+            var privateStreamKey = GetValidKeyStream();
+
+            YotiClient client = new YotiClient(sdkId, privateStreamKey);
+
+            AmlProfile amlProfile = new AmlProfile(
+                givenNames: "Edward Richard George",
+                familyName: null,
+                ssn: null,
+                amlAddress: CreateStandardAmlAddress());
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+            });
+
+            Assert.IsTrue(IsExceptionInAggregateException<JsonSerializationException>(client, aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClient_PerformAmlCheck_NullCountry_ThrowsException()
+        {
+            string sdkId = "fake-sdk-id";
+            var privateStreamKey = GetValidKeyStream();
+
+            YotiClient client = new YotiClient(sdkId, privateStreamKey);
+
+            AmlAddress amlAddress = new AmlAddress(
+               postcode: null,
+               country: null);
+
+            AmlProfile amlProfile = new AmlProfile(
+                givenNames: "Edward Richard George",
+                familyName: "Heath",
+                ssn: null,
+                amlAddress: amlAddress);
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+            });
+
+            Assert.IsTrue(IsExceptionInAggregateException<JsonSerializationException>(client, aggregateException));
+        }
+
+        private YotiClient CreateYotiClient()
+        {
+            string sdkId = "fake-sdk-id";
+            var privateStreamKey = GetValidKeyStream();
+
+            return new YotiClient(sdkId, privateStreamKey);
+        }
+
+        private static AmlAddress CreateStandardAmlAddress()
+        {
+            return new AmlAddress(
+               postcode: null,
+               country: "GBR");
+        }
+
+        private static AmlProfile CreateStandardAmlProfile()
+        {
+            AmlAddress amlAddress = CreateStandardAmlAddress();
+
+            AmlProfile amlProfile = new AmlProfile(
+                givenNames: "Edward Richard George",
+                familyName: "Heath",
+                ssn: null,
+                amlAddress: amlAddress);
+            return amlProfile;
+        }
+
+        private static bool IsExceptionInAggregateException<ExceptionToCheck>(YotiClient client, AggregateException aggregateException) where ExceptionToCheck : Exception
+        {
+            bool argumentNullExceptionPresent = aggregateException.InnerExceptions
+            .Any(x => x.GetType() == typeof(ExceptionToCheck));
+
+            return argumentNullExceptionPresent;
         }
     }
 }
