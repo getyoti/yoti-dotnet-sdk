@@ -42,10 +42,15 @@ namespace Yoti.Auth
                     using (HttpResponseMessage response = await client.SendAsync(request))
                     {
                         result.StatusCode = (int)response.StatusCode;
+                        result.Content = await response.Content.ReadAsStringAsync();
+
                         if (response.IsSuccessStatusCode)
                         {
-                            result.Content = await response.Content.ReadAsStringAsync();
                             result.Success = true;
+                        }
+                        else
+                        {
+                            result.ReasonPhrase = response.ReasonPhrase;
                         }
                     }
                 }
