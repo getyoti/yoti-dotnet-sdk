@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Org.BouncyCastle.Crypto;
 
 namespace Yoti.Auth.Aml
 {
@@ -39,11 +37,7 @@ namespace Yoti.Auth.Aml
                     CreateExceptionFromStatusCode(response);
                 }
 
-                var content = response.Content;
-
-                var amlResult = new AmlResult
-                {
-                };
+                var amlResult = Newtonsoft.Json.JsonConvert.DeserializeObject<AmlResult>(response.Content);
 
                 return amlResult;
             }

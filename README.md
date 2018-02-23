@@ -20,6 +20,12 @@ Description on setting up profile
 1) [Handling users](#handling-users) -
 Description on handling user log on's
 
+1) [AML Integration](#aml-integration) -
+How to integrate with Yoti's AML (Anti Money Laundering) service
+
+1) [Running the example](running-the-example)
+How to run the example project provided
+
 1) [API Coverage](#api-coverage) -
 Attributes defined
 
@@ -120,7 +126,7 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
       string userId = profile.Id;
       Image Selfie = profile.Selfie;
       string SelfieURI = profile.Selfie.Base64URI;
-	  string FullName = profile.FullName;
+      string FullName = profile.FullName;
       string GivenNames = profile.GivenNames;
       string FamilyName = profile.FamilyName;
       string MobileNumber = profile.MobileNumber;
@@ -145,6 +151,53 @@ Where `yourUserSearchFunction` is a piece of logic in your app that is supposed 
 No matter if the user is a new or an existing one, Yoti will always provide her/his profile, so you don't necessarily need to store it.
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
+
+## AML Integration
+
+Yoti provides an AML (Anti Money Laundering) check service to allow a deeper KYC process to prevent fraud. This is a chargeable service, so please contact [sdksupport@yoti.com](mailto:sdksupport@yoti.com) for more information.
+
+Yoti will provide a boolean result on the following checks:
+
+* PEP list - Verify against Politically Exposed Persons list
+* Fraud list - Verify against  US Social Security Administration Fraud (SSN Fraud) list
+* Watch list - Verify against watch lists from the Office of Foreign Assets Control
+
+To use this functionality you must ensure your application is assigned to your Organisation in the Yoti Dashboard - please see [here](https://www.yoti.com/developers/documentation) for further information.
+
+For the AML check you will need to provide the following:
+
+* Data provided by Yoti (please ensure you have selected the Given name(s) and Family name attributes from the Data tab in the Yoti Dashboard)
+  * Given name(s)
+  * Family name
+* Data that must be collected from the user:
+  * Country of residence (must be an ISO 3166 3-letter code)
+  * Social Security Number (US citizens only)
+  * Postcode/Zip code (US citizens only)
+
+### Consent
+
+Performing an AML check on a person *requires* their consent.
+**You must ensure you have user consent *before* using this service.**
+
+### Code Example
+
+Given a YotiClient initialised with your SDK ID and KeyPair (see [Client Initialisation](#client-initialisation)) performing an AML check is a straightforward case of providing basic profile data.
+
+```cs
+AmlAddress amlAddress = new AmlAddress(
+   country: "GBR");
+
+AmlProfile amlProfile = new AmlProfile(
+    givenNames: "Edward Richard George",
+    familyName: "Heath",
+    amlAddress: amlAddress);
+
+AmlResult amlResult = yotiClient.PerformAmlCheck(amlProfile);
+
+bool onPepList = amlResult.IsOnPepList();
+bool onFraudList = amlResult.IsOnFraudList();
+bool onWatchList = amlResult.IsOnWatchList();
+```
 
 ## Running the Example
 

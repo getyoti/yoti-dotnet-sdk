@@ -122,7 +122,6 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                            givenNames: "Edward Richard George",
                            familyName: "Heath",
-                           ssn: null,
                            amlAddress: null);
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -144,7 +143,6 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: null,
                 familyName: "Heath",
-                ssn: null,
                 amlAddress: CreateStandardAmlAddress());
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -166,7 +164,6 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: null,
-                ssn: null,
                 amlAddress: CreateStandardAmlAddress());
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -186,13 +183,11 @@ namespace Yoti.Auth.Tests
             YotiClient client = new YotiClient(sdkId, privateStreamKey);
 
             AmlAddress amlAddress = new AmlAddress(
-               postcode: null,
                country: null);
 
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: "Heath",
-                ssn: null,
                 amlAddress: amlAddress);
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -214,7 +209,6 @@ namespace Yoti.Auth.Tests
         private static AmlAddress CreateStandardAmlAddress()
         {
             return new AmlAddress(
-               postcode: null,
                country: "GBR");
         }
 
@@ -225,7 +219,6 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: "Heath",
-                ssn: null,
                 amlAddress: amlAddress);
             return amlProfile;
         }

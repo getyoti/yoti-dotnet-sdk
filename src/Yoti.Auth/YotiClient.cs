@@ -12,7 +12,6 @@ namespace Yoti.Auth
         private readonly AsymmetricCipherKeyPair _keyPair = null;
         private readonly YotiClientEngine _yotiClientEngine = null;
         private RemoteAmlService _remoteAmlService = null;
-
         private string _defaultApiUrl = YotiConstants.DefaultYotiApiUrl;
 
         /// <summary>

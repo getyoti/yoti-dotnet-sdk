@@ -8,9 +8,9 @@ namespace Yoti.Auth
         public static string SignMessage(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair, byte[] content)
         {
             string stringToConvert = string.Format(
-                    "{0}&{1}",
-                    httpMethod.ToString(),
-                    endpoint);
+                "{0}&{1}",
+                httpMethod.ToString(),
+                endpoint);
 
             if (content != null)
                 stringToConvert += "&" + Conversion.BytesToBase64(content);

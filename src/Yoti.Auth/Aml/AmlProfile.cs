@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Yoti.Auth.Aml
 {
@@ -22,7 +19,7 @@ namespace Yoti.Auth.Aml
         [JsonProperty(PropertyName = "address")]
         private AmlAddress _amlAddress;
 
-        public AmlProfile(string givenNames, string familyName, string ssn, AmlAddress amlAddress)
+        public AmlProfile(string givenNames, string familyName, AmlAddress amlAddress, string ssn = null)
         {
             _givenNames = givenNames;
             _familyName = familyName;
@@ -48,16 +45,6 @@ namespace Yoti.Auth.Aml
         public string GetSsn()
         {
             return _ssn;
-        }
-
-        public override string ToString()
-        {
-            return "{" +
-                "givenNames='" + _givenNames + '\'' +
-                ", familyName='" + _familyName + '\'' +
-                ", ssn='" + _ssn + '\'' +
-                ", amlAddress=" + _amlAddress +
-                '}';
         }
     }
 }

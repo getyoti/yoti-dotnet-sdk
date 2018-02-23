@@ -18,38 +18,14 @@ namespace Yoti.Auth.Aml
             return _onFraudList;
         }
 
-        public void SetOnFraudList(bool onFraudList)
-        {
-            _onFraudList = onFraudList;
-        }
-
         public bool IsOnPepList()
         {
             return _onPepList;
         }
 
-        public void SetOnPepList(bool onPepList)
-        {
-            _onPepList = onPepList;
-        }
-
         public bool IsOnWatchList()
         {
             return _onWatchList;
-        }
-
-        public void SetOnWatchList(bool onWatchList)
-        {
-            _onWatchList = onWatchList;
-        }
-
-        public override string ToString()
-        {
-            return string.Format(
-                "SimpleAmlResult{{onFraudList={0}, onPepList={1}, onWatchList={2}}",
-                _onFraudList,
-                _onPepList,
-                _onWatchList);
         }
     }
 }
