@@ -12,6 +12,7 @@ namespace Yoti.Auth
     {
         private readonly IHttpRequester _httpRequester;
         private Activity _activity;
+        private RemoteAmlService _remoteAmlService = null;
 
         public YotiClientEngine(IHttpRequester httpRequester)
         {
@@ -120,7 +121,7 @@ namespace Yoti.Auth
 
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
 
-            AmlResult result = await Task.Run(async () => await new RemoteAmlService(new SignedMessageFactory())
+            AmlResult result = await Task.Run(async () => await new RemoteAmlService()
                 .PerformCheck(amlProfile, headers, apiUrl, endpoint, httpContent));
 
             return result;

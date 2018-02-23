@@ -1,5 +1,5 @@
-﻿using Org.BouncyCastle.Crypto;
-using System.Net.Http;
+﻿using System.Net.Http;
+using Org.BouncyCastle.Crypto;
 
 namespace Yoti.Auth
 {

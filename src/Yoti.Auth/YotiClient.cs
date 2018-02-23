@@ -11,7 +11,6 @@ namespace Yoti.Auth
         private readonly string _sdkId = null;
         private readonly AsymmetricCipherKeyPair _keyPair = null;
         private readonly YotiClientEngine _yotiClientEngine = null;
-        private RemoteAmlService _remoteAmlService = null;
         private string _defaultApiUrl = YotiConstants.DefaultYotiApiUrl;
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace Yoti.Auth
             }
 
             _yotiClientEngine = new YotiClientEngine(new HttpRequester());
-            _remoteAmlService = new RemoteAmlService(new SignedMessageFactory());
         }
 
         /// <summary>

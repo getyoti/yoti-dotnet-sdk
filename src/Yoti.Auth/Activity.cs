@@ -1,8 +1,8 @@
-﻿using AttrpubapiV1;
+﻿using System;
+using System.Globalization;
+using AttrpubapiV1;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
-using System;
-using System.Globalization;
 using Yoti.Auth.DataObjects;
 
 namespace Yoti.Auth

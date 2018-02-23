@@ -8,13 +8,7 @@ namespace Yoti.Auth.Aml
 {
     internal class RemoteAmlService
     {
-        private SignedMessageFactory _signedMessageFactory;
         private readonly IHttpRequester _httpRequester = new HttpRequester();
-
-        public RemoteAmlService(SignedMessageFactory signedMessageFactory)
-        {
-            _signedMessageFactory = signedMessageFactory;
-        }
 
         public async Task<AmlResult> PerformCheck(IAmlProfile amlProfile, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
         {
