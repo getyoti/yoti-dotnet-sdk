@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Aml;
 
 namespace Yoti.Auth
 {
@@ -10,12 +11,13 @@ namespace Yoti.Auth
         private readonly string _sdkId = null;
         private readonly AsymmetricCipherKeyPair _keyPair = null;
         private readonly YotiClientEngine _yotiClientEngine = null;
+        private string _defaultApiUrl = YotiConstants.DefaultYotiApiUrl;
 
         /// <summary>
         /// Create a <see cref="YotiClient"/>
         /// </summary>
         /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
-        /// <param name="key">The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.</param>
+        /// <param name="privateStreamKey">The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.</param>
         public YotiClient(string sdkId, StreamReader privateStreamKey)
         {
             if (string.IsNullOrEmpty(sdkId))
@@ -49,7 +51,7 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public ActivityDetails GetActivityDetails(string encryptedToken)
         {
-            return _yotiClientEngine.GetActivityDetails(encryptedToken, _sdkId, _keyPair);
+            return _yotiClientEngine.GetActivityDetails(encryptedToken, _sdkId, _keyPair, _defaultApiUrl);
         }
 
         /// <summary>
@@ -59,7 +61,27 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken)
         {
-            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair);
+            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _defaultApiUrl);
+        }
+
+        /// <summary>
+        /// Request an <see cref="AmlResult"/>  using an individual's name and address.
+        /// </summary>
+        /// <param name="amlProfile">An individual's name and address.</param>
+        /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
+        public AmlResult PerformAmlCheck(AmlProfile amlProfile)
+        {
+            return _yotiClientEngine.PerformAmlCheck(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
+        }
+
+        /// <summary>
+        /// Asynchronously request a <see cref="AmlResult"/>  using an individual's name and address.
+        /// </summary>
+        /// <param name="amlProfile">An individual's name and address.</param>
+        /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
+        public async Task<AmlResult> PerformAmlCheckAsync(AmlProfile amlProfile)
+        {
+            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
         }
     }
 }
