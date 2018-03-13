@@ -1,8 +1,7 @@
 namespace Example.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddProfileAttributes : DbMigration
     {
         public override void Up()
@@ -19,7 +18,7 @@ namespace Example.Migrations
             AddColumn("dbo.Users", "Nationality", c => c.String());
             DropColumn("dbo.Users", "PhoneNumber");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.Users", "PhoneNumber", c => c.String());
