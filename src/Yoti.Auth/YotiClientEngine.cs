@@ -122,7 +122,7 @@ namespace Yoti.Auth
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
-                .PerformCheck(amlProfile, headers, apiUrl, endpoint, httpContent));
+                .PerformCheck(_httpRequester, amlProfile, headers, apiUrl, endpoint, httpContent));
 
             return result;
         }
