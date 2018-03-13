@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Aml;
 
 namespace Yoti.Auth.Tests
 {
@@ -174,6 +175,60 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual("phone_number0123456789", activityDetails.UserProfile.MobileNumber);
 
             Assert.AreEqual(new DateTime(1980, 1, 1), activityDetails.UserProfile.DateOfBirth);
+        }
+
+        [TestMethod]
+        public void YotiClientEngine_PerformAmlCheck()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = true,
+                    StatusCode = 200,
+                    Content = "{\"on_fraud_list\":false,\"on_pep_list\":true,\"on_watch_list\":false}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+            AmlProfile amlProfile = TestTools.CreateStandardAmlProfile();
+
+            AmlResult amlResult = engine.PerformAmlCheck(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+
+            Assert.IsNotNull(amlResult);
+            Assert.IsFalse(amlResult.IsOnFraudList());
+            Assert.IsTrue(amlResult.IsOnPepList());
+            Assert.IsFalse(amlResult.IsOnWatchList());
+        }
+
+        [TestMethod]
+        public async Task YotiClientEngine_PerformAmlCheckAsync()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = true,
+                    StatusCode = 200,
+                    Content = "{\"on_fraud_list\":true,\"on_pep_list\":false,\"on_watch_list\":false}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+            AmlProfile amlProfile = TestTools.CreateStandardAmlProfile();
+
+            AmlResult amlResult = await engine.PerformAmlCheckAsync(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+
+            Assert.IsNotNull(amlResult);
+            Assert.IsTrue(amlResult.IsOnFraudList());
+            Assert.IsFalse(amlResult.IsOnPepList());
+            Assert.IsFalse(amlResult.IsOnWatchList());
         }
     }
 }

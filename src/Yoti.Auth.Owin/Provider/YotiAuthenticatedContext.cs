@@ -35,7 +35,7 @@ namespace Yoti.Auth.Owin
         /// Contains the Yoti user profile
         /// </remarks>
         public YotiUserProfile User { get; private set; }
-        
+
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user
         /// </summary>

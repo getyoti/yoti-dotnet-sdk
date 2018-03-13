@@ -69,7 +69,7 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="amlProfile">An individual's name and address.</param>
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
-        public AmlResult PerformAmlCheck(AmlProfile amlProfile)
+        public AmlResult PerformAmlCheck(IAmlProfile amlProfile)
         {
             return _yotiClientEngine.PerformAmlCheck(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
         }
@@ -79,7 +79,7 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="amlProfile">An individual's name and address.</param>
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
-        public async Task<AmlResult> PerformAmlCheckAsync(AmlProfile amlProfile)
+        public async Task<AmlResult> PerformAmlCheckAsync(IAmlProfile amlProfile)
         {
             return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
         }

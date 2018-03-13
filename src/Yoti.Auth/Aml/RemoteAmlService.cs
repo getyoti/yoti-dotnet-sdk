@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Yoti.Auth.Aml
 {
-    internal class RemoteAmlService
+    internal class RemoteAmlService : IRemoteAmlService
     {
-        private readonly IHttpRequester _httpRequester = new HttpRequester();
-
-        public async Task<AmlResult> PerformCheck(IAmlProfile amlProfile, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
+        public async Task<AmlResult> PerformCheck(IHttpRequester httpRequester, IAmlProfile amlProfile, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
         {
             if (amlProfile == null)
                 throw new ArgumentNullException("amlProfile");
@@ -19,7 +17,7 @@ namespace Yoti.Auth.Aml
             {
                 HttpMethod httpMethod = HttpMethod.Post;
 
-                Response response = await _httpRequester.DoRequest(
+                Response response = await httpRequester.DoRequest(
                     new HttpClient(),
                     httpMethod,
                     new Uri(apiUrl + endpoint),

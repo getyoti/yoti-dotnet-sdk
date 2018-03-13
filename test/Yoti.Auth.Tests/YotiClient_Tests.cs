@@ -143,7 +143,7 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: null,
                 familyName: "Heath",
-                amlAddress: CreateStandardAmlAddress());
+                amlAddress: TestTools.CreateStandardAmlAddress());
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
@@ -164,7 +164,7 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: null,
-                amlAddress: CreateStandardAmlAddress());
+                amlAddress: TestTools.CreateStandardAmlAddress());
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
@@ -204,23 +204,6 @@ namespace Yoti.Auth.Tests
             var privateStreamKey = GetValidKeyStream();
 
             return new YotiClient(sdkId, privateStreamKey);
-        }
-
-        private static AmlAddress CreateStandardAmlAddress()
-        {
-            return new AmlAddress(
-               country: "GBR");
-        }
-
-        private static AmlProfile CreateStandardAmlProfile()
-        {
-            AmlAddress amlAddress = CreateStandardAmlAddress();
-
-            AmlProfile amlProfile = new AmlProfile(
-                givenNames: "Edward Richard George",
-                familyName: "Heath",
-                amlAddress: amlAddress);
-            return amlProfile;
         }
 
         private static bool IsExceptionInAggregateException<ExceptionToCheck>(YotiClient client, AggregateException aggregateException) where ExceptionToCheck : Exception

@@ -88,7 +88,7 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
-        public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, AmlProfile amlProfile)
+        public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(appId, keyPair, apiUrl, amlProfile));
 
@@ -100,7 +100,7 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
-        public async Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, AmlProfile amlProfile)
+        public async Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             if (apiUrl == null)
             {
@@ -122,7 +122,7 @@ namespace Yoti.Auth
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
-                .PerformCheck(amlProfile, headers, apiUrl, endpoint, httpContent));
+                .PerformCheck(_httpRequester, amlProfile, headers, apiUrl, endpoint, httpContent));
 
             return result;
         }
