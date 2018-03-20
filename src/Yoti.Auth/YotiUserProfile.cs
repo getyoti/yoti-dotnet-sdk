@@ -54,6 +54,11 @@ namespace Yoti.Auth
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
+        /// IsAgeVerified Did the user pass the age verification check? Returns True if they passed, False if they failed, and null if there was no check
+        /// </summary>
+        public bool? IsAgeVerified { get; set; }
+
+        /// <summary>
         /// Address represents the user's address. This will be null if not provided by Yoti
         /// </summary>
         public string Address { get; set; }

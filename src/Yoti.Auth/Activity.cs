@@ -125,8 +125,25 @@ namespace Yoti.Auth
                         break;
 
                     default:
-                        HandleOtherAttributes(profile, attribute, data);
-                        break;
+                        if (attribute.Name.StartsWith(YotiConstants.AttributeAgeOver)
+                            || attribute.Name.StartsWith(YotiConstants.AttributeAgeUnder))
+                        {
+                            bool parsed = Boolean.TryParse(Conversion.BytesToUtf8(data), out bool IsAgeVerified);
+
+                            if (!parsed)
+                                throw new FormatException(
+                                    String.Format(
+                                        "'{0}' value was unable to be parsed into a bool",
+                                        data));
+
+                            profile.IsAgeVerified = IsAgeVerified;
+                            break;
+                        }
+                        else
+                        {
+                            HandleOtherAttributes(profile, attribute, data);
+                            break;
+                        }
                 }
             }
         }

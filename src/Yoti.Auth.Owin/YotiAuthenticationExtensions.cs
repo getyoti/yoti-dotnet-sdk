@@ -141,12 +141,28 @@ namespace Yoti.Auth.Owin
                         break;
 
                     default:
-                        YotiAttributeValue.TypeEnum valueType;
-                        if (Enum.TryParse(claim.ValueType, out valueType))
+                        if (claim.Type.StartsWith(Constants.AttributeAgeOver)
+                            || claim.Type.StartsWith(Constants.AttributeAgeUnder))
                         {
-                            profile.OtherAttributes.Add(claim.Type, new YotiAttributeValue(valueType, claim.Value));
+                            bool parsed = Boolean.TryParse(claim.Value, out bool IsAgeVerified);
+
+                            if (!parsed)
+                                throw new FormatException(
+                                    String.Format(
+                                        "'{0}' value was unable to be parsed into a bool",
+                                        claim.Value));
+
+                            profile.IsAgeVerified = IsAgeVerified;
+                            break;
                         }
-                        break;
+                        else
+                        {
+                            if (Enum.TryParse(claim.ValueType, out YotiAttributeValue.TypeEnum valueType))
+                            {
+                                profile.OtherAttributes.Add(claim.Type, new YotiAttributeValue(valueType, claim.Value));
+                            }
+                            break;
+                        }
                 }
             }
             return profile;

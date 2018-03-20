@@ -56,10 +56,6 @@ namespace Example.Controllers
 
                     UpdateAttributesIfPresent(yotiProfile, user);
 
-                    //This key uses the  format: age_[over|under]:[1-999] and is dynamically
-                    //generated based on the dashboard attribute Age / Verify Condition
-                    user.IsAgeVerified = yotiProfile.OtherAttributes["age_over:18"].ToString();
-
                     UserManager.SaveUser(user);
 
                     var identity = new ClaimsIdentity(new[] {

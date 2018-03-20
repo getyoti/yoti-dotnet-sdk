@@ -100,7 +100,7 @@ namespace Yoti.Auth.Owin
                     context.Identity.AddClaim(new Claim("family_name", context.User.FamilyName, ClaimValueTypes.String, Options.AuthenticationType));
                 }
 
-                 if (!string.IsNullOrEmpty(context.User.FullName))
+                if (!string.IsNullOrEmpty(context.User.FullName))
                 {
                     context.Identity.AddClaim(new Claim("full_name", context.User.FullName, ClaimValueTypes.String, Options.AuthenticationType));
                 }
@@ -118,6 +118,11 @@ namespace Yoti.Auth.Owin
                 if (context.User.DateOfBirth != null)
                 {
                     context.Identity.AddClaim(new Claim("date_of_birth", context.User.DateOfBirth.Value.ToString("yyyy-MM-dd"), ClaimValueTypes.String, Options.AuthenticationType));
+                }
+
+                if (context.User.IsAgeVerified != null)
+                {
+                    context.Identity.AddClaim(new Claim("is_age_verified", context.User.IsAgeVerified.ToString(), ClaimValueTypes.String, Options.AuthenticationType));
                 }
 
                 if (!string.IsNullOrEmpty(context.User.Address))
