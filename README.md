@@ -132,6 +132,7 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
       string MobileNumber = profile.MobileNumber;
       string EmailAddress = profile.EmailAddress;
       DateTime? DateOfBirth = profile.DateOfBirth;
+	  bool? IsAgeVerified = profile.IsAgeVerified;
       string Address = profile.Address;
       string Gender = profile.Gender;
       string Nationality = profile.Nationality;
@@ -218,7 +219,7 @@ bool onWatchList = amlResult.IsOnWatchList();
     * [X] Mobile Number `MobileNumber`
     * [X] Email Address `EmailAddress`
     * [X] Age / Date of Birth `DateOfBirth`
-    * [X] Age / Verify Condition `age_[over|under]:[1-999]`
+    * [X] Age / Is Age Verified `IsAgeVerified`
     * [X] Postal Address `Address`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`
