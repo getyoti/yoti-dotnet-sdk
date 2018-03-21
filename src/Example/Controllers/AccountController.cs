@@ -11,11 +11,13 @@ namespace Example.Controllers
 {
     public class AccountController : Controller
     {
+        private string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
+
         public static byte[] PhotoBytes { get; set; }
 
         public ActionResult LogIn()
         {
-            ViewBag.YotiAppId = ConfigurationManager.AppSettings["Yoti.AppId"];
+            ViewBag.YotiAppId = _appId;
             return View();
         }
 
@@ -24,8 +26,8 @@ namespace Example.Controllers
         {
             try
             {
-                string sdkId = ConfigurationManager.AppSettings["Yoti.SdkId"];
-                var privateKeyStream = System.IO.File.OpenText(Server.MapPath("~/application-key.pem"));
+                string sdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
+                var privateKeyStream = System.IO.File.OpenText(ConfigurationManager.AppSettings["YOTI_KEY_FILE_PATH"]);
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
                 var activityDetails = yotiClient.GetActivityDetails(token);
@@ -103,13 +105,13 @@ namespace Example.Controllers
 
             authManager.SignOut("ApplicationCookie");
 
-            ViewBag.YotiAppId = ConfigurationManager.AppSettings["Yoti.AppId"];
+            ViewBag.YotiAppId = _appId;
             return View();
         }
 
         public ActionResult LoginFailure()
         {
-            ViewBag.YotiAppId = ConfigurationManager.AppSettings["Yoti.AppId"];
+            ViewBag.YotiAppId = _appId;
             return View();
         }
 
