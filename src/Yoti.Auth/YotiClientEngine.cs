@@ -12,7 +12,6 @@ namespace Yoti.Auth
     {
         private readonly IHttpRequester _httpRequester;
         private Activity _activity;
-        private RemoteAmlService _remoteAmlService = null;
 
         public YotiClientEngine(IHttpRequester httpRequester)
         {

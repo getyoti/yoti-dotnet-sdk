@@ -132,6 +132,7 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
       string MobileNumber = profile.MobileNumber;
       string EmailAddress = profile.EmailAddress;
       DateTime? DateOfBirth = profile.DateOfBirth;
+      bool? IsAgeVerified = profile.IsAgeVerified;
       string Address = profile.Address;
       string Gender = profile.Gender;
       string Nationality = profile.Nationality;
@@ -202,6 +203,8 @@ bool onWatchList = amlResult.IsOnWatchList();
 ## Running the Example
 
 1) Open the Example.sln solution in Visual Studio, found in the [/src](/src) folder
+1) Rename the [secrets.config.example](src/Example/secrets.config.example) file to `secrets.config`
+1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 1) Run the [Example.csproj](src/Example/Example.csproj) with your browser of choice
 1) The page should open automatically with URL `http://localhost:57045/Account/Login`
 
@@ -218,7 +221,7 @@ bool onWatchList = amlResult.IsOnWatchList();
     * [X] Mobile Number `MobileNumber`
     * [X] Email Address `EmailAddress`
     * [X] Age / Date of Birth `DateOfBirth`
-    * [X] Age / Verify Condition `age_[over|under]:[1-999]`
+    * [X] Age / Is Age Verified `IsAgeVerified`
     * [X] Postal Address `Address`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`

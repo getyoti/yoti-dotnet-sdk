@@ -14,5 +14,7 @@
         public static string SdkIdentifier = ".NET";
         public static string DefaultCharset = "UTF-8";
         public static string ContentTypeJson = "application/json";
+        public const string AttributeAgeOver = "age_over:";
+        public const string AttributeAgeUnder = "age_under:";
     }
 }

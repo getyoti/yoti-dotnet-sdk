@@ -4,6 +4,7 @@
 # User-specific files
 *.suo
 *.user
+secrets.config
 
 # Build results
 [Dd]ebug/
