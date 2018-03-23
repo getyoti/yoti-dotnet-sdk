@@ -31,6 +31,3 @@ Backup*/
 # SQL Server files
 *.mdf
 *.ldf
-
-#Static files
-wwwroot/

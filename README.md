@@ -201,14 +201,14 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) Open the Example.sln solution in Visual Studio, found in the [/src/Examples](/src/Examples) folder
 1) Rename the [secrets.config.example](src/Examples/45Example/secrets.config.example) file to `secrets.config`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
-1) Run the [Example.csproj](src/Examples/45Example/Example.csproj) with your browser of choice
+1) Run the [45Example.csproj](src/Examples/45Example/45Example.csproj) with your browser of choice
 1) The page should open automatically with URL `http://localhost:57045/Account/Login`
 
 ### .NET Core
 
 1) Download the .NET SDK for your operating system from step no.1 ([Windows](https://www.microsoft.com/net/learn/get-started/windows) | [Linux](https://www.microsoft.com/net/learn/get-started/linux/rhel) | [MacOS](https://www.microsoft.com/net/learn/get-started/macos))
 1) Navigate to the [/src/Examples/CoreExample](src/Examples/CoreExample) folder
-1) Rename the [env.example](src/Examples/CoreExample/env.example) file to `.env`
+1) Rename the [.env.example](src/Examples/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 1) Enter `dotnet run` into the terminal 
 1) Navigate to the page specified in the terminal window, which should be `http://localhost:53647`
