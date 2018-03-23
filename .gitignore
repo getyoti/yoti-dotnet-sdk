@@ -5,6 +5,7 @@
 *.suo
 *.user
 secrets.config
+.env
 
 # Build results
 [Dd]ebug/
@@ -30,3 +31,6 @@ Backup*/
 # SQL Server files
 *.mdf
 *.ldf
+
+#Static files
+wwwroot/
