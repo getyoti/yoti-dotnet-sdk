@@ -9,12 +9,6 @@ namespace Example.Controllers
         private string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
         public static byte[] PhotoBytes { get; set; }
 
-        public ActionResult LogIn()
-        {
-            ViewBag.YotiAppId = _appId;
-            return View();
-        }
-
         // GET: Account/Connect?token
         public ActionResult Connect(string token)
         {
@@ -41,7 +35,7 @@ namespace Example.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("LoginFailure");
+                    return RedirectToAction("LoginFailure", "Home");
                 }
             }
             catch (Exception e)
@@ -49,18 +43,6 @@ namespace Example.Controllers
                 ViewBag.Error = e.ToString();
                 return View();
             }
-        }
-
-        public ActionResult Logout()
-        {
-            ViewBag.YotiAppId = _appId;
-            return View();
-        }
-
-        public ActionResult LoginFailure()
-        {
-            ViewBag.YotiAppId = _appId;
-            return View();
         }
 
         public FileContentResult DownloadImageFile()

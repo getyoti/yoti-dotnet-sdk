@@ -74,7 +74,7 @@ namespace Example.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("LoginFailure");
+                    return RedirectToAction("LoginFailure", "Home");
                 }
             }
             catch (Exception e)
@@ -105,12 +105,6 @@ namespace Example.Controllers
 
             authManager.SignOut("ApplicationCookie");
 
-            ViewBag.YotiAppId = _appId;
-            return View();
-        }
-
-        public ActionResult LoginFailure()
-        {
             ViewBag.YotiAppId = _appId;
             return View();
         }
