@@ -16,6 +16,9 @@ secrets.config
 # Visual Studio 2015 cache/options directory
 .vs/
 
+# Static files built with bower
+bower_components/
+
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. 
 UpgradeLog*.htm
