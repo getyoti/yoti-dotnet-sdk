@@ -5,6 +5,7 @@
 *.suo
 *.user
 secrets.config
+.env
 
 # Build results
 [Dd]ebug/
@@ -14,6 +15,9 @@ secrets.config
 
 # Visual Studio 2015 cache/options directory
 .vs/
+
+# Static files in Core Example
+/src/Examples/CoreExample/wwwroot
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. 
