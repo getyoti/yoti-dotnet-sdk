@@ -1,8 +1,22 @@
 {
-  "name": "asp.net",
+  "name": "core-example",
+  "homepage": "https://github.com/getyoti/yoti-dotnet-sdk/",
+  "authors": [
+    "Edward Harrod"
+  ],
+  "description": "",
+  "main": "/Views/Home/Index.cshtml",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "bootstrap": "3.3.7",
     "jquery": "3.1.1"
-  }
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
