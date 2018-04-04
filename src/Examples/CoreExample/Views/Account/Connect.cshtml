@@ -1,4 +1,5 @@
 ﻿@{
+    ViewData["Title"] = "Connect";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Yoti.Auth.YotiUserProfile
@@ -18,9 +19,9 @@
                     {
                         <img src="@Model.Selfie.Base64URI" />
                         @Html.ActionLink(
-                                                     linkText: "Download Image",
-                                                     actionName: "DownloadImageFile",
-                                                     controllerName: "Account")
+                             linkText: "Download Image",
+                             actionName: "DownloadImageFile",
+                             controllerName: "Account")
                     }
                 }
             </div>
