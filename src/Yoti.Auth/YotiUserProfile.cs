@@ -64,6 +64,11 @@ namespace Yoti.Auth
         public string Address { get; set; }
 
         /// <summary>
+        /// Structured Postal Address represents the user's address represented as a dictionary. This will be null if not provided by Yoti
+        /// </summary>
+        public Dictionary<string, string> StructuredPostalAddress { get; set; }
+
+        /// <summary>
         /// Gender represents the user's gender. This will be null if not provided by Yoti
         /// </summary>
         public string Gender { get; set; }

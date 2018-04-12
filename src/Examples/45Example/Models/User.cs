@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Example.Models
 {
@@ -20,6 +21,7 @@ namespace Example.Models
         public DateTime? DateOfBirth { get; set; }
         public bool? IsAgeVerified { get; set; }
         public string Address { get; set; }
+        public Dictionary<string, string> StructuredPostalAddress { get; set; }
         public string Gender { get; set; }
         public string Nationality { get; set; }
     }

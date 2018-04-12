@@ -145,4 +145,20 @@
             </div>
         </div>
     }
+    @if (Model.StructuredPostalAddress != null)
+    {
+        <hr />
+        <header>Structured Postal Address:</header>
+        foreach (var item in Model.StructuredPostalAddress)
+        {
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    @item.Key
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    @item.Value
+                </div>
+            </div>
+        }
+    }
 </div>

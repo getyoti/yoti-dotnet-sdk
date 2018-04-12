@@ -41,7 +41,7 @@ namespace Example.Controllers
             catch (Exception e)
             {
                 ViewBag.Error = e.ToString();
-                return View();
+                return RedirectToAction("LoginFailure", "Home");
             }
         }
 
