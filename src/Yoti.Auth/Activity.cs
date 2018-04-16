@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using AttrpubapiV1;
 using Newtonsoft.Json;
@@ -114,6 +115,12 @@ namespace Yoti.Auth
 
                     case "postal_address":
                         profile.Address = Conversion.BytesToUtf8(data);
+                        break;
+
+                    case "structured_postal_address":
+                        string utf8json = Conversion.BytesToUtf8(data);
+                        Dictionary<string, string> deserializedPostalAddress = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(utf8json);
+                        profile.StructuredPostalAddress = deserializedPostalAddress;
                         break;
 
                     case "gender":

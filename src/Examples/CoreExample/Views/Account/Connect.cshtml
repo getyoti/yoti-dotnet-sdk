@@ -35,85 +35,131 @@
             @Html.DisplayFor(m => m.Id)
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Full Name:
+    @if (Model.FullName != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Full Name:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.FullName)
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.FullName)
+    }
+    @if (Model.GivenNames != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Given Names:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.GivenNames)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Given Names:
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.GivenNames)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Family Name:
-        </div>
+    }
+    @if (Model.FamilyName != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Family Name:
+            </div>
 
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.FamilyName)
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.FamilyName)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Mobile Number:
+    }
+    @if (Model.MobileNumber != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Mobile Number:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.MobileNumber)
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.MobileNumber)
+    }
+    @if (Model.EmailAddress != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Email Address:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.EmailAddress)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Email Address:
+    }
+    @if (Model.DateOfBirth != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Date of Birth:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.DateOfBirth)
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.EmailAddress)
+    }
+    @if (Model.IsAgeVerified != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Age Verified:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.IsAgeVerified)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Date of Birth:
+    }
+    @if (Model.Address != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Address:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.Address)
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.DateOfBirth)
+    }
+    @if (Model.Gender != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Gender:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.Gender)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Age Verified:
+    }
+    @if (Model.Nationality != null)
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                Nationality:
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @Html.DisplayFor(m => m.Nationality)
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.IsAgeVerified)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Address:
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.Address)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Gender:
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.Gender)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            Nationality:
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.Nationality)
-        </div>
-    </div>
+    }
+    @if (Model.StructuredPostalAddress != null)
+    {
+        <hr />
+        <header>Structured Postal Address:</header>
+        foreach (var item in Model.StructuredPostalAddress)
+        {
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    @item.Key
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    @item.Value
+                </div>
+            </div>
+        }
+    }
 </div>
