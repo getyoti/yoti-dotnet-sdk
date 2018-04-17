@@ -109,6 +109,7 @@ namespace Yoti.Auth
         /// <summary>
         /// StructuredPostalAddressAttribute represents the user's address represented as a dictionary. This will be null if not provided by Yoti
         /// </summary>
+        [IsJson]
         [ProtobufName("structured_postal_address")]
         public YotiAttribute<Dictionary<string, string>> StructuredPostalAddressAttribute { get; set; }
 
