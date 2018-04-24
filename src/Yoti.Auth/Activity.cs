@@ -13,7 +13,12 @@ namespace Yoti.Auth
 {
     internal class Activity
     {
-        private static YotiUserProfile _yotiUserProfile;
+        private YotiUserProfile _yotiUserProfile;
+
+        public Activity(YotiUserProfile yotiUserProfile)
+        {
+            _yotiUserProfile = yotiUserProfile;
+        }
 
         public ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
@@ -42,10 +47,7 @@ namespace Yoti.Auth
                     parsedResponse.receipt.other_party_profile_content,
                     keyPair);
 
-                _yotiUserProfile = new YotiUserProfile
-                {
-                    Id = parsedResponse.receipt.remember_me_id
-                };
+                _yotiUserProfile.Id = parsedResponse.receipt.remember_me_id;
 
                 AddAttributesToProfile(attributes);
 
@@ -57,7 +59,7 @@ namespace Yoti.Auth
             }
         }
 
-        private static void AddAttributesToProfile(AttributeList attributes)
+        private void AddAttributesToProfile(AttributeList attributes)
         {
             foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
             {
@@ -123,7 +125,7 @@ namespace Yoti.Auth
             }
         }
 
-        private static void SetStringAttribute(PropertyInfo propertyInfo, string value)
+        private void SetStringAttribute(PropertyInfo propertyInfo, string value)
         {
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Text, value);
             var yotiAttribute = new YotiAttribute<string>(propertyInfo.Name, yotiAttributeValue);
@@ -131,7 +133,7 @@ namespace Yoti.Auth
             propertyInfo.SetValue(_yotiUserProfile, yotiAttribute);
         }
 
-        private static void SetDateAttribute(PropertyInfo propertyInfo, byte[] value)
+        private void SetDateAttribute(PropertyInfo propertyInfo, byte[] value)
         {
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, value);
             var yotiAttribute = new YotiAttribute<DateTime?>(propertyInfo.Name, yotiAttributeValue);
