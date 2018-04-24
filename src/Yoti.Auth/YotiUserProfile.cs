@@ -97,7 +97,7 @@ namespace Yoti.Auth
         /// </summary>
         [IsJson]
         [ProtobufName("structured_postal_address")]
-        public YotiAttribute<Dictionary<string, string>> StructuredPostalAddressAttribute { get; set; }
+        public YotiAttribute<Dictionary<string, object>> StructuredPostalAddressAttribute { get; set; }
 
         [Obsolete("Gender is deprecated, please use GenderAttribute instead")]
         public string Gender { get; set; }
