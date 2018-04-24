@@ -169,12 +169,14 @@ namespace Yoti.Auth.Tests
             Assert.IsNotNull(activityDetails.UserProfile);
             Assert.AreEqual(remember_me_id, activityDetails.UserProfile.Id);
 
-            Assert.IsNotNull(activityDetails.UserProfile.Selfie);
-            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.UserProfile.Selfie.Data));
+            Assert.IsNotNull(activityDetails.UserProfile.SelfieAttribute);
 
-            Assert.AreEqual("phone_number0123456789", activityDetails.UserProfile.MobileNumber);
+            var selfieValue = (YotiAttributeValue)activityDetails.UserProfile.SelfieAttribute.GetValue();
+            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(selfieValue.ToBytes()));
 
-            Assert.AreEqual(new DateTime(1980, 1, 1), activityDetails.UserProfile.DateOfBirth);
+            Assert.AreEqual("phone_number0123456789", activityDetails.UserProfile.MobileNumberAttribute.GetStringValue());
+
+            Assert.AreEqual(new DateTime(1980, 1, 1), (DateTime)activityDetails.UserProfile.DateOfBirthAttribute.GetDateTimeValue());
         }
 
         [TestMethod]

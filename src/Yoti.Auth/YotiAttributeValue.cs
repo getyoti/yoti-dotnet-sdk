@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Yoti.Auth
 {
     public class YotiAttributeValue
     {
-        public enum TypeEnum { Text, Date, Jpeg, Png }
+        public enum TypeEnum { Text, Date, Jpeg, Png, Json }
 
         private readonly TypeEnum _type;
         private readonly byte[] _data;
@@ -48,15 +49,7 @@ namespace Yoti.Auth
 
         public override string ToString()
         {
-            switch (_type)
-            {
-                case TypeEnum.Jpeg:
-                case TypeEnum.Png:
-                    return Conversion.BytesToBase64(_data);
-
-                default:
-                    return Conversion.BytesToUtf8(_data);
-            }
+            return Conversion.BytesToUtf8(_data);
         }
 
         public DateTime? ToDate()
@@ -78,17 +71,24 @@ namespace Yoti.Auth
             }
         }
 
-        public string ToDataUrlString()
+        public string Base64Uri()
         {
             switch (_type)
             {
                 case TypeEnum.Jpeg:
-                    return "data:image/jpeg;base64," + ToString();
+                    return "data:image/jpeg;base64," + Conversion.BytesToBase64(_data);
                 case TypeEnum.Png:
-                    return "data:image/png;base64," + ToString();
+                    return "data:image/png;base64," + Conversion.BytesToBase64(_data);
                 default:
                     return null;
             }
+        }
+
+        public Dictionary<string, object> ToJson()
+        {
+            string utf8json = Conversion.BytesToUtf8(_data);
+            Dictionary<string, object> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(utf8json);
+            return deserializedJson;
         }
     }
 }

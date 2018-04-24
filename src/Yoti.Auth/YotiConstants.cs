@@ -16,5 +16,6 @@
         public static string ContentTypeJson = "application/json";
         public const string AttributeAgeOver = "age_over:";
         public const string AttributeAgeUnder = "age_under:";
+        public const string AttributeStructuredPostalAddress = "structured_postal_address";
     }
 }

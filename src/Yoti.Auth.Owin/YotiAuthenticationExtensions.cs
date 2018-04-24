@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth.Owin
 {
@@ -78,7 +79,7 @@ namespace Yoti.Auth.Owin
 
             var profile = new YotiUserProfile();
 
-            foreach(Claim claim in loginInfo.ExternalIdentity.Claims)
+            foreach (Claim claim in loginInfo.ExternalIdentity.Claims)
             {
                 switch (claim.Type)
                 {
@@ -87,7 +88,7 @@ namespace Yoti.Auth.Owin
                         break;
 
                     case "selfie":
-                        ImageType imageType;
+                        TypeEnum imageType;
                         if (Enum.TryParse(claim.ValueType, out imageType))
                         {
                             profile.Selfie = new Image

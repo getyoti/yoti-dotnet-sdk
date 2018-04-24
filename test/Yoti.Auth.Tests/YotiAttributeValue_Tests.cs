@@ -81,7 +81,7 @@ namespace Yoti.Auth.Tests
             string jpegString = "JpegData";
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, jpegString);
 
-            string outputString = yotiAttributeValue.ToDataUrlString();
+            string outputString = yotiAttributeValue.Base64Uri();
             string expectedString = String.Format("data:image/jpeg;base64,{0}", jpegString);
 
             Assert.AreEqual(expectedString, outputString);
@@ -93,7 +93,7 @@ namespace Yoti.Auth.Tests
             string pngString = "Png+Data";
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, pngString);
 
-            string outputString = yotiAttributeValue.ToDataUrlString();
+            string outputString = yotiAttributeValue.Base64Uri();
             string expectedString = String.Format("data:image/png;base64,{0}", pngString);
 
             Assert.AreEqual(expectedString, outputString);
@@ -105,7 +105,7 @@ namespace Yoti.Auth.Tests
             string dateString = "01/01/1985";
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, dateString);
 
-            string outputString = yotiAttributeValue.ToDataUrlString();
+            string outputString = yotiAttributeValue.Base64Uri();
 
             Assert.IsNull(outputString);
         }
@@ -116,7 +116,7 @@ namespace Yoti.Auth.Tests
             string textString = "textString";
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Text, textString);
 
-            string outputString = yotiAttributeValue.ToDataUrlString();
+            string outputString = yotiAttributeValue.Base64Uri();
 
             Assert.IsNull(outputString);
         }

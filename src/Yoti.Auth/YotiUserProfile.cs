@@ -6,22 +6,11 @@ namespace Yoti.Auth
     public class YotiUserProfile
     {
         /// <summary>
-        /// Creates a <see cref="YotiUserProfile" />
-        /// </summary>
-        public YotiUserProfile()
-        {
-            OtherAttributes = new Dictionary<string, YotiAttributeValue>(StringComparer.OrdinalIgnoreCase);
-        }
-
-        public List<YotiAttribute<object>> AttributeList;
-
-        [Obsolete("Id is deprecated, please use IdAttribute instead")]
-        public string Id { get; set; }
-
-        /// <summary>
         /// The unique identifier returned by Yoti.
         /// </summary>
-        public YotiAttribute<string> IdAttribute { get; set; }
+        public string Id { get; set; }
+
+        //public YotiAttribute<string> RememberMeIdAttribute { get; set; }
 
         [Obsolete("Selfie is deprecated, please use SelfieAttribute instead")]
         public Image Selfie { get; set; }
@@ -30,7 +19,7 @@ namespace Yoti.Auth
         /// SelfieAttribute is a photograph of the user. This will be null if not provided by Yoti
         /// </summary>
         [ProtobufName("selfie")]
-        public YotiAttribute<string> SelfieAttribute { get; set; }
+        public YotiAttribute<Image> SelfieAttribute { get; set; }
 
         [Obsolete("FullName is deprecated, please use FullNameAttribute instead")]
         public string FullName { get; set; }
@@ -86,13 +75,10 @@ namespace Yoti.Auth
         [ProtobufName("date_of_birth")]
         public YotiAttribute<DateTime?> DateOfBirthAttribute { get; set; }
 
-        [Obsolete("IsAgeVerified is deprecated, please use IsAgeVerifiedAttribute instead")]
-        public bool? IsAgeVerified { get; set; }
-
         /// <summary>
         /// IsAgeVerified Did the user pass the age verification check? Returns True if they passed, False if they failed, and null if there was no check
         /// </summary>
-        public YotiAttribute<bool?> IsAgeVerifiedAttribute { get; set; }
+        public bool? IsAgeVerified { get; set; }
 
         [Obsolete("Address is deprecated, please use AddressAttribute instead")]
         public string Address { get; set; }

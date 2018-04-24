@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Yoti.Auth
@@ -6,24 +7,24 @@ namespace Yoti.Auth
     public class YotiAttribute<T>
     {
         private readonly string _name;
-        private readonly Object _value;
-        private readonly string _sources;
-        private readonly string _verifiers;
+        private readonly YotiAttributeValue _value;
+        private readonly HashSet<string> _sources;
+        private readonly HashSet<string> _verifiers;
 
-        public YotiAttribute(string name, Object value)
+        public YotiAttribute(string name, YotiAttributeValue value)
         {
             _name = name;
             _value = value;
         }
 
-        public YotiAttribute(string name, Object value, string sources)
+        public YotiAttribute(string name, YotiAttributeValue value, HashSet<string> sources)
         {
             _name = name;
             _value = value;
             _sources = sources;
         }
 
-        public YotiAttribute(string name, Object value, string sources, string verifiers)
+        public YotiAttribute(string name, YotiAttributeValue value, HashSet<string> sources, HashSet<string> verifiers)
         {
             _name = name;
             _value = value;
@@ -38,9 +39,27 @@ namespace Yoti.Auth
 
         public object GetValue()
         {
-            Type type = _value.GetType();
+            return _value;
+        }
 
-            return type.IsAssignableFrom((Type)_value) ? (Type)_value : null;
+        public Image GetImageValue()
+        {
+            return new Image
+            {
+                Base64URI = _value.Base64Uri(),
+                Data = _value.ToBytes(),
+                Type = _value.Type
+            };
+        }
+
+        public string GetStringValue()
+        {
+            return _value.ToString();
+        }
+
+        public DateTime? GetDateTimeValue()
+        {
+            return _value.ToDate();
         }
 
         public object GetValueOrDefault(object defaultValue)
@@ -48,12 +67,12 @@ namespace Yoti.Auth
             return GetValue() ?? defaultValue;
         }
 
-        public string GetSources()
+        public HashSet<string> GetSources()
         {
             return _sources;
         }
 
-        public string GetVerifiers()
+        public HashSet<string> GetVerifiers()
         {
             return _verifiers;
         }
