@@ -64,10 +64,13 @@ namespace Yoti.Auth
             foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
             {
                 YotiAttribute<object> yotiAttribute = AttributeConverter.ConvertAttribute(attribute);
+                string stringValue = yotiAttribute.GetStringValue();
+                byte[] byteValue = Conversion.UtfToBytes(stringValue);
+
+                LegacyAddAttribute(attribute, byteValue);
 
                 PropertyInfo propertyInfo = GetProfilePropertyByProtobufName(yotiAttribute.GetName());
-                string stringValue = yotiAttribute.GetStringValue();
-                var byteValue = Conversion.UtfToBytes(stringValue);
+
                 switch (attribute.ContentType)
                 {
                     case ContentType.String:
@@ -122,6 +125,105 @@ namespace Yoti.Auth
                         HandleOtherAttributes(_yotiUserProfile, attribute, byteValue);
                         break;
                 }
+            }
+        }
+
+        private void LegacyAddAttribute(AttrpubapiV1.Attribute attribute, byte[] byteValue)
+        {
+            switch (attribute.Name)
+            {
+                case "selfie":
+
+                    switch (attribute.ContentType)
+                    {
+                        case ContentType.Jpeg:
+                            _yotiUserProfile.Selfie = new Image
+                            {
+                                Type = TypeEnum.Jpeg,
+                                Data = byteValue,
+                                Base64URI = "data:image/jpeg;base64," + Convert.ToBase64String(byteValue)
+                            };
+                            break;
+
+                        case ContentType.Png:
+                            _yotiUserProfile.Selfie = new Image
+                            {
+                                Type = TypeEnum.Png,
+                                Data = byteValue,
+                                Base64URI = "data:image/png;base64," + Convert.ToBase64String(byteValue)
+                            };
+                            break;
+                    }
+                    break;
+
+                case "given_names":
+                    _yotiUserProfile.GivenNames = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "family_name":
+                    _yotiUserProfile.FamilyName = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "full_name":
+                    _yotiUserProfile.FullName = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "phone_number":
+                    _yotiUserProfile.MobileNumber = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "email_address":
+                    _yotiUserProfile.EmailAddress = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "date_of_birth":
+                    {
+                        DateTime date;
+                        if (DateTime.TryParseExact(Conversion.BytesToUtf8(byteValue), "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                        {
+                            _yotiUserProfile.DateOfBirth = date;
+                        }
+                    }
+                    break;
+
+                case "postal_address":
+                    _yotiUserProfile.Address = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "structured_postal_address":
+                    string utf8json = Conversion.BytesToUtf8(byteValue);
+                    Dictionary<string, object> deserializedPostalAddress = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(utf8json);
+                    _yotiUserProfile.StructuredPostalAddress = deserializedPostalAddress;
+                    break;
+
+                case "gender":
+                    _yotiUserProfile.Gender = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                case "nationality":
+                    _yotiUserProfile.Nationality = Conversion.BytesToUtf8(byteValue);
+                    break;
+
+                default:
+                    if (attribute.Name.StartsWith(YotiConstants.AttributeAgeOver)
+                        || attribute.Name.StartsWith(YotiConstants.AttributeAgeUnder))
+                    {
+                        bool parsed = Boolean.TryParse(Conversion.BytesToUtf8(byteValue), out bool IsAgeVerified);
+
+                        if (!parsed)
+                            throw new FormatException(
+                                String.Format(
+                                    "'{0}' value was unable to be parsed into a bool",
+                                    byteValue));
+
+                        _yotiUserProfile.IsAgeVerified = IsAgeVerified;
+                        break;
+                    }
+                    else
+                    {
+                        HandleOtherAttributes(_yotiUserProfile, attribute, byteValue);
+                        break;
+                    }
             }
         }
 

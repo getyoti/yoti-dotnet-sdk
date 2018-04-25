@@ -90,7 +90,7 @@ namespace Yoti.Auth
         public YotiAttribute<string> AddressAttribute { get; set; }
 
         [Obsolete("StructuredPostalAddress is deprecated, please use StructuredPostalAddressAttribute instead")]
-        public Dictionary<string, string> StructuredPostalAddress { get; set; }
+        public Dictionary<string, object> StructuredPostalAddress { get; set; }
 
         /// <summary>
         /// StructuredPostalAddressAttribute represents the user's address represented as a dictionary. This will be null if not provided by Yoti
