@@ -10,8 +10,6 @@ namespace Yoti.Auth
         /// </summary>
         public string Id { get; set; }
 
-        //public YotiAttribute<string> RememberMeIdAttribute { get; set; }
-
         [Obsolete("Selfie is deprecated, please use SelfieAttribute instead")]
         public Image Selfie { get; set; }
 
@@ -75,10 +73,13 @@ namespace Yoti.Auth
         [ProtobufName("date_of_birth")]
         public YotiAttribute<DateTime?> DateOfBirthAttribute { get; set; }
 
+        [Obsolete("IsAgeVerified is deprecated, please use IsAgeVerifiedAttribute instead")]
+        public bool? IsAgeVerified { get; set; }
+
         /// <summary>
         /// IsAgeVerified Did the user pass the age verification check? Returns True if they passed, False if they failed, and null if there was no check
         /// </summary>
-        public bool? IsAgeVerified { get; set; }
+        public YotiAttribute<bool?> IsAgeVerifiedAttribute { get; set; }
 
         [Obsolete("Address is deprecated, please use AddressAttribute instead")]
         public string Address { get; set; }
