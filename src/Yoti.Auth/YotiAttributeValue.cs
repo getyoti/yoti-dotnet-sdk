@@ -71,19 +71,6 @@ namespace Yoti.Auth
             }
         }
 
-        public string Base64Uri()
-        {
-            switch (_type)
-            {
-                case TypeEnum.Jpeg:
-                    return "data:image/jpeg;base64," + Conversion.BytesToBase64(_data);
-                case TypeEnum.Png:
-                    return "data:image/png;base64," + Conversion.BytesToBase64(_data);
-                default:
-                    return null;
-            }
-        }
-
         public Dictionary<string, object> ToJson()
         {
             string utf8json = Conversion.BytesToUtf8(_data);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
 {
@@ -46,7 +47,7 @@ namespace Yoti.Auth
         {
             return new Image
             {
-                Base64URI = _value.Base64Uri(),
+                Base64URI = Base64Uri(),
                 Data = _value.ToBytes(),
                 Type = _value.Type
             };
@@ -75,6 +76,19 @@ namespace Yoti.Auth
         public HashSet<string> GetVerifiers()
         {
             return _verifiers;
+        }
+
+        public string Base64Uri()
+        {
+            switch (_value.Type)
+            {
+                case TypeEnum.Jpeg:
+                    return "data:image/jpeg;base64," + Conversion.BytesToBase64(_value.ToBytes());
+                case TypeEnum.Png:
+                    return "data:image/png;base64," + Conversion.BytesToBase64(_value.ToBytes());
+                default:
+                    return null;
+            }
         }
     }
 }
