@@ -19,12 +19,17 @@ namespace Yoti.Auth.Anchors
             foreach (ByteString byteString in anchor.OriginServerCerts)
             {
                 var extensions = new List<string>();
-
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
+                var anchorEnum = typeof(AnchorType);
 
-                foreach (AnchorType type in Enum.GetValues(typeof(AnchorType)))
+                foreach (AnchorType type in Enum.GetValues(anchorEnum))
                 {
-                    string extensionOid = type.GetType().GetTypeInfo().GetCustomAttribute(typeof(ExtensionOidAttribute)).ToString();
+                    var name = Enum.GetName(anchorEnum, type);
+                    string extensionOid = anchorEnum.GetRuntimeField(name)
+                        .GetCustomAttributes(inherit: false)
+                        .OfType<ExtensionOidAttribute>()
+                        .Single().ExtensionOid;
+
                     extensions = GetListOfStringsFromExtension(certificate, extensionOid);
 
                     if (extensions.Count() > 0)
@@ -43,32 +48,26 @@ namespace Yoti.Auth.Anchors
         {
             var extensionStrings = new List<string>();
 
-            byte[] extensionBytes = certificate.Extensions.OfType<X509Extension>().FirstOrDefault(ext => ext.Oid.ToString() == extensionOid).RawData;
+            X509Extension matchingExtension =
+                certificate.Extensions.OfType<X509Extension>()
+                .FirstOrDefault(ext => ext.Oid.Value == extensionOid);
 
-            if (extensionBytes != null)
+            if (matchingExtension != null)
             {
-                var asn1InputStream = new Asn1InputStream(extensionBytes);
+                byte[] extensionBytes = matchingExtension.RawData;
 
-                // Distinguished Encoding Rules (DER) object
-                Asn1Object derObject = asn1InputStream.ReadObject();
-
-                if (derObject != null && derObject is DerOctetString)
+                if (extensionBytes != null)
                 {
-                    var derOctetString = (DerOctetString)derObject;
+                    Asn1InputStream stream = new Asn1InputStream(extensionBytes);
 
-                    // Read the sub object which is expected to be a sequence
-                    Asn1InputStream derAsn1stream = new Asn1InputStream(derOctetString.GetOctets());
-                    Asn1Sequence asn1Sequence = (Asn1Sequence)derAsn1stream.ReadObject();
+                    DerSequence obj = (DerSequence)stream.ReadObject();
 
-                    // Enumerate all the objects in the sequence, we expect only one
-                    foreach (Asn1TaggedObject obj in asn1Sequence)
+                    foreach (var innerObj in obj)
                     {
-                        // This object is OctetString we are looking for
-                        Asn1OctetString octetString = DerOctetString.GetInstance(obj, isExplicit: false);
+                        Asn1TaggedObject seqObject = (Asn1TaggedObject)innerObj;
+                        Asn1OctetString octetString = Asn1OctetString.GetInstance(seqObject, isExplicit: false);
 
-                        // Convert to string
-                        string stringValue = Convert.ToString(octetString);
-                        extensionStrings.Add(stringValue);
+                        extensionStrings.Add(System.Text.Encoding.UTF8.GetString(octetString.GetOctets()));
                     }
                 }
             }
@@ -79,7 +78,6 @@ namespace Yoti.Auth.Anchors
         public class AnchorVerifierSourceData
         {
             private readonly HashSet<string> _entries;
-
             private readonly AnchorType _type;
 
             public AnchorVerifierSourceData(HashSet<string> entries, AnchorType anchorType)
@@ -97,58 +95,6 @@ namespace Yoti.Auth.Anchors
             {
                 return _type;
             }
-        }
-
-        public static Asn1Object FindAsn1Value(string oid, Asn1Object obj)
-        {
-            Asn1Object result = null;
-            if (obj is Asn1Sequence)
-            {
-                bool foundOID = false;
-                foreach (Asn1Object entry in (Asn1Sequence)obj)
-                {
-                    var derOID = entry as DerObjectIdentifier;
-                    if (derOID != null && derOID.Id == oid)
-                    {
-                        foundOID = true;
-                    }
-                    else if (foundOID)
-                    {
-                        return entry;
-                    }
-                    else
-                    {
-                        result = FindAsn1Value(oid, entry);
-                        if (result != null)
-                        {
-                            return result;
-                        }
-                    }
-                }
-            }
-            else if (obj is DerTaggedObject)
-            {
-                result = FindAsn1Value(oid, ((DerTaggedObject)obj).GetObject());
-                if (result != null)
-                {
-                    return result;
-                }
-            }
-            else
-            {
-                if (obj is DerSet)
-                {
-                    foreach (Asn1Object entry in (DerSet)obj)
-                    {
-                        result = FindAsn1Value(oid, entry);
-                        if (result != null)
-                        {
-                            return result;
-                        }
-                    }
-                }
-            }
-            return null;
         }
     }
 }
