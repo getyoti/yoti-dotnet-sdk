@@ -10,7 +10,7 @@ namespace Yoti.Auth
         /// </summary>
         public string Id { get; set; }
 
-        [Obsolete("Selfie is deprecated, please use SelfieAttribute instead")]
+        [Obsolete("Please use SelfieAttribute instead")]
         public Image Selfie { get; set; }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace Yoti.Auth
         [ProtobufName("selfie")]
         public YotiAttribute<Image> SelfieAttribute { get; set; }
 
-        [Obsolete("FullName is deprecated, please use FullNameAttribute instead")]
+        [Obsolete("Please use FullNameAttribute instead")]
         public string FullName { get; set; }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Yoti.Auth
         [ProtobufName("full_name")]
         public YotiAttribute<string> FullNameAttribute { get; set; }
 
-        [Obsolete("GivenNames is deprecated, please use GivenNamesAttribute instead")]
+        [Obsolete("Please use GivenNamesAttribute instead")]
         public string GivenNames { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Yoti.Auth
         [ProtobufName("given_names")]
         public YotiAttribute<string> GivenNamesAttribute { get; set; }
 
-        [Obsolete("FamilyName is deprecated, please use FamilyNameAttribute instead")]
+        [Obsolete("Please use FamilyNameAttribute instead")]
         public string FamilyName { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Yoti.Auth
         [ProtobufName("family_name")]
         public YotiAttribute<string> FamilyNameAttribute { get; set; }
 
-        [Obsolete("MobileNumber is deprecated, please use MobileNumberAttribute instead")]
+        [Obsolete("Please use MobileNumberAttribute instead")]
         public string MobileNumber { get; set; }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Yoti.Auth
         [ProtobufName("phone_number")]
         public YotiAttribute<string> MobileNumberAttribute { get; set; }
 
-        [Obsolete("EmailAddress is deprecated, please use EmailAddressAttribute instead")]
+        [Obsolete("Please use EmailAddressAttribute instead")]
         public string EmailAddress { get; set; }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Yoti.Auth
         [ProtobufName("email_address")]
         public YotiAttribute<string> EmailAddressAttribute { get; set; }
 
-        [Obsolete("DateOfBirth is deprecated, please use DateOfBirthAttribute instead")]
+        [Obsolete("Please use DateOfBirthAttribute instead")]
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Yoti.Auth
         [ProtobufName("date_of_birth")]
         public YotiAttribute<DateTime?> DateOfBirthAttribute { get; set; }
 
-        [Obsolete("IsAgeVerified is deprecated, please use IsAgeVerifiedAttribute instead")]
+        [Obsolete("Please use IsAgeVerifiedAttribute instead")]
         public bool? IsAgeVerified { get; set; }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Yoti.Auth
         /// </summary>
         public YotiAttribute<bool?> IsAgeVerifiedAttribute { get; set; }
 
-        [Obsolete("Address is deprecated, please use AddressAttribute instead")]
+        [Obsolete("Please use AddressAttribute instead")]
         public string Address { get; set; }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Yoti.Auth
         [ProtobufName("postal_address")]
         public YotiAttribute<string> AddressAttribute { get; set; }
 
-        [Obsolete("StructuredPostalAddress is deprecated, please use StructuredPostalAddressAttribute instead")]
+        [Obsolete("Please use StructuredPostalAddressAttribute instead")]
         public Dictionary<string, object> StructuredPostalAddress { get; set; }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Yoti.Auth
         [ProtobufName("structured_postal_address")]
         public YotiAttribute<Dictionary<string, object>> StructuredPostalAddressAttribute { get; set; }
 
-        [Obsolete("Gender is deprecated, please use GenderAttribute instead")]
+        [Obsolete("Please use GenderAttribute instead")]
         public string Gender { get; set; }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Yoti.Auth
         [ProtobufName("gender")]
         public YotiAttribute<string> GenderAttribute { get; set; }
 
-        [Obsolete("Nationality is deprecated, please use NationalityAttribute instead")]
+        [Obsolete("Please use NationalityAttribute instead")]
         public string Nationality { get; set; }
 
         /// <summary>
