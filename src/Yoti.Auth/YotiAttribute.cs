@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
@@ -47,7 +46,7 @@ namespace Yoti.Auth
         {
             return new Image
             {
-                Base64URI = Base64Uri(),
+                Base64URI = Base64URI,
                 Data = _value.ToBytes(),
                 Type = _value.Type
             };
@@ -56,6 +55,11 @@ namespace Yoti.Auth
         public string GetStringValue()
         {
             return _value.ToString();
+        }
+
+        public byte[] GetByteValue()
+        {
+            return _value.ToBytes();
         }
 
         public DateTime? GetDateTimeValue()
@@ -78,16 +82,20 @@ namespace Yoti.Auth
             return _verifiers;
         }
 
-        public string Base64Uri()
+        public string Base64URI
         {
-            switch (_value.Type)
+            get
             {
-                case TypeEnum.Jpeg:
-                    return "data:image/jpeg;base64," + Conversion.BytesToBase64(_value.ToBytes());
-                case TypeEnum.Png:
-                    return "data:image/png;base64," + Conversion.BytesToBase64(_value.ToBytes());
-                default:
-                    return null;
+                switch (_value.Type)
+
+                {
+                    case TypeEnum.Jpeg:
+                        return "data:image/jpeg;base64," + Conversion.BytesToBase64(_value.ToBytes());
+                    case TypeEnum.Png:
+                        return "data:image/png;base64," + Conversion.BytesToBase64(_value.ToBytes());
+                    default:
+                        return null;
+                }
             }
         }
     }

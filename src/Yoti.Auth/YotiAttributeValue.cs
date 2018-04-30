@@ -6,7 +6,7 @@ namespace Yoti.Auth
 {
     public class YotiAttributeValue
     {
-        public enum TypeEnum { Text, Date, Jpeg, Png, Json }
+        public enum TypeEnum { Text, Date, Jpeg, Png, Json, Bool }
 
         private readonly TypeEnum _type;
         private readonly byte[] _data;

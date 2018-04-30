@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using System.Web;
@@ -33,22 +36,22 @@ namespace Example.Controllers
                 var activityDetails = yotiClient.GetActivityDetails(token);
                 if (activityDetails.Outcome == ActivityOutcome.Success)
                 {
-                    var yotiProfile = activityDetails.UserProfile;
+                    var profile = activityDetails.Profile;
 
-                    User user = UserManager.GetUserByYotiId(yotiProfile.Id);
+                    User user = UserManager.GetUserByYotiId(profile.Id);
 
                     if (user == null)
                     {
                         user = new User
                         {
-                            YotiId = yotiProfile.Id
+                            YotiId = profile.Id
                         };
                     }
 
-                    if (yotiProfile.Selfie != null)
+                    if (profile.Selfie != null)
                     {
-                        user.Base64Photo = yotiProfile.Selfie.Base64URI;
-                        user.Photo = yotiProfile.Selfie.Data;
+                        user.Base64Photo = profile.Selfie.Base64URI;
+                        user.Photo = profile.Selfie.GetByteValue();
                         PhotoBytes = user.Photo;
                     }
                     else
@@ -56,7 +59,15 @@ namespace Example.Controllers
                         ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
                     }
 
-                    UpdateAttributesIfPresent(yotiProfile, user);
+                    UpdateAttributesIfPresent(profile, user);
+
+                    if (user.StructuredPostalAddress != null)
+                    {
+                        IDictionary dictionary = (IDictionary)user.StructuredPostalAddress;
+                        user.StandardStructuredPostalAddress = CastDict(dictionary)
+                                                                   .ToDictionary(entry => (string)entry.Key,
+                                                                                 entry => entry.Value);
+                    }
 
                     UserManager.SaveUser(user);
 
@@ -84,7 +95,7 @@ namespace Example.Controllers
             }
         }
 
-        private static void UpdateAttributesIfPresent(YotiUserProfile yotiProfile, User user)
+        private static void UpdateAttributesIfPresent(YotiProfile yotiProfile, User user)
         {
             Type userType = user.GetType();
             foreach (PropertyInfo yotiProfileProperty in yotiProfile.GetType().GetProperties())
@@ -115,6 +126,14 @@ namespace Example.Controllers
                 throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
 
             return File(PhotoBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
+        }
+
+        private IEnumerable<DictionaryEntry> CastDict(IDictionary dictionary)
+        {
+            foreach (DictionaryEntry entry in dictionary)
+            {
+                yield return entry;
+            }
         }
     }
 }

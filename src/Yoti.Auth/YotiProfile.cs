@@ -3,93 +3,85 @@ using System.Collections.Generic;
 
 namespace Yoti.Auth
 {
-    [Obsolete("Please use YotiProfile instead")]
-    public class YotiUserProfile
+    public class YotiProfile
     {
-        /// <summary>
-        /// Creates a <see cref="YotiUserProfile" />
-        /// </summary>
-        public YotiUserProfile()
-        {
-            OtherAttributes = new Dictionary<string, YotiAttributeValue>(StringComparer.OrdinalIgnoreCase);
-        }
-
         /// <summary>
         /// The unique identifier returned by Yoti.
         /// </summary>
         public string Id { get; set; }
 
-        [Obsolete("Please use SelfieAttribute instead")]
         /// <summary>
         /// Selfie is a photograph of the user. This will be null if not provided by Yoti
         /// </summary>
-        public Image Selfie { get; set; }
+        [ProtobufName("selfie")]
+        public YotiAttribute<Image> Selfie { get; set; }
 
         /// <summary>
         /// FullName represents the user's full name. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use FullNameAttribute instead")]
-        public string FullName { get; set; }
+        [ProtobufName("full_name")]
+        public YotiAttribute<string> FullName { get; set; }
 
         /// <summary>
         // GivenNames represents the user's given names. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use GivenNamesAttribute instead")]
-        public string GivenNames { get; set; }
+        [ProtobufName("given_names")]
+        public YotiAttribute<string> GivenNames { get; set; }
 
         /// <summary>
-        /// Family represents the user's family name. This will be null if not provided by Yoti
+        /// FamilyName represents the user's family name. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use FamilyNameAttribute instead")]
-        public string FamilyName { get; set; }
+        [ProtobufName("family_name")]
+        public YotiAttribute<string> FamilyName { get; set; }
 
         /// <summary>
         /// MobileNumber represents the user's mobile phone number. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use MobileNumberAttribute instead")]
-        public string MobileNumber { get; set; }
+        [ProtobufName("phone_number")]
+        public YotiAttribute<string> MobileNumber { get; set; }
 
         /// <summary>
         /// EmailAddress represents the user's email address. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use EmailAddressAttribute instead")]
-        public string EmailAddress { get; set; }
+        [ProtobufName("email_address")]
+        public YotiAttribute<string> EmailAddress { get; set; }
 
         /// <summary>
         /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use DateOfBirthAttribute instead")]
-        public DateTime? DateOfBirth { get; set; }
+        [ProtobufName("date_of_birth")]
+        public YotiAttribute<DateTime?> DateOfBirth { get; set; }
 
         /// <summary>
         /// IsAgeVerified Did the user pass the age verification check? Returns True if they passed, False if they failed, and null if there was no check
         /// </summary>
-        [Obsolete("Please use IsAgeVerifiedAttribute instead")]
-        public bool? IsAgeVerified { get; set; }
+        [ProtobufName("age_over:")]
+        public YotiAttribute<bool?> IsAgeVerified { get; set; }
 
         /// <summary>
         /// Address represents the user's address. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use AddressAttribute instead")]
-        public string Address { get; set; }
+        [ProtobufName("postal_address")]
+        public YotiAttribute<string> Address { get; set; }
 
         /// <summary>
-        /// Structured Postal Address represents the user's address represented as a dictionary. This will be null if not provided by Yoti
+        /// StructuredPostalAddress represents the user's address represented as a dictionary. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use StructuredPostalAddressAttribute instead")]
-        public Dictionary<string, object> StructuredPostalAddress { get; set; }
+        [IsJson]
+        [ProtobufName("structured_postal_address")]
+        public YotiAttribute<Dictionary<string, object>> StructuredPostalAddress { get; set; }
 
         /// <summary>
         /// Gender represents the user's gender. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use GenderAttribute instead")]
-        public string Gender { get; set; }
+        [ProtobufName("gender")]
+        public YotiAttribute<string> Gender { get; set; }
 
         /// <summary>
         /// Nationality represents the user's nationality. This will be null if not provided by Yoti
         /// </summary>
-        [Obsolete("Please use NationalityAttribute instead")]
-        public string Nationality { get; set; }
+        [ProtobufName("nationality")]
+        public YotiAttribute<string> Nationality { get; set; }
 
         /// <summary>
         /// Other profile data returned by Yoti.

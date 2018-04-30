@@ -167,16 +167,25 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(ActivityOutcome.Success, activityDetails.Outcome);
 
             Assert.IsNotNull(activityDetails.UserProfile);
+            Assert.IsNotNull(activityDetails.Profile);
+
             Assert.AreEqual(remember_me_id, activityDetails.UserProfile.Id);
+            Assert.AreEqual(remember_me_id, activityDetails.Profile.Id);
 
-            Assert.IsNotNull(activityDetails.UserProfile.SelfieAttribute);
+            Assert.IsNotNull(activityDetails.UserProfile.Selfie);
+            Assert.IsNotNull(activityDetails.Profile.Selfie);
 
-            var selfieValue = (YotiAttributeValue)activityDetails.UserProfile.SelfieAttribute.GetValue();
+            Assert.IsNotNull(activityDetails.UserProfile.Selfie);
+            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.UserProfile.Selfie.Data));
+
+            var selfieValue = (YotiAttributeValue)activityDetails.Profile.Selfie.GetValue();
             Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(selfieValue.ToBytes()));
 
-            Assert.AreEqual("phone_number0123456789", activityDetails.UserProfile.MobileNumberAttribute.GetStringValue());
+            Assert.AreEqual("phone_number0123456789", activityDetails.UserProfile.MobileNumber);
+            Assert.AreEqual("phone_number0123456789", activityDetails.Profile.MobileNumber.GetStringValue());
 
-            Assert.AreEqual(new DateTime(1980, 1, 1), (DateTime)activityDetails.UserProfile.DateOfBirthAttribute.GetDateTimeValue());
+            Assert.AreEqual(new DateTime(1980, 1, 1), activityDetails.UserProfile.DateOfBirth);
+            Assert.AreEqual(new DateTime(1980, 1, 1), (DateTime)activityDetails.Profile.DateOfBirth.GetDateTimeValue());
         }
 
         [TestMethod]

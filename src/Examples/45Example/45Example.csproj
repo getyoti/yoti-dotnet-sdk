@@ -183,6 +183,10 @@
     <Compile Include="Migrations\201803201224320_IsAgeVerifiedConversion.Designer.cs">
       <DependentUpon>201803201224320_IsAgeVerifiedConversion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804271424107_YotiAttribute.cs" />
+    <Compile Include="Migrations\201804271424107_YotiAttribute.Designer.cs">
+      <DependentUpon>201804271424107_YotiAttribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Data\UserManager.cs" />
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803201224320_IsAgeVerifiedConversion.resx">
       <DependentUpon>201803201224320_IsAgeVerifiedConversion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271424107_YotiAttribute.resx">
+      <DependentUpon>201804271424107_YotiAttribute.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

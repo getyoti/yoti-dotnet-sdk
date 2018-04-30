@@ -28,10 +28,10 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-12">
-            ID:
+            Yoti ID:
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.Id)
+            @Html.DisplayFor(m => m.YotiId)
         </div>
     </div>
     @if (Model.FullName != null)
@@ -41,7 +41,10 @@
                 Full Name:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.FullName)
+                @{
+                    string fullName = Model.FullName.GetStringValue();
+                    @Html.DisplayFor(m => fullName);
+                }
             </div>
         </div>
     }
@@ -52,7 +55,10 @@
                 Given Names:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.GivenNames)
+                @{
+                    string givenNames = Model.GivenNames.GetStringValue();
+                    @Html.DisplayFor(m => givenNames);
+                }
             </div>
         </div>
     }
@@ -64,7 +70,10 @@
             </div>
 
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.FamilyName)
+                @{
+                    string familyName = Model.FamilyName.GetStringValue();
+                    @Html.DisplayFor(m => familyName);
+                }
             </div>
         </div>
     }
@@ -75,7 +84,10 @@
                 Mobile Number:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.MobileNumber)
+                @{
+                    string mobileNumber = Model.MobileNumber.GetStringValue();
+                    @Html.DisplayFor(m => mobileNumber);
+                }
             </div>
         </div>
     }
@@ -86,7 +98,10 @@
                 Email Address:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.EmailAddress)
+                @{
+                    string emailAddress = Model.EmailAddress.GetStringValue();
+                    @Html.DisplayFor(m => emailAddress);
+                }
             </div>
         </div>
     }
@@ -97,7 +112,10 @@
                 Date of Birth:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.DateOfBirth)
+                @{
+                    DateTime? dateOfBirth = Model.DateOfBirth.GetDateTimeValue();
+                    @Html.DisplayFor(m => dateOfBirth);
+                }
             </div>
         </div>
     }
@@ -108,7 +126,10 @@
                 Age Verified:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.IsAgeVerified)
+                @{
+                    string isAgeVerified = Model.IsAgeVerified.GetStringValue();
+                    @Html.DisplayFor(m => isAgeVerified);
+                }
             </div>
         </div>
     }
@@ -119,7 +140,10 @@
                 Address:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.Address)
+                @{
+                    string address = Model.Address.GetStringValue();
+                    @Html.DisplayFor(m => address);
+                }
             </div>
         </div>
     }
@@ -130,7 +154,10 @@
                 Gender:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.Gender)
+                @{
+                    string gender = Model.Gender.GetStringValue();
+                    @Html.DisplayFor(m => gender);
+                }
             </div>
         </div>
     }
@@ -141,7 +168,10 @@
                 Nationality:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.Nationality)
+                @{
+                    string nationality = Model.Nationality.GetStringValue();
+                    @Html.DisplayFor(m => nationality);
+                }
             </div>
         </div>
     }

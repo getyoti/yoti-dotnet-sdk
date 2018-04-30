@@ -14,10 +14,12 @@ namespace Yoti.Auth
     internal class Activity
     {
         private YotiUserProfile _yotiUserProfile;
+        private YotiProfile _yotiProfile;
 
-        public Activity(YotiUserProfile yotiUserProfile)
+        public Activity(YotiProfile yotiProfile)
         {
-            _yotiUserProfile = yotiUserProfile;
+            _yotiUserProfile = new YotiUserProfile();
+            _yotiProfile = yotiProfile;
         }
 
         public ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
@@ -48,13 +50,15 @@ namespace Yoti.Auth
                     keyPair);
 
                 _yotiUserProfile.Id = parsedResponse.receipt.remember_me_id;
+                _yotiProfile.Id = parsedResponse.receipt.remember_me_id;
 
                 AddAttributesToProfile(attributes);
 
                 return new ActivityDetails
                 {
                     Outcome = ActivityOutcome.Success,
-                    UserProfile = _yotiUserProfile
+                    UserProfile = _yotiUserProfile,
+                    Profile = _yotiProfile
                 };
             }
         }
@@ -65,7 +69,7 @@ namespace Yoti.Auth
             {
                 YotiAttribute<object> yotiAttribute = AttributeConverter.ConvertAttribute(attribute);
                 string stringValue = yotiAttribute.GetStringValue();
-                byte[] byteValue = Conversion.UtfToBytes(stringValue);
+                byte[] byteValue = attribute.Value.ToByteArray();
 
                 LegacyAddAttribute(attribute, byteValue);
 
@@ -80,7 +84,7 @@ namespace Yoti.Auth
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
                             var structuredPostalAddressAttribute = new YotiAttribute<Dictionary<string, object>>(YotiConstants.AttributeStructuredPostalAddress, structuredPostalAddressAttributeValue);
 
-                            _yotiUserProfile.StructuredPostalAddressAttribute = structuredPostalAddressAttribute;
+                            _yotiProfile.StructuredPostalAddress = structuredPostalAddressAttribute;
                             break;
                         }
 
@@ -95,7 +99,9 @@ namespace Yoti.Auth
                                         "'{0}' byte value was unable to be parsed into a bool",
                                         byteValue));
 
-                            _yotiUserProfile.IsAgeVerified = IsAgeVerified;
+                            var isAgeVerifiedAttributeValue = new YotiAttributeValue(TypeEnum.Bool, byteValue);
+                            _yotiProfile.IsAgeVerified = new YotiAttribute<bool?>(propertyInfo.Name, isAgeVerifiedAttributeValue);
+
                             break;
                         }
 
@@ -104,12 +110,12 @@ namespace Yoti.Auth
 
                     case ContentType.Jpeg:
                         var jpegYotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, byteValue);
-                        _yotiUserProfile.SelfieAttribute = new YotiAttribute<Image>(propertyInfo.Name, jpegYotiAttributeValue);
+                        _yotiProfile.Selfie = new YotiAttribute<Image>(propertyInfo.Name, jpegYotiAttributeValue);
                         break;
 
                     case ContentType.Png:
                         var pngYotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, byteValue);
-                        _yotiUserProfile.SelfieAttribute = new YotiAttribute<Image>(propertyInfo.Name, pngYotiAttributeValue);
+                        _yotiProfile.Selfie = new YotiAttribute<Image>(propertyInfo.Name, pngYotiAttributeValue);
                         break;
 
                     case ContentType.Date:
@@ -122,7 +128,7 @@ namespace Yoti.Auth
                         break;
 
                     default:
-                        HandleOtherAttributes(_yotiUserProfile, attribute, byteValue);
+                        HandleOtherAttributes(_yotiProfile, attribute, byteValue);
                         break;
                 }
             }
@@ -232,7 +238,7 @@ namespace Yoti.Auth
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Text, value);
             var yotiAttribute = new YotiAttribute<string>(propertyInfo.Name, yotiAttributeValue);
 
-            propertyInfo.SetValue(_yotiUserProfile, yotiAttribute);
+            propertyInfo.SetValue(_yotiProfile, yotiAttribute);
         }
 
         private void SetDateAttribute(PropertyInfo propertyInfo, byte[] value)
@@ -240,20 +246,26 @@ namespace Yoti.Auth
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, value);
             var yotiAttribute = new YotiAttribute<DateTime?>(propertyInfo.Name, yotiAttributeValue);
 
-            propertyInfo.SetValue(_yotiUserProfile, yotiAttribute);
+            propertyInfo.SetValue(_yotiProfile, yotiAttribute);
         }
 
         private static PropertyInfo GetProfilePropertyByProtobufName(string protobufName)
         {
             IEnumerable<PropertyInfo> propertiesWithProtobufNameAttribute =
-                typeof(YotiUserProfile).GetTypeInfo().DeclaredProperties.Where(
+                typeof(YotiProfile).GetTypeInfo().DeclaredProperties.Where(
                     p => p.GetCustomAttribute(typeof(ProtobufNameAttribute)) != null);
 
             IEnumerable<PropertyInfo> matchingProperties = propertiesWithProtobufNameAttribute.Where(
                 prop => prop.GetCustomAttribute<ProtobufNameAttribute>().ProtobufName == protobufName);
 
-            if (matchingProperties == null)
+            if (matchingProperties.Count() == 0)
             {
+                IEnumerable<PropertyInfo> matchingAgeOverAttribute = propertiesWithProtobufNameAttribute.Where(
+                prop => protobufName.StartsWith(prop.GetCustomAttribute<ProtobufNameAttribute>().ProtobufName));
+
+                if (matchingAgeOverAttribute.Count() == 1)
+                    return matchingAgeOverAttribute.Single();
+
                 throw new InvalidOperationException(
                     string.Format(
                         "No matching attribute found for Protobuf name '{0}'",
@@ -269,6 +281,43 @@ namespace Yoti.Auth
             }
 
             return matchingProperties.Single();
+        }
+
+        private static void HandleOtherAttributes(YotiProfile profile, AttrpubapiV1.Attribute attribute, byte[] data)
+        {
+            switch (attribute.ContentType)
+            {
+                case ContentType.Date:
+                    profile.OtherAttributes.Add(
+                        attribute.Name,
+                        new YotiAttributeValue(TypeEnum.Date, data));
+                    break;
+
+                case ContentType.String:
+                    profile.OtherAttributes.Add(
+                        attribute.Name,
+                        new YotiAttributeValue(TypeEnum.Text, data));
+                    break;
+
+                case ContentType.Jpeg:
+                    profile.OtherAttributes.Add(
+                        attribute.Name,
+                        new YotiAttributeValue(TypeEnum.Jpeg, data));
+                    break;
+
+                case ContentType.Png:
+                    profile.OtherAttributes.Add(
+                        attribute.Name,
+                        new YotiAttributeValue(TypeEnum.Png, data));
+                    break;
+
+                case ContentType.Undefined:
+                    // do not return attributes with undefined content types
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private static void HandleOtherAttributes(YotiUserProfile profile, AttrpubapiV1.Attribute attribute, byte[] data)
