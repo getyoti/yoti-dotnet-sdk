@@ -16,9 +16,9 @@ namespace Yoti.Auth
         private YotiUserProfile _yotiUserProfile;
         private YotiProfile _yotiProfile;
 
-        public Activity(YotiProfile yotiProfile)
+        public Activity(YotiProfile yotiProfile, YotiUserProfile yotiUserProfile)
         {
-            _yotiUserProfile = new YotiUserProfile();
+            _yotiUserProfile = yotiUserProfile;
             _yotiProfile = yotiProfile;
         }
 
@@ -63,17 +63,30 @@ namespace Yoti.Auth
             }
         }
 
-        private void AddAttributesToProfile(AttributeList attributes)
+        internal void AddAttributesToProfile(AttributeList attributes)
         {
             foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
             {
                 YotiAttribute<object> yotiAttribute = AttributeConverter.ConvertAttribute(attribute);
-                string stringValue = yotiAttribute.GetStringValue();
                 byte[] byteValue = attribute.Value.ToByteArray();
+
+                if (yotiAttribute == null)
+                {
+                    HandleOtherAttributes(_yotiProfile, attribute, byteValue);
+                    return;
+                }
+
+                string stringValue = yotiAttribute.GetStringValue();
 
                 LegacyAddAttribute(attribute, byteValue);
 
                 PropertyInfo propertyInfo = GetProfilePropertyByProtobufName(yotiAttribute.GetName());
+
+                if (propertyInfo == null)
+                {
+                    HandleOtherAttributes(_yotiProfile, attribute, byteValue);
+                    return;
+                }
 
                 switch (attribute.ContentType)
                 {
@@ -260,16 +273,15 @@ namespace Yoti.Auth
 
             if (matchingProperties.Count() == 0)
             {
-                IEnumerable<PropertyInfo> matchingAgeOverAttribute = propertiesWithProtobufNameAttribute.Where(
-                prop => protobufName.StartsWith(prop.GetCustomAttribute<ProtobufNameAttribute>().ProtobufName));
+                IEnumerable<PropertyInfo> isAgeVerifiedAttributes = typeof(YotiProfile).GetTypeInfo().DeclaredProperties.Where(
+                prop => prop.Name == YotiConstants.AttributeIsAgeVerified &&
+                (protobufName.StartsWith(YotiConstants.AttributeAgeOver) ||
+                protobufName.StartsWith(YotiConstants.AttributeAgeUnder)));
 
-                if (matchingAgeOverAttribute.Count() == 1)
-                    return matchingAgeOverAttribute.Single();
+                if (isAgeVerifiedAttributes.Count() == 1)
+                    return isAgeVerifiedAttributes.Single();
 
-                throw new InvalidOperationException(
-                    string.Format(
-                        "No matching attribute found for Protobuf name '{0}'",
-                        protobufName));
+                return null;
             }
 
             if (matchingProperties.Count() > 1)
@@ -285,6 +297,8 @@ namespace Yoti.Auth
 
         private static void HandleOtherAttributes(YotiProfile profile, AttrpubapiV1.Attribute attribute, byte[] data)
         {
+            profile.OtherAttributes = new Dictionary<string, YotiAttributeValue>();
+
             switch (attribute.ContentType)
             {
                 case ContentType.Date:

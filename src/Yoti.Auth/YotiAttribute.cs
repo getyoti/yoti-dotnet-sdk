@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using static Yoti.Auth.YotiAttributeValue;
+using static Yoti.Auth.ExtensionMethods;
 
 namespace Yoti.Auth
 {
@@ -39,7 +40,8 @@ namespace Yoti.Auth
 
         public object GetValue()
         {
-            return _value;
+            var conversionType = typeof(T);
+            return _value.ToBytes().ChangeType<T>();
         }
 
         public Image GetImageValue()

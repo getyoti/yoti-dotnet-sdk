@@ -55,7 +55,6 @@ namespace Yoti.Auth
         /// <summary>
         /// IsAgeVerified Did the user pass the age verification check? Returns True if they passed, False if they failed, and null if there was no check
         /// </summary>
-        [ProtobufName("age_over:")]
         public YotiAttribute<bool?> IsAgeVerified { get; set; }
 
         /// <summary>
