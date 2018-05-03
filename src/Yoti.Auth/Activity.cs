@@ -76,7 +76,7 @@ namespace Yoti.Auth
                     return;
                 }
 
-                string stringValue = yotiAttribute.GetStringValue();
+                string stringValue = Conversion.BytesToUtf8(byteValue);
 
                 LegacyAddAttribute(attribute, byteValue);
 

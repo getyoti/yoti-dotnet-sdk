@@ -48,7 +48,7 @@ namespace Yoti.Auth.Tests
                 Type = TypeEnum.Jpeg
             };
 
-            Image actualImage = yotiAttribute.GetImageValue();
+            Image actualImage = yotiAttribute.GetImage();
 
             Assert.IsTrue(new ImageComparer().Equals(expectedImage, actualImage));
         }

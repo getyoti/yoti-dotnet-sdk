@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using static Yoti.Auth.YotiAttributeValue;
-using static Yoti.Auth.ExtensionMethods;
 
 namespace Yoti.Auth
 {
@@ -40,11 +38,19 @@ namespace Yoti.Auth
 
         public object GetValue()
         {
+            if (_value == null)
+                return null;
+
             var conversionType = typeof(T);
             return _value.ToBytes().ChangeType<T>();
         }
 
-        public Image GetImageValue()
+        public object GetJsonValue()
+        {
+            return _value;
+        }
+
+        public Image GetImage()
         {
             return new Image
             {
@@ -52,21 +58,6 @@ namespace Yoti.Auth
                 Data = _value.ToBytes(),
                 Type = _value.Type
             };
-        }
-
-        public string GetStringValue()
-        {
-            return _value.ToString();
-        }
-
-        public byte[] GetByteValue()
-        {
-            return _value.ToBytes();
-        }
-
-        public DateTime? GetDateTimeValue()
-        {
-            return _value.ToDate();
         }
 
         public object GetValueOrDefault(object defaultValue)

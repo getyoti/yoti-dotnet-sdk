@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace Yoti.Auth
 {
@@ -14,7 +12,7 @@ namespace Yoti.Auth
             switch (Type.GetTypeCode(type))
             {
                 case TypeCode.String:
-                    return (T)(object)Convert.ToString(bytes);
+                    return (T)(object)Conversion.BytesToUtf8(bytes);
 
                 case TypeCode.DateTime:
                     DateTime date;
@@ -39,6 +37,9 @@ namespace Yoti.Auth
                                 bytes));
 
                     return (T)(object)output;
+
+                case TypeCode.Object:
+                    return (T)(object)bytes;
 
                 default:
                     return (T)Convert.ChangeType(bytes, typeof(T));
