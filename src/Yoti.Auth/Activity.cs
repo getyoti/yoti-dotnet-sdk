@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using AttrpubapiV1;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DataObjects;
 using static Yoti.Auth.YotiAttributeValue;
@@ -95,7 +96,7 @@ namespace Yoti.Auth
                              && propertyInfo.IsDefined(typeof(IsJsonAttribute)))
                         {
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
-                            var structuredPostalAddressAttribute = new YotiAttribute<Dictionary<string, object>>(YotiConstants.AttributeStructuredPostalAddress, structuredPostalAddressAttributeValue);
+                            var structuredPostalAddressAttribute = new YotiAttribute<Dictionary<string, JToken>>(YotiConstants.AttributeStructuredPostalAddress, structuredPostalAddressAttributeValue);
 
                             _yotiProfile.StructuredPostalAddress = structuredPostalAddressAttribute;
                             break;
@@ -211,7 +212,7 @@ namespace Yoti.Auth
 
                 case "structured_postal_address":
                     string utf8json = Conversion.BytesToUtf8(byteValue);
-                    Dictionary<string, object> deserializedPostalAddress = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(utf8json);
+                    Dictionary<string, JToken> deserializedPostalAddress = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8json);
                     _yotiUserProfile.StructuredPostalAddress = deserializedPostalAddress;
                     break;
 

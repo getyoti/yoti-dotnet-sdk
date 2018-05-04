@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Yoti.Auth
 {
@@ -68,7 +69,7 @@ namespace Yoti.Auth
         /// </summary>
         [IsJson]
         [ProtobufName("structured_postal_address")]
-        public YotiAttribute<Dictionary<string, object>> StructuredPostalAddress { get; set; }
+        public YotiAttribute<Dictionary<string, JToken>> StructuredPostalAddress { get; set; }
 
         /// <summary>
         /// Gender represents the user's gender. This will be null if not provided by Yoti

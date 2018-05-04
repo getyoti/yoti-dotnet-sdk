@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Yoti.Auth
 {
@@ -77,7 +78,7 @@ namespace Yoti.Auth
         /// Structured Postal Address represents the user's address represented as a dictionary. This will be null if not provided by Yoti
         /// </summary>
         [Obsolete("Please use StructuredPostalAddressAttribute instead")]
-        public Dictionary<string, object> StructuredPostalAddress { get; set; }
+        public Dictionary<string, JToken> StructuredPostalAddress { get; set; }
 
         /// <summary>
         /// Gender represents the user's gender. This will be null if not provided by Yoti

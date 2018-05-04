@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace Yoti.Auth
 {
@@ -71,10 +72,10 @@ namespace Yoti.Auth
             }
         }
 
-        public Dictionary<string, object> ToJson()
+        public Dictionary<string, JToken> ToJson()
         {
             string utf8json = Conversion.BytesToUtf8(_data);
-            Dictionary<string, object> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(utf8json);
+            Dictionary<string, JToken> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8json);
             return deserializedJson;
         }
     }

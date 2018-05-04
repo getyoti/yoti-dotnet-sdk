@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
@@ -45,9 +46,9 @@ namespace Yoti.Auth
             return _value.ToBytes().ChangeType<T>();
         }
 
-        public object GetJsonValue()
+        public Dictionary<string, JToken> GetJsonValue()
         {
-            return _value;
+            return _value.ToJson();
         }
 
         public Image GetImage()
