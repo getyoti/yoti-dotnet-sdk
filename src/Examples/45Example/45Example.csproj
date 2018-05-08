@@ -233,6 +233,8 @@
     <Content Include="Views\Shared\_LayoutSimple.cshtml" />
     <Content Include="Views\Account\Logout.cshtml" />
     <Content Include="Views\Account\Connect.cshtml" />
+    <Content Include="secrets.config" />
+    <Content Include="secrets.config.example" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

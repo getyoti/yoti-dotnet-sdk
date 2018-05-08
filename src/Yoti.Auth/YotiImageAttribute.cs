@@ -21,26 +21,23 @@ namespace Yoti.Auth
         {
             return new Image
             {
-                Base64URI = Base64URI,
+                Base64URI = GetBase64URI(),
                 Data = Value.ToBytes(),
                 Type = Value.Type
             };
         }
 
-        public string Base64URI
+        public string GetBase64URI()
         {
-            get
-            {
-                switch (Value.Type)
+            switch (Value.Type)
 
-                {
-                    case TypeEnum.Jpeg:
-                        return "data:image/jpeg;base64," + Conversion.BytesToBase64(Value.ToBytes());
-                    case TypeEnum.Png:
-                        return "data:image/png;base64," + Conversion.BytesToBase64(Value.ToBytes());
-                    default:
-                        return null;
-                }
+            {
+                case TypeEnum.Jpeg:
+                    return "data:image/jpeg;base64," + Conversion.BytesToBase64(Value.ToBytes());
+                case TypeEnum.Png:
+                    return "data:image/png;base64," + Conversion.BytesToBase64(Value.ToBytes());
+                default:
+                    return null;
             }
         }
     }

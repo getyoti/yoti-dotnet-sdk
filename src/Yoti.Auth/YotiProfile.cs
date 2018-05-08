@@ -69,7 +69,7 @@ namespace Yoti.Auth
         /// </summary>
         [IsJson]
         [ProtobufName("structured_postal_address")]
-        public YotiAttribute<Dictionary<string, IEnumerable<JToken>>> StructuredPostalAddress { get; set; }
+        public YotiAttribute<IEnumerable<Dictionary<string, JToken>>> StructuredPostalAddress { get; set; }
 
         /// <summary>
         /// Gender represents the user's gender. This will be null if not provided by Yoti

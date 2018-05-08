@@ -67,7 +67,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.Selfie.Base64URI);
+            Assert.IsNotNull(_yotiProfile.Selfie.GetBase64URI());
             Assert.IsNotNull(_yotiProfile.Selfie.GetImage());
 
             Assert.IsNotNull(_yotiUserProfile.Selfie.Base64URI);
@@ -87,7 +87,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.Selfie.Base64URI);
+            Assert.IsNotNull(_yotiProfile.Selfie.GetBase64URI());
             Assert.IsNotNull(_yotiProfile.Selfie.GetImage());
 
             Assert.IsNotNull(_yotiUserProfile.Selfie.Base64URI);

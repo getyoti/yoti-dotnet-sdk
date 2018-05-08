@@ -41,10 +41,7 @@
                 Full Name:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string fullName = Model.FullName.GetStringValue();
-                    @Html.DisplayFor(m => fullName);
-                }
+                @Html.DisplayFor(m => m.FullName)
             </div>
         </div>
     }
@@ -55,10 +52,7 @@
                 Given Names:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string givenNames = Model.GivenNames.GetStringValue();
-                    @Html.DisplayFor(m => givenNames);
-                }
+                @Html.DisplayFor(m => m.GivenNames)
             </div>
         </div>
     }
@@ -70,10 +64,7 @@
             </div>
 
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string familyName = Model.FamilyName.GetStringValue();
-                    @Html.DisplayFor(m => familyName);
-                }
+                @Html.DisplayFor(m => m.FamilyName)
             </div>
         </div>
     }
@@ -84,10 +75,7 @@
                 Mobile Number:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string mobileNumber = Model.MobileNumber.GetStringValue();
-                    @Html.DisplayFor(m => mobileNumber);
-                }
+                @Html.DisplayFor(m => m.MobileNumber)
             </div>
         </div>
     }
@@ -98,10 +86,7 @@
                 Email Address:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string emailAddress = Model.EmailAddress.GetStringValue();
-                    @Html.DisplayFor(m => emailAddress);
-                }
+                @Html.DisplayFor(m => m.EmailAddress)
             </div>
         </div>
     }
@@ -112,10 +97,7 @@
                 Date of Birth:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    DateTime? dateOfBirth = Model.DateOfBirth.GetDateTimeValue();
-                    @Html.DisplayFor(m => dateOfBirth);
-                }
+                @Html.DisplayFor(m => m.DateOfBirth)
             </div>
         </div>
     }
@@ -126,10 +108,7 @@
                 Age Verified:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string isAgeVerified = Model.IsAgeVerified.GetStringValue();
-                    @Html.DisplayFor(m => isAgeVerified);
-                }
+                @Html.DisplayFor(m => m.IsAgeVerified)
             </div>
         </div>
     }
@@ -140,10 +119,7 @@
                 Address:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string address = Model.Address.GetStringValue();
-                    @Html.DisplayFor(m => address);
-                }
+                @Html.DisplayFor(m => m.Address)
             </div>
         </div>
     }
@@ -154,10 +130,7 @@
                 Gender:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string gender = Model.Gender.GetStringValue();
-                    @Html.DisplayFor(m => gender);
-                }
+                @Html.DisplayFor(m => m.Gender)
             </div>
         </div>
     }
@@ -168,10 +141,7 @@
                 Nationality:
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
-                @{
-                    string nationality = Model.Nationality.GetStringValue();
-                    @Html.DisplayFor(m => nationality);
-                }
+                @Html.DisplayFor(m => m.Nationality)
             </div>
         </div>
     }
@@ -179,7 +149,7 @@
     {
         <hr />
         <header>Structured Postal Address:</header>
-        foreach (var item in Model.StructuredPostalAddress)
+        foreach (var item in Model.StructuredPostalAddress.GetJsonValue())
         {
             <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">

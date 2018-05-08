@@ -9,7 +9,7 @@ namespace Yoti.Auth
 
         public byte[] Data { get; set; }
 
-        [Obsolete("Will be removed in version 3.0.0. Please use Selfie.Base64URI instead")]
+        [Obsolete("Will be removed in version 3.0.0. Please use Selfie.GetBase64URI() instead")]
         public string Base64URI { get; set; }
 
         public override int GetHashCode()

@@ -50,8 +50,8 @@ namespace Example.Controllers
 
                     if (profile.Selfie != null)
                     {
-                        user.Base64Photo = profile.Selfie.Base64URI;
-                        user.Photo = profile.Selfie.GetByteValue();
+                        user.Base64Photo = profile.Selfie.GetBase64URI();
+                        user.Photo = profile.Selfie.GetImage().Data;
                         PhotoBytes = user.Photo;
                     }
                     else
@@ -60,14 +60,6 @@ namespace Example.Controllers
                     }
 
                     UpdateAttributesIfPresent(profile, user);
-
-                    if (user.StructuredPostalAddress != null)
-                    {
-                        IDictionary dictionary = (IDictionary)user.StructuredPostalAddress;
-                        user.StandardStructuredPostalAddress = CastDict(dictionary)
-                                                                   .ToDictionary(entry => (string)entry.Key,
-                                                                                 entry => entry.Value);
-                    }
 
                     UserManager.SaveUser(user);
 
@@ -126,14 +118,6 @@ namespace Example.Controllers
                 throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
 
             return File(PhotoBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
-        }
-
-        private IEnumerable<DictionaryEntry> CastDict(IDictionary dictionary)
-        {
-            foreach (DictionaryEntry entry in dictionary)
-            {
-                yield return entry;
-            }
         }
     }
 }

@@ -99,7 +99,7 @@ namespace Yoti.Auth
                              && propertyInfo.IsDefined(typeof(IsJsonAttribute)))
                         {
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
-                            var structuredPostalAddressAttribute = new YotiAttribute<Dictionary<string, IEnumerable<JToken>>>(
+                            var structuredPostalAddressAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
                                 YotiConstants.AttributeStructuredPostalAddress,
                                 structuredPostalAddressAttributeValue,
                                 sources,

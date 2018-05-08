@@ -104,7 +104,7 @@ namespace Yoti.Auth.Tests
 
             string expectedString = String.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
 
-            Assert.AreEqual(expectedString, yotiAttribute.Base64URI);
+            Assert.AreEqual(expectedString, yotiAttribute.GetBase64URI());
         }
 
         [TestMethod]
@@ -118,7 +118,7 @@ namespace Yoti.Auth.Tests
 
             string expectedString = String.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));
 
-            Assert.AreEqual(expectedString, yotiAttribute.Base64URI);
+            Assert.AreEqual(expectedString, yotiAttribute.GetBase64URI());
         }
     }
 }
