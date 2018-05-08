@@ -42,7 +42,6 @@ namespace Yoti.Auth
             if (_value == null)
                 return null;
 
-            var conversionType = typeof(T);
             return _value.ToBytes().ChangeType<T>();
         }
 

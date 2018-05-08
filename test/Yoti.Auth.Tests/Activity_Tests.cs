@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Google.Protobuf;
+using Google.Protobuf.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests
 {
@@ -15,21 +18,33 @@ namespace Yoti.Auth.Tests
         private Activity _activity;
         private JToken _dictionaryObject = null;
         private AttrpubapiV1.AttributeList _attributeList;
-        private string _addressFormatJson = "address_format";
-        private string _buildingNumberJson = "building_number";
-        private string _addressLineOneJson = "address_line1";
-        private string _townCityJson = "town_city";
-        private string _postalCodeJson = "postal_code";
-        private string _countryIsoJson = "country_iso";
-        private string _countryJson = "country";
-        private string _formattedAddressJson = "formatted_address";
-        private string _stateJson = "state";
-        private string _careOfJson = "care_of";
-        private string _buildingJson = "building";
-        private string _streetJson = "street";
-        private string _subdistrictJson = "subdistrict";
-        private string _districtJson = "district";
-        private string _postOfficeJson = "post_office";
+        private static readonly string _addressFormatJson = "address_format";
+        private static readonly string _buildingNumberJson = "building_number";
+        private static readonly string _addressLineOneJson = "address_line1";
+        private static readonly string _townCityJson = "town_city";
+        private static readonly string _postalCodeJson = "postal_code";
+        private static readonly string _countryIsoJson = "country_iso";
+        private static readonly string _countryJson = "country";
+        private static readonly string _formattedAddressJson = "formatted_address";
+        private static readonly string _stateJson = "state";
+        private static readonly string _careOfJson = "care_of";
+        private static readonly string _buildingJson = "building";
+        private static readonly string _streetJson = "street";
+        private static readonly string _subdistrictJson = "subdistrict";
+        private static readonly string _districtJson = "district";
+        private static readonly string _postOfficeJson = "post_office";
+
+        private static readonly string _yotiAdminVerifierType = "YOTI_ADMIN";
+        private static readonly string _passportSourceType = "PASSPORT";
+        private static readonly string _drivingLicenseSourceType = "DRIVING_LICENCE";
+
+        private static readonly string _givenNamesAttribute = "given_names";
+        private static readonly string _selfieAttribute = "selfie";
+        private static readonly string _ageOver18Attribute = "age_over:18";
+        private static readonly string _structuredPostalAddressAttribute = "structured_postal_address";
+        private static readonly string _dateOfBirthAttribute = "date_of_birth";
+        private static readonly DateTime _DateOfBirthValue = new DateTime(1980, 1, 13);
+        private static readonly string _dateOfBirthString = "1980-01-13";
 
         [TestInitialize]
         public void Startup()
@@ -45,7 +60,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "selfie",
+                Name = _selfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Jpeg,
                 Value = ByteString.CopyFromUtf8("selfieJpegValue")
             };
@@ -65,7 +80,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "selfie",
+                Name = _selfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Png,
                 Value = ByteString.CopyFromUtf8("selfiePngValue")
             };
@@ -83,86 +98,95 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_FullName()
         {
+            string value = "fullNameValue";
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "full_name",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("fullNameValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.FullName.GetValue());
+            Assert.AreEqual(_yotiProfile.FullName.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.FullName);
+            Assert.AreEqual(_yotiUserProfile.FullName, value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_GivenNames()
         {
+            string value = "GivenNamesValue";
+
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "given_names",
+                Name = _givenNamesAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("GivenNamesValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.GivenNames.GetValue());
+            Assert.AreEqual(_yotiProfile.GivenNames.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.GivenNames);
+            Assert.AreEqual(_yotiUserProfile.GivenNames, value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_FamilyName()
         {
+            string value = "FamilyNameValue";
+
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "family_name",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("FamilyNameValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.FamilyName.GetValue());
+            Assert.AreEqual(_yotiProfile.FamilyName.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.FamilyName);
+            Assert.AreEqual(_yotiUserProfile.FamilyName, value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_MobileNumber()
         {
+            string value = "0123456789";
+
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "phone_number",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("0123456789")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.MobileNumber.GetValue());
+            Assert.AreEqual(_yotiProfile.MobileNumber.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.MobileNumber);
+            Assert.AreEqual(_yotiUserProfile.MobileNumber, value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_EmailAddress()
         {
+            string value = "EmailAddressValue";
+
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "email_address",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("EmailAddressValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.EmailAddress.GetValue());
+            Assert.AreEqual(_yotiProfile.EmailAddress.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.EmailAddress);
+            Assert.AreEqual(_yotiUserProfile.EmailAddress, value);
         }
 
         [TestMethod]
@@ -170,17 +194,18 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "date_of_birth",
+                Name = _dateOfBirthAttribute,
                 ContentType = AttrpubapiV1.ContentType.Date,
-                Value = ByteString.CopyFromUtf8("1980-01-13")
+                Value = ByteString.CopyFromUtf8(_dateOfBirthString)
             };
 
             AddAttributeToProfile(attribute);
 
             Assert.IsInstanceOfType(_yotiProfile.DateOfBirth.GetValue(), typeof(DateTime?));
-            Assert.IsNotNull(_yotiProfile.DateOfBirth.GetValue());
 
-            Assert.IsNotNull(_yotiUserProfile.DateOfBirth);
+            Assert.AreEqual(_yotiProfile.DateOfBirth.GetValue(), _DateOfBirthValue);
+
+            Assert.AreEqual(_yotiUserProfile.DateOfBirth, _DateOfBirthValue);
         }
 
         [TestMethod]
@@ -205,7 +230,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "age_over:18",
+                Name = _ageOver18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("true")
             };
@@ -222,7 +247,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "age_over:18",
+                Name = _ageOver18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("false")
             };
@@ -271,18 +296,20 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Address()
         {
+            string value = "AddressValue";
+
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "postal_address",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("AddressValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.Address.GetValue());
+            Assert.AreEqual(_yotiProfile.Address.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.Address);
+            Assert.AreEqual(_yotiUserProfile.Address, value);
         }
 
         [TestMethod]
@@ -309,7 +336,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "structured_postal_address",
+                Name = _structuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -373,7 +400,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "structured_postal_address",
+                Name = _structuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -435,7 +462,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "structured_postal_address",
+                Name = _structuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -502,7 +529,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = "structured_postal_address",
+                Name = _structuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -553,35 +580,38 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Gender()
         {
+            string value = "GenderValue";
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "gender",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("GenderValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.Gender.GetValue());
+            Assert.AreEqual(_yotiProfile.Gender.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.Gender);
+            Assert.AreEqual(_yotiUserProfile.Gender, value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_Nationality()
         {
+            string value = "NationalityValue";
+
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = "nationality",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("NationalityValue")
+                Value = ByteString.CopyFromUtf8(value)
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.IsNotNull(_yotiProfile.Nationality.GetValue());
+            Assert.AreEqual(_yotiProfile.Nationality.GetValue(), value);
 
-            Assert.IsNotNull(_yotiUserProfile.Nationality);
+            Assert.AreEqual(_yotiUserProfile.Nationality, value);
         }
 
         [TestMethod]
@@ -616,6 +646,110 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(_yotiProfile.OtherAttributes.Count, 0);
 
             Assert.AreEqual(_yotiUserProfile.OtherAttributes.Count, 0);
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesDrivingLicense_String()
+        {
+            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+                _givenNamesAttribute,
+                "givenNameValue",
+                AttrpubapiV1.ContentType.String,
+                TestAnchors.DrivingLicenseAnchor);
+
+            AddAttributeToProfile(attribute);
+
+            HashSet<string> sources = _yotiProfile.GivenNames.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.Contains(_drivingLicenseSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesDrivingLicense_IsAgeVerified()
+        {
+            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+                _ageOver18Attribute,
+                "true",
+                AttrpubapiV1.ContentType.String,
+                TestAnchors.DrivingLicenseAnchor);
+
+            AddAttributeToProfile(attribute);
+
+            HashSet<string> sources = _yotiProfile.IsAgeVerified.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.Contains(_drivingLicenseSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
+        {
+            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+                _structuredPostalAddressAttribute,
+                "{ \"properties\": { \"name\": { \"type\": \"string\"     } } }",
+                AttrpubapiV1.ContentType.String,
+                TestAnchors.DrivingLicenseAnchor);
+
+            AddAttributeToProfile(attribute);
+
+            HashSet<string> sources = _yotiProfile.StructuredPostalAddress.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.Contains(_drivingLicenseSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesPassport()
+        {
+            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+                _dateOfBirthAttribute,
+                _dateOfBirthString,
+                AttrpubapiV1.ContentType.Date,
+                TestAnchors.PassportAnchor);
+
+            AddAttributeToProfile(attribute);
+
+            HashSet<string> sources = _yotiProfile.DateOfBirth.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.Contains(_passportSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetVerifiers_IncludesYotiAdmin()
+        {
+            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+                _selfieAttribute,
+                "selfieValue",
+                AttrpubapiV1.ContentType.Jpeg,
+                TestAnchors.YotiAdminAnchor);
+
+            AddAttributeToProfile(attribute);
+
+            HashSet<string> verifiers = _yotiProfile.Selfie.GetVerifiers();
+            Assert.IsTrue(
+                verifiers.Any(
+                    s => s.Contains(_yotiAdminVerifierType)));
+        }
+
+        private static AttrpubapiV1.Attribute BuildAnchoredAttribute(string name, string value, AttrpubapiV1.ContentType contentType, string rawAnchor)
+        {
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = name,
+                ContentType = contentType,
+                Value = ByteString.CopyFromUtf8(value)
+            };
+
+            attribute.Anchors.AddRange(
+                new RepeatedField<AttrpubapiV1.Anchor>
+            {
+                AttrpubapiV1.Anchor.Parser.ParseFrom(
+                Conversion.Base64ToBytes(rawAnchor))
+            });
+
+            return attribute;
         }
 
         private void AssertDictionaryValue(string expectedValue, string dictionaryKey, Dictionary<string, JToken> dictionary)
