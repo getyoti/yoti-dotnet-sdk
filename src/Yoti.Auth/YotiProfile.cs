@@ -15,7 +15,7 @@ namespace Yoti.Auth
         /// Selfie is a photograph of the user. This will be null if not provided by Yoti
         /// </summary>
         [ProtobufName("selfie")]
-        public YotiAttribute<Image> Selfie { get; set; }
+        public YotiImageAttribute<Image> Selfie { get; set; }
 
         /// <summary>
         /// FullName represents the user's full name. This will be null if not provided by Yoti
@@ -69,7 +69,7 @@ namespace Yoti.Auth
         /// </summary>
         [IsJson]
         [ProtobufName("structured_postal_address")]
-        public YotiAttribute<Dictionary<string, JToken>> StructuredPostalAddress { get; set; }
+        public YotiAttribute<Dictionary<string, IEnumerable<JToken>>> StructuredPostalAddress { get; set; }
 
         /// <summary>
         /// Gender represents the user's gender. This will be null if not provided by Yoti

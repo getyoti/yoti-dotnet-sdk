@@ -99,7 +99,7 @@ namespace Yoti.Auth
                              && propertyInfo.IsDefined(typeof(IsJsonAttribute)))
                         {
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
-                            var structuredPostalAddressAttribute = new YotiAttribute<Dictionary<string, JToken>>(
+                            var structuredPostalAddressAttribute = new YotiAttribute<Dictionary<string, IEnumerable<JToken>>>(
                                 YotiConstants.AttributeStructuredPostalAddress,
                                 structuredPostalAddressAttributeValue,
                                 sources,
@@ -135,7 +135,7 @@ namespace Yoti.Auth
 
                     case ContentType.Jpeg:
                         var jpegYotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, byteValue);
-                        _yotiProfile.Selfie = new YotiAttribute<Image>(
+                        _yotiProfile.Selfie = new YotiImageAttribute<Image>(
                             propertyInfo.Name,
                             jpegYotiAttributeValue,
                             sources,
@@ -144,7 +144,7 @@ namespace Yoti.Auth
 
                     case ContentType.Png:
                         var pngYotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, byteValue);
-                        _yotiProfile.Selfie = new YotiAttribute<Image>(
+                        _yotiProfile.Selfie = new YotiImageAttribute<Image>(
                             propertyInfo.Name,
                             pngYotiAttributeValue,
                             sources,
