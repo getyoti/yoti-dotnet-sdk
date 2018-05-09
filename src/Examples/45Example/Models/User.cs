@@ -24,7 +24,7 @@ namespace Example.Models
 
         public YotiAttribute<DateTime?> DateOfBirth { get; set; }
 
-        public YotiAttribute<bool?> IsAgeVerified { get; set; }
+        public YotiAttribute<bool?> AgeVerified { get; set; }
 
         public YotiAttribute<string> Address { get; set; }
 

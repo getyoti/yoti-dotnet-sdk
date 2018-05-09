@@ -27,6 +27,9 @@ namespace Example.Controllers
         // GET: Account/Connect?token
         public ActionResult Connect(string token)
         {
+            if (token == null)
+                return RedirectToAction("Index", "Home");
+
             try
             {
                 string sdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
