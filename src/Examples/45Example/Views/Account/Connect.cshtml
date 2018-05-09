@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string fullName = Model.FullName.GetValue().ToString();
+                    string fullName = (string)Model.FullName.GetValue();
                     @Html.DisplayFor(m => fullName);
                 }
             </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string givenNames = Model.GivenNames.GetValue().ToString();
+                    string givenNames = (string)Model.GivenNames.GetValue();
                     @Html.DisplayFor(m => givenNames);
                 }
             </div>
@@ -71,7 +71,7 @@
 
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string familyName = Model.FamilyName.GetValue().ToString();
+                    string familyName = (string)Model.FamilyName.GetValue();
                     @Html.DisplayFor(m => familyName);
                 }
             </div>
@@ -85,7 +85,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string mobileNumber = Model.MobileNumber.GetValue().ToString();
+                    string mobileNumber = (string)Model.MobileNumber.GetValue();
                     @Html.DisplayFor(m => mobileNumber);
                 }
             </div>
@@ -99,7 +99,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string emailAddress = Model.EmailAddress.GetValue().ToString();
+                    string emailAddress = (string)Model.EmailAddress.GetValue();
                     @Html.DisplayFor(m => emailAddress);
                 }
             </div>
@@ -155,7 +155,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string gender = Model.Gender.GetValue().ToString();
+                    string gender = (string)Model.Gender.GetValue();
                     @Html.DisplayFor(m => gender);
                 }
             </div>
@@ -169,7 +169,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 @{
-                    string nationality = Model.Nationality.GetValue().ToString();
+                    string nationality = (string)Model.Nationality.GetValue();
                     @Html.DisplayFor(m => nationality);
                 }
             </div>

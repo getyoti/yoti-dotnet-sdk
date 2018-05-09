@@ -24,11 +24,11 @@ namespace Example.Controllers
                 var activityDetails = yotiClient.GetActivityDetails(token);
                 if (activityDetails.Outcome == ActivityOutcome.Success)
                 {
-                    var yotiProfile = activityDetails.UserProfile;
+                    var yotiProfile = activityDetails.Profile;
 
-                    if (yotiProfile.Selfie.Data != null)
+                    if (yotiProfile.Selfie != null)
                     {
-                        PhotoBytes = yotiProfile.Selfie.Data;
+                        PhotoBytes = yotiProfile.Selfie.GetImage().Data;
                     }
 
                     return View(yotiProfile);
