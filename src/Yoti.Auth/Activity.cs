@@ -94,9 +94,8 @@ namespace Yoti.Auth
 
                 switch (attribute.ContentType)
                 {
-                    case ContentType.String:
-                        if (attribute.Name == YotiConstants.AttributeStructuredPostalAddress
-                             && propertyInfo.IsDefined(typeof(IsJsonAttribute)))
+                    case ContentType.Json:
+                        if (attribute.Name == YotiConstants.AttributeStructuredPostalAddress)
                         {
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
                             var structuredPostalAddressAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
@@ -108,7 +107,13 @@ namespace Yoti.Auth
                             _yotiProfile.StructuredPostalAddress = structuredPostalAddressAttribute;
                             break;
                         }
+                        else
+                        {
+                            HandleOtherAttributes(_yotiProfile, attribute, byteValue);
+                        }
+                        break;
 
+                    case ContentType.String:
                         if (yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeOver)
                             || yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeUnder))
                         {

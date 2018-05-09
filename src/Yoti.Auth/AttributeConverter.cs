@@ -30,6 +30,10 @@ namespace Yoti.Auth
                     value = new YotiAttributeValue(TypeEnum.Png, attribute.Value.ToByteArray());
                     break;
 
+                case ContentType.Json:
+                    value = new YotiAttributeValue(TypeEnum.Json, attribute.Value.ToByteArray());
+                    break;
+
                 case ContentType.Undefined:
                     // do not return attributes with undefined content types
                     return null;

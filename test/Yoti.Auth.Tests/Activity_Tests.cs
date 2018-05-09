@@ -337,7 +337,7 @@ namespace Yoti.Auth.Tests
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = _structuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -401,7 +401,7 @@ namespace Yoti.Auth.Tests
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = _structuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -463,7 +463,7 @@ namespace Yoti.Auth.Tests
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = _structuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -530,7 +530,7 @@ namespace Yoti.Auth.Tests
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = _structuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -688,7 +688,7 @@ namespace Yoti.Auth.Tests
             AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
                 _structuredPostalAddressAttribute,
                 "{ \"properties\": { \"name\": { \"type\": \"string\"     } } }",
-                AttrpubapiV1.ContentType.String,
+                AttrpubapiV1.ContentType.Json,
                 TestAnchors.DrivingLicenseAnchor);
 
             AddAttributeToProfile(attribute);
