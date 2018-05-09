@@ -226,7 +226,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Activity_AddAttributesToProfile_IsAgeVerified_Over_True()
+        public void Activity_AddAttributesToProfile_AgeVerified_Over_True()
         {
             var attribute = new AttrpubapiV1.Attribute
             {
@@ -237,13 +237,13 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.IsAgeVerified.GetValue(), true);
+            Assert.AreEqual(_yotiProfile.AgeVerified.GetValue(), true);
 
             Assert.AreEqual(_yotiUserProfile.IsAgeVerified, true);
         }
 
         [TestMethod]
-        public void Activity_AddAttributesToProfile_IsAgeVerified_Over_False()
+        public void Activity_AddAttributesToProfile_AgeVerified_Over_False()
         {
             var attribute = new AttrpubapiV1.Attribute
             {
@@ -254,13 +254,13 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.IsAgeVerified.GetValue(), false);
+            Assert.AreEqual(_yotiProfile.AgeVerified.GetValue(), false);
 
             Assert.AreEqual(_yotiUserProfile.IsAgeVerified, false);
         }
 
         [TestMethod]
-        public void Activity_AddAttributesToProfile_IsAgeVerified_Under_True()
+        public void Activity_AddAttributesToProfile_AgeVerified_Under_True()
         {
             var attribute = new AttrpubapiV1.Attribute
             {
@@ -271,13 +271,13 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.IsAgeVerified.GetValue(), true);
+            Assert.AreEqual(_yotiProfile.AgeVerified.GetValue(), true);
 
             Assert.AreEqual(_yotiUserProfile.IsAgeVerified, true);
         }
 
         [TestMethod]
-        public void Activity_AddAttributesToProfile_IsAgeVerified_Under_False()
+        public void Activity_AddAttributesToProfile_AgeVerified_Under_False()
         {
             var attribute = new AttrpubapiV1.Attribute
             {
@@ -288,7 +288,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.IsAgeVerified.GetValue(), false);
+            Assert.AreEqual(_yotiProfile.AgeVerified.GetValue(), false);
 
             Assert.AreEqual(_yotiUserProfile.IsAgeVerified, false);
         }
@@ -666,7 +666,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Activity_GetSources_IncludesDrivingLicense_IsAgeVerified()
+        public void Activity_GetSources_IncludesDrivingLicense_AgeVerified()
         {
             AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
                 _ageOver18Attribute,
@@ -676,7 +676,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            HashSet<string> sources = _yotiProfile.IsAgeVerified.GetSources();
+            HashSet<string> sources = _yotiProfile.AgeVerified.GetSources();
             Assert.IsTrue(
                 sources.Any(
                     s => s.Contains(_drivingLicenseSourceType)));
@@ -733,6 +733,24 @@ namespace Yoti.Auth.Tests
                     s => s.Contains(_yotiAdminVerifierType)));
         }
 
+        [TestMethod]
+        public void Activity_GetVerifiers_ExcludesDuplicate()
+        {
+            AttrpubapiV1.Attribute attribute = BuildDoubleAnchoredAttribute(
+                _selfieAttribute,
+                "selfieValue",
+                AttrpubapiV1.ContentType.Jpeg,
+                TestAnchors.YotiAdminAnchor);
+
+            AddAttributeToProfile(attribute);
+
+            HashSet<string> verifiers = _yotiProfile.Selfie.GetVerifiers();
+            Assert.IsTrue(
+                verifiers.Any(
+                    s => s.Contains(_yotiAdminVerifierType))
+                    && verifiers.Count == 1);
+        }
+
         private static AttrpubapiV1.Attribute BuildAnchoredAttribute(string name, string value, AttrpubapiV1.ContentType contentType, string rawAnchor)
         {
             var attribute = new AttrpubapiV1.Attribute
@@ -742,14 +760,33 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(value)
             };
 
-            attribute.Anchors.AddRange(
-                new RepeatedField<AttrpubapiV1.Anchor>
-            {
-                AttrpubapiV1.Anchor.Parser.ParseFrom(
-                Conversion.Base64ToBytes(rawAnchor))
-            });
+            AddAnchorToAttribute(Conversion.Base64ToBytes(rawAnchor), attribute);
 
             return attribute;
+        }
+
+        private static AttrpubapiV1.Attribute BuildDoubleAnchoredAttribute(string name, string value, AttrpubapiV1.ContentType contentType, string rawAnchor)
+        {
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = name,
+                ContentType = contentType,
+                Value = ByteString.CopyFromUtf8(value)
+            };
+
+            AddAnchorToAttribute(Conversion.Base64ToBytes(rawAnchor), attribute);
+            AddAnchorToAttribute(Conversion.Base64ToBytes(rawAnchor), attribute);
+
+            return attribute;
+        }
+
+        private static void AddAnchorToAttribute(byte[] anchorBytes, AttrpubapiV1.Attribute attribute)
+        {
+            attribute.Anchors.AddRange(
+                new RepeatedField<AttrpubapiV1.Anchor>
+                {
+                    AttrpubapiV1.Anchor.Parser.ParseFrom(anchorBytes)
+                });
         }
 
         private void AssertDictionaryValue(string expectedValue, string dictionaryKey, Dictionary<string, JToken> dictionary)

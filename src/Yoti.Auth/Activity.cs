@@ -112,7 +112,7 @@ namespace Yoti.Auth
                         if (yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeOver)
                             || yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeUnder))
                         {
-                            bool parsed = Boolean.TryParse(stringValue, out bool IsAgeVerified);
+                            bool parsed = Boolean.TryParse(stringValue, out bool AgeVerified);
 
                             if (!parsed)
                                 throw new FormatException(
@@ -120,10 +120,10 @@ namespace Yoti.Auth
                                         "'{0}' byte value was unable to be parsed into a bool",
                                         byteValue));
 
-                            var isAgeVerifiedAttributeValue = new YotiAttributeValue(TypeEnum.Bool, byteValue);
-                            _yotiProfile.IsAgeVerified = new YotiAttribute<bool?>(
+                            var AgeVerifiedAttributeValue = new YotiAttributeValue(TypeEnum.Bool, byteValue);
+                            _yotiProfile.AgeVerified = new YotiAttribute<bool?>(
                                 propertyInfo.Name,
-                                isAgeVerifiedAttributeValue,
+                                AgeVerifiedAttributeValue,
                                 sources,
                                 verifiers);
 
@@ -301,13 +301,13 @@ namespace Yoti.Auth
 
             if (matchingProperties.Count() == 0)
             {
-                IEnumerable<PropertyInfo> isAgeVerifiedAttributes = typeof(YotiProfile).GetTypeInfo().DeclaredProperties.Where(
-                prop => prop.Name == YotiConstants.AttributeIsAgeVerified &&
+                IEnumerable<PropertyInfo> ageVerifiedAttributes = typeof(YotiProfile).GetTypeInfo().DeclaredProperties.Where(
+                prop => prop.Name == YotiConstants.AttributeAgeVerified &&
                 (protobufName.StartsWith(YotiConstants.AttributeAgeOver) ||
                 protobufName.StartsWith(YotiConstants.AttributeAgeUnder)));
 
-                if (isAgeVerifiedAttributes.Count() == 1)
-                    return isAgeVerifiedAttributes.Single();
+                if (ageVerifiedAttributes.Count() == 1)
+                    return ageVerifiedAttributes.Single();
 
                 return null;
             }
