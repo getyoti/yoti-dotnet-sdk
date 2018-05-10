@@ -170,6 +170,30 @@ namespace Yoti.Auth
                         break;
                 }
             }
+
+            SetAddressToBeFormattedAddressIfNull();
+        }
+
+        private void SetAddressToBeFormattedAddressIfNull()
+        {
+            YotiAttribute<IEnumerable<Dictionary<string, JToken>>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
+
+            if (_yotiProfile.Address == null && structuredPostalAddress != null)
+            {
+                PropertyInfo addressPropertyInfo = GetProfilePropertyByProtobufName("postal_address");
+
+                Dictionary<string, JToken> jsonValue = structuredPostalAddress.GetJsonValue();
+                JToken jToken = jsonValue["formatted_address"];
+                string formattedAddress = jToken.ToString();
+
+                SetStringAttribute(
+                    addressPropertyInfo,
+                    formattedAddress,
+                    structuredPostalAddress.GetSources(),
+                    structuredPostalAddress.GetVerifiers());
+
+                _yotiUserProfile.Address = formattedAddress;
+            }
         }
 
         private void LegacyAddAttribute(AttrpubapiV1.Attribute attribute, byte[] byteValue)

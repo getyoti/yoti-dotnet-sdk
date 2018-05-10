@@ -41,6 +41,7 @@ namespace Yoti.Auth.Tests
         private static readonly string _givenNamesAttribute = "given_names";
         private static readonly string _selfieAttribute = "selfie";
         private static readonly string _ageOver18Attribute = "age_over:18";
+        private static readonly string _postalAddressAttribute = "postal_address";
         private static readonly string _structuredPostalAddressAttribute = "structured_postal_address";
         private static readonly string _dateOfBirthAttribute = "date_of_birth";
         private static readonly DateTime _DateOfBirthValue = new DateTime(1980, 1, 13);
@@ -575,6 +576,85 @@ namespace Yoti.Auth.Tests
 
             AssertDictionaryValue(nestedValueObject.ToString(), nestedValueJson, legacyStructuredPostalAddress);
             AssertDictionaryValue(formattedAddress, _formattedAddressJson, legacyStructuredPostalAddress);
+        }
+
+        [TestMethod]
+        public void Activity_AddAttributesToProfile_AddressIsTakenFromFormattedAddressIfNull()
+        {
+            string addressFormat = "1";
+            string buildingNumber = "15a";
+            string addressLineOne = "15a North Street";
+            string townCity = "CARSHALTON";
+            string postalCode = "SM5 2HW";
+            string countryIso = "GBR";
+            string country = "UK";
+            string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
+
+            string addressString =
+                "{     \"" + _addressFormatJson + "\": " + addressFormat
+                + ",     \"" + _buildingNumberJson + "\": \"" + buildingNumber
+                + "\",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + _townCityJson + "\": \"" + townCity
+                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + _countryJson + "\": \"" + country
+                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = _structuredPostalAddressAttribute,
+                ContentType = AttrpubapiV1.ContentType.Json,
+                Value = ByteString.CopyFromUtf8(addressString)
+            };
+
+            AddAttributeToProfile(attribute);
+
+            Assert.AreEqual(_yotiUserProfile.Address, formattedAddress);
+            Assert.AreEqual(_yotiProfile.Address.GetValue(), formattedAddress);
+        }
+
+        [TestMethod]
+        public void Activity_AddAttributesToProfile_AddressIsNotTakenFromFormattedAddressIfAddressIsPresent()
+        {
+            string addressFormat = "1";
+            string buildingNumber = "15a";
+            string addressLineOne = "15a North Street";
+            string townCity = "CARSHALTON";
+            string postalCode = "SM5 2HW";
+            string countryIso = "GBR";
+            string country = "UK";
+            string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
+            string postalAddress = "33a South Street\nCARSHALTON\nSM5 2HW\nUK";
+
+            string structuredAddressString =
+                "{     \"" + _addressFormatJson + "\": " + addressFormat
+                + ",     \"" + _buildingNumberJson + "\": \"" + buildingNumber
+                + "\",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + _townCityJson + "\": \"" + townCity
+                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + _countryJson + "\": \"" + country
+                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+
+            var structuredAddressAttribute = new AttrpubapiV1.Attribute
+            {
+                Name = _structuredPostalAddressAttribute,
+                ContentType = AttrpubapiV1.ContentType.Json,
+                Value = ByteString.CopyFromUtf8(structuredAddressString)
+            };
+
+            var addressAttribute = new AttrpubapiV1.Attribute
+            {
+                Name = _postalAddressAttribute,
+                ContentType = AttrpubapiV1.ContentType.String,
+                Value = ByteString.CopyFromUtf8(postalAddress)
+            };
+
+            AddAttributeToProfile(structuredAddressAttribute);
+            AddAttributeToProfile(addressAttribute);
+
+            Assert.AreNotEqual(_yotiUserProfile.Address, formattedAddress);
+            Assert.AreNotEqual(_yotiProfile.Address.GetValue(), formattedAddress);
         }
 
         [TestMethod]
