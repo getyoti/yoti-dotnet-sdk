@@ -183,16 +183,20 @@ namespace Yoti.Auth
                 PropertyInfo addressPropertyInfo = GetProfilePropertyByProtobufName("postal_address");
 
                 Dictionary<string, JToken> jsonValue = structuredPostalAddress.GetJsonValue();
-                JToken jToken = jsonValue["formatted_address"];
-                string formattedAddress = jToken.ToString();
+                jsonValue.TryGetValue("formatted_address", out JToken formattedAddressJToken);
 
-                SetStringAttribute(
-                    addressPropertyInfo,
-                    formattedAddress,
-                    structuredPostalAddress.GetSources(),
-                    structuredPostalAddress.GetVerifiers());
+                if (formattedAddressJToken != null)
+                {
+                    string formattedAddress = formattedAddressJToken.ToString();
 
-                _yotiUserProfile.Address = formattedAddress;
+                    SetStringAttribute(
+                        addressPropertyInfo,
+                        formattedAddress,
+                        structuredPostalAddress.GetSources(),
+                        structuredPostalAddress.GetVerifiers());
+
+                    _yotiUserProfile.Address = formattedAddress;
+                }
             }
         }
 
