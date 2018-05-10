@@ -113,23 +113,23 @@ Here is an example of how this works:
 var activityDetails = yotiClient.GetActivityDetails(token);
 if (activityDetails.Outcome == ActivityOutcome.Success)
 {
-    var profile = activityDetails.UserProfile;
+    var profile = activityDetails.Profile;
     var user = YourUserSearchFunction(profile.Id);
     if (user != null)
     {
-      string userId = profile.Id;
-      Image Selfie = profile.Selfie;
-      string SelfieURI = profile.Selfie.Base64URI;
-      string FullName = profile.FullName;
-      string GivenNames = profile.GivenNames;
-      string FamilyName = profile.FamilyName;
-      string MobileNumber = profile.MobileNumber;
-      string EmailAddress = profile.EmailAddress;
-      DateTime? DateOfBirth = profile.DateOfBirth;
-      bool? IsAgeVerified = profile.IsAgeVerified;
-      string Address = profile.Address;
-      string Gender = profile.Gender;
-      string Nationality = profile.Nationality;
+        string userId = profile.Id;
+        Image selfie = profile.Selfie.GetImage();
+        string selfieURI = profile.Selfie.GetBase64URI();
+        string fullName = (string)profile.FullName.GetValue();
+        string givenNames = (string)profile.GivenNames.GetValue();
+        string familyName = (string)profile.FamilyName.GetValue();
+        string mobileNumber = (string)profile.MobileNumber.GetValue();
+        string emailAddress = (string)profile.EmailAddress.GetValue();
+        DateTime? dateOfBirth = (DateTime?)profile.DateOfBirth.GetValue();
+        bool? ageVerified = (bool?)profile.AgeVerified.GetValue();
+        string address = (string)profile.Address.GetValue();
+        string gender = (string)profile.Gender.GetValue();
+        string nationality = (string)profile.Nationality.GetValue();
     }
     else
     {
@@ -146,6 +146,12 @@ Where `yourUserSearchFunction` is a piece of logic in your app that is supposed 
 No matter if the user is a new or an existing one, Yoti will always provide her/his profile, so you don't necessarily need to store it.
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
+
+You can retrieve the sources and verifiers for each attribute like this:
+```cs
+HashSet<string> givenNamesSources = profile.GivenNames.GetSources();
+HashSet<string> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
+```
 
 ## AML Integration
 
@@ -226,14 +232,14 @@ bool onWatchList = amlResult.IsOnWatchList();
   * [X] Profile
     * [X] User ID `Id`
     * [X] Selfie `Selfie`
-    * [X] Selfie URI `Selfie.Base64URI`
+    * [X] Selfie URI `Selfie.GetBase64URI()`
     * [X] Given Names `GivenNames`
     * [X] Family Name `FamilyName`
     * [X] Full Name `FullName`
     * [X] Mobile Number `MobileNumber`
     * [X] Email Address `EmailAddress`
     * [X] Age / Date of Birth `DateOfBirth`
-    * [X] Age / Is Age Verified `IsAgeVerified`
+    * [X] Age / Age Verified `AgeVerified`
     * [X] Postal Address `Address`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`
