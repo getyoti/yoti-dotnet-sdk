@@ -147,7 +147,7 @@ No matter if the user is a new or an existing one, Yoti will always provide her/
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
 
-You can retrieve the sources and verifiers for each attribute like this:
+You can retrieve the sources and verifiers for each attribute as follows:
 ```cs
 HashSet<string> givenNamesSources = profile.GivenNames.GetSources();
 HashSet<string> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
