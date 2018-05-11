@@ -41,7 +41,7 @@ namespace Yoti.Auth
             if (Value == null)
                 return null;
 
-            return Value.ToBytes().ChangeType<T>();
+            return Value.ToBytes().ConvertType<T>();
         }
 
         public Dictionary<string, JToken> GetJsonValue()

@@ -5,7 +5,7 @@ namespace Yoti.Auth
 {
     internal static class ExtensionMethods
     {
-        public static T ChangeType<T>(this byte[] bytes)
+        public static T ConvertType<T>(this byte[] bytes)
         {
             var type = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
