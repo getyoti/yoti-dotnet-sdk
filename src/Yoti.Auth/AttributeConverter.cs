@@ -45,8 +45,7 @@ namespace Yoti.Auth
             return new YotiAttribute<object>(
                         attribute.Name,
                         value,
-                        ExtractMetadata(attribute, AnchorType.Source),
-                        ExtractMetadata(attribute, AnchorType.Verifier));
+                        attribute.Anchors);
         }
 
         private static HashSet<string> ExtractMetadata(AttrpubapiV1.Attribute attribute, AnchorType anchorType)
@@ -54,7 +53,7 @@ namespace Yoti.Auth
             var entries = new HashSet<string>();
             foreach (Anchor anchor in attribute.Anchors)
             {
-                AnchorVerifierSourceData anchorData = AnchorCertificateParser.GetTypesFromAnchor(anchor);
+                AnchorVerifierSourceData anchorData = AnchorCertificateParser.GetTypesFromAnchor(anchor, anchorType);
                 if (anchorData.GetAnchorType() == anchorType)
                 {
                     entries.UnionWith(anchorData.GetEntries());

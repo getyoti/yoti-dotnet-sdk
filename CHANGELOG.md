@@ -6,13 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.6.0 - 2018-05-16
 ### Added
-- `YotiProfile`, which contains new `YotiAttribute` attributes, which you can get the sources and verifiers with .GetSources() and .GetVerifiers()
+- `YotiProfile`, which contains new `YotiAttribute` attributes
+- With this new `YotiAttribute`, you can:
+  - Get the sources with .GetSources()
+  - Get the verifiers with .GetVerifiers()
+  - Get the anchors with .GetAnchors()
 
 ### Changed
-- On new YotiProfile:
+- If Address is null, it is taken from StructuredPostalAddress.FormattedAddress (if present)
+- On new YotiProfile (old YotiUserProfile remains the same):
   - `IsAgeVerified` is now `AgeVerified`
   - Base64URI is not GetBase64URI, used like: `profile.Selfie.GetBase64URI()`
-- If Address is null, it is taken from StructuredPostalAddress.FormattedAddress (if present)
 
 ## 2.5.0 - 2018-04-16
 ### Added

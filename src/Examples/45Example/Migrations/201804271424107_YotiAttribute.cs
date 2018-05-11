@@ -1,8 +1,7 @@
 namespace Example.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class YotiAttribute : DbMigration
     {
         public override void Up()
@@ -18,7 +17,7 @@ namespace Example.Migrations
             DropColumn("dbo.Users", "Gender");
             DropColumn("dbo.Users", "Nationality");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.Users", "Nationality", c => c.String());

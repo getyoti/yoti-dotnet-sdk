@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using AttrpubapiV1;
+using Google.Protobuf.Collections;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
@@ -89,8 +90,7 @@ namespace Yoti.Auth
                     return;
                 }
 
-                HashSet<string> sources = yotiAttribute.GetSources();
-                HashSet<string> verifiers = yotiAttribute.GetVerifiers();
+                RepeatedField<Anchor> anchors = yotiAttribute.GetRawAnchors();
 
                 switch (attribute.ContentType)
                 {
@@ -101,8 +101,7 @@ namespace Yoti.Auth
                             var structuredPostalAddressAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
                                 YotiConstants.AttributeStructuredPostalAddress,
                                 structuredPostalAddressAttributeValue,
-                                sources,
-                                verifiers);
+                                anchors);
 
                             _yotiProfile.StructuredPostalAddress = structuredPostalAddressAttribute;
                             break;
@@ -129,13 +128,12 @@ namespace Yoti.Auth
                             _yotiProfile.AgeVerified = new YotiAttribute<bool?>(
                                 propertyInfo.Name,
                                 AgeVerifiedAttributeValue,
-                                sources,
-                                verifiers);
+                                anchors);
 
                             break;
                         }
 
-                        SetStringAttribute(propertyInfo, stringValue, sources, verifiers);
+                        SetStringAttribute(propertyInfo, stringValue, anchors);
                         break;
 
                     case ContentType.Jpeg:
@@ -143,8 +141,8 @@ namespace Yoti.Auth
                         _yotiProfile.Selfie = new YotiImageAttribute<Image>(
                             propertyInfo.Name,
                             jpegYotiAttributeValue,
-                            sources,
-                            verifiers);
+                            anchors);
+
                         break;
 
                     case ContentType.Png:
@@ -152,8 +150,8 @@ namespace Yoti.Auth
                         _yotiProfile.Selfie = new YotiImageAttribute<Image>(
                             propertyInfo.Name,
                             pngYotiAttributeValue,
-                            sources,
-                            verifiers);
+                            anchors);
+
                         break;
 
                     case ContentType.Date:
@@ -161,7 +159,7 @@ namespace Yoti.Auth
                         DateTime date;
                         if (DateTime.TryParseExact(stringValue, "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
                         {
-                            SetDateAttribute(propertyInfo, byteValue, sources, verifiers);
+                            SetDateAttribute(propertyInfo, byteValue, anchors);
                         }
                         break;
 
@@ -192,8 +190,7 @@ namespace Yoti.Auth
                     SetStringAttribute(
                         addressPropertyInfo,
                         formattedAddress,
-                        structuredPostalAddress.GetSources(),
-                        structuredPostalAddress.GetVerifiers());
+                        structuredPostalAddress.GetRawAnchors());
 
                     _yotiUserProfile.Address = formattedAddress;
                 }
@@ -299,26 +296,24 @@ namespace Yoti.Auth
             }
         }
 
-        private void SetStringAttribute(PropertyInfo propertyInfo, string value, HashSet<string> sources, HashSet<string> verifiers)
+        private void SetStringAttribute(PropertyInfo propertyInfo, string value, RepeatedField<Anchor> anchors)
         {
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Text, value);
             var yotiAttribute = new YotiAttribute<string>(
                 propertyInfo.Name,
                 yotiAttributeValue,
-                sources,
-                verifiers);
+                anchors);
 
             propertyInfo.SetValue(_yotiProfile, yotiAttribute);
         }
 
-        private void SetDateAttribute(PropertyInfo propertyInfo, byte[] value, HashSet<string> sources, HashSet<string> verifiers)
+        private void SetDateAttribute(PropertyInfo propertyInfo, byte[] value, RepeatedField<Anchor> anchors)
         {
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, value);
             var yotiAttribute = new YotiAttribute<DateTime?>(
                 propertyInfo.Name,
                 yotiAttributeValue,
-                sources,
-                verifiers);
+                anchors);
 
             propertyInfo.SetValue(_yotiProfile, yotiAttribute);
         }

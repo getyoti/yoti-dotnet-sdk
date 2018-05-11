@@ -1,5 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using AttrpubapiV1;
+using Google.Protobuf.Collections;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Anchors;
+using static Yoti.Auth.Anchors.AnchorCertificateParser;
 
 namespace Yoti.Auth
 {
@@ -7,8 +12,7 @@ namespace Yoti.Auth
     {
         protected readonly YotiAttributeValue Value;
         private readonly string _name;
-        private readonly HashSet<string> _sources;
-        private readonly HashSet<string> _verifiers;
+        private readonly RepeatedField<Anchor> _anchors;
 
         public YotiAttribute(string name, YotiAttributeValue value)
         {
@@ -16,19 +20,11 @@ namespace Yoti.Auth
             Value = value;
         }
 
-        public YotiAttribute(string name, YotiAttributeValue value, HashSet<string> sources)
+        public YotiAttribute(string name, YotiAttributeValue value, RepeatedField<Anchor> anchors)
         {
             _name = name;
             Value = value;
-            _sources = sources;
-        }
-
-        public YotiAttribute(string name, YotiAttributeValue value, HashSet<string> sources, HashSet<string> verifiers)
-        {
-            _name = name;
-            Value = value;
-            _sources = sources;
-            _verifiers = verifiers;
+            _anchors = anchors;
         }
 
         public string GetName()
@@ -56,12 +52,38 @@ namespace Yoti.Auth
 
         public HashSet<string> GetSources()
         {
-            return _sources;
+            var sources = new HashSet<string>();
+
+            foreach (Anchor anchor in _anchors)
+            {
+                AnchorVerifierSourceData anchorTypes = AnchorCertificateParser.GetTypesFromAnchor(anchor, AnchorType.Source);
+                sources.UnionWith(anchorTypes.GetEntries());
+            }
+
+            return sources;
         }
 
         public HashSet<string> GetVerifiers()
         {
-            return _verifiers;
+            var verifiers = new HashSet<string>();
+
+            foreach (Anchor anchor in _anchors)
+            {
+                AnchorVerifierSourceData anchorTypes = AnchorCertificateParser.GetTypesFromAnchor(anchor, AnchorType.Verifier);
+                verifiers.UnionWith(anchorTypes.GetEntries());
+            }
+
+            return verifiers;
+        }
+
+        internal RepeatedField<Anchor> GetRawAnchors()
+        {
+            return _anchors;
+        }
+
+        public List<Anchor> GetAnchors()
+        {
+            return _anchors.Cast<Anchor>().ToList();
         }
     }
 }
