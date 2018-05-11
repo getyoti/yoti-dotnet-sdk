@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Google.Protobuf.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Yoti.Auth.YotiAttributeValue;
 
@@ -40,7 +39,7 @@ namespace Yoti.Auth.Tests
             byte[] imageBytes = Conversion.UtfToBytes("ImageValue");
 
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, imageBytes);
-            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue, anchors: null);
+            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
             var expectedImage = new Image
             {
@@ -60,11 +59,38 @@ namespace Yoti.Auth.Tests
             var yotiAttribute = new YotiImageAttribute<Image>(
                 name: "selfie",
                 value: null,
-                anchors: null);
+                sources: new HashSet<string>());
 
             string defaultValue = "default";
 
             Assert.AreEqual(defaultValue, yotiAttribute.GetValueOrDefault(defaultValue));
+        }
+
+        [TestMethod]
+        public void YotiAttribute_GetSources()
+        {
+            var sources = new HashSet<string> { "a", "b", "c" };
+
+            var yotiAttribute = new YotiImageAttribute<Image>(
+                name: "selfie",
+                value: null,
+                sources: sources);
+
+            Assert.AreEqual(sources, yotiAttribute.GetSources());
+        }
+
+        [TestMethod]
+        public void YotiAttribute_GetVerifiers()
+        {
+            var verifiers = new HashSet<string> { "x", "y", "z" };
+
+            var yotiAttribute = new YotiImageAttribute<Image>(
+                name: "selfie",
+                value: null,
+                sources: new HashSet<string> { "a", "b", "c" },
+                verifiers: verifiers);
+
+            Assert.AreEqual(verifiers, yotiAttribute.GetVerifiers());
         }
 
         [TestMethod]
@@ -74,7 +100,7 @@ namespace Yoti.Auth.Tests
             var yotiAttributeValue = new YotiAttributeValue(
                 TypeEnum.Jpeg,
                 jpegBytes);
-            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue, anchors: null);
+            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
             string expectedString = String.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
 
@@ -88,7 +114,7 @@ namespace Yoti.Auth.Tests
             var yotiAttributeValue = new YotiAttributeValue(
                 TypeEnum.Png,
                 pngBytes);
-            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue, anchors: null);
+            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
             string expectedString = String.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));
 

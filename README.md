@@ -152,10 +152,6 @@ You can retrieve the sources and verifiers for each attribute like this:
 HashSet<string> givenNamesSources = profile.GivenNames.GetSources();
 HashSet<string> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
 ```
-Or you can retrive all of the anchors for an attribute using:
-```cs
-List<Anchor> givenNamesAnchors = profile.GivenNames.GetAnchors();
-```
 
 ## AML Integration
 

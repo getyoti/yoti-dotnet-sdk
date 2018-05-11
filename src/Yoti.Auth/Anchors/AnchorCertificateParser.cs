@@ -9,46 +9,39 @@ using Org.BouncyCastle.Asn1;
 
 namespace Yoti.Auth.Anchors
 {
-    internal static class AnchorCertificateParser
+    public static class AnchorCertificateParser
     {
-        public static AnchorVerifierSourceData GetTypesFromAnchor(Anchor anchor, AnchorType type)
+        public static AnchorVerifierSourceData GetTypesFromAnchor(Anchor anchor)
         {
             var types = new HashSet<string>();
             AnchorType anchorType = AnchorType.Unknown;
 
             foreach (ByteString byteString in anchor.OriginServerCerts)
             {
-                X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
                 var extensions = new List<string>();
+                X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
+                var anchorEnum = typeof(AnchorType);
 
-                foreach (AnchorType enumType in Enum.GetValues(typeof(AnchorType)))
+                foreach (AnchorType type in Enum.GetValues(anchorEnum))
                 {
-                    extensions = GetExtensions(enumType, certificate, extensions);
+                    var name = Enum.GetName(anchorEnum, type);
+                    string extensionOid = anchorEnum.GetRuntimeField(name)
+                        .GetCustomAttributes(inherit: false)
+                        .OfType<ExtensionOidAttribute>()
+                        .Single().ExtensionOid;
+
+                    extensions = GetListOfStringsFromExtension(certificate, extensionOid);
 
                     if (extensions.Count() > 0)
                     {
-                        anchorType = enumType;
+                        anchorType = type;
                         break;
                     }
                 }
-
                 types.UnionWith(extensions);
             }
 
             return new AnchorVerifierSourceData(types, anchorType);
-        }
-
-        private static List<string> GetExtensions(AnchorType anchorType, X509Certificate2 certificate, List<string> extensions)
-        {
-            var anchorEnum = typeof(AnchorType);
-
-            var name = Enum.GetName(anchorEnum, anchorType);
-            string extensionOid = anchorEnum.GetRuntimeField(name)
-                .GetCustomAttributes(inherit: false)
-                .OfType<ExtensionOidAttribute>()
-                .Single().ExtensionOid;
-
-            return GetListOfStringsFromExtension(certificate, extensionOid);
         }
 
         private static List<string> GetListOfStringsFromExtension(X509Certificate2 certificate, string extensionOid)
