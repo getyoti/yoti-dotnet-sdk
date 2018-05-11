@@ -121,8 +121,7 @@ namespace Yoti.Auth.Owin
 
                     case "date_of_birth":
                         {
-                            DateTime date;
-                            if (DateTime.TryParseExact(claim.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                            if (DateTime.TryParseExact(claim.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime date))
                             {
                                 profile.DateOfBirth = date;
                             }

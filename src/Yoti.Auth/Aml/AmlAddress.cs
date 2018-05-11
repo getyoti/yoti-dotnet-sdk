@@ -5,11 +5,11 @@ namespace Yoti.Auth.Aml
     public class AmlAddress : IAmlAddress
     {
         [JsonProperty(PropertyName = "post_code")]
-        private string _postcode;
+        private readonly string _postcode;
 
         [JsonRequired]
         [JsonProperty(PropertyName = "country")]
-        private string _country;
+        private readonly string _country;
 
         public AmlAddress(string country, string postcode = null)
         {

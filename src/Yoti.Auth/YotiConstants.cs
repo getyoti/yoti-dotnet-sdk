@@ -2,7 +2,7 @@
 {
     internal static class YotiConstants
     {
-        private static string DefaultYotiHost = @"https://api.yoti.com";
+        private static readonly string DefaultYotiHost = @"https://api.yoti.com";
         public static string YotiApiUrl = "yoti.api.url";
         public static string YotiApiPathPrefix = "/api/v1";
         public static string DefaultYotiApiUrl = DefaultYotiHost + YotiApiPathPrefix;

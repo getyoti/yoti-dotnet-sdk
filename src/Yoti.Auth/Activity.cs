@@ -250,8 +250,7 @@ namespace Yoti.Auth
 
                 case "date_of_birth":
                     {
-                        DateTime date;
-                        if (DateTime.TryParseExact(Conversion.BytesToUtf8(byteValue), "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                        if (DateTime.TryParseExact(Conversion.BytesToUtf8(byteValue), "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime date))
                         {
                             _yotiUserProfile.DateOfBirth = date;
                         }

@@ -73,12 +73,13 @@ namespace Yoti.Auth.Owin
                     throw new HttpRequestException();
                 }
 
-                var context = new YotiAuthenticatedContext(Context, activityDetails.UserProfile);
-
-                context.Identity = new ClaimsIdentity(
+                var context = new YotiAuthenticatedContext(Context, activityDetails.UserProfile)
+                {
+                    Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
+                    ClaimsIdentity.DefaultRoleClaimType)
+                };
 
                 if (!string.IsNullOrEmpty(context.User.Id))
                 {
@@ -228,9 +229,11 @@ namespace Yoti.Auth.Owin
                     return true;
                 }
 
-                var context = new YotiReturnEndpointContext(Context, ticket);
-                context.SignInAsAuthenticationType = Options.SignInAsAuthenticationType;
-                context.RedirectUri = ticket.Properties.RedirectUri;
+                var context = new YotiReturnEndpointContext(Context, ticket)
+                {
+                    SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
+                    RedirectUri = ticket.Properties.RedirectUri
+                };
 
                 await Options.Provider.ReturnEndpoint(context);
 
@@ -266,8 +269,7 @@ namespace Yoti.Auth.Owin
         private static void AddQueryString(IDictionary<string, string> queryStrings, AuthenticationProperties properties,
             string name, string defaultValue = null)
         {
-            string value;
-            if (!properties.Dictionary.TryGetValue(name, out value))
+            if (!properties.Dictionary.TryGetValue(name, out string value))
             {
                 value = defaultValue;
             }

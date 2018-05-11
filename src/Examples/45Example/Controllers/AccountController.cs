@@ -11,7 +11,7 @@ namespace Example.Controllers
 {
     public class AccountController : Controller
     {
-        private string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
+        private readonly string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
 
         public static byte[] PhotoBytes { get; set; }
 
