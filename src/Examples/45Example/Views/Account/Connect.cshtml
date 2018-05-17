@@ -170,7 +170,7 @@
                     <th scope="row">AgeVerified</th>
                     <td>
                         @{
-                            string AgeVerified = (string)Model.AgeVerified.GetValue();
+                            string AgeVerified = Model.AgeVerified.GetValue().ToString();
                             @Html.DisplayFor(m => AgeVerified);
                         }
                     </td>
