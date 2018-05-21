@@ -218,7 +218,7 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) The .NET SDK for your operating system from step no.1 ([Windows](https://www.microsoft.com/net/learn/get-started/windows) | [Linux](https://www.microsoft.com/net/learn/get-started/linux/rhel) | [MacOS](https://www.microsoft.com/net/learn/get-started/macos))
 
 #### Instructions
-1) Navigate to the [/src/Examples/CoreExample](src/Examples/CoreExample) folder
+1) Navigate to the [src/Examples/CoreExample](src/Examples/CoreExample) folder
 1) Rename the [.env.example](src/Examples/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:53647/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
