@@ -28,12 +28,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            Yoti ID:
-        </div>
-        <div class="col-md-9 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.Id)
-        </div>
+        Yoti ID: @Html.DisplayFor(m => m.Id)
     </div>
     <table class="table">
         <thead class="thead-light">
@@ -72,11 +67,11 @@
             @if (Model.GivenNames != null)
             {
                 <tr>
-                    <th scope="row">GivenNames</th>
+                    <th scope="row">Given Names</th>
                     <td>
                         @{
-                            string GivenNames = (string)Model.GivenNames.GetValue();
-                            @Html.DisplayFor(m => GivenNames);
+                            string givenNames = (string)Model.GivenNames.GetValue();
+                            @Html.DisplayFor(m => givenNames);
                         }
                     </td>
                     <td>
@@ -93,14 +88,38 @@
                     </td>
                 </tr>
             }
+            @if (Model.FamilyName != null)
+            {
+                <tr>
+                    <th scope="row">Family Name</th>
+                    <td>
+                        @{
+                            string familyName = (string)Model.FamilyName.GetValue();
+                            @Html.DisplayFor(m => familyName);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesFamilyNames = string.Join(", ", Model.FamilyName.GetSources());
+                            @Html.DisplayFor(m => sourcesFamilyNames);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersFamilyName = string.Join(", ", Model.GivenNames.GetVerifiers());
+                            @Html.DisplayFor(m => verifiersFamilyName);
+                        }
+                    </td>
+                </tr>
+            }
             @if (Model.MobileNumber != null)
             {
                 <tr>
-                    <th scope="row">MobileNumber</th>
+                    <th scope="row">Mobile Number</th>
                     <td>
                         @{
-                            string MobileNumber = (string)Model.MobileNumber.GetValue();
-                            @Html.DisplayFor(m => MobileNumber);
+                            string mobileNumber = (string)Model.MobileNumber.GetValue();
+                            @Html.DisplayFor(m => mobileNumber);
                         }
                     </td>
                     <td>
@@ -120,11 +139,11 @@
             @if (Model.EmailAddress != null)
             {
                 <tr>
-                    <th scope="row">EmailAddress</th>
+                    <th scope="row">Email Address</th>
                     <td>
                         @{
-                            string EmailAddress = (string)Model.EmailAddress.GetValue();
-                            @Html.DisplayFor(m => EmailAddress);
+                            string emailAddress = (string)Model.EmailAddress.GetValue();
+                            @Html.DisplayFor(m => emailAddress);
                         }
                     </td>
                     <td>
@@ -144,7 +163,7 @@
             @if (Model.DateOfBirth != null)
             {
                 <tr>
-                    <th scope="row">dateOfBirth</th>
+                    <th scope="row">Date of Birth</th>
                     <td>
                         @{
                             DateTime? dateOfBirth = (DateTime?)Model.DateOfBirth.GetValue();
@@ -168,11 +187,11 @@
             @if (Model.AgeVerified != null)
             {
                 <tr>
-                    <th scope="row">AgeVerified</th>
+                    <th scope="row">Age Verified</th>
                     <td>
                         @{
-                            string AgeVerified = Model.AgeVerified.GetValue().ToString();
-                            @Html.DisplayFor(m => AgeVerified);
+                            string ageVerified = Model.AgeVerified.GetValue().ToString();
+                            @Html.DisplayFor(m => ageVerified);
                         }
                     </td>
                     <td>
@@ -195,8 +214,8 @@
                     <th scope="row">Address</th>
                     <td>
                         @{
-                            string Address = (string)Model.Address.GetValue();
-                            @Html.DisplayFor(m => Address);
+                            string address = (string)Model.Address.GetValue();
+                            @Html.DisplayFor(m => address);
                         }
                     </td>
                     <td>
@@ -219,8 +238,8 @@
                     <th scope="row">Gender</th>
                     <td>
                         @{
-                            string Gender = (string)Model.Gender.GetValue();
-                            @Html.DisplayFor(m => Gender);
+                            string gender = (string)Model.Gender.GetValue();
+                            @Html.DisplayFor(m => gender);
                         }
                     </td>
                     <td>
@@ -243,8 +262,8 @@
                     <th scope="row">Nationality</th>
                     <td>
                         @{
-                            string Nationality = (string)Model.Nationality.GetValue();
-                            @Html.DisplayFor(m => Nationality);
+                            string nationality = (string)Model.Nationality.GetValue();
+                            @Html.DisplayFor(m => nationality);
                         }
                     </td>
                     <td>
@@ -265,7 +284,7 @@
             @if (Model.StructuredPostalAddress != null)
             {
                 <tr>
-                    <th scope="row">StructuredPostalAddress</th>
+                    <th scope="row">Structured Postal Address</th>
                     <td></td>
                     <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
                         @{
