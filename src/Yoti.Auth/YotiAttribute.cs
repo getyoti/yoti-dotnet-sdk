@@ -36,10 +36,10 @@ namespace Yoti.Auth
             return _name;
         }
 
-        public object GetValue()
+        public T GetValue()
         {
             if (Value == null)
-                return null;
+                return default(T);
 
             return Value.ToBytes().ConvertType<T>();
         }
@@ -49,9 +49,14 @@ namespace Yoti.Auth
             return Value.ToJson();
         }
 
-        public object GetValueOrDefault(object defaultValue)
+        public T GetValueOrDefault(T defaultValue)
         {
-            return GetValue() ?? defaultValue;
+            T value = GetValue();
+
+            if (value != null)
+                return value;
+
+            return defaultValue;
         }
 
         public HashSet<string> GetSources()

@@ -56,14 +56,30 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttribute_GetValueOrDefault_ReturnsDefaultWhenNull()
         {
-            var yotiAttribute = new YotiImageAttribute<Image>(
-                name: "selfie",
+            var yotiAttribute = new YotiAttribute<string>(
+                name: "given_names",
                 value: null,
                 sources: new HashSet<string>());
 
             string defaultValue = "default";
 
             Assert.AreEqual(defaultValue, yotiAttribute.GetValueOrDefault(defaultValue));
+        }
+
+        [TestMethod]
+        public void YotiAttribute_GetValueOrDefault_ReturnsValueWhenNotNull()
+        {
+            string expectedValue = "expected";
+            var expectedAttributeValue = new YotiAttributeValue(TypeEnum.Text, Conversion.UtfToBytes(expectedValue));
+
+            var yotiAttribute = new YotiAttribute<string>(
+                name: "given_names",
+                value: expectedAttributeValue,
+                sources: new HashSet<string>());
+
+            string defaultValue = "default";
+
+            Assert.AreEqual(expectedValue, yotiAttribute.GetValueOrDefault(defaultValue));
         }
 
         [TestMethod]

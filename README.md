@@ -120,16 +120,16 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
         string userId = profile.Id;
         Image selfie = profile.Selfie.GetImage();
         string selfieURI = profile.Selfie.GetBase64URI();
-        string fullName = (string)profile.FullName.GetValue();
-        string givenNames = (string)profile.GivenNames.GetValue();
-        string familyName = (string)profile.FamilyName.GetValue();
-        string mobileNumber = (string)profile.MobileNumber.GetValue();
-        string emailAddress = (string)profile.EmailAddress.GetValue();
-        DateTime? dateOfBirth = (DateTime?)profile.DateOfBirth.GetValue();
-        bool? ageVerified = (bool?)profile.AgeVerified.GetValue();
-        string address = (string)profile.Address.GetValue();
-        string gender = (string)profile.Gender.GetValue();
-        string nationality = (string)profile.Nationality.GetValue();
+        string fullName = profile.FullName.GetValue();
+        string givenNames = profile.GivenNames.GetValue();
+        string familyName = profile.FamilyName.GetValue();
+        string mobileNumber = profile.MobileNumber.GetValue();
+        string emailAddress = profile.EmailAddress.GetValue();
+        DateTime? dateOfBirth = profile.DateOfBirth.GetValue();
+        bool? ageVerified = profile.AgeVerified.GetValue();
+        string address = profile.Address.GetValue();
+        string gender = profile.Gender.GetValue();
+        string nationality = profile.Nationality.GetValue();
     }
     else
     {
