@@ -1,8 +1,8 @@
 ﻿using Yoti.Auth.Aml;
 
-namespace Yoti.Auth.Tests
+namespace Yoti.Auth.Tests.TestTools
 {
-    internal class TestTools
+    internal class Aml
     {
         public static AmlProfile CreateStandardAmlProfile()
         {

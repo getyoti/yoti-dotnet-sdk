@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.6.0] - 2018-05-16
 ### Added
-- `YotiProfile`, which contains `YotiAttribute` instances.  `YotiAttribute` allows you to get its sources and verifiers by means of the `GetSources` and `GetVerifiers` methods
+- `YotiProfile`, which contains `YotiAttribute` instances.  `YotiAttribute` allows you to get its anchors, sources and verifiers by means of the `GetAnchors()` `GetSources()` and `GetVerifiers()` methods
+- Getters for each Anchor: `GetAnchorType()`, `GetArtifactLink()`, `GetArtifactSignature()`, `GetOriginServerCerts()`, `GetSignature()`, `GetSignedTimeStamp()`, `GetSubType()`, `GetValue()`
 
 ### Changed
 - On new YotiProfile:

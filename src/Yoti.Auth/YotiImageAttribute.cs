@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yoti.Auth.Anchors;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
@@ -9,11 +10,7 @@ namespace Yoti.Auth
         {
         }
 
-        public YotiImageAttribute(string name, YotiAttributeValue value, HashSet<string> sources) : base(name, value, sources)
-        {
-        }
-
-        public YotiImageAttribute(string name, YotiAttributeValue value, HashSet<string> sources, HashSet<string> verifiers) : base(name, value, sources, verifiers)
+        public YotiImageAttribute(string name, YotiAttributeValue value, List<Anchor> anchors) : base(name, value, anchors)
         {
         }
 

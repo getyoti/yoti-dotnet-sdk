@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Anchors;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth.Tests
@@ -59,7 +60,7 @@ namespace Yoti.Auth.Tests
             var yotiAttribute = new YotiAttribute<string>(
                 name: "given_names",
                 value: null,
-                sources: new HashSet<string>());
+                anchors: new List<Anchor>());
 
             string defaultValue = "default";
 
@@ -75,38 +76,11 @@ namespace Yoti.Auth.Tests
             var yotiAttribute = new YotiAttribute<string>(
                 name: "given_names",
                 value: expectedAttributeValue,
-                sources: new HashSet<string>());
+                anchors: new List<Anchor>());
 
             string defaultValue = "default";
 
             Assert.AreEqual(expectedValue, yotiAttribute.GetValueOrDefault(defaultValue));
-        }
-
-        [TestMethod]
-        public void YotiAttribute_GetSources()
-        {
-            var sources = new HashSet<string> { "a", "b", "c" };
-
-            var yotiAttribute = new YotiImageAttribute<Image>(
-                name: "selfie",
-                value: null,
-                sources: sources);
-
-            Assert.AreEqual(sources, yotiAttribute.GetSources());
-        }
-
-        [TestMethod]
-        public void YotiAttribute_GetVerifiers()
-        {
-            var verifiers = new HashSet<string> { "x", "y", "z" };
-
-            var yotiAttribute = new YotiImageAttribute<Image>(
-                name: "selfie",
-                value: null,
-                sources: new HashSet<string> { "a", "b", "c" },
-                verifiers: verifiers);
-
-            Assert.AreEqual(verifiers, yotiAttribute.GetVerifiers());
         }
 
         [TestMethod]

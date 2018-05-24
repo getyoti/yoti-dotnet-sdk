@@ -7,7 +7,7 @@ namespace CoreExample.Controllers
 {
     public class HomeController : Controller
     {
-        private string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
+        private readonly string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
 
         public IActionResult Index()
         {

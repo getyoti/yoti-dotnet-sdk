@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AttrpubapiV1;
-using Yoti.Auth.Anchors;
-using static Yoti.Auth.Anchors.AnchorCertificateParser;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
@@ -45,23 +44,19 @@ namespace Yoti.Auth
             return new YotiAttribute<object>(
                         attribute.Name,
                         value,
-                        ExtractMetadata(attribute, AnchorType.Source),
-                        ExtractMetadata(attribute, AnchorType.Verifier));
+                        ParseAnchors(attribute));
         }
 
-        private static HashSet<string> ExtractMetadata(AttrpubapiV1.Attribute attribute, AnchorType anchorType)
+        private static List<Yoti.Auth.Anchors.Anchor> ParseAnchors(AttrpubapiV1.Attribute attribute)
         {
-            var entries = new HashSet<string>();
-            foreach (Anchor anchor in attribute.Anchors)
+            var yotiAnchors = new HashSet<Yoti.Auth.Anchors.Anchor>();
+
+            foreach (AttrpubapiV1.Anchor protoBufAnchor in attribute.Anchors)
             {
-                AnchorVerifierSourceData anchorData = AnchorCertificateParser.GetTypesFromAnchor(anchor);
-                if (anchorData.GetAnchorType() == anchorType)
-                {
-                    entries.UnionWith(anchorData.GetEntries());
-                }
+                yotiAnchors.Add(new Yoti.Auth.Anchors.Anchor(protoBufAnchor));
             }
 
-            return entries;
+            return yotiAnchors.ToList();
         }
     }
 }

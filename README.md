@@ -147,10 +147,26 @@ No matter if the user is a new or an existing one, Yoti will always provide her/
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
 
-You can retrieve the sources and verifiers for each attribute as follows:
+You can retrieve the anchors, sources and verifiers for each attribute as follows:
 ```cs
-HashSet<string> givenNamesSources = profile.GivenNames.GetSources();
-HashSet<string> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
+using Yoti.Auth.Anchors;
+
+List<Anchor> givenNamesAnchors = profile.GivenNames.GetAnchors();
+List<Anchor> givenNamesSources = profile.GivenNames.GetSources();
+List<Anchor> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
+```
+You can also retrieve further properties from these respective anchors in the following way:
+```cs
+Anchor givenNamesFirstAnchor = profile.GivenNames.GetSources().First();
+
+AnchorType anchorType = givenNamesFirstAnchor.GetAnchorType();
+byte[] artifactLink = givenNamesFirstAnchor.GetArtifactLink();
+byte[] artifactSignature = givenNamesFirstAnchor.GetArtifactSignature();
+List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServerCerts();
+byte[] signature = givenNamesFirstAnchor.GetSignature();
+byte[] signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp();
+string subType = givenNamesFirstAnchor.GetSubType();
+List<string> value = givenNamesFirstAnchor.GetValue();
 ```
 
 ## AML Integration

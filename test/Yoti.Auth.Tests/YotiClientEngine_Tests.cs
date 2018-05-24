@@ -202,7 +202,7 @@ namespace Yoti.Auth.Tests
             });
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
-            AmlProfile amlProfile = TestTools.CreateStandardAmlProfile();
+            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             AmlResult amlResult = engine.PerformAmlCheck(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
 
@@ -229,7 +229,7 @@ namespace Yoti.Auth.Tests
             });
 
             YotiClientEngine engine = new YotiClientEngine(httpRequester);
-            AmlProfile amlProfile = TestTools.CreateStandardAmlProfile();
+            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             AmlResult amlResult = await engine.PerformAmlCheckAsync(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
 

@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="row">
-        Yoti ID: @Html.DisplayFor(m => m.Id)
+        <b>Yoti ID:</b> @Html.DisplayFor(m => m.Id)
     </div>
     <table class="table">
         <thead class="thead-light">
@@ -52,13 +52,13 @@
                     </td>
                     <td>
                         @{
-                            string sources = string.Join(", ", Model.FullName.GetSources());
+                            string sources = string.Join(", ", Model.FullName.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sources);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiers = string.Join(", ", Model.FullName.GetVerifiers());
+                            string verifiers = string.Join(", ", Model.FullName.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiers);
                         }
                     </td>
@@ -76,13 +76,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesGivenNames = string.Join(", ", Model.GivenNames.GetSources());
+                            string sourcesGivenNames = string.Join(", ", Model.GivenNames.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesGivenNames);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersGivenNames = string.Join(", ", Model.GivenNames.GetVerifiers());
+                            string verifiersGivenNames = string.Join(", ", Model.FullName.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersGivenNames);
                         }
                     </td>
@@ -100,13 +100,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesFamilyNames = string.Join(", ", Model.FamilyName.GetSources());
+                            string sourcesFamilyNames = string.Join(", ", Model.FamilyName.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesFamilyNames);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersFamilyName = string.Join(", ", Model.GivenNames.GetVerifiers());
+                            string verifiersFamilyName = string.Join(", ", Model.GivenNames.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersFamilyName);
                         }
                     </td>
@@ -124,13 +124,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesMobileNumber = string.Join(", ", Model.MobileNumber.GetSources());
+                            string sourcesMobileNumber = string.Join(", ", Model.MobileNumber.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesMobileNumber);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersMobileNumber = string.Join(", ", Model.MobileNumber.GetVerifiers());
+                            string verifiersMobileNumber = string.Join(", ", Model.MobileNumber.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersMobileNumber);
                         }
                     </td>
@@ -148,13 +148,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesEmailAddress = string.Join(", ", Model.EmailAddress.GetSources());
+                            string sourcesEmailAddress = string.Join(", ", Model.EmailAddress.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesEmailAddress);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersEmailAddress = string.Join(", ", Model.EmailAddress.GetVerifiers());
+                            string verifiersEmailAddress = string.Join(", ", Model.EmailAddress.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersEmailAddress);
                         }
                     </td>
@@ -172,13 +172,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesDateOfBirth = string.Join(", ", Model.DateOfBirth.GetSources());
+                            string sourcesDateOfBirth = string.Join(", ", Model.DateOfBirth.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesDateOfBirth);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersDateOfBirth = string.Join(", ", Model.DateOfBirth.GetVerifiers());
+                            string verifiersDateOfBirth = string.Join(", ", Model.DateOfBirth.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersDateOfBirth);
                         }
                     </td>
@@ -196,13 +196,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesAgeVerified = string.Join(", ", Model.AgeVerified.GetSources());
+                            string sourcesAgeVerified = string.Join(", ", Model.AgeVerified.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesAgeVerified);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersAgeVerified = string.Join(", ", Model.AgeVerified.GetVerifiers());
+                            string verifiersAgeVerified = string.Join(", ", Model.AgeVerified.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersAgeVerified);
                         }
                     </td>
@@ -220,13 +220,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesAddress = string.Join(", ", Model.Address.GetSources());
+                            string sourcesAddress = string.Join(", ", Model.Address.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesAddress);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersAddress = string.Join(", ", Model.Address.GetVerifiers());
+                            string verifiersAddress = string.Join(", ", Model.Address.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersAddress);
                         }
                     </td>
@@ -244,13 +244,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesGender = string.Join(", ", Model.Gender.GetSources());
+                            string sourcesGender = string.Join(", ", Model.Gender.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesGender);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersGender = string.Join(", ", Model.Gender.GetVerifiers());
+                            string verifiersGender = string.Join(", ", Model.Gender.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersGender);
                         }
                     </td>
@@ -268,13 +268,13 @@
                     </td>
                     <td>
                         @{
-                            string sourcesNationality = string.Join(", ", Model.Nationality.GetSources());
+                            string sourcesNationality = string.Join(", ", Model.Nationality.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesNationality);
                         }
                     </td>
                     <td>
                         @{
-                            string verifiersNationality = string.Join(", ", Model.Nationality.GetVerifiers());
+                            string verifiersNationality = string.Join(", ", Model.Nationality.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersNationality);
                         }
                     </td>
@@ -288,13 +288,13 @@
                     <td></td>
                     <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
                         @{
-                            string sourcesStructuredPostalAddress = string.Join(", ", Model.StructuredPostalAddress.GetSources());
+                            string sourcesStructuredPostalAddress = string.Join(", ", Model.StructuredPostalAddress.GetSources().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => sourcesStructuredPostalAddress);
                         }
                     </td>
                     <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
                         @{
-                            string verifiersStructuredPostalAddress = string.Join(", ", Model.StructuredPostalAddress.GetVerifiers());
+                            string verifiersStructuredPostalAddress = string.Join(", ", Model.StructuredPostalAddress.GetVerifiers().SelectMany(selector: s => s.GetValue()));
                             @Html.DisplayFor(m => verifiersStructuredPostalAddress);
                         }
                     </td>

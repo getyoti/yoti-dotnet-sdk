@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using AttrpubapiV1;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Anchors;
 using Yoti.Auth.DataObjects;
 using static Yoti.Auth.YotiAttributeValue;
 
@@ -45,7 +45,7 @@ namespace Yoti.Auth
             {
                 ReceiptDO receipt = parsedResponse.receipt;
 
-                AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
+                AttrpubapiV1.AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
                     parsedResponse.receipt.wrapped_receipt_key,
                     parsedResponse.receipt.other_party_profile_content,
                     keyPair);
@@ -64,7 +64,7 @@ namespace Yoti.Auth
             }
         }
 
-        internal void AddAttributesToProfile(AttributeList attributes)
+        internal void AddAttributesToProfile(AttrpubapiV1.AttributeList attributes)
         {
             foreach (AttrpubapiV1.Attribute attribute in attributes.Attributes)
             {
@@ -89,20 +89,18 @@ namespace Yoti.Auth
                     return;
                 }
 
-                HashSet<string> sources = yotiAttribute.GetSources();
-                HashSet<string> verifiers = yotiAttribute.GetVerifiers();
+                List<Yoti.Auth.Anchors.Anchor> anchors = yotiAttribute.GetAnchors();
 
                 switch (attribute.ContentType)
                 {
-                    case ContentType.Json:
+                    case AttrpubapiV1.ContentType.Json:
                         if (attribute.Name == YotiConstants.AttributeStructuredPostalAddress)
                         {
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
                             var structuredPostalAddressAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
                                 YotiConstants.AttributeStructuredPostalAddress,
                                 structuredPostalAddressAttributeValue,
-                                sources,
-                                verifiers);
+                                anchors);
 
                             _yotiProfile.StructuredPostalAddress = structuredPostalAddressAttribute;
                             break;
@@ -113,7 +111,7 @@ namespace Yoti.Auth
                         }
                         break;
 
-                    case ContentType.String:
+                    case AttrpubapiV1.ContentType.String:
                         if (yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeOver)
                             || yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeUnder))
                         {
@@ -129,39 +127,36 @@ namespace Yoti.Auth
                             _yotiProfile.AgeVerified = new YotiAttribute<bool?>(
                                 propertyInfo.Name,
                                 AgeVerifiedAttributeValue,
-                                sources,
-                                verifiers);
+                                anchors);
 
                             break;
                         }
 
-                        SetStringAttribute(propertyInfo, stringValue, sources, verifiers);
+                        SetStringAttribute(propertyInfo, stringValue, anchors);
                         break;
 
-                    case ContentType.Jpeg:
+                    case AttrpubapiV1.ContentType.Jpeg:
                         var jpegYotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, byteValue);
                         _yotiProfile.Selfie = new YotiImageAttribute<Image>(
                             propertyInfo.Name,
                             jpegYotiAttributeValue,
-                            sources,
-                            verifiers);
+                            anchors);
                         break;
 
-                    case ContentType.Png:
+                    case AttrpubapiV1.ContentType.Png:
                         var pngYotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, byteValue);
                         _yotiProfile.Selfie = new YotiImageAttribute<Image>(
                             propertyInfo.Name,
                             pngYotiAttributeValue,
-                            sources,
-                            verifiers);
+                            anchors);
                         break;
 
-                    case ContentType.Date:
+                    case AttrpubapiV1.ContentType.Date:
 
                         DateTime date;
                         if (DateTime.TryParseExact(stringValue, "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
                         {
-                            SetDateAttribute(propertyInfo, byteValue, sources, verifiers);
+                            SetDateAttribute(propertyInfo, byteValue, anchors);
                         }
                         break;
 
@@ -192,8 +187,7 @@ namespace Yoti.Auth
                     SetStringAttribute(
                         addressPropertyInfo,
                         formattedAddress,
-                        structuredPostalAddress.GetSources(),
-                        structuredPostalAddress.GetVerifiers());
+                        structuredPostalAddress.GetAnchors());
 
                     _yotiUserProfile.Address = formattedAddress;
                 }
@@ -208,7 +202,7 @@ namespace Yoti.Auth
 
                     switch (attribute.ContentType)
                     {
-                        case ContentType.Jpeg:
+                        case AttrpubapiV1.ContentType.Jpeg:
                             _yotiUserProfile.Selfie = new Image
                             {
                                 Type = TypeEnum.Jpeg,
@@ -217,7 +211,7 @@ namespace Yoti.Auth
                             };
                             break;
 
-                        case ContentType.Png:
+                        case AttrpubapiV1.ContentType.Png:
                             _yotiUserProfile.Selfie = new Image
                             {
                                 Type = TypeEnum.Png,
@@ -298,26 +292,24 @@ namespace Yoti.Auth
             }
         }
 
-        private void SetStringAttribute(PropertyInfo propertyInfo, string value, HashSet<string> sources, HashSet<string> verifiers)
+        private void SetStringAttribute(PropertyInfo propertyInfo, string value, List<Anchor> anchors)
         {
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Text, value);
             var yotiAttribute = new YotiAttribute<string>(
                 propertyInfo.Name,
                 yotiAttributeValue,
-                sources,
-                verifiers);
+                anchors);
 
             propertyInfo.SetValue(_yotiProfile, yotiAttribute);
         }
 
-        private void SetDateAttribute(PropertyInfo propertyInfo, byte[] value, HashSet<string> sources, HashSet<string> verifiers)
+        private void SetDateAttribute(PropertyInfo propertyInfo, byte[] value, List<Anchor> anchors)
         {
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, value);
             var yotiAttribute = new YotiAttribute<DateTime?>(
                 propertyInfo.Name,
                 yotiAttributeValue,
-                sources,
-                verifiers);
+                anchors);
 
             propertyInfo.SetValue(_yotiProfile, yotiAttribute);
         }
@@ -361,31 +353,31 @@ namespace Yoti.Auth
 
             switch (attribute.ContentType)
             {
-                case ContentType.Date:
+                case AttrpubapiV1.ContentType.Date:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Date, data));
                     break;
 
-                case ContentType.String:
+                case AttrpubapiV1.ContentType.String:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Text, data));
                     break;
 
-                case ContentType.Jpeg:
+                case AttrpubapiV1.ContentType.Jpeg:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Jpeg, data));
                     break;
 
-                case ContentType.Png:
+                case AttrpubapiV1.ContentType.Png:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Png, data));
                     break;
 
-                case ContentType.Undefined:
+                case AttrpubapiV1.ContentType.Undefined:
                     // do not return attributes with undefined content types
                     break;
 
@@ -398,31 +390,31 @@ namespace Yoti.Auth
         {
             switch (attribute.ContentType)
             {
-                case ContentType.Date:
+                case AttrpubapiV1.ContentType.Date:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Date, data));
                     break;
 
-                case ContentType.String:
+                case AttrpubapiV1.ContentType.String:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Text, data));
                     break;
 
-                case ContentType.Jpeg:
+                case AttrpubapiV1.ContentType.Jpeg:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Jpeg, data));
                     break;
 
-                case ContentType.Png:
+                case AttrpubapiV1.ContentType.Png:
                     profile.OtherAttributes.Add(
                         attribute.Name,
                         new YotiAttributeValue(TypeEnum.Png, data));
                     break;
 
-                case ContentType.Undefined:
+                case AttrpubapiV1.ContentType.Undefined:
                     // do not return attributes with undefined content types
                     break;
 

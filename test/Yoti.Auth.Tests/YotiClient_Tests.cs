@@ -143,7 +143,7 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: null,
                 familyName: "Heath",
-                amlAddress: TestTools.CreateStandardAmlAddress());
+                amlAddress: TestTools.Aml.CreateStandardAmlAddress());
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
@@ -164,7 +164,7 @@ namespace Yoti.Auth.Tests
             AmlProfile amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: null,
-                amlAddress: TestTools.CreateStandardAmlAddress());
+                amlAddress: TestTools.Aml.CreateStandardAmlAddress());
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {

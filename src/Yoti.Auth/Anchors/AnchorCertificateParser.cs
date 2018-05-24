@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using AttrpubapiV1;
 using Google.Protobuf;
 using Org.BouncyCastle.Asn1;
 
@@ -11,7 +10,7 @@ namespace Yoti.Auth.Anchors
 {
     public static class AnchorCertificateParser
     {
-        public static AnchorVerifierSourceData GetTypesFromAnchor(Anchor anchor)
+        public static AnchorVerifierSourceData GetTypesFromAnchor(AttrpubapiV1.Anchor anchor)
         {
             var types = new HashSet<string>();
             AnchorType anchorType = AnchorType.Unknown;
@@ -73,28 +72,6 @@ namespace Yoti.Auth.Anchors
             }
 
             return extensionStrings;
-        }
-
-        public class AnchorVerifierSourceData
-        {
-            private readonly HashSet<string> _entries;
-            private readonly AnchorType _type;
-
-            public AnchorVerifierSourceData(HashSet<string> entries, AnchorType anchorType)
-            {
-                _entries = entries;
-                _type = anchorType;
-            }
-
-            public HashSet<string> GetEntries()
-            {
-                return _entries;
-            }
-
-            public AnchorType GetAnchorType()
-            {
-                return _type;
-            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Anchors;
 
 namespace Yoti.Auth
 {
@@ -7,8 +9,7 @@ namespace Yoti.Auth
     {
         protected readonly YotiAttributeValue Value;
         private readonly string _name;
-        private readonly HashSet<string> _sources;
-        private readonly HashSet<string> _verifiers;
+        private readonly List<Anchor> _anchors;
 
         public YotiAttribute(string name, YotiAttributeValue value)
         {
@@ -16,19 +17,11 @@ namespace Yoti.Auth
             Value = value;
         }
 
-        public YotiAttribute(string name, YotiAttributeValue value, HashSet<string> sources)
+        public YotiAttribute(string name, YotiAttributeValue value, List<Anchor> anchors)
         {
             _name = name;
             Value = value;
-            _sources = sources;
-        }
-
-        public YotiAttribute(string name, YotiAttributeValue value, HashSet<string> sources, HashSet<string> verifiers)
-        {
-            _name = name;
-            Value = value;
-            _sources = sources;
-            _verifiers = verifiers;
+            _anchors = anchors;
         }
 
         public string GetName()
@@ -59,14 +52,19 @@ namespace Yoti.Auth
             return defaultValue;
         }
 
-        public HashSet<string> GetSources()
+        public List<Anchor> GetAnchors()
         {
-            return _sources;
+            return _anchors.ToList();
         }
 
-        public HashSet<string> GetVerifiers()
+        public List<Anchor> GetSources()
         {
-            return _verifiers;
+            return _anchors.Where(a => a.GetAnchorType() == AnchorType.Source).ToList();
+        }
+
+        public List<Anchor> GetVerifiers()
+        {
+            return _anchors.Where(a => a.GetAnchorType() == AnchorType.Verifier).ToList();
         }
     }
 }

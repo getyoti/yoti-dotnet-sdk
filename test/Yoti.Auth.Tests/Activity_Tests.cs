@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Google.Protobuf;
-using Google.Protobuf.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Tests.TestData;
@@ -740,24 +739,25 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_String()
         {
-            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 _givenNamesAttribute,
-                "givenNameValue",
+                "givenNamesValue",
                 AttrpubapiV1.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
 
             AddAttributeToProfile(attribute);
 
-            HashSet<string> sources = _yotiProfile.GivenNames.GetSources();
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.GivenNames.GetSources();
+
             Assert.IsTrue(
                 sources.Any(
-                    s => s.Contains(_drivingLicenseSourceType)));
+                    s => s.GetValue().Contains(_drivingLicenseSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_AgeVerified()
         {
-            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 _ageOver18Attribute,
                 "true",
                 AttrpubapiV1.ContentType.String,
@@ -765,16 +765,16 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            HashSet<string> sources = _yotiProfile.AgeVerified.GetSources();
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.AgeVerified.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.Contains(_drivingLicenseSourceType)));
+                    s => s.GetValue().Contains(_drivingLicenseSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
         {
-            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 _structuredPostalAddressAttribute,
                 "{ \"properties\": { \"name\": { \"type\": \"string\"     } } }",
                 AttrpubapiV1.ContentType.Json,
@@ -782,16 +782,16 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            HashSet<string> sources = _yotiProfile.StructuredPostalAddress.GetSources();
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.StructuredPostalAddress.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.Contains(_drivingLicenseSourceType)));
+                    s => s.GetValue().Contains(_drivingLicenseSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetSources_IncludesPassport()
         {
-            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 _dateOfBirthAttribute,
                 _dateOfBirthString,
                 AttrpubapiV1.ContentType.Date,
@@ -799,16 +799,16 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            HashSet<string> sources = _yotiProfile.DateOfBirth.GetSources();
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.DateOfBirth.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.Contains(_passportSourceType)));
+                    s => s.GetValue().Contains(_passportSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetVerifiers_IncludesYotiAdmin()
         {
-            AttrpubapiV1.Attribute attribute = BuildAnchoredAttribute(
+            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 _selfieAttribute,
                 "selfieValue",
                 AttrpubapiV1.ContentType.Jpeg,
@@ -816,66 +816,10 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile(attribute);
 
-            HashSet<string> verifiers = _yotiProfile.Selfie.GetVerifiers();
+            IEnumerable<Anchors.Anchor> verifiers = _yotiProfile.Selfie.GetVerifiers();
             Assert.IsTrue(
                 verifiers.Any(
-                    s => s.Contains(_yotiAdminVerifierType)));
-        }
-
-        [TestMethod]
-        public void Activity_GetVerifiers_ExcludesDuplicate()
-        {
-            AttrpubapiV1.Attribute attribute = BuildDoubleAnchoredAttribute(
-                _selfieAttribute,
-                "selfieValue",
-                AttrpubapiV1.ContentType.Jpeg,
-                TestAnchors.YotiAdminAnchor);
-
-            AddAttributeToProfile(attribute);
-
-            HashSet<string> verifiers = _yotiProfile.Selfie.GetVerifiers();
-            Assert.IsTrue(
-                verifiers.Any(
-                    s => s.Contains(_yotiAdminVerifierType))
-                    && verifiers.Count == 1);
-        }
-
-        private static AttrpubapiV1.Attribute BuildAnchoredAttribute(string name, string value, AttrpubapiV1.ContentType contentType, string rawAnchor)
-        {
-            var attribute = new AttrpubapiV1.Attribute
-            {
-                Name = name,
-                ContentType = contentType,
-                Value = ByteString.CopyFromUtf8(value)
-            };
-
-            AddAnchorToAttribute(Conversion.Base64ToBytes(rawAnchor), attribute);
-
-            return attribute;
-        }
-
-        private static AttrpubapiV1.Attribute BuildDoubleAnchoredAttribute(string name, string value, AttrpubapiV1.ContentType contentType, string rawAnchor)
-        {
-            var attribute = new AttrpubapiV1.Attribute
-            {
-                Name = name,
-                ContentType = contentType,
-                Value = ByteString.CopyFromUtf8(value)
-            };
-
-            AddAnchorToAttribute(Conversion.Base64ToBytes(rawAnchor), attribute);
-            AddAnchorToAttribute(Conversion.Base64ToBytes(rawAnchor), attribute);
-
-            return attribute;
-        }
-
-        private static void AddAnchorToAttribute(byte[] anchorBytes, AttrpubapiV1.Attribute attribute)
-        {
-            attribute.Anchors.AddRange(
-                new RepeatedField<AttrpubapiV1.Anchor>
-                {
-                    AttrpubapiV1.Anchor.Parser.ParseFrom(anchorBytes)
-                });
+                    s => s.GetValue().Contains(_yotiAdminVerifierType)));
         }
 
         private void AssertDictionaryValue(string expectedValue, string dictionaryKey, Dictionary<string, JToken> dictionary)
