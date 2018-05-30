@@ -17,7 +17,6 @@ namespace Yoti.Auth.Anchors
     public class Anchor
     {
         private readonly AnchorType _anchorType;
-        private readonly byte[] _artifactLink;
         private readonly byte[] _artifactSignature;
         private readonly List<X509Certificate2> _originServerCerts;
         private readonly byte[] _signature;
@@ -32,7 +31,6 @@ namespace Yoti.Auth.Anchors
             _anchorType = anchorSourceData.GetAnchorType();
             _value = anchorSourceData.GetEntries().ToList();
 
-            _artifactLink = protobufAnchor.ArtifactLink.ToByteArray();
             _artifactSignature = protobufAnchor.ArtifactSignature.ToByteArray();
             _signature = protobufAnchor.Signature.ToByteArray();
             _signedTimeStamp = protobufAnchor.SignedTimeStamp.ToByteArray();
@@ -71,15 +69,6 @@ namespace Yoti.Auth.Anchors
         public List<string> GetValue()
         {
             return _value;
-        }
-
-        /// <summary>
-        /// ArtifactLink gives the database ID of the Yoti stored copy of the backing artifact/document.
-        /// </summary>
-        /// <returns>The database ID as a byte array</returns>
-        public byte[] GetArtifactLink()
-        {
-            return _artifactLink;
         }
 
         /// <summary>

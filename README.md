@@ -160,7 +160,6 @@ You can also retrieve further properties from these respective anchors in the fo
 Anchor givenNamesFirstAnchor = profile.GivenNames.GetSources().First();
 
 AnchorType anchorType = givenNamesFirstAnchor.GetAnchorType();
-byte[] artifactLink = givenNamesFirstAnchor.GetArtifactLink();
 byte[] artifactSignature = givenNamesFirstAnchor.GetArtifactSignature();
 List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServerCerts();
 byte[] signature = givenNamesFirstAnchor.GetSignature();

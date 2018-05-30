@@ -22,7 +22,6 @@ namespace Yoti.Auth.Tests
             var yotiAnchor = new Yoti.Auth.Anchors.Anchor(protobufAnchor);
 
             Assert.IsFalse(yotiAnchor.GetAnchorType().IsDefault());
-            Assert.IsFalse(yotiAnchor.GetArtifactLink().IsDefault());
             Assert.IsFalse(yotiAnchor.GetArtifactSignature().IsDefault());
             Assert.IsFalse(yotiAnchor.GetSignature().IsDefault());
             Assert.IsFalse(yotiAnchor.GetSignedTimeStamp().IsDefault());
