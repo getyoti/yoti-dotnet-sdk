@@ -26,9 +26,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <b>Yoti ID:</b> @Html.DisplayFor(m => m.Id)
-    </div>
     <table class="table">
         <thead class="thead-light">
             <tr>
@@ -39,6 +36,14 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <th scope="row">Yoti ID</th>
+                <td>
+                    @Html.DisplayFor(m => m.Id)
+                </td>
+                <td>N/A</td>
+                <td>N/A</td>
+            </tr>
             @if (Model.FullName != null)
             {
                 <tr>
