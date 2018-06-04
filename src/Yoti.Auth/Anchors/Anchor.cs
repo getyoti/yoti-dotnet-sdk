@@ -20,7 +20,7 @@ namespace Yoti.Auth.Anchors
         private readonly byte[] _artifactSignature;
         private readonly List<X509Certificate2> _originServerCerts;
         private readonly byte[] _signature;
-        private readonly byte[] _signedTimeStamp;
+        private readonly SignedTimestamp _signedTimeStamp;
         private readonly string _subType;
         private readonly List<string> _value;
 
@@ -33,9 +33,11 @@ namespace Yoti.Auth.Anchors
 
             _artifactSignature = protobufAnchor.ArtifactSignature.ToByteArray();
             _signature = protobufAnchor.Signature.ToByteArray();
-            _signedTimeStamp = protobufAnchor.SignedTimeStamp.ToByteArray();
             _subType = protobufAnchor.SubType;
             _originServerCerts = ConvertRawCertToX509List(protobufAnchor.OriginServerCerts);
+
+            var protobufSignedTimestamp = CompubapiV1.SignedTimestamp.Parser.ParseFrom(protobufAnchor.SignedTimeStamp.ToByteArray());
+            _signedTimeStamp = new SignedTimestamp(protobufSignedTimestamp);
         }
 
         private List<X509Certificate2> ConvertRawCertToX509List(RepeatedField<ByteString> rawOriginServerCerts)
@@ -119,10 +121,12 @@ namespace Yoti.Auth.Anchors
         /// SignedTimeStamp is the time at which the signature was created. The
         /// message associated with the timestamp is the marshaled form of
         /// AttributeSigning (i.e. the same message that is signed in the
-        /// Signature field).
+        /// Signature field). This method returns the <see cref="SignedTimestamp"/>
+        /// object, the actual timestamp as a DateTime can be called with
+        /// .GetTimestamp() on this object.
         /// </summary>
-        /// <returns>The signed timestamp in a byte array</returns>
-        public byte[] GetSignedTimeStamp()
+        /// <returns>The signed timestamp object</returns>
+        public SignedTimestamp GetSignedTimeStamp()
         {
             return _signedTimeStamp;
         }

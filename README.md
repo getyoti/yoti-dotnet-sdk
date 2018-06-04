@@ -149,6 +149,8 @@ The `profile` object provides a set of attributes corresponding to user attribut
 
 You can retrieve the anchors, sources and verifiers for each attribute as follows:
 ```cs
+using system.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Yoti.Auth.Anchors;
 
 List<Anchor> givenNamesAnchors = profile.GivenNames.GetAnchors();
@@ -163,7 +165,7 @@ AnchorType anchorType = givenNamesFirstAnchor.GetAnchorType();
 byte[] artifactSignature = givenNamesFirstAnchor.GetArtifactSignature();
 List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServerCerts();
 byte[] signature = givenNamesFirstAnchor.GetSignature();
-byte[] signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp();
+DateTime signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp().GetTimestamp();
 string subType = givenNamesFirstAnchor.GetSubType();
 List<string> value = givenNamesFirstAnchor.GetValue();
 ```
