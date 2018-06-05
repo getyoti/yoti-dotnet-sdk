@@ -737,6 +737,54 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
+        public void Activity_NonMatchingProtoBufName_Date_AddedAsOtherAttribute()
+        {
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = "NonMatchingDateAttribute",
+                ContentType = AttrpubapiV1.ContentType.Date,
+                Value = ByteString.CopyFromUtf8("NonMatchingDateAttributeValue")
+            };
+
+            AddAttributeToProfile(attribute);
+
+            Assert.AreEqual(_yotiProfile.OtherAttributes.Count, 1);
+            Assert.AreEqual(_yotiUserProfile.OtherAttributes.Count, 1);
+        }
+
+        [TestMethod]
+        public void Activity_NonMatchingProtoBufName_Jpeg_AddedAsOtherAttribute()
+        {
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = "NonMatchingJpegAttribute",
+                ContentType = AttrpubapiV1.ContentType.Jpeg,
+                Value = ByteString.CopyFromUtf8("NonMatchingJpegAttributeValue")
+            };
+
+            AddAttributeToProfile(attribute);
+
+            Assert.AreEqual(_yotiProfile.OtherAttributes.Count, 1);
+            Assert.AreEqual(_yotiUserProfile.OtherAttributes.Count, 1);
+        }
+
+        [TestMethod]
+        public void Activity_NonMatchingProtoBufName_Png_AddedAsOtherAttribute()
+        {
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = "NonMatchingPngAttribute",
+                ContentType = AttrpubapiV1.ContentType.Png,
+                Value = ByteString.CopyFromUtf8("NonMatchingPngAttributeValue")
+            };
+
+            AddAttributeToProfile(attribute);
+
+            Assert.AreEqual(_yotiProfile.OtherAttributes.Count, 1);
+            Assert.AreEqual(_yotiUserProfile.OtherAttributes.Count, 1);
+        }
+
+        [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_String()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(

@@ -377,10 +377,14 @@ namespace Yoti.Auth
                         new YotiAttributeValue(TypeEnum.Png, data));
                     break;
 
-                case AttrpubapiV1.ContentType.Undefined:
-                    // do not return attributes with undefined content types
+                case AttrpubapiV1.ContentType.Json:
+                    profile.OtherAttributes.Add(
+                        attribute.Name,
+                        new YotiAttributeValue(TypeEnum.Json, data));
                     break;
 
+                // do not return attributes with undefined content types
+                case AttrpubapiV1.ContentType.Undefined:
                 default:
                     break;
             }

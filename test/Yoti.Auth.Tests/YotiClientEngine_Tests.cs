@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
+using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
 {
@@ -237,6 +239,114 @@ namespace Yoti.Auth.Tests
             Assert.IsTrue(amlResult.IsOnFraudList());
             Assert.IsFalse(amlResult.IsOnPepList());
             Assert.IsFalse(amlResult.IsOnWatchList());
+        }
+
+        [TestMethod]
+        public void YotiClientEngine_PerformAmlCheckAsync_BadRequest()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = false,
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Content = "{Content}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = engine.PerformAmlCheck(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+            });
+
+            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClientEngine_PerformAmlCheckAsync_Unauthorized()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = false,
+                    StatusCode = (int)HttpStatusCode.Unauthorized,
+                    Content = "{Content}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = engine.PerformAmlCheck(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+            });
+
+            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClientEngine_PerformAmlCheckAsync_InternalServerError()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = false,
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Content = "{Content}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = engine.PerformAmlCheck(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+            });
+
+            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+        }
+
+        [TestMethod]
+        public void YotiClientEngine_PerformAmlCheckAsync_Other()
+        {
+            var keyPair = GetKeyPair();
+            string sdkId = "fake-sdk-id";
+
+            FakeHttpRequester httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
+            {
+                return Task.FromResult(new Response
+                {
+                    Success = false,
+                    StatusCode = (int)HttpStatusCode.Forbidden,
+                    Content = "{Content}"
+                });
+            });
+
+            YotiClientEngine engine = new YotiClientEngine(httpRequester);
+            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
+
+            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                AmlResult amlResult = engine.PerformAmlCheck(sdkId, keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+            });
+
+            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
         }
     }
 }
