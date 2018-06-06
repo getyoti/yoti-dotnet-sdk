@@ -2,7 +2,7 @@
     ViewData["Title"] = "Connect";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Yoti.Auth.YotiUserProfile
+@model Yoti.Auth.YotiProfile
 
 <div class="jumbotron">
     @ViewBag.Error
@@ -11,13 +11,13 @@
             <div class="thumbnail">
                 @if (Model != null)
                 {
-                    if (Model.Selfie.Base64URI == null)
+                    if (Model.Selfie == null)
                     {
                         <p>@ViewBag.Message</p>
                     }
                     else
                     {
-                        <img src="@Model.Selfie.Base64URI" />
+                        <img src="@Model.Selfie.GetBase64URI()" />
                         @Html.ActionLink(
                              linkText: "Download Image",
                              actionName: "DownloadImageFile",
@@ -27,139 +27,295 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            ID:
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.DisplayFor(m => m.Id)
-        </div>
-    </div>
-    @if (Model.FullName != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Full Name:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.FullName)
-            </div>
-        </div>
-    }
-    @if (Model.GivenNames != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Given Names:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.GivenNames)
-            </div>
-        </div>
-    }
-    @if (Model.FamilyName != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Family Name:
-            </div>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Value</th>
+                <th scope="col">Sources</th>
+                <th scope="col">Verifiers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Yoti ID</th>
+                <td>
+                    @Html.DisplayFor(m => m.Id)
+                </td>
+                <td>N/A</td>
+                <td>N/A</td>
+            </tr>
+            @if (Model.FullName != null)
+            {
+                <tr>
+                    <th scope="row">Full Name</th>
+                    <td>
+                        @{
+                            string fullName = Model.FullName.GetValue();
+                            @Html.DisplayFor(m => fullName);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sources = string.Join(", ", Model.FullName.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sources);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiers = string.Join(", ", Model.FullName.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiers);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.GivenNames != null)
+            {
+                <tr>
+                    <th scope="row">Given Names</th>
+                    <td>
+                        @{
+                            string givenNames = Model.GivenNames.GetValue();
+                            @Html.DisplayFor(m => givenNames);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesGivenNames = string.Join(", ", Model.GivenNames.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesGivenNames);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersGivenNames = string.Join(", ", Model.FullName.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersGivenNames);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.FamilyName != null)
+            {
+                <tr>
+                    <th scope="row">Family Name</th>
+                    <td>
+                        @{
+                            string familyName = Model.FamilyName.GetValue();
+                            @Html.DisplayFor(m => familyName);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesFamilyNames = string.Join(", ", Model.FamilyName.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesFamilyNames);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersFamilyName = string.Join(", ", Model.GivenNames.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersFamilyName);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.MobileNumber != null)
+            {
+                <tr>
+                    <th scope="row">Mobile Number</th>
+                    <td>
+                        @{
+                            string mobileNumber = Model.MobileNumber.GetValue();
+                            @Html.DisplayFor(m => mobileNumber);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesMobileNumber = string.Join(", ", Model.MobileNumber.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesMobileNumber);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersMobileNumber = string.Join(", ", Model.MobileNumber.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersMobileNumber);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.EmailAddress != null)
+            {
+                <tr>
+                    <th scope="row">Email Address</th>
+                    <td>
+                        @{
+                            string emailAddress = Model.EmailAddress.GetValue();
+                            @Html.DisplayFor(m => emailAddress);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesEmailAddress = string.Join(", ", Model.EmailAddress.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesEmailAddress);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersEmailAddress = string.Join(", ", Model.EmailAddress.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersEmailAddress);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.DateOfBirth != null)
+            {
+                <tr>
+                    <th scope="row">Date of Birth</th>
+                    <td>
+                        @{
+                            DateTime? dateOfBirth = (DateTime?)Model.DateOfBirth.GetValue();
+                            @dateOfBirth.Value.ToShortDateString();
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesDateOfBirth = string.Join(", ", Model.DateOfBirth.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesDateOfBirth);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersDateOfBirth = string.Join(", ", Model.DateOfBirth.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersDateOfBirth);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.AgeVerified != null)
+            {
+                <tr>
+                    <th scope="row">Age Verified</th>
+                    <td>
+                        @{
+                            string ageVerified = Model.AgeVerified.GetValue().ToString();
+                            @Html.DisplayFor(m => ageVerified);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesAgeVerified = string.Join(", ", Model.AgeVerified.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesAgeVerified);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersAgeVerified = string.Join(", ", Model.AgeVerified.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersAgeVerified);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.Address != null)
+            {
+                <tr>
+                    <th scope="row">Address</th>
+                    <td>
+                        @{
+                            string address = Model.Address.GetValue();
+                            @Html.DisplayFor(m => address);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesAddress = string.Join(", ", Model.Address.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesAddress);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersAddress = string.Join(", ", Model.Address.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersAddress);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.Gender != null)
+            {
+                <tr>
+                    <th scope="row">Gender</th>
+                    <td>
+                        @{
+                            string gender = Model.Gender.GetValue();
+                            @Html.DisplayFor(m => gender);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesGender = string.Join(", ", Model.Gender.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesGender);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersGender = string.Join(", ", Model.Gender.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersGender);
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.Nationality != null)
+            {
+                <tr>
+                    <th scope="row">Nationality</th>
+                    <td>
+                        @{
+                            string nationality = Model.Nationality.GetValue();
+                            @Html.DisplayFor(m => nationality);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sourcesNationality = string.Join(", ", Model.Nationality.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesNationality);
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string verifiersNationality = string.Join(", ", Model.Nationality.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersNationality);
+                        }
+                    </td>
+                </tr>
+            }
 
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.FamilyName)
-            </div>
-        </div>
-    }
-    @if (Model.MobileNumber != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Mobile Number:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.MobileNumber)
-            </div>
-        </div>
-    }
-    @if (Model.EmailAddress != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Email Address:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.EmailAddress)
-            </div>
-        </div>
-    }
-    @if (Model.DateOfBirth != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Date of Birth:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.DateOfBirth)
-            </div>
-        </div>
-    }
-    @if (Model.IsAgeVerified != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Age Verified:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.IsAgeVerified)
-            </div>
-        </div>
-    }
-    @if (Model.Address != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Address:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.Address)
-            </div>
-        </div>
-    }
-    @if (Model.Gender != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Gender:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.Gender)
-            </div>
-        </div>
-    }
-    @if (Model.Nationality != null)
-    {
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                Nationality:
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @Html.DisplayFor(m => m.Nationality)
-            </div>
-        </div>
-    }
-    @if (Model.StructuredPostalAddress != null)
-    {
-        <hr />
-        <header>Structured Postal Address:</header>
-        foreach (var item in Model.StructuredPostalAddress)
-        {
-            <div class="row">
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    @item.Key
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    @item.Value
-                </div>
-            </div>
-        }
-    }
+            @if (Model.StructuredPostalAddress != null)
+            {
+                <tr>
+                    <th scope="row">Structured Postal Address</th>
+                    <td></td>
+                    <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                        @{
+                            string sourcesStructuredPostalAddress = string.Join(", ", Model.StructuredPostalAddress.GetSources().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => sourcesStructuredPostalAddress);
+                        }
+                    </td>
+                    <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                        @{
+                            string verifiersStructuredPostalAddress = string.Join(", ", Model.StructuredPostalAddress.GetVerifiers().SelectMany(selector: s => s.GetValue()));
+                            @Html.DisplayFor(m => verifiersStructuredPostalAddress);
+                        }
+                    </td>
+                    @foreach (var item in Model.StructuredPostalAddress.GetJsonValue())
+                    {
+                    <tr>
+                        <td>
+                            @item.Key
+                        </td>
+                        <td>
+                            @item.Value
+                        </td>
+                    </tr>
+                }
+                    </tr>
+                }
+        </tbody>
+    </table>
 </div>

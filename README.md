@@ -113,23 +113,23 @@ Here is an example of how this works:
 var activityDetails = yotiClient.GetActivityDetails(token);
 if (activityDetails.Outcome == ActivityOutcome.Success)
 {
-    var profile = activityDetails.UserProfile;
+    var profile = activityDetails.Profile;
     var user = YourUserSearchFunction(profile.Id);
     if (user != null)
     {
-      string userId = profile.Id;
-      Image Selfie = profile.Selfie;
-      string SelfieURI = profile.Selfie.Base64URI;
-      string FullName = profile.FullName;
-      string GivenNames = profile.GivenNames;
-      string FamilyName = profile.FamilyName;
-      string MobileNumber = profile.MobileNumber;
-      string EmailAddress = profile.EmailAddress;
-      DateTime? DateOfBirth = profile.DateOfBirth;
-      bool? IsAgeVerified = profile.IsAgeVerified;
-      string Address = profile.Address;
-      string Gender = profile.Gender;
-      string Nationality = profile.Nationality;
+        string userId = profile.Id;
+        Image selfie = profile.Selfie.GetImage();
+        string selfieURI = profile.Selfie.GetBase64URI();
+        string fullName = profile.FullName.GetValue();
+        string givenNames = profile.GivenNames.GetValue();
+        string familyName = profile.FamilyName.GetValue();
+        string mobileNumber = profile.MobileNumber.GetValue();
+        string emailAddress = profile.EmailAddress.GetValue();
+        DateTime? dateOfBirth = profile.DateOfBirth.GetValue();
+        bool? ageVerified = profile.AgeVerified.GetValue();
+        string address = profile.Address.GetValue();
+        string gender = profile.Gender.GetValue();
+        string nationality = profile.Nationality.GetValue();
     }
     else
     {
@@ -146,6 +146,29 @@ Where `yourUserSearchFunction` is a piece of logic in your app that is supposed 
 No matter if the user is a new or an existing one, Yoti will always provide her/his profile, so you don't necessarily need to store it.
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
+
+You can retrieve the anchors, sources and verifiers for each attribute as follows:
+```cs
+using system.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Yoti.Auth.Anchors;
+
+List<Anchor> givenNamesAnchors = profile.GivenNames.GetAnchors();
+List<Anchor> givenNamesSources = profile.GivenNames.GetSources();
+List<Anchor> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
+```
+You can also retrieve further properties from these respective anchors in the following way:
+```cs
+Anchor givenNamesFirstAnchor = profile.GivenNames.GetSources().First();
+
+AnchorType anchorType = givenNamesFirstAnchor.GetAnchorType();
+byte[] artifactSignature = givenNamesFirstAnchor.GetArtifactSignature();
+List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServerCerts();
+byte[] signature = givenNamesFirstAnchor.GetSignature();
+DateTime signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp().GetTimestamp();
+string subType = givenNamesFirstAnchor.GetSubType();
+List<string> value = givenNamesFirstAnchor.GetValue();
+```
 
 ## AML Integration
 
@@ -201,9 +224,9 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) Open the Example.sln solution in Visual Studio, found in the [/src/Examples](/src/Examples) folder
 1) Rename the [secrets.config.example](src/Examples/45Example/secrets.config.example) file to `secrets.config`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
-1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:57045/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
+1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:55555/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
 1) Run the [45Example.csproj](src/Examples/45Example/45Example.csproj) with your browser of choice
-1) The page should open automatically with URL `http://localhost:57045/Account/Login`
+1) The page should open automatically with URL `http://localhost:55555/Account/Login`
 
 ### .NET Core
 
@@ -212,13 +235,13 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) The .NET SDK for your operating system from step no.1 ([Windows](https://www.microsoft.com/net/learn/get-started/windows) | [Linux](https://www.microsoft.com/net/learn/get-started/linux/rhel) | [MacOS](https://www.microsoft.com/net/learn/get-started/macos))
 
 #### Instructions
-1) Navigate to the [/src/Examples/CoreExample](src/Examples/CoreExample) folder
+1) Navigate to the [src/Examples/CoreExample](src/Examples/CoreExample) folder
 1) Rename the [.env.example](src/Examples/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
-1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:53647/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
+1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:55555/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
 1) Restore the static files needed with `bower install`
 1) Enter `dotnet run` into the terminal 
-1) Navigate to the page specified in the terminal window, which should be `http://localhost:53647`
+1) Navigate to the page specified in the terminal window, which should be `http://localhost:55555`
 
 ## API Coverage
 
@@ -226,14 +249,14 @@ bool onWatchList = amlResult.IsOnWatchList();
   * [X] Profile
     * [X] User ID `Id`
     * [X] Selfie `Selfie`
-    * [X] Selfie URI `Selfie.Base64URI`
+    * [X] Selfie URI `Selfie.GetBase64URI()`
     * [X] Given Names `GivenNames`
     * [X] Family Name `FamilyName`
     * [X] Full Name `FullName`
     * [X] Mobile Number `MobileNumber`
     * [X] Email Address `EmailAddress`
     * [X] Age / Date of Birth `DateOfBirth`
-    * [X] Age / Is Age Verified `IsAgeVerified`
+    * [X] Age / Age Verified `AgeVerified`
     * [X] Postal Address `Address`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`

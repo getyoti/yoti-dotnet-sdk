@@ -11,7 +11,7 @@ namespace Example.Controllers
 {
     public class AccountController : Controller
     {
-        private string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
+        private readonly string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
 
         public static byte[] PhotoBytes { get; set; }
 
@@ -24,6 +24,9 @@ namespace Example.Controllers
         // GET: Account/Connect?token
         public ActionResult Connect(string token)
         {
+            if (token == null)
+                return RedirectToAction("Index", "Home");
+
             try
             {
                 string sdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
@@ -33,22 +36,22 @@ namespace Example.Controllers
                 var activityDetails = yotiClient.GetActivityDetails(token);
                 if (activityDetails.Outcome == ActivityOutcome.Success)
                 {
-                    var yotiProfile = activityDetails.UserProfile;
+                    var profile = activityDetails.Profile;
 
-                    User user = UserManager.GetUserByYotiId(yotiProfile.Id);
+                    User user = UserManager.GetUserByYotiId(profile.Id);
 
                     if (user == null)
                     {
                         user = new User
                         {
-                            YotiId = yotiProfile.Id
+                            YotiId = profile.Id
                         };
                     }
 
-                    if (yotiProfile.Selfie != null)
+                    if (profile.Selfie != null)
                     {
-                        user.Base64Photo = yotiProfile.Selfie.Base64URI;
-                        user.Photo = yotiProfile.Selfie.Data;
+                        user.Base64Photo = profile.Selfie.GetBase64URI();
+                        user.Photo = profile.Selfie.GetImage().Data;
                         PhotoBytes = user.Photo;
                     }
                     else
@@ -56,7 +59,7 @@ namespace Example.Controllers
                         ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
                     }
 
-                    UpdateAttributesIfPresent(yotiProfile, user);
+                    UpdateAttributesIfPresent(profile, user);
 
                     UserManager.SaveUser(user);
 
@@ -84,7 +87,7 @@ namespace Example.Controllers
             }
         }
 
-        private static void UpdateAttributesIfPresent(YotiUserProfile yotiProfile, User user)
+        private static void UpdateAttributesIfPresent(YotiProfile yotiProfile, User user)
         {
             Type userType = user.GetType();
             foreach (PropertyInfo yotiProfileProperty in yotiProfile.GetType().GetProperties())

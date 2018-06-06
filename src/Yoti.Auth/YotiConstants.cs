@@ -2,7 +2,7 @@
 {
     internal static class YotiConstants
     {
-        private static string DefaultYotiHost = @"https://api.yoti.com";
+        private static readonly string DefaultYotiHost = @"https://api.yoti.com";
         public static string YotiApiUrl = "yoti.api.url";
         public static string YotiApiPathPrefix = "/api/v1";
         public static string DefaultYotiApiUrl = DefaultYotiHost + YotiApiPathPrefix;
@@ -16,5 +16,7 @@
         public static string ContentTypeJson = "application/json";
         public const string AttributeAgeOver = "age_over:";
         public const string AttributeAgeUnder = "age_under:";
+        public const string AttributeAgeVerified = "AgeVerified";
+        public const string AttributeStructuredPostalAddress = "structured_postal_address";
     }
 }

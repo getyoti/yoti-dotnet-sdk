@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>2.5.0</VersionPrefix>
+    <VersionPrefix>2.6.0</VersionPrefix>
     <TargetFrameworks>netstandard1.6;net45;net451;net452;net46;net461</TargetFrameworks>
     <AssemblyName>Yoti.Auth</AssemblyName>
     <PackageId>Yoti</PackageId>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.0</NetStandardImplicitPackageVersion>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -16,12 +16,12 @@
     <PackageProjectUrl>https://www.yoti.com/developers/documentation/?csharp</PackageProjectUrl>
     <PackageIconUrl>https://static.yoti.com/images/logo.svg</PackageIconUrl>
     <RepositoryUrl>https://github.com/getyoti/yoti-dotnet-sdk</RepositoryUrl>
-    <PackageTags>2FA multifactor authentication verification identity login register verify 2Factor</PackageTags>
+    <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.0.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.5.1" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.1.1" />
   </ItemGroup>

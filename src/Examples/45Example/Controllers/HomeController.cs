@@ -8,7 +8,7 @@ namespace Example.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
+        private readonly string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
 
         public ActionResult Index()
         {

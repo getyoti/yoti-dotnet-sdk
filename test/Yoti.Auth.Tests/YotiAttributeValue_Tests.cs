@@ -74,51 +74,5 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(inputType, outputType);
             Assert.AreEqual(inputBytes, outputBytes);
         }
-
-        [TestMethod]
-        public void YotiAttributeValue_JpegToDataUrlString()
-        {
-            string jpegString = "JpegData";
-            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, jpegString);
-
-            string outputString = yotiAttributeValue.ToDataUrlString();
-            string expectedString = String.Format("data:image/jpeg;base64,{0}", jpegString);
-
-            Assert.AreEqual(expectedString, outputString);
-        }
-
-        [TestMethod]
-        public void YotiAttributeValue_PngToDataUrlString()
-        {
-            string pngString = "Png+Data";
-            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, pngString);
-
-            string outputString = yotiAttributeValue.ToDataUrlString();
-            string expectedString = String.Format("data:image/png;base64,{0}", pngString);
-
-            Assert.AreEqual(expectedString, outputString);
-        }
-
-        [TestMethod]
-        public void YotiAttributeValue_DateToDataUrlString_ReturnsNull()
-        {
-            string dateString = "01/01/1985";
-            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, dateString);
-
-            string outputString = yotiAttributeValue.ToDataUrlString();
-
-            Assert.IsNull(outputString);
-        }
-
-        [TestMethod]
-        public void YotiAttributeValue_TextToDataUrlString_ReturnsNull()
-        {
-            string textString = "textString";
-            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Text, textString);
-
-            string outputString = yotiAttributeValue.ToDataUrlString();
-
-            Assert.IsNull(outputString);
-        }
     }
 }

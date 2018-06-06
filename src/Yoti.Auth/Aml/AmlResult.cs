@@ -8,13 +8,13 @@ namespace Yoti.Auth.Aml
 
         // These fields are assigned to by JSON deserialization
         [JsonProperty(PropertyName = "on_fraud_list")]
-        private bool _onFraudList;
+        private readonly bool _onFraudList;
 
         [JsonProperty(PropertyName = "on_pep_list")]
-        private bool _onPepList;
+        private readonly bool _onPepList;
 
         [JsonProperty(PropertyName = "on_watch_list")]
-        private bool _onWatchList;
+        private readonly bool _onWatchList;
 
 #pragma warning restore 0649
 

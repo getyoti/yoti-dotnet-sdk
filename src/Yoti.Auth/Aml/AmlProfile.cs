@@ -6,18 +6,18 @@ namespace Yoti.Auth.Aml
     {
         [JsonRequired]
         [JsonProperty(PropertyName = "given_names")]
-        private string _givenNames;
+        private readonly string _givenNames;
 
         [JsonRequired]
         [JsonProperty(PropertyName = "family_name")]
-        private string _familyName;
+        private readonly string _familyName;
 
         [JsonProperty(PropertyName = "ssn")]
-        private string _ssn;
+        private readonly string _ssn;
 
         [JsonRequired]
         [JsonProperty(PropertyName = "address")]
-        private AmlAddress _amlAddress;
+        private readonly AmlAddress _amlAddress;
 
         public AmlProfile(string givenNames, string familyName, AmlAddress amlAddress, string ssn = null)
         {

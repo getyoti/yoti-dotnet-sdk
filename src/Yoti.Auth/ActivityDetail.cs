@@ -1,4 +1,6 @@
-﻿namespace Yoti.Auth
+﻿using System;
+
+namespace Yoti.Auth
 {
     /// <summary>
     /// A enum to represent the success state when requesting a <see cref="YotiUserProfile"/> from Yoti.
@@ -20,7 +22,13 @@
         /// <summary>
         /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
         /// </summary>
+        [Obsolete("Please use Profile instead")]
         public YotiUserProfile UserProfile { get; set; }
+
+        /// <summary>
+        /// The <see cref="YotiProfile"/> returned by Yoti if the request was successful.
+        /// </summary>
+        public YotiProfile Profile { get; set; }
 
         /// <summary>
         /// The outcome status of the request.
