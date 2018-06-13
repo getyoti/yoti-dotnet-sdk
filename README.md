@@ -149,7 +149,7 @@ The `profile` object provides a set of attributes corresponding to user attribut
 
 You can retrieve the anchors, sources and verifiers for each attribute as follows:
 ```cs
-using system.Linq;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Yoti.Auth.Anchors;
 
@@ -224,9 +224,9 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) Open the Example.sln solution in Visual Studio, found in the [/src/Examples](/src/Examples) folder
 1) Rename the [secrets.config.example](src/Examples/45Example/secrets.config.example) file to `secrets.config`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
-1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:55555/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
+1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:44321/account/connect`.
 1) Run the [45Example.csproj](src/Examples/45Example/45Example.csproj) with your browser of choice
-1) The page should open automatically with URL `http://localhost:55555/Account/Login`
+1) The page should open automatically with URL `https://localhost:44321/Account/Login`
 
 ### .NET Core
 
@@ -238,10 +238,10 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) Navigate to the [src/Examples/CoreExample](src/Examples/CoreExample) folder
 1) Rename the [.env.example](src/Examples/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
-1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:55555/account/connect`. You'll need to change it from `https` to `http` once the webpage loads, as the Dashboard doesn't allow `http` URLs
+1) From the Yoti Dashboard, set the Callback URL of your application to be `localhost:44321/account/connect`.
 1) Restore the static files needed with `bower install`
 1) Enter `dotnet run` into the terminal 
-1) Navigate to the page specified in the terminal window, which should be `http://localhost:55555`
+1) Navigate to the page specified in the terminal window, which should be `https://localhost:44321`
 
 ## API Coverage
 

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +21,19 @@ namespace CoreExample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);               
+            });
+
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
+                options.HttpsPort = 44321;
+            });           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,8 +47,10 @@ namespace CoreExample
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
