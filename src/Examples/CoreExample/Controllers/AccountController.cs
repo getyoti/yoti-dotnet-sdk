@@ -1,11 +1,19 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Yoti.Auth;
 
 namespace Example.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ILogger _logger;
+
+        public AccountController(ILogger<AccountController> logger)
+        {
+            _logger = logger;
+        }
+
         private readonly string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
         public static byte[] PhotoBytes { get; set; }
 
@@ -16,7 +24,14 @@ namespace Example.Controllers
             {
                 ViewBag.YotiAppId = _appId;
                 string sdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
+                _logger.LogInformation(string.Format("sdkId='{0}'", sdkId));
+
                 var yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
+                _logger.LogInformation(
+                    string.Format(
+                        "yotiKeyFilePath='{0}'",
+                        yotiKeyFilePath));
+
                 var privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
@@ -24,6 +39,8 @@ namespace Example.Controllers
                 var activityDetails = yotiClient.GetActivityDetails(token);
                 if (activityDetails.Outcome == ActivityOutcome.Success)
                 {
+                    _logger.LogInformation("ActivityOutcome=Success");
+
                     var yotiProfile = activityDetails.Profile;
 
                     if (yotiProfile.Selfie != null)
@@ -35,12 +52,19 @@ namespace Example.Controllers
                 }
                 else
                 {
+                    _logger.LogWarning(
+                        string.Format(
+                            "ActivityOutcome='{0}'",
+                            activityDetails.Outcome));
                     return RedirectToAction("LoginFailure", "Home");
                 }
             }
             catch (Exception e)
             {
-                ViewBag.Error = e.ToString();
+                _logger.LogError(
+                    exception: e,
+                    message: "An error occurred");
+
                 return RedirectToAction("LoginFailure", "Home");
             }
         }
