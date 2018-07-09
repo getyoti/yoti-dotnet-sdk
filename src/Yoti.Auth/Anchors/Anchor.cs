@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Google.Protobuf;
@@ -81,6 +82,7 @@ namespace Yoti.Auth.Anchors
         /// the one in the source artifact itself.
         /// </summary>
         /// <returns>An artifact signature as a byte array</returns>
+        [Obsolete]
         public byte[] GetArtifactSignature()
         {
             return _artifactSignature;
