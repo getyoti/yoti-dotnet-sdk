@@ -7,7 +7,7 @@ using static Yoti.Auth.YotiAttributeValue;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class YotiAttribute_Tests
+    public class YotiAttributeTests
     {
         private class ImageComparer : IEqualityComparer<Image>
         {

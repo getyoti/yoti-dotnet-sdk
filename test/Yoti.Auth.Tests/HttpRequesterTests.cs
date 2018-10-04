@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class HttpRequester_Tests
+    public class HttpRequesterTests
     {
         private readonly string _apiUrl = YotiConstants.DefaultYotiApiUrl;
         private Dictionary<string, string> _headers = new Dictionary<string, string>();
