@@ -58,8 +58,7 @@ namespace Yoti.Auth
             switch (_type)
             {
                 case TypeEnum.Date:
-                    DateTime date;
-                    if (DateTime.TryParseExact(ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                    if (DateTime.TryParseExact(ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
                     {
                         return date;
                     }

@@ -15,13 +15,12 @@ namespace Yoti.Auth
                     return (T)(object)Conversion.BytesToUtf8(bytes);
 
                 case TypeCode.DateTime:
-                    DateTime date;
                     if (DateTime.TryParseExact(
                         s: Conversion.BytesToUtf8(bytes),
                         format: "yyyy-MM-dd",
                         provider: CultureInfo.InvariantCulture,
                         style: DateTimeStyles.None,
-                        result: out date))
+                        result: out DateTime date))
                     {
                         return (T)(object)date;
                     }

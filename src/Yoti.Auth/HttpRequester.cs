@@ -10,10 +10,10 @@ namespace Yoti.Auth
         public async Task<Response> DoRequest(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers, byte[] byteContent)
         {
             if (headers.Count < 1)
-                throw new ArgumentNullException("headers");
+                throw new ArgumentNullException(nameof(headers));
 
             if (uri == null)
-                throw new ArgumentNullException("uri");
+                throw new ArgumentNullException(nameof(uri));
 
             Response result = new Response
             {

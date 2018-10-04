@@ -52,7 +52,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Gets the json value of an attribute, in the form of a <see cref="Dictionary{string, JToken}"/>
+        /// Gets the JSON value of an attribute, in the form of a Dictionary
         /// </summary>
         /// <returns>JSON value of an attribute</returns>
         public Dictionary<string, JToken> GetJsonValue()
