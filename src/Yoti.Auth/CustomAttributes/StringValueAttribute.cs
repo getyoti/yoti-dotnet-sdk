@@ -1,4 +1,4 @@
-﻿namespace Yoti.Auth
+﻿namespace Yoti.Auth.CustomAttributes
 {
     internal class StringValueAttribute : System.Attribute
     {

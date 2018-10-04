@@ -1,4 +1,6 @@
-﻿namespace Yoti.Auth.Anchors
+﻿using Yoti.Auth.CustomAttributes;
+
+namespace Yoti.Auth.Anchors
 {
     public enum AnchorType
     {

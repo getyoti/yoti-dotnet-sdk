@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.CustomAttributes;
 
 namespace Yoti.Auth
 {
@@ -24,7 +25,7 @@ namespace Yoti.Auth
         public YotiAttribute<string> FullName { get; set; }
 
         /// <summary>
-        // GivenNames represents the user's given names. This will be null if not provided by Yoti
+        /// GivenNames represents the user's given names. This will be null if not provided by Yoti
         /// </summary>
         [ProtobufName("given_names")]
         public YotiAttribute<string> GivenNames { get; set; }

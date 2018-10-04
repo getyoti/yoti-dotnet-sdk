@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Anchors;
+using Yoti.Auth.CustomAttributes;
 using Yoti.Auth.DataObjects;
 using static Yoti.Auth.YotiAttributeValue;
 
@@ -14,8 +15,8 @@ namespace Yoti.Auth
 {
     internal class Activity
     {
-        private YotiUserProfile _yotiUserProfile;
-        private YotiProfile _yotiProfile;
+        private readonly YotiUserProfile _yotiUserProfile;
+        private readonly YotiProfile _yotiProfile;
 
         public Activity(YotiProfile yotiProfile, YotiUserProfile yotiUserProfile)
         {
@@ -103,7 +104,6 @@ namespace Yoti.Auth
                                 anchors);
 
                             _yotiProfile.StructuredPostalAddress = structuredPostalAddressAttribute;
-                            break;
                         }
                         else
                         {
@@ -154,7 +154,7 @@ namespace Yoti.Auth
                     case AttrpubapiV1.ContentType.Date:
 
                         DateTime date;
-                        if (DateTime.TryParseExact(stringValue, "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                        if (DateTime.TryParseExact(stringValue, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
                         {
                             SetDateAttribute(propertyInfo, byteValue, anchors);
                         }
@@ -244,7 +244,7 @@ namespace Yoti.Auth
 
                 case "date_of_birth":
                     {
-                        if (DateTime.TryParseExact(Conversion.BytesToUtf8(byteValue), "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime date))
+                        if (DateTime.TryParseExact(Conversion.BytesToUtf8(byteValue), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
                         {
                             _yotiUserProfile.DateOfBirth = date;
                         }
@@ -323,7 +323,7 @@ namespace Yoti.Auth
             IEnumerable<PropertyInfo> matchingProperties = propertiesWithProtobufNameAttribute.Where(
                 prop => prop.GetCustomAttribute<ProtobufNameAttribute>().ProtobufName == protobufName);
 
-            if (matchingProperties.Count() == 0)
+            if (!matchingProperties.Any())
             {
                 IEnumerable<PropertyInfo> ageVerifiedAttributes = typeof(YotiProfile).GetTypeInfo().DeclaredProperties.Where(
                 prop => prop.Name == YotiConstants.AttributeAgeVerified &&
@@ -384,7 +384,6 @@ namespace Yoti.Auth
                     break;
 
                 // do not return attributes with undefined content types
-                case AttrpubapiV1.ContentType.Undefined:
                 default:
                     break;
             }
@@ -420,9 +419,6 @@ namespace Yoti.Auth
 
                 case AttrpubapiV1.ContentType.Undefined:
                     // do not return attributes with undefined content types
-                    break;
-
-                default:
                     break;
             }
         }
