@@ -75,7 +75,7 @@ You'll need to add the correct callback URL to one of the scenarios of your appl
 
 ## Profile Retrieval
 
-When your application receives a token via the exposed endpoint (it will be assigned to a query string parameter named `token`), you can easily retrieve the user profile by adding the following to your endpoint handler:
+When your application receives a **one time use** token via the exposed endpoint (it will be assigned to a query string parameter named `token`), you can easily retrieve the user profile by adding the following to your endpoint handler:
 
 ```cs
 var activityDetails = yotiClient.GetActivityDetails(token);
