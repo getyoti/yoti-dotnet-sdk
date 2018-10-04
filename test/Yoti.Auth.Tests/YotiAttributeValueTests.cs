@@ -5,7 +5,7 @@ using static Yoti.Auth.YotiAttributeValue;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class YotiAttributeValue_Tests
+    public class YotiAttributeValueTests
     {
         [TestMethod]
         public void YotiAttributeValue_ToDateValidDate_CorrectResult()
