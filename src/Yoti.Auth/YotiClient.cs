@@ -22,12 +22,12 @@ namespace Yoti.Auth
         {
             if (string.IsNullOrEmpty(sdkId))
             {
-                throw new ArgumentNullException("sdkId");
+                throw new ArgumentNullException(nameof(sdkId));
             }
 
             if (privateStreamKey == null)
             {
-                throw new ArgumentNullException("privateStreamKey");
+                throw new ArgumentNullException(nameof(privateStreamKey));
             }
 
             _sdkId = sdkId;

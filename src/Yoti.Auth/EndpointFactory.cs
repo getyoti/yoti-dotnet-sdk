@@ -7,13 +7,7 @@ namespace Yoti.Auth
     {
         public static string CreateProfileEndpoint(HttpMethod httpMethod, string path, string token, string sdkId)
         {
-            return string.Format(
-                "/{0}/{1}?nonce={2}&timestamp={3}&appId={4}",
-                path,
-                token,
-                CryptoEngine.GenerateNonce(),
-                GetTimestamp(),
-                sdkId);
+            return $"/{path}/{token}?nonce={CryptoEngine.GenerateNonce()}&timestamp={GetTimestamp()}&appId={sdkId}";
         }
 
         public static string CreateAmlEndpoint(HttpMethod httpMethod, string appId)

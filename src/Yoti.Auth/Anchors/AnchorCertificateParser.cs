@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using Google.Protobuf;
 using Org.BouncyCastle.Asn1;
+using Yoti.Auth.CustomAttributes;
 
 namespace Yoti.Auth.Anchors
 {
@@ -31,7 +32,7 @@ namespace Yoti.Auth.Anchors
 
                     extensions = GetListOfStringsFromExtension(certificate, extensionOid);
 
-                    if (extensions.Count() > 0)
+                    if (extensions.Any())
                     {
                         anchorType = type;
                         break;
@@ -51,23 +52,20 @@ namespace Yoti.Auth.Anchors
                 certificate.Extensions.OfType<X509Extension>()
                 .FirstOrDefault(ext => ext.Oid.Value == extensionOid);
 
-            if (matchingExtension != null)
+            byte[] extensionBytes = matchingExtension?.RawData;
+
+            if (extensionBytes != null)
             {
-                byte[] extensionBytes = matchingExtension.RawData;
+                Asn1InputStream stream = new Asn1InputStream(extensionBytes);
 
-                if (extensionBytes != null)
+                DerSequence obj = (DerSequence)stream.ReadObject();
+
+                foreach (object innerObj in obj)
                 {
-                    Asn1InputStream stream = new Asn1InputStream(extensionBytes);
+                    Asn1TaggedObject seqObject = (Asn1TaggedObject)innerObj;
+                    Asn1OctetString octetString = Asn1OctetString.GetInstance(obj: seqObject, isExplicit: false);
 
-                    DerSequence obj = (DerSequence)stream.ReadObject();
-
-                    foreach (var innerObj in obj)
-                    {
-                        Asn1TaggedObject seqObject = (Asn1TaggedObject)innerObj;
-                        Asn1OctetString octetString = Asn1OctetString.GetInstance(seqObject, isExplicit: false);
-
-                        extensionStrings.Add(System.Text.Encoding.UTF8.GetString(octetString.GetOctets()));
-                    }
+                    extensionStrings.Add(System.Text.Encoding.UTF8.GetString(octetString.GetOctets()));
                 }
             }
 

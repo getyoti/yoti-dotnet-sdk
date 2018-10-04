@@ -20,10 +20,10 @@ namespace Yoti.Auth
         /// </summary>
         public string Id { get; set; }
 
-        [Obsolete("Please use YotiProfile.Selfie instead")]
         /// <summary>
         /// Selfie is a photograph of the user. This will be null if not provided by Yoti
         /// </summary>
+        [Obsolete("Please use YotiProfile.Selfie instead")]
         public Image Selfie { get; set; }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Yoti.Auth
         public string FullName { get; set; }
 
         /// <summary>
-        // GivenNames represents the user's given names. This will be null if not provided by Yoti
+        /// GivenNames represents the user's given names. This will be null if not provided by Yoti
         /// </summary>
         [Obsolete("Please use YotiProfile.GivenNames instead")]
         public string GivenNames { get; set; }

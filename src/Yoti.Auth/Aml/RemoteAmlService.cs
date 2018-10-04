@@ -11,7 +11,7 @@ namespace Yoti.Auth.Aml
         public async Task<AmlResult> PerformCheck(IHttpRequester httpRequester, IAmlProfile amlProfile, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
         {
             if (amlProfile == null)
-                throw new ArgumentNullException("amlProfile");
+                throw new ArgumentNullException(nameof(amlProfile));
 
             try
             {
