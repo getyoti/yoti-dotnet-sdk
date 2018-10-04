@@ -11,7 +11,7 @@ namespace Yoti.Auth
     internal class YotiClientEngine
     {
         private readonly IHttpRequester _httpRequester;
-        private Activity _activity;
+        private readonly Activity _activity;
 
         public YotiClientEngine(IHttpRequester httpRequester)
         {
@@ -23,11 +23,6 @@ namespace Yoti.Auth
 #endif
         }
 
-        /// <summary>
-        /// Request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
-        /// </summary>
-        /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
-        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
         {
             Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair, apiUrl));
@@ -35,21 +30,16 @@ namespace Yoti.Auth
             return task.Result;
         }
 
-        /// <summary>
-        /// Asynchronously request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
-        /// </summary>
-        /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
-        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
         {
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
-            string path = "profile";
+            const string path = "profile";
             byte[] httpContent = null;
             HttpMethod httpMethod = HttpMethod.Get;
 
             string endpoint = EndpointFactory.CreateProfileEndpoint(httpMethod, path, token, sdkId);
 
-            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent: null);
 
             Response response = await _httpRequester.DoRequest(
                 new HttpClient(),
@@ -65,7 +55,7 @@ namespace Yoti.Auth
             }
             else
             {
-                ActivityOutcome outcome = ActivityOutcome.Failure;
+                var outcome = ActivityOutcome.Failure;
                 switch (response.StatusCode)
                 {
                     case (int)HttpStatusCode.NotFound:
@@ -82,11 +72,6 @@ namespace Yoti.Auth
             }
         }
 
-        /// <summary>
-        /// Request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
-        /// </summary>
-        /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
-        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(appId, keyPair, apiUrl, amlProfile));
@@ -94,11 +79,6 @@ namespace Yoti.Auth
             return task.Result;
         }
 
-        /// <summary>
-        /// Asynchronously request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
-        /// </summary>
-        /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
-        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public async Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             if (apiUrl == null)
@@ -118,7 +98,7 @@ namespace Yoti.Auth
 
             string endpoint = EndpointFactory.CreateAmlEndpoint(httpMethod, appId);
 
-            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent, contentType: YotiConstants.ContentTypeJson);
+            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
                 .PerformCheck(_httpRequester, amlProfile, headers, apiUrl, endpoint, httpContent));
@@ -126,7 +106,7 @@ namespace Yoti.Auth
             return result;
         }
 
-        private static Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent, string contentType)
+        public static Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
         {
             string authKey = CryptoEngine.GetAuthKey(keyPair);
             string authDigest = SignedMessageFactory.SignMessage(httpMethod, endpoint, keyPair, httpContent);
@@ -134,7 +114,7 @@ namespace Yoti.Auth
             if (string.IsNullOrEmpty(authDigest))
                 throw new InvalidOperationException("Could not sign request");
 
-            Dictionary<string, string> headers = new Dictionary<string, string>
+            var headers = new Dictionary<string, string>
             {
                 { YotiConstants.AuthKeyHeader, authKey },
                 { YotiConstants.DigestHeader, authDigest },
