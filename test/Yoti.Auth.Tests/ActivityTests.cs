@@ -10,7 +10,7 @@ using Yoti.Auth.Tests.TestData;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class Activity_Tests
+    public class ActivityTests
     {
         private YotiProfile _yotiProfile;
         private YotiUserProfile _yotiUserProfile;

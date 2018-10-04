@@ -4,7 +4,7 @@ using Yoti.Auth.Aml;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class AmlObjects_Tests
+    public class AmlObjectsTests
     {
         [TestMethod]
         public void AmlProfile_Getters()

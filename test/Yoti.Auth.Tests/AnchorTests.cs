@@ -6,7 +6,7 @@ using Yoti.Auth.Tests.TestTools;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class Anchor_Tests
+    public class AnchorTests
     {
         [TestMethod]
         public void Anchor_Getters()
