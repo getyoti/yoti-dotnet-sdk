@@ -78,20 +78,20 @@ You'll need to add the correct callback URL to one of the scenarios of your appl
 When your application receives a **one time use** token via the exposed endpoint (it will be assigned to a query string parameter named `token`), you can easily retrieve the user profile by adding the following to your endpoint handler:
 
 ```cs
-var activityDetails = yotiClient.GetActivityDetails(token);
+var activityDetails = yotiClient.GetActivityDetails(oneTimeUseToken);
 ```
 
 Or if you are in an asynchronous method:
 
 ```cs
-var activityDetails = await yotiClient.GetActivityDetailsAsync(token);
+var activityDetails = await yotiClient.GetActivityDetailsAsync(oneTimeUseToken);
 ```
 
 Before you inspect the user profile, you might want to check whether the user validation was successful.
 This is done as follows:
 
 ```cs
-var activityDetails = yotiClient.GetActivityDetails(token);
+var activityDetails = yotiClient.GetActivityDetails(oneTimeUseToken);
 if (activityDetails.Outcome == ActivityOutcome.Success)
 {
     var profile = activityDetails.UserProfile;
@@ -110,7 +110,7 @@ You can use this ID to verify whether (for your application) the retrieved profi
 Here is an example of how this works:
 
 ```cs
-var activityDetails = yotiClient.GetActivityDetails(token);
+var activityDetails = yotiClient.GetActivityDetails(oneTimeUseToken);
 if (activityDetails.Outcome == ActivityOutcome.Success)
 {
     var profile = activityDetails.Profile;
