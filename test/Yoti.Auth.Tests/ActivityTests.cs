@@ -38,6 +38,7 @@ namespace Yoti.Auth.Tests
         private const string PassportSourceType = "PASSPORT";
         private const string DrivingLicenseSourceType = "DRIVING_LICENCE";
 
+        private const string Value = "Value";
         private const string GivenNamesAttribute = "given_names";
         private const string FamilyNameAttribute = "family_name";
         private const string FullNameAttribute = "full_name";
@@ -55,6 +56,8 @@ namespace Yoti.Auth.Tests
         private static readonly DateTime DateOfBirthValue = new DateTime(1980, 1, 13);
         private const string DateOfBirthString = "1980-01-13";
 
+        private readonly ByteString _byteValue = ByteString.CopyFromUtf8(Value);
+
         [TestInitialize]
         public void Startup()
         {
@@ -71,7 +74,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = SelfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Jpeg,
-                Value = ByteString.CopyFromUtf8("selfieJpegValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -91,7 +94,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = SelfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Png,
-                Value = ByteString.CopyFromUtf8("selfiePngValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -107,95 +110,86 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_FullName()
         {
-            const string value = "fullNameValue";
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = FullNameAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.FullName.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.FullName.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.FullName, value);
+            Assert.AreEqual(_yotiUserProfile.FullName, Value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_GivenNames()
         {
-            const string value = "GivenNamesValue";
-
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = GivenNamesAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.GivenNames.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.GivenNames.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.GivenNames, value);
+            Assert.AreEqual(_yotiUserProfile.GivenNames, Value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_FamilyName()
         {
-            const string value = "FamilyNameValue";
-
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = FamilyNameAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.FamilyName.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.FamilyName.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.FamilyName, value);
+            Assert.AreEqual(_yotiUserProfile.FamilyName, Value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_MobileNumber()
         {
-            const string value = "0123456789";
-
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = PhoneNumberAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.MobileNumber.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.MobileNumber.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.MobileNumber, value);
+            Assert.AreEqual(_yotiUserProfile.MobileNumber, Value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_EmailAddress()
         {
-            const string value = "EmailAddressValue";
-
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = EmailAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.EmailAddress.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.EmailAddress.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.EmailAddress, value);
+            Assert.AreEqual(_yotiUserProfile.EmailAddress, Value);
         }
 
         [TestMethod]
@@ -305,20 +299,18 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Address()
         {
-            const string value = "AddressValue";
-
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = PostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.Address.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.Address.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.Address, value);
+            Assert.AreEqual(_yotiUserProfile.Address, Value);
         }
 
         [TestMethod]
@@ -668,38 +660,35 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Gender()
         {
-            const string value = "GenderValue";
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = GenderAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.Gender.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.Gender.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.Gender, value);
+            Assert.AreEqual(_yotiUserProfile.Gender, Value);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_Nationality()
         {
-            const string value = "NationalityValue";
-
             var attribute = new AttrpubapiV1.Attribute
             {
                 Name = NationalityAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8(value)
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
 
-            Assert.AreEqual(_yotiProfile.Nationality.GetValue(), value);
+            Assert.AreEqual(_yotiProfile.Nationality.GetValue(), Value);
 
-            Assert.AreEqual(_yotiUserProfile.Nationality, value);
+            Assert.AreEqual(_yotiUserProfile.Nationality, Value);
         }
 
         [TestMethod]
@@ -709,7 +698,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = "OtherAttributes",
                 ContentType = AttrpubapiV1.ContentType.String,
-                Value = ByteString.CopyFromUtf8("OtherAttributesValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -726,7 +715,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = "UndefinedAttribute",
                 ContentType = AttrpubapiV1.ContentType.Undefined,
-                Value = ByteString.CopyFromUtf8("UndefinedAttributeValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -743,7 +732,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = "NonMatchingDateAttribute",
                 ContentType = AttrpubapiV1.ContentType.Date,
-                Value = ByteString.CopyFromUtf8("NonMatchingDateAttributeValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -759,7 +748,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = "NonMatchingJpegAttribute",
                 ContentType = AttrpubapiV1.ContentType.Jpeg,
-                Value = ByteString.CopyFromUtf8("NonMatchingJpegAttributeValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -775,7 +764,7 @@ namespace Yoti.Auth.Tests
             {
                 Name = "NonMatchingPngAttribute",
                 ContentType = AttrpubapiV1.ContentType.Png,
-                Value = ByteString.CopyFromUtf8("NonMatchingPngAttributeValue")
+                Value = _byteValue
             };
 
             AddAttributeToProfile(attribute);
@@ -789,7 +778,7 @@ namespace Yoti.Auth.Tests
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 GivenNamesAttribute,
-                "givenNamesValue",
+                Value,
                 AttrpubapiV1.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
 
@@ -858,7 +847,7 @@ namespace Yoti.Auth.Tests
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 SelfieAttribute,
-                "selfieValue",
+                Value,
                 AttrpubapiV1.ContentType.Jpeg,
                 TestAnchors.YotiAdminAnchor);
 
