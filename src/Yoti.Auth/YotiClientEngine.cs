@@ -106,7 +106,7 @@ namespace Yoti.Auth
             return result;
         }
 
-        public static Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
+        private static Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
         {
             string authKey = CryptoEngine.GetAuthKey(keyPair);
             string authDigest = SignedMessageFactory.SignMessage(httpMethod, endpoint, keyPair, httpContent);
