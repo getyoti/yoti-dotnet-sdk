@@ -43,13 +43,13 @@ namespace Yoti.Auth.Anchors
 
         private List<X509Certificate2> ConvertRawCertToX509List(RepeatedField<ByteString> rawOriginServerCerts)
         {
-            var X509originServerCerts = new List<X509Certificate2>();
+            var x509OriginServerCerts = new List<X509Certificate2>();
             foreach (ByteString byteString in rawOriginServerCerts)
             {
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
-                X509originServerCerts.Add(certificate);
+                x509OriginServerCerts.Add(certificate);
             }
-            return X509originServerCerts;
+            return x509OriginServerCerts;
         }
 
         /// <summary>

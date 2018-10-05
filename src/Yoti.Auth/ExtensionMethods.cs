@@ -7,7 +7,7 @@ namespace Yoti.Auth
     {
         public static T ConvertType<T>(this byte[] bytes)
         {
-            var type = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+            Type type = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
             switch (Type.GetTypeCode(type))
             {
@@ -31,7 +31,7 @@ namespace Yoti.Auth
 
                     if (!parsed)
                         throw new FormatException(
-                            String.Format(
+                            string.Format(
                                 "'{0}' value was unable to be parsed into a bool",
                                 bytes));
 

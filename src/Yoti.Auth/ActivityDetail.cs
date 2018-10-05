@@ -13,13 +13,6 @@ namespace Yoti.Auth
     public class ActivityDetails
     {
         /// <summary>
-        /// Creates a <see cref="ActivityDetails"/>
-        /// </summary>
-        public ActivityDetails()
-        {
-        }
-
-        /// <summary>
         /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
         /// </summary>
         [Obsolete("Please use Profile instead")]
