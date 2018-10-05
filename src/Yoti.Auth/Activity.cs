@@ -28,14 +28,14 @@ namespace Yoti.Auth
         {
             ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
 
-            if (parsedResponse.receipt == null)
+            if (parsedResponse.Receipt == null)
             {
                 return new ActivityDetails
                 {
                     Outcome = ActivityOutcome.Failure
                 };
             }
-            else if (parsedResponse.receipt.sharing_outcome != "SUCCESS")
+            else if (parsedResponse.Receipt.sharing_outcome != "SUCCESS")
             {
                 return new ActivityDetails
                 {
@@ -44,15 +44,15 @@ namespace Yoti.Auth
             }
             else
             {
-                ReceiptDO receipt = parsedResponse.receipt;
+                ReceiptDO receipt = parsedResponse.Receipt;
 
                 AttrpubapiV1.AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
-                    parsedResponse.receipt.wrapped_receipt_key,
-                    parsedResponse.receipt.other_party_profile_content,
+                    parsedResponse.Receipt.wrapped_receipt_key,
+                    parsedResponse.Receipt.other_party_profile_content,
                     keyPair);
 
-                _yotiUserProfile.Id = parsedResponse.receipt.remember_me_id;
-                _yotiProfile.Id = parsedResponse.receipt.remember_me_id;
+                _yotiUserProfile.Id = parsedResponse.Receipt.remember_me_id;
+                _yotiProfile.Id = parsedResponse.Receipt.remember_me_id;
 
                 AddAttributesToProfile(attributes);
 

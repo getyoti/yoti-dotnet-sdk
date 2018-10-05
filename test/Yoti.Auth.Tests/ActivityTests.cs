@@ -18,42 +18,42 @@ namespace Yoti.Auth.Tests
         private JToken _dictionaryObject = null;
         private AttrpubapiV1.AttributeList _attributeList;
 
-        private static readonly string _addressFormatJson = "address_format";
-        private static readonly string _buildingNumberJson = "building_number";
-        private static readonly string _addressLineOneJson = "address_line1";
-        private static readonly string _townCityJson = "town_city";
-        private static readonly string _postalCodeJson = "postal_code";
-        private static readonly string _countryIsoJson = "country_iso";
-        private static readonly string _countryJson = "country";
-        private static readonly string _formattedAddressJson = "formatted_address";
-        private static readonly string _stateJson = "state";
-        private static readonly string _careOfJson = "care_of";
-        private static readonly string _buildingJson = "building";
-        private static readonly string _streetJson = "street";
-        private static readonly string _subdistrictJson = "subdistrict";
-        private static readonly string _districtJson = "district";
-        private static readonly string _postOfficeJson = "post_office";
+        private const string AddressFormatJson = "address_format";
+        private const string BuildingNumberJson = "building_number";
+        private const string AddressLineOneJson = "address_line1";
+        private const string TownCityJson = "town_city";
+        private const string PostalCodeJson = "postal_code";
+        private const string CountryIsoJson = "country_iso";
+        private const string CountryJson = "country";
+        private const string FormattedAddressJson = "formatted_address";
+        private const string StateJson = "state";
+        private const string CareOfJson = "care_of";
+        private const string BuildingJson = "building";
+        private const string StreetJson = "street";
+        private const string SubdistrictJson = "subdistrict";
+        private const string DistrictJson = "district";
+        private const string PostOfficeJson = "post_office";
 
-        private static readonly string _yotiAdminVerifierType = "YOTI_ADMIN";
-        private static readonly string _passportSourceType = "PASSPORT";
-        private static readonly string _drivingLicenseSourceType = "DRIVING_LICENCE";
+        private const string YotiAdminVerifierType = "YOTI_ADMIN";
+        private const string PassportSourceType = "PASSPORT";
+        private const string DrivingLicenseSourceType = "DRIVING_LICENCE";
 
-        private static readonly string _givenNamesAttribute = "given_names";
-        private static readonly string _familyNameAttribute = "family_name";
-        private static readonly string _fullNameAttribute = "full_name";
-        private static readonly string _genderAttribute = "gender";
-        private static readonly string _selfieAttribute = "selfie";
-        private static readonly string _phoneNumberAttribute = "phone_number";
-        private static readonly string _emailAddressAttribute = "email_address";
-        private static readonly string _nationalityAttribute = "nationality";
-        private static readonly string _ageOver18Attribute = "age_over:18";
-        private static readonly string _ageUnder18Attribute = "age_under:18";
-        private static readonly string _postalAddressAttribute = "postal_address";
-        private static readonly string _structuredPostalAddressAttribute = "structured_postal_address";
-        private static readonly string _dateOfBirthAttribute = "date_of_birth";
+        private const string GivenNamesAttribute = "given_names";
+        private const string FamilyNameAttribute = "family_name";
+        private const string FullNameAttribute = "full_name";
+        private const string GenderAttribute = "gender";
+        private const string SelfieAttribute = "selfie";
+        private const string PhoneNumberAttribute = "phone_number";
+        private const string EmailAddressAttribute = "email_address";
+        private const string NationalityAttribute = "nationality";
+        private const string AgeOver18Attribute = "age_over:18";
+        private const string AgeUnder18Attribute = "age_under:18";
+        private const string PostalAddressAttribute = "postal_address";
+        private const string StructuredPostalAddressAttribute = "structured_postal_address";
+        private const string DateOfBirthAttribute = "date_of_birth";
 
-        private static readonly DateTime _DateOfBirthValue = new DateTime(1980, 1, 13);
-        private static readonly string _dateOfBirthString = "1980-01-13";
+        private static readonly DateTime DateOfBirthValue = new DateTime(1980, 1, 13);
+        private const string DateOfBirthString = "1980-01-13";
 
         [TestInitialize]
         public void Startup()
@@ -69,7 +69,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _selfieAttribute,
+                Name = SelfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Jpeg,
                 Value = ByteString.CopyFromUtf8("selfieJpegValue")
             };
@@ -89,7 +89,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _selfieAttribute,
+                Name = SelfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Png,
                 Value = ByteString.CopyFromUtf8("selfiePngValue")
             };
@@ -107,10 +107,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_FullName()
         {
-            string value = "fullNameValue";
+            const string value = "fullNameValue";
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _fullNameAttribute,
+                Name = FullNameAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -125,11 +125,11 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_GivenNames()
         {
-            string value = "GivenNamesValue";
+            const string value = "GivenNamesValue";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _givenNamesAttribute,
+                Name = GivenNamesAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -144,11 +144,11 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_FamilyName()
         {
-            string value = "FamilyNameValue";
+            const string value = "FamilyNameValue";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _familyNameAttribute,
+                Name = FamilyNameAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -163,11 +163,11 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_MobileNumber()
         {
-            string value = "0123456789";
+            const string value = "0123456789";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _phoneNumberAttribute,
+                Name = PhoneNumberAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -182,11 +182,11 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_EmailAddress()
         {
-            string value = "EmailAddressValue";
+            const string value = "EmailAddressValue";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _emailAddressAttribute,
+                Name = EmailAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -203,18 +203,18 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _dateOfBirthAttribute,
+                Name = DateOfBirthAttribute,
                 ContentType = AttrpubapiV1.ContentType.Date,
-                Value = ByteString.CopyFromUtf8(_dateOfBirthString)
+                Value = ByteString.CopyFromUtf8(DateOfBirthString)
             };
 
             AddAttributeToProfile(attribute);
 
             Assert.IsInstanceOfType(_yotiProfile.DateOfBirth.GetValue(), typeof(DateTime?));
 
-            Assert.AreEqual(_yotiProfile.DateOfBirth.GetValue(), _DateOfBirthValue);
+            Assert.AreEqual(_yotiProfile.DateOfBirth.GetValue(), DateOfBirthValue);
 
-            Assert.AreEqual(_yotiUserProfile.DateOfBirth, _DateOfBirthValue);
+            Assert.AreEqual(_yotiUserProfile.DateOfBirth, DateOfBirthValue);
         }
 
         [TestMethod]
@@ -222,7 +222,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _dateOfBirthAttribute,
+                Name = DateOfBirthAttribute,
                 ContentType = AttrpubapiV1.ContentType.Date,
                 Value = ByteString.CopyFromUtf8("1980/01/13")
             };
@@ -239,7 +239,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _ageOver18Attribute,
+                Name = AgeOver18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("true")
             };
@@ -256,7 +256,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _ageOver18Attribute,
+                Name = AgeOver18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("false")
             };
@@ -273,7 +273,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _ageUnder18Attribute,
+                Name = AgeUnder18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("true")
             };
@@ -290,7 +290,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _ageUnder18Attribute,
+                Name = AgeUnder18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("false")
             };
@@ -305,11 +305,11 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Address()
         {
-            string value = "AddressValue";
+            const string value = "AddressValue";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _postalAddressAttribute,
+                Name = PostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -324,28 +324,28 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_StructuredPostalAddress_UK()
         {
-            string addressFormat = "1";
-            string buildingNumber = "15a";
-            string addressLineOne = "15a North Street";
-            string townCity = "CARSHALTON";
-            string postalCode = "SM5 2HW";
-            string countryIso = "GBR";
-            string country = "UK";
-            string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
+            const string addressFormat = "1";
+            const string buildingNumber = "15a";
+            const string addressLineOne = "15a North Street";
+            const string townCity = "CARSHALTON";
+            const string postalCode = "SM5 2HW";
+            const string countryIso = "GBR";
+            const string country = "UK";
+            const string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
 
-            string addressString =
-                "{     \"" + _addressFormatJson + "\": " + addressFormat
-                + ",     \"" + _buildingNumberJson + "\": \"" + buildingNumber
-                + "\",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
-                + "\",     \"" + _townCityJson + "\": \"" + townCity
-                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
-                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
-                + "\",     \"" + _countryJson + "\": \"" + country
-                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+            const string addressString =
+                "{     \"" + AddressFormatJson + "\": " + addressFormat
+                + ",     \"" + BuildingNumberJson + "\": \"" + buildingNumber
+                + "\",     \"" + AddressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + TownCityJson + "\": \"" + townCity
+                + "\",     \"" + PostalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + CountryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + CountryJson + "\": \"" + country
+                + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _structuredPostalAddressAttribute,
+                Name = StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -353,63 +353,63 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile(attribute);
 
             Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
-            AssertDictionaryValue(addressFormat, _addressFormatJson, structuredPostalAddress);
-            AssertDictionaryValue(buildingNumber, _buildingNumberJson, structuredPostalAddress);
-            AssertDictionaryValue(addressLineOne, _addressLineOneJson, structuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, structuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, structuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, structuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, structuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, structuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
+            AssertDictionaryValue(buildingNumber, BuildingNumberJson, structuredPostalAddress);
+            AssertDictionaryValue(addressLineOne, AddressLineOneJson, structuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, structuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, structuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, structuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, structuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, structuredPostalAddress);
 
             Dictionary<string, JToken> legacyStructuredPostalAddress = _yotiUserProfile.StructuredPostalAddress;
-            AssertDictionaryValue(addressFormat, _addressFormatJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(buildingNumber, _buildingNumberJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(addressLineOne, _addressLineOneJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(buildingNumber, BuildingNumberJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressLineOne, AddressLineOneJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, legacyStructuredPostalAddress);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_StructuredPostalAddress_India()
         {
-            string rajguraNagar = "Rajguru Nagar";
+            const string rajguraNagar = "Rajguru Nagar";
 
-            string addressFormat = "2";
-            string careOf = "S/O: Name";
-            string building = "House No.1111-A";
-            string street = rajguraNagar;
-            string townCity = rajguraNagar;
-            string subdistrict = "Ludhiana";
-            string district = "Ludhiana";
-            string state = "Punjab";
-            string postalCode = "141012";
-            string postOffice = rajguraNagar;
-            string countryIso = "IND";
-            string country = "India";
-            string formattedAddress = "House No.1111-A\nRajgura Nagar\nLudhina\nPunjab\n141012\nIndia";
+            const string addressFormat = "2";
+            const string careOf = "S/O: Name";
+            const string building = "House No.1111-A";
+            const string street = rajguraNagar;
+            const string townCity = rajguraNagar;
+            const string subdistrict = "Ludhiana";
+            const string district = "Ludhiana";
+            const string state = "Punjab";
+            const string postalCode = "141012";
+            const string postOffice = rajguraNagar;
+            const string countryIso = "IND";
+            const string country = "India";
+            const string formattedAddress = "House No.1111-A\nRajgura Nagar\nLudhina\nPunjab\n141012\nIndia";
 
-            string addressString =
-                "{     \"" + _addressFormatJson + "\": " + addressFormat
-                + ",    \"" + _careOfJson + "\": \"" + careOf
-                + "\",     \"" + _buildingJson + "\": \"" + building
-                + "\",     \"" + _streetJson + "\": \"" + street
-                + "\",     \"" + _townCityJson + "\": \"" + townCity
-                + "\",     \"" + _subdistrictJson + "\": \"" + subdistrict
-                + "\",     \"" + _districtJson + "\":\"" + district
-                + "\",     \"" + _stateJson + "\": \"" + state
-                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
-                + "\",     \"" + _postOfficeJson + "\": \"" + postOffice
-                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
-                + "\",     \"" + _countryJson + "\": \"" + country
-                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+            const string addressString =
+                "{     \"" + AddressFormatJson + "\": " + addressFormat
+                + ",    \"" + CareOfJson + "\": \"" + careOf
+                + "\",     \"" + BuildingJson + "\": \"" + building
+                + "\",     \"" + StreetJson + "\": \"" + street
+                + "\",     \"" + TownCityJson + "\": \"" + townCity
+                + "\",     \"" + SubdistrictJson + "\": \"" + subdistrict
+                + "\",     \"" + DistrictJson + "\":\"" + district
+                + "\",     \"" + StateJson + "\": \"" + state
+                + "\",     \"" + PostalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + PostOfficeJson + "\": \"" + postOffice
+                + "\",     \"" + CountryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + CountryJson + "\": \"" + country
+                + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _structuredPostalAddressAttribute,
+                Name = StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -417,61 +417,61 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile(attribute);
 
             Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
-            AssertDictionaryValue(addressFormat, _addressFormatJson, structuredPostalAddress);
-            AssertDictionaryValue(careOf, _careOfJson, structuredPostalAddress);
-            AssertDictionaryValue(building, _buildingJson, structuredPostalAddress);
-            AssertDictionaryValue(street, _streetJson, structuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, structuredPostalAddress);
-            AssertDictionaryValue(subdistrict, _subdistrictJson, structuredPostalAddress);
-            AssertDictionaryValue(district, _districtJson, structuredPostalAddress);
-            AssertDictionaryValue(state, _stateJson, structuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, structuredPostalAddress);
-            AssertDictionaryValue(postOffice, _postOfficeJson, structuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, structuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, structuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, structuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
+            AssertDictionaryValue(careOf, CareOfJson, structuredPostalAddress);
+            AssertDictionaryValue(building, BuildingJson, structuredPostalAddress);
+            AssertDictionaryValue(street, StreetJson, structuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, structuredPostalAddress);
+            AssertDictionaryValue(subdistrict, SubdistrictJson, structuredPostalAddress);
+            AssertDictionaryValue(district, DistrictJson, structuredPostalAddress);
+            AssertDictionaryValue(state, StateJson, structuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, structuredPostalAddress);
+            AssertDictionaryValue(postOffice, PostOfficeJson, structuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, structuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, structuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, structuredPostalAddress);
 
             Dictionary<string, JToken> legacyStructuredPostalAddress = _yotiUserProfile.StructuredPostalAddress;
-            AssertDictionaryValue(addressFormat, _addressFormatJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(careOf, _careOfJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(building, _buildingJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(street, _streetJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(subdistrict, _subdistrictJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(district, _districtJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(state, _stateJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(postOffice, _postOfficeJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(careOf, CareOfJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(building, BuildingJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(street, StreetJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(subdistrict, SubdistrictJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(district, DistrictJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(state, StateJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(postOffice, PostOfficeJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, legacyStructuredPostalAddress);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_StructuredPostalAddress_USA()
         {
-            string addressFormat = "3";
-            string addressLineOne = "1512 Ferry Street";
-            string townCity = "Anniston";
-            string state = "AL";
-            string postalCode = "36201";
-            string countryIso = "USA";
-            string country = "USA";
-            string formattedAddress = "1512 Ferry Street\nAnniston AL 36201\nUSA";
+            const string addressFormat = "3";
+            const string addressLineOne = "1512 Ferry Street";
+            const string townCity = "Anniston";
+            const string state = "AL";
+            const string postalCode = "36201";
+            const string countryIso = "USA";
+            const string country = "USA";
+            const string formattedAddress = "1512 Ferry Street\nAnniston AL 36201\nUSA";
 
-            string addressString =
-                    "{     \"" + _addressFormatJson + "\": " + addressFormat
-                + ",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
-                + "\",     \"" + _townCityJson + "\": \"" + townCity
-                + "\",     \"" + _stateJson + "\": \"" + state
-                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
-                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
-                + "\",     \"" + _countryJson + "\": \"" + country
-                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+            const string addressString =
+                    "{     \"" + AddressFormatJson + "\": " + addressFormat
+                + ",     \"" + AddressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + TownCityJson + "\": \"" + townCity
+                + "\",     \"" + StateJson + "\": \"" + state
+                + "\",     \"" + PostalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + CountryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + CountryJson + "\": \"" + country
+                + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _structuredPostalAddressAttribute,
+                Name = StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -479,24 +479,24 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile(attribute);
 
             Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
-            AssertDictionaryValue(addressFormat, _addressFormatJson, structuredPostalAddress);
-            AssertDictionaryValue(addressLineOne, _addressLineOneJson, structuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, structuredPostalAddress);
-            AssertDictionaryValue(state, _stateJson, structuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, structuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, structuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, structuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, structuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
+            AssertDictionaryValue(addressLineOne, AddressLineOneJson, structuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, structuredPostalAddress);
+            AssertDictionaryValue(state, StateJson, structuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, structuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, structuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, structuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, structuredPostalAddress);
 
             Dictionary<string, JToken> legacyStructuredPostalAddress = _yotiUserProfile.StructuredPostalAddress;
-            AssertDictionaryValue(addressFormat, _addressFormatJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(addressLineOne, _addressLineOneJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(state, _stateJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressLineOne, AddressLineOneJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(state, StateJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, legacyStructuredPostalAddress);
         }
 
         [TestMethod]
@@ -509,36 +509,36 @@ namespace Yoti.Auth.Tests
                 nestedValueObject = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             }
 
-            string addressFormat = "1";
-            string buildingNumber = "15a";
-            string addressLineOne = "15a North Street";
-            string townCity = "CARSHALTON";
-            string postalCode = "SM5 2HW";
-            string countryIso = "GBR";
-            string country = "UK";
-            string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
+            const string addressFormat = "1";
+            const string buildingNumber = "15a";
+            const string addressLineOne = "15a North Street";
+            const string townCity = "CARSHALTON";
+            const string postalCode = "SM5 2HW";
+            const string countryIso = "GBR";
+            const string country = "UK";
+            const string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
 
-            string nestedValueJson = "nested_value";
-            string oneJson = "1";
-            string oneTwoJson = "1-2";
-            string oneTwoFiveJson = "1-2-5";
-            string oneTwoFiveOneJson = "1-2-5-1";
-            string oneTwoFiveOneJsonValue = "OneTwoFiveOne";
+            const string nestedValueJson = "nested_value";
+            const string oneJson = "1";
+            const string oneTwoJson = "1-2";
+            const string oneTwoFiveJson = "1-2-5";
+            const string oneTwoFiveOneJson = "1-2-5-1";
+            const string oneTwoFiveOneJsonValue = "OneTwoFiveOne";
 
             string addressString =
-                "{     \"" + _addressFormatJson + "\": " + addressFormat
-                + ",     \"" + _buildingNumberJson + "\": \"" + buildingNumber
-                + "\",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
-                + "\",     \"" + _townCityJson + "\": \"" + townCity
-                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
-                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
-                + "\",     \"" + _countryJson + "\": \"" + country
-                + "\",     \"" + nestedValueJson + "\": " + nestedValueObject.ToString()
-                + ",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+                "{     \"" + AddressFormatJson + "\": " + addressFormat
+                + ",     \"" + BuildingNumberJson + "\": \"" + buildingNumber
+                + "\",     \"" + AddressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + TownCityJson + "\": \"" + townCity
+                + "\",     \"" + PostalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + CountryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + CountryJson + "\": \"" + country
+                + "\",     \"" + nestedValueJson + "\": " + nestedValueObject
+                + ",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _structuredPostalAddressAttribute,
+                Name = StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -546,13 +546,13 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile(attribute);
 
             Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
-            AssertDictionaryValue(addressFormat, _addressFormatJson, structuredPostalAddress);
-            AssertDictionaryValue(buildingNumber, _buildingNumberJson, structuredPostalAddress);
-            AssertDictionaryValue(addressLineOne, _addressLineOneJson, structuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, structuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, structuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, structuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, structuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
+            AssertDictionaryValue(buildingNumber, BuildingNumberJson, structuredPostalAddress);
+            AssertDictionaryValue(addressLineOne, AddressLineOneJson, structuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, structuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, structuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, structuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, structuredPostalAddress);
 
             JToken nestedJsonObj = structuredPostalAddress[nestedValueJson];
             JToken token1 = nestedJsonObj[oneJson];
@@ -563,16 +563,16 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(oneTwoFiveOneJsonValue, token1_2_5_1);
 
             AssertDictionaryValue(nestedValueObject.ToString(), nestedValueJson, structuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, structuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, structuredPostalAddress);
 
             Dictionary<string, JToken> legacyStructuredPostalAddress = _yotiUserProfile.StructuredPostalAddress;
-            AssertDictionaryValue(addressFormat, _addressFormatJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(buildingNumber, _buildingNumberJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(addressLineOne, _addressLineOneJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(townCity, _townCityJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(postalCode, _postalCodeJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(countryIso, _countryIsoJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(country, _countryJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressFormat, AddressFormatJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(buildingNumber, BuildingNumberJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(addressLineOne, AddressLineOneJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(townCity, TownCityJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(postalCode, PostalCodeJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(countryIso, CountryIsoJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(country, CountryJson, legacyStructuredPostalAddress);
 
             JToken legacyNestedJsonObj = legacyStructuredPostalAddress[nestedValueJson];
             JToken legacyToken1 = nestedJsonObj[oneJson];
@@ -583,34 +583,34 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(oneTwoFiveOneJsonValue, legacyToken1_2_5_1);
 
             AssertDictionaryValue(nestedValueObject.ToString(), nestedValueJson, legacyStructuredPostalAddress);
-            AssertDictionaryValue(formattedAddress, _formattedAddressJson, legacyStructuredPostalAddress);
+            AssertDictionaryValue(formattedAddress, FormattedAddressJson, legacyStructuredPostalAddress);
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_AddressIsTakenFromFormattedAddressIfNull()
         {
-            string addressFormat = "1";
-            string buildingNumber = "15a";
-            string addressLineOne = "15a North Street";
-            string townCity = "CARSHALTON";
-            string postalCode = "SM5 2HW";
-            string countryIso = "GBR";
-            string country = "UK";
-            string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
+            const string addressFormat = "1";
+            const string buildingNumber = "15a";
+            const string addressLineOne = "15a North Street";
+            const string townCity = "CARSHALTON";
+            const string postalCode = "SM5 2HW";
+            const string countryIso = "GBR";
+            const string country = "UK";
+            const string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
 
-            string addressString =
-                "{     \"" + _addressFormatJson + "\": " + addressFormat
-                + ",     \"" + _buildingNumberJson + "\": \"" + buildingNumber
-                + "\",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
-                + "\",     \"" + _townCityJson + "\": \"" + townCity
-                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
-                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
-                + "\",     \"" + _countryJson + "\": \"" + country
-                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+            const string addressString =
+                "{     \"" + AddressFormatJson + "\": " + addressFormat
+                + ",     \"" + BuildingNumberJson + "\": \"" + buildingNumber
+                + "\",     \"" + AddressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + TownCityJson + "\": \"" + townCity
+                + "\",     \"" + PostalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + CountryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + CountryJson + "\": \"" + country
+                + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _structuredPostalAddressAttribute,
+                Name = StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -624,36 +624,36 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_AddressIsNotTakenFromFormattedAddressIfAddressIsPresent()
         {
-            string addressFormat = "1";
-            string buildingNumber = "15a";
-            string addressLineOne = "15a North Street";
-            string townCity = "CARSHALTON";
-            string postalCode = "SM5 2HW";
-            string countryIso = "GBR";
-            string country = "UK";
-            string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
-            string postalAddress = "33a South Street\nCARSHALTON\nSM5 2HW\nUK";
+            const string addressFormat = "1";
+            const string buildingNumber = "15a";
+            const string addressLineOne = "15a North Street";
+            const string townCity = "CARSHALTON";
+            const string postalCode = "SM5 2HW";
+            const string countryIso = "GBR";
+            const string country = "UK";
+            const string formattedAddress = "15a North Street\nCARSHALTON\nSM5 2HW\nUK";
+            const string postalAddress = "33a South Street\nCARSHALTON\nSM5 2HW\nUK";
 
-            string structuredAddressString =
-                "{     \"" + _addressFormatJson + "\": " + addressFormat
-                + ",     \"" + _buildingNumberJson + "\": \"" + buildingNumber
-                + "\",     \"" + _addressLineOneJson + "\": \"" + addressLineOne
-                + "\",     \"" + _townCityJson + "\": \"" + townCity
-                + "\",     \"" + _postalCodeJson + "\": \"" + postalCode
-                + "\",     \"" + _countryIsoJson + "\": \"" + countryIso
-                + "\",     \"" + _countryJson + "\": \"" + country
-                + "\",     \"" + _formattedAddressJson + "\": \"" + formattedAddress + "\" }";
+            const string structuredAddressString =
+                "{     \"" + AddressFormatJson + "\": " + addressFormat
+                + ",     \"" + BuildingNumberJson + "\": \"" + buildingNumber
+                + "\",     \"" + AddressLineOneJson + "\": \"" + addressLineOne
+                + "\",     \"" + TownCityJson + "\": \"" + townCity
+                + "\",     \"" + PostalCodeJson + "\": \"" + postalCode
+                + "\",     \"" + CountryIsoJson + "\": \"" + countryIso
+                + "\",     \"" + CountryJson + "\": \"" + country
+                + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
             var structuredAddressAttribute = new AttrpubapiV1.Attribute
             {
-                Name = _structuredPostalAddressAttribute,
+                Name = StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(structuredAddressString)
             };
 
             var addressAttribute = new AttrpubapiV1.Attribute
             {
-                Name = _postalAddressAttribute,
+                Name = PostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(postalAddress)
             };
@@ -668,10 +668,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Gender()
         {
-            string value = "GenderValue";
+            const string value = "GenderValue";
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _genderAttribute,
+                Name = GenderAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -686,11 +686,11 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Nationality()
         {
-            string value = "NationalityValue";
+            const string value = "NationalityValue";
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = _nationalityAttribute,
+                Name = NationalityAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(value)
             };
@@ -788,7 +788,7 @@ namespace Yoti.Auth.Tests
         public void Activity_GetSources_IncludesDrivingLicense_String()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                _givenNamesAttribute,
+                GivenNamesAttribute,
                 "givenNamesValue",
                 AttrpubapiV1.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
@@ -799,14 +799,14 @@ namespace Yoti.Auth.Tests
 
             Assert.IsTrue(
                 sources.Any(
-                    s => s.GetValue().Contains(_drivingLicenseSourceType)));
+                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_AgeVerified()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                _ageOver18Attribute,
+                AgeOver18Attribute,
                 "true",
                 AttrpubapiV1.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
@@ -816,14 +816,14 @@ namespace Yoti.Auth.Tests
             IEnumerable<Anchors.Anchor> sources = _yotiProfile.AgeVerified.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.GetValue().Contains(_drivingLicenseSourceType)));
+                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                _structuredPostalAddressAttribute,
+                StructuredPostalAddressAttribute,
                 "{ \"properties\": { \"name\": { \"type\": \"string\"     } } }",
                 AttrpubapiV1.ContentType.Json,
                 TestAnchors.DrivingLicenseAnchor);
@@ -833,15 +833,15 @@ namespace Yoti.Auth.Tests
             IEnumerable<Anchors.Anchor> sources = _yotiProfile.StructuredPostalAddress.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.GetValue().Contains(_drivingLicenseSourceType)));
+                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetSources_IncludesPassport()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                _dateOfBirthAttribute,
-                _dateOfBirthString,
+                DateOfBirthAttribute,
+                DateOfBirthString,
                 AttrpubapiV1.ContentType.Date,
                 TestAnchors.PassportAnchor);
 
@@ -850,14 +850,14 @@ namespace Yoti.Auth.Tests
             IEnumerable<Anchors.Anchor> sources = _yotiProfile.DateOfBirth.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.GetValue().Contains(_passportSourceType)));
+                    s => s.GetValue().Contains(PassportSourceType)));
         }
 
         [TestMethod]
         public void Activity_GetVerifiers_IncludesYotiAdmin()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                _selfieAttribute,
+                SelfieAttribute,
                 "selfieValue",
                 AttrpubapiV1.ContentType.Jpeg,
                 TestAnchors.YotiAdminAnchor);
@@ -867,7 +867,7 @@ namespace Yoti.Auth.Tests
             IEnumerable<Anchors.Anchor> verifiers = _yotiProfile.Selfie.GetVerifiers();
             Assert.IsTrue(
                 verifiers.Any(
-                    s => s.GetValue().Contains(_yotiAdminVerifierType)));
+                    s => s.GetValue().Contains(YotiAdminVerifierType)));
         }
 
         private void AssertDictionaryValue(string expectedValue, string dictionaryKey, Dictionary<string, JToken> dictionary)

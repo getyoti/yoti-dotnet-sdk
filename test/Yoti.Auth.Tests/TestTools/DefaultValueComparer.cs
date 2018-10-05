@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.TestTools
             if (!value.GetType().GetTypeInfo().IsValueType)
                 return false;
 
-            var defaultValue = Activator.CreateInstance(value.GetType());
+            object defaultValue = Activator.CreateInstance(value.GetType());
             return value.Equals(defaultValue);
         }
     }

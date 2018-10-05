@@ -36,7 +36,7 @@ namespace Yoti.Auth.Tests
             string sdkId = null;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                YotiClient client = new YotiClient(sdkId, keystream);
+                var client = new YotiClient(sdkId, keystream);
             });
         }
 
@@ -47,7 +47,7 @@ namespace Yoti.Auth.Tests
             string sdkId = string.Empty;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                YotiClient client = new YotiClient(sdkId, keystream);
+                var client = new YotiClient(sdkId, keystream);
             });
         }
 
@@ -58,7 +58,7 @@ namespace Yoti.Auth.Tests
             string sdkId = "fake-sdk-id";
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                YotiClient client = new YotiClient(sdkId, keystream);
+                var client = new YotiClient(sdkId, keystream);
             });
         }
 
@@ -66,10 +66,10 @@ namespace Yoti.Auth.Tests
         public void YotiClient_InvalidKeyStream_ThrowsException()
         {
             StreamReader keystream = GetInvalidFormatKeyStream();
-            string sdkId = "fake-sdk-id";
+            const string sdkId = "fake-sdk-id";
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                YotiClient client = new YotiClient(sdkId, keystream);
+                var client = new YotiClient(sdkId, keystream);
             });
         }
 
@@ -98,7 +98,7 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
                 AmlResult amlResult = client.PerformAmlCheck(amlProfile: null);
             });
@@ -111,12 +111,12 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            AmlProfile amlProfile = new AmlProfile(
+            var amlProfile = new AmlProfile(
                            givenNames: "Edward Richard George",
                            familyName: "Heath",
                            amlAddress: null);
 
-            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
                 AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -129,12 +129,12 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            AmlProfile amlProfile = new AmlProfile(
+            var amlProfile = new AmlProfile(
                 givenNames: null,
                 familyName: "Heath",
                 amlAddress: TestTools.Aml.CreateStandardAmlAddress());
 
-            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
                 AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -147,12 +147,12 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            AmlProfile amlProfile = new AmlProfile(
+            var amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: null,
                 amlAddress: TestTools.Aml.CreateStandardAmlAddress());
 
-            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
                 AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -165,15 +165,15 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            AmlAddress amlAddress = new AmlAddress(
+            var amlAddress = new AmlAddress(
                country: null);
 
-            AmlProfile amlProfile = new AmlProfile(
+            var amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: "Heath",
                 amlAddress: amlAddress);
 
-            AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
                 AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
             });

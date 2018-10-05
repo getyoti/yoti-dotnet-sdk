@@ -9,18 +9,18 @@ namespace Yoti.Auth.Tests
 {
     public class FakeHttpResponseHandler : DelegatingHandler
     {
-        private readonly Dictionary<Uri, HttpResponseMessage> _FakeResponses = new Dictionary<Uri, HttpResponseMessage>();
+        private readonly Dictionary<Uri, HttpResponseMessage> _fakeResponses = new Dictionary<Uri, HttpResponseMessage>();
 
         public void AddFakeResponse(Uri uri, HttpResponseMessage responseMessage)
         {
-            _FakeResponses.Add(uri, responseMessage);
+            _fakeResponses.Add(uri, responseMessage);
         }
 
-        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (_FakeResponses.ContainsKey(request.RequestUri))
+            if (_fakeResponses.ContainsKey(request.RequestUri))
             {
-                HttpResponseMessage response = _FakeResponses[request.RequestUri];
+                HttpResponseMessage response = _fakeResponses[request.RequestUri];
                 response.Content = new StringContent("Content");
                 return await Task.FromResult(response);
             }

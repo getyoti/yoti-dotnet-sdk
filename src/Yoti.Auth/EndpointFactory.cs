@@ -21,7 +21,7 @@ namespace Yoti.Auth
 
         private static string GetTimestamp()
         {
-            long milliseconds = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
+            var milliseconds = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
 
             return milliseconds.ToString();
         }
