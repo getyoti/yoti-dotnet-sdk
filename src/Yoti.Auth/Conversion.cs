@@ -21,7 +21,7 @@ namespace Yoti.Auth
         /// </summary>
         public static string BytesToUrlSafeBase64(byte[] bytes)
         {
-            var base64 = BytesToBase64(bytes);
+            string base64 = BytesToBase64(bytes);
 
             return base64.Replace("+", "-").Replace("/", "_");
         }
@@ -42,7 +42,7 @@ namespace Yoti.Auth
         /// </summary>
         public static byte[] UrlSafeBase64ToBytes(string urlSafeBase64)
         {
-            var base64 = urlSafeBase64.Replace("-", "+").Replace("_", "/");
+            string base64 = urlSafeBase64.Replace("-", "+").Replace("_", "/");
 
             return Base64ToBytes(base64);
         }

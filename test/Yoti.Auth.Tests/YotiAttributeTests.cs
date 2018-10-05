@@ -62,7 +62,7 @@ namespace Yoti.Auth.Tests
                 value: null,
                 anchors: new List<Anchor>());
 
-            string defaultValue = "default";
+            const string defaultValue = "default";
 
             Assert.AreEqual(defaultValue, yotiAttribute.GetValueOrDefault(defaultValue));
         }
@@ -70,7 +70,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttribute_GetValueOrDefault_ReturnsValueWhenNotNull()
         {
-            string expectedValue = "expected";
+            const string expectedValue = "expected";
             var expectedAttributeValue = new YotiAttributeValue(TypeEnum.Text, Conversion.UtfToBytes(expectedValue));
 
             var yotiAttribute = new YotiAttribute<string>(
@@ -78,7 +78,7 @@ namespace Yoti.Auth.Tests
                 value: expectedAttributeValue,
                 anchors: new List<Anchor>());
 
-            string defaultValue = "default";
+            const string defaultValue = "default";
 
             Assert.AreEqual(expectedValue, yotiAttribute.GetValueOrDefault(defaultValue));
         }
@@ -92,7 +92,7 @@ namespace Yoti.Auth.Tests
                 jpegBytes);
             var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
-            string expectedString = String.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
+            string expectedString = string.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
 
             Assert.AreEqual(expectedString, yotiAttribute.GetBase64URI());
         }
@@ -106,7 +106,7 @@ namespace Yoti.Auth.Tests
                 pngBytes);
             var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
-            string expectedString = String.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));
+            string expectedString = string.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));
 
             Assert.AreEqual(expectedString, yotiAttribute.GetBase64URI());
         }

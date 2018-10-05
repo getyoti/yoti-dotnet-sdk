@@ -10,9 +10,9 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttributeValue_ToDateValidDate_CorrectResult()
         {
-            string dateString = "1985-01-13";
-            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Date, dateString);
-            DateTime? outputValue = yotiAttribueValue.ToDate();
+            const string dateString = "1985-01-13";
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, dateString);
+            DateTime? outputValue = yotiAttributeValue.ToDate();
 
             Assert.AreEqual(
                 new DateTime(1985, 01, 13),
@@ -22,9 +22,9 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttributeValue_ToDateInvalidFormat_ReturnsNull()
         {
-            string dateString = "1985/01/01";
-            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Date, dateString);
-            DateTime? outputValue = yotiAttribueValue.ToDate();
+            const string dateString = "1985/01/01";
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, dateString);
+            DateTime? outputValue = yotiAttributeValue.ToDate();
 
             Assert.IsNull(outputValue);
         }
@@ -32,9 +32,9 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttributeValue_ToDateInvalidDate_ReturnsNull()
         {
-            string dateString = "1985-13-01";
-            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Date, dateString);
-            DateTime? outputValue = yotiAttribueValue.ToDate();
+            const string dateString = "1985-13-01";
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Date, dateString);
+            DateTime? outputValue = yotiAttributeValue.ToDate();
 
             Assert.IsNull(outputValue);
         }
@@ -42,9 +42,9 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttributeValue_ToDateOnPng_ReturnsNull()
         {
-            string pngString = "PngImageData";
-            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Png, pngString);
-            DateTime? outputValue = yotiAttribueValue.ToDate();
+            const string pngString = "PngImageData";
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, pngString);
+            DateTime? outputValue = yotiAttributeValue.ToDate();
 
             Assert.IsNull(outputValue);
         }
@@ -52,9 +52,9 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiAttributeValue_ToDateOnJpeg_ReturnsNull()
         {
-            string jpegString = "JpegData";
-            var yotiAttribueValue = new YotiAttributeValue(TypeEnum.Jpeg, jpegString);
-            DateTime? outputValue = yotiAttribueValue.ToDate();
+            const string jpegString = "JpegData";
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, jpegString);
+            DateTime? outputValue = yotiAttributeValue.ToDate();
 
             Assert.IsNull(outputValue);
         }
@@ -63,13 +63,13 @@ namespace Yoti.Auth.Tests
         public void YotiAttributeValue_CheckAccessors_NoExceptions()
         {
             var inputBytes = new byte[8];
-            var inputType = TypeEnum.Jpeg;
-            var yotiAttribueValue = new YotiAttributeValue(inputType, inputBytes);
+            const TypeEnum inputType = TypeEnum.Jpeg;
+            var yotiAttributeValue = new YotiAttributeValue(inputType, inputBytes);
 
-            TypeEnum outputType = yotiAttribueValue.Type;
-            byte[] outputBytes = yotiAttribueValue.ToBytes();
+            TypeEnum outputType = yotiAttributeValue.Type;
+            byte[] outputBytes = yotiAttributeValue.ToBytes();
 
-            var outputValue = yotiAttribueValue.ToDate();
+            DateTime? outputValue = yotiAttributeValue.ToDate();
 
             Assert.AreEqual(inputType, outputType);
             Assert.AreEqual(inputBytes, outputBytes);

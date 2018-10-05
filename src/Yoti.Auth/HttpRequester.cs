@@ -15,7 +15,7 @@ namespace Yoti.Auth
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
 
-            Response result = new Response
+            var result = new Response
             {
                 Success = false,
                 StatusCode = 0,
@@ -30,7 +30,7 @@ namespace Yoti.Auth
 
                     if (byteContent != null && byteContent.Length > 0)
                     {
-                        ByteArrayContent byteArrayContent = new ByteArrayContent(byteContent);
+                        var byteArrayContent = new ByteArrayContent(byteContent);
                         request.Content = byteArrayContent;
                     }
 

@@ -2,8 +2,8 @@
 {
     internal class ProfileDO
     {
-        public string session_data { get; set; }
+        public string SessionData { get; set; }
 
-        public ReceiptDO receipt { get; set; }
+        public ReceiptDO Receipt { get; set; }
     }
 }

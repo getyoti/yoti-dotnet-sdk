@@ -8,9 +8,9 @@ namespace Yoti.Auth
 {
     public class YotiClient
     {
-        private readonly string _sdkId = null;
-        private readonly AsymmetricCipherKeyPair _keyPair = null;
-        private readonly YotiClientEngine _yotiClientEngine = null;
+        private readonly string _sdkId;
+        private readonly AsymmetricCipherKeyPair _keyPair;
+        private readonly YotiClientEngine _yotiClientEngine;
         private readonly string _defaultApiUrl = YotiConstants.DefaultYotiApiUrl;
 
         /// <summary>

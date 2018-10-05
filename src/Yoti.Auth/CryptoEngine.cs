@@ -26,20 +26,20 @@ namespace Yoti.Auth
 
         public static byte[] DecipherAes(byte[] key, byte[] iv, byte[] cipherBytes)
         {
-            KeyParameter keyParam = new KeyParameter(key);
-            ParametersWithIV keyParamWithIv = new ParametersWithIV(keyParam, iv);
+            var keyParam = new KeyParameter(key);
+            var keyParamWithIv = new ParametersWithIV(keyParam, iv);
 
             // decrypt using aes with private key and PKCS5/PKCS7
-            AesEngine engine = new AesEngine();
-            CbcBlockCipher blockCipher = new CbcBlockCipher(engine);
-            PaddedBufferedBlockCipher paddedBlockCipher = new PaddedBufferedBlockCipher(blockCipher); //Default scheme is PKCS5/PKCS7
-            byte[] outputBuffer = new byte[paddedBlockCipher.GetOutputSize(cipherBytes.Length)];
+            var engine = new AesEngine();
+            var blockCipher = new CbcBlockCipher(engine);
+            var paddedBlockCipher = new PaddedBufferedBlockCipher(blockCipher); //Default scheme is PKCS5/PKCS7
+            var outputBuffer = new byte[paddedBlockCipher.GetOutputSize(cipherBytes.Length)];
 
             paddedBlockCipher.Init(false, keyParamWithIv);
             int numOutputBytes = paddedBlockCipher.ProcessBytes(cipherBytes, outputBuffer, 0);
             numOutputBytes += paddedBlockCipher.DoFinal(outputBuffer, numOutputBytes);
 
-            byte[] result = new byte[numOutputBytes];
+            var result = new byte[numOutputBytes];
             Array.Copy(outputBuffer, result, numOutputBytes);
 
             return result;
@@ -48,8 +48,8 @@ namespace Yoti.Auth
         public static byte[] DecryptRsa(byte[] cipherBytes, AsymmetricCipherKeyPair keypair)
         {
             // decrypt using rsa with private key and PKCS 1 v1.5 padding
-            RsaEngine engine = new RsaEngine();
-            Pkcs1Encoding blockCipher = new Pkcs1Encoding(engine);
+            var engine = new RsaEngine();
+            var blockCipher = new Pkcs1Encoding(engine);
 
             blockCipher.Init(false, keypair.Private);
             return blockCipher.ProcessBlock(cipherBytes, 0, cipherBytes.Length);
@@ -58,7 +58,7 @@ namespace Yoti.Auth
         public static byte[] SignDigest(byte[] digestBytes, AsymmetricCipherKeyPair keypair)
         {
             // create a signature from the digest using SHA256 hashing with RSA
-            var signer = SignerUtilities.GetSigner(DigestAlgorithm);
+            ISigner signer = SignerUtilities.GetSigner(DigestAlgorithm);
             signer.Init(true, keypair.Private);
             signer.BlockUpdate(digestBytes, 0, digestBytes.Length);
             return signer.GenerateSignature();
@@ -71,9 +71,9 @@ namespace Yoti.Auth
 
         public static string GenerateNonce()
         {
-            SecureRandom random = new SecureRandom();
+            var random = new SecureRandom();
 
-            byte[] bytes = new byte[16];
+            var bytes = new byte[16];
             random.NextBytes(bytes);
 
             return new Guid(bytes).ToString("D");
@@ -81,7 +81,7 @@ namespace Yoti.Auth
 
         public static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
         {
-            // token was encoded as a urlsafe base64 so it can be transfered in a url
+            // token was encoded as a URL-safe base64 so it can be transferred in a URL
             byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
 
             byte[] decipheredBytes = DecryptRsa(cipherBytes, keyPair);

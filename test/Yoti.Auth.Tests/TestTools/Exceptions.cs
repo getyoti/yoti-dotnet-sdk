@@ -5,10 +5,10 @@ namespace Yoti.Auth.Tests.TestTools
 {
     internal class Exceptions
     {
-        public static bool IsExceptionInAggregateException<ExceptionToCheck>(AggregateException aggregateException) where ExceptionToCheck : Exception
+        public static bool IsExceptionInAggregateException<TExceptionToCheck>(AggregateException aggregateException) where TExceptionToCheck : Exception
         {
             bool argumentNullExceptionPresent = aggregateException.InnerExceptions
-            .Any(x => x.GetType() == typeof(ExceptionToCheck));
+            .Any(x => x.GetType() == typeof(TExceptionToCheck));
 
             return argumentNullExceptionPresent;
         }

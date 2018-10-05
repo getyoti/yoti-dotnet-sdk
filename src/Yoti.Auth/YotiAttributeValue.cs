@@ -73,8 +73,8 @@ namespace Yoti.Auth
 
         public Dictionary<string, JToken> ToJson()
         {
-            string utf8json = Conversion.BytesToUtf8(_data);
-            Dictionary<string, JToken> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8json);
+            string utf8JSON = Conversion.BytesToUtf8(_data);
+            Dictionary<string, JToken> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8JSON);
             return deserializedJson;
         }
     }

@@ -8,7 +8,7 @@ namespace Yoti.Auth.Tests.TestTools
         {
             AmlAddress amlAddress = CreateStandardAmlAddress();
 
-            AmlProfile amlProfile = new AmlProfile(
+            var amlProfile = new AmlProfile(
                 givenNames: "Edward Richard George",
                 familyName: "Heath",
                 amlAddress: amlAddress);
