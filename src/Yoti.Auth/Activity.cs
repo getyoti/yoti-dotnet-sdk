@@ -95,11 +95,11 @@ namespace Yoti.Auth
                 switch (attribute.ContentType)
                 {
                     case AttrpubapiV1.ContentType.Json:
-                        if (attribute.Name == YotiConstants.AttributeStructuredPostalAddress)
+                        if (attribute.Name == YotiConstants.StructuredPostalAddressAttribute)
                         {
                             var structuredPostalAddressAttributeValue = new YotiAttributeValue(TypeEnum.Json, byteValue);
                             var structuredPostalAddressAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
-                                YotiConstants.AttributeStructuredPostalAddress,
+                                YotiConstants.StructuredPostalAddressAttribute,
                                 structuredPostalAddressAttributeValue,
                                 anchors);
 
@@ -112,8 +112,8 @@ namespace Yoti.Auth
                         break;
 
                     case AttrpubapiV1.ContentType.String:
-                        if (yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeOver)
-                            || yotiAttribute.GetName().StartsWith(YotiConstants.AttributeAgeUnder))
+                        if (yotiAttribute.GetName().StartsWith(YotiConstants.AgeOverAttribute)
+                            || yotiAttribute.GetName().StartsWith(YotiConstants.AgeUnderAttribute))
                         {
                             bool parsed = Boolean.TryParse(stringValue, out bool AgeVerified);
 
@@ -270,8 +270,8 @@ namespace Yoti.Auth
                     break;
 
                 default:
-                    if (attribute.Name.StartsWith(YotiConstants.AttributeAgeOver)
-                        || attribute.Name.StartsWith(YotiConstants.AttributeAgeUnder))
+                    if (attribute.Name.StartsWith(YotiConstants.AgeOverAttribute)
+                        || attribute.Name.StartsWith(YotiConstants.AgeUnderAttribute))
                     {
                         bool parsed = Boolean.TryParse(Conversion.BytesToUtf8(byteValue), out bool IsAgeVerified);
 
@@ -326,9 +326,9 @@ namespace Yoti.Auth
             if (!matchingProperties.Any())
             {
                 IEnumerable<PropertyInfo> ageVerifiedAttributes = typeof(YotiProfile).GetTypeInfo().DeclaredProperties.Where(
-                prop => prop.Name == YotiConstants.AttributeAgeVerified &&
-                (protobufName.StartsWith(YotiConstants.AttributeAgeOver) ||
-                protobufName.StartsWith(YotiConstants.AttributeAgeUnder)));
+                prop => prop.Name == YotiConstants.AgeVerified &&
+                (protobufName.StartsWith(YotiConstants.AgeOverAttribute) ||
+                protobufName.StartsWith(YotiConstants.AgeUnderAttribute)));
 
                 if (ageVerifiedAttributes.Count() == 1)
                     return ageVerifiedAttributes.Single();
