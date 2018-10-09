@@ -39,19 +39,6 @@ namespace Yoti.Auth.Tests
         private const string DrivingLicenseSourceType = "DRIVING_LICENCE";
 
         private const string Value = "Value";
-        private const string GivenNamesAttribute = "given_names";
-        private const string FamilyNameAttribute = "family_name";
-        private const string FullNameAttribute = "full_name";
-        private const string GenderAttribute = "gender";
-        private const string SelfieAttribute = "selfie";
-        private const string PhoneNumberAttribute = "phone_number";
-        private const string EmailAddressAttribute = "email_address";
-        private const string NationalityAttribute = "nationality";
-        private const string AgeOver18Attribute = "age_over:18";
-        private const string AgeUnder18Attribute = "age_under:18";
-        private const string PostalAddressAttribute = "postal_address";
-        private const string StructuredPostalAddressAttribute = "structured_postal_address";
-        private const string DateOfBirthAttribute = "date_of_birth";
 
         private static readonly DateTime DateOfBirthValue = new DateTime(1980, 1, 13);
         private const string DateOfBirthString = "1980-01-13";
@@ -72,7 +59,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = SelfieAttribute,
+                Name = YotiConstants.SelfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Jpeg,
                 Value = _byteValue
             };
@@ -92,7 +79,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = SelfieAttribute,
+                Name = YotiConstants.SelfieAttribute,
                 ContentType = AttrpubapiV1.ContentType.Png,
                 Value = _byteValue
             };
@@ -112,7 +99,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = FullNameAttribute,
+                Name = YotiConstants.FullNameAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -129,7 +116,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = GivenNamesAttribute,
+                Name = YotiConstants.GivenNamesAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -146,7 +133,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = FamilyNameAttribute,
+                Name = YotiConstants.FamilyNameAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -163,7 +150,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = PhoneNumberAttribute,
+                Name = YotiConstants.PhoneNumberAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -180,7 +167,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = EmailAddressAttribute,
+                Name = YotiConstants.EmailAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -197,7 +184,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = DateOfBirthAttribute,
+                Name = YotiConstants.DateOfBirthAttribute,
                 ContentType = AttrpubapiV1.ContentType.Date,
                 Value = ByteString.CopyFromUtf8(DateOfBirthString)
             };
@@ -216,7 +203,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = DateOfBirthAttribute,
+                Name = YotiConstants.DateOfBirthAttribute,
                 ContentType = AttrpubapiV1.ContentType.Date,
                 Value = ByteString.CopyFromUtf8("1980/01/13")
             };
@@ -233,7 +220,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = AgeOver18Attribute,
+                Name = YotiConstants.AgeOver18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("true")
             };
@@ -250,7 +237,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = AgeOver18Attribute,
+                Name = YotiConstants.AgeOver18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("false")
             };
@@ -267,7 +254,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = AgeUnder18Attribute,
+                Name = YotiConstants.AgeUnder18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("true")
             };
@@ -284,7 +271,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = AgeUnder18Attribute,
+                Name = YotiConstants.AgeUnder18Attribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8("false")
             };
@@ -301,7 +288,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = PostalAddressAttribute,
+                Name = YotiConstants.PostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -337,7 +324,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = StructuredPostalAddressAttribute,
+                Name = YotiConstants.StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -401,7 +388,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = StructuredPostalAddressAttribute,
+                Name = YotiConstants.StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -463,7 +450,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = StructuredPostalAddressAttribute,
+                Name = YotiConstants.StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -530,7 +517,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = StructuredPostalAddressAttribute,
+                Name = YotiConstants.StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -602,7 +589,7 @@ namespace Yoti.Auth.Tests
 
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = StructuredPostalAddressAttribute,
+                Name = YotiConstants.StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
@@ -638,14 +625,14 @@ namespace Yoti.Auth.Tests
 
             var structuredAddressAttribute = new AttrpubapiV1.Attribute
             {
-                Name = StructuredPostalAddressAttribute,
+                Name = YotiConstants.StructuredPostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(structuredAddressString)
             };
 
             var addressAttribute = new AttrpubapiV1.Attribute
             {
-                Name = PostalAddressAttribute,
+                Name = YotiConstants.PostalAddressAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = ByteString.CopyFromUtf8(postalAddress)
             };
@@ -662,7 +649,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = GenderAttribute,
+                Name = YotiConstants.GenderAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -679,7 +666,7 @@ namespace Yoti.Auth.Tests
         {
             var attribute = new AttrpubapiV1.Attribute
             {
-                Name = NationalityAttribute,
+                Name = YotiConstants.NationalityAttribute,
                 ContentType = AttrpubapiV1.ContentType.String,
                 Value = _byteValue
             };
@@ -777,7 +764,7 @@ namespace Yoti.Auth.Tests
         public void Activity_GetSources_IncludesDrivingLicense_String()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                GivenNamesAttribute,
+                YotiConstants.GivenNamesAttribute,
                 Value,
                 AttrpubapiV1.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
@@ -795,7 +782,7 @@ namespace Yoti.Auth.Tests
         public void Activity_GetSources_IncludesDrivingLicense_AgeVerified()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                AgeOver18Attribute,
+                YotiConstants.AgeOver18Attribute,
                 "true",
                 AttrpubapiV1.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
@@ -812,7 +799,7 @@ namespace Yoti.Auth.Tests
         public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                StructuredPostalAddressAttribute,
+                YotiConstants.StructuredPostalAddressAttribute,
                 "{ \"properties\": { \"name\": { \"type\": \"string\"     } } }",
                 AttrpubapiV1.ContentType.Json,
                 TestAnchors.DrivingLicenseAnchor);
@@ -829,7 +816,7 @@ namespace Yoti.Auth.Tests
         public void Activity_GetSources_IncludesPassport()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                DateOfBirthAttribute,
+                YotiConstants.DateOfBirthAttribute,
                 DateOfBirthString,
                 AttrpubapiV1.ContentType.Date,
                 TestAnchors.PassportAnchor);
@@ -846,7 +833,7 @@ namespace Yoti.Auth.Tests
         public void Activity_GetVerifiers_IncludesYotiAdmin()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                SelfieAttribute,
+                YotiConstants.SelfieAttribute,
                 Value,
                 AttrpubapiV1.ContentType.Jpeg,
                 TestAnchors.YotiAdminAnchor);
