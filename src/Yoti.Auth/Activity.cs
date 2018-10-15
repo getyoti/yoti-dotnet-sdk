@@ -15,8 +15,8 @@ namespace Yoti.Auth
 {
     internal class Activity
     {
-        private readonly YotiUserProfile _yotiUserProfile;
-        private readonly YotiProfile _yotiProfile;
+        private readonly YotiUserProfile _yotiUserProfile; //Deprecated old profile class, will be removed
+        private readonly YotiProfile _yotiProfile; //New profile class
 
         public Activity(YotiProfile yotiProfile, YotiUserProfile yotiUserProfile)
         {
