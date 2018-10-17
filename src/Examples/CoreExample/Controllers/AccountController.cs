@@ -1,9 +1,10 @@
 ﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
 
-namespace Example.Controllers
+namespace CoreExample.Controllers
 {
     public class AccountController : Controller
     {
@@ -14,7 +15,6 @@ namespace Example.Controllers
             _logger = logger;
         }
 
-        private readonly string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
         public static byte[] PhotoBytes { get; set; }
 
         // GET: Account/Connect?token
@@ -22,26 +22,25 @@ namespace Example.Controllers
         {
             try
             {
-                ViewBag.YotiAppId = _appId;
                 string sdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
                 _logger.LogInformation(string.Format("sdkId='{0}'", sdkId));
 
-                var yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
+                string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
                 _logger.LogInformation(
                     string.Format(
                         "yotiKeyFilePath='{0}'",
                         yotiKeyFilePath));
 
-                var privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
-                var activityDetails = yotiClient.GetActivityDetails(token);
+                ActivityDetails activityDetails = yotiClient.GetActivityDetails(token);
                 if (activityDetails.Outcome == ActivityOutcome.Success)
                 {
                     _logger.LogInformation("ActivityOutcome=Success");
 
-                    var yotiProfile = activityDetails.Profile;
+                    YotiProfile yotiProfile = activityDetails.Profile;
 
                     if (yotiProfile.Selfie != null)
                     {
