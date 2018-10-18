@@ -7,6 +7,7 @@ namespace Example.Data
     {
         public ApplicationContext() : base("DefaultConnection")
         {
+            Database.SetInitializer<ApplicationContext>(null);
         }
 
         public DbSet<User> Users { get; set; }
