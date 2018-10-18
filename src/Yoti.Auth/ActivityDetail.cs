@@ -32,17 +32,17 @@ namespace Yoti.Auth
         /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
         /// </summary>
         [Obsolete("Please use Profile instead")]
-        public YotiUserProfile UserProfile { get; private set; }
+        public YotiUserProfile UserProfile { get; set; }
 
         /// <summary>
         /// The <see cref="YotiProfile"/> returned by Yoti if the request was successful.
         /// </summary>
-        public YotiProfile Profile { get; private set; }
+        public YotiProfile Profile { get; set; }
 
         /// <summary>
         /// The outcome status of the request.
         /// </summary>
-        public ActivityOutcome Outcome { get; private set; }
+        public ActivityOutcome Outcome { get; set; }
 
         /// <summary>
         /// Receipt ID identifying a completed activity.
