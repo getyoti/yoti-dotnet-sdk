@@ -30,17 +30,11 @@ namespace Yoti.Auth
 
             if (parsedResponse.Receipt == null)
             {
-                return new ActivityDetails
-                {
-                    Outcome = ActivityOutcome.Failure
-                };
+                return new ActivityDetails(ActivityOutcome.Failure);
             }
             else if (parsedResponse.Receipt.sharing_outcome != "SUCCESS")
             {
-                return new ActivityDetails
-                {
-                    Outcome = ActivityOutcome.SharingFailure
-                };
+                return new ActivityDetails(ActivityOutcome.SharingFailure);
             }
             else
             {
@@ -53,15 +47,11 @@ namespace Yoti.Auth
 
                 _yotiUserProfile.Id = parsedResponse.Receipt.remember_me_id;
                 _yotiProfile.Id = parsedResponse.Receipt.remember_me_id;
+                string receiptId = parsedResponse.Receipt.receipt_id;
 
                 AddAttributesToProfile(attributes);
 
-                return new ActivityDetails
-                {
-                    Outcome = ActivityOutcome.Success,
-                    UserProfile = _yotiUserProfile,
-                    Profile = _yotiProfile
-                };
+                return new ActivityDetails(_yotiUserProfile, _yotiProfile, receiptId, ActivityOutcome.Success);
             }
         }
 

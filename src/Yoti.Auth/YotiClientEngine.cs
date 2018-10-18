@@ -65,10 +65,7 @@ namespace Yoti.Auth
                         break;
                 }
 
-                return new ActivityDetails
-                {
-                    Outcome = outcome
-                };
+                return new ActivityDetails(activityOutcome: outcome);
             }
         }
 
