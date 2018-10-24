@@ -1,5 +1,4 @@
-﻿using System;
-using static Yoti.Auth.YotiAttributeValue;
+﻿using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
 {
@@ -9,8 +8,21 @@ namespace Yoti.Auth
 
         public byte[] Data { get; set; }
 
-        [Obsolete("Will be removed in version 3.0.0. Please use Selfie.GetBase64URI() instead")]
-        public string Base64URI { get; set; }
+        public string Base64URI
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case TypeEnum.Jpeg:
+                        return "data:image/jpeg;base64," + Conversion.BytesToBase64(Data);
+                    case TypeEnum.Png:
+                        return "data:image/png;base64," + Conversion.BytesToBase64(Data);
+                    default:
+                        return null;
+                }
+            }
+        }
 
         public override int GetHashCode()
         {
