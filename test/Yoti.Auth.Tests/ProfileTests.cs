@@ -69,9 +69,7 @@ namespace Yoti.Auth.Tests
         {
             string value = "selfie0123456789";
 
-            var yotiAttributeValue = new YotiAttributeValue(
-                TypeEnum.Jpeg,
-                 Encoding.UTF8.GetBytes(value));
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes(value));
             var yotiAttribute = new YotiAttribute<object>(YotiConstants.SelfieAttribute, yotiAttributeValue);
 
             var attributes = new Dictionary<string, YotiAttribute<object>>
