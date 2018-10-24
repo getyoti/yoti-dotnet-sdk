@@ -11,6 +11,7 @@
         public static string YotiSdkHeader = "X-Yoti-SDK";
         public static string SdkIdentifier = ".NET";
         public const string AgeVerified = "AgeVerified";
+
         public const string AgeOverAttribute = "age_over:";
         public const string AgeUnderAttribute = "age_under:";
         public const string GivenNamesAttribute = "given_names";
@@ -26,5 +27,10 @@
         public const string PostalAddressAttribute = "postal_address";
         public const string StructuredPostalAddressAttribute = "structured_postal_address";
         public const string DateOfBirthAttribute = "date_of_birth";
+
+        public const string ApplicationNameAttribute = "application_name";
+        public const string ApplicationLogoAttribute = "application_logo";
+        public const string ApplicationURLAttribute = "application_url";
+        public const string ApplicationReceiptBgColourAttribute = "application_receipt_bgcolor";
     }
 }

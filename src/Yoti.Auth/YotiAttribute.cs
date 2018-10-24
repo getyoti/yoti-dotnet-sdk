@@ -13,7 +13,7 @@ namespace Yoti.Auth
     /// </summary>
     public class YotiAttribute<T>
     {
-        protected readonly YotiAttributeValue Value;
+        internal readonly YotiAttributeValue Value;
         private readonly string _name;
         private readonly List<Anchor> _anchors;
 
@@ -28,6 +28,13 @@ namespace Yoti.Auth
             _name = name;
             Value = value;
             _anchors = anchors;
+        }
+
+        public YotiAttribute(YotiAttribute<object> objectAttribute)
+        {
+            _name = objectAttribute._name;
+            Value = objectAttribute.Value;
+            _anchors = objectAttribute._anchors;
         }
 
         /// <summary>
@@ -47,6 +54,11 @@ namespace Yoti.Auth
         {
             if (Value == null)
                 return default(T);
+
+            if (typeof(T) == typeof(Image))
+            {
+                return (T)(object)Value.ToImage();
+            };
 
             return Value.ToBytes().ConvertType<T>();
         }

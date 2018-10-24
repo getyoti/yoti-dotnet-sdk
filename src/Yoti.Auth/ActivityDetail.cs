@@ -16,14 +16,16 @@ namespace Yoti.Auth
         {
             UserProfile = null;
             Profile = null;
+            ApplicationProfile = null;
             ReceiptID = null;
             Outcome = activityOutcome;
         }
 
-        public ActivityDetails(YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, string receiptID, ActivityOutcome activityOutcome)
+        public ActivityDetails(YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
         {
             UserProfile = yotiUserProfile;
             Profile = yotiProfile;
+            ApplicationProfile = applicationProfile;
             ReceiptID = receiptID;
             Outcome = activityOutcome;
         }
@@ -38,6 +40,11 @@ namespace Yoti.Auth
         /// The <see cref="YotiProfile"/> returned by Yoti if the request was successful.
         /// </summary>
         public YotiProfile Profile { get; set; }
+
+        /// <summary>
+        /// The profile associated with the application.
+        /// </summary>
+        public ApplicationProfile ApplicationProfile { get; private set; }
 
         /// <summary>
         /// The outcome status of the request.

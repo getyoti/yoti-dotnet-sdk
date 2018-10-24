@@ -48,6 +48,15 @@ namespace Yoti.Auth
             return _data;
         }
 
+        internal Image ToImage()
+        {
+            return new Image
+            {
+                Data = _data,
+                Type = _type
+            };
+        }
+
         public override string ToString()
         {
             return Conversion.BytesToUtf8(_data);
