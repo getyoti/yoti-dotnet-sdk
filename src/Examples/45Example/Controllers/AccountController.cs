@@ -38,13 +38,13 @@ namespace Example.Controllers
                 {
                     var profile = activityDetails.Profile;
 
-                    User user = UserManager.GetUserByYotiId(profile.Id);
+                    User user = UserManager.GetUserByYotiId(activityDetails.RememberMeId);
 
                     if (user == null)
                     {
                         user = new User
                         {
-                            YotiId = profile.Id
+                            YotiId = activityDetails.RememberMeId
                         };
                     }
 

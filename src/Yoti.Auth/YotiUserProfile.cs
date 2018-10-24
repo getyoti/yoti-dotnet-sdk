@@ -18,6 +18,7 @@ namespace Yoti.Auth
         /// <summary>
         /// The unique identifier returned by Yoti.
         /// </summary>
+        [Obsolete("Please use ActivityDetails.RememberMeId instead")]
         public string Id { get; set; }
 
         /// <summary>
