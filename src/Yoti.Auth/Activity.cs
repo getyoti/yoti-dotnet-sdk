@@ -44,9 +44,8 @@ namespace Yoti.Auth
                 var applicationProfileAttributes = ParseApplicationProfileContent(keyPair, parsedResponse);
 
                 ApplicationProfile applicationProfile = new ApplicationProfile(applicationProfileAttributes);
-                string receiptId = parsedResponse.Receipt.receipt_id;
 
-                return new ActivityDetails(_yotiUserProfile, _yotiProfile, applicationProfile, receiptId, ActivityOutcome.Success);
+                return new ActivityDetails(parsedResponse.Receipt.remember_me_id, _yotiUserProfile, _yotiProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
             }
         }
 

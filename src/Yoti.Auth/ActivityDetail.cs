@@ -14,6 +14,7 @@ namespace Yoti.Auth
     {
         public ActivityDetails(ActivityOutcome activityOutcome)
         {
+            RememberMeId = null;
             UserProfile = null;
             Profile = null;
             ApplicationProfile = null;
@@ -21,14 +22,20 @@ namespace Yoti.Auth
             Outcome = activityOutcome;
         }
 
-        public ActivityDetails(YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
+        public ActivityDetails(string rememberMeId, YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
         {
+            RememberMeId = rememberMeId;
             UserProfile = yotiUserProfile;
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
             ReceiptID = receiptID;
             Outcome = activityOutcome;
         }
+
+        /// <summary>
+        /// The unique identifier for a particular user.
+        /// </summary>
+        public string RememberMeId { get; private set; }
 
         /// <summary>
         /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
