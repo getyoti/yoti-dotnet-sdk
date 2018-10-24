@@ -147,6 +147,7 @@ namespace Yoti.Auth.Tests
 
             Assert.AreEqual(receiptId, activityDetails.ReceiptID);
 
+            Assert.AreEqual(rememberMeID, activityDetails.RememberMeId);
             Assert.AreEqual(rememberMeID, activityDetails.UserProfile.Id);
             Assert.AreEqual(rememberMeID, activityDetails.Profile.Id);
 
