@@ -7,9 +7,7 @@ namespace Yoti.Auth.Tests.TestTools
     {
         public static ApplicationProfile CreateApplicationProfileWithSingleAttribute(byte[] value, string name, TypeEnum type)
         {
-            var yotiAttributeValue = new YotiAttributeValue(
-                type,
-                 value);
+            var yotiAttributeValue = new YotiAttributeValue(type, value);
             var yotiAttribute = new YotiAttribute<object>(name, yotiAttributeValue);
 
             var attributes = new Dictionary<string, YotiAttribute<object>>

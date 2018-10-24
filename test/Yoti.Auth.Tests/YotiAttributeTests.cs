@@ -63,9 +63,7 @@ namespace Yoti.Auth.Tests
         public void YotiAttributeValue_JpegBase64Uri()
         {
             byte[] jpegBytes = Conversion.UtfToBytes("jpegData");
-            var yotiAttributeValue = new YotiAttributeValue(
-                TypeEnum.Jpeg,
-                jpegBytes);
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, jpegBytes);
             var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
             string expectedString = string.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
@@ -77,9 +75,7 @@ namespace Yoti.Auth.Tests
         public void YotiAttributeValue_PngBase64Uri()
         {
             byte[] pngBytes = Conversion.UtfToBytes("PngData");
-            var yotiAttributeValue = new YotiAttributeValue(
-                TypeEnum.Png,
-                pngBytes);
+            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, pngBytes);
             var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
 
             string expectedString = string.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));

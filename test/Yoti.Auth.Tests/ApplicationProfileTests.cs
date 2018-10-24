@@ -44,7 +44,7 @@ namespace Yoti.Auth.Tests
         {
             var yotiAttributeValue = new YotiAttributeValue(
                 TypeEnum.Png,
-                 Encoding.UTF8.GetBytes(_value));
+                Encoding.UTF8.GetBytes(_value));
             var yotiAttribute = new YotiAttribute<object>(YotiConstants.ApplicationLogoAttribute, yotiAttributeValue);
 
             var attributes = new Dictionary<string, YotiAttribute<object>>
