@@ -117,7 +117,6 @@ namespace Yoti.Auth.Tests
             var engine = new YotiClientEngine(httpRequester);
 
             ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
-            Assert.IsNotNull(activityDetails.Outcome);
         }
 
         [TestMethod]
@@ -155,7 +154,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.UserProfile.Selfie.Data));
 
             Assert.IsNotNull(activityDetails.Profile.Selfie);
-            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.Profile.Selfie.GetImage().Data));
+            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.Profile.Selfie.GetValue().Data));
 
             Assert.AreEqual("phone_number0123456789", activityDetails.UserProfile.MobileNumber);
             Assert.AreEqual("phone_number0123456789", activityDetails.Profile.MobileNumber.GetValue());

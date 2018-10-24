@@ -40,19 +40,47 @@ namespace Yoti.Auth
             {
                 ReceiptDO receipt = parsedResponse.Receipt;
 
-                AttrpubapiV1.AttributeList attributes = CryptoEngine.DecryptCurrentUserReceipt(
-                    parsedResponse.Receipt.wrapped_receipt_key,
-                    parsedResponse.Receipt.other_party_profile_content,
-                    keyPair);
+                ParseOtherPartyProfileContent(keyPair, parsedResponse);
+                var applicationProfileAttributes = ParseApplicationProfileContent(keyPair, parsedResponse);
 
-                _yotiUserProfile.Id = parsedResponse.Receipt.remember_me_id;
-                _yotiProfile.Id = parsedResponse.Receipt.remember_me_id;
+                ApplicationProfile applicationProfile = new ApplicationProfile(applicationProfileAttributes);
                 string receiptId = parsedResponse.Receipt.receipt_id;
 
-                AddAttributesToProfile(attributes);
-
-                return new ActivityDetails(_yotiUserProfile, _yotiProfile, receiptId, ActivityOutcome.Success);
+                return new ActivityDetails(_yotiUserProfile, _yotiProfile, applicationProfile, receiptId, ActivityOutcome.Success);
             }
+        }
+
+        private void ParseOtherPartyProfileContent(AsymmetricCipherKeyPair keyPair, ProfileDO parsedResponse)
+        {
+            AttrpubapiV1.AttributeList profileAttributes = CryptoEngine.DecryptCurrentUserReceipt(
+                parsedResponse.Receipt.wrapped_receipt_key,
+                parsedResponse.Receipt.other_party_profile_content,
+                keyPair);
+
+            _yotiUserProfile.Id = parsedResponse.Receipt.remember_me_id;
+            _yotiProfile.Id = parsedResponse.Receipt.remember_me_id;
+
+            AddAttributesToProfile(profileAttributes);
+        }
+
+        private Dictionary<string, YotiAttribute<object>> ParseApplicationProfileContent(AsymmetricCipherKeyPair keyPair, ProfileDO parsedResponse)
+        {
+            var parsedAttributes = new Dictionary<string, YotiAttribute<object>>();
+
+            if (!string.IsNullOrEmpty(parsedResponse.Receipt.profile_content))
+            {
+                AttrpubapiV1.AttributeList applicationProfileAttributeList = CryptoEngine.DecryptCurrentUserReceipt(
+                    parsedResponse.Receipt.wrapped_receipt_key,
+                    parsedResponse.Receipt.profile_content,
+                    keyPair);
+
+                foreach (AttrpubapiV1.Attribute attribute in applicationProfileAttributeList.Attributes)
+                {
+                    parsedAttributes.Add(attribute.Name, AttributeConverter.ConvertAttribute(attribute));
+                }
+            }
+
+            return parsedAttributes;
         }
 
         internal void AddAttributesToProfile(AttrpubapiV1.AttributeList attributes)
@@ -196,8 +224,7 @@ namespace Yoti.Auth
                             _yotiUserProfile.Selfie = new Image
                             {
                                 Type = TypeEnum.Jpeg,
-                                Data = byteValue,
-                                Base64URI = "data:image/jpeg;base64," + Convert.ToBase64String(byteValue)
+                                Data = byteValue
                             };
                             break;
 
@@ -205,8 +232,7 @@ namespace Yoti.Auth
                             _yotiUserProfile.Selfie = new Image
                             {
                                 Type = TypeEnum.Png,
-                                Data = byteValue,
-                                Base64URI = "data:image/png;base64," + Convert.ToBase64String(byteValue)
+                                Data = byteValue
                             };
                             break;
                     }
