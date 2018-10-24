@@ -132,7 +132,7 @@ namespace Yoti.Auth.Tests
                 {
                     Success = true,
                     StatusCode = 200,
-                    Content = "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"other_party_profile_content\": \"" + otherPartyProfileContent + "\",\"remember_me_id\":\"" + rememberMeID + "\",\"receipt_id\":\"" + receiptId + "\", \"sharing_outcome\":\"SUCCESS\"}}"
+                    Content = "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"other_party_profile_content\": \"" + otherPartyProfileContent + "\",\"remember_me_id\":\"" + rememberMeID + "\",\"receipt_id\":\"" + receiptId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}"
                 }));
 
             var engine = new YotiClientEngine(httpRequester);
@@ -150,6 +150,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(rememberMeID, activityDetails.RememberMeId);
             Assert.AreEqual(rememberMeID, activityDetails.UserProfile.Id);
             Assert.AreEqual(rememberMeID, activityDetails.Profile.Id);
+            Assert.AreEqual(new DateTime(2016, 1, 1, 0, 0, 0), activityDetails.Timestamp);
 
             Assert.IsNotNull(activityDetails.UserProfile.Selfie);
             Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.UserProfile.Selfie.Data));

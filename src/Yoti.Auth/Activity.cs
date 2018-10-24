@@ -44,8 +44,14 @@ namespace Yoti.Auth
                 var applicationProfileAttributes = ParseApplicationProfileContent(keyPair, parsedResponse);
 
                 ApplicationProfile applicationProfile = new ApplicationProfile(applicationProfileAttributes);
+                DateTime? timestamp = null;
 
-                return new ActivityDetails(parsedResponse.Receipt.remember_me_id, _yotiUserProfile, _yotiProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
+                if (DateTime.TryParseExact(parsedResponse.Receipt.timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                {
+                    timestamp = parsedDate;
+                }
+
+                return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, _yotiUserProfile, _yotiProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
             }
         }
 
