@@ -15,6 +15,7 @@ namespace Yoti.Auth
         public ActivityDetails(ActivityOutcome activityOutcome)
         {
             RememberMeId = null;
+            Timestamp = null;
             UserProfile = null;
             Profile = null;
             ApplicationProfile = null;
@@ -22,9 +23,10 @@ namespace Yoti.Auth
             Outcome = activityOutcome;
         }
 
-        public ActivityDetails(string rememberMeId, YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
+        public ActivityDetails(string rememberMeId, DateTime? timestamp, YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
         {
             RememberMeId = rememberMeId;
+            Timestamp = timestamp;
             UserProfile = yotiUserProfile;
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
@@ -36,6 +38,11 @@ namespace Yoti.Auth
         /// The unique identifier for a particular user.
         /// </summary>
         public string RememberMeId { get; private set; }
+
+        /// <summary>
+        /// Time and date of the share.
+        /// </summary>
+        public DateTime? Timestamp { get; private set; }
 
         /// <summary>
         /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
