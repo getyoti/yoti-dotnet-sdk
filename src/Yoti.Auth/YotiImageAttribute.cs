@@ -18,7 +18,6 @@ namespace Yoti.Auth
         {
             return new Image
             {
-                Base64URI = GetBase64URI(),
                 Data = Value.ToBytes(),
                 Type = Value.Type
             };
