@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Anchors;
+using Yoti.Auth.Tests.TestTools;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth.Tests
@@ -9,31 +9,6 @@ namespace Yoti.Auth.Tests
     [TestClass]
     public class YotiAttributeTests
     {
-        private class ImageComparer : IEqualityComparer<Image>
-        {
-            public bool Equals(Image x, Image y)
-            {
-                if (x == null && y == null)
-                {
-                    return true;
-                }
-
-                if (x == null || y == null)
-                {
-                    return false;
-                }
-
-                return (x.Base64URI == y.Base64URI)
-                    && (x.Data == y.Data)
-                    && (x.Type == y.Type);
-            }
-
-            public int GetHashCode(Image obj)
-            {
-                throw new System.NotImplementedException();
-            }
-        }
-
         [TestMethod]
         public void YotiAttribute_GetImageValue()
         {
@@ -44,14 +19,15 @@ namespace Yoti.Auth.Tests
 
             var expectedImage = new Image
             {
-                Base64URI = "data:image/jpeg;base64," + Conversion.BytesToBase64(imageBytes),
                 Data = imageBytes,
                 Type = TypeEnum.Jpeg
             };
 
-            Image actualImage = yotiAttribute.GetImage();
+            string expectedBase64URI = "data:image/jpeg;base64," + Conversion.BytesToBase64(imageBytes);
+            Image actualImage = yotiAttribute.GetValue();
 
             Assert.IsTrue(new ImageComparer().Equals(expectedImage, actualImage));
+            Assert.AreEqual(expectedBase64URI, actualImage.Base64URI);
         }
 
         [TestMethod]
