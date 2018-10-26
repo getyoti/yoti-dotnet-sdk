@@ -36,23 +36,24 @@ namespace Yoti.Auth
             {
                 return new ActivityDetails(ActivityOutcome.SharingFailure);
             }
-            else
+
+            ReceiptDO receipt = parsedResponse.Receipt;
+
+            ParseOtherPartyProfileContent(keyPair, parsedResponse);
+            Dictionary<string, BaseAttribute> applicationProfileAttributes = ParseApplicationProfileContent(keyPair, parsedResponse);
+
+            ApplicationProfile applicationProfile = new ApplicationProfile(applicationProfileAttributes);
+
+            DateTime? timestamp = null;
+            if (receipt.timestamp != null)
             {
-                ReceiptDO receipt = parsedResponse.Receipt;
-
-                ParseOtherPartyProfileContent(keyPair, parsedResponse);
-                var applicationProfileAttributes = ParseApplicationProfileContent(keyPair, parsedResponse);
-
-                ApplicationProfile applicationProfile = new ApplicationProfile(applicationProfileAttributes);
-                DateTime? timestamp = null;
-
-                if (DateTime.TryParseExact(parsedResponse.Receipt.timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                if (DateTime.TryParseExact(receipt.timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
                 {
                     timestamp = parsedDate;
                 }
-
-                return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, _yotiUserProfile, _yotiProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
             }
+
+            return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, _yotiUserProfile, _yotiProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
         }
 
         private void ParseOtherPartyProfileContent(AsymmetricCipherKeyPair keyPair, ProfileDO parsedResponse)
@@ -68,9 +69,9 @@ namespace Yoti.Auth
             AddAttributesToProfile(profileAttributes);
         }
 
-        private Dictionary<string, YotiAttribute<object>> ParseApplicationProfileContent(AsymmetricCipherKeyPair keyPair, ProfileDO parsedResponse)
+        private Dictionary<string, BaseAttribute> ParseApplicationProfileContent(AsymmetricCipherKeyPair keyPair, ProfileDO parsedResponse)
         {
-            var parsedAttributes = new Dictionary<string, YotiAttribute<object>>();
+            var parsedAttributes = new Dictionary<string, BaseAttribute>();
 
             if (!string.IsNullOrEmpty(parsedResponse.Receipt.profile_content))
             {
@@ -81,7 +82,7 @@ namespace Yoti.Auth
 
                 foreach (AttrpubapiV1.Attribute attribute in applicationProfileAttributeList.Attributes)
                 {
-                    parsedAttributes.Add(attribute.Name, AttributeConverter.ConvertAttribute(attribute));
+                    parsedAttributes.Add(attribute.Name, AttributeConverter.ConvertToBaseAttribute(attribute));
                 }
             }
 
