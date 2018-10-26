@@ -11,7 +11,7 @@ namespace Yoti.Auth
         {
         }
 
-        public ApplicationProfile(Dictionary<string, YotiAttribute<object>> attributes) : base(attributes)
+        public ApplicationProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
         {
         }
 
