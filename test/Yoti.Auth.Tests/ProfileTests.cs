@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yoti.Auth.Tests.TestTools;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth.Tests
@@ -14,32 +12,28 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ProfileGetAttribute()
         {
-            string value = "value";
+            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes("value"));
+            var initialAttribute = new YotiAttribute<string>(YotiConstants.PhoneNumberAttribute, attributeValue);
 
-            ApplicationProfile profile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(
-                Encoding.UTF8.GetBytes(value),
-                YotiConstants.PhoneNumberAttribute,
-                TypeEnum.Text);
+            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            YotiAttribute<string> phoneNumberAttribute = profile.GetAttributeByName<string>(YotiConstants.PhoneNumberAttribute);
+            YotiAttribute<string> phoneNumberAttribute = applicationProfile.GetAttributeByName<string>(YotiConstants.PhoneNumberAttribute);
 
-            Assert.AreEqual(YotiConstants.PhoneNumberAttribute, phoneNumberAttribute.GetName());
-            Assert.AreEqual(value, phoneNumberAttribute.GetValue());
+            Assert.AreSame(initialAttribute, phoneNumberAttribute);
         }
 
         [TestMethod]
         public void ProfileGetAttribute_Datetime()
         {
             string value = "1980-01-13";
-            ApplicationProfile profile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(
-                Encoding.UTF8.GetBytes(value),
-                YotiConstants.DateOfBirthAttribute,
-                TypeEnum.Date);
+            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
+            var initialAttribute = new YotiAttribute<DateTime>(YotiConstants.DateOfBirthAttribute, attributeValue);
 
-            YotiAttribute<DateTime> dobAttribute = profile.GetAttributeByName<DateTime>(YotiConstants.DateOfBirthAttribute);
+            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            Assert.AreEqual(YotiConstants.DateOfBirthAttribute, dobAttribute.GetName());
+            YotiAttribute<DateTime> dobAttribute = applicationProfile.GetAttributeByName<DateTime>(YotiConstants.DateOfBirthAttribute);
 
+            Assert.AreSame(initialAttribute, dobAttribute);
             DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dob);
             Assert.AreEqual(dob, dobAttribute.GetValue());
         }
@@ -49,14 +43,12 @@ namespace Yoti.Auth.Tests
         {
             string value = "1980/01/13";
 
-            ApplicationProfile profile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(
-               Encoding.UTF8.GetBytes(value),
-               YotiConstants.DateOfBirthAttribute,
-               TypeEnum.Date);
+            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
+            var initialAttribute = new YotiAttribute<DateTime>(YotiConstants.DateOfBirthAttribute, attributeValue);
 
-            YotiAttribute<DateTime> dobAttribute = profile.GetAttributeByName<DateTime>(YotiConstants.DateOfBirthAttribute);
+            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            Assert.AreEqual(YotiConstants.DateOfBirthAttribute, dobAttribute.GetName());
+            YotiAttribute<DateTime> dobAttribute = applicationProfile.GetAttributeByName<DateTime>(YotiConstants.DateOfBirthAttribute);
 
             Assert.ThrowsException<InvalidCastException>(() =>
             {
@@ -67,22 +59,28 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ProfileGetAttribute_Image()
         {
-            string value = "selfie0123456789";
+            var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes("selfie0123456789"));
+            var initialAttribute = new YotiAttribute<Image>(YotiConstants.SelfieAttribute, attributeValue);
 
-            var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes(value));
-            var yotiAttribute = new YotiAttribute<object>(YotiConstants.SelfieAttribute, yotiAttributeValue);
+            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            var attributes = new Dictionary<string, YotiAttribute<object>>
+            YotiAttribute<Image> selfieAttribute = applicationProfile.GetAttributeByName<Image>(YotiConstants.SelfieAttribute);
+
+            Assert.AreSame(initialAttribute, selfieAttribute);
+        }
+
+        [TestMethod]
+        public void ProfileGetAttribute_WithWrongType()
+        {
+            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes("1980-01-13"));
+            var initialAttribute = new YotiAttribute<DateTime>(YotiConstants.DateOfBirthAttribute, attributeValue);
+
+            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
+
+            Assert.ThrowsException<InvalidCastException>(() =>
             {
-                { YotiConstants.SelfieAttribute, yotiAttribute }
-            };
-
-            var profile = new ApplicationProfile(attributes);
-
-            YotiAttribute<Image> selfieAttribute = profile.GetAttributeByName<Image>(YotiConstants.SelfieAttribute);
-
-            Assert.AreEqual(YotiConstants.SelfieAttribute, selfieAttribute.GetName());
-            Assert.IsTrue(new ImageComparer().Equals(yotiAttributeValue.ToImage(), selfieAttribute.GetValue()));
+                YotiAttribute<Image> dobAttribute = applicationProfile.GetAttributeByName<Image>(YotiConstants.DateOfBirthAttribute);
+            });
         }
 
         [TestMethod]

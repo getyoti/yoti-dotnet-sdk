@@ -4,21 +4,21 @@ namespace Yoti.Auth
 {
     public class Profile
     {
-        private Dictionary<string, YotiAttribute<object>> _attributes;
+        private Dictionary<string, BaseAttribute> _attributes;
 
         internal Profile()
         {
-            _attributes = new Dictionary<string, YotiAttribute<object>>();
+            _attributes = new Dictionary<string, BaseAttribute>();
         }
 
-        internal Profile(Dictionary<string, YotiAttribute<object>> attributes)
+        internal Profile(Dictionary<string, BaseAttribute> attributes)
         {
             _attributes = attributes;
         }
 
-        internal void Add(string key, YotiAttribute<object> value)
+        internal void Add(BaseAttribute value)
         {
-            _attributes.Add(key, value);
+            _attributes.Add(value.GetName(), value);
         }
 
         /// <summary>
@@ -29,9 +29,9 @@ namespace Yoti.Auth
         /// <returns></returns>
         public YotiAttribute<T> GetAttributeByName<T>(string name)
         {
-            if (_attributes.TryGetValue(name, out YotiAttribute<object> matchingAttribute))
+            if (_attributes.TryGetValue(name, out BaseAttribute matchingAttribute))
             {
-                return new YotiAttribute<T>(matchingAttribute);
+                return (YotiAttribute<T>)matchingAttribute;
             }
 
             return null;
