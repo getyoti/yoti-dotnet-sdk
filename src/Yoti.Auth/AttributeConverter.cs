@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AttrpubapiV1;
+using Newtonsoft.Json.Linq;
 using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
@@ -57,23 +58,38 @@ namespace Yoti.Auth
             {
                 case ContentType.String:
                     value = new YotiAttributeValue(TypeEnum.Text, attribute.Value.ToByteArray());
-                    break;
+                    return new YotiAttribute<string>(
+                      attribute.Name,
+                      value,
+                      ParseAnchors(attribute));
 
                 case ContentType.Date:
                     value = new YotiAttributeValue(TypeEnum.Date, attribute.Value.ToByteArray());
-                    break;
+                    return new YotiAttribute<DateTime>(
+                        attribute.Name,
+                        value,
+                        ParseAnchors(attribute));
 
                 case ContentType.Jpeg:
                     value = new YotiAttributeValue(TypeEnum.Jpeg, attribute.Value.ToByteArray());
-                    break;
+                    return new YotiAttribute<Image>(
+                        attribute.Name,
+                        value,
+                        ParseAnchors(attribute));
 
                 case ContentType.Png:
                     value = new YotiAttributeValue(TypeEnum.Png, attribute.Value.ToByteArray());
-                    break;
+                    return new YotiAttribute<Image>(
+                        attribute.Name,
+                        value,
+                        ParseAnchors(attribute));
 
                 case ContentType.Json:
                     value = new YotiAttributeValue(TypeEnum.Json, attribute.Value.ToByteArray());
-                    break;
+                    return new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
+                        attribute.Name,
+                        value,
+                        ParseAnchors(attribute));
 
                 case ContentType.Undefined:
                     // do not return attributes with undefined content types
@@ -82,11 +98,6 @@ namespace Yoti.Auth
                 default:
                     return null;
             }
-
-            return new BaseAttribute(
-                        attribute.Name,
-                        value,
-                        ParseAnchors(attribute));
         }
 
         private static List<Yoti.Auth.Anchors.Anchor> ParseAnchors(AttrpubapiV1.Attribute attribute)
