@@ -113,9 +113,9 @@ namespace Yoti.Auth
 
             var headers = new Dictionary<string, string>
             {
-                { YotiConstants.AuthKeyHeader, authKey },
-                { YotiConstants.DigestHeader, authDigest },
-                { YotiConstants.YotiSdkHeader, YotiConstants.SdkIdentifier }
+                { Constants.Web.AuthKeyHeader, authKey },
+                { Constants.Web.DigestHeader, authDigest },
+                { Constants.Web.YotiSdkHeader, Constants.Web.SdkIdentifier }
             };
 
             return headers;

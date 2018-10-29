@@ -22,7 +22,7 @@ namespace Yoti.Auth
         {
             get
             {
-                return GetAttributeByName<string>(name: YotiConstants.ApplicationNameAttribute);
+                return GetAttributeByName<string>(name: Constants.ApplicationProfile.ApplicationNameAttribute);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Yoti.Auth
         {
             get
             {
-                return GetAttributeByName<string>(name: YotiConstants.ApplicationURLAttribute);
+                return GetAttributeByName<string>(name: Constants.ApplicationProfile.ApplicationURLAttribute);
             }
         }
 
@@ -44,7 +44,7 @@ namespace Yoti.Auth
         {
             get
             {
-                return GetAttributeByName<Image>(name: YotiConstants.ApplicationLogoAttribute);
+                return GetAttributeByName<Image>(name: Constants.ApplicationProfile.ApplicationLogoAttribute);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Yoti.Auth
         {
             get
             {
-                return GetAttributeByName<string>(name: YotiConstants.ApplicationReceiptBgColourAttribute);
+                return GetAttributeByName<string>(name: Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute);
             }
         }
     }
