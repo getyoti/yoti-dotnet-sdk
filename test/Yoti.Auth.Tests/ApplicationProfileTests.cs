@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_NameAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(YotiConstants.ApplicationNameAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationNameAttribute, attributeValue);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -26,7 +26,7 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_URLAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(YotiConstants.ApplicationURLAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationURLAttribute, attributeValue);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -39,7 +39,7 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_LogoAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Png, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<Image>(YotiConstants.ApplicationLogoAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute, attributeValue);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -52,7 +52,7 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_ReceiptBgColourAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(YotiConstants.ApplicationReceiptBgColourAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute, attributeValue);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 

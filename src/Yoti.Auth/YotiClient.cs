@@ -11,7 +11,7 @@ namespace Yoti.Auth
         private readonly string _sdkId;
         private readonly AsymmetricCipherKeyPair _keyPair;
         private readonly YotiClientEngine _yotiClientEngine;
-        private readonly string _defaultApiUrl = YotiConstants.DefaultYotiApiUrl;
+        private readonly string _defaultApiUrl = Constants.Web.DefaultYotiApiUrl;
 
         /// <summary>
         /// Create a <see cref="YotiClient"/>

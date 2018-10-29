@@ -38,7 +38,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
+            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.Failure, activityDetails.Outcome);
@@ -56,7 +56,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
+            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.ProfileNotFound, activityDetails.Outcome);
@@ -75,7 +75,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
+            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.SharingFailure, activityDetails.Outcome);
@@ -94,7 +94,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
+            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.Failure, activityDetails.Outcome);
@@ -116,7 +116,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
+            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester);
 
-            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl);
+            ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
             Assert.IsNotNull(activityDetails);
             Assert.AreEqual(ActivityOutcome.Success, activityDetails.Outcome);
@@ -179,7 +179,7 @@ namespace Yoti.Auth.Tests
             var engine = new YotiClientEngine(httpRequester);
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
-            AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+            AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
 
             Assert.IsNotNull(amlResult);
             Assert.IsFalse(amlResult.IsOnFraudList());
@@ -201,7 +201,7 @@ namespace Yoti.Auth.Tests
             var engine = new YotiClientEngine(httpRequester);
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
-            AmlResult amlResult = await engine.PerformAmlCheckAsync(SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+            AmlResult amlResult = await engine.PerformAmlCheckAsync(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
 
             Assert.IsNotNull(amlResult);
             Assert.IsTrue(amlResult.IsOnFraudList());
@@ -225,7 +225,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
@@ -247,7 +247,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
@@ -269,7 +269,7 @@ namespace Yoti.Auth.Tests
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
@@ -291,7 +291,7 @@ namespace Yoti.Auth.Tests
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, YotiConstants.DefaultYotiApiUrl, amlProfile);
+                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
