@@ -246,8 +246,8 @@ bool onWatchList = amlResult.IsOnWatchList();
 ## API Coverage
 
 * Activity Details
-  * [X] Profile
-    * [X] User ID `Id`
+  * [X] RememberMeID `RememberMeId`
+  * [X] Profile `Profile`
     * [X] Selfie `Selfie`
     * [X] Selfie URI `Selfie.GetBase64URI()`
     * [X] Given Names `GivenNames`
@@ -260,6 +260,11 @@ bool onWatchList = amlResult.IsOnWatchList();
     * [X] Postal Address `Address`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`
+  * [X] ApplicationProfile
+    * [X] Name `Name`
+	* [X] URL `URL`
+	* [X] Logo `Logo`
+	* [X] Receipt Background Colour `ReceiptBackgroundColour`
     
 ## Support
 
