@@ -10,7 +10,7 @@ namespace Yoti.Auth.Tests
     [TestClass]
     public class HttpRequesterTests
     {
-        private readonly string _apiUrl = YotiConstants.DefaultYotiApiUrl;
+        private readonly string _apiUrl = Constants.Web.DefaultYotiApiUrl;
         private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
         private FakeHttpResponseHandler _fakeResponseHandler;
         private HttpRequester _httpRequester;
