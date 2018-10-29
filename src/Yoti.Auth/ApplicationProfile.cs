@@ -7,11 +7,11 @@ namespace Yoti.Auth
     /// </summary>
     public class ApplicationProfile : Profile
     {
-        public ApplicationProfile() : base()
+        internal ApplicationProfile() : base()
         {
         }
 
-        public ApplicationProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
+        internal ApplicationProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
         {
         }
 

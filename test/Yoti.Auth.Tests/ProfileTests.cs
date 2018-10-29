@@ -10,7 +10,7 @@ namespace Yoti.Auth.Tests
     public class ProfileTests
     {
         [TestMethod]
-        public void ProfileGetAttribute()
+        public void Profile_GetAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes("value"));
             var initialAttribute = new YotiAttribute<string>(YotiConstants.PhoneNumberAttribute, attributeValue);
@@ -23,7 +23,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ProfileGetAttribute_Datetime()
+        public void Profile_GetAttribute_Datetime()
         {
             string value = "1980-01-13";
             var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
@@ -39,7 +39,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ProfileGetAttribute_Datetime_InvalidFormat()
+        public void Profile_GetAttribute_Datetime_InvalidFormat()
         {
             string value = "1980/01/13";
 
@@ -57,7 +57,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ProfileGetAttribute_Image()
+        public void Profile_GetAttribute_Image()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes("selfie0123456789"));
             var initialAttribute = new YotiAttribute<Image>(YotiConstants.SelfieAttribute, attributeValue);
@@ -70,7 +70,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ProfileGetAttribute_WithWrongType()
+        public void Profile_GetAttribute_WithWrongType()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes("1980-01-13"));
             var initialAttribute = new YotiAttribute<DateTime>(YotiConstants.DateOfBirthAttribute, attributeValue);
@@ -84,7 +84,21 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ProfileGetAttributeNotPresent()
+        public void Profile_AddAttribute()
+        {
+            var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes("Nation"));
+            var initialAttribute = new YotiAttribute<Image>(YotiConstants.NationalityAttribute, attributeValue);
+
+            ApplicationProfile applicationProfile = new ApplicationProfile();
+            applicationProfile.Add(initialAttribute);
+
+            YotiAttribute<Image> nationalityAttribute = applicationProfile.GetAttributeByName<Image>(YotiConstants.NationalityAttribute);
+
+            Assert.AreSame(initialAttribute, nationalityAttribute);
+        }
+
+        [TestMethod]
+        public void Profile_GetAttributeNotPresent()
         {
             var applicationProfile = new ApplicationProfile();
 
