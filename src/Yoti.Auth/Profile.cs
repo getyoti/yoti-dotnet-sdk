@@ -16,7 +16,7 @@ namespace Yoti.Auth
             _attributes = attributes;
         }
 
-        internal void Add(BaseAttribute value)
+        internal void Add<T>(YotiAttribute<T> value)
         {
             _attributes.Add(value.GetName(), value);
         }
