@@ -261,9 +261,9 @@ bool onWatchList = amlResult.IsOnWatchList();
     * [X] Nationality `Nationality`
   * [X] ApplicationProfile
     * [X] Name `Name`
-	* [X] URL `URL`
-	* [X] Logo `Logo`
-	* [X] Receipt Background Colour `ReceiptBackgroundColour`
+    * [X] URL `URL`
+    * [X] Logo `Logo`
+    * [X] Receipt Background Colour `ReceiptBackgroundColour`
     
 ## Support
 
