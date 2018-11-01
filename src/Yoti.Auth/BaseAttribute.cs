@@ -11,17 +11,17 @@ namespace Yoti.Auth
     /// which specify how an attribute has been provided and how it has been verified
     /// within the Yoti platform.
     /// </summary>
-    public abstract class BaseAttribute
+    public class BaseAttribute
     {
         private readonly string _name;
         private List<Anchor> _anchors;
 
-        private protected BaseAttribute(string name, YotiAttributeValue value)
+        public BaseAttribute(string name, YotiAttributeValue value)
         {
             _name = name;
         }
 
-        private protected BaseAttribute(string name, YotiAttributeValue value, List<Anchor> anchors)
+        public BaseAttribute(string name, YotiAttributeValue value, List<Anchor> anchors)
         {
             _name = name;
             _anchors = anchors;
