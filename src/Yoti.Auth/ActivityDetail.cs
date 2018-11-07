@@ -16,18 +16,16 @@ namespace Yoti.Auth
         {
             RememberMeId = null;
             Timestamp = null;
-            UserProfile = null;
             Profile = null;
             ApplicationProfile = null;
             ReceiptID = null;
             Outcome = activityOutcome;
         }
 
-        public ActivityDetails(string rememberMeId, DateTime? timestamp, YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
+        public ActivityDetails(string rememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
         {
             RememberMeId = rememberMeId;
             Timestamp = timestamp;
-            UserProfile = yotiUserProfile;
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
             ReceiptID = receiptID;
@@ -43,12 +41,6 @@ namespace Yoti.Auth
         /// Time and date of the share.
         /// </summary>
         public DateTime? Timestamp { get; private set; }
-
-        /// <summary>
-        /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
-        /// </summary>
-        [Obsolete("Please use Profile instead")]
-        public YotiUserProfile UserProfile { get; set; }
 
         /// <summary>
         /// The <see cref="YotiProfile"/> returned by Yoti if the request was successful.
