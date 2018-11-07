@@ -13,5 +13,15 @@ namespace Yoti.Auth.Tests.TestTools
 
             return new ApplicationProfile(attributes);
         }
+
+        public static YotiProfile CreateUserProfileWithSingleAttribute<T>(YotiAttribute<T> attribute)
+        {
+            var attributes = new Dictionary<string, BaseAttribute>
+            {
+                { attribute.GetName(), attribute }
+            };
+
+            return new YotiProfile(attributes);
+        }
     }
 }
