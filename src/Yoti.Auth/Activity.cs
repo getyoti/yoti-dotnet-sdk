@@ -1,26 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
-using Yoti.Auth.Anchors;
-using Yoti.Auth.CustomAttributes;
 using Yoti.Auth.DataObjects;
-using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth
 {
     internal class Activity
     {
-        private readonly YotiUserProfile _yotiUserProfile; //Deprecated old profile class, will be removed
-        private readonly YotiProfile _yotiProfile; //New profile class
+        private readonly YotiProfile _yotiProfile;
 
-        public Activity(YotiProfile yotiProfile, YotiUserProfile yotiUserProfile)
+        public Activity(YotiProfile yotiProfile)
         {
-            _yotiUserProfile = yotiUserProfile;
             _yotiProfile = yotiProfile;
         }
 
@@ -55,7 +48,7 @@ namespace Yoti.Auth
                 }
             }
 
-            return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, _yotiUserProfile, _yotiProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
+            return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
         }
 
         private Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
@@ -78,7 +71,7 @@ namespace Yoti.Auth
             return parsedAttributes;
         }
 
-        private void SetAddressToBeFormattedAddressIfNull()
+        internal void SetAddressToBeFormattedAddressIfNull()
         {
             YotiAttribute<IEnumerable<Dictionary<string, JToken>>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
 
@@ -89,7 +82,14 @@ namespace Yoti.Auth
 
                 if (formattedAddressJToken != null)
                 {
-                    string formattedAddress = formattedAddressJToken.ToString();
+                    var addressValue = new YotiAttributeValue(YotiAttributeValue.TypeEnum.Text, formattedAddressJToken.ToString());
+
+                    var addressAttribute = new YotiAttribute<string>(
+                        name: Constants.UserProfile.PostalAddressAttribute,
+                        value: addressValue,
+                        anchors: structuredPostalAddress.GetAnchors());
+
+                    _yotiProfile.Add(addressAttribute);
                 }
             }
         }

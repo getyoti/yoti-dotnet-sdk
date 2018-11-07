@@ -24,7 +24,7 @@ namespace Yoti.Auth
 
                 case ContentType.Date:
                     value = new YotiAttributeValue(TypeEnum.Date, attribute.Value.ToByteArray());
-                    return new YotiAttribute<DateTime>(
+                    return new YotiAttribute<DateTime?>(
                         attribute.Name,
                         value,
                         ParseAnchors(attribute));

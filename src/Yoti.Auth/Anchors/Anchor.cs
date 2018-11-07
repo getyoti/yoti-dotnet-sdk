@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Google.Protobuf;
@@ -72,20 +71,6 @@ namespace Yoti.Auth.Anchors
         public List<string> GetValue()
         {
             return _value;
-        }
-
-        /// <summary>
-        /// ArtifactSignature is a signature over the backing artifact. When a
-        /// client validates the Signature field, the data being signed
-        /// encompasses this signature. When the Yoti server validates the
-        /// Signature field, it can further verify that this signature matches
-        /// the one in the source artifact itself.
-        /// </summary>
-        /// <returns>An artifact signature as a byte array</returns>
-        [Obsolete]
-        public byte[] GetArtifactSignature()
-        {
-            return _artifactSignature;
         }
 
         /// <summary>
