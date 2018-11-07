@@ -44,7 +44,7 @@ namespace CoreExample.Controllers
 
                     if (yotiProfile.Selfie != null)
                     {
-                        PhotoBytes = yotiProfile.Selfie.GetImage().Data;
+                        PhotoBytes = yotiProfile.Selfie.GetValue().Data;
                     }
 
                     return View(yotiProfile);

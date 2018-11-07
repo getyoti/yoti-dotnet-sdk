@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using Yoti.Auth.CustomAttributes;
 
 namespace Yoti.Auth
 {
@@ -14,12 +13,6 @@ namespace Yoti.Auth
         internal YotiProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
         {
         }
-
-        /// <summary>
-        /// The unique identifier returned by Yoti.
-        /// </summary>
-        [Obsolete("Please use ActivityDetails.RememberMeId instead")]
-        public string Id { get; set; }
 
         /// <summary>
         /// Selfie is a photograph of the user. This will be null if not provided by Yoti
@@ -141,11 +134,5 @@ namespace Yoti.Auth
                 return GetAttributeByName<string>(name: Constants.UserProfile.NationalityAttribute);
             }
         }
-
-        /// <summary>
-        /// Other profile data returned by Yoti.
-        /// </summary>
-        [Obsolete("Not needed, use GetAttributeByName instead")]
-        public Dictionary<string, YotiAttributeValue> OtherAttributes { get; set; }
     }
 }
