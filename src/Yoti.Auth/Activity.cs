@@ -32,12 +32,12 @@ namespace Yoti.Auth
 
             ReceiptDO receipt = parsedResponse.Receipt;
 
-            Dictionary<string, BaseAttribute> userProfileAttributes = ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.other_party_profile_content);
-            var userProfile = new YotiProfile(userProfileAttributes);
+            var userProfile = new YotiProfile(
+                ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.other_party_profile_content));
             SetAddressToBeFormattedAddressIfNull();
 
-            Dictionary<string, BaseAttribute> applicationProfileAttributes = ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.profile_content);
-            var applicationProfile = new ApplicationProfile(applicationProfileAttributes);
+            var applicationProfile = new ApplicationProfile(
+                ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.profile_content));
 
             DateTime? timestamp = null;
             if (receipt.timestamp != null)
