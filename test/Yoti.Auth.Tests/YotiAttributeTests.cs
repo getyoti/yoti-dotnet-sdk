@@ -15,7 +15,7 @@ namespace Yoti.Auth.Tests
             byte[] imageBytes = Conversion.UtfToBytes("ImageValue");
 
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, imageBytes);
-            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
+            var yotiAttribute = new YotiAttribute<Image>("selfie", yotiAttributeValue);
 
             var expectedImage = new Image
             {
@@ -64,11 +64,11 @@ namespace Yoti.Auth.Tests
         {
             byte[] jpegBytes = Conversion.UtfToBytes("jpegData");
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Jpeg, jpegBytes);
-            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
+            var yotiAttribute = new YotiAttribute<Image>("selfie", yotiAttributeValue);
 
             string expectedString = string.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
 
-            Assert.AreEqual(expectedString, yotiAttribute.GetBase64URI());
+            Assert.AreEqual(expectedString, yotiAttribute.GetValue().Base64URI);
         }
 
         [TestMethod]
@@ -76,11 +76,11 @@ namespace Yoti.Auth.Tests
         {
             byte[] pngBytes = Conversion.UtfToBytes("PngData");
             var yotiAttributeValue = new YotiAttributeValue(TypeEnum.Png, pngBytes);
-            var yotiAttribute = new YotiImageAttribute<Image>("selfie", yotiAttributeValue);
+            var yotiAttribute = new YotiAttribute<Image>("selfie", yotiAttributeValue);
 
             string expectedString = string.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));
 
-            Assert.AreEqual(expectedString, yotiAttribute.GetBase64URI());
+            Assert.AreEqual(expectedString, yotiAttribute.GetValue().Base64URI);
         }
     }
 }
