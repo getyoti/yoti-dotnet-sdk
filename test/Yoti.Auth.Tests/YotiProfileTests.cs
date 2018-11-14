@@ -84,10 +84,10 @@ namespace Yoti.Auth.Tests
         public void YotiProfile_DateOfBirthAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<DateTime?>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<DateTime>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
-            YotiAttribute<DateTime?> dateOfBirthAttribute = yotiProfile.DateOfBirth;
+            YotiAttribute<DateTime> dateOfBirthAttribute = yotiProfile.DateOfBirth;
 
             Assert.AreSame(initialAttribute, dateOfBirthAttribute);
         }

@@ -169,9 +169,9 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(DateOfBirthString)
             };
 
-            AddAttributeToProfile<DateTime?>(attribute);
+            AddAttributeToProfile<DateTime>(attribute);
 
-            Assert.IsInstanceOfType(_yotiProfile.DateOfBirth.GetValue(), typeof(DateTime?));
+            Assert.IsInstanceOfType(_yotiProfile.DateOfBirth.GetValue(), typeof(DateTime));
 
             Assert.AreEqual(_yotiProfile.DateOfBirth.GetValue(), DateOfBirthValue);
         }
@@ -572,7 +572,7 @@ namespace Yoti.Auth.Tests
                 AttrpubapiV1.ContentType.Date,
                 TestAnchors.PassportAnchor);
 
-            AddAttributeToProfile<DateTime?>(attribute);
+            AddAttributeToProfile<DateTime>(attribute);
 
             IEnumerable<Anchors.Anchor> sources = _yotiProfile.DateOfBirth.GetSources();
             Assert.IsTrue(

@@ -83,11 +83,11 @@ namespace Yoti.Auth
         /// <summary>
         /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti
         /// </summary>
-        public YotiAttribute<DateTime?> DateOfBirth
+        public YotiAttribute<DateTime> DateOfBirth
         {
             get
             {
-                return GetAttributeByName<DateTime?>(name: Constants.UserProfile.DateOfBirthAttribute);
+                return GetAttributeByName<DateTime>(name: Constants.UserProfile.DateOfBirthAttribute);
             }
         }
 
