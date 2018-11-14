@@ -2,7 +2,7 @@
 
 namespace Yoti.Auth
 {
-    public class Profile
+    public abstract class Profile
     {
         private Dictionary<string, BaseAttribute> _attributes;
 
