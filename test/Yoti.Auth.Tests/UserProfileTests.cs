@@ -7,23 +7,10 @@ using static Yoti.Auth.YotiAttributeValue;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class ProfileTests
+    public class UserProfileTests
     {
         [TestMethod]
-        public void Profile_GetAttribute_String()
-        {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes("value"));
-            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationNameAttribute, attributeValue);
-
-            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
-
-            YotiAttribute<string> applicationNameAttribute = applicationProfile.GetAttributeByName<string>(Constants.ApplicationProfile.ApplicationNameAttribute);
-
-            Assert.AreSame(initialAttribute, applicationNameAttribute);
-        }
-
-        [TestMethod]
-        public void Profile_GetAttribute_Datetime()
+        public void UserProfile_GetAttribute_Datetime()
         {
             string value = "1980-01-13";
             var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
@@ -39,7 +26,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Profile_GetAttribute_Datetime_Nullable()
+        public void UserProfile_GetAttribute_Datetime_Nullable()
         {
             string value = "1980-01-13";
             var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
@@ -55,7 +42,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Profile_GetAttribute_Datetime_InvalidFormat()
+        public void UserProfile_GetAttribute_Datetime_InvalidFormat()
         {
             string value = "1980/01/13";
 
@@ -73,34 +60,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Profile_GetAttribute_Image()
-        {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes("selfie0123456789"));
-            var initialAttribute = new YotiAttribute<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute, attributeValue);
-
-            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
-
-            YotiAttribute<Image> logoAttribute = applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute);
-
-            Assert.AreSame(initialAttribute, logoAttribute);
-        }
-
-        [TestMethod]
-        public void Profile_GetAttribute_WithWrongType()
-        {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes("1980-01-13"));
-            var initialAttribute = new YotiAttribute<DateTime>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
-
-            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
-
-            Assert.ThrowsException<InvalidCastException>(() =>
-            {
-                YotiAttribute<Image> dobAttribute = applicationProfile.GetAttributeByName<Image>(Constants.UserProfile.DateOfBirthAttribute);
-            });
-        }
-
-        [TestMethod]
-        public void Profile_AddAttribute()
+        public void UserProfile_AddAttribute()
         {
             var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes("Nation"));
             var initialAttribute = new YotiAttribute<Image>(Constants.UserProfile.NationalityAttribute, attributeValue);
@@ -111,16 +71,6 @@ namespace Yoti.Auth.Tests
             YotiAttribute<Image> nationalityAttribute = userProfile.GetAttributeByName<Image>(Constants.UserProfile.NationalityAttribute);
 
             Assert.AreSame(initialAttribute, nationalityAttribute);
-        }
-
-        [TestMethod]
-        public void Profile_GetAttributeNotPresent()
-        {
-            var applicationProfile = new ApplicationProfile();
-
-            YotiAttribute<string> notPresentAttribute = applicationProfile.GetAttributeByName<string>("notPresent");
-
-            Assert.IsNull(notPresentAttribute);
         }
     }
 }
