@@ -118,7 +118,7 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
     if (user != null)
     {
         Image selfie = profile.Selfie.GetImage();
-        string selfieURI = profile.Selfie.GetBase64URI();
+        string selfieURI = profile.Selfie.Base64URI;
         string fullName = profile.FullName.GetValue();
         string givenNames = profile.GivenNames.GetValue();
         string familyName = profile.FamilyName.GetValue();
@@ -161,7 +161,6 @@ You can also retrieve further properties from these respective anchors in the fo
 Anchor givenNamesFirstAnchor = profile.GivenNames.GetSources().First();
 
 AnchorType anchorType = givenNamesFirstAnchor.GetAnchorType();
-byte[] artifactSignature = givenNamesFirstAnchor.GetArtifactSignature();
 List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServerCerts();
 byte[] signature = givenNamesFirstAnchor.GetSignature();
 DateTime signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp().GetTimestamp();
