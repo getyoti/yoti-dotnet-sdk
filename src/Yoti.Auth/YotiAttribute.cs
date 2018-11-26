@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Anchors;
 
@@ -13,25 +15,40 @@ namespace Yoti.Auth
     /// </summary>
     public class YotiAttribute<T> : BaseAttribute
     {
-        internal readonly YotiAttributeValue Value;
+        private readonly byte[] _data;
+        private readonly AttrpubapiV1.ContentType _type;
 
-        public YotiAttribute(string name, YotiAttributeValue value) : base(name, value)
+        public YotiAttribute(string name, AttrpubapiV1.ContentType type, byte[] data) : base(name)
         {
-            Value = value;
+            _type = type;
+            _data = data;
         }
 
-        public YotiAttribute(string name, YotiAttributeValue value, List<Anchor> anchors) : base(name, value, anchors)
+        public YotiAttribute(string name, AttrpubapiV1.ContentType type, byte[] data, List<Anchor> anchors) : base(name, anchors)
         {
-            Value = value;
+            _type = type;
+            _data = data;
+        }
+
+        public byte[] Data()
+        {
+            return _data;
+        }
+
+        public AttrpubapiV1.ContentType Type()
+        {
+            return _type;
         }
 
         /// <summary>
-        /// Gets the json value of an attribute, in the form of a <see cref="Dictionary{string, JToken}"/>
+        /// Gets the JSON value of an attribute, in the form of a <see cref="Dictionary{string, JToken}"/>
         /// </summary>
         /// <returns>JSON value of an attribute</returns>
         public Dictionary<string, JToken> GetJsonValue()
         {
-            return Value.ToJson();
+            string utf8JSON = Conversion.BytesToUtf8(_data);
+            Dictionary<string, JToken> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8JSON);
+            return deserializedJson;
         }
 
         /// <summary>
@@ -40,30 +57,20 @@ namespace Yoti.Auth
         /// <returns>Value of the attribute</returns>
         public T GetValue()
         {
-            if (Value == null)
-                return default(T);
+            if (_data == null)
+                return default;
 
             if (typeof(T) == typeof(Image))
             {
-                return (T)(object)Value.ToImage();
+                return (T)(object)ToImage();
             };
 
-            return Value.ToBytes().ConvertType<T>();
+            return _data.ConvertType<T>();
         }
 
-        /// <summary>
-        /// Attempts to get the value of the attribute, and if this is null, then returns the specified default value
-        /// </summary>
-        /// <param name="defaultValue"></param>
-        /// <returns>The value of the attribute, or if this is null, the default value</returns>
-        public T GetValueOrDefault(T defaultValue)
+        private Image ToImage()
         {
-            T value = GetValue();
-
-            if (value != null)
-                return value;
-
-            return defaultValue;
+            return new Image(_type, _data);
         }
     }
 }

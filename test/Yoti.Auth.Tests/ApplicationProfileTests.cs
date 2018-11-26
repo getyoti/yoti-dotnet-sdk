@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth.Tests
 {
     [TestClass]
     public class ApplicationProfileTests
     {
-        private string _value = "value";
+        private readonly string _value = "value";
 
         [TestMethod]
         public void ApplicationProfile_NameAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationNameAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(
+                Constants.ApplicationProfile.ApplicationNameAttribute,
+                AttrpubapiV1.ContentType.String,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -26,8 +27,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ApplicationProfile_URLAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationURLAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(
+                Constants.ApplicationProfile.ApplicationURLAttribute,
+                AttrpubapiV1.ContentType.String,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -39,8 +42,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ApplicationProfile_LogoAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Png, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<Image>(
+                Constants.ApplicationProfile.ApplicationLogoAttribute,
+                AttrpubapiV1.ContentType.Png,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -52,8 +57,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ApplicationProfile_ReceiptBgColourAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(
+                Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute,
+                AttrpubapiV1.ContentType.String,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -65,8 +72,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ApplicationProfile_GetAttribute_String()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(Constants.ApplicationProfile.ApplicationNameAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(
+                Constants.ApplicationProfile.ApplicationNameAttribute,
+                AttrpubapiV1.ContentType.String,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -78,8 +87,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ApplicationProfile_GetAttribute_Image()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<Image>(
+                Constants.ApplicationProfile.ApplicationLogoAttribute,
+                AttrpubapiV1.ContentType.Jpeg,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -91,14 +102,16 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ApplicationProfile_GetAttribute_WithWrongType()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes("1980-01-13"));
-            var initialAttribute = new YotiAttribute<DateTime>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(
+                Constants.ApplicationProfile.ApplicationNameAttribute,
+                AttrpubapiV1.ContentType.String,
+                Encoding.UTF8.GetBytes(_value));
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
             Assert.ThrowsException<InvalidCastException>(() =>
             {
-                YotiAttribute<Image> dobAttribute = applicationProfile.GetAttributeByName<Image>(Constants.UserProfile.DateOfBirthAttribute);
+                YotiAttribute<Image> dobAttribute = applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
             });
         }
 
