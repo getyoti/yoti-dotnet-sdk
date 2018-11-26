@@ -50,8 +50,8 @@ namespace Example.Controllers
 
                     if (profile.Selfie != null)
                     {
-                        user.Base64Photo = profile.Selfie.GetBase64URI();
-                        user.Photo = profile.Selfie.GetImage().Data;
+                        user.Base64Photo = profile.Selfie.GetValue().Base64URI;
+                        user.Photo = profile.Selfie.GetValue().Content;
                         PhotoBytes = user.Photo;
                     }
                     else

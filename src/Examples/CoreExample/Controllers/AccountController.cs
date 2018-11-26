@@ -40,11 +40,13 @@ namespace CoreExample.Controllers
                 {
                     _logger.LogInformation("ActivityOutcome=Success");
 
+                    ViewBag.RememberMeID = activityDetails.RememberMeId;
+
                     YotiProfile yotiProfile = activityDetails.Profile;
 
                     if (yotiProfile.Selfie != null)
                     {
-                        PhotoBytes = yotiProfile.Selfie.GetValue().Data;
+                        PhotoBytes = yotiProfile.Selfie.GetValue().Content;
                     }
 
                     return View(yotiProfile);
