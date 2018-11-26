@@ -16,8 +16,8 @@ namespace Yoti.Auth.Tests.TestTools
                 return false;
             }
 
-            return (x.GetContent() == y.GetContent())
-                && (x.Type() == y.Type());
+            return (x.Content == y.Content)
+                && (x.Type == y.Type);
         }
 
         public int GetHashCode(Image obj)

@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Yoti.Auth.YotiProfile
-
 <div class="jumbotron">
     @ViewBag.Error
     <div class="row">
@@ -17,7 +16,7 @@
                     }
                     else
                     {
-                        <img src="@Model.Selfie.GetBase64URI()" />
+                        <img src="@Model.Selfie.GetValue().Base64URI" />
                         @Html.ActionLink(
                              linkText: "Download Image",
                              actionName: "DownloadImageFile",
@@ -45,7 +44,7 @@
                 <tr>
                     <th scope="row">Yoti ID</th>
                     <td>
-                        @Html.DisplayFor(m => m.Id)
+                        @ViewBag.RememberMeID
                     </td>
                     <td>N/A</td>
                     <td>N/A</td>
@@ -253,44 +252,6 @@
                         </td>
                         @{
                             foreach (var anchor in Model.DateOfBirth.GetAnchors())
-                            {
-                            <tr>
-                                <td>
-                                    @{
-                                        string AnchorType = anchor.GetAnchorType().ToString();
-                                        @Html.DisplayFor(m => AnchorType);
-                                    }
-                                </td>
-                                <td>
-                                    @{
-                                        string AnchorValue = string.Join(" , ", anchor.GetValue());
-                                        @Html.DisplayFor(m => AnchorValue);
-                                    }
-                                </td>
-                                <td>
-                                    @{
-                                        string AnchorSubType = anchor.GetSubType().ToString();
-                                        @Html.DisplayFor(m => AnchorSubType);
-                                    }
-                                </td>
-                            </tr>
-                        }
-                        }
-                        </tr>
-                    }
-                @if (Model.AgeVerified != null)
-                {
-                    <tr>
-                        @{ var rowSpan = Model.AgeVerified.GetAnchors().Count() + 1;}
-                        <th rowspan="@rowSpan" scope="row">Age Verified</th>
-                        <td rowspan="@rowSpan">
-                            @{
-                                string ageVerified = Model.AgeVerified.GetValue().ToString();
-                                @Html.DisplayFor(m => ageVerified);
-                            }
-                        </td>
-                        @{
-                            foreach (var anchor in Model.AgeVerified.GetAnchors())
                             {
                             <tr>
                                 <td>
