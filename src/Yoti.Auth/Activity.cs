@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
@@ -82,11 +83,10 @@ namespace Yoti.Auth
 
                 if (formattedAddressJToken != null)
                 {
-                    var addressValue = new YotiAttributeValue(YotiAttributeValue.TypeEnum.Text, formattedAddressJToken.ToString());
-
                     var addressAttribute = new YotiAttribute<string>(
                         name: Constants.UserProfile.PostalAddressAttribute,
-                        value: addressValue,
+                        type: AttrpubapiV1.ContentType.String,
+                        data: Encoding.UTF8.GetBytes(formattedAddressJToken.ToString()),
                         anchors: structuredPostalAddress.GetAnchors());
 
                     _yotiProfile.Add(addressAttribute);

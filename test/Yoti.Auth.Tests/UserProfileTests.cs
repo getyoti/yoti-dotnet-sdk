@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Yoti.Auth.YotiAttributeValue;
 
 namespace Yoti.Auth.Tests
 {
@@ -13,8 +12,10 @@ namespace Yoti.Auth.Tests
         public void UserProfile_GetAttribute_Datetime()
         {
             string value = "1980-01-13";
-            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
-            var initialAttribute = new YotiAttribute<DateTime>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<DateTime>(
+                Constants.UserProfile.DateOfBirthAttribute,
+                AttrpubapiV1.ContentType.Date,
+                Encoding.UTF8.GetBytes(value));
 
             YotiProfile userProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
@@ -29,9 +30,10 @@ namespace Yoti.Auth.Tests
         public void UserProfile_GetAttribute_Datetime_InvalidFormat()
         {
             string value = "1980/01/13";
-
-            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(value));
-            var initialAttribute = new YotiAttribute<DateTime>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<DateTime>(
+                Constants.UserProfile.DateOfBirthAttribute,
+                AttrpubapiV1.ContentType.Date,
+                Encoding.UTF8.GetBytes(value));
 
             YotiProfile userProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
@@ -46,13 +48,15 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void UserProfile_AddAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes("Nation"));
-            var initialAttribute = new YotiAttribute<Image>(Constants.UserProfile.NationalityAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<string>(
+                Constants.UserProfile.NationalityAttribute,
+                AttrpubapiV1.ContentType.String,
+                Encoding.UTF8.GetBytes("Nation"));
 
             YotiProfile userProfile = new YotiProfile();
             userProfile.Add(initialAttribute);
 
-            YotiAttribute<Image> nationalityAttribute = userProfile.GetAttributeByName<Image>(Constants.UserProfile.NationalityAttribute);
+            YotiAttribute<string> nationalityAttribute = userProfile.GetAttributeByName<string>(Constants.UserProfile.NationalityAttribute);
 
             Assert.AreSame(initialAttribute, nationalityAttribute);
         }

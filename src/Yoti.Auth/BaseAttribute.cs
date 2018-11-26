@@ -16,12 +16,12 @@ namespace Yoti.Auth
         private readonly string _name;
         private List<Anchor> _anchors;
 
-        private protected BaseAttribute(string name, YotiAttributeValue value)
+        private protected BaseAttribute(string name)
         {
             _name = name;
         }
 
-        private protected BaseAttribute(string name, YotiAttributeValue value, List<Anchor> anchors)
+        private protected BaseAttribute(string name, List<Anchor> anchors)
         {
             _name = name;
             _anchors = anchors;

@@ -64,6 +64,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<Image>(attribute);
 
+            Assert.AreEqual(AttrpubapiV1.ContentType.Jpeg, _yotiProfile.Selfie.Type());
             Assert.IsNotNull(_yotiProfile.Selfie.GetValue().Base64URI);
             Assert.IsNotNull(_yotiProfile.Selfie.GetValue());
         }
@@ -80,6 +81,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<Image>(attribute);
 
+            Assert.AreEqual(AttrpubapiV1.ContentType.Png, _yotiProfile.Selfie.Type());
             Assert.IsNotNull(_yotiProfile.Selfie.GetValue().Base64URI);
             Assert.IsNotNull(_yotiProfile.Selfie.GetValue());
         }
@@ -172,6 +174,7 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile<DateTime>(attribute);
 
             Assert.IsInstanceOfType(_yotiProfile.DateOfBirth.GetValue(), typeof(DateTime));
+            Assert.AreEqual(AttrpubapiV1.ContentType.Date, _yotiProfile.DateOfBirth.Type());
 
             Assert.AreEqual(_yotiProfile.DateOfBirth.GetValue(), DateOfBirthValue);
         }
@@ -188,6 +191,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<string>(attribute);
 
+            Assert.AreEqual(AttrpubapiV1.ContentType.String, _yotiProfile.Address.Type());
             Assert.AreEqual(_yotiProfile.Address.GetValue(), Value);
         }
 
@@ -231,6 +235,8 @@ namespace Yoti.Auth.Tests
             AssertDictionaryValue(countryIso, CountryIsoJson, structuredPostalAddress);
             AssertDictionaryValue(country, CountryJson, structuredPostalAddress);
             AssertDictionaryValue(formattedAddress, FormattedAddressJson, structuredPostalAddress);
+
+            Assert.AreEqual(AttrpubapiV1.ContentType.Json, _yotiProfile.StructuredPostalAddress.Type());
         }
 
         [TestMethod]
