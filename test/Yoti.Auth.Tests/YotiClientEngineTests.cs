@@ -150,7 +150,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(new DateTime(2016, 1, 1, 0, 0, 0), activityDetails.Timestamp);
 
             Assert.IsNotNull(activityDetails.Profile.Selfie);
-            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.Profile.Selfie.GetValue().Content()));
+            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.Profile.Selfie.GetValue().GetContent()));
 
             Assert.AreEqual("phone_number0123456789", activityDetails.Profile.MobileNumber.GetValue());
 

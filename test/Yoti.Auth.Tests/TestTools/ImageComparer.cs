@@ -17,7 +17,7 @@ namespace Yoti.Auth.Tests.TestTools
                 return false;
             }
 
-            return (x.Content() == y.Content())
+            return (x.GetContent() == y.GetContent())
                 && (x.GetMIMEType() == y.GetMIMEType());
         }
 

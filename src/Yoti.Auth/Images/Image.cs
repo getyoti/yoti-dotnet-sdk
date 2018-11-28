@@ -11,16 +11,16 @@
             _type = type;
         }
 
-        public byte[] Content()
+        public byte[] GetContent()
         {
             return _content;
         }
 
         public abstract string GetMIMEType();
 
-        public string Base64URI()
+        public string GetBase64URI()
         {
-            return string.Format("data:{0};base64,{1}", GetMIMEType(), Conversion.BytesToBase64(Content()));
+            return string.Format("data:{0};base64,{1}", GetMIMEType(), Conversion.BytesToBase64(GetContent()));
         }
     }
 }
