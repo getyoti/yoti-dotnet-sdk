@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Images;
 using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
@@ -13,13 +14,13 @@ namespace Yoti.Auth.Tests
 
             var yotiAttribute = new YotiAttribute<Image>("selfie", AttrpubapiV1.ContentType.Jpeg, imageBytes);
 
-            var expectedImage = new Image(AttrpubapiV1.ContentType.Jpeg, imageBytes);
+            var expectedImage = new JpegImage(imageBytes);
 
             string expectedBase64URI = "data:image/jpeg;base64," + Conversion.BytesToBase64(imageBytes);
             Image actualImage = yotiAttribute.GetValue();
 
             Assert.IsTrue(new ImageComparer().Equals(expectedImage, actualImage));
-            Assert.AreEqual(expectedBase64URI, actualImage.Base64URI);
+            Assert.AreEqual(expectedBase64URI, actualImage.Base64URI());
         }
 
         [TestMethod]
@@ -30,7 +31,7 @@ namespace Yoti.Auth.Tests
 
             string expectedString = string.Format("data:image/jpeg;base64,{0}", Conversion.BytesToBase64(jpegBytes));
 
-            Assert.AreEqual(expectedString, yotiAttribute.GetValue().Base64URI);
+            Assert.AreEqual(expectedString, yotiAttribute.GetValue().Base64URI());
         }
 
         [TestMethod]
@@ -41,7 +42,7 @@ namespace Yoti.Auth.Tests
 
             string expectedString = string.Format("data:image/png;base64,{0}", Conversion.BytesToBase64(pngBytes));
 
-            Assert.AreEqual(expectedString, yotiAttribute.GetValue().Base64URI);
+            Assert.AreEqual(expectedString, yotiAttribute.GetValue().Base64URI());
         }
     }
 }

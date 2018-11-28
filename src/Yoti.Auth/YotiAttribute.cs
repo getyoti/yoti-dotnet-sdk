@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Anchors;
+using Yoti.Auth.Images;
 
 namespace Yoti.Auth
 {
@@ -35,11 +35,6 @@ namespace Yoti.Auth
             return _data;
         }
 
-        public AttrpubapiV1.ContentType Type()
-        {
-            return _type;
-        }
-
         /// <summary>
         /// Gets the JSON value of an attribute, in the form of a <see cref="Dictionary{string, JToken}"/>
         /// </summary>
@@ -62,15 +57,28 @@ namespace Yoti.Auth
 
             if (typeof(T) == typeof(Image))
             {
-                return (T)(object)ToImage();
+                return (T)(object)ToImage(_type);
             };
 
             return _data.ConvertType<T>();
         }
 
-        private Image ToImage()
+        private Image ToImage(AttrpubapiV1.ContentType contentType)
         {
-            return new Image(_type, _data);
+            switch (contentType)
+            {
+                case AttrpubapiV1.ContentType.Jpeg:
+                    return new JpegImage(_data);
+
+                case AttrpubapiV1.ContentType.Png:
+                    return new PngImage(_data);
+
+                default:
+                    throw new InvalidOperationException(
+                        string.Format(
+                            "Unable to create image from unsupported content type: {0}",
+                            _type));
+            }
         }
     }
 }
