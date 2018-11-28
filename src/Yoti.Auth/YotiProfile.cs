@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Images;
 
 namespace Yoti.Auth
 {

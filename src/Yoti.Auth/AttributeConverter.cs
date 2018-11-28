@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AttrpubapiV1;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Images;
 
 namespace Yoti.Auth
 {
