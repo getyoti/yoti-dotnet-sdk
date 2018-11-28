@@ -6,9 +6,8 @@ using System.Text;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using Yoti.Auth.Tests.TestData;
-
 using Yoti.Auth.Images;
+using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests
 {
@@ -68,7 +67,9 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile<Image>(attribute);
 
             Assert.AreEqual("image/jpeg", _yotiProfile.Selfie.GetValue().GetMIMEType());
-            Assert.IsNotNull(_yotiProfile.Selfie.GetValue().GetBase64URI());
+            Assert.AreEqual(
+                "data:image/jpeg;base64," + Conversion.BytesToBase64(Encoding.UTF8.GetBytes(Value)),
+                _yotiProfile.Selfie.GetValue().GetBase64URI());
             Assert.IsNotNull(_yotiProfile.Selfie.GetValue());
         }
 
@@ -84,7 +85,10 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<Image>(attribute);
 
-            Assert.IsNotNull(_yotiProfile.Selfie.GetValue().GetBase64URI());
+            Assert.AreEqual(
+                "data:image/png;base64," + Conversion.BytesToBase64(Encoding.UTF8.GetBytes(Value)),
+                _yotiProfile.Selfie.GetValue().GetBase64URI());
+
             Assert.IsNotNull(_yotiProfile.Selfie.GetValue());
             Assert.IsTrue(Encoding.UTF8.GetBytes(Value).SequenceEqual(_yotiProfile.Selfie.GetValue().GetContent()));
             Assert.AreEqual("image/png", _yotiProfile.Selfie.GetValue().GetMIMEType());
