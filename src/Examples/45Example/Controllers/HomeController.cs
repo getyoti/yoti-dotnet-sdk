@@ -21,13 +21,5 @@ namespace Example.Controllers
             ViewBag.YotiAppId = _appId;
             return View();
         }
-
-        private User GetUser()
-        {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            int userId = int.Parse(claimsIdentity.FindFirst(ClaimTypes.Name).Value);
-
-            return UserManager.GetUserById(userId);
-        }
     }
 }

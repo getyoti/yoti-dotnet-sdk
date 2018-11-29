@@ -11,20 +11,17 @@ namespace Example.Models
         {
         }
 
-        public string YotiId { get; set; }
+        public string RememberMeID { get; set; }
         public byte[] Photo { get; set; }
         public string Base64Photo { get; set; }
-        public int Id { get; set; }
-        public YotiImageAttribute<Image> Selfie { get; set; }
+        public YotiAttribute<Image> Selfie { get; set; }
         public YotiAttribute<string> FullName { get; set; }
         public YotiAttribute<string> GivenNames { get; set; }
         public YotiAttribute<string> FamilyName { get; set; }
         public YotiAttribute<string> MobileNumber { get; set; }
         public YotiAttribute<string> EmailAddress { get; set; }
 
-        public YotiAttribute<DateTime?> DateOfBirth { get; set; }
-
-        public YotiAttribute<bool?> AgeVerified { get; set; }
+        public YotiAttribute<DateTime> DateOfBirth { get; set; }
 
         public YotiAttribute<string> Address { get; set; }
 
@@ -33,7 +30,5 @@ namespace Example.Models
         public YotiAttribute<string> Gender { get; set; }
 
         public YotiAttribute<string> Nationality { get; set; }
-
-        public Dictionary<string, YotiAttributeValue> OtherAttributes { get; set; }
     }
 }

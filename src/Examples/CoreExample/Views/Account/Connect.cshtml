@@ -16,7 +16,7 @@
                     }
                     else
                     {
-                        <img src="@Model.Selfie.GetValue().Base64URI" />
+                        <img src="@Model.Selfie.GetValue().GetBase64URI()" />
                         @Html.ActionLink(
                              linkText: "Download Image",
                              actionName: "DownloadImageFile",
@@ -400,19 +400,19 @@
                         @foreach (var anchor in Model.StructuredPostalAddress.GetAnchors())
                         {
                         <tr>
-                            <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                            <td rowspan="@Model.StructuredPostalAddress.GetValue().Count">
                                 @{
                                     string AnchorType = anchor.GetAnchorType().ToString();
                                     @Html.DisplayFor(m => AnchorType);
                                 }
                             </td>
-                            <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                            <td rowspan="@Model.StructuredPostalAddress.GetValue().Count">
                                 @{
                                     string AnchorValue = string.Join(" , ", anchor.GetValue());
                                     @Html.DisplayFor(m => AnchorValue);
                                 }
                             </td>
-                            <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                            <td rowspan="@Model.StructuredPostalAddress.GetValue().Count">
                                 @{
                                     string AnchorSubType = anchor.GetSubType().ToString();
                                     @Html.DisplayFor(m => AnchorSubType);
@@ -421,7 +421,7 @@
                         </tr>
 
                     }
-                        @foreach (var item in Model.StructuredPostalAddress.GetJsonValue())
+                        @foreach (var item in Model.StructuredPostalAddress.GetValue())
                         {
                             <tr>
                                 <td>
