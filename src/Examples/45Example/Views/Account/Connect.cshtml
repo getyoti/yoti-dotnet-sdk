@@ -2,7 +2,6 @@
     Layout = "~/Views/Shared/_LayoutSimple.cshtml";
 }
 @model Example.Models.User
-
 <div class="jumbotron">
     @ViewBag.Error
     <div class="row">
@@ -41,9 +40,9 @@
         </thead>
         <tbody>
             <tr>
-                <th scope="row">Yoti ID</th>
+                <th scope="row">Remember Me ID</th>
                 <td>
-                    @Html.DisplayFor(m => m.Id)
+                    @Html.DisplayFor(m => m.RememberMeID)
                 </td>
                 <td>N/A</td>
                 <td>N/A</td>
@@ -53,7 +52,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.GivenNames.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Given Names</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -90,7 +88,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.FamilyName.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Family Name</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -129,7 +126,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.FullName.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Full Name</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -168,7 +164,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.MobileNumber.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Mobile Number</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -208,7 +203,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.EmailAddress.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Email Address</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -247,7 +241,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.DateOfBirth.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Date Of Birth</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -255,48 +248,8 @@
                             @dateOfBirth.Value.ToShortDateString();
                         }
                     </td>
-
                     @{
                         foreach (var anchor in Model.DateOfBirth.GetAnchors())
-                        {
-                        <tr>
-                            <td>
-                                @{
-                                    string AnchorType = anchor.GetAnchorType().ToString();
-                                    @Html.DisplayFor(m => AnchorType);
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    string AnchorValue = string.Join(" , ", anchor.GetValue());
-                                    @Html.DisplayFor(m => AnchorValue);
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    string AnchorSubType = anchor.GetSubType().ToString();
-                                    @Html.DisplayFor(m => AnchorSubType);
-                                }
-                            </td>
-                        </tr>
-                    }
-                    }
-                    </tr>
-                }
-            @if (Model.AgeVerified != null)
-            {
-                <tr>
-                    @{ var rowSpan = Model.AgeVerified.GetAnchors().Count() + 1;}
-
-                    <th rowspan="@rowSpan" scope="row">Age Verified</th>
-                    <td rowspan="@rowSpan">
-                        @{
-                            string ageVerified = Model.AgeVerified.GetValue().ToString();
-                            @Html.DisplayFor(m => ageVerified);
-                        }
-                    </td>
-                    @{
-                        foreach (var anchor in Model.AgeVerified.GetAnchors())
                         {
                         <tr>
                             <td>
@@ -326,7 +279,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.Address.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Address</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -334,7 +286,6 @@
                             @Html.DisplayFor(m => address);
                         }
                     </td>
-
                     @{
                         foreach (var anchor in Model.Address.GetAnchors())
                         {
@@ -366,7 +317,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.Gender.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Gender</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -405,7 +355,6 @@
             {
                 <tr>
                     @{ var rowSpan = Model.Nationality.GetAnchors().Count() + 1;}
-
                     <th rowspan="@rowSpan" scope="row">Nationality</th>
                     <td rowspan="@rowSpan">
                         @{
@@ -413,7 +362,6 @@
                             @Html.DisplayFor(m => nationality);
                         }
                     </td>
-
                     @{
                         foreach (var anchor in Model.Nationality.GetAnchors())
                         {
@@ -471,7 +419,6 @@
                     </tr>
 
                 }
-
                     @foreach (var item in Model.StructuredPostalAddress.GetJsonValue())
                     {
                         <tr>
