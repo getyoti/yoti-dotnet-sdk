@@ -38,15 +38,10 @@ namespace Example.Controllers
                 {
                     var profile = activityDetails.Profile;
 
-                    User user = UserManager.GetUserByYotiId(activityDetails.RememberMeId);
-
-                    if (user == null)
+                    var user = new User
                     {
-                        user = new User
-                        {
-                            YotiId = activityDetails.RememberMeId
-                        };
-                    }
+                        RememberMeID = activityDetails.RememberMeId
+                    };
 
                     if (profile.Selfie != null)
                     {
@@ -61,10 +56,8 @@ namespace Example.Controllers
 
                     UpdateAttributesIfPresent(profile, user);
 
-                    UserManager.SaveUser(user);
-
                     var identity = new ClaimsIdentity(new[] {
-                        new Claim(ClaimTypes.Name, user.Id.ToString()),
+                        new Claim(ClaimTypes.Name, user.RememberMeID.ToString()),
                         },
                         "ApplicationCookie");
 

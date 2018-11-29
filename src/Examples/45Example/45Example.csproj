@@ -147,7 +147,7 @@
     </Reference>
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
-      <HintPath>..\..\..packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <HintPath>..\..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Yoti.Auth, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Yoti.3.0.0\lib\net451\Yoti.Auth.dll</HintPath>
@@ -161,33 +161,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Data\ApplicationContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609290943445_Initial.cs" />
-    <Compile Include="Migrations\201609290943445_Initial.Designer.cs">
-      <DependentUpon>201609290943445_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710191343213_AddBase64Photo.cs" />
-    <Compile Include="Migrations\201710191343213_AddBase64Photo.Designer.cs">
-      <DependentUpon>201710191343213_AddBase64Photo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802081633397_AddProfileAttributes.cs" />
-    <Compile Include="Migrations\201802081633397_AddProfileAttributes.Designer.cs">
-      <DependentUpon>201802081633397_AddProfileAttributes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803201224320_IsAgeVerifiedConversion.cs" />
-    <Compile Include="Migrations\201803201224320_IsAgeVerifiedConversion.Designer.cs">
-      <DependentUpon>201803201224320_IsAgeVerifiedConversion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804271424107_YotiAttribute.cs" />
-    <Compile Include="Migrations\201804271424107_YotiAttribute.Designer.cs">
-      <DependentUpon>201804271424107_YotiAttribute.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Data\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -255,23 +232,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609290943445_Initial.resx">
-      <DependentUpon>201609290943445_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710191343213_AddBase64Photo.resx">
-      <DependentUpon>201710191343213_AddBase64Photo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802081633397_AddProfileAttributes.resx">
-      <DependentUpon>201802081633397_AddProfileAttributes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803201224320_IsAgeVerifiedConversion.resx">
-      <DependentUpon>201803201224320_IsAgeVerifiedConversion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804271424107_YotiAttribute.resx">
-      <DependentUpon>201804271424107_YotiAttribute.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
