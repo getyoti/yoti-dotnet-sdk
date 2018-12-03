@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using AttrpubapiV1;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
 namespace Yoti.Auth
@@ -15,6 +16,16 @@ namespace Yoti.Auth
             switch (attribute.ContentType)
             {
                 case ContentType.String:
+
+                    if (attribute.Name == Constants.UserProfile.DocumentDetailsAttribute)
+                    {
+                        return new YotiAttribute<DocumentDetails>(
+                          attribute.Name,
+                          DocumentDetailsAttributeParser.ParseFrom(
+                              Conversion.BytesToUtf8(attribute.Value.ToByteArray())),
+                          ParseAnchors(attribute));
+                    }
+
                     return new YotiAttribute<string>(
                       attribute.Name,
                       Conversion.BytesToUtf8(attribute.Value.ToByteArray()),
@@ -75,11 +86,11 @@ namespace Yoti.Auth
         private static DateTime GetDateValue(byte[] bytes)
         {
             if (DateTime.TryParseExact(
-                        s: Conversion.BytesToUtf8(bytes),
-                        format: "yyyy-MM-dd",
-                        provider: CultureInfo.InvariantCulture,
-                        style: DateTimeStyles.None,
-                        result: out DateTime date))
+                s: Conversion.BytesToUtf8(bytes),
+                format: "yyyy-MM-dd",
+                provider: CultureInfo.InvariantCulture,
+                style: DateTimeStyles.None,
+                result: out DateTime date))
             {
                 return date;
             }

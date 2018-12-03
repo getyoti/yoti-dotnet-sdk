@@ -6,6 +6,7 @@ using System.Text;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 using Yoti.Auth.Tests.TestData;
 
@@ -518,6 +519,41 @@ namespace Yoti.Auth.Tests
             AddAttributeToProfile<string>(attribute);
 
             Assert.AreEqual(_yotiProfile.Nationality.GetValue(), Value);
+        }
+
+        [TestMethod]
+        public void Activity_AddAttributesToProfile_DocumentDetails()
+        {
+            string issuingCountry = "GBR";
+            string documentNumber = "1234abc";
+            DateTime expirationDate = new DateTime(2015, 5, 1);
+            string expirationDateString = expirationDate.ToString("yyyy-MM-dd");
+            string documentType = "DRIVING_LICENCE";
+            string issuingAuthority = "DVLA";
+
+            string documentDetailsString = string.Format("{0} {1} {2} {3} {4}",
+                    documentType,
+                    issuingCountry,
+                    documentNumber,
+                    expirationDateString,
+                    issuingAuthority);
+
+            var attribute = new AttrpubapiV1.Attribute
+            {
+                Name = Constants.UserProfile.DocumentDetailsAttribute,
+                ContentType = AttrpubapiV1.ContentType.String,
+                Value = ByteString.CopyFromUtf8(documentDetailsString)
+            };
+
+            AddAttributeToProfile<DocumentDetails>(attribute);
+
+            DocumentDetails actualDocumentDetails = _yotiProfile.DocumentDetails.GetValue();
+            Assert.AreEqual(issuingCountry, actualDocumentDetails.IssuingCountry);
+            Assert.AreEqual(documentNumber, actualDocumentDetails.DocumentNumber);
+            Assert.AreEqual(expirationDate, actualDocumentDetails.ExpirationDate);
+            Assert.AreEqual(documentType, actualDocumentDetails.DocumentType);
+            Assert.AreEqual(issuingAuthority, actualDocumentDetails.IssuingAuthority);
+            Assert.AreEqual(documentDetailsString, actualDocumentDetails.ToString());
         }
 
         [TestMethod]
