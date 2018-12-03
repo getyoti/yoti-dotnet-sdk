@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
@@ -74,19 +73,17 @@ namespace Yoti.Auth
 
         internal void SetAddressToBeFormattedAddressIfNull()
         {
-            YotiAttribute<IEnumerable<Dictionary<string, JToken>>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
+            YotiAttribute<Dictionary<string, JToken>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
 
             if (_yotiProfile.Address == null && structuredPostalAddress != null)
             {
-                Dictionary<string, JToken> jsonValue = structuredPostalAddress.GetJsonValue();
-                jsonValue.TryGetValue("formatted_address", out JToken formattedAddressJToken);
+                structuredPostalAddress.GetValue().TryGetValue("formatted_address", out JToken formattedAddressJToken);
 
                 if (formattedAddressJToken != null)
                 {
                     var addressAttribute = new YotiAttribute<string>(
                         name: Constants.UserProfile.PostalAddressAttribute,
-                        type: AttrpubapiV1.ContentType.String,
-                        data: Encoding.UTF8.GetBytes(formattedAddressJToken.ToString()),
+                        value: formattedAddressJToken.ToString(),
                         anchors: structuredPostalAddress.GetAnchors());
 
                     _yotiProfile.Add(addressAttribute);
