@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
 namespace Yoti.Auth
@@ -133,6 +134,17 @@ namespace Yoti.Auth
             get
             {
                 return GetAttributeByName<string>(name: Constants.UserProfile.NationalityAttribute);
+            }
+        }
+
+        /// <summary>
+        /// Nationality represents the user's nationality. This will be null if not provided by Yoti
+        /// </summary>
+        public YotiAttribute<DocumentDetails> DocumentDetails
+        {
+            get
+            {
+                return GetAttributeByName<DocumentDetails>(name: Constants.UserProfile.DocumentDetailsAttribute);
             }
         }
     }
