@@ -229,9 +229,9 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(attribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
-            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
+            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetValue();
             AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
             AssertDictionaryValue(buildingNumber, BuildingNumberJson, structuredPostalAddress);
             AssertDictionaryValue(addressLineOne, AddressLineOneJson, structuredPostalAddress);
@@ -283,9 +283,9 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(attribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
-            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
+            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetValue();
             AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
             AssertDictionaryValue(careOf, CareOfJson, structuredPostalAddress);
             AssertDictionaryValue(building, BuildingJson, structuredPostalAddress);
@@ -330,9 +330,9 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(attribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
-            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
+            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetValue();
             AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
             AssertDictionaryValue(addressLineOne, AddressLineOneJson, structuredPostalAddress);
             AssertDictionaryValue(townCity, TownCityJson, structuredPostalAddress);
@@ -387,9 +387,9 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(attribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
-            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetJsonValue();
+            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.StructuredPostalAddress.GetValue();
             AssertDictionaryValue(addressFormat, AddressFormatJson, structuredPostalAddress);
             AssertDictionaryValue(buildingNumber, BuildingNumberJson, structuredPostalAddress);
             AssertDictionaryValue(addressLineOne, AddressLineOneJson, structuredPostalAddress);
@@ -439,7 +439,7 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(attribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
             _activity.SetAddressToBeFormattedAddressIfNull();
 
@@ -483,7 +483,7 @@ namespace Yoti.Auth.Tests
                 Value = ByteString.CopyFromUtf8(postalAddress)
             };
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(structuredAddressAttribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(structuredAddressAttribute);
             AddAttributeToProfile<string>(addressAttribute);
             _activity.SetAddressToBeFormattedAddressIfNull();
 
@@ -560,11 +560,11 @@ namespace Yoti.Auth.Tests
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.StructuredPostalAddressAttribute,
-                "{ \"properties\": { \"name\": { \"type\": \"string\"     } } }",
+                "{ \"properties\": { \"name\": { \"type\": \"string\"} } }",
                 AttrpubapiV1.ContentType.Json,
                 TestAnchors.DrivingLicenseAnchor);
 
-            AddAttributeToProfile<IEnumerable<Dictionary<string, JToken>>>(attribute);
+            AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
             IEnumerable<Anchors.Anchor> sources = _yotiProfile.StructuredPostalAddress.GetSources();
             Assert.IsTrue(

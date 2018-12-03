@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
 using Yoti.Auth.Anchors;
-using Yoti.Auth.Images;
 
 namespace Yoti.Auth
 {
@@ -15,35 +12,11 @@ namespace Yoti.Auth
     /// </summary>
     public class YotiAttribute<T> : BaseAttribute
     {
-        private readonly byte[] _data;
-        private readonly AttrpubapiV1.ContentType _type;
+        private readonly T _value;
 
-        public YotiAttribute(string name, AttrpubapiV1.ContentType type, byte[] data) : base(name)
+        public YotiAttribute(string name, T value, List<Anchor> anchors) : base(name, anchors)
         {
-            _type = type;
-            _data = data;
-        }
-
-        public YotiAttribute(string name, AttrpubapiV1.ContentType type, byte[] data, List<Anchor> anchors) : base(name, anchors)
-        {
-            _type = type;
-            _data = data;
-        }
-
-        public byte[] Data()
-        {
-            return _data;
-        }
-
-        /// <summary>
-        /// Gets the JSON value of an attribute, in the form of a <see cref="Dictionary{string, JToken}"/>
-        /// </summary>
-        /// <returns>JSON value of an attribute</returns>
-        public Dictionary<string, JToken> GetJsonValue()
-        {
-            string utf8JSON = Conversion.BytesToUtf8(_data);
-            Dictionary<string, JToken> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8JSON);
-            return deserializedJson;
+            _value = value;
         }
 
         /// <summary>
@@ -52,33 +25,7 @@ namespace Yoti.Auth
         /// <returns>Value of the attribute</returns>
         public T GetValue()
         {
-            if (_data == null)
-                return default;
-
-            if (typeof(T) == typeof(Image))
-            {
-                return (T)(object)ToImage(_type);
-            };
-
-            return _data.ConvertType<T>();
-        }
-
-        private Image ToImage(AttrpubapiV1.ContentType contentType)
-        {
-            switch (contentType)
-            {
-                case AttrpubapiV1.ContentType.Jpeg:
-                    return new JpegImage(_data);
-
-                case AttrpubapiV1.ContentType.Png:
-                    return new PngImage(_data);
-
-                default:
-                    throw new InvalidOperationException(
-                        string.Format(
-                            "Unable to create image from unsupported content type: {0}",
-                            _type));
-            }
+            return _value;
         }
     }
 }

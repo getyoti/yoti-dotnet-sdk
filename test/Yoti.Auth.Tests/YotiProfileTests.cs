@@ -16,9 +16,9 @@ namespace Yoti.Auth.Tests
         public void YotiProfile_SelfieAttribute()
         {
             var initialAttribute = new YotiAttribute<Image>(
-                Constants.UserProfile.SelfieAttribute,
-                AttrpubapiV1.ContentType.Jpeg,
-                Encoding.UTF8.GetBytes(_value));
+               name: Constants.UserProfile.SelfieAttribute,
+               value: new JpegImage(Encoding.UTF8.GetBytes(_value)),
+               anchors: null);
 
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
@@ -86,9 +86,9 @@ namespace Yoti.Auth.Tests
         public void YotiProfile_DateOfBirthAttribute()
         {
             var initialAttribute = new YotiAttribute<DateTime>(
-                Constants.UserProfile.DateOfBirthAttribute,
-                AttrpubapiV1.ContentType.Date,
-                Encoding.UTF8.GetBytes(_value));
+                name: Constants.UserProfile.DateOfBirthAttribute,
+                value: new DateTime(2000, 01, 13),
+                anchors: null);
 
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
@@ -111,14 +111,17 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiProfile_StructuredPostalAddressAttribute()
         {
-            var initialAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(
-               Constants.UserProfile.StructuredPostalAddressAttribute,
-               AttrpubapiV1.ContentType.Json,
-               Encoding.UTF8.GetBytes(_value));
+            var jsonValue = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(
+                    "{ \"properties\": { \"name\": { \"type\": \"string\" } } }");
+
+            var initialAttribute = new YotiAttribute<Dictionary<string, JToken>>(
+               name: Constants.UserProfile.StructuredPostalAddressAttribute,
+               value: jsonValue,
+               anchors: null);
 
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
-            YotiAttribute<IEnumerable<Dictionary<string, JToken>>> structuredPostalAddressAttribute = yotiProfile.StructuredPostalAddress;
+            YotiAttribute<Dictionary<string, JToken>> structuredPostalAddressAttribute = yotiProfile.StructuredPostalAddress;
 
             Assert.AreSame(initialAttribute, structuredPostalAddressAttribute);
         }
@@ -149,8 +152,8 @@ namespace Yoti.Auth.Tests
         {
             return new YotiAttribute<string>(
                name,
-               AttrpubapiV1.ContentType.String,
-               Encoding.UTF8.GetBytes(_value));
+               _value,
+               anchors: null);
         }
     }
 }

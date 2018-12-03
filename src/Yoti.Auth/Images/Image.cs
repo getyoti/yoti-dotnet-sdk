@@ -2,13 +2,11 @@
 {
     public abstract class Image
     {
-        private readonly AttrpubapiV1.ContentType _type;
         private readonly byte[] _content;
 
-        public Image(AttrpubapiV1.ContentType type, byte[] content)
+        public Image(byte[] content)
         {
             _content = content;
-            _type = type;
         }
 
         public byte[] GetContent()

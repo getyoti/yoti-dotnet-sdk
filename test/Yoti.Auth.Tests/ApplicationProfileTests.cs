@@ -14,9 +14,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_NameAttribute()
         {
             var initialAttribute = new YotiAttribute<string>(
-                Constants.ApplicationProfile.ApplicationNameAttribute,
-                AttrpubapiV1.ContentType.String,
-                Encoding.UTF8.GetBytes(_value));
+              name: Constants.ApplicationProfile.ApplicationNameAttribute,
+              value: _value,
+              anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -29,9 +29,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_URLAttribute()
         {
             var initialAttribute = new YotiAttribute<string>(
-                Constants.ApplicationProfile.ApplicationURLAttribute,
-                AttrpubapiV1.ContentType.String,
-                Encoding.UTF8.GetBytes(_value));
+                name: Constants.ApplicationProfile.ApplicationURLAttribute,
+                value: _value,
+                anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -44,9 +44,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_LogoAttribute()
         {
             var initialAttribute = new YotiAttribute<Image>(
-                Constants.ApplicationProfile.ApplicationLogoAttribute,
-                AttrpubapiV1.ContentType.Png,
-                Encoding.UTF8.GetBytes(_value));
+              name: Constants.ApplicationProfile.ApplicationLogoAttribute,
+              value: new JpegImage(Encoding.UTF8.GetBytes(_value)),
+              anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -59,9 +59,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_ReceiptBgColourAttribute()
         {
             var initialAttribute = new YotiAttribute<string>(
-                Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute,
-                AttrpubapiV1.ContentType.String,
-                Encoding.UTF8.GetBytes(_value));
+                name: Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute,
+                value: _value,
+                anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -74,9 +74,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_GetAttribute_String()
         {
             var initialAttribute = new YotiAttribute<string>(
-                Constants.ApplicationProfile.ApplicationNameAttribute,
-                AttrpubapiV1.ContentType.String,
-                Encoding.UTF8.GetBytes(_value));
+                name: Constants.ApplicationProfile.ApplicationNameAttribute,
+                value: _value,
+                anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -89,9 +89,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_GetAttribute_Image()
         {
             var initialAttribute = new YotiAttribute<Image>(
-                Constants.ApplicationProfile.ApplicationLogoAttribute,
-                AttrpubapiV1.ContentType.Jpeg,
-                Encoding.UTF8.GetBytes(_value));
+                name: Constants.ApplicationProfile.ApplicationLogoAttribute,
+                value: new JpegImage(Encoding.UTF8.GetBytes(_value)),
+                anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
@@ -104,9 +104,9 @@ namespace Yoti.Auth.Tests
         public void ApplicationProfile_GetAttribute_WithWrongType()
         {
             var initialAttribute = new YotiAttribute<string>(
-                Constants.ApplicationProfile.ApplicationNameAttribute,
-                AttrpubapiV1.ContentType.String,
-                Encoding.UTF8.GetBytes(_value));
+                name: Constants.ApplicationProfile.ApplicationNameAttribute,
+                value: _value,
+                anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
