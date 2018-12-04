@@ -6,7 +6,7 @@ namespace Yoti.Auth
     /// <summary>
     /// Profile of an application, with convenience methods to access well-known attributes.
     /// </summary>
-    public class ApplicationProfile : Profile
+    public class ApplicationProfile : BaseProfile
     {
         internal ApplicationProfile() : base()
         {

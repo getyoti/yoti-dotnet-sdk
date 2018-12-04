@@ -14,12 +14,7 @@ namespace Yoti.Auth
     public abstract class BaseAttribute
     {
         private readonly string _name;
-        private List<Anchor> _anchors;
-
-        private protected BaseAttribute(string name)
-        {
-            _name = name;
-        }
+        private readonly List<Anchor> _anchors = new List<Anchor>();
 
         private protected BaseAttribute(string name, List<Anchor> anchors)
         {
