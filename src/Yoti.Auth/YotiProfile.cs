@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Images;
 
 namespace Yoti.Auth
 {
-    public class YotiProfile : Profile
+    public class YotiProfile : BaseProfile
     {
         internal YotiProfile() : base()
         {
@@ -83,11 +84,11 @@ namespace Yoti.Auth
         /// <summary>
         /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti
         /// </summary>
-        public YotiAttribute<DateTime?> DateOfBirth
+        public YotiAttribute<DateTime> DateOfBirth
         {
             get
             {
-                return GetAttributeByName<DateTime?>(name: Constants.UserProfile.DateOfBirthAttribute);
+                return GetAttributeByName<DateTime>(name: Constants.UserProfile.DateOfBirthAttribute);
             }
         }
 
@@ -105,11 +106,11 @@ namespace Yoti.Auth
         /// <summary>
         /// StructuredPostalAddress represents the user's address represented as a dictionary. This will be null if not provided by Yoti
         /// </summary>
-        public YotiAttribute<IEnumerable<Dictionary<string, JToken>>> StructuredPostalAddress
+        public YotiAttribute<Dictionary<string, JToken>> StructuredPostalAddress
         {
             get
             {
-                return GetAttributeByName<IEnumerable<Dictionary<string, JToken>>>(name: Constants.UserProfile.StructuredPostalAddressAttribute);
+                return GetAttributeByName<Dictionary<string, JToken>>(name: Constants.UserProfile.StructuredPostalAddressAttribute);
             }
         }
 

@@ -12,11 +12,7 @@ namespace Yoti.Auth
 
         public static string CreateAmlEndpoint(HttpMethod httpMethod, string appId)
         {
-            return string.Format(
-                "/aml-check?appId={0}&timestamp={1}&nonce={2}",
-                appId,
-                GetTimestamp(),
-                CryptoEngine.GenerateNonce());
+            return $"/aml-check?appId={appId}&timestamp={GetTimestamp()}&nonce={CryptoEngine.GenerateNonce()}";
         }
 
         private static string GetTimestamp()

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using Yoti.Auth.Anchors;
 
 namespace Yoti.Auth
@@ -13,25 +12,11 @@ namespace Yoti.Auth
     /// </summary>
     public class YotiAttribute<T> : BaseAttribute
     {
-        internal readonly YotiAttributeValue Value;
+        private readonly T _value;
 
-        public YotiAttribute(string name, YotiAttributeValue value) : base(name, value)
+        public YotiAttribute(string name, T value, List<Anchor> anchors) : base(name, anchors)
         {
-            Value = value;
-        }
-
-        public YotiAttribute(string name, YotiAttributeValue value, List<Anchor> anchors) : base(name, value, anchors)
-        {
-            Value = value;
-        }
-
-        /// <summary>
-        /// Gets the json value of an attribute, in the form of a <see cref="Dictionary{string, JToken}"/>
-        /// </summary>
-        /// <returns>JSON value of an attribute</returns>
-        public Dictionary<string, JToken> GetJsonValue()
-        {
-            return Value.ToJson();
+            _value = value;
         }
 
         /// <summary>
@@ -40,30 +25,7 @@ namespace Yoti.Auth
         /// <returns>Value of the attribute</returns>
         public T GetValue()
         {
-            if (Value == null)
-                return default(T);
-
-            if (typeof(T) == typeof(Image))
-            {
-                return (T)(object)Value.ToImage();
-            };
-
-            return Value.ToBytes().ConvertType<T>();
-        }
-
-        /// <summary>
-        /// Attempts to get the value of the attribute, and if this is null, then returns the specified default value
-        /// </summary>
-        /// <param name="defaultValue"></param>
-        /// <returns>The value of the attribute, or if this is null, the default value</returns>
-        public T GetValueOrDefault(T defaultValue)
-        {
-            T value = GetValue();
-
-            if (value != null)
-                return value;
-
-            return defaultValue;
+            return _value;
         }
     }
 }

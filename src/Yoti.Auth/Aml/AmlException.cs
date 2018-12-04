@@ -4,6 +4,10 @@ namespace Yoti.Auth.Aml
 {
     public class AmlException : Exception
     {
+        public AmlException() : base()
+        {
+        }
+
         public AmlException(string message) : base(message)
         {
         }

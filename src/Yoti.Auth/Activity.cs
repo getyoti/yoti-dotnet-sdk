@@ -73,20 +73,17 @@ namespace Yoti.Auth
 
         internal void SetAddressToBeFormattedAddressIfNull()
         {
-            YotiAttribute<IEnumerable<Dictionary<string, JToken>>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
+            YotiAttribute<Dictionary<string, JToken>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
 
             if (_yotiProfile.Address == null && structuredPostalAddress != null)
             {
-                Dictionary<string, JToken> jsonValue = structuredPostalAddress.GetJsonValue();
-                jsonValue.TryGetValue("formatted_address", out JToken formattedAddressJToken);
+                structuredPostalAddress.GetValue().TryGetValue("formatted_address", out JToken formattedAddressJToken);
 
                 if (formattedAddressJToken != null)
                 {
-                    var addressValue = new YotiAttributeValue(YotiAttributeValue.TypeEnum.Text, formattedAddressJToken.ToString());
-
                     var addressAttribute = new YotiAttribute<string>(
                         name: Constants.UserProfile.PostalAddressAttribute,
-                        value: addressValue,
+                        value: formattedAddressJToken.ToString(),
                         anchors: structuredPostalAddress.GetAnchors());
 
                     _yotiProfile.Add(addressAttribute);

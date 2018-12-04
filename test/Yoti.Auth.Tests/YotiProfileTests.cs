@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using static Yoti.Auth.YotiAttributeValue;
+using Yoti.Auth.Images;
 
 namespace Yoti.Auth.Tests
 {
@@ -15,8 +15,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiProfile_SelfieAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Jpeg, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<Image>(Constants.UserProfile.SelfieAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<Image>(
+               name: Constants.UserProfile.SelfieAttribute,
+               value: new JpegImage(Encoding.UTF8.GetBytes(_value)),
+               anchors: null);
 
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
@@ -83,11 +85,14 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiProfile_DateOfBirthAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Date, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<DateTime?>(Constants.UserProfile.DateOfBirthAttribute, attributeValue);
+            var initialAttribute = new YotiAttribute<DateTime>(
+                name: Constants.UserProfile.DateOfBirthAttribute,
+                value: new DateTime(2000, 01, 13),
+                anchors: null);
+
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
-            YotiAttribute<DateTime?> dateOfBirthAttribute = yotiProfile.DateOfBirth;
+            YotiAttribute<DateTime> dateOfBirthAttribute = yotiProfile.DateOfBirth;
 
             Assert.AreSame(initialAttribute, dateOfBirthAttribute);
         }
@@ -106,11 +111,17 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiProfile_StructuredPostalAddressAttribute()
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<IEnumerable<Dictionary<string, JToken>>>(Constants.UserProfile.StructuredPostalAddressAttribute, attributeValue);
+            var jsonValue = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(
+                    "{ \"properties\": { \"name\": { \"type\": \"string\" } } }");
+
+            var initialAttribute = new YotiAttribute<Dictionary<string, JToken>>(
+               name: Constants.UserProfile.StructuredPostalAddressAttribute,
+               value: jsonValue,
+               anchors: null);
+
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
 
-            YotiAttribute<IEnumerable<Dictionary<string, JToken>>> structuredPostalAddressAttribute = yotiProfile.StructuredPostalAddress;
+            YotiAttribute<Dictionary<string, JToken>> structuredPostalAddressAttribute = yotiProfile.StructuredPostalAddress;
 
             Assert.AreSame(initialAttribute, structuredPostalAddressAttribute);
         }
@@ -139,9 +150,10 @@ namespace Yoti.Auth.Tests
 
         private YotiAttribute<string> CreateStringAttribute(string name)
         {
-            var attributeValue = new YotiAttributeValue(TypeEnum.Text, Encoding.UTF8.GetBytes(_value));
-            var initialAttribute = new YotiAttribute<string>(name, attributeValue);
-            return initialAttribute;
+            return new YotiAttribute<string>(
+               name,
+               _value,
+               anchors: null);
         }
     }
 }
