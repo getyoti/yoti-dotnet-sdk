@@ -5,7 +5,7 @@ using Yoti.Auth.Images;
 
 namespace Yoti.Auth
 {
-    public class YotiProfile : Profile
+    public class YotiProfile : BaseProfile
     {
         internal YotiProfile() : base()
         {

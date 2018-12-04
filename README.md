@@ -118,7 +118,7 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
     if (user != null)
     {
         Image selfie = profile.Selfie.GetImage();
-        string selfieURI = profile.Selfie.Base64URI;
+        string selfieURI = profile.Selfie.GetBase64URI();
         string fullName = profile.FullName.GetValue();
         string givenNames = profile.GivenNames.GetValue();
         string familyName = profile.FamilyName.GetValue();
