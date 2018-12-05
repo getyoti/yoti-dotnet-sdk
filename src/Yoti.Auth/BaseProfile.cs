@@ -39,7 +39,7 @@ namespace Yoti.Auth
 
         /// <summary>
         /// Retrieves an attribute based on its name, without specifying the type.
-        /// The value of the attribute is an object, which must be cast to the desired type
+        /// The value of the attribute is of type "object", which must be cast to the desired type.
         /// </summary>
         /// <param name="name">The name of the attribute</param>
         /// <returns>Yoti Attribute</returns>

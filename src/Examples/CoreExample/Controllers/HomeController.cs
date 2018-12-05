@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using CoreExample.Models;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreExample.Controllers
 {
