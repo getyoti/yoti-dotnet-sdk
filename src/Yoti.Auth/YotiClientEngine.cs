@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
@@ -111,11 +112,18 @@ namespace Yoti.Auth
             if (string.IsNullOrEmpty(authDigest))
                 throw new InvalidOperationException("Could not sign request");
 
+            string SDKversion = typeof(YotiClientEngine).GetTypeInfo()?.Assembly?.GetName()?.Version?.ToString();
+            if (SDKversion == null)
+            {
+                SDKversion = "Unknown";
+            }
+
             var headers = new Dictionary<string, string>
             {
                 { Constants.Web.AuthKeyHeader, authKey },
                 { Constants.Web.DigestHeader, authDigest },
-                { Constants.Web.YotiSdkHeader, Constants.Web.SdkIdentifier }
+                { Constants.Web.YotiSdkHeader, Constants.Web.SdkIdentifier },
+                { Constants.Web.YotiSdkVersionHeader, SDKversion }
             };
 
             return headers;
