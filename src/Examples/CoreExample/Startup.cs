@@ -26,14 +26,14 @@ namespace CoreExample
             {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromDays(60);               
+                options.MaxAge = TimeSpan.FromDays(60);
             });
 
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
                 options.HttpsPort = 44321;
-            });           
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

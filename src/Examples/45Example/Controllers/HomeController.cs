@@ -1,7 +1,5 @@
 ﻿using System.Configuration;
-using System.Security.Claims;
 using System.Web.Mvc;
-using Example.Models;
 
 namespace Example.Controllers
 {
