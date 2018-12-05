@@ -13,46 +13,50 @@ namespace Yoti.Auth
     {
         public static BaseAttribute ConvertToBaseAttribute(AttrpubapiV1.Attribute attribute)
         {
+            byte[] byteAttributeValue = attribute.Value.ToByteArray();
+
             switch (attribute.ContentType)
             {
                 case ContentType.String:
+                    string stringAttributeValue = Conversion.BytesToUtf8(byteAttributeValue);
 
                     if (attribute.Name == Constants.UserProfile.DocumentDetailsAttribute)
                     {
+                        DocumentDetails documementDetails = DocumentDetailsAttributeParser.ParseFrom(stringAttributeValue);
+
                         return new YotiAttribute<DocumentDetails>(
                           attribute.Name,
-                          DocumentDetailsAttributeParser.ParseFrom(
-                              Conversion.BytesToUtf8(attribute.Value.ToByteArray())),
+                          documementDetails,
                           ParseAnchors(attribute));
                     }
 
                     return new YotiAttribute<string>(
                       attribute.Name,
-                      Conversion.BytesToUtf8(attribute.Value.ToByteArray()),
+                      Conversion.BytesToUtf8(byteAttributeValue),
                       ParseAnchors(attribute));
 
                 case ContentType.Date:
                     return new YotiAttribute<DateTime>(
                       attribute.Name,
-                      GetDateValue(attribute.Value.ToByteArray()),
+                      GetDateValue(byteAttributeValue),
                       ParseAnchors(attribute));
 
                 case ContentType.Jpeg:
                     return new YotiAttribute<Image>(
                       attribute.Name,
-                      new JpegImage(attribute.Value.ToByteArray()),
+                      new JpegImage(byteAttributeValue),
                       ParseAnchors(attribute));
 
                 case ContentType.Png:
                     return new YotiAttribute<Image>(
                       attribute.Name,
-                      new PngImage(attribute.Value.ToByteArray()),
+                      new PngImage(byteAttributeValue),
                       ParseAnchors(attribute));
 
                 case ContentType.Json:
                     return new YotiAttribute<Dictionary<string, JToken>>(
                       attribute.Name,
-                      value: GetJsonValue(attribute.Value.ToByteArray()),
+                      value: GetJsonValue(byteAttributeValue),
                       ParseAnchors(attribute));
 
                 case ContentType.Undefined:
