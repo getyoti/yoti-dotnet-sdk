@@ -17,7 +17,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Selfie is a photograph of the user. This will be null if not provided by Yoti
+        /// Selfie is a photograph of the user. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<Image> Selfie
         {
@@ -28,7 +28,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// FullName represents the user's full name. This will be null if not provided by Yoti
+        /// FullName represents the user's full name. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> FullName
         {
@@ -39,7 +39,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// GivenNames represents the user's given names. This will be null if not provided by Yoti
+        /// GivenNames represents the user's given names. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> GivenNames
         {
@@ -50,7 +50,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// FamilyName represents the user's family name. This will be null if not provided by Yoti
+        /// FamilyName represents the user's family name. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> FamilyName
         {
@@ -61,7 +61,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// MobileNumber represents the user's mobile phone number. This will be null if not provided by Yoti
+        /// MobileNumber represents the user's mobile phone number. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> MobileNumber
         {
@@ -72,7 +72,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// EmailAddress represents the user's email address. This will be null if not provided by Yoti
+        /// EmailAddress represents the user's email address. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> EmailAddress
         {
@@ -83,7 +83,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti
+        /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<DateTime> DateOfBirth
         {
@@ -94,7 +94,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Address represents the user's address. This will be null if not provided by Yoti
+        /// Address represents the user's address. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> Address
         {
@@ -105,7 +105,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// StructuredPostalAddress represents the user's address represented as a dictionary. This will be null if not provided by Yoti
+        /// StructuredPostalAddress represents the user's address represented as a dictionary. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<Dictionary<string, JToken>> StructuredPostalAddress
         {
@@ -116,7 +116,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Gender represents the user's gender. This will be null if not provided by Yoti
+        /// Gender represents the user's gender. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> Gender
         {
@@ -127,7 +127,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Nationality represents the user's nationality. This will be null if not provided by Yoti
+        /// Nationality represents the user's nationality. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> Nationality
         {
@@ -138,7 +138,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Nationality represents the user's nationality. This will be null if not provided by Yoti
+        /// Document Details. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<DocumentDetails> DocumentDetails
         {
