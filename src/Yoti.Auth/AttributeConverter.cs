@@ -64,7 +64,7 @@ namespace Yoti.Auth
                     return null;
 
                 default:
-                    return new YotiAttribute<object>(
+                    return new YotiAttribute<string>(
                         attribute.Name,
                         Conversion.BytesToUtf8(attribute.Value.ToByteArray()),
                         ParseAnchors(attribute));
