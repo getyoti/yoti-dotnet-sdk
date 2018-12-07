@@ -42,47 +42,12 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetAttributeByName_WithoutSpecifyingType_String()
-        {
-            var initialAttribute = new YotiAttribute<object>(
-                name: Constants.UserProfile.NationalityAttribute,
-                value: "Nation",
-                anchors: null);
-
-            YotiProfile userProfile = new YotiProfile();
-            userProfile.Add(initialAttribute);
-
-            YotiAttribute<object> nationalityAttribute = userProfile.GetAttributeByName(Constants.UserProfile.NationalityAttribute);
-
-            Assert.IsInstanceOfType(nationalityAttribute.GetValue(), typeof(object));
-            Assert.AreSame(initialAttribute.GetValue(), nationalityAttribute.GetValue().ToString());
-        }
-
-        [TestMethod]
-        public void GetAttributeByName_WithoutSpecifyingType_DateTime()
-        {
-            var initialAttribute = new YotiAttribute<object>(
-                name: Constants.UserProfile.DateOfBirthAttribute,
-                value: new DateTime(2000, 2, 1),
-                anchors: null);
-
-            YotiProfile userProfile = new YotiProfile();
-            userProfile.Add(initialAttribute);
-
-            YotiAttribute<object> dateOfBirthAttribute = userProfile.GetAttributeByName(Constants.UserProfile.DateOfBirthAttribute);
-
-            DateTime.TryParse(dateOfBirthAttribute.GetValue().ToString(), out DateTime result);
-
-            Assert.AreEqual(initialAttribute.GetValue(), result);
-        }
-
-        [TestMethod]
-        public void GetAttributeByName_WithoutSpecifyingType_Bool()
+        public void GetAttributeByName_Bool()
         {
             bool boolValue = true;
             string attributeName = "Bool";
 
-            var initialAttribute = new YotiAttribute<object>(
+            var initialAttribute = new YotiAttribute<bool>(
                 name: attributeName,
                 value: boolValue,
                 anchors: null);
@@ -90,19 +55,17 @@ namespace Yoti.Auth.Tests
             YotiProfile userProfile = new YotiProfile();
             userProfile.Add(initialAttribute);
 
-            YotiAttribute<object> boolAttribute = userProfile.GetAttributeByName(attributeName);
+            YotiAttribute<bool> boolAttribute = userProfile.GetAttributeByName<bool>(attributeName);
 
-            bool.TryParse(boolAttribute.GetValue().ToString(), out bool result);
-
-            Assert.AreEqual(boolValue, result);
+            Assert.AreEqual(boolValue, boolAttribute.GetValue());
         }
 
         [TestMethod]
-        public void GetAttributeByName_WithoutSpecifyingType_Image()
+        public void GetAttributeByName_Image()
         {
             Image imageValue = new PngImage(Encoding.UTF8.GetBytes("Value"));
 
-            var initialAttribute = new YotiAttribute<object>(
+            var initialAttribute = new YotiAttribute<Image>(
                 name: Constants.UserProfile.SelfieAttribute,
                 value: imageValue,
                 anchors: null);
@@ -110,9 +73,9 @@ namespace Yoti.Auth.Tests
             YotiProfile userProfile = new YotiProfile();
             userProfile.Add(initialAttribute);
 
-            YotiAttribute<object> boolAttribute = userProfile.GetAttributeByName(Constants.UserProfile.SelfieAttribute);
+            YotiAttribute<Image> imageAttribute = userProfile.GetAttributeByName<Image>(Constants.UserProfile.SelfieAttribute);
 
-            Assert.AreEqual(imageValue, (Image)boolAttribute.GetValue());
+            Assert.AreEqual(imageValue, imageAttribute.GetValue());
         }
     }
 }

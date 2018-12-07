@@ -631,9 +631,9 @@ namespace Yoti.Auth.Tests
                 Value = _byteValue
             };
 
-            AddAttributeToProfile<object>(attribute);
+            AddAttributeToProfile<string>(attribute);
 
-            Assert.AreEqual(_yotiProfile.GetAttributeByName(name).GetValue().ToString(), StringValue);
+            Assert.AreEqual(StringValue, _yotiProfile.GetAttributeByName<string>(name).GetValue().ToString());
         }
 
         private void AssertDictionaryValue(string expectedValue, string dictionaryKey, Dictionary<string, JToken> dictionary)
