@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -113,12 +112,7 @@ namespace Yoti.Auth
             if (string.IsNullOrEmpty(authDigest))
                 throw new InvalidOperationException("Could not sign request");
 
-            string SDKVersion = typeof(YotiClientEngine).GetTypeInfo()?.Assembly?.GetName()?.Version?.ToString();
-            if (SDKVersion == null)
-            {
-                Debug.WriteLine("Unable to get current SDK Version, defaulting to 'Unknown'");
-                SDKVersion = "Unknown";
-            }
+            string SDKVersion = typeof(YotiClientEngine).GetTypeInfo().Assembly.GetName().Version.ToString();
 
             var headers = new Dictionary<string, string>
             {
