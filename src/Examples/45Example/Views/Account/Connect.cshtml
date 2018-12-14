@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutSimple.cshtml";
 }
-@model Example.Models.User
+@model Yoti.Auth.YotiProfile
+
 <div class="jumbotron">
     @ViewBag.Error
     <div class="row">
@@ -9,13 +10,13 @@
             <div class="thumbnail">
                 @if (Model != null)
                 {
-                    if (Model.Base64Photo == null)
+                    if (ViewBag.Base64Photo == null)
                     {
                         <p>@ViewBag.Message</p>
                     }
                     else
                     {
-                        <img src="@Model.Base64Photo" />
+                        <img src="@ViewBag.Base64Photo" />
                         @Html.ActionLink(
                              linkText: "Download Image",
                              actionName: "DownloadImageFile",
@@ -42,7 +43,7 @@
             <tr>
                 <th scope="row">Remember Me ID</th>
                 <td>
-                    @Html.DisplayFor(m => m.RememberMeID)
+                    <p>@ViewBag.RememberMeID</p>
                 </td>
                 <td>N/A</td>
                 <td>N/A</td>
@@ -398,19 +399,19 @@
                     @foreach (var anchor in Model.StructuredPostalAddress.GetAnchors())
                     {
                     <tr>
-                        <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                        <td rowspan="@Model.StructuredPostalAddress.GetValue().Count">
                             @{
                                 string AnchorType = anchor.GetAnchorType().ToString();
                                 @Html.DisplayFor(m => AnchorType);
                             }
                         </td>
-                        <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                        <td rowspan="@Model.StructuredPostalAddress.GetValue().Count">
                             @{
                                 string AnchorValue = string.Join(" , ", anchor.GetValue());
                                 @Html.DisplayFor(m => AnchorValue);
                             }
                         </td>
-                        <td rowspan="@Model.StructuredPostalAddress.GetJsonValue().Count">
+                        <td rowspan="@Model.StructuredPostalAddress.GetValue().Count">
                             @{
                                 string AnchorSubType = anchor.GetSubType().ToString();
                                 @Html.DisplayFor(m => AnchorSubType);
@@ -419,7 +420,7 @@
                     </tr>
 
                 }
-                    @foreach (var item in Model.StructuredPostalAddress.GetJsonValue())
+                    @foreach (var item in Model.StructuredPostalAddress.GetValue())
                     {
                         <tr>
                             <td>
