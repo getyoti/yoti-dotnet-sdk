@@ -47,7 +47,7 @@ namespace Yoti.Auth.Aml
             }
         }
 
-        private AmlException CreateExceptionFromStatusCode(Response response)
+        private static AmlException CreateExceptionFromStatusCode(Response response)
         {
             switch ((HttpStatusCode)response.StatusCode)
             {

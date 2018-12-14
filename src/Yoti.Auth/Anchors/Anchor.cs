@@ -40,7 +40,7 @@ namespace Yoti.Auth.Anchors
             _signedTimeStamp = new SignedTimestamp(protobufSignedTimestamp);
         }
 
-        private List<X509Certificate2> ConvertRawCertToX509List(RepeatedField<ByteString> rawOriginServerCerts)
+        private static List<X509Certificate2> ConvertRawCertToX509List(RepeatedField<ByteString> rawOriginServerCerts)
         {
             var x509OriginServerCerts = new List<X509Certificate2>();
             foreach (ByteString byteString in rawOriginServerCerts)

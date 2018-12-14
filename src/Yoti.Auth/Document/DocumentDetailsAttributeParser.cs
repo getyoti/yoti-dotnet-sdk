@@ -7,12 +7,12 @@ namespace Yoti.Auth.Document
 {
     internal class DocumentDetailsAttributeParser
     {
-        private static readonly string _minimumAcceptable = "([A-Za-z_]*) ([A-Za-z]{3}) ([A-Za-z0-9]{1}).*";
-        private static readonly int TYPE_INDEX = 0;
-        private static readonly int COUNTRY_INDEX = 1;
-        private static readonly int NUMBER_INDEX = 2;
-        private static readonly int EXPIRATION_INDEX = 3;
-        private static readonly int AUTHORITY_INDEX = 4;
+        private const string _minimumAcceptable = "([A-Za-z_]*) ([A-Za-z]{3}) ([A-Za-z0-9]{1}).*";
+        private const int TYPE_INDEX = 0;
+        private const int COUNTRY_INDEX = 1;
+        private const int NUMBER_INDEX = 2;
+        private const int EXPIRATION_INDEX = 3;
+        private const int AUTHORITY_INDEX = 4;
 
         public static DocumentDetails ParseFrom(string attributeValue)
         {
@@ -21,7 +21,7 @@ namespace Yoti.Auth.Document
                 throw new InvalidOperationException("Unable to parse attribute value to a DocumentDetails");
             }
 
-            string[] attributes = Regex.Split(attributeValue, @"\s+").Where(s => s != string.Empty).ToArray();
+            string[] attributes = Regex.Split(attributeValue, @"\s+").Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
             return DocumentDetailsBuilder.Builder()
                     .WithType(attributes[TYPE_INDEX])
