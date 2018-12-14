@@ -1,0 +1,2741 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yoti.Auth.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:AttrpubapiV1.Fakes.ShimAnchor">
+            <summary>Shim type of AttrpubapiV1.Anchor</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.#ctor(AttrpubapiV1.Anchor)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAnchor.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.ArtifactLinkGet">
+            <summary>Sets the shim of Anchor.get_ArtifactLink()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.ArtifactLinkSetByteString">
+            <summary>Sets the shim of Anchor.set_ArtifactLink(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.ArtifactSignatureGet">
+            <summary>Sets the shim of Anchor.get_ArtifactSignature()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.ArtifactSignatureSetByteString">
+            <summary>Sets the shim of Anchor.set_ArtifactSignature(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.CalculateSize">
+            <summary>Sets the shim of Anchor.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.Clone">
+            <summary>Sets the shim of Anchor.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of Anchor.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.EqualsAnchor">
+            <summary>Sets the shim of Anchor.Equals(Anchor other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.EqualsObject">
+            <summary>Sets the shim of Anchor.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.GetHashCode01">
+            <summary>Sets the shim of Anchor.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.MergeFromAnchor">
+            <summary>Sets the shim of Anchor.MergeFrom(Anchor other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of Anchor.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.OriginServerCertsGet">
+            <summary>Sets the shim of Anchor.get_OriginServerCerts()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.SignatureGet">
+            <summary>Sets the shim of Anchor.get_Signature()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.SignatureSetByteString">
+            <summary>Sets the shim of Anchor.set_Signature(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.SignedTimeStampGet">
+            <summary>Sets the shim of Anchor.get_SignedTimeStamp()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.SignedTimeStampSetByteString">
+            <summary>Sets the shim of Anchor.set_SignedTimeStamp(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.SubTypeGet">
+            <summary>Sets the shim of Anchor.get_SubType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.SubTypeSetString">
+            <summary>Sets the shim of Anchor.set_SubType(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.ToString01">
+            <summary>Sets the shim of Anchor.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of Anchor.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ArtifactLinkGet">
+            <summary>Sets the shim of Anchor.get_ArtifactLink()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ArtifactLinkSetByteString">
+            <summary>Sets the shim of Anchor.set_ArtifactLink(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ArtifactSignatureGet">
+            <summary>Sets the shim of Anchor.get_ArtifactSignature()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ArtifactSignatureSetByteString">
+            <summary>Sets the shim of Anchor.set_ArtifactSignature(ByteString value)</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.Bind(Google.Protobuf.IDeepCloneable{AttrpubapiV1.Anchor})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.Bind(Google.Protobuf.IMessage{AttrpubapiV1.Anchor})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAnchor.Bind(System.IEquatable{AttrpubapiV1.Anchor})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.CalculateSize">
+            <summary>Sets the shim of Anchor.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.Clone">
+            <summary>Sets the shim of Anchor.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.Constructor">
+            <summary>Sets the shim of Anchor.Anchor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ConstructorAnchor">
+            <summary>Sets the shim of Anchor.Anchor(Anchor other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.DescriptorGet">
+            <summary>Sets the shim of Anchor.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of Anchor.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.EqualsAnchor">
+            <summary>Sets the shim of Anchor.Equals(Anchor other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.EqualsObject">
+            <summary>Sets the shim of Anchor.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.GetHashCode">
+            <summary>Sets the shim of Anchor.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.MergeFromAnchor">
+            <summary>Sets the shim of Anchor.MergeFrom(Anchor other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.MergeFromCodedInputStream">
+            <summary>Sets the shim of Anchor.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.OriginServerCertsGet">
+            <summary>Sets the shim of Anchor.get_OriginServerCerts()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ParserGet">
+            <summary>Sets the shim of Anchor.get_Parser()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.SignatureGet">
+            <summary>Sets the shim of Anchor.get_Signature()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.SignatureSetByteString">
+            <summary>Sets the shim of Anchor.set_Signature(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.SignedTimeStampGet">
+            <summary>Sets the shim of Anchor.get_SignedTimeStamp()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.SignedTimeStampSetByteString">
+            <summary>Sets the shim of Anchor.set_SignedTimeStamp(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.StaticConstructor">
+            <summary>Sets the shim of Anchor.Anchor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.SubTypeGet">
+            <summary>Sets the shim of Anchor.get_SubType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.SubTypeSetString">
+            <summary>Sets the shim of Anchor.set_SubType(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.ToString">
+            <summary>Sets the shim of Anchor.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAnchor.WriteToCodedOutputStream">
+            <summary>Sets the shim of Anchor.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttribute">
+            <summary>Shim type of AttrpubapiV1.Attribute</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.#ctor(AttrpubapiV1.Attribute)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttribute.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.AnchorsGet">
+            <summary>Sets the shim of Attribute.get_Anchors()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.CalculateSize">
+            <summary>Sets the shim of Attribute.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.Clone">
+            <summary>Sets the shim of Attribute.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.ContentTypeGet">
+            <summary>Sets the shim of Attribute.get_ContentType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.ContentTypeSetContentType">
+            <summary>Sets the shim of Attribute.set_ContentType(ContentType value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of Attribute.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.EqualsAttribute">
+            <summary>Sets the shim of Attribute.Equals(Attribute other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.EqualsObject">
+            <summary>Sets the shim of Attribute.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.GetHashCode01">
+            <summary>Sets the shim of Attribute.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.MergeFromAttribute">
+            <summary>Sets the shim of Attribute.MergeFrom(Attribute other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of Attribute.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.NameGet">
+            <summary>Sets the shim of Attribute.get_Name()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.NameSetString">
+            <summary>Sets the shim of Attribute.set_Name(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.ToString01">
+            <summary>Sets the shim of Attribute.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.ValueGet">
+            <summary>Sets the shim of Attribute.get_Value()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.ValueSetByteString">
+            <summary>Sets the shim of Attribute.set_Value(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of Attribute.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.AnchorsGet">
+            <summary>Sets the shim of Attribute.get_Anchors()</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.Bind(Google.Protobuf.IDeepCloneable{AttrpubapiV1.Attribute})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.Bind(Google.Protobuf.IMessage{AttrpubapiV1.Attribute})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttribute.Bind(System.IEquatable{AttrpubapiV1.Attribute})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.CalculateSize">
+            <summary>Sets the shim of Attribute.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.Clone">
+            <summary>Sets the shim of Attribute.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.Constructor">
+            <summary>Sets the shim of Attribute.Attribute()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ConstructorAttribute">
+            <summary>Sets the shim of Attribute.Attribute(Attribute other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ContentTypeGet">
+            <summary>Sets the shim of Attribute.get_ContentType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ContentTypeSetContentType">
+            <summary>Sets the shim of Attribute.set_ContentType(ContentType value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.DescriptorGet">
+            <summary>Sets the shim of Attribute.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of Attribute.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.EqualsAttribute">
+            <summary>Sets the shim of Attribute.Equals(Attribute other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.EqualsObject">
+            <summary>Sets the shim of Attribute.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.GetHashCode">
+            <summary>Sets the shim of Attribute.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.MergeFromAttribute">
+            <summary>Sets the shim of Attribute.MergeFrom(Attribute other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.MergeFromCodedInputStream">
+            <summary>Sets the shim of Attribute.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.NameGet">
+            <summary>Sets the shim of Attribute.get_Name()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.NameSetString">
+            <summary>Sets the shim of Attribute.set_Name(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ParserGet">
+            <summary>Sets the shim of Attribute.get_Parser()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.StaticConstructor">
+            <summary>Sets the shim of Attribute.Attribute()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ToString">
+            <summary>Sets the shim of Attribute.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ValueGet">
+            <summary>Sets the shim of Attribute.get_Value()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.ValueSetByteString">
+            <summary>Sets the shim of Attribute.set_Value(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttribute.WriteToCodedOutputStream">
+            <summary>Sets the shim of Attribute.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeAndId">
+            <summary>Shim type of AttrpubapiV1.AttributeAndId</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.#ctor(AttrpubapiV1.AttributeAndId)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.AttributeGet">
+            <summary>Sets the shim of AttributeAndId.get_Attribute()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.AttributeIdGet">
+            <summary>Sets the shim of AttributeAndId.get_AttributeId()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.AttributeIdSetByteString">
+            <summary>Sets the shim of AttributeAndId.set_AttributeId(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.AttributeSetAttribute">
+            <summary>Sets the shim of AttributeAndId.set_Attribute(Attribute value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.CalculateSize">
+            <summary>Sets the shim of AttributeAndId.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.Clone">
+            <summary>Sets the shim of AttributeAndId.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeAndId.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.EqualsAttributeAndId">
+            <summary>Sets the shim of AttributeAndId.Equals(AttributeAndId other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.EqualsObject">
+            <summary>Sets the shim of AttributeAndId.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.GetHashCode01">
+            <summary>Sets the shim of AttributeAndId.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.MergeFromAttributeAndId">
+            <summary>Sets the shim of AttributeAndId.MergeFrom(AttributeAndId other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeAndId.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.ToString01">
+            <summary>Sets the shim of AttributeAndId.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeAndId.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AttributeGet">
+            <summary>Sets the shim of AttributeAndId.get_Attribute()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AttributeIdGet">
+            <summary>Sets the shim of AttributeAndId.get_AttributeId()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AttributeIdSetByteString">
+            <summary>Sets the shim of AttributeAndId.set_AttributeId(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.AttributeSetAttribute">
+            <summary>Sets the shim of AttributeAndId.set_Attribute(Attribute value)</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.Bind(Google.Protobuf.IDeepCloneable{AttrpubapiV1.AttributeAndId})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.Bind(Google.Protobuf.IMessage{AttrpubapiV1.AttributeAndId})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndId.Bind(System.IEquatable{AttrpubapiV1.AttributeAndId})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.CalculateSize">
+            <summary>Sets the shim of AttributeAndId.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.Clone">
+            <summary>Sets the shim of AttributeAndId.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.Constructor">
+            <summary>Sets the shim of AttributeAndId.AttributeAndId()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.ConstructorAttributeAndId">
+            <summary>Sets the shim of AttributeAndId.AttributeAndId(AttributeAndId other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.DescriptorGet">
+            <summary>Sets the shim of AttributeAndId.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeAndId.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.EqualsAttributeAndId">
+            <summary>Sets the shim of AttributeAndId.Equals(AttributeAndId other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.EqualsObject">
+            <summary>Sets the shim of AttributeAndId.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.GetHashCode">
+            <summary>Sets the shim of AttributeAndId.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.MergeFromAttributeAndId">
+            <summary>Sets the shim of AttributeAndId.MergeFrom(AttributeAndId other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeAndId.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.ParserGet">
+            <summary>Sets the shim of AttributeAndId.get_Parser()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.StaticConstructor">
+            <summary>Sets the shim of AttributeAndId.AttributeAndId()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.ToString">
+            <summary>Sets the shim of AttributeAndId.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndId.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeAndId.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeAndIdList">
+            <summary>Shim type of AttrpubapiV1.AttributeAndIdList</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.#ctor(AttrpubapiV1.AttributeAndIdList)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.AttributeAndIdList_Get">
+            <summary>Sets the shim of AttributeAndIdList.get_AttributeAndIdList_()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.CalculateSize">
+            <summary>Sets the shim of AttributeAndIdList.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.Clone">
+            <summary>Sets the shim of AttributeAndIdList.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeAndIdList.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.EqualsAttributeAndIdList">
+            <summary>Sets the shim of AttributeAndIdList.Equals(AttributeAndIdList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.EqualsObject">
+            <summary>Sets the shim of AttributeAndIdList.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.GetHashCode01">
+            <summary>Sets the shim of AttributeAndIdList.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.MergeFromAttributeAndIdList">
+            <summary>Sets the shim of AttributeAndIdList.MergeFrom(AttributeAndIdList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeAndIdList.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.ToString01">
+            <summary>Sets the shim of AttributeAndIdList.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeAndIdList.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.AttributeAndIdList_Get">
+            <summary>Sets the shim of AttributeAndIdList.get_AttributeAndIdList_()</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Bind(Google.Protobuf.IDeepCloneable{AttrpubapiV1.AttributeAndIdList})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Bind(Google.Protobuf.IMessage{AttrpubapiV1.AttributeAndIdList})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Bind(System.IEquatable{AttrpubapiV1.AttributeAndIdList})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.CalculateSize">
+            <summary>Sets the shim of AttributeAndIdList.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Clone">
+            <summary>Sets the shim of AttributeAndIdList.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.Constructor">
+            <summary>Sets the shim of AttributeAndIdList.AttributeAndIdList()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.ConstructorAttributeAndIdList">
+            <summary>Sets the shim of AttributeAndIdList.AttributeAndIdList(AttributeAndIdList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.DescriptorGet">
+            <summary>Sets the shim of AttributeAndIdList.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeAndIdList.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.EqualsAttributeAndIdList">
+            <summary>Sets the shim of AttributeAndIdList.Equals(AttributeAndIdList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.EqualsObject">
+            <summary>Sets the shim of AttributeAndIdList.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.GetHashCode">
+            <summary>Sets the shim of AttributeAndIdList.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.MergeFromAttributeAndIdList">
+            <summary>Sets the shim of AttributeAndIdList.MergeFrom(AttributeAndIdList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeAndIdList.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.ParserGet">
+            <summary>Sets the shim of AttributeAndIdList.get_Parser()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.StaticConstructor">
+            <summary>Sets the shim of AttributeAndIdList.AttributeAndIdList()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.ToString">
+            <summary>Sets the shim of AttributeAndIdList.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeAndIdList.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeAndIdList.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeList">
+            <summary>Shim type of AttrpubapiV1.AttributeList</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.#ctor(AttrpubapiV1.AttributeList)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.AttributesGet">
+            <summary>Sets the shim of AttributeList.get_Attributes()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.CalculateSize">
+            <summary>Sets the shim of AttributeList.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.Clone">
+            <summary>Sets the shim of AttributeList.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeList.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.EqualsAttributeList">
+            <summary>Sets the shim of AttributeList.Equals(AttributeList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.EqualsObject">
+            <summary>Sets the shim of AttributeList.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.GetHashCode01">
+            <summary>Sets the shim of AttributeList.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.MergeFromAttributeList">
+            <summary>Sets the shim of AttributeList.MergeFrom(AttributeList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeList.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.ToString01">
+            <summary>Sets the shim of AttributeList.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeList.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.AttributesGet">
+            <summary>Sets the shim of AttributeList.get_Attributes()</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.Bind(Google.Protobuf.IDeepCloneable{AttrpubapiV1.AttributeList})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.Bind(Google.Protobuf.IMessage{AttrpubapiV1.AttributeList})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeList.Bind(System.IEquatable{AttrpubapiV1.AttributeList})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.CalculateSize">
+            <summary>Sets the shim of AttributeList.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.Clone">
+            <summary>Sets the shim of AttributeList.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.Constructor">
+            <summary>Sets the shim of AttributeList.AttributeList()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.ConstructorAttributeList">
+            <summary>Sets the shim of AttributeList.AttributeList(AttributeList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.DescriptorGet">
+            <summary>Sets the shim of AttributeList.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeList.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.EqualsAttributeList">
+            <summary>Sets the shim of AttributeList.Equals(AttributeList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.EqualsObject">
+            <summary>Sets the shim of AttributeList.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.GetHashCode">
+            <summary>Sets the shim of AttributeList.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.MergeFromAttributeList">
+            <summary>Sets the shim of AttributeList.MergeFrom(AttributeList other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeList.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.ParserGet">
+            <summary>Sets the shim of AttributeList.get_Parser()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.StaticConstructor">
+            <summary>Sets the shim of AttributeList.AttributeList()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.ToString">
+            <summary>Sets the shim of AttributeList.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeList.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeList.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeReflection">
+            <summary>Shim type of AttrpubapiV1.AttributeReflection</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeReflection.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeReflection.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeReflection.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeReflection.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeReflection.DescriptorGet">
+            <summary>Sets the shim of AttributeReflection.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeReflection.StaticConstructor">
+            <summary>Sets the shim of AttributeReflection.AttributeReflection()</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeSigning">
+            <summary>Shim type of AttrpubapiV1.AttributeSigning</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.#ctor(AttrpubapiV1.AttributeSigning)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ArtifactSignatureGet">
+            <summary>Sets the shim of AttributeSigning.get_ArtifactSignature()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ArtifactSignatureSetByteString">
+            <summary>Sets the shim of AttributeSigning.set_ArtifactSignature(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.CalculateSize">
+            <summary>Sets the shim of AttributeSigning.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.Clone">
+            <summary>Sets the shim of AttributeSigning.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ContentTypeGet">
+            <summary>Sets the shim of AttributeSigning.get_ContentType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ContentTypeSetContentType">
+            <summary>Sets the shim of AttributeSigning.set_ContentType(ContentType value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeSigning.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.EqualsAttributeSigning">
+            <summary>Sets the shim of AttributeSigning.Equals(AttributeSigning other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.EqualsObject">
+            <summary>Sets the shim of AttributeSigning.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.GetHashCode01">
+            <summary>Sets the shim of AttributeSigning.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.MergeFromAttributeSigning">
+            <summary>Sets the shim of AttributeSigning.MergeFrom(AttributeSigning other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeSigning.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.NameGet">
+            <summary>Sets the shim of AttributeSigning.get_Name()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.NameSetString">
+            <summary>Sets the shim of AttributeSigning.set_Name(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.SignedTimeStampGet">
+            <summary>Sets the shim of AttributeSigning.get_SignedTimeStamp()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.SignedTimeStampSetByteString">
+            <summary>Sets the shim of AttributeSigning.set_SignedTimeStamp(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.SubTypeGet">
+            <summary>Sets the shim of AttributeSigning.get_SubType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.SubTypeSetString">
+            <summary>Sets the shim of AttributeSigning.set_SubType(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ToString01">
+            <summary>Sets the shim of AttributeSigning.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ValueGet">
+            <summary>Sets the shim of AttributeSigning.get_Value()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.ValueSetByteString">
+            <summary>Sets the shim of AttributeSigning.set_Value(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeSigning.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ArtifactSignatureGet">
+            <summary>Sets the shim of AttributeSigning.get_ArtifactSignature()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ArtifactSignatureSetByteString">
+            <summary>Sets the shim of AttributeSigning.set_ArtifactSignature(ByteString value)</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.Bind(Google.Protobuf.IDeepCloneable{AttrpubapiV1.AttributeSigning})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.Bind(Google.Protobuf.IMessage{AttrpubapiV1.AttributeSigning})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimAttributeSigning.Bind(System.IEquatable{AttrpubapiV1.AttributeSigning})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.CalculateSize">
+            <summary>Sets the shim of AttributeSigning.CalculateSize()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.Clone">
+            <summary>Sets the shim of AttributeSigning.Clone()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.Constructor">
+            <summary>Sets the shim of AttributeSigning.AttributeSigning()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ConstructorAttributeSigning">
+            <summary>Sets the shim of AttributeSigning.AttributeSigning(AttributeSigning other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ContentTypeGet">
+            <summary>Sets the shim of AttributeSigning.get_ContentType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ContentTypeSetContentType">
+            <summary>Sets the shim of AttributeSigning.set_ContentType(ContentType value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.DescriptorGet">
+            <summary>Sets the shim of AttributeSigning.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of AttributeSigning.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.EqualsAttributeSigning">
+            <summary>Sets the shim of AttributeSigning.Equals(AttributeSigning other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.EqualsObject">
+            <summary>Sets the shim of AttributeSigning.Equals(Object other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.GetHashCode">
+            <summary>Sets the shim of AttributeSigning.GetHashCode()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.MergeFromAttributeSigning">
+            <summary>Sets the shim of AttributeSigning.MergeFrom(AttributeSigning other)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.MergeFromCodedInputStream">
+            <summary>Sets the shim of AttributeSigning.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.NameGet">
+            <summary>Sets the shim of AttributeSigning.get_Name()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.NameSetString">
+            <summary>Sets the shim of AttributeSigning.set_Name(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ParserGet">
+            <summary>Sets the shim of AttributeSigning.get_Parser()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.SignedTimeStampGet">
+            <summary>Sets the shim of AttributeSigning.get_SignedTimeStamp()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.SignedTimeStampSetByteString">
+            <summary>Sets the shim of AttributeSigning.set_SignedTimeStamp(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.StaticConstructor">
+            <summary>Sets the shim of AttributeSigning.AttributeSigning()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.SubTypeGet">
+            <summary>Sets the shim of AttributeSigning.get_SubType()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.SubTypeSetString">
+            <summary>Sets the shim of AttributeSigning.set_SubType(String value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ToString">
+            <summary>Sets the shim of AttributeSigning.ToString()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ValueGet">
+            <summary>Sets the shim of AttributeSigning.get_Value()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.ValueSetByteString">
+            <summary>Sets the shim of AttributeSigning.set_Value(ByteString value)</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimAttributeSigning.WriteToCodedOutputStream">
+            <summary>Sets the shim of AttributeSigning.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimListReflection">
+            <summary>Shim type of AttrpubapiV1.ListReflection</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimListReflection.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimListReflection.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimListReflection.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimListReflection.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimListReflection.DescriptorGet">
+            <summary>Sets the shim of ListReflection.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimListReflection.StaticConstructor">
+            <summary>Sets the shim of ListReflection.ListReflection()</summary>
+        </member>
+        <member name="T:AttrpubapiV1.Fakes.ShimSigningReflection">
+            <summary>Shim type of AttrpubapiV1.SigningReflection</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimSigningReflection.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimSigningReflection.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:AttrpubapiV1.Fakes.ShimSigningReflection.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimSigningReflection.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimSigningReflection.DescriptorGet">
+            <summary>Sets the shim of SigningReflection.get_Descriptor()</summary>
+        </member>
+        <member name="P:AttrpubapiV1.Fakes.ShimSigningReflection.StaticConstructor">
+            <summary>Sets the shim of SigningReflection.SigningReflection()</summary>
+        </member>
+        <member name="T:CompubapiV1.Fakes.ShimEncryptedData">
+            <summary>Shim type of CompubapiV1.EncryptedData</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.#ctor(CompubapiV1.EncryptedData)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:CompubapiV1.Fakes.ShimEncryptedData.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.CalculateSize">
+            <summary>Sets the shim of EncryptedData.CalculateSize()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.CipherTextGet">
+            <summary>Sets the shim of EncryptedData.get_CipherText()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.CipherTextSetByteString">
+            <summary>Sets the shim of EncryptedData.set_CipherText(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.Clone">
+            <summary>Sets the shim of EncryptedData.Clone()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of EncryptedData.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.EqualsEncryptedData">
+            <summary>Sets the shim of EncryptedData.Equals(EncryptedData other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.EqualsObject">
+            <summary>Sets the shim of EncryptedData.Equals(Object other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.GetHashCode01">
+            <summary>Sets the shim of EncryptedData.GetHashCode()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.IvGet">
+            <summary>Sets the shim of EncryptedData.get_Iv()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.IvSetByteString">
+            <summary>Sets the shim of EncryptedData.set_Iv(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of EncryptedData.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.MergeFromEncryptedData">
+            <summary>Sets the shim of EncryptedData.MergeFrom(EncryptedData other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.ToString01">
+            <summary>Sets the shim of EncryptedData.ToString()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of EncryptedData.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.Bind(Google.Protobuf.IDeepCloneable{CompubapiV1.EncryptedData})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.Bind(Google.Protobuf.IMessage{CompubapiV1.EncryptedData})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedData.Bind(System.IEquatable{CompubapiV1.EncryptedData})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.CalculateSize">
+            <summary>Sets the shim of EncryptedData.CalculateSize()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.CipherTextGet">
+            <summary>Sets the shim of EncryptedData.get_CipherText()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.CipherTextSetByteString">
+            <summary>Sets the shim of EncryptedData.set_CipherText(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.Clone">
+            <summary>Sets the shim of EncryptedData.Clone()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.Constructor">
+            <summary>Sets the shim of EncryptedData.EncryptedData()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.ConstructorEncryptedData">
+            <summary>Sets the shim of EncryptedData.EncryptedData(EncryptedData other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.DescriptorGet">
+            <summary>Sets the shim of EncryptedData.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of EncryptedData.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.EqualsEncryptedData">
+            <summary>Sets the shim of EncryptedData.Equals(EncryptedData other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.EqualsObject">
+            <summary>Sets the shim of EncryptedData.Equals(Object other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.GetHashCode">
+            <summary>Sets the shim of EncryptedData.GetHashCode()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.IvGet">
+            <summary>Sets the shim of EncryptedData.get_Iv()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.IvSetByteString">
+            <summary>Sets the shim of EncryptedData.set_Iv(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.MergeFromCodedInputStream">
+            <summary>Sets the shim of EncryptedData.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.MergeFromEncryptedData">
+            <summary>Sets the shim of EncryptedData.MergeFrom(EncryptedData other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.ParserGet">
+            <summary>Sets the shim of EncryptedData.get_Parser()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.StaticConstructor">
+            <summary>Sets the shim of EncryptedData.EncryptedData()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.ToString">
+            <summary>Sets the shim of EncryptedData.ToString()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedData.WriteToCodedOutputStream">
+            <summary>Sets the shim of EncryptedData.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:CompubapiV1.Fakes.ShimEncryptedDataReflection">
+            <summary>Shim type of CompubapiV1.EncryptedDataReflection</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedDataReflection.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedDataReflection.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimEncryptedDataReflection.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedDataReflection.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedDataReflection.DescriptorGet">
+            <summary>Sets the shim of EncryptedDataReflection.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimEncryptedDataReflection.StaticConstructor">
+            <summary>Sets the shim of EncryptedDataReflection.EncryptedDataReflection()</summary>
+        </member>
+        <member name="T:CompubapiV1.Fakes.ShimSignedTimestamp">
+            <summary>Shim type of CompubapiV1.SignedTimestamp</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.#ctor(CompubapiV1.SignedTimestamp)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.CalculateSize">
+            <summary>Sets the shim of SignedTimestamp.CalculateSize()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ChainDigestGet">
+            <summary>Sets the shim of SignedTimestamp.get_ChainDigest()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ChainDigestSetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_ChainDigest(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ChainDigestSkip1Get">
+            <summary>Sets the shim of SignedTimestamp.get_ChainDigestSkip1()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ChainDigestSkip1SetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_ChainDigestSkip1(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ChainDigestSkip2Get">
+            <summary>Sets the shim of SignedTimestamp.get_ChainDigestSkip2()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ChainDigestSkip2SetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_ChainDigestSkip2(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.Clone">
+            <summary>Sets the shim of SignedTimestamp.Clone()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of SignedTimestamp.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.EqualsObject">
+            <summary>Sets the shim of SignedTimestamp.Equals(Object other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.EqualsSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.Equals(SignedTimestamp other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.GetHashCode01">
+            <summary>Sets the shim of SignedTimestamp.GetHashCode()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.MergeFromCodedInputStream">
+            <summary>Sets the shim of SignedTimestamp.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.MergeFromSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.MergeFrom(SignedTimestamp other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.MessageDigestGet">
+            <summary>Sets the shim of SignedTimestamp.get_MessageDigest()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.MessageDigestSetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_MessageDigest(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.TimestampGet">
+            <summary>Sets the shim of SignedTimestamp.get_Timestamp()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.TimestampSetUInt64">
+            <summary>Sets the shim of SignedTimestamp.set_Timestamp(UInt64 value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.ToString01">
+            <summary>Sets the shim of SignedTimestamp.ToString()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.VersionGet">
+            <summary>Sets the shim of SignedTimestamp.get_Version()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.VersionSetInt32">
+            <summary>Sets the shim of SignedTimestamp.set_Version(Int32 value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.AllInstances.WriteToCodedOutputStream">
+            <summary>Sets the shim of SignedTimestamp.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.Bind(Google.Protobuf.IMessage)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.Bind(Google.Protobuf.IDeepCloneable{CompubapiV1.SignedTimestamp})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.Bind(Google.Protobuf.IMessage{CompubapiV1.SignedTimestamp})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestamp.Bind(System.IEquatable{CompubapiV1.SignedTimestamp})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.CalculateSize">
+            <summary>Sets the shim of SignedTimestamp.CalculateSize()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ChainDigestGet">
+            <summary>Sets the shim of SignedTimestamp.get_ChainDigest()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ChainDigestSetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_ChainDigest(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ChainDigestSkip1Get">
+            <summary>Sets the shim of SignedTimestamp.get_ChainDigestSkip1()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ChainDigestSkip1SetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_ChainDigestSkip1(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ChainDigestSkip2Get">
+            <summary>Sets the shim of SignedTimestamp.get_ChainDigestSkip2()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ChainDigestSkip2SetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_ChainDigestSkip2(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.Clone">
+            <summary>Sets the shim of SignedTimestamp.Clone()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.Constructor">
+            <summary>Sets the shim of SignedTimestamp.SignedTimestamp()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ConstructorSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.SignedTimestamp(SignedTimestamp other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.DescriptorGet">
+            <summary>Sets the shim of SignedTimestamp.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.DescriptorPbGoogleProtobufIMessageget">
+            <summary>Sets the shim of SignedTimestamp.pb::Google.Protobuf.IMessage.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.EqualsObject">
+            <summary>Sets the shim of SignedTimestamp.Equals(Object other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.EqualsSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.Equals(SignedTimestamp other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.GetHashCode">
+            <summary>Sets the shim of SignedTimestamp.GetHashCode()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.MergeFromCodedInputStream">
+            <summary>Sets the shim of SignedTimestamp.MergeFrom(CodedInputStream input)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.MergeFromSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.MergeFrom(SignedTimestamp other)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.MessageDigestGet">
+            <summary>Sets the shim of SignedTimestamp.get_MessageDigest()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.MessageDigestSetByteString">
+            <summary>Sets the shim of SignedTimestamp.set_MessageDigest(ByteString value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ParserGet">
+            <summary>Sets the shim of SignedTimestamp.get_Parser()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.StaticConstructor">
+            <summary>Sets the shim of SignedTimestamp.SignedTimestamp()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.TimestampGet">
+            <summary>Sets the shim of SignedTimestamp.get_Timestamp()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.TimestampSetUInt64">
+            <summary>Sets the shim of SignedTimestamp.set_Timestamp(UInt64 value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.ToString">
+            <summary>Sets the shim of SignedTimestamp.ToString()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.VersionGet">
+            <summary>Sets the shim of SignedTimestamp.get_Version()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.VersionSetInt32">
+            <summary>Sets the shim of SignedTimestamp.set_Version(Int32 value)</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestamp.WriteToCodedOutputStream">
+            <summary>Sets the shim of SignedTimestamp.WriteTo(CodedOutputStream output)</summary>
+        </member>
+        <member name="T:CompubapiV1.Fakes.ShimSignedTimestampReflection">
+            <summary>Shim type of CompubapiV1.SignedTimestampReflection</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestampReflection.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestampReflection.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CompubapiV1.Fakes.ShimSignedTimestampReflection.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestampReflection.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestampReflection.DescriptorGet">
+            <summary>Sets the shim of SignedTimestampReflection.get_Descriptor()</summary>
+        </member>
+        <member name="P:CompubapiV1.Fakes.ShimSignedTimestampReflection.StaticConstructor">
+            <summary>Sets the shim of SignedTimestampReflection.SignedTimestampReflection()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlAddress">
+            <summary>Shim type of Yoti.Auth.Aml.AmlAddress</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlAddress.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlAddress.#ctor(Yoti.Auth.Aml.AmlAddress)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlAddress.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlAddress.AllInstances.GetCountry">
+            <summary>Sets the shim of AmlAddress.GetCountry()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlAddress.AllInstances.GetPostcode">
+            <summary>Sets the shim of AmlAddress.GetPostcode()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlAddress.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlAddress.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlAddress.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlAddress.Bind(Yoti.Auth.Aml.IAmlAddress)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlAddress.ConstructorStringString">
+            <summary>Sets the shim of AmlAddress.AmlAddress(String country, String postcode)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlAddress.GetCountry">
+            <summary>Sets the shim of AmlAddress.GetCountry()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlAddress.GetPostcode">
+            <summary>Sets the shim of AmlAddress.GetPostcode()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlException">
+            <summary>Shim type of Yoti.Auth.Aml.AmlException</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlException.#ctor(Yoti.Auth.Aml.AmlException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlException.Constructor">
+            <summary>Sets the shim of AmlException.AmlException()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlException.ConstructorString">
+            <summary>Sets the shim of AmlException.AmlException(String message)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlException.ConstructorStringException">
+            <summary>Sets the shim of AmlException.AmlException(String message, Exception innerException)</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlProfile">
+            <summary>Shim type of Yoti.Auth.Aml.AmlProfile</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlProfile.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlProfile.#ctor(Yoti.Auth.Aml.AmlProfile)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlProfile.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.AllInstances.GetAmlAddress">
+            <summary>Sets the shim of AmlProfile.GetAmlAddress()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.AllInstances.GetFamilyName">
+            <summary>Sets the shim of AmlProfile.GetFamilyName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.AllInstances.GetGivenNames">
+            <summary>Sets the shim of AmlProfile.GetGivenNames()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.AllInstances.GetSsn">
+            <summary>Sets the shim of AmlProfile.GetSsn()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlProfile.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlProfile.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlProfile.Bind(Yoti.Auth.Aml.IAmlProfile)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.ConstructorStringStringAmlAddressString">
+            <summary>Sets the shim of AmlProfile.AmlProfile(String givenNames, String familyName, AmlAddress amlAddress, String ssn)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.GetAmlAddress">
+            <summary>Sets the shim of AmlProfile.GetAmlAddress()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.GetFamilyName">
+            <summary>Sets the shim of AmlProfile.GetFamilyName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.GetGivenNames">
+            <summary>Sets the shim of AmlProfile.GetGivenNames()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlProfile.GetSsn">
+            <summary>Sets the shim of AmlProfile.GetSsn()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlResult">
+            <summary>Shim type of Yoti.Auth.Aml.AmlResult</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlResult.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlResult.#ctor(Yoti.Auth.Aml.AmlResult)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.ShimAmlResult.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.AllInstances.IsOnFraudList">
+            <summary>Sets the shim of AmlResult.IsOnFraudList()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.AllInstances.IsOnPepList">
+            <summary>Sets the shim of AmlResult.IsOnPepList()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.AllInstances.IsOnWatchList">
+            <summary>Sets the shim of AmlResult.IsOnWatchList()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlResult.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlResult.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.ShimAmlResult.Bind(Yoti.Auth.Aml.IAmlResult)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.Constructor">
+            <summary>Sets the shim of AmlResult.AmlResult()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.IsOnFraudList">
+            <summary>Sets the shim of AmlResult.IsOnFraudList()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.IsOnPepList">
+            <summary>Sets the shim of AmlResult.IsOnPepList()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.ShimAmlResult.IsOnWatchList">
+            <summary>Sets the shim of AmlResult.IsOnWatchList()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubAmlAddress">
+            <summary>Stub type of Yoti.Auth.Aml.AmlAddress</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlAddress.#ctor(System.String,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlAddress.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlAddress.InitializeStub">
+            <summary>Initializes a new instance of type StubAmlAddress</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlAddress.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlAddress.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubAmlException">
+            <summary>Stub type of Yoti.Auth.Aml.AmlException</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubAmlException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubAmlException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.InitializeStub">
+            <summary>Initializes a new instance of type StubAmlException</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubAmlException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubAmlProfile">
+            <summary>Stub type of Yoti.Auth.Aml.AmlProfile</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlProfile.#ctor(System.String,System.String,Yoti.Auth.Aml.AmlAddress,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlProfile.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlProfile.InitializeStub">
+            <summary>Initializes a new instance of type StubAmlProfile</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlProfile.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlProfile.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubAmlResult">
+            <summary>Stub type of Yoti.Auth.Aml.AmlResult</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlResult.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlResult.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubAmlResult.InitializeStub">
+            <summary>Initializes a new instance of type StubAmlResult</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlResult.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Aml.Fakes.StubAmlResult.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubIAmlAddress">
+            <summary>Stub type of Yoti.Auth.Aml.IAmlAddress</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlAddress.#ctor">
+            <summary>Initializes a new instance of type StubIAmlAddress</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlAddress.GetCountry">
+            <summary>Sets the stub of IAmlAddress.GetCountry()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlAddress.GetPostcode">
+            <summary>Sets the stub of IAmlAddress.GetPostcode()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlAddress.Yoti#Auth#Aml#IAmlAddress#GetCountry">
+            <summary>Sets the stub of IAmlAddress.GetCountry()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlAddress.Yoti#Auth#Aml#IAmlAddress#GetPostcode">
+            <summary>Sets the stub of IAmlAddress.GetPostcode()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubIAmlProfile">
+            <summary>Stub type of Yoti.Auth.Aml.IAmlProfile</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlProfile.#ctor">
+            <summary>Initializes a new instance of type StubIAmlProfile</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlProfile.GetAmlAddress">
+            <summary>Sets the stub of IAmlProfile.GetAmlAddress()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlProfile.GetFamilyName">
+            <summary>Sets the stub of IAmlProfile.GetFamilyName()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlProfile.GetGivenNames">
+            <summary>Sets the stub of IAmlProfile.GetGivenNames()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlProfile.GetSsn">
+            <summary>Sets the stub of IAmlProfile.GetSsn()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlProfile.Yoti#Auth#Aml#IAmlProfile#GetAmlAddress">
+            <summary>Sets the stub of IAmlProfile.GetAmlAddress()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlProfile.Yoti#Auth#Aml#IAmlProfile#GetFamilyName">
+            <summary>Sets the stub of IAmlProfile.GetFamilyName()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlProfile.Yoti#Auth#Aml#IAmlProfile#GetGivenNames">
+            <summary>Sets the stub of IAmlProfile.GetGivenNames()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlProfile.Yoti#Auth#Aml#IAmlProfile#GetSsn">
+            <summary>Sets the stub of IAmlProfile.GetSsn()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Aml.Fakes.StubIAmlResult">
+            <summary>Stub type of Yoti.Auth.Aml.IAmlResult</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlResult.#ctor">
+            <summary>Initializes a new instance of type StubIAmlResult</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlResult.IsOnFraudList">
+            <summary>Sets the stub of IAmlResult.IsOnFraudList()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlResult.IsOnPepList">
+            <summary>Sets the stub of IAmlResult.IsOnPepList()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Aml.Fakes.StubIAmlResult.IsOnWatchList">
+            <summary>Sets the stub of IAmlResult.IsOnWatchList()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlResult.Yoti#Auth#Aml#IAmlResult#IsOnFraudList">
+            <summary>Sets the stub of IAmlResult.IsOnFraudList()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlResult.Yoti#Auth#Aml#IAmlResult#IsOnPepList">
+            <summary>Sets the stub of IAmlResult.IsOnPepList()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Aml.Fakes.StubIAmlResult.Yoti#Auth#Aml#IAmlResult#IsOnWatchList">
+            <summary>Sets the stub of IAmlResult.IsOnWatchList()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.ShimAnchor">
+            <summary>Shim type of Yoti.Auth.Anchors.Anchor</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchor.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchor.#ctor(Yoti.Auth.Anchors.Anchor)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.ConvertRawCertToX509ListRepeatedFieldOfByteString">
+            <summary>Sets the shim of Anchor.ConvertRawCertToX509List(RepeatedField`1&lt;ByteString&gt; rawOriginServerCerts)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.GetAnchorType">
+            <summary>Sets the shim of Anchor.GetAnchorType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.GetOriginServerCerts">
+            <summary>Sets the shim of Anchor.GetOriginServerCerts()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.GetSignature">
+            <summary>Sets the shim of Anchor.GetSignature()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.GetSignedTimeStamp">
+            <summary>Sets the shim of Anchor.GetSignedTimeStamp()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.GetSubType">
+            <summary>Sets the shim of Anchor.GetSubType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.AllInstances.GetValue">
+            <summary>Sets the shim of Anchor.GetValue()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchor.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchor.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.ConstructorAnchor">
+            <summary>Sets the shim of Anchor.Anchor(Anchor protobufAnchor)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.ConvertRawCertToX509ListRepeatedFieldOfByteString">
+            <summary>Sets the shim of Anchor.ConvertRawCertToX509List(RepeatedField`1&lt;ByteString&gt; rawOriginServerCerts)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.GetAnchorType">
+            <summary>Sets the shim of Anchor.GetAnchorType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.GetOriginServerCerts">
+            <summary>Sets the shim of Anchor.GetOriginServerCerts()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.GetSignature">
+            <summary>Sets the shim of Anchor.GetSignature()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.GetSignedTimeStamp">
+            <summary>Sets the shim of Anchor.GetSignedTimeStamp()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.GetSubType">
+            <summary>Sets the shim of Anchor.GetSubType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchor.GetValue">
+            <summary>Sets the shim of Anchor.GetValue()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser">
+            <summary>Shim type of Yoti.Auth.Anchors.AnchorCertificateParser</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser.GetListOfStringsFromExtensionX509Certificate2String">
+            <summary>Sets the shim of AnchorCertificateParser.GetListOfStringsFromExtension(X509Certificate2 certificate, String extensionOid)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorCertificateParser.GetTypesFromAnchorAnchor">
+            <summary>Sets the shim of AnchorCertificateParser.GetTypesFromAnchor(Anchor anchor)</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData">
+            <summary>Shim type of Yoti.Auth.Anchors.AnchorVerifierSourceData</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.#ctor(Yoti.Auth.Anchors.AnchorVerifierSourceData)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.AllInstances.GetAnchorType">
+            <summary>Sets the shim of AnchorVerifierSourceData.GetAnchorType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.AllInstances.GetEntries">
+            <summary>Sets the shim of AnchorVerifierSourceData.GetEntries()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.ConstructorHashSetOfStringAnchorType">
+            <summary>Sets the shim of AnchorVerifierSourceData.AnchorVerifierSourceData(HashSet`1&lt;String&gt; entries, AnchorType anchorType)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.GetAnchorType">
+            <summary>Sets the shim of AnchorVerifierSourceData.GetAnchorType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.ShimAnchorVerifierSourceData.GetEntries">
+            <summary>Sets the shim of AnchorVerifierSourceData.GetEntries()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.StubAnchor">
+            <summary>Stub type of Yoti.Auth.Anchors.Anchor</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.StubAnchor.#ctor(AttrpubapiV1.Anchor)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.StubAnchor.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.StubAnchor.InitializeStub">
+            <summary>Initializes a new instance of type StubAnchor</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.StubAnchor.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.StubAnchor.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Anchors.Fakes.StubAnchorVerifierSourceData">
+            <summary>Stub type of Yoti.Auth.Anchors.AnchorVerifierSourceData</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.StubAnchorVerifierSourceData.#ctor(System.Collections.Generic.HashSet{System.String},Yoti.Auth.Anchors.AnchorType)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.StubAnchorVerifierSourceData.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Anchors.Fakes.StubAnchorVerifierSourceData.InitializeStub">
+            <summary>Initializes a new instance of type StubAnchorVerifierSourceData</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.StubAnchorVerifierSourceData.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Anchors.Fakes.StubAnchorVerifierSourceData.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Document.Fakes.ShimDocumentDetails">
+            <summary>Shim type of Yoti.Auth.Document.DocumentDetails</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.ShimDocumentDetails.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.ShimDocumentDetails.#ctor(Yoti.Auth.Document.DocumentDetails)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.DocumentNumberGet">
+            <summary>Sets the shim of DocumentDetails.get_DocumentNumber()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.DocumentNumberSetString">
+            <summary>Sets the shim of DocumentDetails.set_DocumentNumber(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.DocumentTypeGet">
+            <summary>Sets the shim of DocumentDetails.get_DocumentType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.DocumentTypeSetString">
+            <summary>Sets the shim of DocumentDetails.set_DocumentType(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.ExpirationDateGet">
+            <summary>Sets the shim of DocumentDetails.get_ExpirationDate()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.ExpirationDateSetNullableOfDateTime">
+            <summary>Sets the shim of DocumentDetails.set_ExpirationDate(Nullable`1&lt;DateTime&gt; value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.IssuingAuthorityGet">
+            <summary>Sets the shim of DocumentDetails.get_IssuingAuthority()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.IssuingAuthoritySetString">
+            <summary>Sets the shim of DocumentDetails.set_IssuingAuthority(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.IssuingCountryGet">
+            <summary>Sets the shim of DocumentDetails.get_IssuingCountry()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.IssuingCountrySetString">
+            <summary>Sets the shim of DocumentDetails.set_IssuingCountry(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.AllInstances.ToString01">
+            <summary>Sets the shim of DocumentDetails.ToString()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.ShimDocumentDetails.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.ShimDocumentDetails.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.ConstructorStringStringStringNullableOfDateTimeString">
+            <summary>Sets the shim of DocumentDetails.DocumentDetails(String documentType, String issuingCountry, String documentNumber, Nullable`1&lt;DateTime&gt; expirationDate, String issuingAuthority)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.DocumentNumberGet">
+            <summary>Sets the shim of DocumentDetails.get_DocumentNumber()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.DocumentNumberSetString">
+            <summary>Sets the shim of DocumentDetails.set_DocumentNumber(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.DocumentTypeGet">
+            <summary>Sets the shim of DocumentDetails.get_DocumentType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.DocumentTypeSetString">
+            <summary>Sets the shim of DocumentDetails.set_DocumentType(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.ExpirationDateGet">
+            <summary>Sets the shim of DocumentDetails.get_ExpirationDate()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.ExpirationDateSetNullableOfDateTime">
+            <summary>Sets the shim of DocumentDetails.set_ExpirationDate(Nullable`1&lt;DateTime&gt; value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.IssuingAuthorityGet">
+            <summary>Sets the shim of DocumentDetails.get_IssuingAuthority()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.IssuingAuthoritySetString">
+            <summary>Sets the shim of DocumentDetails.set_IssuingAuthority(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.IssuingCountryGet">
+            <summary>Sets the shim of DocumentDetails.get_IssuingCountry()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.IssuingCountrySetString">
+            <summary>Sets the shim of DocumentDetails.set_IssuingCountry(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.ShimDocumentDetails.ToString">
+            <summary>Sets the shim of DocumentDetails.ToString()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Document.Fakes.StubDocumentDetails">
+            <summary>Stub type of Yoti.Auth.Document.DocumentDetails</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.StubDocumentDetails.#ctor(System.String,System.String,System.String,System.Nullable{System.DateTime},System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.StubDocumentDetails.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.StubDocumentDetails.InitializeStub">
+            <summary>Initializes a new instance of type StubDocumentDetails</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.StubDocumentDetails.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Document.Fakes.StubDocumentDetails.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="M:Yoti.Auth.Document.Fakes.StubDocumentDetails.ToString">
+            <summary>Sets the stub of DocumentDetails.ToString()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Document.Fakes.StubDocumentDetails.ToString01">
+            <summary>Sets the stub of DocumentDetails.ToString()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimActivityDetails">
+            <summary>Shim type of Yoti.Auth.ActivityDetails</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimActivityDetails.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimActivityDetails.#ctor(Yoti.Auth.ActivityDetails)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.ApplicationProfileGet">
+            <summary>Sets the shim of ActivityDetails.get_ApplicationProfile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.ApplicationProfileSetApplicationProfile">
+            <summary>Sets the shim of ActivityDetails.set_ApplicationProfile(ApplicationProfile value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.OutcomeGet">
+            <summary>Sets the shim of ActivityDetails.get_Outcome()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.OutcomeSetActivityOutcome">
+            <summary>Sets the shim of ActivityDetails.set_Outcome(ActivityOutcome value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.ProfileGet">
+            <summary>Sets the shim of ActivityDetails.get_Profile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.ProfileSetYotiProfile">
+            <summary>Sets the shim of ActivityDetails.set_Profile(YotiProfile value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.ReceiptIDGet">
+            <summary>Sets the shim of ActivityDetails.get_ReceiptID()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.ReceiptIDSetString">
+            <summary>Sets the shim of ActivityDetails.set_ReceiptID(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.RememberMeIdGet">
+            <summary>Sets the shim of ActivityDetails.get_RememberMeId()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.RememberMeIdSetString">
+            <summary>Sets the shim of ActivityDetails.set_RememberMeId(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.TimestampGet">
+            <summary>Sets the shim of ActivityDetails.get_Timestamp()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.AllInstances.TimestampSetNullableOfDateTime">
+            <summary>Sets the shim of ActivityDetails.set_Timestamp(Nullable`1&lt;DateTime&gt; value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ApplicationProfileGet">
+            <summary>Sets the shim of ActivityDetails.get_ApplicationProfile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ApplicationProfileSetApplicationProfile">
+            <summary>Sets the shim of ActivityDetails.set_ApplicationProfile(ApplicationProfile value)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimActivityDetails.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimActivityDetails.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ConstructorActivityOutcome">
+            <summary>Sets the shim of ActivityDetails.ActivityDetails(ActivityOutcome activityOutcome)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ConstructorStringNullableOfDateTimeYotiProfileApplicationProfileStringActivityOutcome">
+            <summary>Sets the shim of ActivityDetails.ActivityDetails(String rememberMeId, Nullable`1&lt;DateTime&gt; timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, String receiptID, ActivityOutcome activityOutcome)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.OutcomeGet">
+            <summary>Sets the shim of ActivityDetails.get_Outcome()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.OutcomeSetActivityOutcome">
+            <summary>Sets the shim of ActivityDetails.set_Outcome(ActivityOutcome value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ProfileGet">
+            <summary>Sets the shim of ActivityDetails.get_Profile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ProfileSetYotiProfile">
+            <summary>Sets the shim of ActivityDetails.set_Profile(YotiProfile value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ReceiptIDGet">
+            <summary>Sets the shim of ActivityDetails.get_ReceiptID()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.ReceiptIDSetString">
+            <summary>Sets the shim of ActivityDetails.set_ReceiptID(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.RememberMeIdGet">
+            <summary>Sets the shim of ActivityDetails.get_RememberMeId()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.RememberMeIdSetString">
+            <summary>Sets the shim of ActivityDetails.set_RememberMeId(String value)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.TimestampGet">
+            <summary>Sets the shim of ActivityDetails.get_Timestamp()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimActivityDetails.TimestampSetNullableOfDateTime">
+            <summary>Sets the shim of ActivityDetails.set_Timestamp(Nullable`1&lt;DateTime&gt; value)</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimApplicationProfile">
+            <summary>Shim type of Yoti.Auth.ApplicationProfile</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimApplicationProfile.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimApplicationProfile.#ctor(Yoti.Auth.ApplicationProfile)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimApplicationProfile.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.AllInstances.LogoGet">
+            <summary>Sets the shim of ApplicationProfile.get_Logo()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.AllInstances.NameGet">
+            <summary>Sets the shim of ApplicationProfile.get_Name()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.AllInstances.ReceiptBackgroundColourGet">
+            <summary>Sets the shim of ApplicationProfile.get_ReceiptBackgroundColour()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.AllInstances.URLGet">
+            <summary>Sets the shim of ApplicationProfile.get_URL()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimApplicationProfile.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimApplicationProfile.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.Constructor">
+            <summary>Sets the shim of ApplicationProfile.ApplicationProfile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.ConstructorDictionaryOfStringBaseAttribute">
+            <summary>Sets the shim of ApplicationProfile.ApplicationProfile(Dictionary`2&lt;String,BaseAttribute&gt; attributes)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.LogoGet">
+            <summary>Sets the shim of ApplicationProfile.get_Logo()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.NameGet">
+            <summary>Sets the shim of ApplicationProfile.get_Name()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.ReceiptBackgroundColourGet">
+            <summary>Sets the shim of ApplicationProfile.get_ReceiptBackgroundColour()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimApplicationProfile.URLGet">
+            <summary>Sets the shim of ApplicationProfile.get_URL()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimBaseAttribute">
+            <summary>Shim type of Yoti.Auth.BaseAttribute</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseAttribute.#ctor(Yoti.Auth.BaseAttribute)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimBaseAttribute.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.AllInstances.GetAnchors">
+            <summary>Sets the shim of BaseAttribute.GetAnchors()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.AllInstances.GetName">
+            <summary>Sets the shim of BaseAttribute.GetName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.AllInstances.GetSources">
+            <summary>Sets the shim of BaseAttribute.GetSources()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.AllInstances.GetVerifiers">
+            <summary>Sets the shim of BaseAttribute.GetVerifiers()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseAttribute.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseAttribute.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.ConstructorStringListOfAnchor">
+            <summary>Sets the shim of BaseAttribute.BaseAttribute(String name, List`1&lt;Anchor&gt; anchors)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.GetAnchors">
+            <summary>Sets the shim of BaseAttribute.GetAnchors()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.GetName">
+            <summary>Sets the shim of BaseAttribute.GetName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.GetSources">
+            <summary>Sets the shim of BaseAttribute.GetSources()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseAttribute.GetVerifiers">
+            <summary>Sets the shim of BaseAttribute.GetVerifiers()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimBaseProfile">
+            <summary>Shim type of Yoti.Auth.BaseProfile</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.#ctor(Yoti.Auth.BaseProfile)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.AddOf1YotiAttributeOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{Yoti.Auth.YotiAttribute{``0}})">
+            <summary>Sets the shim of BaseProfile.Add(YotiAttribute`1&lt;!!0&gt; value)</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimBaseProfile.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.AllInstances.AddOf1YotiAttributeOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{Yoti.Auth.BaseProfile,Yoti.Auth.YotiAttribute{``0}})">
+            <summary>Sets the shim of BaseProfile.Add(YotiAttribute`1&lt;!!0&gt; value)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.AllInstances.FindAttributesStartingWithOf1String``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{Yoti.Auth.BaseProfile,System.String,System.Collections.Generic.List{Yoti.Auth.YotiAttribute{``0}}})">
+            <summary>Sets the shim of BaseProfile.FindAttributesStartingWith(String prefix)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.AllInstances.GetAttributeByNameOf1String``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{Yoti.Auth.BaseProfile,System.String,Yoti.Auth.YotiAttribute{``0}})">
+            <summary>Sets the shim of BaseProfile.GetAttributeByName(String name)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseProfile.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseProfile.Constructor">
+            <summary>Sets the shim of BaseProfile.BaseProfile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimBaseProfile.ConstructorDictionaryOfStringBaseAttribute">
+            <summary>Sets the shim of BaseProfile.BaseProfile(Dictionary`2&lt;String,BaseAttribute&gt; attributes)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.FindAttributesStartingWithOf1String``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.String,System.Collections.Generic.List{Yoti.Auth.YotiAttribute{``0}}})">
+            <summary>Sets the shim of BaseProfile.FindAttributesStartingWith(String prefix)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimBaseProfile.GetAttributeByNameOf1String``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.String,Yoti.Auth.YotiAttribute{``0}})">
+            <summary>Sets the shim of BaseProfile.GetAttributeByName(String name)</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimSignedTimestamp">
+            <summary>Shim type of Yoti.Auth.SignedTimestamp</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimSignedTimestamp.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimSignedTimestamp.#ctor(Yoti.Auth.SignedTimestamp)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances.GetChainDigest">
+            <summary>Sets the shim of SignedTimestamp.GetChainDigest()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances.GetChainDigestSkip1">
+            <summary>Sets the shim of SignedTimestamp.GetChainDigestSkip1()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances.GetChainDigestSkip2">
+            <summary>Sets the shim of SignedTimestamp.GetChainDigestSkip2()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances.GetMessageDigest">
+            <summary>Sets the shim of SignedTimestamp.GetMessageDigest()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances.GetTimestamp">
+            <summary>Sets the shim of SignedTimestamp.GetTimestamp()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.AllInstances.GetVersion">
+            <summary>Sets the shim of SignedTimestamp.GetVersion()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimSignedTimestamp.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimSignedTimestamp.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.ConstructorSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.SignedTimestamp(SignedTimestamp protobufSignedTimestamp)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.ConvertMicroSecondsSinceEpochToDateTimeSignedTimestamp">
+            <summary>Sets the shim of SignedTimestamp.ConvertMicroSecondsSinceEpochToDateTime(SignedTimestamp protobufSignedTimestamp)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.GetChainDigest">
+            <summary>Sets the shim of SignedTimestamp.GetChainDigest()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.GetChainDigestSkip1">
+            <summary>Sets the shim of SignedTimestamp.GetChainDigestSkip1()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.GetChainDigestSkip2">
+            <summary>Sets the shim of SignedTimestamp.GetChainDigestSkip2()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.GetMessageDigest">
+            <summary>Sets the shim of SignedTimestamp.GetMessageDigest()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.GetTimestamp">
+            <summary>Sets the shim of SignedTimestamp.GetTimestamp()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimSignedTimestamp.GetVersion">
+            <summary>Sets the shim of SignedTimestamp.GetVersion()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimYotiAttribute`1">
+            <summary>Shim type of Yoti.Auth.YotiAttribute`1</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiAttribute`1.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiAttribute`1.#ctor(Yoti.Auth.YotiAttribute{`0})">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimYotiAttribute`1.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiAttribute`1.AllInstances.GetValue">
+            <summary>Sets the shim of YotiAttribute`1.GetValue()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiAttribute`1.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiAttribute`1.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiAttribute`1.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiAttribute`1.ConstructorStringT0ListOfAnchor">
+            <summary>Sets the shim of YotiAttribute`1.YotiAttribute`1(String name, !0 value, List`1&lt;Anchor&gt; anchors)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiAttribute`1.GetValue">
+            <summary>Sets the shim of YotiAttribute`1.GetValue()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimYotiClient">
+            <summary>Shim type of Yoti.Auth.YotiClient</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiClient.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiClient.#ctor(Yoti.Auth.YotiClient)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimYotiClient.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.AllInstances.GetActivityDetailsAsyncString">
+            <summary>Sets the shim of YotiClient.GetActivityDetailsAsync(String encryptedToken)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.AllInstances.GetActivityDetailsString">
+            <summary>Sets the shim of YotiClient.GetActivityDetails(String encryptedToken)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.AllInstances.PerformAmlCheckAsyncIAmlProfile">
+            <summary>Sets the shim of YotiClient.PerformAmlCheckAsync(IAmlProfile amlProfile)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.AllInstances.PerformAmlCheckIAmlProfile">
+            <summary>Sets the shim of YotiClient.PerformAmlCheck(IAmlProfile amlProfile)</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiClient.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiClient.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.ConstructorStringStreamReader">
+            <summary>Sets the shim of YotiClient.YotiClient(String sdkId, StreamReader privateStreamKey)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.GetActivityDetailsAsyncString">
+            <summary>Sets the shim of YotiClient.GetActivityDetailsAsync(String encryptedToken)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.GetActivityDetailsString">
+            <summary>Sets the shim of YotiClient.GetActivityDetails(String encryptedToken)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.PerformAmlCheckAsyncIAmlProfile">
+            <summary>Sets the shim of YotiClient.PerformAmlCheckAsync(IAmlProfile amlProfile)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiClient.PerformAmlCheckIAmlProfile">
+            <summary>Sets the shim of YotiClient.PerformAmlCheck(IAmlProfile amlProfile)</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimYotiProfile">
+            <summary>Shim type of Yoti.Auth.YotiProfile</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiProfile.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiProfile.#ctor(Yoti.Auth.YotiProfile)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AddressGet">
+            <summary>Sets the shim of YotiProfile.get_Address()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AgeOverVerificationInt32">
+            <summary>Sets the shim of YotiProfile.AgeOverVerification(Int32 age)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AgeUnderVerificationInt32">
+            <summary>Sets the shim of YotiProfile.AgeUnderVerification(Int32 age)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AgeVerificationsGet">
+            <summary>Sets the shim of YotiProfile.get_AgeVerifications()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AddressGet">
+            <summary>Sets the shim of YotiProfile.get_Address()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AgeOverVerificationInt32">
+            <summary>Sets the shim of YotiProfile.AgeOverVerification(Int32 age)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AgeUnderVerificationInt32">
+            <summary>Sets the shim of YotiProfile.AgeUnderVerification(Int32 age)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AgeVerificationsGet">
+            <summary>Sets the shim of YotiProfile.get_AgeVerifications()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.DateOfBirthGet">
+            <summary>Sets the shim of YotiProfile.get_DateOfBirth()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.DocumentDetailsGet">
+            <summary>Sets the shim of YotiProfile.get_DocumentDetails()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.EmailAddressGet">
+            <summary>Sets the shim of YotiProfile.get_EmailAddress()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.FamilyNameGet">
+            <summary>Sets the shim of YotiProfile.get_FamilyName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.FullNameGet">
+            <summary>Sets the shim of YotiProfile.get_FullName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.GenderGet">
+            <summary>Sets the shim of YotiProfile.get_Gender()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.GivenNamesGet">
+            <summary>Sets the shim of YotiProfile.get_GivenNames()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.MobileNumberGet">
+            <summary>Sets the shim of YotiProfile.get_MobileNumber()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.NationalityGet">
+            <summary>Sets the shim of YotiProfile.get_Nationality()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.SelfieGet">
+            <summary>Sets the shim of YotiProfile.get_Selfie()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.StructuredPostalAddressGet">
+            <summary>Sets the shim of YotiProfile.get_StructuredPostalAddress()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiProfile.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.ShimYotiProfile.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.Constructor">
+            <summary>Sets the shim of YotiProfile.YotiProfile()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.ConstructorDictionaryOfStringBaseAttribute">
+            <summary>Sets the shim of YotiProfile.YotiProfile(Dictionary`2&lt;String,BaseAttribute&gt; attributes)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.DateOfBirthGet">
+            <summary>Sets the shim of YotiProfile.get_DateOfBirth()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.DocumentDetailsGet">
+            <summary>Sets the shim of YotiProfile.get_DocumentDetails()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.EmailAddressGet">
+            <summary>Sets the shim of YotiProfile.get_EmailAddress()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.FamilyNameGet">
+            <summary>Sets the shim of YotiProfile.get_FamilyName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.FullNameGet">
+            <summary>Sets the shim of YotiProfile.get_FullName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.GenderGet">
+            <summary>Sets the shim of YotiProfile.get_Gender()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.GivenNamesGet">
+            <summary>Sets the shim of YotiProfile.get_GivenNames()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.MobileNumberGet">
+            <summary>Sets the shim of YotiProfile.get_MobileNumber()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.NationalityGet">
+            <summary>Sets the shim of YotiProfile.get_Nationality()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.SelfieGet">
+            <summary>Sets the shim of YotiProfile.get_Selfie()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.StructuredPostalAddressGet">
+            <summary>Sets the shim of YotiProfile.get_StructuredPostalAddress()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.StubActivityDetails">
+            <summary>Stub type of Yoti.Auth.ActivityDetails</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubActivityDetails.#ctor(Yoti.Auth.ActivityOutcome)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubActivityDetails.#ctor(System.String,System.Nullable{System.DateTime},Yoti.Auth.YotiProfile,Yoti.Auth.ApplicationProfile,System.String,Yoti.Auth.ActivityOutcome)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubActivityDetails.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubActivityDetails.InitializeStub">
+            <summary>Initializes a new instance of type StubActivityDetails</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubActivityDetails.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubActivityDetails.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.StubSignedTimestamp">
+            <summary>Stub type of Yoti.Auth.SignedTimestamp</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubSignedTimestamp.#ctor(CompubapiV1.SignedTimestamp)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubSignedTimestamp.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubSignedTimestamp.InitializeStub">
+            <summary>Initializes a new instance of type StubSignedTimestamp</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubSignedTimestamp.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubSignedTimestamp.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.StubYotiAttribute`1">
+            <summary>Stub type of Yoti.Auth.YotiAttribute`1</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubYotiAttribute`1.#ctor(System.String,`0,System.Collections.Generic.List{Yoti.Auth.Anchors.Anchor})">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubYotiAttribute`1.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubYotiAttribute`1.InitializeStub">
+            <summary>Initializes a new instance of type StubYotiAttribute</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubYotiAttribute`1.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubYotiAttribute`1.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Fakes.StubYotiClient">
+            <summary>Stub type of Yoti.Auth.YotiClient</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubYotiClient.#ctor(System.String,System.IO.StreamReader)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubYotiClient.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Fakes.StubYotiClient.InitializeStub">
+            <summary>Initializes a new instance of type StubYotiClient</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubYotiClient.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.StubYotiClient.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.ShimImage">
+            <summary>Shim type of Yoti.Auth.Images.Image</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimImage.#ctor(Yoti.Auth.Images.Image)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.ShimImage.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimImage.AllInstances.GetBase64URI">
+            <summary>Sets the shim of Image.GetBase64URI()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimImage.AllInstances.GetContent">
+            <summary>Sets the shim of Image.GetContent()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimImage.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimImage.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimImage.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimImage.ConstructorByteArray">
+            <summary>Sets the shim of Image.Image(Byte[] content)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimImage.GetBase64URI">
+            <summary>Sets the shim of Image.GetBase64URI()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimImage.GetContent">
+            <summary>Sets the shim of Image.GetContent()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.ShimJpegImage">
+            <summary>Shim type of Yoti.Auth.Images.JpegImage</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimJpegImage.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimJpegImage.#ctor(Yoti.Auth.Images.JpegImage)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.ShimJpegImage.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimJpegImage.AllInstances.GetMIMEType">
+            <summary>Sets the shim of JpegImage.GetMIMEType()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimJpegImage.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimJpegImage.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimJpegImage.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimJpegImage.ConstructorByteArray">
+            <summary>Sets the shim of JpegImage.JpegImage(Byte[] content)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimJpegImage.GetMIMEType">
+            <summary>Sets the shim of JpegImage.GetMIMEType()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.ShimPngImage">
+            <summary>Shim type of Yoti.Auth.Images.PngImage</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimPngImage.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimPngImage.#ctor(Yoti.Auth.Images.PngImage)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.ShimPngImage.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimPngImage.AllInstances.GetMIMEType">
+            <summary>Sets the shim of PngImage.GetMIMEType()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimPngImage.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.ShimPngImage.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimPngImage.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimPngImage.ConstructorByteArray">
+            <summary>Sets the shim of PngImage.PngImage(Byte[] content)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.ShimPngImage.GetMIMEType">
+            <summary>Sets the shim of PngImage.GetMIMEType()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.StubImage">
+            <summary>Stub type of Yoti.Auth.Images.Image</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubImage.#ctor(System.Byte[])">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubImage.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubImage.GetMIMEType">
+            <summary>Sets the stub of Image.GetMIMEType()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Images.Fakes.StubImage.GetMIMEType01">
+            <summary>Sets the stub of Image.GetMIMEType()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubImage.InitializeStub">
+            <summary>Initializes a new instance of type StubImage</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubImage.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubImage.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.StubJpegImage">
+            <summary>Stub type of Yoti.Auth.Images.JpegImage</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubJpegImage.#ctor(System.Byte[])">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubJpegImage.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubJpegImage.GetMIMEType">
+            <summary>Sets the stub of JpegImage.GetMIMEType()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Images.Fakes.StubJpegImage.GetMIMEType01">
+            <summary>Sets the stub of JpegImage.GetMIMEType()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubJpegImage.InitializeStub">
+            <summary>Initializes a new instance of type StubJpegImage</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubJpegImage.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubJpegImage.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Images.Fakes.StubPngImage">
+            <summary>Stub type of Yoti.Auth.Images.PngImage</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubPngImage.#ctor(System.Byte[])">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubPngImage.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubPngImage.GetMIMEType">
+            <summary>Sets the stub of PngImage.GetMIMEType()</summary>
+        </member>
+        <member name="F:Yoti.Auth.Images.Fakes.StubPngImage.GetMIMEType01">
+            <summary>Sets the stub of PngImage.GetMIMEType()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Images.Fakes.StubPngImage.InitializeStub">
+            <summary>Initializes a new instance of type StubPngImage</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubPngImage.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Images.Fakes.StubPngImage.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:Yoti.Auth.Verifications.Fakes.ShimAgeVerification">
+            <summary>Shim type of Yoti.Auth.Verifications.AgeVerification</summary>
+        </member>
+        <member name="M:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.#ctor(Yoti.Auth.Verifications.AgeVerification)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.Age">
+            <summary>Sets the shim of AgeVerification.Age()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.AllInstances.Age">
+            <summary>Sets the shim of AgeVerification.Age()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.AllInstances.Attribute">
+            <summary>Sets the shim of AgeVerification.Attribute()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.AllInstances.CheckType">
+            <summary>Sets the shim of AgeVerification.CheckType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.AllInstances.Result">
+            <summary>Sets the shim of AgeVerification.Result()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.Attribute">
+            <summary>Sets the shim of AgeVerification.Attribute()</summary>
+        </member>
+        <member name="M:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.CheckType">
+            <summary>Sets the shim of AgeVerification.CheckType()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.ConstructorYotiAttributeOfString">
+            <summary>Sets the shim of AgeVerification.AgeVerification(YotiAttribute`1&lt;String&gt; derivedAttribute)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.ShimAgeVerification.Result">
+            <summary>Sets the shim of AgeVerification.Result()</summary>
+        </member>
+        <member name="T:Yoti.Auth.Verifications.Fakes.StubAgeVerification">
+            <summary>Stub type of Yoti.Auth.Verifications.AgeVerification</summary>
+        </member>
+        <member name="M:Yoti.Auth.Verifications.Fakes.StubAgeVerification.#ctor(Yoti.Auth.YotiAttribute{System.String})">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.StubAgeVerification.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:Yoti.Auth.Verifications.Fakes.StubAgeVerification.InitializeStub">
+            <summary>Initializes a new instance of type StubAgeVerification</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.StubAgeVerification.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:Yoti.Auth.Verifications.Fakes.StubAgeVerification.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+    </members>
+</doc>
