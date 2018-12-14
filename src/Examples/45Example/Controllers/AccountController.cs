@@ -12,8 +12,17 @@ namespace Example.Controllers
     public class AccountController : Controller
     {
         private readonly string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
+        private byte[] _photoBytes;
 
-        public static byte[] PhotoBytes { get; set; }
+        public byte[] GetPhotoBytes()
+        {
+            return _photoBytes;
+        }
+
+        public void SetPhotoBytes(byte[] value)
+        {
+            _photoBytes = value;
+        }
 
         public ActionResult LogIn()
         {
@@ -47,7 +56,7 @@ namespace Example.Controllers
                     {
                         user.Base64Photo = profile.Selfie.GetValue().GetBase64URI();
                         user.Photo = profile.Selfie.GetValue().GetContent();
-                        PhotoBytes = user.Photo;
+                        SetPhotoBytes(user.Photo);
                     }
                     else
                     {
@@ -107,10 +116,10 @@ namespace Example.Controllers
 
         public FileContentResult DownloadImageFile()
         {
-            if (PhotoBytes == null)
+            if (GetPhotoBytes() == null)
                 throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
 
-            return File(PhotoBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
+            return File(GetPhotoBytes(), System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
         }
     }
 }
