@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using System.Reflection;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using Example.Models;
 using Yoti.Auth;
 
 namespace Example.Controllers
@@ -43,28 +41,25 @@ namespace Example.Controllers
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
                 var activityDetails = yotiClient.GetActivityDetails(token);
+
                 var profile = activityDetails.Profile;
 
-                var user = new User
-                {
-                    RememberMeID = activityDetails.RememberMeId
-                };
+                ViewBag.RememberMeID = activityDetails.RememberMeId;
+
+                var selfie = profile.Selfie.GetValue();
 
                 if (profile.Selfie != null)
                 {
-                    user.Base64Photo = profile.Selfie.GetValue().GetBase64URI();
-                    user.Photo = profile.Selfie.GetValue().GetContent();
-                    SetPhotoBytes(user.Photo);
+                    ViewBag.Base64Photo = selfie.GetBase64URI();
+                    SetPhotoBytes(selfie.GetContent());
                 }
                 else
                 {
                     ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
                 }
 
-                UpdateAttributesIfPresent(profile, user);
-
                 var identity = new ClaimsIdentity(new[] {
-                        new Claim(ClaimTypes.Name, user.RememberMeID.ToString()),
+                        new Claim(ClaimTypes.Name, activityDetails.RememberMeId.ToString()),
                         },
                     "ApplicationCookie");
 
@@ -73,26 +68,12 @@ namespace Example.Controllers
 
                 authManager.SignIn(identity);
 
-                return View(user);
+                return View(profile);
             }
             catch (Exception e)
             {
-                ViewBag.Error = e.ToString();
+                ViewBag.Error = e.Message;
                 return RedirectToAction("LoginFailure", "Home");
-            }
-        }
-
-        private static void UpdateAttributesIfPresent(YotiProfile yotiProfile, User user)
-        {
-            Type userType = user.GetType();
-            foreach (PropertyInfo yotiProfileProperty in yotiProfile.GetType().GetProperties())
-            {
-                if (!yotiProfileProperty.CanRead || (yotiProfileProperty.GetIndexParameters().Length > 0))
-                    continue;
-
-                PropertyInfo userProperty = userType.GetProperty(yotiProfileProperty.Name);
-                if ((userProperty != null) && (userProperty.CanWrite) && yotiProfileProperty.Name != "Id")
-                    userProperty.SetValue(user, yotiProfileProperty.GetValue(yotiProfile, null), null);
             }
         }
 
