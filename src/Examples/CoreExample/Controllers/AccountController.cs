@@ -9,22 +9,21 @@ namespace CoreExample.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger _logger;
+        private byte[] _photoBytes;
 
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
         }
 
-        private static byte[] photoBytes;
-
-        public static byte[] GetPhotoBytes()
+        public byte[] GetPhotoBytes()
         {
-            return photoBytes;
+            return _photoBytes;
         }
 
-        public static void SetPhotoBytes(byte[] value)
+        public void SetPhotoBytes(byte[] value)
         {
-            photoBytes = value;
+            _photoBytes = value;
         }
 
         // GET: Account/Connect?token
