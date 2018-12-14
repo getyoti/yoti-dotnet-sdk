@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Document;
 using Yoti.Auth.Images;
+using Yoti.Auth.Verifications;
 
 namespace Yoti.Auth
 {
     public class YotiProfile : BaseProfile
     {
+        private readonly AgeVerificationParser _ageVerificationParser;
+
         internal YotiProfile() : base()
         {
+            _ageVerificationParser = new AgeVerificationParser(baseProfile: this);
         }
 
         internal YotiProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
         {
+            _ageVerificationParser = new AgeVerificationParser(baseProfile: this);
         }
 
         /// <summary>
@@ -146,6 +152,37 @@ namespace Yoti.Auth
             {
                 return GetAttributeByName<DocumentDetails>(name: Constants.UserProfile.DocumentDetailsAttribute);
             }
+        }
+
+        /// <summary>
+        /// Finds all the 'Age Over' and 'Age Under' derived attributes returned with the profile,
+        /// and returns them wrapped in <see cref="AgeVerification"/> objects.
+        /// Returns null if no matches were found.
+        /// </summary>
+        public ReadOnlyCollection<AgeVerification> AgeVerifications
+        {
+            get
+            {
+                return _ageVerificationParser.FindAllAgeVerifications();
+            }
+        }
+
+        /// <summary>
+        /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Under` check for the given age.
+        /// Returns null if no match was found.
+        /// </summary>
+        public AgeVerification AgeUnderVerification(int age)
+        {
+            return _ageVerificationParser.AgeUnderVerification(age);
+        }
+
+        /// <summary>
+        /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Over` check for the given age.
+        /// Returns null if no match was found.
+        /// </summary>
+        public AgeVerification AgeOverVerification(int age)
+        {
+            return _ageVerificationParser.AgeOverVerification(age);
         }
     }
 }

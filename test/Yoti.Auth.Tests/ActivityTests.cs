@@ -574,7 +574,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Activity_GetSources_IncludesDrivingLicense_AgeVerified()
+        public void Activity_GetSources_IncludesDrivingLicense()
         {
             AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.EmailAddressAttribute,
