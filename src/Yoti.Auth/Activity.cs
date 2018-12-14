@@ -44,7 +44,7 @@ namespace Yoti.Auth
             return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
         }
 
-        private Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
+        private static Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
         {
             var parsedAttributes = new Dictionary<string, BaseAttribute>();
 

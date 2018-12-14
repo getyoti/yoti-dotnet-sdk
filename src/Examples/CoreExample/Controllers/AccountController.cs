@@ -15,7 +15,17 @@ namespace CoreExample.Controllers
             _logger = logger;
         }
 
-        public static byte[] PhotoBytes { get; set; }
+        private static byte[] photoBytes;
+
+        public static byte[] GetPhotoBytes()
+        {
+            return photoBytes;
+        }
+
+        public static void SetPhotoBytes(byte[] value)
+        {
+            photoBytes = value;
+        }
 
         // GET: Account/Connect?token
         public ActionResult Connect(string token)
@@ -46,7 +56,7 @@ namespace CoreExample.Controllers
 
                     if (yotiProfile.Selfie != null)
                     {
-                        PhotoBytes = yotiProfile.Selfie.GetValue().GetContent();
+                        SetPhotoBytes(yotiProfile.Selfie.GetValue().GetContent());
                     }
 
                     return View(yotiProfile);
@@ -72,10 +82,10 @@ namespace CoreExample.Controllers
 
         public FileContentResult DownloadImageFile()
         {
-            if (PhotoBytes == null)
+            if (GetPhotoBytes() == null)
                 throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
 
-            return File(PhotoBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
+            return File(GetPhotoBytes(), System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.CustomAttributes
 {
-    internal class ExtensionOidAttribute : System.Attribute
+    internal sealed class ExtensionOidAttribute : System.Attribute
     {
         public readonly string ExtensionOid;
 

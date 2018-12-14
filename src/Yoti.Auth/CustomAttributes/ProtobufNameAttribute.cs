@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.CustomAttributes
 {
-    internal class ProtobufNameAttribute : System.Attribute
+    internal sealed class ProtobufNameAttribute : System.Attribute
     {
         public readonly string ProtobufName;
 
