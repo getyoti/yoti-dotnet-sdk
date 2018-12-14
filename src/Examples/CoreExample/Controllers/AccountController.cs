@@ -45,6 +45,7 @@ namespace CoreExample.Controllers
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
                 ActivityDetails activityDetails = yotiClient.GetActivityDetails(token);
+
                 _logger.LogInformation("ActivityOutcome=Success");
 
                 ViewBag.RememberMeID = activityDetails.RememberMeId;
@@ -63,6 +64,7 @@ namespace CoreExample.Controllers
                 _logger.LogError(
                     exception: e,
                     message: "An error occurred");
+                ViewBag.Error = e.Message;
 
                 return RedirectToAction("LoginFailure", "Home");
             }
