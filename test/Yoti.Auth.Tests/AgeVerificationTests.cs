@@ -79,7 +79,7 @@ namespace Yoti.Auth.Tests
             {
                 ConfigureNoChecksPresent();
 
-                AgeVerification result = _yotiProfile.AgeOverVerification(18);
+                AgeVerification result = _yotiProfile.FindAgeOverVerification(18);
                 Assert.IsNull(result);
             }
         }
@@ -93,7 +93,7 @@ namespace Yoti.Auth.Tests
             {
                 ConfigureAgeOverAndAgeUnderChecks();
 
-                AgeVerification ageOverVerification = _yotiProfile.AgeOverVerification(age);
+                AgeVerification ageOverVerification = _yotiProfile.FindAgeOverVerification(age);
 
                 Assert.AreEqual(true, ageOverVerification.Result());
                 Assert.AreEqual(age, ageOverVerification.Age());
@@ -109,7 +109,7 @@ namespace Yoti.Auth.Tests
             {
                 ConfigureNoChecksPresent();
 
-                AgeVerification result = _yotiProfile.AgeUnderVerification(18);
+                AgeVerification result = _yotiProfile.FindAgeUnderVerification(18);
                 Assert.IsNull(result);
             }
         }
@@ -123,7 +123,7 @@ namespace Yoti.Auth.Tests
             {
                 ConfigureAgeOverAndAgeUnderChecks();
 
-                AgeVerification ageUnderVerification = _yotiProfile.AgeUnderVerification(age);
+                AgeVerification ageUnderVerification = _yotiProfile.FindAgeUnderVerification(age);
 
                 Assert.AreEqual(true, ageUnderVerification.Result());
                 Assert.AreEqual(age, ageUnderVerification.Age());
