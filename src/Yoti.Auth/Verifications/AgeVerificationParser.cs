@@ -20,8 +20,8 @@ namespace Yoti.Auth.Verifications
         {
             if (_allVerificationsDict == null)
             {
-                FindAgeUnderVerifications();
-                FindAgeOverVerifications();
+                FindAllAgeUnderVerifications();
+                FindAllAgeOverVerifications();
 
                 _allVerificationsDict = _ageUnderVerificationsDict.Values
                     .Concat(_ageOverVerificationsDict.Values).ToList();
@@ -30,19 +30,19 @@ namespace Yoti.Auth.Verifications
             return _allVerificationsDict.AsReadOnly();
         }
 
-        public AgeVerification AgeUnderVerification(int age)
+        public AgeVerification FindAgeUnderVerification(int age)
         {
-            FindAgeUnderVerifications();
+            FindAllAgeUnderVerifications();
             return _ageUnderVerificationsDict?.FirstOrDefault(x => x.Key == string.Format("{0}:{1}", Constants.UserProfile.AgeUnderAttribute, age)).Value;
         }
 
-        public AgeVerification AgeOverVerification(int age)
+        public AgeVerification FindAgeOverVerification(int age)
         {
-            FindAgeOverVerifications();
+            FindAllAgeOverVerifications();
             return _ageOverVerificationsDict?.FirstOrDefault(x => x.Key == string.Format("{0}:{1}", Constants.UserProfile.AgeOverAttribute, age)).Value;
         }
 
-        private void FindAgeUnderVerifications()
+        private void FindAllAgeUnderVerifications()
         {
             if (_ageUnderVerificationsDict == null)
             {
@@ -57,7 +57,7 @@ namespace Yoti.Auth.Verifications
             }
         }
 
-        private void FindAgeOverVerifications()
+        private void FindAllAgeOverVerifications()
         {
             if (_ageOverVerificationsDict == null)
             {
