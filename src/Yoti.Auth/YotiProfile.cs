@@ -171,18 +171,18 @@ namespace Yoti.Auth
         /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Under` check for the given age.
         /// Returns null if no match was found.
         /// </summary>
-        public AgeVerification AgeUnderVerification(int age)
+        public AgeVerification FindAgeUnderVerification(int age)
         {
-            return _ageVerificationParser.AgeUnderVerification(age);
+            return _ageVerificationParser.FindAgeUnderVerification(age);
         }
 
         /// <summary>
         /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Over` check for the given age.
         /// Returns null if no match was found.
         /// </summary>
-        public AgeVerification AgeOverVerification(int age)
+        public AgeVerification FindAgeOverVerification(int age)
         {
-            return _ageVerificationParser.AgeOverVerification(age);
+            return _ageVerificationParser.FindAgeOverVerification(age);
         }
     }
 }
