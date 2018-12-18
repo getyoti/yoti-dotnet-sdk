@@ -13,7 +13,7 @@ namespace Yoti.Auth.Verifications
         private readonly int _ageVerified;
         private readonly string _checkPerformed;
         private readonly bool _result;
-        private readonly string expectedFormatRegex = "[^:]+:(?!.*:)[0-9]+";
+        private const string expectedFormatRegex = "[^:]+:(?!.*:)[0-9]+";
 
         public AgeVerification(YotiAttribute<string> derivedAttribute)
         {

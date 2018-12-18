@@ -2326,12 +2326,6 @@
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AddressGet">
             <summary>Sets the shim of YotiProfile.get_Address()</summary>
         </member>
-        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AgeOverVerificationInt32">
-            <summary>Sets the shim of YotiProfile.AgeOverVerification(Int32 age)</summary>
-        </member>
-        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AgeUnderVerificationInt32">
-            <summary>Sets the shim of YotiProfile.AgeUnderVerification(Int32 age)</summary>
-        </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AgeVerificationsGet">
             <summary>Sets the shim of YotiProfile.get_AgeVerifications()</summary>
         </member>
@@ -2340,12 +2334,6 @@
         </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AddressGet">
             <summary>Sets the shim of YotiProfile.get_Address()</summary>
-        </member>
-        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AgeOverVerificationInt32">
-            <summary>Sets the shim of YotiProfile.AgeOverVerification(Int32 age)</summary>
-        </member>
-        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AgeUnderVerificationInt32">
-            <summary>Sets the shim of YotiProfile.AgeUnderVerification(Int32 age)</summary>
         </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.AgeVerificationsGet">
             <summary>Sets the shim of YotiProfile.get_AgeVerifications()</summary>
@@ -2361,6 +2349,12 @@
         </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.FamilyNameGet">
             <summary>Sets the shim of YotiProfile.get_FamilyName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.FindAgeOverVerificationInt32">
+            <summary>Sets the shim of YotiProfile.FindAgeOverVerification(Int32 age)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.FindAgeUnderVerificationInt32">
+            <summary>Sets the shim of YotiProfile.FindAgeUnderVerification(Int32 age)</summary>
         </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.AllInstances.FullNameGet">
             <summary>Sets the shim of YotiProfile.get_FullName()</summary>
@@ -2409,6 +2403,12 @@
         </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.FamilyNameGet">
             <summary>Sets the shim of YotiProfile.get_FamilyName()</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.FindAgeOverVerificationInt32">
+            <summary>Sets the shim of YotiProfile.FindAgeOverVerification(Int32 age)</summary>
+        </member>
+        <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.FindAgeUnderVerificationInt32">
+            <summary>Sets the shim of YotiProfile.FindAgeUnderVerification(Int32 age)</summary>
         </member>
         <member name="P:Yoti.Auth.Fakes.ShimYotiProfile.FullNameGet">
             <summary>Sets the shim of YotiProfile.get_FullName()</summary>

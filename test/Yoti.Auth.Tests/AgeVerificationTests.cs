@@ -34,12 +34,6 @@ namespace Yoti.Auth.Tests
         private readonly List<YotiAttribute<string>> _emptyAttributeStringList = new List<YotiAttribute<string>>();
         private YotiProfile _yotiProfile;
 
-        [TestInitialize]
-        public void Startup()
-        {
-            _yotiProfile = new YotiProfile();
-        }
-
         [TestMethod]
         public void AgeVerifications_ShouldBeNullSafe()
         {
@@ -58,9 +52,9 @@ namespace Yoti.Auth.Tests
         {
             using (ShimsContext.Create())
             {
-                var shimUserProfile = new Fakes.ShimBaseProfile(_yotiProfile);
-
                 ConfigureAgeOverAndAgeUnderChecks();
+
+                var shimUserProfile = new Fakes.ShimBaseProfile(_yotiProfile);
 
                 ReadOnlyCollection<AgeVerification> result = _yotiProfile.AgeVerifications;
 
@@ -134,6 +128,8 @@ namespace Yoti.Auth.Tests
 
         private void ConfigureNoChecksPresent()
         {
+            _yotiProfile = new YotiProfile();
+
             var shimUserProfile = new Fakes.ShimBaseProfile(_yotiProfile);
 
             shimUserProfile.FindAttributesStartingWithOf1String((prefix) =>
@@ -144,21 +140,15 @@ namespace Yoti.Auth.Tests
 
         private void ConfigureAgeOverAndAgeUnderChecks()
         {
-            var shimUserProfile = new Fakes.ShimBaseProfile(_yotiProfile);
-
-            shimUserProfile.FindAttributesStartingWithOf1String((prefix) =>
+            var attributes = new Dictionary<string, BaseAttribute>()
             {
-                if (prefix == Constants.UserProfile.AgeOverAttribute)
-                {
-                    return _ageOverAttributes;
-                }
-                else if (prefix == Constants.UserProfile.AgeUnderAttribute)
-                {
-                    return _ageUnderAttributes;
-                }
+                { _ageUnder18Attribute.GetName(), _ageUnder18Attribute },
+                { _ageUnder21Attribute.GetName(), _ageUnder21Attribute },
+                { _ageOver18Attribute.GetName(), _ageOver18Attribute },
+                { _ageOver21Attribute.GetName(), _ageOver21Attribute }
+            };
 
-                return _emptyAttributeStringList;
-            });
+            _yotiProfile = new YotiProfile(attributes);
         }
     }
 }
