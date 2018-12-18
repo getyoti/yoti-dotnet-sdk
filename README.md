@@ -124,11 +124,14 @@ if (activityDetails.Outcome == ActivityOutcome.Success)
         string familyName = profile.FamilyName.GetValue();
         string mobileNumber = profile.MobileNumber.GetValue();
         string emailAddress = profile.EmailAddress.GetValue();
-        DateTime? dateOfBirth = profile.DateOfBirth.GetValue();
-        bool? ageVerified = profile.AgeVerified.GetValue();
+        DateTime? dateOfBirth = profile.DateOfBirth.GetValue();       
         string address = profile.Address.GetValue();
         string gender = profile.Gender.GetValue();
         string nationality = profile.Nationality.GetValue();
+        bool isAgedOver18;
+        AgeVerification over18Verification = profile.FindAgeOverVerification(18);
+        if (over18Verification != null)
+            isAgedOver18 = over18Verification.Result();
     }
     else
     {
@@ -256,10 +259,10 @@ bool onWatchList = amlResult.IsOnWatchList();
     * [X] Mobile Number `MobileNumber`
     * [X] Email Address `EmailAddress`
     * [X] Age / Date of Birth `DateOfBirth`
-    * [X] Age / Age Verified `AgeVerified`
     * [X] Postal Address `Address`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`
+    * [X] Age Verifications `AgeVerifications`
   * [X] ApplicationProfile `ApplicationProfile`
     * [X] Name `Name`
     * [X] URL `URL`
