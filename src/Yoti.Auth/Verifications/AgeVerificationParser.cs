@@ -8,20 +8,20 @@ namespace Yoti.Auth.Verifications
     {
         private Dictionary<string, AgeVerification> _ageUnderVerificationsDict;
         private Dictionary<string, AgeVerification> _ageOverVerificationsDict;
-        private List<AgeVerification> _allVerificationsDict;
+        private ReadOnlyCollection<AgeVerification> _allVerificationsDict;
 
         public AgeVerificationParser(BaseProfile baseProfile)
         {
-            _ageUnderVerificationsDict = FindAgeUnderVerifications(baseProfile);
-            _ageOverVerificationsDict = FindAgeOverVerifications(baseProfile);
+            _ageUnderVerificationsDict = FindVerifications(Constants.UserProfile.AgeUnderAttribute, baseProfile);
+            _ageOverVerificationsDict = FindVerifications(Constants.UserProfile.AgeOverAttribute, baseProfile);
 
             _allVerificationsDict = _ageUnderVerificationsDict.Values
-                .Concat(_ageOverVerificationsDict.Values).ToList();
+                .Concat(_ageOverVerificationsDict.Values).ToList().AsReadOnly();
         }
 
         public ReadOnlyCollection<AgeVerification> FindAllAgeVerifications()
         {
-            return _allVerificationsDict.AsReadOnly();
+            return _allVerificationsDict;
         }
 
         public AgeVerification FindAgeUnderVerification(int age)
@@ -38,28 +38,16 @@ namespace Yoti.Auth.Verifications
                 .Value;
         }
 
-        private static Dictionary<string, AgeVerification> FindAgeUnderVerifications(BaseProfile baseProfile)
+        private static Dictionary<string, AgeVerification> FindVerifications(string ageVerificationPrefix, BaseProfile baseProfile)
         {
-            var ageUnderVerificationsDict = new Dictionary<string, AgeVerification>();
+            var ageVerificationsDict = new Dictionary<string, AgeVerification>();
 
-            foreach (YotiAttribute<string> ageUnderAttribute in baseProfile.FindAttributesStartingWith<string>(Constants.UserProfile.AgeUnderAttribute))
+            foreach (YotiAttribute<string> attribute in baseProfile.FindAttributesStartingWith<string>(ageVerificationPrefix))
             {
-                ageUnderVerificationsDict.Add(ageUnderAttribute.GetName(), new AgeVerification(ageUnderAttribute));
+                ageVerificationsDict.Add(attribute.GetName(), new AgeVerification(attribute));
             }
 
-            return ageUnderVerificationsDict;
-        }
-
-        private static Dictionary<string, AgeVerification> FindAgeOverVerifications(BaseProfile baseProfile)
-        {
-            var ageOverVerificationsDict = new Dictionary<string, AgeVerification>();
-
-            foreach (YotiAttribute<string> ageOverAttribute in baseProfile.FindAttributesStartingWith<string>(Constants.UserProfile.AgeOverAttribute))
-            {
-                ageOverVerificationsDict.Add(ageOverAttribute.GetName(), new AgeVerification(ageOverAttribute));
-            }
-
-            return ageOverVerificationsDict;
+            return ageVerificationsDict;
         }
     }
 }

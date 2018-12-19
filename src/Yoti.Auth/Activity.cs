@@ -10,13 +10,6 @@ namespace Yoti.Auth
 {
     internal class Activity
     {
-        private readonly YotiProfile _yotiProfile;
-
-        public Activity(YotiProfile yotiProfile)
-        {
-            _yotiProfile = yotiProfile;
-        }
-
         public ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
             ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
@@ -34,7 +27,7 @@ namespace Yoti.Auth
 
             var userProfile = new YotiProfile(
                 ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.other_party_profile_content));
-            SetAddressToBeFormattedAddressIfNull();
+            SetAddressToBeFormattedAddressIfNull(userProfile);
 
             var applicationProfile = new ApplicationProfile(
                 ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.profile_content));
@@ -71,11 +64,11 @@ namespace Yoti.Auth
             return parsedAttributes;
         }
 
-        internal void SetAddressToBeFormattedAddressIfNull()
+        internal void SetAddressToBeFormattedAddressIfNull(YotiProfile yotiProfile)
         {
-            YotiAttribute<Dictionary<string, JToken>> structuredPostalAddress = _yotiProfile.StructuredPostalAddress;
+            YotiAttribute<Dictionary<string, JToken>> structuredPostalAddress = yotiProfile.StructuredPostalAddress;
 
-            if (_yotiProfile.Address == null && structuredPostalAddress != null)
+            if (yotiProfile.Address == null && structuredPostalAddress != null)
             {
                 structuredPostalAddress.GetValue().TryGetValue("formatted_address", out JToken formattedAddressJToken);
 
@@ -86,7 +79,7 @@ namespace Yoti.Auth
                         value: formattedAddressJToken.ToString(),
                         anchors: structuredPostalAddress.GetAnchors());
 
-                    _yotiProfile.Add(addressAttribute);
+                    yotiProfile.Add(addressAttribute);
                 }
             }
         }
