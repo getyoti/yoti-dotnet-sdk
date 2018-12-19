@@ -17,7 +17,7 @@ namespace Yoti.Auth
         public YotiClientEngine(IHttpRequester httpRequester)
         {
             _httpRequester = httpRequester;
-            _activity = new Activity(new YotiProfile());
+            _activity = new Activity();
 
 #if !NETSTANDARD1_6
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
