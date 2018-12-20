@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Yoti.Auth.Aml;
@@ -71,26 +70,6 @@ namespace Yoti.Auth.Tests
             {
                 var client = new YotiClient(sdkId, keystream);
             });
-        }
-
-        [TestMethod]
-        public void YotiClient_GetActivityDetails()
-        {
-            YotiClient client = CreateYotiClient();
-
-            ActivityDetails activityDetails = client.GetActivityDetails(EncryptedToken);
-
-            Assert.IsNotNull(activityDetails.Outcome);
-        }
-
-        [TestMethod]
-        public async Task YotiClient_GetActivityDetailsAsync()
-        {
-            YotiClient client = CreateYotiClient();
-
-            ActivityDetails activityDetails = await client.GetActivityDetailsAsync(EncryptedToken);
-
-            Assert.IsNotNull(activityDetails.Outcome);
         }
 
         [TestMethod]
