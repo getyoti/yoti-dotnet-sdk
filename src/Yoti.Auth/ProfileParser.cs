@@ -8,19 +8,27 @@ using Yoti.Auth.DataObjects;
 
 namespace Yoti.Auth
 {
-    internal class Activity
+    internal class ProfileParser
     {
-        public ActivityDetails HandleSuccessfulResponse(AsymmetricCipherKeyPair keyPair, Response response)
+        public static ActivityDetails HandleResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
+            if (response.Content == null)
+            {
+                throw new YotiProfileException("The content of the response is null");
+            }
+
             ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
 
             if (parsedResponse.Receipt == null)
             {
-                return new ActivityDetails(ActivityOutcome.Failure);
+                throw new YotiProfileException("The receipt of the parsed response is null");
             }
             else if (parsedResponse.Receipt.sharing_outcome != "SUCCESS")
             {
-                return new ActivityDetails(ActivityOutcome.SharingFailure);
+                throw new YotiProfileException(
+                    string.Format(
+                        "The share was not successful, sharing_outcome: '{0}'",
+                        parsedResponse.Receipt.sharing_outcome));
             }
 
             ReceiptDO receipt = parsedResponse.Receipt;
@@ -41,7 +49,7 @@ namespace Yoti.Auth
                 }
             }
 
-            return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.receipt_id, ActivityOutcome.Success);
+            return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.receipt_id);
         }
 
         private static Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
@@ -64,7 +72,7 @@ namespace Yoti.Auth
             return parsedAttributes;
         }
 
-        internal void SetAddressToBeFormattedAddressIfNull(YotiProfile yotiProfile)
+        internal static void SetAddressToBeFormattedAddressIfNull(YotiProfile yotiProfile)
         {
             YotiAttribute<Dictionary<string, JToken>> structuredPostalAddress = yotiProfile.StructuredPostalAddress;
 
