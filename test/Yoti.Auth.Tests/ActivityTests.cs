@@ -16,7 +16,7 @@ namespace Yoti.Auth.Tests
     public class ActivityTests
     {
         private YotiProfile _yotiProfile;
-        private Activity _activity;
+        private ProfileParser _activity;
         private JToken _dictionaryObject = null;
         private AttrpubapiV1.AttributeList _attributeList;
 
@@ -50,7 +50,7 @@ namespace Yoti.Auth.Tests
         public void Startup()
         {
             _yotiProfile = new YotiProfile();
-            _activity = new Activity();
+            _activity = new ProfileParser();
             _attributeList = new AttrpubapiV1.AttributeList();
         }
 
@@ -441,7 +441,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
 
-            _activity.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
+            ProfileParser.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
 
             Assert.AreEqual(_yotiProfile.Address.GetValue(), formattedAddress);
         }
@@ -485,7 +485,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<Dictionary<string, JToken>>(structuredAddressAttribute);
             AddAttributeToProfile<string>(addressAttribute);
-            _activity.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
+            ProfileParser.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
 
             Assert.AreNotEqual(_yotiProfile.Address.GetValue(), formattedAddress);
         }

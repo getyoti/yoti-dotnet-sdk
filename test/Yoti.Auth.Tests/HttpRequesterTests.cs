@@ -16,7 +16,7 @@ namespace Yoti.Auth.Tests
         private HttpRequester _httpRequester;
 
         [TestInitialize]
-        public void TestInitialize()
+        public void Startup()
         {
             _fakeResponseHandler = new FakeHttpResponseHandler();
             _httpRequester = new HttpRequester();
@@ -24,7 +24,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void HttpRequester_SuccessStatusCode_ReturnsSuccess()
+        public void SuccessStatusCode_ReturnsSuccess()
         {
             _fakeResponseHandler.AddFakeResponse(
                 new Uri(_apiUrl),
@@ -42,21 +42,63 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void HttpRequester_BadRequestStatusCode_ReturnsFailure()
+        public void HttpStatusBadRequest_ThrowsException()
         {
             _fakeResponseHandler.AddFakeResponse(
                 new Uri(_apiUrl),
                 new HttpResponseMessage(HttpStatusCode.BadRequest));
 
             var httpClient = new HttpClient(_fakeResponseHandler);
-            Task<Response> response = _httpRequester.DoRequest(
+
+            Assert.ThrowsExceptionAsync<HttpRequestException>(async () =>
+            {
+                Response response = await _httpRequester.DoRequest(
                 httpClient,
                 HttpMethod.Get,
                 new Uri(_apiUrl),
                 _headers,
                 byteContent: null);
+            });
+        }
 
-            Assert.IsFalse(response.Result.Success);
+        [TestMethod]
+        public void HttpStatusInternalServerError_ThrowsException()
+        {
+            _fakeResponseHandler.AddFakeResponse(
+                new Uri(_apiUrl),
+                new HttpResponseMessage(HttpStatusCode.InternalServerError));
+
+            var httpClient = new HttpClient(_fakeResponseHandler);
+
+            Assert.ThrowsExceptionAsync<HttpRequestException>(async () =>
+            {
+                Response response = await _httpRequester.DoRequest(
+                                httpClient,
+                                HttpMethod.Get,
+                                new Uri(_apiUrl),
+                                _headers,
+                                byteContent: null);
+            });
+        }
+
+        [TestMethod]
+        public void HttpStatusNotFound_ThrowsException()
+        {
+            _fakeResponseHandler.AddFakeResponse(
+                new Uri(_apiUrl),
+                new HttpResponseMessage(HttpStatusCode.NotFound));
+
+            var httpClient = new HttpClient(_fakeResponseHandler);
+
+            Assert.ThrowsExceptionAsync<HttpRequestException>(async () =>
+            {
+                Response response = await _httpRequester.DoRequest(
+                                httpClient,
+                                HttpMethod.Get,
+                                new Uri(_apiUrl),
+                                _headers,
+                                byteContent: null);
+            });
         }
     }
 }

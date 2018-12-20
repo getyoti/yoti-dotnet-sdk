@@ -12,12 +12,10 @@ namespace Yoti.Auth
     internal class YotiClientEngine
     {
         private readonly IHttpRequester _httpRequester;
-        private readonly Activity _activity;
 
         public YotiClientEngine(IHttpRequester httpRequester)
         {
             _httpRequester = httpRequester;
-            _activity = new Activity();
 
 #if !NETSTANDARD1_6
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -50,24 +48,7 @@ namespace Yoti.Auth
                 headers,
                 httpContent);
 
-            if (response.Success)
-            {
-                return _activity.HandleSuccessfulResponse(keyPair, response);
-            }
-            else
-            {
-                var outcome = ActivityOutcome.Failure;
-                switch (response.StatusCode)
-                {
-                    case (int)HttpStatusCode.NotFound:
-                        {
-                            outcome = ActivityOutcome.ProfileNotFound;
-                        }
-                        break;
-                }
-
-                return new ActivityDetails(activityOutcome: outcome);
-            }
+            return ProfileParser.HandleResponse(keyPair, response);
         }
 
         public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
