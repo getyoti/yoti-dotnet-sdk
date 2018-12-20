@@ -2,17 +2,13 @@
 
 namespace Yoti.Auth
 {
-    internal class YotiProfileException : Exception
+    public class YotiProfileException : Exception
     {
-        public YotiProfileException()
+        internal YotiProfileException(string message) : base(message)
         {
         }
 
-        public YotiProfileException(string message) : base(message)
-        {
-        }
-
-        public YotiProfileException(string message, Exception innerException) : base(message, innerException)
+        internal YotiProfileException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }
