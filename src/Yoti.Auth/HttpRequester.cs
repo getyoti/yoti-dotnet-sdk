@@ -47,16 +47,20 @@ namespace Yoti.Auth
                         if (response.IsSuccessStatusCode)
                         {
                             result.Success = true;
+                            return result;
                         }
                         else
                         {
-                            result.ReasonPhrase = response.ReasonPhrase;
+                            throw new HttpRequestException(
+                                string.Format(
+                                    "Unsuccessful response from request. Status Code: '{0}', Reason Phrase: '{1}', Content: '{2}'",
+                                    response.StatusCode,
+                                    response.ReasonPhrase,
+                                    response.Content));
                         }
                     }
                 }
             }
-
-            return result;
         }
     }
 }
