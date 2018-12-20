@@ -58,7 +58,7 @@ namespace Yoti.Auth.Document
             return new DocumentDetails(_type, _issuingCountry, _number, _expirationDate, _authority);
         }
 
-        private void CheckStringIsNotNullOrEmpty(string str)
+        private static void CheckStringIsNotNullOrEmpty(string str)
         {
             if (string.IsNullOrEmpty(str))
             {

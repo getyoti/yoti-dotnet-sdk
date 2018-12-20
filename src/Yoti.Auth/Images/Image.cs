@@ -4,7 +4,7 @@
     {
         private readonly byte[] _content;
 
-        public Image(byte[] content)
+        protected Image(byte[] content)
         {
             _content = content;
         }
