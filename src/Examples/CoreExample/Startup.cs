@@ -32,7 +32,7 @@ namespace CoreExample
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
-                options.HttpsPort = 44321;
+                options.HttpsPort = 44344;
             });
         }
 

@@ -218,10 +218,10 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) Navigate to the [src/Examples/CoreExample](src/Examples/CoreExample) folder
 1) Rename the [.env.example](src/Examples/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
-1) From the Yoti Dashboard, set the application domain to `localhost:44321` and the scenario callback URL to `/account/connect`
 1) Restore the static files needed with `bower install`
+1) From the Yoti Dashboard, set the application domain to `localhost:44344` and the scenario callback URL to `/account/connect`
 1) Enter `dotnet run` into the terminal 
-1) Navigate to the page specified in the terminal window, which should be `https://localhost:44321`
+1) Navigate to the page specified in the terminal window, which should be `https://localhost:44344`
 
 ## API Coverage
 
