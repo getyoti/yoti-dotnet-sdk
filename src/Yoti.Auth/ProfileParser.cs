@@ -23,33 +23,33 @@ namespace Yoti.Auth
             {
                 throw new YotiProfileException("The receipt of the parsed response is null");
             }
-            else if (parsedResponse.Receipt.sharing_outcome != "SUCCESS")
+            else if (parsedResponse.Receipt.SharingOutcome != "SUCCESS")
             {
                 throw new YotiProfileException(
                     string.Format(
                         "The share was not successful, sharing_outcome: '{0}'",
-                        parsedResponse.Receipt.sharing_outcome));
+                        parsedResponse.Receipt.SharingOutcome));
             }
 
             ReceiptDO receipt = parsedResponse.Receipt;
 
             var userProfile = new YotiProfile(
-                ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.other_party_profile_content));
+                ParseProfileContent(keyPair, receipt.WrappedReceiptKey, receipt.OtherPartyProfileContent));
             SetAddressToBeFormattedAddressIfNull(userProfile);
 
             var applicationProfile = new ApplicationProfile(
-                ParseProfileContent(keyPair, receipt.wrapped_receipt_key, receipt.profile_content));
+                ParseProfileContent(keyPair, receipt.WrappedReceiptKey, receipt.ProfileContent));
 
             DateTime? timestamp = null;
-            if (receipt.timestamp != null)
+            if (receipt.Timestamp != null)
             {
-                if (DateTime.TryParseExact(receipt.timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                if (DateTime.TryParseExact(receipt.Timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
                 {
                     timestamp = parsedDate;
                 }
             }
 
-            return new ActivityDetails(parsedResponse.Receipt.remember_me_id, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.receipt_id);
+            return new ActivityDetails(parsedResponse.Receipt.RememberMeID, parsedResponse.Receipt.ParentRememberMeID, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.ReceiptID);
         }
 
         private static Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)

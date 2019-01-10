@@ -7,9 +7,10 @@ namespace Yoti.Auth
     /// </summary>
     public class ActivityDetails
     {
-        public ActivityDetails(string rememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID)
+        internal ActivityDetails(string rememberMeId, string parentRememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID)
         {
             RememberMeId = rememberMeId;
+            ParentRememberMeId = parentRememberMeId;
             Timestamp = timestamp;
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
@@ -17,19 +18,27 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// The unique identifier for a particular user.
+        /// Return the rememberMeId, which is a unique, stable identifier for a user in the context of an application.
+        /// You can use it to identify returning users. This value will be different for the same user in different applications.
         /// </summary>
         public string RememberMeId { get; private set; }
 
         /// <summary>
-        /// Time and date of the share.
+        /// Return the parentRememberMeId, which is a unique, stable identifier for a user in the context of an organisation.
+        /// You can use it to identify returning users. This value is consistent for a given user across different applications
+        /// belonging to a single organisation.
+        /// </summary>
+        public string ParentRememberMeId { get; private set; }
+
+        /// <summary>
+        /// Time and date of the sharing activity.
         /// </summary>
         public DateTime? Timestamp { get; private set; }
 
         /// <summary>
         /// The <see cref="YotiProfile"/> returned by Yoti if the request was successful.
         /// </summary>
-        public YotiProfile Profile { get; set; }
+        public YotiProfile Profile { get; private set; }
 
         /// <summary>
         /// The profile associated with the application.
@@ -37,7 +46,7 @@ namespace Yoti.Auth
         public ApplicationProfile ApplicationProfile { get; private set; }
 
         /// <summary>
-        /// Receipt ID identifying a completed activity.
+        /// Receipt ID identifying a completed sharing  activity.
         /// </summary>
         /// <returns></returns>
         public string ReceiptID { get; private set; }
