@@ -1,13 +1,14 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Collections;
+using Yoti.Auth.ProtoBuf.Attribute;
 
 namespace Yoti.Auth.Tests.TestTools
 {
     internal class Anchors
     {
-        public static AttrpubapiV1.Attribute BuildAnchoredAttribute(string name, string value, AttrpubapiV1.ContentType contentType, string rawAnchor)
+        public static Attribute BuildAnchoredAttribute(string name, string value, ContentType contentType, string rawAnchor)
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new Attribute
             {
                 Name = name,
                 ContentType = contentType,
@@ -19,12 +20,12 @@ namespace Yoti.Auth.Tests.TestTools
             return attribute;
         }
 
-        public static void AddAnchorToAttribute(byte[] anchorBytes, AttrpubapiV1.Attribute attribute)
+        public static void AddAnchorToAttribute(byte[] anchorBytes, Attribute attribute)
         {
             attribute.Anchors.AddRange(
-                new RepeatedField<AttrpubapiV1.Anchor>
+                new RepeatedField<Anchor>
                 {
-                    AttrpubapiV1.Anchor.Parser.ParseFrom(anchorBytes)
+                    Anchor.Parser.ParseFrom(anchorBytes)
                 });
         }
     }

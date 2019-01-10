@@ -3,6 +3,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
+using Yoti.Auth.ProtoBuf.Attribute;
+using Yoti.Auth.ProtoBuf.Common;
 
 namespace Yoti.Auth.Anchors
 {
@@ -24,7 +26,7 @@ namespace Yoti.Auth.Anchors
         private readonly string _subType;
         private readonly List<string> _value;
 
-        public Anchor(AttrpubapiV1.Anchor protobufAnchor)
+        public Anchor(ProtoBuf.Attribute.Anchor protobufAnchor)
         {
             AnchorVerifierSourceData anchorSourceData = AnchorCertificateParser.GetTypesFromAnchor(protobufAnchor);
 
@@ -36,7 +38,7 @@ namespace Yoti.Auth.Anchors
             _subType = protobufAnchor.SubType;
             _originServerCerts = ConvertRawCertToX509List(protobufAnchor.OriginServerCerts);
 
-            var protobufSignedTimestamp = CompubapiV1.SignedTimestamp.Parser.ParseFrom(protobufAnchor.SignedTimeStamp.ToByteArray());
+            var protobufSignedTimestamp = ProtoBuf.Common.SignedTimestamp.Parser.ParseFrom(protobufAnchor.SignedTimeStamp.ToByteArray());
             _signedTimeStamp = new SignedTimestamp(protobufSignedTimestamp);
         }
 

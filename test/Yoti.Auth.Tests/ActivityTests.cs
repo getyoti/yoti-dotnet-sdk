@@ -18,7 +18,7 @@ namespace Yoti.Auth.Tests
         private YotiProfile _yotiProfile;
         private ProfileParser _activity;
         private JToken _dictionaryObject = null;
-        private AttrpubapiV1.AttributeList _attributeList;
+        private ProtoBuf.Attribute.AttributeList _attributeList;
 
         private const string AddressFormatJson = "address_format";
         private const string BuildingNumberJson = "building_number";
@@ -51,16 +51,16 @@ namespace Yoti.Auth.Tests
         {
             _yotiProfile = new YotiProfile();
             _activity = new ProfileParser();
-            _attributeList = new AttrpubapiV1.AttributeList();
+            _attributeList = new ProtoBuf.Attribute.AttributeList();
         }
 
         [TestMethod]
         public void Activity_AddAttributesToProfile_Selfie_Jpeg()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.SelfieAttribute,
-                ContentType = AttrpubapiV1.ContentType.Jpeg,
+                ContentType = ProtoBuf.Attribute.ContentType.Jpeg,
                 Value = _byteValue
             };
 
@@ -76,10 +76,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Selfie_Png()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.SelfieAttribute,
-                ContentType = AttrpubapiV1.ContentType.Png,
+                ContentType = ProtoBuf.Attribute.ContentType.Png,
                 Value = _byteValue
             };
 
@@ -97,10 +97,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_FullName()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.FullNameAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -112,10 +112,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_GivenNames()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.GivenNamesAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -127,10 +127,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_FamilyName()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.FamilyNameAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -142,10 +142,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_MobileNumber()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.PhoneNumberAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -157,10 +157,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_EmailAddress()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.EmailAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -172,10 +172,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_DateOfBirth()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.DateOfBirthAttribute,
-                ContentType = AttrpubapiV1.ContentType.Date,
+                ContentType = ProtoBuf.Attribute.ContentType.Date,
                 Value = ByteString.CopyFromUtf8(DateOfBirthString)
             };
 
@@ -188,10 +188,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Address()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.PostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -222,10 +222,10 @@ namespace Yoti.Auth.Tests
                 + "\",     \"" + CountryJson + "\": \"" + country
                 + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.StructuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.Json,
+                ContentType = ProtoBuf.Attribute.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -276,10 +276,10 @@ namespace Yoti.Auth.Tests
                 + "\",     \"" + CountryJson + "\": \"" + country
                 + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.StructuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.Json,
+                ContentType = ProtoBuf.Attribute.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -323,10 +323,10 @@ namespace Yoti.Auth.Tests
                 + "\",     \"" + CountryJson + "\": \"" + country
                 + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.StructuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.Json,
+                ContentType = ProtoBuf.Attribute.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -380,10 +380,10 @@ namespace Yoti.Auth.Tests
                 + "\",     \"" + nestedValueJson + "\": " + nestedValueObject
                 + ",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.StructuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.Json,
+                ContentType = ProtoBuf.Attribute.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -432,10 +432,10 @@ namespace Yoti.Auth.Tests
                 + "\",     \"" + CountryJson + "\": \"" + country
                 + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.StructuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.Json,
+                ContentType = ProtoBuf.Attribute.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(addressString)
             };
 
@@ -469,17 +469,17 @@ namespace Yoti.Auth.Tests
                 + "\",     \"" + CountryJson + "\": \"" + country
                 + "\",     \"" + FormattedAddressJson + "\": \"" + formattedAddress + "\" }";
 
-            var structuredAddressAttribute = new AttrpubapiV1.Attribute
+            var structuredAddressAttribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.StructuredPostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.Json,
+                ContentType = ProtoBuf.Attribute.ContentType.Json,
                 Value = ByteString.CopyFromUtf8(structuredAddressString)
             };
 
-            var addressAttribute = new AttrpubapiV1.Attribute
+            var addressAttribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.PostalAddressAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = ByteString.CopyFromUtf8(postalAddress)
             };
 
@@ -493,10 +493,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Gender()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.GenderAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -508,10 +508,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_AddAttributesToProfile_Nationality()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.NationalityAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = _byteValue
             };
 
@@ -537,10 +537,10 @@ namespace Yoti.Auth.Tests
                     expirationDateString,
                     issuingAuthority);
 
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.DocumentDetailsAttribute,
-                ContentType = AttrpubapiV1.ContentType.String,
+                ContentType = ProtoBuf.Attribute.ContentType.String,
                 Value = ByteString.CopyFromUtf8(documentDetailsString)
             };
 
@@ -558,10 +558,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_String()
         {
-            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.GivenNamesAttribute,
                 StringValue,
-                AttrpubapiV1.ContentType.String,
+                ProtoBuf.Attribute.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
 
             AddAttributeToProfile<string>(attribute);
@@ -576,10 +576,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense()
         {
-            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.EmailAddressAttribute,
                 "true",
-                AttrpubapiV1.ContentType.String,
+                ProtoBuf.Attribute.ContentType.String,
                 TestAnchors.DrivingLicenseAnchor);
 
             AddAttributeToProfile<string>(attribute);
@@ -593,10 +593,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
         {
-            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.StructuredPostalAddressAttribute,
                 "{ \"properties\": { \"name\": { \"type\": \"string\"} } }",
-                AttrpubapiV1.ContentType.Json,
+                ProtoBuf.Attribute.ContentType.Json,
                 TestAnchors.DrivingLicenseAnchor);
 
             AddAttributeToProfile<Dictionary<string, JToken>>(attribute);
@@ -610,10 +610,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_GetSources_IncludesPassport()
         {
-            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.DateOfBirthAttribute,
                 DateOfBirthString,
-                AttrpubapiV1.ContentType.Date,
+                ProtoBuf.Attribute.ContentType.Date,
                 TestAnchors.PassportAnchor);
 
             AddAttributeToProfile<DateTime>(attribute);
@@ -627,10 +627,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Activity_GetVerifiers_IncludesYotiAdmin()
         {
-            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.SelfieAttribute,
                 StringValue,
-                AttrpubapiV1.ContentType.Jpeg,
+                ProtoBuf.Attribute.ContentType.Jpeg,
                 TestAnchors.YotiAdminAnchor);
 
             AddAttributeToProfile<Image>(attribute);
@@ -644,10 +644,10 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void AddAttributesToProfile_UndefinedContentType_IsNotAdded()
         {
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = Constants.UserProfile.FamilyNameAttribute,
-                ContentType = AttrpubapiV1.ContentType.Undefined,
+                ContentType = ProtoBuf.Attribute.ContentType.Undefined,
                 Value = _byteValue
             };
 
@@ -660,10 +660,10 @@ namespace Yoti.Auth.Tests
         public void AddAttributesToProfile_NewContentType_IsRetrieved()
         {
             string name = "newType";
-            var attribute = new AttrpubapiV1.Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = name,
-                ContentType = (AttrpubapiV1.ContentType)99,
+                ContentType = (ProtoBuf.Attribute.ContentType)99,
                 Value = _byteValue
             };
 
@@ -678,7 +678,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(expectedValue, _dictionaryObject.ToString());
         }
 
-        private void AddAttributeToProfile<T>(AttrpubapiV1.Attribute attribute)
+        private void AddAttributeToProfile<T>(ProtoBuf.Attribute.Attribute attribute)
         {
             BaseAttribute parsedAttribute = AttributeConverter.ConvertToBaseAttribute(attribute);
 

@@ -15,7 +15,7 @@ namespace Yoti.Auth
         private readonly byte[] _chainDigestSkip1;
         private readonly byte[] _chainDigestSkip2;
 
-        public SignedTimestamp(CompubapiV1.SignedTimestamp protobufSignedTimestamp)
+        public SignedTimestamp(ProtoBuf.Common.SignedTimestamp protobufSignedTimestamp)
         {
             _timestamp = ConvertMicroSecondsSinceEpochToDateTime(protobufSignedTimestamp);
             _version = protobufSignedTimestamp.Version;
@@ -25,7 +25,7 @@ namespace Yoti.Auth
             _chainDigestSkip2 = protobufSignedTimestamp.ChainDigestSkip2.ToByteArray();
         }
 
-        private static DateTime ConvertMicroSecondsSinceEpochToDateTime(CompubapiV1.SignedTimestamp protobufSignedTimestamp)
+        private static DateTime ConvertMicroSecondsSinceEpochToDateTime(ProtoBuf.Common.SignedTimestamp protobufSignedTimestamp)
         {
             DateTime epoch = new DateTime(1970, 1, 1);
             long timeInMicroSecondsSinceEpoch = (long)protobufSignedTimestamp.Timestamp;
