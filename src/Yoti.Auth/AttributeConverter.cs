@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using AttrpubapiV1;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Document;
 using Yoti.Auth.Images;
+using Yoti.Auth.ProtoBuf.Attribute;
 
 namespace Yoti.Auth
 {
     internal class AttributeConverter
     {
-        public static BaseAttribute ConvertToBaseAttribute(AttrpubapiV1.Attribute attribute)
+        public static BaseAttribute ConvertToBaseAttribute(ProtoBuf.Attribute.Attribute attribute)
         {
             byte[] byteAttributeValue = attribute.Value.ToByteArray();
 
@@ -71,11 +71,11 @@ namespace Yoti.Auth
             }
         }
 
-        private static List<Yoti.Auth.Anchors.Anchor> ParseAnchors(AttrpubapiV1.Attribute attribute)
+        private static List<Yoti.Auth.Anchors.Anchor> ParseAnchors(ProtoBuf.Attribute.Attribute attribute)
         {
             var yotiAnchors = new HashSet<Yoti.Auth.Anchors.Anchor>();
 
-            foreach (AttrpubapiV1.Anchor protoBufAnchor in attribute.Anchors)
+            foreach (Anchor protoBufAnchor in attribute.Anchors)
             {
                 yotiAnchors.Add(new Yoti.Auth.Anchors.Anchor(protoBufAnchor));
             }

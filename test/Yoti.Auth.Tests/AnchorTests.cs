@@ -11,13 +11,13 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void Anchor_Getters()
         {
-            AttrpubapiV1.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                "given_names",
                "givenNameValue",
-               AttrpubapiV1.ContentType.String,
+               Yoti.Auth.ProtoBuf.Attribute.ContentType.String,
                TestAnchors.DrivingLicenseAnchor);
 
-            AttrpubapiV1.Anchor protobufAnchor = attribute.Anchors.Single();
+            ProtoBuf.Attribute.Anchor protobufAnchor = attribute.Anchors.Single();
 
             var yotiAnchor = new Yoti.Auth.Anchors.Anchor(protobufAnchor);
 

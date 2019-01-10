@@ -58,12 +58,12 @@ namespace Yoti.Auth
 
             if (!string.IsNullOrEmpty(profileContent))
             {
-                AttrpubapiV1.AttributeList profileAttributeList = CryptoEngine.DecryptCurrentUserReceipt(
+                ProtoBuf.Attribute.AttributeList profileAttributeList = CryptoEngine.DecryptCurrentUserReceipt(
                     wrappedReceiptKey,
                     profileContent,
                     keyPair);
 
-                foreach (AttrpubapiV1.Attribute attribute in profileAttributeList.Attributes)
+                foreach (ProtoBuf.Attribute.Attribute attribute in profileAttributeList.Attributes)
                 {
                     parsedAttributes.Add(attribute.Name, AttributeConverter.ConvertToBaseAttribute(attribute));
                 }

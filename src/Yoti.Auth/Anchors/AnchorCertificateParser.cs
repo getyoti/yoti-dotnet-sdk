@@ -11,7 +11,7 @@ namespace Yoti.Auth.Anchors
 {
     public static class AnchorCertificateParser
     {
-        public static AnchorVerifierSourceData GetTypesFromAnchor(AttrpubapiV1.Anchor anchor)
+        public static AnchorVerifierSourceData GetTypesFromAnchor(ProtoBuf.Attribute.Anchor anchor)
         {
             var types = new HashSet<string>();
             AnchorType anchorType = AnchorType.Unknown;

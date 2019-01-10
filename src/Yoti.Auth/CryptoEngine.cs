@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using AttrpubapiV1;
-using CompubapiV1;
+using Yoti.Auth.ProtoBuf.Attribute;
+using Yoti.Auth.ProtoBuf.Common;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
