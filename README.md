@@ -89,8 +89,8 @@ var activityDetails = await yotiClient.GetActivityDetailsAsync(oneTimeUseToken);
 
 ## Handling Users
 ```
-The ActivityDetails includes a unique identifier for the user, named RememberMeID.  You can use this to identify users returning to your application, but if the user completes a share with a different application, Yoti will assign a different RememberMeID.
-Applications registered to an organisation may also utilise an additional unique identifier named ParentRememberMeID.  Use this to identify users returning to your organisation.  It is consistent for a given user in all applications registered to a single organisation.
+The ActivityDetails includes a unique identifier for the user, named RememberMeId.  You can use this to identify users returning to your application, but if the user completes a share with a different application, Yoti will assign a different RememberMeId.
+Applications registered to an organisation may also utilise an additional unique identifier named ParentRememberMeId.  Use this to identify users returning to your organisation.  It is consistent for a given user in all applications registered to a single organisation.
 
 Here is an example of how this works:
 
@@ -98,7 +98,7 @@ Here is an example of how this works:
 var activityDetails = yotiClient.GetActivityDetails(oneTimeUseToken);
 
 var profile = activityDetails.Profile;
-var user = YourUserSearchFunction(activityDetails.RememberMeID); //or use ParentRememberMeID
+var user = YourUserSearchFunction(activityDetails.RememberMeId); //or use ParentRememberMeId
 if (user != null)
 {
     Image selfie = profile.Selfie.GetImage();
@@ -123,7 +123,7 @@ else
 }
 ```
 
-Where `yourUserSearchFunction` is a piece of logic in your app that is supposed to find a user, given a RememberMeID or ParentRememberMeID.
+Where `yourUserSearchFunction` is a piece of logic in your app that is supposed to find a user, given a RememberMeId or ParentRememberMeId.
 No matter if the user is a new or an existing one, Yoti will always provide her/his profile, so you don't necessarily need to store it.
 
 The `profile` object provides a set of attributes corresponding to user attributes. Whether the attributes are present or not depends on the settings you have applied to your app on Yoti Dashboard.
@@ -226,10 +226,10 @@ bool onWatchList = amlResult.IsOnWatchList();
 ## API Coverage
 
 * Activity Details
-  * [X] RememberMeID `RememberMeId`
-  * [X] ParentRememberMeID `ParentRememberMeId`
+  * [X] RememberMeId `RememberMeId`
+  * [X] ParentRememberMeId `ParentRememberMeId`
   * [X] Timestamp `Timestamp`
-  * [X] Receipt ID `ReceiptID`
+  * [X] Receipt ID `ReceiptId`
   * [X] Profile `Profile`
     * [X] Selfie `Selfie`
     * [X] Selfie URI `Selfie.GetBase64URI()`

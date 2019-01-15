@@ -5,7 +5,7 @@ namespace Yoti.Auth.DataObjects
     internal class ReceiptDO
     {
         [JsonProperty(PropertyName = "receipt_id")]
-        public string ReceiptID { get; set; }
+        public string ReceiptId { get; set; }
 
         [JsonProperty(PropertyName = "other_party_profile_content")]
         public string OtherPartyProfileContent { get; set; }
@@ -29,10 +29,10 @@ namespace Yoti.Auth.DataObjects
         public string PersonalKey { get; set; }
 
         [JsonProperty(PropertyName = "remember_me_id")]
-        public string RememberMeID { get; set; }
+        public string RememberMeId { get; set; }
 
         [JsonProperty(PropertyName = "parent_remember_me_id")]
-        public string ParentRememberMeID { get; set; }
+        public string ParentRememberMeId { get; set; }
 
         [JsonProperty(PropertyName = "sharing_outcome")]
         public string SharingOutcome { get; set; }
