@@ -7,14 +7,14 @@ namespace Yoti.Auth
     /// </summary>
     public class ActivityDetails
     {
-        internal ActivityDetails(string rememberMeId, string parentRememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID)
+        internal ActivityDetails(string rememberMeId, string parentRememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptId)
         {
             RememberMeId = rememberMeId;
             ParentRememberMeId = parentRememberMeId;
             Timestamp = timestamp;
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
-            ReceiptID = receiptID;
+            ReceiptId = receiptId;
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace Yoti.Auth
         public ApplicationProfile ApplicationProfile { get; private set; }
 
         /// <summary>
-        /// Receipt ID identifying a completed sharing  activity.
+        /// Receipt ID identifying a completed sharing activity.
         /// </summary>
         /// <returns></returns>
-        public string ReceiptID { get; private set; }
+        public string ReceiptId { get; private set; }
     }
 }
