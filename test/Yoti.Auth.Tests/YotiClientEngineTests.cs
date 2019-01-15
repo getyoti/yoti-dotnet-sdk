@@ -75,8 +75,8 @@ namespace Yoti.Auth.Tests
         {
             const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
             const string otherPartyProfileContent = "ChCZAib1TBm9Q5GYfFrS1ep9EnAwQB5shpAPWLBgZgFgt6bCG3S5qmZHhrqUbQr3yL6yeLIDwbM7x4nuT/MYp+LDXgmFTLQNYbDTzrEzqNuO2ZPn9Kpg+xpbm9XtP7ZLw3Ep2BCmSqtnll/OdxAqLb4DTN4/wWdrjnFC+L/oQEECu646";
-            const string rememberMeID = "remember_me_id0123456789";
-            const string parentRememberMeID = "parent_remember_me_id0123456789";
+            const string rememberMeId = "remember_me_id0123456789";
+            const string parentRememberMeId = "parent_remember_me_id0123456789";
             const string receiptId = "receipt_id_123";
 
             var httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
@@ -87,7 +87,7 @@ namespace Yoti.Auth.Tests
                 {
                     Success = true,
                     StatusCode = 200,
-                    Content = "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"other_party_profile_content\": \"" + otherPartyProfileContent + "\",\"remember_me_id\":\"" + rememberMeID + "\",\"parent_remember_me_id\":\"" + parentRememberMeID + "\",\"receipt_id\":\"" + receiptId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}"
+                    Content = "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"other_party_profile_content\": \"" + otherPartyProfileContent + "\",\"remember_me_id\":\"" + rememberMeId + "\",\"parent_remember_me_id\":\"" + parentRememberMeId + "\",\"receipt_id\":\"" + receiptId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}"
                 });
             });
 
@@ -99,9 +99,9 @@ namespace Yoti.Auth.Tests
 
             Assert.IsNotNull(activityDetails.Profile);
 
-            Assert.AreEqual(receiptId, activityDetails.ReceiptID);
+            Assert.AreEqual(receiptId, activityDetails.ReceiptId);
 
-            Assert.AreEqual(rememberMeID, activityDetails.RememberMeId);
+            Assert.AreEqual(rememberMeId, activityDetails.RememberMeId);
             Assert.AreEqual(new DateTime(2016, 1, 1, 0, 0, 0), activityDetails.Timestamp);
 
             Assert.IsNotNull(activityDetails.Profile.Selfie);
@@ -113,10 +113,10 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void EmptyStringParentRememberMeIDIsHandled()
+        public void EmptyStringParentRememberMeIdIsHandled()
         {
             const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
-            const string parentRememberMeID = "";
+            const string parentRememberMeId = "";
 
             var httpRequester = new FakeHttpRequester((httpClient, httpMethod, uri, headers, byteContent) =>
             {
@@ -124,7 +124,7 @@ namespace Yoti.Auth.Tests
                 {
                     Success = true,
                     StatusCode = 200,
-                    Content = "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"parent_remember_me_id\":\"" + parentRememberMeID + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}"
+                    Content = "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"parent_remember_me_id\":\"" + parentRememberMeId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}"
                 });
             });
 
@@ -156,7 +156,7 @@ namespace Yoti.Auth.Tests
 
             Assert.IsNotNull(activityDetails.Profile);
 
-            Assert.IsNull(activityDetails.ReceiptID);
+            Assert.IsNull(activityDetails.ReceiptId);
             Assert.IsNull(activityDetails.RememberMeId);
             Assert.IsNull(activityDetails.ParentRememberMeId);
         }

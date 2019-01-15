@@ -49,7 +49,7 @@ namespace Yoti.Auth
                 }
             }
 
-            return new ActivityDetails(parsedResponse.Receipt.RememberMeID, parsedResponse.Receipt.ParentRememberMeID, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.ReceiptID);
+            return new ActivityDetails(parsedResponse.Receipt.RememberMeId, parsedResponse.Receipt.ParentRememberMeId, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.ReceiptId);
         }
 
         private static Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
