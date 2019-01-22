@@ -45,29 +45,18 @@ namespace CoreExample.Controllers
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
                 ActivityDetails activityDetails = yotiClient.GetActivityDetails(token);
-                if (activityDetails.Outcome == ActivityOutcome.Success)
+                _logger.LogInformation("ActivityOutcome=Success");
+
+                ViewBag.RememberMeID = activityDetails.RememberMeId;
+
+                YotiProfile yotiProfile = activityDetails.Profile;
+
+                if (yotiProfile.Selfie != null)
                 {
-                    _logger.LogInformation("ActivityOutcome=Success");
-
-                    ViewBag.RememberMeID = activityDetails.RememberMeId;
-
-                    YotiProfile yotiProfile = activityDetails.Profile;
-
-                    if (yotiProfile.Selfie != null)
-                    {
-                        SetPhotoBytes(yotiProfile.Selfie.GetValue().GetContent());
-                    }
-
-                    return View(yotiProfile);
+                    SetPhotoBytes(yotiProfile.Selfie.GetValue().GetContent());
                 }
-                else
-                {
-                    _logger.LogWarning(
-                        string.Format(
-                            "ActivityOutcome='{0}'",
-                            activityDetails.Outcome));
-                    return RedirectToAction("LoginFailure", "Home");
-                }
+
+                return View(yotiProfile);
             }
             catch (Exception e)
             {
