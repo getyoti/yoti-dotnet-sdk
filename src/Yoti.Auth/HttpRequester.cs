@@ -52,11 +52,7 @@ namespace Yoti.Auth
                         else
                         {
                             throw new HttpRequestException(
-                                string.Format(
-                                    "Unsuccessful response from request. Status Code: '{0}', Reason Phrase: '{1}', Content: '{2}'",
-                                    response.StatusCode,
-                                    response.ReasonPhrase,
-                                    response.Content));
+                                $"Unsuccessful response from request. Status Code: '{response.StatusCode}', Reason Phrase: '{response.ReasonPhrase}', Content: '{response.Content}'");
                         }
                     }
                 }

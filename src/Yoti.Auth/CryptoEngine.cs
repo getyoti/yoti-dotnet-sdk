@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
-using Yoti.Auth.ProtoBuf.Attribute;
-using Yoti.Auth.ProtoBuf.Common;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
@@ -11,6 +10,8 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
+using Yoti.Auth.ProtoBuf.Attribute;
+using Yoti.Auth.ProtoBuf.Common;
 
 namespace Yoti.Auth
 {

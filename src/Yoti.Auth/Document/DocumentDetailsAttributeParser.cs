@@ -52,16 +52,13 @@ namespace Yoti.Auth.Document
                 return parsedDate;
 
             throw new FormatException(
-                string.Format(
-                    "Unable to parse {0} value of '{1}'",
-                    nameof(expirationDate),
-                    expirationDate));
+                $"Unable to parse {nameof(expirationDate)} value of '{expirationDate}'");
         }
 
         private static string GetSafely(string[] attributes, int index)
         {
             string value = attributes.Length > index ? attributes[index] : null;
-            return "-".Equals(value) ? null : value;
+            return "-".Equals(value, System.StringComparison.Ordinal) ? null : value;
         }
     }
 }

@@ -18,7 +18,7 @@
 
         public string GetBase64URI()
         {
-            return string.Format("data:{0};base64,{1}", GetMIMEType(), Conversion.BytesToBase64(GetContent()));
+            return $"data:{GetMIMEType()};base64,{Conversion.BytesToBase64(GetContent())}";
         }
     }
 }

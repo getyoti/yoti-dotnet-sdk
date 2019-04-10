@@ -31,9 +31,7 @@ namespace Yoti.Auth
 
                     if (!parsed)
                         throw new FormatException(
-                            string.Format(
-                                "'{0}' value was unable to be parsed into a bool",
-                                bytes));
+                            $"'{bytes}' value was unable to be parsed into a bool");
 
                     return (T)(object)output;
 
@@ -41,7 +39,7 @@ namespace Yoti.Auth
                     return (T)(object)bytes;
 
                 default:
-                    return (T)Convert.ChangeType(bytes, typeof(T));
+                    return (T)Convert.ChangeType(bytes, typeof(T), CultureInfo.InvariantCulture);
             }
         }
     }

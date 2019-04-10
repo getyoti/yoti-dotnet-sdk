@@ -3,8 +3,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
-using Yoti.Auth.ProtoBuf.Attribute;
-using Yoti.Auth.ProtoBuf.Common;
 
 namespace Yoti.Auth.Anchors
 {
