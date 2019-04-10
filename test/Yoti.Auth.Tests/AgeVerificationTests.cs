@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Microsoft.QualityTools.Testing.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Yoti.Auth.Verifications;
 
 namespace Yoti.Auth.Tests
@@ -28,84 +28,86 @@ namespace Yoti.Auth.Tests
         private static readonly List<YotiAttribute<string>> _ageOverAttributes =
             new List<YotiAttribute<string>> { _ageOver18Attribute, _ageOver21Attribute };
 
-        private readonly Collection<YotiAttribute<string>> _allAgeVerificationAttributes =
-            new Collection<YotiAttribute<string>>(_ageUnderAttributes.Concat(_ageOverAttributes).ToList());
+        private readonly List<YotiAttribute<string>> _allAgeVerificationAttributes =
+            new List<YotiAttribute<string>>(_ageUnderAttributes.Concat(_ageOverAttributes).ToList());
 
         private readonly List<YotiAttribute<string>> _emptyAttributeStringList = new List<YotiAttribute<string>>();
-        private YotiProfile _yotiProfile;
 
         [TestMethod]
         public void AgeVerifications_ShouldBeNullSafe()
         {
-            using (ShimsContext.Create())
-            {
-                ConfigureNoChecksPresent();
+            ReadOnlyCollection<AgeVerification> result = new YotiProfile().AgeVerifications;
 
-                ReadOnlyCollection<AgeVerification> result = _yotiProfile.AgeVerifications;
-
-                Assert.AreEqual(0, result.Count);
-            }
+            Assert.AreEqual(0, result.Count);
         }
 
         [TestMethod]
         public void AgeVerifications_IncludesAllResults()
         {
-            using (ShimsContext.Create())
-            {
-                ConfigureAgeOverAndAgeUnderChecks();
+            var mockBaseProfile = new Mock<IBaseProfile>();
+            mockBaseProfile.Setup(x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeOverAttribute))
+                .Returns(_ageOverAttributes);
+            mockBaseProfile.Setup(x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeUnderAttribute))
+               .Returns(_ageUnderAttributes);
+            var yotiProfile = new YotiProfile(mockBaseProfile.Object);
 
-                var shimUserProfile = new Fakes.ShimBaseProfile(_yotiProfile);
+            ReadOnlyCollection<AgeVerification> result = yotiProfile.AgeVerifications;
 
-                ReadOnlyCollection<AgeVerification> result = _yotiProfile.AgeVerifications;
-
-                Assert.AreEqual(4, result.Count);
-                CollectionAssert.Contains(_allAgeVerificationAttributes, result[0].Attribute());
-                CollectionAssert.Contains(_allAgeVerificationAttributes, result[1].Attribute());
-                CollectionAssert.Contains(_allAgeVerificationAttributes, result[2].Attribute());
-                CollectionAssert.Contains(_allAgeVerificationAttributes, result[3].Attribute());
-            }
+            Assert.AreEqual(4, result.Count);
+            CollectionAssert.Contains(_allAgeVerificationAttributes, result[0].Attribute());
+            CollectionAssert.Contains(_allAgeVerificationAttributes, result[1].Attribute());
+            CollectionAssert.Contains(_allAgeVerificationAttributes, result[2].Attribute());
+            CollectionAssert.Contains(_allAgeVerificationAttributes, result[3].Attribute());
         }
 
         [TestMethod]
         public void FindAgeOverVerification_returnsNullForNoMatch()
         {
-            using (ShimsContext.Create())
-            {
-                ConfigureNoChecksPresent();
+            var mockBaseProfile = new Mock<IBaseProfile>();
+            mockBaseProfile.Setup(
+                x => x.FindAttributesStartingWith<string>(It.IsAny<string>()))
+               .Returns(_emptyAttributeStringList);
+            var yotiProfile = new YotiProfile(mockBaseProfile.Object);
 
-                AgeVerification result = _yotiProfile.FindAgeOverVerification(18);
-                Assert.IsNull(result);
-            }
+            AgeVerification result = yotiProfile.FindAgeOverVerification(18);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
         public void FindAgeOverVerification_ReturnsCorrectResult()
         {
             int age = 18;
+            var ageover18List = new List<YotiAttribute<string>> { _ageOver18Attribute };
 
-            using (ShimsContext.Create())
-            {
-                ConfigureAgeOverAndAgeUnderChecks();
+            var mockBaseProfile = new Mock<IBaseProfile>();
 
-                AgeVerification ageOverVerification = _yotiProfile.FindAgeOverVerification(age);
+            mockBaseProfile.Setup(
+                x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeUnderAttribute))
+               .Returns(_emptyAttributeStringList);
+            mockBaseProfile.Setup(
+                x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeOverAttribute))
+               .Returns(ageover18List);
+            var yotiProfile = new YotiProfile(mockBaseProfile.Object);
 
-                Assert.AreEqual(true, ageOverVerification.Result());
-                Assert.AreEqual(age, ageOverVerification.Age());
-                Assert.AreEqual(Constants.UserProfile.AgeOverAttribute, ageOverVerification.CheckType());
-                Assert.AreEqual(_ageOver18Attribute, ageOverVerification.Attribute());
-            }
+            AgeVerification ageOverVerification = yotiProfile.FindAgeOverVerification(age);
+
+            Assert.AreEqual(true, ageOverVerification.Result());
+            Assert.AreEqual(age, ageOverVerification.Age());
+            Assert.AreEqual(Constants.UserProfile.AgeOverAttribute, ageOverVerification.CheckType());
+            Assert.AreEqual(_ageOver18Attribute, ageOverVerification.Attribute());
         }
 
         [TestMethod]
         public void FindAgeUnderVerification_returnsNullForNoMatch()
         {
-            using (ShimsContext.Create())
-            {
-                ConfigureNoChecksPresent();
+            var mockBaseProfile = new Mock<IBaseProfile>();
+            mockBaseProfile.Setup(
+                x => x.FindAttributesStartingWith<string>(It.IsAny<string>()))
+               .Returns(_emptyAttributeStringList);
+            var yotiProfile = new YotiProfile(mockBaseProfile.Object);
 
-                AgeVerification result = _yotiProfile.FindAgeUnderVerification(18);
-                Assert.IsNull(result);
-            }
+            AgeVerification result = yotiProfile.FindAgeUnderVerification(18);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
@@ -113,42 +115,21 @@ namespace Yoti.Auth.Tests
         {
             int age = 21;
 
-            using (ShimsContext.Create())
-            {
-                ConfigureAgeOverAndAgeUnderChecks();
+            var mockBaseProfile = new Mock<IBaseProfile>();
+            mockBaseProfile.Setup(
+                x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeOverAttribute))
+               .Returns(_emptyAttributeStringList);
+            mockBaseProfile.Setup(
+                x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeUnderAttribute))
+               .Returns(new List<YotiAttribute<string>> { _ageUnder21Attribute });
+            var yotiProfile = new YotiProfile(mockBaseProfile.Object);
 
-                AgeVerification ageUnderVerification = _yotiProfile.FindAgeUnderVerification(age);
+            AgeVerification ageUnderVerification = yotiProfile.FindAgeUnderVerification(age);
 
-                Assert.AreEqual(true, ageUnderVerification.Result());
-                Assert.AreEqual(age, ageUnderVerification.Age());
-                Assert.AreEqual(Constants.UserProfile.AgeUnderAttribute, ageUnderVerification.CheckType());
-                Assert.AreEqual(_ageUnder21Attribute, ageUnderVerification.Attribute());
-            }
-        }
-
-        private void ConfigureNoChecksPresent()
-        {
-            _yotiProfile = new YotiProfile();
-
-            var shimUserProfile = new Fakes.ShimBaseProfile(_yotiProfile);
-
-            shimUserProfile.FindAttributesStartingWithOf1String((prefix) =>
-            {
-                return _emptyAttributeStringList;
-            });
-        }
-
-        private void ConfigureAgeOverAndAgeUnderChecks()
-        {
-            var attributes = new Dictionary<string, BaseAttribute>()
-            {
-                { _ageUnder18Attribute.GetName(), _ageUnder18Attribute },
-                { _ageUnder21Attribute.GetName(), _ageUnder21Attribute },
-                { _ageOver18Attribute.GetName(), _ageOver18Attribute },
-                { _ageOver21Attribute.GetName(), _ageOver21Attribute }
-            };
-
-            _yotiProfile = new YotiProfile(attributes);
+            Assert.AreEqual(true, ageUnderVerification.Result());
+            Assert.AreEqual(age, ageUnderVerification.Age());
+            Assert.AreEqual(Constants.UserProfile.AgeUnderAttribute, ageUnderVerification.CheckType());
+            Assert.AreEqual(_ageUnder21Attribute, ageUnderVerification.Attribute());
         }
     }
 }
