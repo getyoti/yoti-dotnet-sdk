@@ -39,6 +39,3 @@ Backup*/
 # SQL Server files
 *.mdf
 *.ldf
-
-#Fakes Assemblies
-/test/Yoti.Auth.Tests/FakesAssemblies/*
