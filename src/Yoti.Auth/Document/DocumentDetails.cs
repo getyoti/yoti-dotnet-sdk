@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Yoti.Auth.Document
 {
@@ -21,11 +22,11 @@ namespace Yoti.Auth.Document
 
         public override string ToString()
         {
-            string result = string.Format("{0} {1} {2}", DocumentType, IssuingCountry, DocumentNumber);
+            string result = $"{DocumentType} {IssuingCountry} {DocumentNumber}";
 
             if (ExpirationDate != null)
             {
-                result = result + " " + ExpirationDate.Value.ToString("yyyy-MM-dd");
+                result = result + " " + ExpirationDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
 
             if (!string.IsNullOrEmpty(IssuingAuthority))

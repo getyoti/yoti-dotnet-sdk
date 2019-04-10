@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http;
 
 namespace Yoti.Auth
@@ -19,7 +20,7 @@ namespace Yoti.Auth
         {
             var milliseconds = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
 
-            return milliseconds.ToString();
+            return milliseconds.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

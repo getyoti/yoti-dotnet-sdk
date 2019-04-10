@@ -39,45 +39,30 @@ namespace Yoti.Auth.Aml
                     throw;
 
                 throw new AmlException(
-                    string.Format(
-                        "Inner exception:{0}{1}",
-                        Environment.NewLine,
-                        ex.Message),
+                    $"Inner exception:{Environment.NewLine}{ex.Message}",
                     ex);
             }
         }
 
-        private static AmlException CreateExceptionFromStatusCode(Response response)
+        private static void CreateExceptionFromStatusCode(Response response)
         {
             switch ((HttpStatusCode)response.StatusCode)
             {
                 case HttpStatusCode.BadRequest:
                     throw new AmlException(
-                        string.Format(
-                            "Failed validation:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
+                        $"Failed validation:{Environment.NewLine}{response.Content}");
 
                 case HttpStatusCode.Unauthorized:
                     throw new AmlException(
-                        string.Format(
-                        "Failed authorization with the given key:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
+                       $"Failed authorization with the given key:{Environment.NewLine}{response.Content}");
 
                 case HttpStatusCode.InternalServerError:
                     throw new AmlException(
-                        string.Format(
-                            "An unexpected error occurred on the server:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
+                       $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content}");
 
                 default:
                     throw new AmlException(
-                        string.Format(
-                            "Unexpected error:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
+                       $"Unexpected error:{Environment.NewLine}{response.Content}");
             }
         }
     }

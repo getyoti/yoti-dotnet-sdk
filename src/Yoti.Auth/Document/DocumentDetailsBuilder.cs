@@ -63,9 +63,7 @@ namespace Yoti.Auth.Document
             if (string.IsNullOrEmpty(str))
             {
                 throw new InvalidOperationException(
-                    string.Format(
-                        "'{0}' cannot be null or empty",
-                        nameof(str)));
+                    $"'{nameof(str)}' cannot be null or empty");
             }
         }
     }
