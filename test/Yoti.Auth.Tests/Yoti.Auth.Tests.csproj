@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
     <AssemblyName>Yoti.Auth.Tests</AssemblyName>
     <PackageId>Yoti.Auth.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -25,19 +25,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
-    <PackageReference Include="OpenCover" Version="4.6.519" />
-    <PackageReference Include="ReportGenerator" Version="4.0.3" />
+    <PackageReference Include="OpenCover" Version="4.7.922" />
+    <PackageReference Include="ReportGenerator" Version="4.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes">
       <HintPath>..\..\lib\Microsoft.QualityTools.Testing.Fakes.dll</HintPath>
-    </Reference>
-    <Reference Include="Yoti.Auth.Fakes">
-      <HintPath>FakesAssemblies\Yoti.Auth.Fakes.dll</HintPath>
     </Reference>
   </ItemGroup>
 
