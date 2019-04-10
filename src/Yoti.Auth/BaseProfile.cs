@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Yoti.Auth
 {
-    public abstract class BaseProfile
+    public abstract class BaseProfile : IBaseProfile
     {
         private readonly Dictionary<string, BaseAttribute> _attributes;
 
-        internal BaseProfile()
+        protected BaseProfile()
         {
             _attributes = new Dictionary<string, BaseAttribute>();
         }
 
-        internal BaseProfile(Dictionary<string, BaseAttribute> attributes)
+        protected BaseProfile(Dictionary<string, BaseAttribute> attributes)
         {
             _attributes = attributes;
         }
@@ -55,10 +55,10 @@ namespace Yoti.Auth
 
             foreach (KeyValuePair<string, BaseAttribute> attribute in _attributes)
             {
-                if (attribute.Key.StartsWith(prefix))
+                if (attribute.Key.StartsWith(prefix, System.StringComparison.Ordinal)
+                    && attribute.Value is YotiAttribute<T> castableAttribute)
                 {
-                    if (attribute.Value is YotiAttribute<T> castableAttribute)
-                        matches.Add(castableAttribute);
+                    matches.Add(castableAttribute);
                 }
             }
 

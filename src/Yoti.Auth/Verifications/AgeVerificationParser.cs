@@ -6,11 +6,11 @@ namespace Yoti.Auth.Verifications
 {
     internal class AgeVerificationParser
     {
-        private Dictionary<string, AgeVerification> _ageUnderVerificationsDict;
-        private Dictionary<string, AgeVerification> _ageOverVerificationsDict;
-        private ReadOnlyCollection<AgeVerification> _allVerificationsDict;
+        private readonly Dictionary<string, AgeVerification> _ageUnderVerificationsDict;
+        private readonly Dictionary<string, AgeVerification> _ageOverVerificationsDict;
+        private readonly ReadOnlyCollection<AgeVerification> _allVerificationsDict;
 
-        public AgeVerificationParser(BaseProfile baseProfile)
+        public AgeVerificationParser(IBaseProfile baseProfile)
         {
             _ageUnderVerificationsDict = FindVerifications(Constants.UserProfile.AgeUnderAttribute, baseProfile);
             _ageOverVerificationsDict = FindVerifications(Constants.UserProfile.AgeOverAttribute, baseProfile);
@@ -27,18 +27,18 @@ namespace Yoti.Auth.Verifications
         public AgeVerification FindAgeUnderVerification(int age)
         {
             return _ageUnderVerificationsDict?.FirstOrDefault(
-                x => x.Key == string.Format("{0}:{1}", Constants.UserProfile.AgeUnderAttribute, age))
+                x => x.Key == $"{Constants.UserProfile.AgeUnderAttribute}:{age}")
                 .Value;
         }
 
         public AgeVerification FindAgeOverVerification(int age)
         {
             return _ageOverVerificationsDict?.FirstOrDefault(
-                x => x.Key == string.Format("{0}:{1}", Constants.UserProfile.AgeOverAttribute, age))
+                x => x.Key == $"{Constants.UserProfile.AgeOverAttribute}:{age}")
                 .Value;
         }
 
-        private static Dictionary<string, AgeVerification> FindVerifications(string ageVerificationPrefix, BaseProfile baseProfile)
+        private static Dictionary<string, AgeVerification> FindVerifications(string ageVerificationPrefix, IBaseProfile baseProfile)
         {
             var ageVerificationsDict = new Dictionary<string, AgeVerification>();
 
