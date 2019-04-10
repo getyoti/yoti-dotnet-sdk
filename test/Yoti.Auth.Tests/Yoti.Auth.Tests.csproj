@@ -19,24 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Fakes Include="Fakes\Yoti.Auth.fakes">
-      <SubType>Designer</SubType>
-    </Fakes>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="OpenCover" Version="4.7.922" />
     <PackageReference Include="ReportGenerator" Version="4.0.15" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.QualityTools.Testing.Fakes">
-      <HintPath>..\..\lib\Microsoft.QualityTools.Testing.Fakes.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
