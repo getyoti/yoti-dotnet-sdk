@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Yoti.Auth.Anchors;
 
@@ -27,17 +28,14 @@ namespace Yoti.Auth.Verifications
             if (!Regex.IsMatch(attributeName, expectedFormatRegex))
             {
                 throw new InvalidOperationException(
-                    string.Format(
-                        "{0} does not match expected format: '{1}'",
-                        nameof(attributeName),
-                        expectedFormatRegex));
+                    $"{nameof(attributeName)} does not match expected format: '{expectedFormatRegex}'");
             }
 
             _derivedAttribute = derivedAttribute;
 
             string[] split = attributeName.Split(':');
             _checkPerformed = split[0];
-            _ageVerified = int.Parse(split[1]);
+            _ageVerified = int.Parse(split[1], new CultureInfo("en-GB"));
             _result = bool.Parse(derivedAttribute.GetValue());
         }
 

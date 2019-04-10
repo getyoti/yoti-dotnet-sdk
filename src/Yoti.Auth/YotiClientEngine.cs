@@ -101,10 +101,7 @@ namespace Yoti.Auth
                 { Constants.Web.DigestHeader, authDigest },
                 { Constants.Web.YotiSdkHeader, Constants.Web.SdkIdentifier },
                 { Constants.Web.YotiSdkVersionHeader,
-                    string.Format(
-                        "{0}-{1}",
-                        Constants.Web.SdkIdentifier,
-                        SDKVersion) }
+                    $"{Constants.Web.SdkIdentifier}-{SDKVersion}" }
             };
 
             return headers;
