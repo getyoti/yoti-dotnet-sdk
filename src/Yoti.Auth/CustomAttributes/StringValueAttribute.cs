@@ -1,6 +1,9 @@
-﻿namespace Yoti.Auth.CustomAttributes
+﻿using System;
+
+namespace Yoti.Auth.CustomAttributes
 {
-    internal class StringValueAttribute : System.Attribute
+    [AttributeUsage(AttributeTargets.Field)]
+    internal sealed class StringValueAttribute : System.Attribute
     {
         public readonly string StringValue;
 
