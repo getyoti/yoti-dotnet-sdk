@@ -24,7 +24,7 @@ namespace Yoti.Auth
 
         public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
         {
-            Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair, apiUrl));
+            Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair, apiUrl).ConfigureAwait(true));
 
             return task.Result;
         }
@@ -46,14 +46,14 @@ namespace Yoti.Auth
                 new Uri(
                     apiUrl + endpoint),
                 headers,
-                httpContent);
+                httpContent).ConfigureAwait(false);
 
             return ProfileParser.HandleResponse(keyPair, response);
         }
 
         public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
-            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(appId, keyPair, apiUrl, amlProfile));
+            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(appId, keyPair, apiUrl, amlProfile).ConfigureAwait(true));
 
             return task.Result;
         }
@@ -80,7 +80,9 @@ namespace Yoti.Auth
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
-                .PerformCheck(_httpRequester, amlProfile, headers, apiUrl, endpoint, httpContent));
+                .PerformCheck(
+                _httpRequester, amlProfile, headers, apiUrl, endpoint, httpContent).ConfigureAwait(false))
+                .ConfigureAwait(false);
 
             return result;
         }

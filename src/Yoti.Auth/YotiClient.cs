@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
@@ -63,7 +61,7 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken)
         {
-            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _defaultApiUrl);
+            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _defaultApiUrl).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace Yoti.Auth
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
         public async Task<AmlResult> PerformAmlCheckAsync(IAmlProfile amlProfile)
         {
-            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
+            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile).ConfigureAwait(false);
         }
     }
 }
