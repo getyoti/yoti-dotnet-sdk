@@ -17,7 +17,6 @@ namespace Yoti.Auth.Anchors
     public class Anchor
     {
         private readonly AnchorType _anchorType;
-        private readonly byte[] _artifactSignature;
         private readonly List<X509Certificate2> _originServerCerts;
         private readonly byte[] _signature;
         private readonly SignedTimestamp _signedTimeStamp;
@@ -31,7 +30,6 @@ namespace Yoti.Auth.Anchors
             _anchorType = anchorSourceData.GetAnchorType();
             _value = anchorSourceData.GetEntries().ToList();
 
-            _artifactSignature = protobufAnchor.ArtifactSignature.ToByteArray();
             _signature = protobufAnchor.Signature.ToByteArray();
             _subType = protobufAnchor.SubType;
             _originServerCerts = ConvertRawCertToX509List(protobufAnchor.OriginServerCerts);

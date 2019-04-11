@@ -52,7 +52,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsExceptionAsync<HttpRequestException>(async () =>
             {
-                Response response = await _httpRequester.DoRequest(
+                await _httpRequester.DoRequest(
                 httpClient,
                 HttpMethod.Get,
                 new Uri(_apiUrl),
@@ -72,12 +72,12 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsExceptionAsync<HttpRequestException>(async () =>
             {
-                Response response = await _httpRequester.DoRequest(
-                                httpClient,
-                                HttpMethod.Get,
-                                new Uri(_apiUrl),
-                                _headers,
-                                byteContent: null);
+                await _httpRequester.DoRequest(
+                   httpClient,
+                   HttpMethod.Get,
+                   new Uri(_apiUrl),
+                   _headers,
+                   byteContent: null);
             });
         }
 
@@ -92,12 +92,12 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsExceptionAsync<HttpRequestException>(async () =>
             {
-                Response response = await _httpRequester.DoRequest(
-                                httpClient,
-                                HttpMethod.Get,
-                                new Uri(_apiUrl),
-                                _headers,
-                                byteContent: null);
+                await _httpRequester.DoRequest(
+                    httpClient,
+                    HttpMethod.Get,
+                    new Uri(_apiUrl),
+                    _headers,
+                    byteContent: null);
             });
         }
     }
