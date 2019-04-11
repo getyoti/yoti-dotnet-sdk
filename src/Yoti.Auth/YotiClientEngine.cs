@@ -75,7 +75,7 @@ namespace Yoti.Auth
 
             HttpMethod httpMethod = HttpMethod.Post;
 
-            string endpoint = EndpointFactory.CreateAmlEndpoint(httpMethod, appId);
+            string endpoint = EndpointFactory.CreateAmlEndpoint(appId);
 
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
 
