@@ -39,10 +39,10 @@ namespace Yoti.Auth
                         request.Headers.Add(headerName, headers[headerName]);
                     }
 
-                    using (HttpResponseMessage response = await client.SendAsync(request))
+                    using (HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false))
                     {
                         result.StatusCode = (int)response.StatusCode;
-                        result.Content = await response.Content.ReadAsStringAsync();
+                        result.Content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                         if (response.IsSuccessStatusCode)
                         {
