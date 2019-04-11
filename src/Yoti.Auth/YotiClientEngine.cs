@@ -36,7 +36,7 @@ namespace Yoti.Auth
             byte[] httpContent = null;
             HttpMethod httpMethod = HttpMethod.Get;
 
-            string endpoint = EndpointFactory.CreateProfileEndpoint(httpMethod, path, token, sdkId);
+            string endpoint = EndpointFactory.CreateProfileEndpoint(path, token, sdkId);
 
             Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent: null);
 
