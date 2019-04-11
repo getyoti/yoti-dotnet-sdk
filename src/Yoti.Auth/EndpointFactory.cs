@@ -11,7 +11,7 @@ namespace Yoti.Auth
             return $"/{path}/{token}?nonce={CryptoEngine.GenerateNonce()}&timestamp={GetTimestamp()}&appId={sdkId}";
         }
 
-        public static string CreateAmlEndpoint(HttpMethod httpMethod, string appId)
+        public static string CreateAmlEndpoint(string appId)
         {
             return $"/aml-check?appId={appId}&timestamp={GetTimestamp()}&nonce={CryptoEngine.GenerateNonce()}";
         }
