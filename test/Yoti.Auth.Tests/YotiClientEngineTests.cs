@@ -41,7 +41,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
+                engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
@@ -63,7 +63,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
+                engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
@@ -221,7 +221,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
+                engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
@@ -243,7 +243,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
+                engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
@@ -265,7 +265,7 @@ namespace Yoti.Auth.Tests
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
+                engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
@@ -287,7 +287,7 @@ namespace Yoti.Auth.Tests
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
+                engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));

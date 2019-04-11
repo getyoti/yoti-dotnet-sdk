@@ -25,7 +25,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiClient_ValidParameters_DoesntThrowException()
         {
-            YotiClient client = CreateYotiClient();
+            CreateYotiClient();
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace Yoti.Auth.Tests
             string sdkId = null;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                var client = new YotiClient(sdkId, keystream);
+                new YotiClient(sdkId, keystream);
             });
         }
 
@@ -46,7 +46,7 @@ namespace Yoti.Auth.Tests
             string sdkId = string.Empty;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                var client = new YotiClient(sdkId, keystream);
+                new YotiClient(sdkId, keystream);
             });
         }
 
@@ -57,7 +57,7 @@ namespace Yoti.Auth.Tests
             string sdkId = "fake-sdk-id";
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                var client = new YotiClient(sdkId, keystream);
+                new YotiClient(sdkId, keystream);
             });
         }
 
@@ -68,7 +68,7 @@ namespace Yoti.Auth.Tests
             const string sdkId = "fake-sdk-id";
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                var client = new YotiClient(sdkId, keystream);
+                new YotiClient(sdkId, keystream);
             });
         }
 
@@ -79,7 +79,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = client.PerformAmlCheck(amlProfile: null);
+                client.PerformAmlCheck(amlProfile: null);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -97,7 +97,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+                client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
@@ -115,7 +115,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+                client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
@@ -133,7 +133,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+                client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
@@ -154,7 +154,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                AmlResult amlResult = client.PerformAmlCheck(amlProfile: amlProfile);
+                client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
             Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
