@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace Yoti.Auth
 {
-    internal class EndpointFactory
+    internal static class EndpointFactory
     {
         public static string CreateProfileEndpoint(HttpMethod httpMethod, string path, string token, string sdkId)
         {

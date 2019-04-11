@@ -9,7 +9,7 @@ using Yoti.Auth.ProtoBuf.Attribute;
 
 namespace Yoti.Auth
 {
-    internal class AttributeConverter
+    internal static class AttributeConverter
     {
         public static BaseAttribute ConvertToBaseAttribute(ProtoBuf.Attribute.Attribute attribute)
         {
