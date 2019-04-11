@@ -8,11 +8,8 @@ namespace Yoti.Auth.Aml
 {
     internal class RemoteAmlService : IRemoteAmlService
     {
-        public async Task<AmlResult> PerformCheck(IHttpRequester httpRequester, IAmlProfile amlProfile, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
+        public async Task<AmlResult> PerformCheck(IHttpRequester httpRequester, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
         {
-            if (amlProfile == null)
-                throw new ArgumentNullException(nameof(amlProfile));
-
             try
             {
                 HttpMethod httpMethod = HttpMethod.Post;

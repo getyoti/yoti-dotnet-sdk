@@ -58,7 +58,7 @@ namespace Yoti.Auth
             return task.Result;
         }
 
-        public async Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        public Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             if (apiUrl == null)
             {
@@ -70,6 +70,11 @@ namespace Yoti.Auth
                 throw new ArgumentNullException(nameof(amlProfile));
             }
 
+            return PerformAmlCheckInternalAsync(appId, keyPair, apiUrl, amlProfile);
+        }
+
+        public async Task<AmlResult> PerformAmlCheckInternalAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        {
             string serializedProfile = Newtonsoft.Json.JsonConvert.SerializeObject(amlProfile);
             byte[] httpContent = System.Text.Encoding.UTF8.GetBytes(serializedProfile);
 
@@ -81,7 +86,7 @@ namespace Yoti.Auth
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
                 .PerformCheck(
-                _httpRequester, amlProfile, headers, apiUrl, endpoint, httpContent).ConfigureAwait(false))
+                _httpRequester, headers, apiUrl, endpoint, httpContent).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;

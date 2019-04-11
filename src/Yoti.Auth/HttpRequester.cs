@@ -7,7 +7,7 @@ namespace Yoti.Auth
 {
     internal class HttpRequester : IHttpRequester
     {
-        public async Task<Response> DoRequest(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers, byte[] byteContent)
+        public Task<Response> DoRequest(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers, byte[] byteContent)
         {
             if (headers.Count < 1)
                 throw new ArgumentNullException(nameof(headers));
@@ -15,6 +15,11 @@ namespace Yoti.Auth
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
 
+            return DoRequestInternalAsync(httpClient, httpMethod, uri, headers, byteContent);
+        }
+
+        private static async Task<Response> DoRequestInternalAsync(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers, byte[] byteContent)
+        {
             var result = new Response
             {
                 Success = false,
