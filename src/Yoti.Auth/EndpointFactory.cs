@@ -6,7 +6,7 @@ namespace Yoti.Auth
 {
     internal static class EndpointFactory
     {
-        public static string CreateProfileEndpoint(HttpMethod httpMethod, string path, string token, string sdkId)
+        public static string CreateProfileEndpoint(string path, string token, string sdkId)
         {
             return $"/{path}/{token}?nonce={CryptoEngine.GenerateNonce()}&timestamp={GetTimestamp()}&appId={sdkId}";
         }
