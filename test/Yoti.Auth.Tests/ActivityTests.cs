@@ -16,7 +16,6 @@ namespace Yoti.Auth.Tests
     public class ActivityTests
     {
         private YotiProfile _yotiProfile;
-        private ProfileParser _activity;
         private JToken _dictionaryObject = null;
         private ProtoBuf.Attribute.AttributeList _attributeList;
 
@@ -50,7 +49,6 @@ namespace Yoti.Auth.Tests
         public void Startup()
         {
             _yotiProfile = new YotiProfile();
-            _activity = new ProfileParser();
             _attributeList = new ProtoBuf.Attribute.AttributeList();
         }
 
