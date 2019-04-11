@@ -3,7 +3,7 @@ using Org.BouncyCastle.Crypto;
 
 namespace Yoti.Auth
 {
-    internal class SignedMessageFactory
+    internal static class SignedMessageFactory
     {
         public static string SignMessage(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair, byte[] content)
         {

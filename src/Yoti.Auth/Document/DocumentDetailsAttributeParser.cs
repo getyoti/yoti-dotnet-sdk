@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Yoti.Auth.Document
 {
-    internal class DocumentDetailsAttributeParser
+    internal static class DocumentDetailsAttributeParser
     {
         private const string _minimumAcceptable = "([A-Za-z_]*) ([A-Za-z]{3}) ([A-Za-z0-9]{1}).*";
         private const int TYPE_INDEX = 0;

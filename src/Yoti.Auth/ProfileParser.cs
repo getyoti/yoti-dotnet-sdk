@@ -8,7 +8,7 @@ using Yoti.Auth.DataObjects;
 
 namespace Yoti.Auth
 {
-    internal class ProfileParser
+    internal static class ProfileParser
     {
         public static ActivityDetails HandleResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
