@@ -39,12 +39,10 @@ namespace Yoti.Auth
                 ParseProfileContent(keyPair, receipt.WrappedReceiptKey, receipt.ProfileContent));
 
             DateTime? timestamp = null;
-            if (receipt.Timestamp != null)
+            if (receipt.Timestamp != null
+                && DateTime.TryParseExact(receipt.Timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
             {
-                if (DateTime.TryParseExact(receipt.Timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
-                {
-                    timestamp = parsedDate;
-                }
+                timestamp = parsedDate;
             }
 
             return new ActivityDetails(parsedResponse.Receipt.RememberMeId, parsedResponse.Receipt.ParentRememberMeId, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.ReceiptId);
