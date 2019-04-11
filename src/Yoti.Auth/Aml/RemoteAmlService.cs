@@ -22,7 +22,7 @@ namespace Yoti.Auth.Aml
                     httpMethod,
                     new Uri(apiUrl + endpoint),
                     headers,
-                    httpContent);
+                    httpContent).ConfigureAwait(false);
 
                 if (!response.Success)
                 {

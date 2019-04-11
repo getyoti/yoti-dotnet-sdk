@@ -3,13 +3,12 @@
     internal static class Web
     {
         private const string DefaultYotiHost = @"https://api.yoti.com";
-        public static string YotiApiPathPrefix = "/api/v1";
-        public static string DefaultYotiApiUrl = DefaultYotiHost + YotiApiPathPrefix;
-        public static string StagingYotiApiUrl = "https://staging0.api.yoti.com:8443" + YotiApiPathPrefix;
-        public static string AuthKeyHeader = "X-Yoti-Auth-Key";
-        public static string DigestHeader = "X-Yoti-Auth-Digest";
-        public static string YotiSdkHeader = "X-Yoti-SDK";
-        public static string YotiSdkVersionHeader = YotiSdkHeader + "-Version";
-        public static string SdkIdentifier = ".NET";
+        public const string YotiApiPathPrefix = "api/v1";
+        public readonly static string DefaultYotiApiUrl = string.Join("/", DefaultYotiHost, YotiApiPathPrefix);
+        public const string AuthKeyHeader = "X-Yoti-Auth-Key";
+        public const string DigestHeader = "X-Yoti-Auth-Digest";
+        public const string YotiSdkHeader = "X-Yoti-SDK";
+        public const string YotiSdkVersionHeader = YotiSdkHeader + "-Version";
+        public const string SdkIdentifier = ".NET";
     }
 }
