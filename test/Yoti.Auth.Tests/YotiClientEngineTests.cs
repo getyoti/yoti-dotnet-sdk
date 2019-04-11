@@ -109,7 +109,7 @@ namespace Yoti.Auth.Tests
 
             Assert.AreEqual("phone_number0123456789", activityDetails.Profile.MobileNumber.GetValue());
 
-            Assert.AreEqual(new DateTime(1980, 1, 1), (DateTime)activityDetails.Profile.DateOfBirth.GetValue());
+            Assert.AreEqual(new DateTime(1980, 1, 1), activityDetails.Profile.DateOfBirth.GetValue());
         }
 
         [TestMethod]
