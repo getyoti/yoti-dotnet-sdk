@@ -7,6 +7,6 @@ namespace Yoti.Auth
 {
     internal interface IHttpRequester
     {
-        Task<Response> DoRequest(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers, byte[] httpContent);
+        Task<Response> DoRequest(HttpClient httpClient, HttpMethod httpMethod, Uri uri, Dictionary<string, string> headers, byte[] byteContent);
     }
 }
