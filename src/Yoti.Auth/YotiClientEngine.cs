@@ -73,7 +73,7 @@ namespace Yoti.Auth
             return PerformAmlCheckInternalAsync(appId, keyPair, apiUrl, amlProfile);
         }
 
-        public async Task<AmlResult> PerformAmlCheckInternalAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        private async Task<AmlResult> PerformAmlCheckInternalAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             string serializedProfile = Newtonsoft.Json.JsonConvert.SerializeObject(amlProfile);
             byte[] httpContent = System.Text.Encoding.UTF8.GetBytes(serializedProfile);
