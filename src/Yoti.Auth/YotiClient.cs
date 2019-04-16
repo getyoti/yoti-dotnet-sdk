@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
@@ -18,7 +19,17 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
         /// <param name="privateStreamKey">The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.</param>
-        public YotiClient(string sdkId, StreamReader privateStreamKey)
+        public YotiClient(string sdkId, StreamReader privateStreamKey) : this(new HttpClient(), sdkId, privateStreamKey)
+        {
+        }
+
+        /// <summary>
+        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// </summary>
+        /// <param name="httpClient">Allows the specification of a HttpClient</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
+        /// <param name="privateStreamKey">The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.</param>
+        public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateStreamKey)
         {
             if (string.IsNullOrEmpty(sdkId))
             {
@@ -41,7 +52,7 @@ namespace Yoti.Auth
                 throw new ArgumentException("Could not read private key file: Are you sure it is valid", e);
             }
 
-            _yotiClientEngine = new YotiClientEngine(new HttpRequester());
+            _yotiClientEngine = new YotiClientEngine(new HttpRequester(), httpClient);
         }
 
         /// <summary>
