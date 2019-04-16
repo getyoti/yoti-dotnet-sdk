@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -37,7 +38,7 @@ namespace Yoti.Auth.Tests
                     Content = "{\"session_data\":null,\"receipt\":{\"receipt_id\": null,\"other_party_profile_content\": null,\"policy_uri\":null,\"personal_key\":null,\"remember_me_id\":null, \"sharing_outcome\":\"FAILURE\",\"timestamp\":\"2016-09-23T13:04:11Z\"}}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
@@ -59,7 +60,7 @@ namespace Yoti.Auth.Tests
                     Content = "{\"session_data\":null,\"receipt\":null}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
@@ -91,7 +92,7 @@ namespace Yoti.Auth.Tests
                 });
             });
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
             ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
@@ -128,7 +129,7 @@ namespace Yoti.Auth.Tests
                 });
             });
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
             ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
@@ -150,7 +151,7 @@ namespace Yoti.Auth.Tests
                 });
             });
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
             ActivityDetails activityDetails = engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
 
@@ -172,7 +173,7 @@ namespace Yoti.Auth.Tests
                     Content = "{\"on_fraud_list\":false,\"on_pep_list\":true,\"on_watch_list\":false}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             AmlResult amlResult = engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
@@ -194,7 +195,7 @@ namespace Yoti.Auth.Tests
                     Content = "{\"on_fraud_list\":true,\"on_pep_list\":false,\"on_watch_list\":false}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             AmlResult amlResult = await engine.PerformAmlCheckAsync(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
@@ -216,7 +217,7 @@ namespace Yoti.Auth.Tests
                     Content = "{Content}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -238,7 +239,7 @@ namespace Yoti.Auth.Tests
                     Content = "{Content}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -260,7 +261,7 @@ namespace Yoti.Auth.Tests
                     Content = "{Content}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
@@ -282,7 +283,7 @@ namespace Yoti.Auth.Tests
                     Content = "{Content}"
                 }));
 
-            var engine = new YotiClientEngine(httpRequester);
+            var engine = new YotiClientEngine(httpRequester, new HttpClient());
             AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
             AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>
