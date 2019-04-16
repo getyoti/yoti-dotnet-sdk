@@ -100,18 +100,7 @@ namespace Yoti.Auth
             if (string.IsNullOrEmpty(authDigest))
                 throw new InvalidOperationException("Could not sign request");
 
-            string SDKVersion = typeof(YotiClientEngine).GetTypeInfo().Assembly.GetName().Version.ToString();
-
-            var headers = new Dictionary<string, string>
-            {
-                { Constants.Web.AuthKeyHeader, authKey },
-                { Constants.Web.DigestHeader, authDigest },
-                { Constants.Web.YotiSdkHeader, Constants.Web.SdkIdentifier },
-                { Constants.Web.YotiSdkVersionHeader,
-                    $"{Constants.Web.SdkIdentifier}-{SDKVersion}" }
-            };
-
-            return headers;
+            return HeadersFactory.Create(authDigest, authKey);
         }
     }
 }
