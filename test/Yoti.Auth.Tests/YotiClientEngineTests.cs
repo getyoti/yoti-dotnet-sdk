@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
+using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
