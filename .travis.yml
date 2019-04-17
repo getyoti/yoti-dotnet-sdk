@@ -1,0 +1,13 @@
+language: csharp
+mono: none
+solution: Yoti.Auth.sln
+os: windows
+  
+before_install:
+- cd src
+
+install:
+- dotnet restore ../test/Yoti.Auth.Tests/Yoti.Auth.Tests.csproj
+
+script:
+- dotnet test -c Release --verbosity normal
