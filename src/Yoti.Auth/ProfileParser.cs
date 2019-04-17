@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DataObjects;
+using Yoti.Auth.Exceptions;
 
 namespace Yoti.Auth
 {
@@ -12,6 +13,11 @@ namespace Yoti.Auth
     {
         public static ActivityDetails HandleResponse(AsymmetricCipherKeyPair keyPair, Response response)
         {
+            if (!response.Success)
+            {
+                Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
+            }
+
             if (response.Content == null)
             {
                 throw new YotiProfileException("The content of the response is null");

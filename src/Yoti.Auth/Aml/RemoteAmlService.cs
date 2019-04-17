@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Yoti.Auth.Exceptions;
 
 namespace Yoti.Auth.Aml
 {
@@ -23,7 +24,7 @@ namespace Yoti.Auth.Aml
 
                 if (!response.Success)
                 {
-                    CreateExceptionFromStatusCode(response);
+                    Response.CreateExceptionFromStatusCode<AmlException>(response);
                 }
 
                 var amlResult = Newtonsoft.Json.JsonConvert.DeserializeObject<AmlResult>(response.Content);
@@ -38,28 +39,6 @@ namespace Yoti.Auth.Aml
                 throw new AmlException(
                     $"Inner exception:{Environment.NewLine}{ex.Message}",
                     ex);
-            }
-        }
-
-        private static void CreateExceptionFromStatusCode(Response response)
-        {
-            switch ((HttpStatusCode)response.StatusCode)
-            {
-                case HttpStatusCode.BadRequest:
-                    throw new AmlException(
-                        $"Failed validation:{Environment.NewLine}{response.Content}");
-
-                case HttpStatusCode.Unauthorized:
-                    throw new AmlException(
-                       $"Failed authorization with the given key:{Environment.NewLine}{response.Content}");
-
-                case HttpStatusCode.InternalServerError:
-                    throw new AmlException(
-                       $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content}");
-
-                default:
-                    throw new AmlException(
-                       $"Unexpected error:{Environment.NewLine}{response.Content}");
             }
         }
     }
