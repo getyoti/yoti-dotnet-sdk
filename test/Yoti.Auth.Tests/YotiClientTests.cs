@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Yoti.Auth.Aml;
-using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
 {
@@ -80,7 +79,7 @@ namespace Yoti.Auth.Tests
                 client.PerformAmlCheck(amlProfile: null);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
         }
 
         [TestMethod]
@@ -98,7 +97,7 @@ namespace Yoti.Auth.Tests
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
         }
 
         [TestMethod]
@@ -116,7 +115,7 @@ namespace Yoti.Auth.Tests
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
         }
 
         [TestMethod]
@@ -134,7 +133,7 @@ namespace Yoti.Auth.Tests
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
         }
 
         [TestMethod]
@@ -155,7 +154,7 @@ namespace Yoti.Auth.Tests
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
         }
 
         private static YotiClient CreateYotiClient()
