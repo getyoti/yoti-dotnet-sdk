@@ -3,7 +3,7 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237:Mark ISerializable types with serializable", Justification = "Serializable not available with NET Standard framework", Scope = "type", Target = "~T:Yoti.Auth.Aml.AmlException")]
+ [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237:Mark ISerializable types with serializable", Justification = "Serializable not available with NET Standard framework", Scope = "type", Target = "~T:Yoti.Auth.Exceptions.AmlException")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1032:Implement standard exception constructors", Justification = "Parameterless exception constructor is useless in this instance, we should remove this option", Scope = "type", Target = "~T:Yoti.Auth.Exceptions.AmlException")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1032:Implement standard exception constructors", Justification = "Parameterless exception constructor is useless in this instance, we should remove this option", Scope = "type", Target = "~T:Yoti.Auth.Exceptions.YotiProfileException")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1055:Uri return values should not be strings", Justification = "String is preferable", Scope = "member", Target = "~M:Yoti.Auth.Images.Image.GetBase64URI~System.String")]
