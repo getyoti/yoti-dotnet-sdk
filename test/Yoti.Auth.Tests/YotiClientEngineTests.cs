@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
 using Yoti.Auth.Exceptions;
-using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
 {
@@ -46,7 +45,7 @@ namespace Yoti.Auth.Tests
                 engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
             Assert.IsTrue(aggregateException.InnerException.Message.StartsWith("The share was not successful"));
         }
 
@@ -68,7 +67,7 @@ namespace Yoti.Auth.Tests
                 engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
             Assert.IsTrue(aggregateException.InnerException.Message.StartsWith("The receipt of the parsed response is null"));
         }
 
@@ -226,7 +225,7 @@ namespace Yoti.Auth.Tests
                 engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
         }
 
         [TestMethod]
@@ -248,7 +247,7 @@ namespace Yoti.Auth.Tests
                 engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
         }
 
         [TestMethod]
@@ -270,7 +269,7 @@ namespace Yoti.Auth.Tests
                 engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
         }
 
         [TestMethod]
@@ -292,7 +291,7 @@ namespace Yoti.Auth.Tests
                 engine.PerformAmlCheck(SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl, amlProfile);
             });
 
-            Assert.IsTrue(Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<AmlException>(aggregateException));
         }
     }
 }
