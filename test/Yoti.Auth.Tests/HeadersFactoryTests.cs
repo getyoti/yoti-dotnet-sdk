@@ -14,7 +14,7 @@ namespace Yoti.Auth.Tests
         {
             string expectedSDKVersionHeader = typeof(YotiClientEngine).GetTypeInfo().Assembly.GetName().Version.ToString();
 
-            var result = HeadersFactory.Create(_someDigest, _someKey);
+            var result = HeadersFactory.PutHeaders(_someDigest, _someKey);
 
             Assert.AreEqual(_someDigest, result[Constants.Web.DigestHeader]);
             Assert.AreEqual(_someKey, result[Constants.Web.AuthKeyHeader]);
