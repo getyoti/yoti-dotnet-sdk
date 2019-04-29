@@ -39,7 +39,7 @@ namespace Yoti.Auth
 
             string endpoint = EndpointFactory.CreateProfileEndpoint(path, token, sdkId);
 
-            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent: null);
+            Dictionary<string, string> headers = HeadersFactory.Create(keyPair, httpMethod, endpoint, httpContent: null);
 
             Response response = await _httpRequester.DoRequest(
                 _httpClient,
@@ -83,7 +83,7 @@ namespace Yoti.Auth
 
             string endpoint = EndpointFactory.CreateAmlEndpoint(appId);
 
-            Dictionary<string, string> headers = CreateHeaders(keyPair, httpMethod, endpoint, httpContent);
+            Dictionary<string, string> headers = HeadersFactory.Create(keyPair, httpMethod, endpoint, httpContent);
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
                 .PerformCheck(
@@ -91,17 +91,6 @@ namespace Yoti.Auth
                 .ConfigureAwait(false);
 
             return result;
-        }
-
-        private static Dictionary<string, string> CreateHeaders(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
-        {
-            string authKey = CryptoEngine.GetAuthKey(keyPair);
-            string authDigest = SignedMessageFactory.SignMessage(httpMethod, endpoint, keyPair, httpContent);
-
-            if (string.IsNullOrEmpty(authDigest))
-                throw new InvalidOperationException("Could not sign request");
-
-            return HeadersFactory.Create(authDigest, authKey);
         }
     }
 }

@@ -1,11 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Reflection;
+using Org.BouncyCastle.Crypto;
 
 namespace Yoti.Auth
 {
     internal static class HeadersFactory
     {
-        public static Dictionary<string, string> Create(string authDigest, string authKey)
+        internal static Dictionary<string, string> Create(AsymmetricCipherKeyPair keyPair, HttpMethod httpMethod, string endpoint, byte[] httpContent)
+        {
+            string authKey = CryptoEngine.GetAuthKey(keyPair);
+            string authDigest = SignedMessageFactory.SignMessage(httpMethod, endpoint, keyPair, httpContent);
+
+            if (string.IsNullOrEmpty(authDigest))
+                throw new InvalidOperationException("Could not sign request");
+
+            return PutHeaders(authDigest, authKey);
+        }
+
+        internal static Dictionary<string, string> PutHeaders(string authDigest, string authKey)
         {
             string SDKVersion = typeof(YotiClientEngine).GetTypeInfo().Assembly.GetName().Version.ToString();
 
