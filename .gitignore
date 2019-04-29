@@ -39,3 +39,9 @@ Backup*/
 # SQL Server files
 *.mdf
 *.ldf
+
+# Coverage
+OpenCover/
+
+# .NET tools
+src/tools/
