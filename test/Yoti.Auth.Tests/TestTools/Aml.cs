@@ -2,7 +2,7 @@
 
 namespace Yoti.Auth.Tests.TestTools
 {
-    internal class Aml
+    internal static class Aml
     {
         public static AmlProfile CreateStandardAmlProfile()
         {
