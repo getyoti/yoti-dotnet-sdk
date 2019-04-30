@@ -13,9 +13,6 @@ namespace Yoti.Auth
             string authKey = CryptoEngine.GetAuthKey(keyPair);
             string authDigest = SignedMessageFactory.SignMessage(httpMethod, endpoint, keyPair, httpContent);
 
-            if (string.IsNullOrEmpty(authDigest))
-                throw new InvalidOperationException("Could not sign request");
-
             return PutHeaders(authDigest, authKey);
         }
 
