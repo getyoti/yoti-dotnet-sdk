@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using Org.BouncyCastle.Crypto;
 
 namespace Yoti.Auth
@@ -7,6 +8,11 @@ namespace Yoti.Auth
     {
         public static string SignMessage(HttpMethod httpMethod, string endpoint, AsymmetricCipherKeyPair keyPair, byte[] content)
         {
+            if (httpMethod == null)
+            {
+                throw new ArgumentNullException(nameof(httpMethod));
+            }
+
             string stringToConvert = $"{httpMethod.ToString()}&{endpoint}";
 
             if (content != null)
