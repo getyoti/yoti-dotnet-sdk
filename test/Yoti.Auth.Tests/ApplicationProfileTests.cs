@@ -112,7 +112,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<InvalidCastException>(() =>
             {
-                YotiAttribute<Image> dobAttribute = applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
+                applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
             });
         }
 

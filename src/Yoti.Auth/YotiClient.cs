@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
+using Yoti.Auth.ShareUrl;
 
 namespace Yoti.Auth
 {
@@ -62,7 +63,9 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
         public ActivityDetails GetActivityDetails(string encryptedToken)
         {
-            return _yotiClientEngine.GetActivityDetails(encryptedToken, _sdkId, _keyPair, _defaultApiUrl);
+            Task<ActivityDetails> task = Task.Run(async () => await GetActivityDetailsAsync(encryptedToken).ConfigureAwait(false));
+
+            return task.Result;
         }
 
         /// <summary>
@@ -82,7 +85,9 @@ namespace Yoti.Auth
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
         public AmlResult PerformAmlCheck(IAmlProfile amlProfile)
         {
-            return _yotiClientEngine.PerformAmlCheck(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
+            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(amlProfile).ConfigureAwait(true));
+
+            return task.Result;
         }
 
         /// <summary>
@@ -93,6 +98,28 @@ namespace Yoti.Auth
         public async Task<AmlResult> PerformAmlCheckAsync(IAmlProfile amlProfile)
         {
             return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Initiate a sharing process based on a <see cref="DynamicScenario"/>.
+        /// </summary>
+        /// <param name="dynamicScenario">Details of the device's callback endpoint, <see cref="Yoti.Auth.ShareUrl.Policy.DynamicPolicy"/> and extensions for the application</param>
+        /// <returns> <see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
+        public ShareUrlResult CreateShareUrl(DynamicScenario dynamicScenario)
+        {
+            Task<ShareUrlResult> task = Task.Run(async () => await CreateShareUrlAsync(dynamicScenario).ConfigureAwait(true));
+
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Asynchronously initiate a sharing process based on a <see cref="DynamicScenario"/>.
+        /// </summary>
+        /// <param name="dynamicScenario">Details of the device's callback endpoint, <see cref="Yoti.Auth.ShareUrl.Policy.DynamicPolicy"/> and extensions for the application</param>
+        /// <returns> <see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
+        public async Task<ShareUrlResult> CreateShareUrlAsync(DynamicScenario dynamicScenario)
+        {
+            return await _yotiClientEngine.CreateShareURLAsync(_sdkId, _keyPair, _defaultApiUrl, dynamicScenario).ConfigureAwait(false);
         }
     }
 }

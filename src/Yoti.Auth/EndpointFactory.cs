@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Net.Http;
 
 namespace Yoti.Auth
 {
@@ -14,6 +13,11 @@ namespace Yoti.Auth
         public static string CreateAmlEndpoint(string appId)
         {
             return $"/aml-check?appId={appId}&timestamp={GetTimestamp()}&nonce={CryptoEngine.GenerateNonce()}";
+        }
+
+        public static string CreateDynamicSharingPath(string sdkId)
+        {
+            return $"/qrcodes/apps/{sdkId}?nonce={CryptoEngine.GenerateNonce()}&timestamp={GetTimestamp()}";
         }
 
         private static string GetTimestamp()
