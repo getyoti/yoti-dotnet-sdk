@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
+using Yoti.Auth.ShareUrl;
 
 namespace Yoti.Auth
 {
@@ -59,7 +60,7 @@ namespace Yoti.Auth
             return task.Result;
         }
 
-        public Task<AmlResult> PerformAmlCheckAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        public Task<AmlResult> PerformAmlCheckAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             if (apiUrl == null)
             {
@@ -71,23 +72,32 @@ namespace Yoti.Auth
                 throw new ArgumentNullException(nameof(amlProfile));
             }
 
-            return PerformAmlCheckInternalAsync(appId, keyPair, apiUrl, amlProfile);
+            return PerformAmlCheckInternalAsync(sdkId, keyPair, apiUrl, amlProfile);
         }
 
-        private async Task<AmlResult> PerformAmlCheckInternalAsync(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        private async Task<AmlResult> PerformAmlCheckInternalAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
         {
             string serializedProfile = Newtonsoft.Json.JsonConvert.SerializeObject(amlProfile);
             byte[] httpContent = System.Text.Encoding.UTF8.GetBytes(serializedProfile);
 
             HttpMethod httpMethod = HttpMethod.Post;
 
-            string endpoint = EndpointFactory.CreateAmlEndpoint(appId);
+            string endpoint = EndpointFactory.CreateAmlEndpoint(sdkId);
 
             Dictionary<string, string> headers = HeadersFactory.Create(keyPair, httpMethod, endpoint, httpContent);
 
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
                 .PerformCheck(
                 _httpClient, _httpRequester, headers, apiUrl, endpoint, httpContent).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
+
+        public async Task<ShareUrlResult> CreateShareURLAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, DynamicScenario dynamicScenario)
+        {
+            ShareUrlResult result = await Task.Run(async () => await DynamicSharingService.CreateShareURL(
+                _httpClient, _httpRequester, apiUrl, sdkId, keyPair, dynamicScenario).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;
