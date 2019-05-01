@@ -157,6 +157,19 @@ namespace Yoti.Auth.Tests
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<JsonSerializationException>(aggregateException));
         }
 
+        [TestMethod]
+        public void CreateShareUrl_NullDynamicScenario_ThrowsException()
+        {
+            YotiClient client = CreateYotiClient();
+
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                client.CreateShareUrl(null);
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+        }
+
         private static YotiClient CreateYotiClient()
         {
             const string sdkId = "fake-sdk-id";
