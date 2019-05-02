@@ -1,7 +1,5 @@
 language: csharp
 mono: none
-dist: bionic
-dotnet: 2.2
 solution: Yoti.Auth.sln
 os: windows
   
