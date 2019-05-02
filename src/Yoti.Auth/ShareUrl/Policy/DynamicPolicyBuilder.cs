@@ -103,11 +103,16 @@ namespace Yoti.Auth.ShareUrl.Policy
             return WithWantedAttribute(Constants.UserProfile.EmailAddressAttribute, optional);
         }
 
+        public DynamicPolicyBuilder WithDocumentDetails(bool optional = false)
+        {
+            return WithWantedAttribute(Constants.UserProfile.DocumentDetailsAttribute, optional);
+        }
+
         public DynamicPolicyBuilder WithSelfieAuthorisation(bool enabled)
         {
             if (enabled)
             {
-                return WithWantedAuthType(_selfieAuthType);
+                return WithAuthType(_selfieAuthType);
             }
             return this;
         }
@@ -116,14 +121,14 @@ namespace Yoti.Auth.ShareUrl.Policy
         {
             if (enabled)
             {
-                return WithWantedAuthType(_pinAuthType);
+                return WithAuthType(_pinAuthType);
             }
             return this;
         }
 
-        public DynamicPolicyBuilder WithWantedAuthType(int wantedAuthType)
+        public DynamicPolicyBuilder WithAuthType(int authType)
         {
-            _wantedAuthTypes.Add(wantedAuthType);
+            _wantedAuthTypes.Add(authType);
             return this;
         }
 
@@ -133,9 +138,9 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
-        public DynamicPolicyBuilder WithRememberMeIdOptional(bool wantedRememberMeIdOptional)
+        public DynamicPolicyBuilder WithRememberMeIdOptional(bool rememberMeIdOptional)
         {
-            _wantedRememberMeIdOptional = wantedRememberMeIdOptional;
+            _wantedRememberMeIdOptional = rememberMeIdOptional;
             return this;
         }
 
