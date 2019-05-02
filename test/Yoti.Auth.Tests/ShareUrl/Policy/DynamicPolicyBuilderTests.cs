@@ -166,7 +166,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthorisation(enabled: true)
                 .WithPinAuthorisation(enabled: true)
-                .WithWantedAuthType(99)
+                .WithAuthType(99)
                 .Build();
 
             List<int> result = dynamicPolicy.WantedAuthTypes;
