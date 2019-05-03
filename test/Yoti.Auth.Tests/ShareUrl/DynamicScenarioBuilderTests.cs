@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Yoti.Auth.ShareUrl;
 using Yoti.Auth.ShareUrl.Extensions;
 using Yoti.Auth.ShareUrl.Policy;
@@ -38,6 +40,19 @@ namespace Yoti.Auth.Tests.ShareUrl
             Assert.AreEqual(_someEndpoint, result.CallbackEndpoint);
             Assert.AreEqual(somePolicy, result.DynamicPolicy);
             CollectionAssert.AreEqual(expectedExtensions, result.Extensions);
+
+            string serializedScenario = JsonConvert.SerializeObject(result);
+
+            object deserializedObject;
+            using (StreamReader r = File.OpenText("TestData/DynamicPolicy.json"))
+            {
+                string json = r.ReadToEnd();
+                deserializedObject = JsonConvert.DeserializeObject(json);
+            }
+
+            string expectedJson = JsonConvert.SerializeObject(deserializedObject);
+
+            Assert.AreEqual(expectedJson, serializedScenario);
         }
     }
 }

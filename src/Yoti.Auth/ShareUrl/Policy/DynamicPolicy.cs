@@ -35,6 +35,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         /// <summary>
         /// Set of required <see cref="WantedAttribute"/>s
         /// </summary>
+        [JsonIgnore]
         public ICollection<WantedAttribute> WantedAttributes
         {
             get
@@ -46,6 +47,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         /// <summary>
         /// Type of authentications
         /// </summary>
+        [JsonIgnore]
         public List<int> WantedAuthTypes
         {
             get
@@ -57,6 +59,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         /// <summary>
         /// Is RememberMeId wanted in the policy
         /// </summary>
+        [JsonIgnore]
         public bool WantedRememberMeId
         {
             get
@@ -68,6 +71,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         /// <summary>
         /// Specifies if the RememberMeId is optional to successfully complete the share.
         /// </summary>
+        [JsonIgnore]
         public bool IsWantedRememberMeIdOptional
         {
             get

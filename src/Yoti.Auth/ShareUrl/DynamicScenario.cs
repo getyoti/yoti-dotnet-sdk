@@ -16,6 +16,7 @@ namespace Yoti.Auth.ShareUrl
         [JsonProperty(PropertyName = "extensions")]
         private readonly List<BaseExtension> _extensions;
 
+        [JsonIgnore]
         public string CallbackEndpoint
         {
             get
@@ -24,6 +25,7 @@ namespace Yoti.Auth.ShareUrl
             }
         }
 
+        [JsonIgnore]
         public DynamicPolicy DynamicPolicy
         {
             get
@@ -32,6 +34,7 @@ namespace Yoti.Auth.ShareUrl
             }
         }
 
+        [JsonIgnore]
         public List<BaseExtension> Extensions
         {
             get
