@@ -20,6 +20,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
         /// Get the feature's details
         /// </summary>
         /// <returns>The payload of the operation</returns>
+        [JsonIgnore]
         public T Content
         {
             get

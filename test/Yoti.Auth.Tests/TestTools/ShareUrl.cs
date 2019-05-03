@@ -17,6 +17,7 @@ namespace Yoti.Auth.Tests.TestTools
               .WithAgeOver(18, optional: true)
               .WithAgeUnder(30, optional: true)
               .WithAgeUnder(40, optional: true)
+              .WithPinAuthorisation(true)
               .Build();
         }
     }
