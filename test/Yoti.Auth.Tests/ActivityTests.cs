@@ -17,7 +17,6 @@ namespace Yoti.Auth.Tests
     {
         private YotiProfile _yotiProfile;
         private JToken _dictionaryObject = null;
-        private ProtoBuf.Attribute.AttributeList _attributeList;
 
         private const string AddressFormatJson = "address_format";
         private const string BuildingNumberJson = "building_number";
@@ -49,7 +48,6 @@ namespace Yoti.Auth.Tests
         public void Startup()
         {
             _yotiProfile = new YotiProfile();
-            _attributeList = new ProtoBuf.Attribute.AttributeList();
         }
 
         [TestMethod]
@@ -640,7 +638,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void AddAttributesToProfile_UndefinedContentType_IsNotAdded()
+        public void AddAttributesToProfile_UndefinedContentType_ConvertedToString()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -651,7 +649,7 @@ namespace Yoti.Auth.Tests
 
             AddAttributeToProfile<string>(attribute);
 
-            Assert.IsNull(_yotiProfile.FamilyName);
+            Assert.AreEqual(StringValue, _yotiProfile.FamilyName.GetValue());
         }
 
         [TestMethod]

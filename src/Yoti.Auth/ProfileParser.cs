@@ -18,7 +18,7 @@ namespace Yoti.Auth
                 Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
             }
 
-            if (response.Content == null)
+            if (string.IsNullOrEmpty(response.Content))
             {
                 throw new YotiProfileException("The content of the response is null");
             }
@@ -65,10 +65,7 @@ namespace Yoti.Auth
                     profileContent,
                     keyPair);
 
-                foreach (ProtoBuf.Attribute.Attribute attribute in profileAttributeList.Attributes)
-                {
-                    parsedAttributes.Add(attribute.Name, AttributeConverter.ConvertToBaseAttribute(attribute));
-                }
+                parsedAttributes = AttributeConverter.ConvertToBaseAttributes(profileAttributeList);
             }
 
             return parsedAttributes;
