@@ -24,6 +24,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
             _maxUncertainty = maxUncertainty;
         }
 
+        [JsonIgnore]
         public double Latitude
         {
             get
@@ -32,6 +33,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
             }
         }
 
+        [JsonIgnore]
         public double Longitude
         {
             get
@@ -40,6 +42,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
             }
         }
 
+        [JsonIgnore]
         public double Radius
         {
             get
@@ -48,6 +51,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
             }
         }
 
+        [JsonIgnore]
         public double MaxUncertainty
         {
             get
