@@ -12,6 +12,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
             _expectedDeviceLocation = new DeviceLocation(latitude, longitude, radius, maxUncertainty);
         }
 
+        [JsonIgnore]
         public DeviceLocation ExpectedDeviceLocation
         {
             get

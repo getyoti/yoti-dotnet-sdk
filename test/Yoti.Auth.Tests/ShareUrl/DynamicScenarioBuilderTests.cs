@@ -19,9 +19,11 @@ namespace Yoti.Auth.Tests.ShareUrl
             .WithType("string type")
             .Build();
 
-        private readonly BaseExtension extension2 = new ExtensionBuilder<DateTime>()
-            .WithContent(new DateTime(1990, 01, 01))
-            .WithType("datetime type")
+        private readonly BaseExtension extension2 = new LocationConstraintExtensionBuilder()
+            .WithLatitude(51.5044772)
+            .WithLongitude(-0.082161)
+            .WithMaxUncertainty(300)
+            .WithRadius(1500)
             .Build();
 
         [TestMethod]
