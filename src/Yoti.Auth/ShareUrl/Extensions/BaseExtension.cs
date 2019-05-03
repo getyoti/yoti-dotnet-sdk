@@ -15,6 +15,7 @@ namespace Yoti.Auth.ShareUrl.Extensions
         /// <summary>
         /// Get the feature's type
         /// </summary>
+        [JsonIgnore]
         public string ExtensionType
         {
             get

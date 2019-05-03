@@ -20,6 +20,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             _optional = optional;
         }
 
+        [JsonIgnore]
         public string Name
         {
             get
@@ -28,6 +29,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             }
         }
 
+        [JsonIgnore]
         public string Derivation
         {
             get
@@ -36,6 +38,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             }
         }
 
+        [JsonIgnore]
         public bool IsOptional
         {
             get

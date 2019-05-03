@@ -1,0 +1,40 @@
+﻿{
+  "callback_endpoint": "someEndpoint",
+  "policy": {
+    "wanted": [
+      {
+        "name": "date_of_birth",
+        "derivation": null,
+        "optional": true
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_over:18",
+        "optional": true
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_under:30",
+        "optional": true
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_under:40",
+        "optional": true
+      }
+    ],
+    "wanted_auth_types": [ 2 ],
+    "wanted_remember_me": false,
+    "wanted_remember_me_optional": false
+  },
+  "extensions": [
+    {
+      "content": "content",
+      "type": "string type"
+    },
+    {
+      "content": "1990-01-01T00:00:00",
+      "type": "datetime type"
+    }
+  ]
+}
