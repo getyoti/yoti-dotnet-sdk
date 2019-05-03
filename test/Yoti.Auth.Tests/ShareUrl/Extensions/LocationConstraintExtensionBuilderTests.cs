@@ -19,7 +19,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForLatitudesOutsideOfRange(double latitude)
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithLatitude(latitude)
@@ -33,7 +33,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForLongitudesOutsideOfRange(double longitude)
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithLongitude(longitude)
@@ -44,7 +44,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForRadiusLessThanZero()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithRadius(-1)
@@ -55,7 +55,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForUncertaintyLessThanZero()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithMaxUncertainty(-1)
