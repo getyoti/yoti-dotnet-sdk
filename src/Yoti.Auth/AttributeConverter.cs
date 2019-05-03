@@ -11,7 +11,7 @@ namespace Yoti.Auth
 {
     internal static class AttributeConverter
     {
-        public static Dictionary<string, BaseAttribute> ConvertToBaseAttributes(ProtoBuf.Attribute.AttributeList attributeList)
+        public static Dictionary<string, BaseAttribute> ConvertToBaseAttributes(AttributeList attributeList)
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -35,6 +35,10 @@ namespace Yoti.Auth
         public static BaseAttribute ConvertToBaseAttribute(ProtoBuf.Attribute.Attribute attribute)
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+            if (attribute.ContentType != ContentType.String
+                    && attribute.Value.Length == 0)
+                throw new InvalidOperationException("Empty value is invalid for non-string content types");
 
             byte[] byteAttributeValue = attribute.Value.ToByteArray();
 
