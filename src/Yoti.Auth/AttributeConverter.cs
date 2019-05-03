@@ -11,8 +11,31 @@ namespace Yoti.Auth
 {
     internal static class AttributeConverter
     {
+        public static Dictionary<string, BaseAttribute> ConvertToBaseAttributes(ProtoBuf.Attribute.AttributeList attributeList)
+        {
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+            var parsedAttributes = new Dictionary<string, BaseAttribute>();
+
+            foreach (ProtoBuf.Attribute.Attribute attribute in attributeList.Attributes)
+            {
+                try
+                {
+                    parsedAttributes.Add(attribute.Name, ConvertToBaseAttribute(attribute));
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn($"Failed to parse attribute '{attribute.Name}' due to '{ex.Message}'");
+                }
+            }
+
+            return parsedAttributes;
+        }
+
         public static BaseAttribute ConvertToBaseAttribute(ProtoBuf.Attribute.Attribute attribute)
         {
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
             byte[] byteAttributeValue = attribute.Value.ToByteArray();
 
             switch (attribute.ContentType)
@@ -59,11 +82,8 @@ namespace Yoti.Auth
                       value: GetJsonValue(byteAttributeValue),
                       ParseAnchors(attribute));
 
-                case ContentType.Undefined:
-                    // do not return attributes with undefined content types
-                    return null;
-
                 default:
+                    logger.Warn($"Unknown content type {attribute.ContentType}, attempting to parse it as a string");
                     return new YotiAttribute<string>(
                         attribute.Name,
                         Conversion.BytesToUtf8(attribute.Value.ToByteArray()),
