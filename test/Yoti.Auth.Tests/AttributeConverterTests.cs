@@ -18,9 +18,9 @@ namespace Yoti.Auth.Tests
             string attribute1Name = "attribute1";
             string attribute2Name = "attribute2";
 
-            var attribute1 = CreateProtobufJsonAttribute(attribute1Name, byteJsonValue);
-            var invalidAttribute = CreateProtobufJsonAttribute("invalidAttribute", ByteString.CopyFromUtf8("invalid"));
-            var attribute2 = CreateProtobufJsonAttribute(attribute2Name, byteJsonValue);
+            Attribute attribute1 = CreateProtobufAttribute(attribute1Name, byteJsonValue, ContentType.Json);
+            Attribute invalidAttribute = CreateProtobufAttribute("invalidAttribute", ByteString.CopyFromUtf8("invalid"), ContentType.Json);
+            Attribute attribute2 = CreateProtobufAttribute(attribute2Name, byteJsonValue, ContentType.Json);
 
             var attributeList = new ProtoBuf.Attribute.AttributeList
             {
@@ -64,6 +64,22 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(0, convertedAttributes.Count);
         }
 
+        [DataTestMethod]
+        [DataRow(ContentType.Date)]
+        [DataRow(ContentType.Jpeg)]
+        [DataRow(ContentType.Json)]
+        [DataRow(ContentType.Png)]
+        [DataRow(ContentType.Undefined)]
+        public void OtherAttributesWithEmptyValueThrowsException(ContentType contentType)
+        {
+            Attribute attribute = CreateProtobufAttribute("attributeName", _emptyByteStringValue, contentType);
+
+            Assert.ThrowsException<System.InvalidOperationException>(() =>
+            {
+                AttributeConverter.ConvertToBaseAttribute(attribute);
+            });
+        }
+
         private static AttributeList CreateAttributeListWithSingleAttribute(string name, ContentType contentType, ByteString byteStringValue)
         {
             var attribute = new Attribute
@@ -79,12 +95,12 @@ namespace Yoti.Auth.Tests
             };
         }
 
-        private Attribute CreateProtobufJsonAttribute(string name, ByteString value)
+        private Attribute CreateProtobufAttribute(string name, ByteString value, ContentType contentType)
         {
             return new Attribute
             {
                 Name = name,
-                ContentType = ContentType.Json,
+                ContentType = contentType,
                 Value = value
             };
         }
