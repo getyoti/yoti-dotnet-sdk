@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Org.BouncyCastle.Crypto;
-using Yoti.Auth.Exceptions;
 using Yoti.Auth.ShareUrl;
 using Yoti.Auth.Tests.TestTools;
 
