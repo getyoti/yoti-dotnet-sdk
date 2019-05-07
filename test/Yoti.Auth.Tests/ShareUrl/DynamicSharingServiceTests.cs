@@ -100,22 +100,5 @@ namespace Yoti.Auth.Tests.ShareUrl
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("Dynamic Scenario"));
         }
-
-        [TestMethod]
-        public void ShouldThrowDynamicShareExceptionWhenParsingFails()
-        {
-            var mock = new Mock<Encoding>();
-
-            mock.Setup(x => x.GetBytes(It.IsAny<string>()))
-                .Throws(new EncoderFallbackException());
-
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                DynamicSharingService.CreateShareURL(_httpClient, _httpRequester, _apiURL, _sdkID, _keyPair, _someDynamicScenario).Wait();
-            });
-
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DynamicShareException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("Inner exception:"));
-        }
     }
 }
