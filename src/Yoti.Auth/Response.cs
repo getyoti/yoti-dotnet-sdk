@@ -16,15 +16,15 @@ namespace Yoti.Auth
             {
                 case HttpStatusCode.BadRequest:
                     throw Activator.CreateInstance(typeof(E),
-                        new object[] { $"Failed validation:{Environment.NewLine}{response.Content}" }) as E;
+                        $"Failed validation:{Environment.NewLine}{response.Content}") as E;
 
                 case HttpStatusCode.Unauthorized:
                     throw Activator.CreateInstance(typeof(E),
-                       $"Failed authorization with the given key:{Environment.NewLine}{response.Content}") as E;
+                        $"Failed authorization with the given key:{Environment.NewLine}{response.Content}") as E;
 
                 case HttpStatusCode.InternalServerError:
                     throw Activator.CreateInstance(typeof(E),
-                       $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content}") as E;
+                        $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content}") as E;
 
                 default:
                     throw Activator.CreateInstance(typeof(E),
