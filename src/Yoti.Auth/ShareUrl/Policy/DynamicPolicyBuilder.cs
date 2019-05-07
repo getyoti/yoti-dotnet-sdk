@@ -108,7 +108,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             return WithWantedAttribute(Constants.UserProfile.DocumentDetailsAttribute, optional);
         }
 
-        public DynamicPolicyBuilder WithSelfieAuthorisation(bool enabled)
+        public DynamicPolicyBuilder WithSelfieAuthentication(bool enabled)
         {
             if (enabled)
             {
@@ -117,7 +117,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
-        public DynamicPolicyBuilder WithPinAuthorisation(bool enabled)
+        public DynamicPolicyBuilder WithPinAuthentication(bool enabled)
         {
             if (enabled)
             {
