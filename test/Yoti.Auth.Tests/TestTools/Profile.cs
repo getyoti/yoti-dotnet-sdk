@@ -2,7 +2,7 @@
 
 namespace Yoti.Auth.Tests.TestTools
 {
-    internal class Profile
+    internal static class Profile
     {
         public static ApplicationProfile CreateApplicationProfileWithSingleAttribute<T>(YotiAttribute<T> attribute)
         {
