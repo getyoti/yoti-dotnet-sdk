@@ -10,4 +10,4 @@ install:
 - dotnet restore ../test/Yoti.Auth.Tests/Yoti.Auth.Tests.csproj
 
 script:
-- dotnet test -c Release --verbosity normal
+- dotnet test Yoti.Auth.sln -c Release --verbosity normal
