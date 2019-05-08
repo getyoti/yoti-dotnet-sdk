@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  coreexample:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44380
+      - YOTI_APPLICATION_ID=${YOTI_APPLICATION_ID}
+      - YOTI_CLIENT_SDK_ID=${YOTI_CLIENT_SDK_ID}
+      - SCENARIO_ID=${SCENARIO_ID}
+      - YOTI_KEY_FILE_PATH=/YotiKey.pem
+    ports:
+      - "55000:80"
+      - "44380:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${YOTI_KEY_FILE_PATH}:/YotiKey.pem
