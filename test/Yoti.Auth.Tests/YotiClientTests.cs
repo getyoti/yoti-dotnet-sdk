@@ -63,7 +63,7 @@ namespace Yoti.Auth.Tests
         {
             StreamReader keystream = GetInvalidFormatKeyStream();
             const string sdkId = "fake-sdk-id";
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<FormatException>(() =>
             {
                 new YotiClient(sdkId, keystream);
             });
