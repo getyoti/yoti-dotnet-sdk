@@ -2,17 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Exceptions;
+using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
 {
     [TestClass]
     public class ProfileParserTests
     {
-        private static AsymmetricCipherKeyPair GetKey()
-        {
-            return CryptoEngine.LoadRsaKey(File.OpenText("test-key.pem"));
-        }
-
         [TestMethod]
         public void UnsuccessfulResponseThrowsYotiProfileException()
         {
@@ -23,7 +19,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<YotiProfileException>(() =>
             {
-                ProfileParser.HandleResponse(GetKey(), response);
+                ProfileParser.HandleResponse(KeyPair.Get(), response);
             });
         }
 
@@ -38,7 +34,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<YotiProfileException>(() =>
             {
-                ProfileParser.HandleResponse(GetKey(), response);
+                ProfileParser.HandleResponse(KeyPair.Get(), response);
             });
         }
     }
