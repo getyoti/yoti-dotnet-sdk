@@ -43,15 +43,7 @@ namespace Yoti.Auth
             }
 
             _sdkId = sdkId;
-
-            try
-            {
-                _keyPair = CryptoEngine.LoadRsaKey(privateStreamKey);
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException("Could not read private key file: Are you sure it is valid", e);
-            }
+            _keyPair = CryptoEngine.LoadRsaKey(privateStreamKey);
 
             _yotiClientEngine = new YotiClientEngine(new HttpRequester(), httpClient);
         }
