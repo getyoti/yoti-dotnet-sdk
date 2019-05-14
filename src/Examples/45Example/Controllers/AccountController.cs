@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using Example.Models;
 using Yoti.Auth;
 
 namespace Example.Controllers
@@ -22,9 +24,8 @@ namespace Example.Controllers
             _photoBytes = value;
         }
 
-        public ActionResult LogIn()
+        public ActionResult Error()
         {
-            ViewBag.YotiAppId = _appId;
             return View();
         }
 
@@ -48,10 +49,18 @@ namespace Example.Controllers
 
                 var selfie = profile.Selfie.GetValue();
 
+                DisplayAttributes displayAttributes = CreateDisplayAttributes(profile.Attributes);
+
+                if (profile.FullName != null)
+                {
+                    displayAttributes.FullName = profile.FullName.GetValue();
+                }
+
                 if (profile.Selfie != null)
                 {
-                    ViewBag.Base64Photo = selfie.GetBase64URI();
                     SetPhotoBytes(selfie.GetContent());
+                    DownloadImageFile();
+                    displayAttributes.Base64Selfie = selfie.GetBase64URI();
                 }
                 else
                 {
@@ -68,13 +77,92 @@ namespace Example.Controllers
 
                 authManager.SignIn(identity);
 
-                return View(profile);
+                return View(displayAttributes);
             }
             catch (Exception e)
             {
-                ViewBag.Error = e.Message;
-                return RedirectToAction("LoginFailure", "Home");
+                TempData["Error"] = e.Message;
+                TempData["InnerException"] = e.InnerException.Message;
+                return RedirectToAction("Error");
             }
+        }
+
+        private static DisplayAttributes CreateDisplayAttributes(Dictionary<string, BaseAttribute> attributes)
+        {
+            var displayAttributes = new DisplayAttributes();
+
+            foreach (var yotiAttribute in attributes.Values)
+            {
+                switch (yotiAttribute.GetName())
+                {
+                    case Yoti.Auth.Constants.UserProfile.FullNameAttribute:
+                        // Do nothing - we are displaying this already
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.GivenNamesAttribute:
+                        AddDisplayAttribute<string>("Given name", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.FamilyNameAttribute:
+                        AddDisplayAttribute<string>("Family name", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.NationalityAttribute:
+                        AddDisplayAttribute<string>("Nationality", "yoti-icon-nationality", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.PostalAddressAttribute:
+                        AddDisplayAttribute<string>("Address", "yoti-icon-address", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.StructuredPostalAddressAttribute:
+                        // Do nothing - we are handling this with the postalAddress attribute
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.PhoneNumberAttribute:
+                        AddDisplayAttribute<string>("Mobile number", "yoti-icon-phone", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.EmailAddressAttribute:
+                        AddDisplayAttribute<string>("Email address", "yoti-icon-email", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.DateOfBirthAttribute:
+                        AddDisplayAttribute<DateTime>("Date of birth", "yoti-icon-calendar", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.SelfieAttribute:
+                        // Do nothing - we already display the selfie
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.GenderAttribute:
+                        AddDisplayAttribute<string>("Gender", "yoti-icon-gender", yotiAttribute, displayAttributes);
+                        break;
+
+                    default:
+                        YotiAttribute<string> stringAttribute = yotiAttribute as YotiAttribute<string>;
+
+                        if (stringAttribute != null)
+                        {
+                            if (stringAttribute.GetName().Contains(":"))
+                            {
+                                displayAttributes.Add(new DisplayAttribute("Age Verification/", "Age verified", "yoti-icon-verified", stringAttribute.GetAnchors(), stringAttribute.GetValue()));
+                                break;
+                            }
+
+                            AddDisplayAttribute<string>(stringAttribute.GetName(), "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        }
+                        break;
+                }
+            }
+
+            return displayAttributes;
+        }
+
+        private static void AddDisplayAttribute<T>(string name, string icon, BaseAttribute baseAttribute, DisplayAttributes displayAttributes)
+        {
+            if (baseAttribute is YotiAttribute<T> yotiAttribute)
+                displayAttributes.Add(name, icon, yotiAttribute.GetAnchors(), yotiAttribute.GetValue());
         }
 
         public ActionResult Logout()
@@ -85,7 +173,7 @@ namespace Example.Controllers
             authManager.SignOut("ApplicationCookie");
 
             ViewBag.YotiAppId = _appId;
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public FileContentResult DownloadImageFile()

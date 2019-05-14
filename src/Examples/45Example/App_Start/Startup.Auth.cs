@@ -11,7 +11,7 @@ namespace Example
             var cookieOptions = new CookieAuthenticationOptions
             {
                 AuthenticationType = "ApplicationCookie",
-                LoginPath = new PathString("/Account/Login")
+                LoginPath = new PathString("/Account/Connect")
             };
 
             app.UseCookieAuthentication(cookieOptions);

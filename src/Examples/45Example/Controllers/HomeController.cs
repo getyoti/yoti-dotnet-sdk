@@ -13,11 +13,5 @@ namespace Example.Controllers
             ViewBag.YotiAppId = _appId;
             return View();
         }
-
-        public ActionResult LoginFailure()
-        {
-            ViewBag.YotiAppId = _appId;
-            return View();
-        }
     }
 }
