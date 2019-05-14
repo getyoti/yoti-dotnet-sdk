@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using CoreExample.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
@@ -8,6 +10,7 @@ namespace CoreExample.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
         private readonly ILogger _logger;
         private byte[] _photoBytes;
 
@@ -26,9 +29,17 @@ namespace CoreExample.Controllers
             _photoBytes = value;
         }
 
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         // GET: Account/Connect?token
         public ActionResult Connect(string token)
         {
+            if (token == null)
+                return RedirectToAction("Index", "Home");
+
             try
             {
                 string sdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
@@ -46,28 +57,122 @@ namespace CoreExample.Controllers
 
                 ActivityDetails activityDetails = yotiClient.GetActivityDetails(token);
 
-                _logger.LogInformation("ActivityOutcome=Success");
+                var profile = activityDetails.Profile;
 
                 ViewBag.RememberMeID = activityDetails.RememberMeId;
 
-                YotiProfile yotiProfile = activityDetails.Profile;
+                var selfie = profile.Selfie.GetValue();
 
-                if (yotiProfile.Selfie != null)
+                DisplayAttributes displayAttributes = CreateDisplayAttributes(profile.Attributes);
+
+                if (profile.FullName != null)
                 {
-                    SetPhotoBytes(yotiProfile.Selfie.GetValue().GetContent());
+                    displayAttributes.FullName = profile.FullName.GetValue();
                 }
 
-                return View(yotiProfile);
+                if (profile.Selfie != null)
+                {
+                    SetPhotoBytes(selfie.GetContent());
+                    DownloadImageFile();
+                    displayAttributes.Base64Selfie = selfie.GetBase64URI();
+                }
+                else
+                {
+                    ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
+                }
+
+                return View(displayAttributes);
             }
             catch (Exception e)
             {
-                _logger.LogError(
-                    exception: e,
-                    message: "An error occurred");
                 ViewBag.Error = e.Message;
-
-                return RedirectToAction("LoginFailure", "Home");
+                TempData["Error"] = e.Message;
+                TempData["InnerException"] = e.InnerException.Message;
+                return RedirectToAction("Error");
             }
+        }
+
+        private static DisplayAttributes CreateDisplayAttributes(Dictionary<string, BaseAttribute> attributes)
+        {
+            var displayAttributes = new DisplayAttributes();
+
+            foreach (var yotiAttribute in attributes.Values)
+            {
+                switch (yotiAttribute.GetName())
+                {
+                    case Yoti.Auth.Constants.UserProfile.FullNameAttribute:
+                        // Do nothing - we are displaying this already
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.GivenNamesAttribute:
+                        AddDisplayAttribute<string>("Given name", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.FamilyNameAttribute:
+                        AddDisplayAttribute<string>("Family name", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.NationalityAttribute:
+                        AddDisplayAttribute<string>("Nationality", "yoti-icon-nationality", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.PostalAddressAttribute:
+                        AddDisplayAttribute<string>("Address", "yoti-icon-address", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.StructuredPostalAddressAttribute:
+                        // Do nothing - we are handling this with the postalAddress attribute
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.PhoneNumberAttribute:
+                        AddDisplayAttribute<string>("Mobile number", "yoti-icon-phone", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.EmailAddressAttribute:
+                        AddDisplayAttribute<string>("Email address", "yoti-icon-email", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.DateOfBirthAttribute:
+                        AddDisplayAttribute<DateTime>("Date of birth", "yoti-icon-calendar", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.SelfieAttribute:
+                        // Do nothing - we already display the selfie
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.GenderAttribute:
+                        AddDisplayAttribute<string>("Gender", "yoti-icon-gender", yotiAttribute, displayAttributes);
+                        break;
+
+                    default:
+                        YotiAttribute<string> stringAttribute = yotiAttribute as YotiAttribute<string>;
+
+                        if (stringAttribute != null)
+                        {
+                            if (stringAttribute.GetName().Contains(":"))
+                            {
+                                displayAttributes.Add(new DisplayAttribute("Age Verification/", "Age verified", "yoti-icon-verified", stringAttribute.GetAnchors(), stringAttribute.GetValue()));
+                                break;
+                            }
+
+                            AddDisplayAttribute<string>(stringAttribute.GetName(), "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        }
+                        break;
+                }
+            }
+
+            return displayAttributes;
+        }
+
+        private static void AddDisplayAttribute<T>(string name, string icon, BaseAttribute baseAttribute, DisplayAttributes displayAttributes)
+        {
+            if (baseAttribute is YotiAttribute<T> yotiAttribute)
+                displayAttributes.Add(name, icon, yotiAttribute.GetAnchors(), yotiAttribute.GetValue());
+        }
+
+        public ActionResult Logout()
+        {
+            return RedirectToAction("Index", "Home");
         }
 
         public FileContentResult DownloadImageFile()
