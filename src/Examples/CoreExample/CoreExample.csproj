@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <UserSecretsId>9c82fa55-c27e-4405-8983-72662528e16f</UserSecretsId>
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>9c82fa55-c27e-4405-8983-72662528e16f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +27,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Yoti.Auth\Yoti.Auth.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="https\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="https\CoreExample.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
