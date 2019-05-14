@@ -10,10 +10,12 @@ services:
       - YOTI_CLIENT_SDK_ID=${YOTI_CLIENT_SDK_ID}
       - SCENARIO_ID=${SCENARIO_ID}
       - YOTI_KEY_FILE_PATH=/YotiKey.pem
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=b0a3e118-0420-4e3c-920c-c2623296ffbf
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=https/CoreExample.pfx
     ports:
       - "55000:80"
       - "44380:443"
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${YOTI_KEY_FILE_PATH}:/YotiKey.pem
+networks:
+  default:
+    external:
+      name: nat
