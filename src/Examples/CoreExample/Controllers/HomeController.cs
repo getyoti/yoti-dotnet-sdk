@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using CoreExample.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
@@ -95,17 +93,6 @@ namespace CoreExample.Controllers
 
                 return RedirectToAction("LoginFailure", "Home");
             }
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public ActionResult LoginFailure()
-        {
-            ViewBag.YotiAppId = _appId;
-            return View();
         }
     }
 }

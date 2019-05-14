@@ -5,21 +5,21 @@ namespace Yoti.Auth
 {
     public abstract class BaseProfile : IBaseProfile
     {
-        private readonly Dictionary<string, BaseAttribute> _attributes;
+        public Dictionary<string, BaseAttribute> Attributes { get; private set; }
 
         protected BaseProfile()
         {
-            _attributes = new Dictionary<string, BaseAttribute>();
+            Attributes = new Dictionary<string, BaseAttribute>();
         }
 
         protected BaseProfile(Dictionary<string, BaseAttribute> attributes)
         {
-            _attributes = attributes;
+            Attributes = attributes;
         }
 
         internal void Add<T>(YotiAttribute<T> value)
         {
-            _attributes.Add(value.GetName(), value);
+            Attributes.Add(value.GetName(), value);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Yoti.Auth
         /// <returns>Yoti Attribute</returns>
         public YotiAttribute<T> GetAttributeByName<T>(string name)
         {
-            if (_attributes.TryGetValue(name, out BaseAttribute matchingAttribute))
+            if (Attributes.TryGetValue(name, out BaseAttribute matchingAttribute))
             {
                 return (YotiAttribute<T>)matchingAttribute;
             }
@@ -53,7 +53,7 @@ namespace Yoti.Auth
 
             List<YotiAttribute<T>> matches = new List<YotiAttribute<T>>();
 
-            foreach (KeyValuePair<string, BaseAttribute> attribute in _attributes)
+            foreach (KeyValuePair<string, BaseAttribute> attribute in Attributes)
             {
                 if (attribute.Key.StartsWith(prefix, System.StringComparison.Ordinal)
                     && attribute.Value is YotiAttribute<T> castableAttribute)

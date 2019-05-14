@@ -1,6 +1,4 @@
-﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Org.BouncyCastle.Crypto;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.TestTools;
 

@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.Constants
 {
-    internal static class UserProfile
+    public static class UserProfile
     {
         public const string AgeOverAttribute = "age_over";
         public const string AgeUnderAttribute = "age_under";

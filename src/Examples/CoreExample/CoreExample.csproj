@@ -25,4 +25,31 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Yoti.Auth\Yoti.Auth.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\static\assets\icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="wwwroot\static\index.css" />
+    <None Remove="wwwroot\static\profile.css" />
+    <None Remove="wwwroot\static\assets\app-store-badge.png" />
+    <None Remove="wwwroot\static\assets\app-store-badge@2x.png" />
+    <None Remove="wwwroot\static\assets\company-logo.jpg" />
+    <None Remove="wwwroot\static\assets\google-play-badge.png" />
+    <None Remove="wwwroot\static\assets\google-play-badge@2x.png" />
+    <None Remove="wwwroot\static\assets\logo.png" />
+    <None Remove="wwwroot\static\assets\logo@2x.png" />
+    <None Remove="wwwroot\static\assets\icons\address.svg" />
+    <None Remove="wwwroot\static\assets\icons\calendar.svg" />
+    <None Remove="wwwroot\static\assets\icons\chevron-down-grey.svg" />
+    <None Remove="wwwroot\static\assets\icons\document.svg" />
+    <None Remove="wwwroot\static\assets\icons\email.svg" />
+    <None Remove="wwwroot\static\assets\icons\gender.svg" />
+    <None Remove="wwwroot\static\assets\icons\nationality.svg" />
+    <None Remove="wwwroot\static\assets\icons\phone.svg" />
+    <None Remove="wwwroot\static\assets\icons\profile.svg" />
+    <None Remove="wwwroot\static\assets\icons\verified.svg" />
+  </ItemGroup>
+
 </Project>
