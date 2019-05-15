@@ -5,6 +5,7 @@ using CoreExample.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
+using Yoti.Auth.Images;
 
 namespace CoreExample.Controllers
 {
@@ -61,8 +62,6 @@ namespace CoreExample.Controllers
 
                 ViewBag.RememberMeID = activityDetails.RememberMeId;
 
-                var selfie = profile.Selfie.GetValue();
-
                 DisplayAttributes displayAttributes = CreateDisplayAttributes(profile.Attributes);
 
                 if (profile.FullName != null)
@@ -70,15 +69,13 @@ namespace CoreExample.Controllers
                     displayAttributes.FullName = profile.FullName.GetValue();
                 }
 
+                YotiAttribute<Image> selfie = profile.Selfie;
                 if (profile.Selfie != null)
                 {
-                    SetPhotoBytes(selfie.GetContent());
+                    Image selfieValue = selfie.GetValue();
+                    SetPhotoBytes(selfieValue.GetContent());
                     DownloadImageFile();
-                    displayAttributes.Base64Selfie = selfie.GetBase64URI();
-                }
-                else
-                {
-                    ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
+                    displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
                 }
 
                 return View(displayAttributes);
@@ -87,7 +84,7 @@ namespace CoreExample.Controllers
             {
                 ViewBag.Error = e.Message;
                 TempData["Error"] = e.Message;
-                TempData["InnerException"] = e.InnerException.Message;
+                TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error");
             }
         }
