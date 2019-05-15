@@ -6,12 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using Example.Models;
 using Yoti.Auth;
+using Yoti.Auth.Images;
 
 namespace Example.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly string _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
         private byte[] _photoBytes;
 
         public byte[] GetPhotoBytes()
@@ -32,12 +32,19 @@ namespace Example.Controllers
         // GET: Account/Connect?token
         public ActionResult Connect(string token)
         {
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
             if (token == null)
+            {
+                logger.Error("token is null");
                 return RedirectToAction("Index", "Home");
+            }
 
             try
             {
                 string sdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
+                logger.Info(string.Format("sdkId='{0}'", sdkId));
+
                 var privateKeyStream = System.IO.File.OpenText(ConfigurationManager.AppSettings["YOTI_KEY_FILE_PATH"]);
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
@@ -47,8 +54,6 @@ namespace Example.Controllers
 
                 ViewBag.RememberMeID = activityDetails.RememberMeId;
 
-                var selfie = profile.Selfie.GetValue();
-
                 DisplayAttributes displayAttributes = CreateDisplayAttributes(profile.Attributes);
 
                 if (profile.FullName != null)
@@ -56,15 +61,13 @@ namespace Example.Controllers
                     displayAttributes.FullName = profile.FullName.GetValue();
                 }
 
+                YotiAttribute<Image> selfie = profile.Selfie;
                 if (profile.Selfie != null)
                 {
-                    SetPhotoBytes(selfie.GetContent());
+                    Image selfieValue = selfie.GetValue();
+                    SetPhotoBytes(selfieValue.GetContent());
                     DownloadImageFile();
-                    displayAttributes.Base64Selfie = selfie.GetBase64URI();
-                }
-                else
-                {
-                    ViewBag.Message = "No photo provided, change the application settings to request a photo from the user for this demo";
+                    displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
                 }
 
                 var identity = new ClaimsIdentity(new[] {
@@ -81,8 +84,10 @@ namespace Example.Controllers
             }
             catch (Exception e)
             {
+                logger.Error(e);
+                ViewBag.Error = e.Message;
                 TempData["Error"] = e.Message;
-                TempData["InnerException"] = e.InnerException.Message;
+                TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error");
             }
         }
@@ -172,7 +177,6 @@ namespace Example.Controllers
 
             authManager.SignOut("ApplicationCookie");
 
-            ViewBag.YotiAppId = _appId;
             return RedirectToAction("Index", "Home");
         }
 
