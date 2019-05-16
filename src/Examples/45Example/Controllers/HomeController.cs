@@ -32,7 +32,7 @@ namespace Example.Controllers
             logger.Info(string.Format("scenarioId='{0}'", _scenarioId));
         }
 
-        // GET: Account/DynamicScenario
+        // GET: Home/DynamicScenario
         public ActionResult DynamicScenario(string token)
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
