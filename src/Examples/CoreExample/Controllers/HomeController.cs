@@ -34,7 +34,7 @@ namespace CoreExample.Controllers
             return View();
         }
 
-        // GET: Account/DynamicScenario
+        // GET: Home/DynamicScenario
         public IActionResult DynamicScenario(string token)
         {
             try
