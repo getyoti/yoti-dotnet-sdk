@@ -112,6 +112,7 @@ if (user != null)
     string emailAddress = profile.EmailAddress.GetValue();
     DateTime? dateOfBirth = profile.DateOfBirth.GetValue();       
     string address = profile.Address.GetValue();
+    Dictionary<string, Newtonsoft.Json.Linq.JToken> structuredPostalAddress = profile.StructuredPostalAddress.GetValue();
     string gender = profile.Gender.GetValue();
     string nationality = profile.Nationality.GetValue();
     bool isAgedOver18;
@@ -240,6 +241,7 @@ bool onWatchList = amlResult.IsOnWatchList();
     * [X] Email Address `EmailAddress`
     * [X] Age / Date of Birth `DateOfBirth`
     * [X] Postal Address `Address`
+    * [X] Structured Postal Address `StructuredPostalAddress`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`
     * [X] Age Verifications `AgeVerifications`
