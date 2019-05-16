@@ -70,16 +70,6 @@ namespace Example.Controllers
                     displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
                 }
 
-                var identity = new ClaimsIdentity(new[] {
-                        new Claim(ClaimTypes.Name, activityDetails.RememberMeId.ToString()),
-                        },
-                    "ApplicationCookie");
-
-                var ctx = Request.GetOwinContext();
-                var authManager = ctx.Authentication;
-
-                authManager.SignIn(identity);
-
                 return View(displayAttributes);
             }
             catch (Exception e)

@@ -9,7 +9,6 @@ using Yoti.Auth.ShareUrl.Policy;
 
 namespace Example.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly string _appId;
