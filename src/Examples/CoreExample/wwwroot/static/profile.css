@@ -346,6 +346,7 @@
   font-size: 14px;
 
   background-color: #f7f8f9;
+  border: 5px solid white;
 }
 
 @media (min-width: 1100px) {
