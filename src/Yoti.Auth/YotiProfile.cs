@@ -94,7 +94,7 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// DateOfBirth represents the user's date of birth. This will be null if not provided by Yoti.
+        /// DateOfBirth represents the user's date of birth as a DateTime. The time part of this DateTime will default to 00:00:00. This will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<DateTime> DateOfBirth
         {
