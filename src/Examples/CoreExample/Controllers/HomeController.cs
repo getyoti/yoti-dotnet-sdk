@@ -61,6 +61,7 @@ namespace CoreExample.Controllers
                    .WithWantedAttribute(givenNamesWantedAttribute)
                    .WithWantedAttribute("nationality", optional: true)
                    .WithFullName()
+                   .WithSelfie(optional: true)
                    .WithPhoneNumber(optional: true)
                    .WithAgeOver(18)
                    .Build();
