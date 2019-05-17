@@ -6,7 +6,7 @@ namespace Yoti.Auth.Document
     public class DocumentDetails
     {
         /// <summary>
-        /// 3 digit country code, e.g. “GBR“
+        /// ISO-3166-1 alpha-3 country code, e.g. “GBR“
         /// </summary>
         public string IssuingCountry { get; private set; }
 
