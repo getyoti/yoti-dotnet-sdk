@@ -20,8 +20,7 @@ namespace CoreExample
                 DotNetEnv.Env.Load();
             }
             if (string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID")))
-                logger.LogCritical("'YOTI_CLIENT_SDK_ID' environment variable not found. " +
-                    "Either pass these in the .env file, or as a standard environment variable.");
+                logger.LogCritical("'YOTI_CLIENT_SDK_ID' environment variable not found. Either pass these in ");
         }
 
         public IConfiguration Configuration { get; }
