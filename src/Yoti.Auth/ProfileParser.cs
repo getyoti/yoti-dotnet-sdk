@@ -46,7 +46,12 @@ namespace Yoti.Auth
 
             DateTime? timestamp = null;
             if (receipt.Timestamp != null
-                && DateTime.TryParseExact(receipt.Timestamp, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                && DateTime.TryParseExact(
+                    receipt.Timestamp,
+                    "yyyy-MM-ddTHH:mm:ssZ",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.AdjustToUniversal,
+                    out DateTime parsedDate))
             {
                 timestamp = parsedDate;
             }
