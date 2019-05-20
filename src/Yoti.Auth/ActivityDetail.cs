@@ -31,7 +31,7 @@ namespace Yoti.Auth
         public string ParentRememberMeId { get; private set; }
 
         /// <summary>
-        /// Time and date of the sharing activity.
+        /// Time (UTC) and date of the sharing activity.
         /// </summary>
         public DateTime? Timestamp { get; private set; }
 
