@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using Example.Models;
@@ -75,7 +74,6 @@ namespace Example.Controllers
             catch (Exception e)
             {
                 logger.Error(e);
-                ViewBag.Error = e.Message;
                 TempData["Error"] = e.Message;
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error");

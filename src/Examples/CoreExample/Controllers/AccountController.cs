@@ -82,7 +82,10 @@ namespace CoreExample.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.Error = e.Message;
+                _logger.LogError(
+                     exception: e,
+                     message: e.Message);
+
                 TempData["Error"] = e.Message;
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error");

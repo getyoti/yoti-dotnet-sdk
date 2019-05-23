@@ -87,12 +87,11 @@ namespace Example.Controllers
             }
             catch (Exception e)
             {
-                logger.Error(
-                    e,
-                    "An error occurred");
-                ViewBag.Error = e.Message;
+                logger.Error(e);
+                TempData["Error"] = e.Message;
+                TempData["InnerException"] = e.InnerException?.Message;
 
-                return RedirectToAction("LoginFailure", "Home");
+                return RedirectToAction("Error", "Account");
             }
         }
     }
