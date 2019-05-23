@@ -88,11 +88,12 @@ namespace CoreExample.Controllers
             catch (Exception e)
             {
                 _logger.LogError(
-                    exception: e,
-                    message: "An error occurred");
-                ViewBag.Error = e.Message;
+                     exception: e,
+                     message: e.Message);
 
-                return RedirectToAction("LoginFailure", "Home");
+                TempData["Error"] = e.Message;
+                TempData["InnerException"] = e.InnerException?.Message;
+                return RedirectToAction("Error", "Account");
             }
         }
     }

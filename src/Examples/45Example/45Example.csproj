@@ -181,7 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Connect.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
