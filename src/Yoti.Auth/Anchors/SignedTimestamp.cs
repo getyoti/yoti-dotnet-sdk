@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Anchors
 {
     /// <summary>
     /// SignedTimestamp is a timestamp associated with a message that has a
