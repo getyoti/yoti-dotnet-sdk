@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Reflection;
 using Org.BouncyCastle.Crypto;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Web
 {
     internal static class HeadersFactory
     {

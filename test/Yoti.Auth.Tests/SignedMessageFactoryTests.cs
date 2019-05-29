@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Tests.TestTools;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Tests
 {

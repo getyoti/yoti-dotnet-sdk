@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.ShareUrl;
 using Yoti.Auth.Tests.TestTools;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Tests.ShareUrl
 {

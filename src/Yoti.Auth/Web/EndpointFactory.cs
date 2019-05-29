@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Web
 {
     internal static class EndpointFactory
     {

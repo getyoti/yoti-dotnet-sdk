@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Exceptions;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.ShareUrl
 {
