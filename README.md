@@ -210,7 +210,7 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) From the Yoti Dashboard, set the application domain to `localhost:44321` and the scenario callback URL to `/account/connect`
 1) Right click on "45Example" in the Solution Explorer and select "Set as StartUp Project"
 1) Run the project
-1) The web page should open automatically with URL `https://localhost:44321/Account/Login`
+1) The web page should open automatically with URL `https://localhost:44321`
 
 ### .NET Core
 
