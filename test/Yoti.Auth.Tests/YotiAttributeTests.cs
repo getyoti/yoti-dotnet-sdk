@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.Images;
 using Yoti.Auth.Tests.TestTools;
 

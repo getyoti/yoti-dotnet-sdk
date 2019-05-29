@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yoti.Auth.Attribute;
 
 namespace Yoti.Auth.Profile
 {

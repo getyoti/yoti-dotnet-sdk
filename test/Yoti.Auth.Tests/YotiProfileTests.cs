@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.Images;
 using Yoti.Auth.Profile;
 

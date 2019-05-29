@@ -6,9 +6,9 @@ namespace Yoti.Auth.Tests.TestTools
 {
     internal class Anchors
     {
-        public static Attribute BuildAnchoredAttribute(string name, string value, ContentType contentType, string rawAnchor)
+        public static ProtoBuf.Attribute.Attribute BuildAnchoredAttribute(string name, string value, ContentType contentType, string rawAnchor)
         {
-            var attribute = new Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = name,
                 ContentType = contentType,
@@ -20,7 +20,7 @@ namespace Yoti.Auth.Tests.TestTools
             return attribute;
         }
 
-        public static void AddAnchorToAttribute(byte[] anchorBytes, Attribute attribute)
+        public static void AddAnchorToAttribute(byte[] anchorBytes, ProtoBuf.Attribute.Attribute attribute)
         {
             attribute.Anchors.AddRange(
                 new RepeatedField<Anchor>
