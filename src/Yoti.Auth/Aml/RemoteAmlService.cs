@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Yoti.Auth.Exceptions;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Aml
 {

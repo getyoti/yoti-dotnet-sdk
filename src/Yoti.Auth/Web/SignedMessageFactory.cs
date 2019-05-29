@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Org.BouncyCastle.Crypto;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Web
 {
     internal static class SignedMessageFactory
     {
