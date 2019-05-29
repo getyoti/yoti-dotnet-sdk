@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Web
 {
     internal class Response
     {
