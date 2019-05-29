@@ -204,12 +204,13 @@ bool onWatchList = amlResult.IsOnWatchList();
 
 ### .NET 4.5 (Windows only)
 
-1) Open the Example.sln solution in Visual Studio, found in the [/src/Examples](/src/Examples) folder
+1) Open the Yoti.Auth.sln solution in Visual Studio, found in the [/src](/src) folder
 1) Rename the [secrets.config.example](src/Examples/45Example/secrets.config.example) file to `secrets.config`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 1) From the Yoti Dashboard, set the application domain to `localhost:44321` and the scenario callback URL to `/account/connect`
-1) Run the [45Example.csproj](src/Examples/45Example/45Example.csproj) with your browser of choice
-1) The page should open automatically with URL `https://localhost:44321/Account/Login`
+1) Right click on "45Example" in the Solution Explorer and select "Set as StartUp Project"
+1) Run the project
+1) The web page should open automatically with URL `https://localhost:44321/Account/Login`
 
 ### .NET Core
 
