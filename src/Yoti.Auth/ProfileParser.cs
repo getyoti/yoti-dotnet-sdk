@@ -4,6 +4,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.DataObjects;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Profile;

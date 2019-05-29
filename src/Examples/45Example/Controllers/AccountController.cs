@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Example.Models;
 using Yoti.Auth;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.Images;
 
 namespace Example.Controllers

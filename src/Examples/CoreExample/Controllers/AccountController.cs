@@ -5,6 +5,7 @@ using CoreExample.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.Images;
 
 namespace CoreExample.Controllers

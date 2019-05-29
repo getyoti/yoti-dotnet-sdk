@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.Images;
 using Yoti.Auth.Profile;
 

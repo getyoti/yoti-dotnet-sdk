@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Yoti.Auth.Attribute;
 using Yoti.Auth.Profile;
 using Yoti.Auth.Verifications;
 

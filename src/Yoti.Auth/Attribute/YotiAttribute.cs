@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Yoti.Auth.Anchors;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Attribute
 {
     /// <summary>
     /// A class to represent a Yoti attribute, extending <see cref="BaseAttribute"/>.

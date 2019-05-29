@@ -7,7 +7,7 @@ using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 using Yoti.Auth.ProtoBuf.Attribute;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Attribute
 {
     internal static class AttributeConverter
     {

@@ -18,16 +18,16 @@ namespace Yoti.Auth.Tests
             string attribute1Name = "attribute1";
             string attribute2Name = "attribute2";
 
-            Attribute attribute1 = CreateProtobufAttribute(attribute1Name, byteJsonValue, ContentType.Json);
-            Attribute invalidAttribute = CreateProtobufAttribute("invalidAttribute", ByteString.CopyFromUtf8("invalid"), ContentType.Json);
-            Attribute attribute2 = CreateProtobufAttribute(attribute2Name, byteJsonValue, ContentType.Json);
+            ProtoBuf.Attribute.Attribute attribute1 = CreateProtobufAttribute(attribute1Name, byteJsonValue, ContentType.Json);
+            ProtoBuf.Attribute.Attribute invalidAttribute = CreateProtobufAttribute("invalidAttribute", ByteString.CopyFromUtf8("invalid"), ContentType.Json);
+            ProtoBuf.Attribute.Attribute attribute2 = CreateProtobufAttribute(attribute2Name, byteJsonValue, ContentType.Json);
 
             var attributeList = new ProtoBuf.Attribute.AttributeList
             {
                 Attributes = { attribute1, invalidAttribute, attribute2 }
             };
 
-            var result = AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var result = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
 
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.ContainsKey(attribute1Name));
@@ -42,8 +42,8 @@ namespace Yoti.Auth.Tests
                 ContentType.String,
                 _emptyByteStringValue);
 
-            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var result = (YotiAttribute<string>)convertedAttributes.Values.First();
+            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var result = (Attribute.YotiAttribute<string>)convertedAttributes.Values.First();
             Assert.AreEqual("", result.GetValue());
         }
 
@@ -60,7 +60,7 @@ namespace Yoti.Auth.Tests
                contentType,
                 _emptyByteStringValue);
 
-            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
             Assert.AreEqual(0, convertedAttributes.Count);
         }
 
@@ -72,17 +72,17 @@ namespace Yoti.Auth.Tests
         [DataRow(ContentType.Undefined)]
         public void OtherAttributesWithEmptyValueThrowsException(ContentType contentType)
         {
-            Attribute attribute = CreateProtobufAttribute("attributeName", _emptyByteStringValue, contentType);
+            ProtoBuf.Attribute.Attribute attribute = CreateProtobufAttribute("attributeName", _emptyByteStringValue, contentType);
 
             Assert.ThrowsException<System.InvalidOperationException>(() =>
             {
-                AttributeConverter.ConvertToBaseAttribute(attribute);
+                Attribute.AttributeConverter.ConvertToBaseAttribute(attribute);
             });
         }
 
         private static AttributeList CreateAttributeListWithSingleAttribute(string name, ContentType contentType, ByteString byteStringValue)
         {
-            var attribute = new Attribute
+            var attribute = new ProtoBuf.Attribute.Attribute
             {
                 Name = name,
                 ContentType = contentType,
@@ -95,9 +95,9 @@ namespace Yoti.Auth.Tests
             };
         }
 
-        private Attribute CreateProtobufAttribute(string name, ByteString value, ContentType contentType)
+        private ProtoBuf.Attribute.Attribute CreateProtobufAttribute(string name, ByteString value, ContentType contentType)
         {
-            return new Attribute
+            return new ProtoBuf.Attribute.Attribute
             {
                 Name = name,
                 ContentType = contentType,
