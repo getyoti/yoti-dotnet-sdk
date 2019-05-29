@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Yoti.Auth.Profile;
 
 namespace Yoti.Auth.Verifications
 {

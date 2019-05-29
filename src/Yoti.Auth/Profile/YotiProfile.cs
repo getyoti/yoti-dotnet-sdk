@@ -6,7 +6,7 @@ using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 using Yoti.Auth.Verifications;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Profile
 {
     public class YotiProfile : BaseProfile
     {

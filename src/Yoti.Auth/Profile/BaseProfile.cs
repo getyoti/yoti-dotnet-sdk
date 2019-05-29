@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Profile
 {
     public abstract class BaseProfile : IBaseProfile
     {
