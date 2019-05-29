@@ -8,6 +8,7 @@ using Yoti.Auth.Attribute;
 using Yoti.Auth.DataObjects;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Profile;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth
 {
