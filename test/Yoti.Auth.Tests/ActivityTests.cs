@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Document;
 using Yoti.Auth.Images;
+using Yoti.Auth.Profile;
 using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests

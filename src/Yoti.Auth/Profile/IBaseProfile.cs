@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Yoti.Auth
+namespace Yoti.Auth.Profile
 {
     public interface IBaseProfile
     {

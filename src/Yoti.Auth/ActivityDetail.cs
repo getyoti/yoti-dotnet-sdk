@@ -1,4 +1,5 @@
 ﻿using System;
+using Yoti.Auth.Profile;
 
 namespace Yoti.Auth
 {

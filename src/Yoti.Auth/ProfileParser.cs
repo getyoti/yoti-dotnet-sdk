@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DataObjects;
 using Yoti.Auth.Exceptions;
+using Yoti.Auth.Profile;
 
 namespace Yoti.Auth
 {

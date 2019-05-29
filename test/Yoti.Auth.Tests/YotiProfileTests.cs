@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Images;
+using Yoti.Auth.Profile;
 
 namespace Yoti.Auth.Tests
 {
