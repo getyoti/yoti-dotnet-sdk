@@ -22,7 +22,7 @@ namespace CoreExample.Controllers
             _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
             _logger.LogInformation(string.Format("appId='{0}'", _appId));
 
-            _scenarioId = Environment.GetEnvironmentVariable("SCENARIO_ID");
+            _scenarioId = Environment.GetEnvironmentVariable("YOTI_SCENARIO_ID");
             _logger.LogInformation(string.Format("scenarioId='{0}'", _scenarioId));
         }
 

@@ -28,7 +28,7 @@ namespace Example.Controllers
             _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
             logger.Info(string.Format("appId='{0}'", _appId));
 
-            _scenarioId = ConfigurationManager.AppSettings["SCENARIO_ID"];
+            _scenarioId = ConfigurationManager.AppSettings["YOTI_SCENARIO_ID"];
             logger.Info(string.Format("scenarioId='{0}'", _scenarioId));
         }
 
