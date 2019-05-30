@@ -12,12 +12,10 @@ namespace Example.Controllers
     public class HomeController : Controller
     {
         private readonly string _appId;
-        private readonly string _scenarioId;
 
         public ActionResult Index()
         {
             ViewBag.YotiAppId = _appId;
-            ViewBag.ScenarioId = _scenarioId;
             return View();
         }
 
@@ -27,9 +25,6 @@ namespace Example.Controllers
 
             _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
             logger.Info(string.Format("appId='{0}'", _appId));
-
-            _scenarioId = ConfigurationManager.AppSettings["YOTI_SCENARIO_ID"];
-            logger.Info(string.Format("scenarioId='{0}'", _scenarioId));
         }
 
         // GET: Home/DynamicScenario
@@ -81,7 +76,6 @@ namespace Example.Controllers
                 ShareUrlResult shareUrlResult = yotiClient.CreateShareUrl(dynamicScenario);
 
                 ViewBag.YotiAppId = _appId;
-                ViewBag.ScenarioId = _scenarioId;
 
                 return View("DynamicScenario", shareUrlResult);
             }

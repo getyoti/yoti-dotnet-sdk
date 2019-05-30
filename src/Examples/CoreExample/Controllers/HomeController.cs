@@ -12,7 +12,6 @@ namespace CoreExample.Controllers
     public class HomeController : Controller
     {
         private readonly string _appId;
-        private readonly string _scenarioId;
         private readonly ILogger _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -21,15 +20,11 @@ namespace CoreExample.Controllers
 
             _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
             _logger.LogInformation(string.Format("appId='{0}'", _appId));
-
-            _scenarioId = Environment.GetEnvironmentVariable("YOTI_SCENARIO_ID");
-            _logger.LogInformation(string.Format("scenarioId='{0}'", _scenarioId));
         }
 
         public IActionResult Index()
         {
             ViewBag.YotiAppId = _appId;
-            ViewBag.ScenarioId = _scenarioId;
 
             return View();
         }
@@ -81,7 +76,6 @@ namespace CoreExample.Controllers
                 ShareUrlResult shareUrlResult = yotiClient.CreateShareUrl(dynamicScenario);
 
                 ViewBag.YotiAppId = _appId;
-                ViewBag.ScenarioId = _scenarioId;
 
                 return View("DynamicScenario", shareUrlResult);
             }
