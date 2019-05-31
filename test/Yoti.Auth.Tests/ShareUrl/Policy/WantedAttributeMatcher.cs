@@ -12,15 +12,14 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             _attributes = attributes;
         }
 
-        public bool ContainsAttribute(string name, bool optional, string derivation = null)
+        public bool ContainsAttribute(string name, string derivation = null)
         {
-            var expectedAttribute = new WantedAttribute(name, derivation, optional);
+            var expectedAttribute = new WantedAttribute(name, derivation);
 
             foreach (var attribute in _attributes)
             {
                 if (attribute.Name == expectedAttribute.Name
-                    && attribute.Derivation == expectedAttribute.Derivation
-                    && attribute.IsOptional == expectedAttribute.IsOptional)
+                    && attribute.Derivation == expectedAttribute.Derivation)
                 {
                     return true;
                 }

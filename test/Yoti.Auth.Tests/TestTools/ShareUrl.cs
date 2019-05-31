@@ -13,10 +13,10 @@ namespace Yoti.Auth.Tests.TestTools
         public static DynamicPolicy CreateStandardPolicy()
         {
             return new DynamicPolicyBuilder()
-              .WithDateOfBirth(optional: true)
-              .WithAgeOver(18, optional: true)
-              .WithAgeUnder(30, optional: true)
-              .WithAgeUnder(40, optional: true)
+              .WithDateOfBirth()
+              .WithAgeOver(18)
+              .WithAgeUnder(30)
+              .WithAgeUnder(40)
               .WithPinAuthentication(true)
               .Build();
         }

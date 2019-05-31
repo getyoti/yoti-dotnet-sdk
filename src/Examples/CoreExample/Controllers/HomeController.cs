@@ -49,16 +49,16 @@ namespace CoreExample.Controllers
 
                 var givenNamesWantedAttribute = new WantedAttributeBuilder()
                     .WithName("given_names")
-                    .WithOptional(true)
                     .Build();
 
                 DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                    .WithWantedAttribute(givenNamesWantedAttribute)
-                   .WithWantedAttribute("nationality", optional: true)
+                   .WithWantedAttribute("nationality")
                    .WithFullName()
-                   .WithSelfie(optional: true)
-                   .WithPhoneNumber(optional: true)
+                   .WithSelfie()
+                   .WithPhoneNumber()
                    .WithAgeOver(18)
+                   .WithRememberMeId(true)
                    .Build();
 
                 var locationExtension = new LocationConstraintExtensionBuilder()

@@ -17,19 +17,14 @@ namespace Yoti.Auth.ShareUrl.Policy
         [JsonProperty(PropertyName = "wanted_remember_me")]
         private readonly bool _wantedRememberMeId;
 
-        [JsonProperty(PropertyName = "wanted_remember_me_optional")]
-        private readonly bool _isWantedRememberMeIdOptional;
-
         public DynamicPolicy(
             ICollection<WantedAttribute> wantedAttributes,
             List<int> wantedAuthTypes,
-            bool wantedRememberMeId,
-            bool isWantedRememberMeIdOptional)
+            bool wantedRememberMeId)
         {
             _wantedAttributes = wantedAttributes;
             _wantedAuthTypes = wantedAuthTypes;
             _wantedRememberMeId = wantedRememberMeId;
-            _isWantedRememberMeIdOptional = isWantedRememberMeIdOptional;
         }
 
         /// <summary>
@@ -65,18 +60,6 @@ namespace Yoti.Auth.ShareUrl.Policy
             get
             {
                 return _wantedRememberMeId;
-            }
-        }
-
-        /// <summary>
-        /// Specifies if the RememberMeId is optional to successfully complete the share.
-        /// </summary>
-        [JsonIgnore]
-        public bool IsWantedRememberMeIdOptional
-        {
-            get
-            {
-                return _isWantedRememberMeIdOptional;
             }
         }
     }

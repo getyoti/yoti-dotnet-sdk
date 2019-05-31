@@ -48,58 +48,19 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.AreEqual(13, result.Count);
 
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FamilyNameAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GivenNamesAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FullNameAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GenderAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PostalAddressAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.StructuredPostalAddressAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.NationalityAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PhoneNumberAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.SelfieAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.EmailAddressAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: false, derivation: $"{Constants.UserProfile.AgeOverAttribute}:55"));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: false, derivation: $"{Constants.UserProfile.AgeUnderAttribute}:18"));
-        }
-
-        [TestMethod]
-        public void BuildWithAttributesOptionalFlag()
-        {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
-                .WithFamilyName(optional: true)
-                .WithGivenNames(optional: true)
-                .WithFullName(optional: true)
-                .WithDateOfBirth(optional: true)
-                .WithGender(optional: true)
-                .WithPostalAddress(optional: true)
-                .WithStructuredPostalAddress(optional: true)
-                .WithNationality(optional: true)
-                .WithPhoneNumber(optional: true)
-                .WithSelfie(optional: true)
-                .WithEmail(optional: true)
-                .WithAgeOver(55, optional: true)
-                .WithAgeUnder(18, optional: true)
-                .Build();
-
-            ICollection<WantedAttribute> result = dynamicPolicy.WantedAttributes;
-            var attributeMatcher = new WantedAttributeMatcher(result);
-
-            Assert.AreEqual(13, result.Count);
-
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FamilyNameAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GivenNamesAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FullNameAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GenderAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PostalAddressAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.StructuredPostalAddressAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.NationalityAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PhoneNumberAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.SelfieAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.EmailAddressAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: true, derivation: $"{Constants.UserProfile.AgeOverAttribute}:55"));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: true, derivation: $"{Constants.UserProfile.AgeUnderAttribute}:18"));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FamilyNameAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GivenNamesAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FullNameAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GenderAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PostalAddressAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.StructuredPostalAddressAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.NationalityAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PhoneNumberAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.SelfieAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.EmailAddressAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{Constants.UserProfile.AgeOverAttribute}:55"));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{Constants.UserProfile.AgeUnderAttribute}:18"));
         }
 
         [TestMethod]
@@ -117,39 +78,18 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.AreEqual(4, result.Count);
 
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: false));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, false, derivation: $"{UserProfile.AgeOverAttribute}:{18}"));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, false, derivation: $"{UserProfile.AgeUnderAttribute}:{30}"));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, false, derivation: $"{UserProfile.AgeUnderAttribute}:{40}"));
-        }
-
-        [TestMethod]
-        public void BuildWithMultipleAgeDerivedAttributesOptionalFlag()
-        {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
-                .WithDateOfBirth(optional: true)
-                .WithAgeOver(18, optional: true)
-                .WithAgeUnder(30, optional: true)
-                .WithAgeUnder(40, optional: true)
-                .Build();
-
-            ICollection<WantedAttribute> result = dynamicPolicy.WantedAttributes;
-            var attributeMatcher = new WantedAttributeMatcher(result);
-
-            Assert.AreEqual(4, result.Count);
-
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, optional: true));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, true, derivation: $"{UserProfile.AgeOverAttribute}:{18}"));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, true, derivation: $"{UserProfile.AgeUnderAttribute}:{30}"));
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, true, derivation: $"{UserProfile.AgeUnderAttribute}:{40}"));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{UserProfile.AgeOverAttribute}:{18}"));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{UserProfile.AgeUnderAttribute}:{30}"));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{UserProfile.AgeUnderAttribute}:{40}"));
         }
 
         [TestMethod]
         public void ShouldOverwriteIdenticalAgeVerificationToEnsureItOnlyExistsOnce()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
-                .WithAgeUnder(30, optional: true)
-                .WithAgeUnder(30, optional: false)
+                .WithAgeUnder(30)
+                .WithAgeUnder(30)
                 .Build();
 
             ICollection<WantedAttribute> result = dynamicPolicy.WantedAttributes;
@@ -157,7 +97,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.AreEqual(1, result.Count);
 
-            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, false, derivation: $"{UserProfile.AgeUnderAttribute}:{30}"));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{UserProfile.AgeUnderAttribute}:{30}"));
         }
 
         [TestMethod]
@@ -189,15 +129,13 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithRememberMeFlags()
+        public void BuildsWithRememberMeFlag()
         {
             DynamicPolicy result = new DynamicPolicyBuilder()
                 .WithRememberMeId(true)
-                .WithRememberMeIdOptional(false)
                 .Build();
 
             Assert.IsTrue(result.WantedRememberMeId);
-            Assert.IsFalse(result.IsWantedRememberMeIdOptional);
         }
     }
 }
