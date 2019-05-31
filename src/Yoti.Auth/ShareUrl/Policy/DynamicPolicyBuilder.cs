@@ -10,7 +10,6 @@ namespace Yoti.Auth.ShareUrl.Policy
         private readonly Dictionary<string, WantedAttribute> _wantedAttributes = new Dictionary<string, WantedAttribute>();
         private readonly List<int> _wantedAuthTypes = new List<int>();
         private bool _wantedRememberMeId;
-        private bool _wantedRememberMeIdOptional;
 
         public DynamicPolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
         {
@@ -19,93 +18,91 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
-        public DynamicPolicyBuilder WithWantedAttribute(string name, bool optional = false)
+        public DynamicPolicyBuilder WithWantedAttribute(string name)
         {
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                     .WithName(name)
-                    .WithOptional(optional)
                     .Build();
             return WithWantedAttribute(wantedAttribute);
         }
 
-        public DynamicPolicyBuilder WithFamilyName(bool optional = false)
+        public DynamicPolicyBuilder WithFamilyName()
         {
-            return WithWantedAttribute(Constants.UserProfile.FamilyNameAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.FamilyNameAttribute);
         }
 
-        public DynamicPolicyBuilder WithGivenNames(bool optional = false)
+        public DynamicPolicyBuilder WithGivenNames()
         {
-            return WithWantedAttribute(Constants.UserProfile.GivenNamesAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.GivenNamesAttribute);
         }
 
-        public DynamicPolicyBuilder WithFullName(bool optional = false)
+        public DynamicPolicyBuilder WithFullName()
         {
-            return WithWantedAttribute(Constants.UserProfile.FullNameAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.FullNameAttribute);
         }
 
-        public DynamicPolicyBuilder WithDateOfBirth(bool optional = false)
+        public DynamicPolicyBuilder WithDateOfBirth()
         {
-            return WithWantedAttribute(Constants.UserProfile.DateOfBirthAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.DateOfBirthAttribute);
         }
 
-        public DynamicPolicyBuilder WithAgeOver(int age, bool optional = false)
+        public DynamicPolicyBuilder WithAgeOver(int age)
         {
-            return WithAgeDerivedAttribute($"{Constants.UserProfile.AgeOverAttribute}:{age}", optional);
+            return WithAgeDerivedAttribute($"{Constants.UserProfile.AgeOverAttribute}:{age}");
         }
 
-        public DynamicPolicyBuilder WithAgeUnder(int age, bool optional = false)
+        public DynamicPolicyBuilder WithAgeUnder(int age)
         {
-            return WithAgeDerivedAttribute($"{Constants.UserProfile.AgeUnderAttribute}:{age}", optional);
+            return WithAgeDerivedAttribute($"{Constants.UserProfile.AgeUnderAttribute}:{age}");
         }
 
-        private DynamicPolicyBuilder WithAgeDerivedAttribute(string derivation, bool optional)
+        private DynamicPolicyBuilder WithAgeDerivedAttribute(string derivation)
         {
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                     .WithName(Constants.UserProfile.DateOfBirthAttribute)
                     .WithDerivation(derivation)
-                    .WithOptional(optional)
                     .Build();
             return WithWantedAttribute(wantedAttribute);
         }
 
-        public DynamicPolicyBuilder WithGender(bool optional = false)
+        public DynamicPolicyBuilder WithGender()
         {
-            return WithWantedAttribute(Constants.UserProfile.GenderAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.GenderAttribute);
         }
 
-        public DynamicPolicyBuilder WithPostalAddress(bool optional = false)
+        public DynamicPolicyBuilder WithPostalAddress()
         {
-            return WithWantedAttribute(Constants.UserProfile.PostalAddressAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.PostalAddressAttribute);
         }
 
-        public DynamicPolicyBuilder WithStructuredPostalAddress(bool optional = false)
+        public DynamicPolicyBuilder WithStructuredPostalAddress()
         {
-            return WithWantedAttribute(Constants.UserProfile.StructuredPostalAddressAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.StructuredPostalAddressAttribute);
         }
 
-        public DynamicPolicyBuilder WithNationality(bool optional = false)
+        public DynamicPolicyBuilder WithNationality()
         {
-            return WithWantedAttribute(Constants.UserProfile.NationalityAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.NationalityAttribute);
         }
 
-        public DynamicPolicyBuilder WithPhoneNumber(bool optional = false)
+        public DynamicPolicyBuilder WithPhoneNumber()
         {
-            return WithWantedAttribute(Constants.UserProfile.PhoneNumberAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.PhoneNumberAttribute);
         }
 
-        public DynamicPolicyBuilder WithSelfie(bool optional = false)
+        public DynamicPolicyBuilder WithSelfie()
         {
-            return WithWantedAttribute(Constants.UserProfile.SelfieAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.SelfieAttribute);
         }
 
-        public DynamicPolicyBuilder WithEmail(bool optional = false)
+        public DynamicPolicyBuilder WithEmail()
         {
-            return WithWantedAttribute(Constants.UserProfile.EmailAddressAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.EmailAddressAttribute);
         }
 
-        public DynamicPolicyBuilder WithDocumentDetails(bool optional = false)
+        public DynamicPolicyBuilder WithDocumentDetails()
         {
-            return WithWantedAttribute(Constants.UserProfile.DocumentDetailsAttribute, optional);
+            return WithWantedAttribute(Constants.UserProfile.DocumentDetailsAttribute);
         }
 
         public DynamicPolicyBuilder WithSelfieAuthentication(bool enabled)
@@ -138,15 +135,9 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
-        public DynamicPolicyBuilder WithRememberMeIdOptional(bool rememberMeIdOptional)
-        {
-            _wantedRememberMeIdOptional = rememberMeIdOptional;
-            return this;
-        }
-
         public DynamicPolicy Build()
         {
-            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _wantedRememberMeIdOptional);
+            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId);
         }
     }
 }

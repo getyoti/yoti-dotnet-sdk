@@ -5,27 +5,26 @@
       {
         "name": "date_of_birth",
         "derivation": null,
-        "optional": true
+        "optional": false
       },
       {
         "name": "date_of_birth",
         "derivation": "age_over:18",
-        "optional": true
+        "optional": false
       },
       {
         "name": "date_of_birth",
         "derivation": "age_under:30",
-        "optional": true
+        "optional": false
       },
       {
         "name": "date_of_birth",
         "derivation": "age_under:40",
-        "optional": true
+        "optional": false
       }
     ],
     "wanted_auth_types": [ 2 ],
-    "wanted_remember_me": false,
-    "wanted_remember_me_optional": false
+    "wanted_remember_me": false
   },
   "extensions": [
     {

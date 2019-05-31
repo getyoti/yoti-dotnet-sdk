@@ -13,11 +13,11 @@ namespace Yoti.Auth.ShareUrl.Policy
         [JsonProperty(PropertyName = "optional")]
         private readonly bool _optional;
 
-        public WantedAttribute(string name, string derivation, bool optional)
+        public WantedAttribute(string name, string derivation)
         {
             _name = name;
             _derivation = derivation;
-            _optional = optional;
+            _optional = false;
         }
 
         [JsonIgnore]
@@ -35,15 +35,6 @@ namespace Yoti.Auth.ShareUrl.Policy
             get
             {
                 return _derivation;
-            }
-        }
-
-        [JsonIgnore]
-        public bool IsOptional
-        {
-            get
-            {
-                return _optional;
             }
         }
     }

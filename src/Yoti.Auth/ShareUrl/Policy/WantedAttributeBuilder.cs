@@ -4,7 +4,6 @@
     {
         private string _name;
         private string _derivation;
-        private bool _optional;
 
         public WantedAttributeBuilder WithName(string name)
         {
@@ -18,15 +17,9 @@
             return this;
         }
 
-        public WantedAttributeBuilder WithOptional(bool optional)
-        {
-            _optional = optional;
-            return this;
-        }
-
         public WantedAttribute Build()
         {
-            return new WantedAttribute(_name, _derivation, _optional);
+            return new WantedAttribute(_name, _derivation);
         }
     }
 }
