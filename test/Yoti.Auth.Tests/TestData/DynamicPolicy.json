@@ -24,7 +24,8 @@
       }
     ],
     "wanted_auth_types": [ 2 ],
-    "wanted_remember_me": false
+    "wanted_remember_me": false,
+    "wanted_remember_me_optional": false
   },
   "extensions": [
     {
