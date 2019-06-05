@@ -36,7 +36,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
+                engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl));
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
@@ -58,7 +58,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl);
+                engine.GetActivityDetails(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl));
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<YotiProfileException>(aggregateException));
@@ -88,7 +88,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl).Result;
+            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
 
             Assert.IsNotNull(activityDetails);
 
@@ -125,7 +125,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl).Result;
+            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
 
             Assert.AreEqual(string.Empty, activityDetails.ParentRememberMeId);
         }
@@ -147,7 +147,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(httpRequester, new HttpClient());
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, Constants.Web.DefaultYotiApiUrl).Result;
+            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
 
             Assert.IsNotNull(activityDetails.Profile);
 

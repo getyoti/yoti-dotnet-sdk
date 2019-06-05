@@ -25,14 +25,14 @@ namespace Yoti.Auth
 #endif
         }
 
-        public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
+        public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl)
         {
             Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair, apiUrl).ConfigureAwait(false));
 
             return task.Result;
         }
 
-        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl)
+        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl)
         {
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
             const string path = "profile";
