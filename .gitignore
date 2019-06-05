@@ -13,7 +13,7 @@ secrets.config
 [Oo]bj/
 [Bb]in/
 
-# Visual Studio 2015 cache/options directory
+# Visual Studio cache/options directory
 .vs/
 
 # PEM files in Examples
@@ -30,10 +30,6 @@ Backup*/
 **/packages/*
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
-
-# SQL Server files
-*.mdf
-*.ldf
 
 # Coverage
 OpenCover/
