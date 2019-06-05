@@ -54,9 +54,9 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
-        public ActivityDetails GetActivityDetails(string encryptedToken)
+        public ActivityDetails GetActivityDetails(string encryptedToken, Uri apiUrl = null)
         {
-            Task<ActivityDetails> task = Task.Run(async () => await GetActivityDetailsAsync(encryptedToken).ConfigureAwait(false));
+            Task<ActivityDetails> task = Task.Run(async () => await GetActivityDetailsAsync(encryptedToken, apiUrl).ConfigureAwait(false));
 
             return task.Result;
         }
@@ -66,9 +66,12 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
-        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken)
+        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken, Uri apiUrl = null)
         {
-            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _defaultApiUrl).ConfigureAwait(false);
+            if (apiUrl == null)
+                apiUrl = new Uri(_defaultApiUrl);
+
+            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, apiUrl).ConfigureAwait(false);
         }
 
         /// <summary>

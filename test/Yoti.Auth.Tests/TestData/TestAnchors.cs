@@ -2,7 +2,7 @@
 {
     internal static class TestAnchors
     {
-        public static readonly string DrivingLicenseAnchor =
+        public const string DrivingLicenseAnchor =
             "CjdBTkMtRE9Dz8qdV2DSwFJicqASUbdSRfmYOsJzswHQ4hDnfOUXtYeRlVOeQnVr3an"
             + "ESmMH7e2HEqAIMIIEHDCCAoSgAwIBAgIQIrSqBBTTXWxgGf6OvVm5XDANBgkqhkiG9w0"
             + "BAQsFADAuMSwwKgYDVQQDEyNkcml2aW5nLWxpY2VuY2UtcmVnaXN0cmF0aW9uLXNlcnZ"
@@ -43,7 +43,7 @@
             + "ASx2zgOkeIJVm5UnTC2ywMkcIARDR0uX8mLLaAhocZv/4kdenjmzEE1nkHW7ks7qh+II"
             + "J0YbSPwVkGiIc7BbgXGE8cSGwKuul83Yy/z1InbhBl2B1drEuOjoA";
 
-        public static readonly string PassportAnchor =
+        public const string PassportAnchor =
             "CjdBTkMtRE9D5oQ/YdIfjbvf1HL/HT7s/Xgse6TlNthXYyfF9knv02vq6Vxd5R"
             + "afiJbR9xVVl+knEowIMIIECDCCAnCgAwIBAgIRANEL6idR0hcevQr4tmIIcoowDQYJKo"
             + "ZIhvcNAQELBQAwJzElMCMGA1UEAxMccGFzc3BvcnQtcmVnaXN0cmF0aW9uLXNlcnZlcj"
@@ -84,7 +84,7 @@
             + "/2LTJHCAEQ0bvEyui02gIaHFIc8RKJ4U36MiJqXMjQlWXbhVu/URDuYOFXITEiHNs5Ua"
             + "Z0Q8FPlpgca5LurwwVkP/EqVsqzc1tuK06AA==";
 
-        public static readonly string YotiAdminAnchor =
+        public const string YotiAdminAnchor =
             "CjdBTkMtRE9DJrhhgGLoPILLZozIid4Aoiw/hLolQRF95pGqqsok3x"
             + "facAZQ9bJQD6JVzYPutOAIEpwIMIIEGDCCAoCgAwIBAgIRAMEOn91ajjMKgwOfw//2iI"
             + "0wDQYJKoZIhvcNAQELBQAwLjEsMCoGA1UEAxMjZHJpdmluZy1saWNlbmNlLXJlZ2lzdH"
