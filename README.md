@@ -115,6 +115,7 @@ if (user != null)
     Dictionary<string, Newtonsoft.Json.Linq.JToken> structuredPostalAddress = profile.StructuredPostalAddress.GetValue();
     string gender = profile.Gender.GetValue();
     string nationality = profile.Nationality.GetValue();
+    Yoti.Auth.Document.DocumentDetails documentDetails = profile.DocumentDetails.GetValue();
     bool isAgedOver18;
     AgeVerification over18Verification = profile.FindAgeOverVerification(18);
     if (over18Verification != null)
