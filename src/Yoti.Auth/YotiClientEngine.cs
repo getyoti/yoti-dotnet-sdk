@@ -43,15 +43,29 @@ namespace Yoti.Auth
 
             Dictionary<string, string> headers = HeadersFactory.Create(keyPair, httpMethod, endpoint, httpContent: null);
 
+            Uri requestUri = CreateRequestUri(apiUrl, endpoint);
+
             Response response = await _httpRequester.DoRequest(
                 _httpClient,
                 HttpMethod.Get,
-                new Uri(
-                    apiUrl + endpoint),
+                requestUri,
                 headers,
                 httpContent).ConfigureAwait(false);
 
             return ProfileParser.HandleResponse(keyPair, response);
+        }
+
+        private static Uri CreateRequestUri(Uri apiUrl, string endpoint)
+        {
+            string baseApiUrl = apiUrl.ToString();
+            if (baseApiUrl.EndsWith("/", StringComparison.OrdinalIgnoreCase))
+            {
+                return new Uri(baseApiUrl.TrimEnd('/') + endpoint);
+            }
+            else
+            {
+                return new Uri(baseApiUrl + endpoint);
+            }
         }
 
         public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
