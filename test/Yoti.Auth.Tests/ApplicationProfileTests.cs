@@ -58,18 +58,18 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_ReceiptBgColourAttribute()
+        public void ApplicationProfile_ReceiptBgColorAttribute()
         {
             var initialAttribute = new YotiAttribute<string>(
-                name: Constants.ApplicationProfile.ApplicationReceiptBgColourAttribute,
+                name: Constants.ApplicationProfile.ApplicationReceiptBgColorAttribute,
                 value: _value,
                 anchors: null);
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            YotiAttribute<string> applicationReceiptBgColourAttribute = applicationProfile.ReceiptBackgroundColour;
+            YotiAttribute<string> applicationReceiptBgColorAttribute = applicationProfile.ReceiptBackgroundColor;
 
-            Assert.AreSame(initialAttribute, applicationReceiptBgColourAttribute);
+            Assert.AreSame(initialAttribute, applicationReceiptBgColorAttribute);
         }
 
         [TestMethod]
