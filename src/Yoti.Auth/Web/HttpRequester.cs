@@ -57,7 +57,9 @@ namespace Yoti.Auth.Web
                         else
                         {
                             throw new HttpRequestException(
-                                $"Unsuccessful response from request. Status Code: '{response.StatusCode}', Reason Phrase: '{response.ReasonPhrase}', Content: '{response.Content}'");
+                                $"Unsuccessful response from request. Status Code: '{response.StatusCode}', " +
+                                $"Reason Phrase: '{response.ReasonPhrase}', " +
+                                $"Content: '{response.Content}'");
                         }
                     }
                 }
