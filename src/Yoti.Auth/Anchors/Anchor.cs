@@ -60,9 +60,9 @@ namespace Yoti.Auth.Anchors
 
         /// <summary>
         /// Gets the value of the given anchor.
-        /// <para>For <see cref="AnchorType.Source"/> this can be "USER_PROVIDED", "PASSPORT",
+        /// <para>For <see cref="AnchorType.SOURCE"/> this can be "USER_PROVIDED", "PASSPORT",
         /// "DRIVING_LICENCE" or "AADHAAR"</para>
-        /// <para>For <see cref="AnchorType.Verifier"/> this
+        /// <para>For <see cref="AnchorType.VERIFIER"/> this
         /// can be "YOTI_ADMIN", "YOTI_IDENTITY", "YOTI_OTP", "YOTI_UIDAI" or "PASSPORT_NFC_SIGNATURE"</para>
         /// </summary>
         /// <returns>A list of strings of the value(s) for this anchor type</returns>
