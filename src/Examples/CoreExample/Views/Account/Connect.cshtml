@@ -73,13 +73,13 @@
                             <div class="yoti-attribute-anchors-head -value">Value</div>
                             <div class="yoti-attribute-anchors-head -subtype">Sub type</div>
 
-                            @foreach (var source in a.GetAnchors().Where(s => s.GetAnchorType() == Yoti.Auth.Anchors.AnchorType.Source))
+                            @foreach (var source in a.GetAnchors().Where(s => s.GetAnchorType() == Yoti.Auth.Anchors.AnchorType.SOURCE))
                             {
                                 <div class="yoti-attribute-anchors -s-v">Source</div>
                                 <div class="yoti-attribute-anchors -value">@string.Join(", ", source.GetValue())</div>
                                 <div class="yoti-attribute-anchors -subtype">@source.GetSubType()</div>
                             }
-                            @foreach (var verifier in a.GetAnchors().Where(v => v.GetAnchorType() == Yoti.Auth.Anchors.AnchorType.Verifier))
+                            @foreach (var verifier in a.GetAnchors().Where(v => v.GetAnchorType() == Yoti.Auth.Anchors.AnchorType.VERIFIER))
                             {
                                 <div class="yoti-attribute-anchors -s-v">Verifier</div>
                                 <div class="yoti-attribute-anchors -value">@string.Join(", ", verifier.GetValue())</div>

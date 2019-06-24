@@ -44,22 +44,22 @@ namespace Yoti.Auth.Attribute
 
         /// <summary>
         /// Sources are a subset of the anchors associated with an attribute, where the
-        /// anchor type is <see cref="AnchorType.Source"/>".
+        /// anchor type is <see cref="AnchorType.SOURCE"/>".
         /// </summary>
-        /// <returns>A list of <see cref="AnchorType.Source"/>" anchors</returns>
+        /// <returns>A list of <see cref="AnchorType.SOURCE"/>" anchors</returns>
         public List<Anchor> GetSources()
         {
-            return _anchors.Where(a => a.GetAnchorType() == AnchorType.Source).ToList();
+            return _anchors.Where(a => a.GetAnchorType() == AnchorType.SOURCE).ToList();
         }
 
         /// <summary>
         /// Verifiers are a subset of the anchors associated with an attribute, where the
-        /// anchor type is <see cref="AnchorType.Verifier"/>".
+        /// anchor type is <see cref="AnchorType.VERIFIER"/>".
         /// </summary>
-        /// <returns>A list of <see cref="AnchorType.Verifier"/>" anchors</returns>
+        /// <returns>A list of <see cref="AnchorType.VERIFIER"/>" anchors</returns>
         public List<Anchor> GetVerifiers()
         {
-            return _anchors.Where(a => a.GetAnchorType() == AnchorType.Verifier).ToList();
+            return _anchors.Where(a => a.GetAnchorType() == AnchorType.VERIFIER).ToList();
         }
     }
 }
