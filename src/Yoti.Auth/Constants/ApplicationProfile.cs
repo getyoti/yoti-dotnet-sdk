@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.Constants
 {
-    internal static class ApplicationProfile
+    public static class ApplicationProfile
     {
         public const string ApplicationNameAttribute = "application_name";
         public const string ApplicationLogoAttribute = "application_logo";
