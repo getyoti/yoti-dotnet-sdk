@@ -17,8 +17,12 @@ namespace Yoti.Auth.ShareUrl.Policy
         [JsonProperty(PropertyName = "wanted_remember_me")]
         private readonly bool _wantedRememberMeId;
 
+#pragma warning disable 0414 //"Value never used" warning: the JsonProperty is used when creating the DynamicPolicy JSON
+
         [JsonProperty(PropertyName = "wanted_remember_me_optional")]
         private readonly bool _isWantedRememberMeIdOptional;
+
+#pragma warning restore 0414
 
         public DynamicPolicy(
             ICollection<WantedAttribute> wantedAttributes,

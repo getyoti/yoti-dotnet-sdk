@@ -10,8 +10,12 @@ namespace Yoti.Auth.ShareUrl.Policy
         [JsonProperty(PropertyName = "derivation")]
         private readonly string _derivation;
 
+#pragma warning disable 0414 //"Value never used" warning: the JsonProperty is used when creating the DynamicPolicy JSON
+
         [JsonProperty(PropertyName = "optional")]
         private readonly bool _optional;
+
+#pragma warning restore 0414
 
         public WantedAttribute(string name, string derivation)
         {

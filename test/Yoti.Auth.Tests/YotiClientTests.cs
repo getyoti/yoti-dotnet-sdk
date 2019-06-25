@@ -20,12 +20,6 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_ValidParameters_DoesntThrowException()
-        {
-            CreateYotiClient();
-        }
-
-        [TestMethod]
         public void YotiClient_NullSdkId_ThrowsException()
         {
             StreamReader keystream = GetValidKeyStream();
