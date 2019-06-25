@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="1.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.All" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.0.0" />
@@ -33,7 +33,6 @@
     <Folder Include="https\" />
   </ItemGroup>
 
-
   <ItemGroup>
     <None Update="https\CoreExample.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -43,5 +42,4 @@
   <ItemGroup>
     <Folder Include="wwwroot\static\assets\icons\" />
   </ItemGroup>
-
 </Project>

@@ -4,7 +4,7 @@ using Yoti.Auth.ProtoBuf.Attribute;
 
 namespace Yoti.Auth.Tests.TestTools
 {
-    internal class Anchors
+    internal static class Anchors
     {
         public static ProtoBuf.Attribute.Attribute BuildAnchoredAttribute(string name, string value, ContentType contentType, string rawAnchor)
         {

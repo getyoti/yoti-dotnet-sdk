@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.Tests.TestData
 {
-    internal class TestAnchors
+    internal static class TestAnchors
     {
         public static readonly string DrivingLicenseAnchor =
             "CjdBTkMtRE9Dz8qdV2DSwFJicqASUbdSRfmYOsJzswHQ4hDnfOUXtYeRlVOeQnVr3an"
