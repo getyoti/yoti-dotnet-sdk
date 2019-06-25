@@ -21,14 +21,14 @@ namespace Yoti.Auth.Anchors
         private readonly byte[] _signature;
         private readonly SignedTimestamp _signedTimeStamp;
         private readonly string _subType;
-        private readonly List<string> _value;
+        private readonly string _value;
 
         public Anchor(ProtoBuf.Attribute.Anchor protobufAnchor)
         {
             AnchorVerifierSourceData anchorSourceData = AnchorCertificateParser.GetTypesFromAnchor(protobufAnchor);
 
             _anchorType = anchorSourceData.GetAnchorType();
-            _value = anchorSourceData.GetEntries().ToList();
+            _value = anchorSourceData.GetEntries().FirstOrDefault();
 
             _signature = protobufAnchor.Signature.ToByteArray();
             _subType = protobufAnchor.SubType;
@@ -65,8 +65,8 @@ namespace Yoti.Auth.Anchors
         /// <para>For <see cref="AnchorType.VERIFIER"/> this
         /// can be "YOTI_ADMIN", "YOTI_IDENTITY", "YOTI_OTP", "YOTI_UIDAI" or "PASSPORT_NFC_SIGNATURE"</para>
         /// </summary>
-        /// <returns>A list of strings of the value(s) for this anchor type</returns>
-        public List<string> GetValue()
+        /// <returns>A string value for this anchor type</returns>
+        public string GetValue()
         {
             return _value;
         }
