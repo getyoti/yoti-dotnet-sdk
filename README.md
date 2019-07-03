@@ -204,7 +204,7 @@ bool onWatchList = amlResult.IsOnWatchList();
 ### .NET 4.5 (Windows only)
 
 1) Open the Yoti.Auth.sln solution in Visual Studio, found in the [/src](/src) folder
-1) Rename the [secrets.config.example](src/Examples/45Example/secrets.config.example) file to `secrets.config`
+1) Rename the [secrets.config.example](src/Examples/Profile/45Example/secrets.config.example) file to `secrets.config`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 1) From the Yoti Dashboard, set the application domain to `localhost:44321` and the scenario callback URL to `/account/connect`
 1) Right click on "45Example" in the Solution Explorer and select "Set as StartUp Project"
@@ -214,8 +214,8 @@ bool onWatchList = amlResult.IsOnWatchList();
 ### .NET Core
 
 #### 1) Setup
-1) Navigate to the [src/Examples/CoreExample](src/Examples/CoreExample) folder
-1) Rename the [.env.example](src/Examples/CoreExample/.env.example) file to `.env`
+1) Navigate to the [src/Examples/Profile/CoreExample](src/Examples/Profile/CoreExample) folder
+1) Rename the [.env.example](src/Examples/Profile/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 
 ##### 2a) With Docker
