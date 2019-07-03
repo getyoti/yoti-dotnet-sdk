@@ -90,7 +90,6 @@ var activityDetails = await yotiClient.GetActivityDetailsAsync(oneTimeUseToken);
 ```
 
 ## Handling Users
-```
 The ActivityDetails includes a unique identifier for the user, named RememberMeId.  You can use this to identify users returning to your application, but if the user completes a share with a different application, Yoti will assign a different RememberMeId.
 Applications registered to an organisation may also utilise an additional unique identifier named ParentRememberMeId.  Use this to identify users returning to your organisation.  It is consistent for a given user in all applications registered to a single organisation.
 
@@ -103,23 +102,22 @@ var profile = activityDetails.Profile;
 var user = YourUserSearchFunction(activityDetails.RememberMeId); //or use ParentRememberMeId
 if (user != null)
 {
-    Image selfie = profile.Selfie.GetImage();
-    string selfieURI = profile.Selfie.GetBase64URI();
-    string fullName = profile.FullName.GetValue();
-    string givenNames = profile.GivenNames.GetValue();
-    string familyName = profile.FamilyName.GetValue();
-    string mobileNumber = profile.MobileNumber.GetValue();
-    string emailAddress = profile.EmailAddress.GetValue();
-    DateTime? dateOfBirth = profile.DateOfBirth.GetValue();       
-    string address = profile.Address.GetValue();
-    Dictionary<string, Newtonsoft.Json.Linq.JToken> structuredPostalAddress = profile.StructuredPostalAddress.GetValue();
-    string gender = profile.Gender.GetValue();
-    string nationality = profile.Nationality.GetValue();
-    Yoti.Auth.Document.DocumentDetails documentDetails = profile.DocumentDetails.GetValue();
-    bool isAgedOver18;
-    AgeVerification over18Verification = profile.FindAgeOverVerification(18);
-    if (over18Verification != null)
-        isAgedOver18 = over18Verification.Result();
+    Image selfie = profile.Selfie?.GetValue();
+    string selfieURI = profile.Selfie?.GetValue().GetBase64URI();
+    string fullName = profile.FullName?.GetValue();
+    string givenNames = profile.GivenNames?.GetValue();
+    string familyName = profile.FamilyName?.GetValue();
+    string mobileNumber = profile.MobileNumber?.GetValue();
+    string emailAddress = profile.EmailAddress?.GetValue();
+    DateTime? dateOfBirth = profile.DateOfBirth?.GetValue();       
+    string address = profile.Address?.GetValue();
+    Dictionary<string, Newtonsoft.Json.Linq.JToken> structuredPostalAddress = profile.StructuredPostalAddress?.GetValue();
+    string gender = profile.Gender?.GetValue();
+    string nationality = profile.Nationality?.GetValue();
+    Yoti.Auth.Document.DocumentDetails documentDetails = profile.DocumentDetails?.GetValue();
+    bool? isAgedOver18;
+    AgeVerification over18Verification = profile.FindAgeOverVerification(18);    
+    isAgedOver18 = over18Verification?.Result();
 }
 else
 {
@@ -151,7 +149,7 @@ List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServer
 byte[] signature = givenNamesFirstAnchor.GetSignature();
 DateTime signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp().GetTimestamp();
 string subType = givenNamesFirstAnchor.GetSubType();
-List<string> value = givenNamesFirstAnchor.GetValue();
+string value = givenNamesFirstAnchor.GetValue();
 ```
 
 ## AML Integration
