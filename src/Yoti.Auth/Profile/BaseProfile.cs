@@ -6,6 +6,11 @@ namespace Yoti.Auth.Profile
 {
     public abstract class BaseProfile : IBaseProfile
     {
+        /// <summary>
+        /// Dictionary of <see cref="BaseAttribute"/>s.
+        /// BaseAttributes do not have an associated value, and must be cast to a <see cref="YotiAttribute{T}"/>
+        /// (see <see cref="GetAttributeByName{T}(string)"/>)
+        /// </summary>
         public Dictionary<string, BaseAttribute> Attributes { get; private set; }
 
         protected BaseProfile()
