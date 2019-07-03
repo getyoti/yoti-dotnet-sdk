@@ -7,25 +7,25 @@ Welcome to the Yoti .NET SDK. This repo contains the tools and step by step inst
 
 ## Table of Contents
 
-1) [An Architectural view](#an-architectural-view) -
+1) [An Architectural View](#an-architectural-view) -
 High level overview of integration
 
 1) [Enabling the SDK](#enabling-the-sdk) -
 How to install our SDK
 
-1) [Client initialisation](#client-initialisation) -
+1) [Client Initialisation](#client-initialisation) -
 Description on setting up your SDK
 
-1) [Profile retrieval](#profile-retrieval) -
+1) [Profile Retrieval](#profile-retrieval) -
 Description on setting up profile
 
-1) [Handling users](#handling-users) -
+1) [Handling Users](#handling-users) -
 Description on handling user log on's
 
 1) [AML Integration](#aml-integration) -
 How to integrate with Yoti's AML (Anti Money Laundering) service
 
-1) [Running the examples](#running-the-examples)
+1) [Running the Profile Examples](#running-the-profile-examples)
 How to run the example projects provided
 
 1) [API Coverage](#api-coverage) -
@@ -179,27 +179,21 @@ For the AML check you will need to provide the following:
 Performing an AML check on a person *requires* their consent.
 **You must ensure you have user consent *before* using this service.**
 
-### Code Example
+### AML Example
 
-Given a YotiClient initialised with your SDK ID and KeyPair (see [Client Initialisation](#client-initialisation)) performing an AML check is a straightforward case of providing basic profile data.
+#### 1) Setup
+1) Navigate to the [src/Examples/Aml/AmlExample](src/Examples/Aml/AmlExample) folder
+1) Rename the [.env.example](src/Examples/Aml/AmlExample/.env.example) file to `.env`
+1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 
-```cs
-AmlAddress amlAddress = new AmlAddress(
-   country: "GBR");
+#### 2a) With Visual Studio
+1) Right click on "AmlExample" in the Solution Explorer and select "Set as StartUp Project"
+1) Run the project
 
-AmlProfile amlProfile = new AmlProfile(
-    givenNames: "Edward Richard George",
-    familyName: "Heath",
-    amlAddress: amlAddress);
+#### 2b) From command line
+1) (From the [src/Examples/Aml/AmlExample](src/Examples/Aml/AmlExample) folder)  enter `dotnet run`
 
-AmlResult amlResult = yotiClient.PerformAmlCheck(amlProfile);
-
-bool onPepList = amlResult.IsOnPepList();
-bool onFraudList = amlResult.IsOnFraudList();
-bool onWatchList = amlResult.IsOnWatchList();
-```
-
-## Running the Examples
+## Running the Profile Examples
 
 ### .NET 4.5 (Windows only)
 
@@ -218,7 +212,7 @@ bool onWatchList = amlResult.IsOnWatchList();
 1) Rename the [.env.example](src/Examples/Profile/CoreExample/.env.example) file to `.env`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 
-##### 2a) With Docker
+#### 2a) With Docker
 1) From the Yoti Dashboard, set the application domain to `localhost:44380` and the scenario callback URL to `/account/connect`
 1) `docker-compose build --no-cache`
 1) `docker-compose up`
@@ -226,12 +220,12 @@ bool onWatchList = amlResult.IsOnWatchList();
 
 >If you encounter a "permission denied" error when trying to access the mounted .pem file, try disabling and reenabling your shared drive in Docker settings.
 
-##### 2b) With .NET Core installed locally
+#### 2b) With .NET Core installed locally
 1) From the Yoti Dashboard, set the application domain to `localhost:44344` and the scenario callback URL to `/account/connect`
-1) Install Bower with `npm install -g bower`
-1) The .NET SDK for your operating system from step no.1 on ([Windows](https://www.microsoft.com/net/learn/get-started/windows) | [Linux](https://www.microsoft.com/net/learn/get-started/linux/rhel) | [MacOS](https://www.microsoft.com/net/learn/get-started/macos))
+1) Download the .NET SDK for your operating system from step no.1 on ([Windows](https://www.microsoft.com/net/learn/get-started/windows) | [Linux](https://www.microsoft.com/net/learn/get-started/linux/rhel) | [MacOS](https://www.microsoft.com/net/learn/get-started/macos))
 1) Enter `dotnet run` into the terminal 
 1) Navigate to the page specified in the terminal window, which should be <https://localhost:44344>
+
 
 ## API Coverage
 
