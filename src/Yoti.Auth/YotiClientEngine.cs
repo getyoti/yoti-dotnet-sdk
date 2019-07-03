@@ -25,13 +25,6 @@ namespace Yoti.Auth
 #endif
         }
 
-        public ActivityDetails GetActivityDetails(string encryptedToken, string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl)
-        {
-            Task<ActivityDetails> task = Task.Run<ActivityDetails>(async () => await GetActivityDetailsAsync(encryptedToken, sdkId, keyPair, apiUrl).ConfigureAwait(false));
-
-            return task.Result;
-        }
-
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl)
         {
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
@@ -51,13 +44,6 @@ namespace Yoti.Auth
                 httpContent).ConfigureAwait(false);
 
             return ProfileParser.HandleResponse(keyPair, response);
-        }
-
-        public AmlResult PerformAmlCheck(string appId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
-        {
-            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(appId, keyPair, apiUrl, amlProfile).ConfigureAwait(true));
-
-            return task.Result;
         }
 
         public Task<AmlResult> PerformAmlCheckAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
