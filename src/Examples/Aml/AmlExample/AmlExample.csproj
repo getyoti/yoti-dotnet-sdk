@@ -14,4 +14,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Yoti.Auth\Yoti.Auth.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update=".env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

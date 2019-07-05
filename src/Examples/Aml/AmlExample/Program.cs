@@ -27,12 +27,15 @@ namespace AmlExample
             {
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
-                AmlAddress amlAddress = new AmlAddress(country: "GBR");
-
-                AmlProfile amlProfile = new AmlProfile(
-                    givenNames: "Edward Richard George",
-                    familyName: "Heath",
-                    amlAddress: amlAddress);
+                AmlProfile amlProfile;
+                if (DotNetEnv.Env.GetBool("USA_EXAMPLE", fallback: false))
+                {
+                    amlProfile = CreateUsaProfile();
+                }
+                else
+                {
+                    amlProfile = CreateGbrProfile();
+                }
 
                 AmlResult amlResult = yotiClient.PerformAmlCheck(amlProfile);
 
@@ -61,6 +64,29 @@ namespace AmlExample
             if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID")))
                 throw new InvalidOperationException("'YOTI_CLIENT_SDK_ID' environment variable not found. " +
                     "Either pass these in the .env file, or as a standard environment variable.");
+        }
+
+        private static AmlProfile CreateUsaProfile()
+        {
+            AmlAddress amlAddress = new AmlAddress(
+                country: "USA",
+                postcode: "10118");
+
+            return new AmlProfile(
+                   givenNames: "Hunter Avery",
+                   familyName: "McCreedy",
+                   ssn: "121341234",
+                   amlAddress: amlAddress);
+        }
+
+        private static AmlProfile CreateGbrProfile()
+        {
+            AmlAddress amlAddress = new AmlAddress(country: "GBR");
+
+            return new AmlProfile(
+                   givenNames: "Edward Richard George",
+                   familyName: "Heath",
+                   amlAddress: amlAddress);
         }
     }
 }

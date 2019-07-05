@@ -96,9 +96,9 @@ Applications registered to an organisation may also utilise an additional unique
 Here is an example of how this works:
 
 ```cs
-var activityDetails = yotiClient.GetActivityDetails(oneTimeUseToken);
+ActivityDetails activityDetails = yotiClient.GetActivityDetails(oneTimeUseToken);
 
-var profile = activityDetails.Profile;
+YotiProfile profile = activityDetails.Profile;
 var user = YourUserSearchFunction(activityDetails.RememberMeId); //or use ParentRememberMeId
 if (user != null)
 {
@@ -184,7 +184,7 @@ Performing an AML check on a person *requires* their consent.
 #### 1) Setup
 1) Navigate to the [src/Examples/Aml/AmlExample](src/Examples/Aml/AmlExample) folder
 1) Rename the [.env.example](src/Examples/Aml/AmlExample/.env.example) file to `.env`
-1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
+1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section). Whether to use a USA address or not can be configured by changing the `USA_EXAMPLE` environment variable to `true` or `false` (default is false).
 
 #### 2a) With Visual Studio
 1) Right click on "AmlExample" in the Solution Explorer and select "Set as StartUp Project"
