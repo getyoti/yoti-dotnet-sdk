@@ -40,7 +40,9 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// FullName represents the user's full name. This will be null if not provided by Yoti.
+        /// FullName represents the user's full name. If family_name/given_names are present, the
+        /// value will be equal to the string 'given_names + " " family_name'. Will be nil if not
+        /// provided by Yoti.
         /// </summary>
         public YotiAttribute<string> FullName
         {
@@ -51,7 +53,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// GivenNames represents the user's given names. This will be null if not provided by Yoti.
+        /// GivenNames corresponds to secondary names in passport, and first/middle names in English.
+        /// Will be nil if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> GivenNames
         {
@@ -62,7 +65,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// FamilyName represents the user's family name. This will be null if not provided by Yoti.
+        /// FamilyName corresponds to primary name in passport, and surname in English. Will be nil
+        /// if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> FamilyName
         {
@@ -73,7 +77,9 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// MobileNumber represents the user's mobile phone number. This will be null if not provided by Yoti.
+        /// MobileNumber represents the user's mobile phone number, as verified at registration time.
+        /// The value will be a number in E.164 format (i.e. '+' for international prefix and no
+        /// spaces, e.g. "+447777123456"). Will be nil if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> MobileNumber
         {
@@ -84,7 +90,7 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// EmailAddress represents the user's email address. This will be null if not provided by Yoti.
+        /// EmailAddress represents the user's verified email address. Will be nil if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> EmailAddress
         {
@@ -95,7 +101,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// DateOfBirth represents the user's date of birth as a DateTime. The time part of this DateTime will default to 00:00:00. This will be null if not provided by Yoti.
+        /// DateOfBirth represents the user's date of birth. Will be nil if not provided by Yoti. The
+        /// time part of this DateTime will default to 00:00:00. Will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<DateTime> DateOfBirth
         {
@@ -117,7 +124,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// StructuredPostalAddress represents the user's address represented as a dictionary. This will be null if not provided by Yoti.
+        /// StructuredPostalAddress represents the user's address represented as a dictionary. This
+        /// will be null if not provided by Yoti.
         /// </summary>
         public YotiAttribute<Dictionary<string, JToken>> StructuredPostalAddress
         {
@@ -128,7 +136,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// Gender represents the user's gender. This will be null if not provided by Yoti.
+        /// Gender corresponds to the gender in the registered document; the value will be one of the
+        /// strings "MALE", "FEMALE", "TRANSGENDER" or "OTHER". Will be nil if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> Gender
         {
@@ -139,7 +148,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// Nationality represents the user's nationality. This will be null if not provided by Yoti.
+        /// Nationality corresponds to the nationality in the passport. The value is an ISO-3166-1
+        /// alpha-3 code with ICAO9303 (passport) extensions. Will be nil if not provided by Yoti.
         /// </summary>
         public YotiAttribute<string> Nationality
         {
@@ -162,8 +172,8 @@ namespace Yoti.Auth.Profile
 
         /// <summary>
         /// Finds all the 'Age Over' and 'Age Under' derived attributes returned with the profile,
-        /// and returns them wrapped in <see cref="AgeVerification"/> objects.
-        /// Returns null if no matches were found.
+        /// and returns them wrapped in <see cref="AgeVerification"/> objects. Returns null if no
+        /// matches were found.
         /// </summary>
         public ReadOnlyCollection<AgeVerification> AgeVerifications
         {
@@ -174,8 +184,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Under` check for the given age.
-        /// Returns null if no match was found.
+        /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Under` check for
+        /// the given age. Returns null if no match was found.
         /// </summary>
         public AgeVerification FindAgeUnderVerification(int age)
         {
@@ -183,8 +193,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Over` check for the given age.
-        /// Returns null if no match was found.
+        /// Searches for an <see cref="AgeVerification"/> corresponding to an `Age Over` check for
+        /// the given age. Returns null if no match was found.
         /// </summary>
         public AgeVerification FindAgeOverVerification(int age)
         {
