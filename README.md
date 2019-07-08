@@ -115,9 +115,8 @@ if (user != null)
     string gender = profile.Gender?.GetValue();
     string nationality = profile.Nationality?.GetValue();
     Yoti.Auth.Document.DocumentDetails documentDetails = profile.DocumentDetails?.GetValue();
-    bool? isAgedOver18;
-    AgeVerification over18Verification = profile.FindAgeOverVerification(18);    
-    isAgedOver18 = over18Verification?.Result();
+    bool? isAgedOver18 = profile.FindAgeOverVerification(18)?.Result();
+    bool? isAgedUnder55 = profile.FindAgeUnderVerification(55)?.Result();
 }
 else
 {
@@ -142,14 +141,14 @@ List<Anchor> givenNamesVerifiers = profile.GivenNames.GetVerifiers();
 ```
 You can also retrieve further properties from these respective anchors in the following way:
 ```cs
-Anchor givenNamesFirstAnchor = profile.GivenNames.GetSources().First();
+Anchor givenNamesFirstSource = profile.GivenNames.GetSources().First();
 
-AnchorType anchorType = givenNamesFirstAnchor.GetAnchorType();
-List<X509Certificate2> originServerCerts = givenNamesFirstAnchor.GetOriginServerCerts();
-byte[] signature = givenNamesFirstAnchor.GetSignature();
-DateTime signedTimeStamp = givenNamesFirstAnchor.GetSignedTimeStamp().GetTimestamp();
-string subType = givenNamesFirstAnchor.GetSubType();
-string value = givenNamesFirstAnchor.GetValue();
+AnchorType anchorType = givenNamesFirstSource.GetAnchorType();
+List<X509Certificate2> originServerCerts = givenNamesFirstSource.GetOriginServerCerts();
+byte[] signature = givenNamesFirstSource.GetSignature();
+DateTime signedTimeStamp = givenNamesFirstSource.GetSignedTimeStamp().GetTimestamp();
+string subType = givenNamesFirstSource.GetSubType();
+string value = givenNamesFirstSource.GetValue();
 ```
 
 ## AML Integration
