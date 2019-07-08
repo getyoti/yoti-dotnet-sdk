@@ -41,7 +41,7 @@ namespace Yoti.Auth.Profile
 
         /// <summary>
         /// FullName represents the user's full name. If family_name/given_names are present, the
-        /// value will be equal to the string 'given_names + " " family_name'. Will be nil if not
+        /// value will be equal to the string 'given_names + " " + family_name'. Will be nil if not
         /// provided by Yoti.
         /// </summary>
         public YotiAttribute<string> FullName
