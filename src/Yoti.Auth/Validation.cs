@@ -8,7 +8,15 @@ namespace Yoti.Auth
         {
             if (value == null)
             {
-                throw new ArgumentNullException($"{name} must not be null.");
+                throw new ArgumentNullException(name);
+            }
+        }
+
+        public static void NotNullOrEmpty(string value, string name)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new InvalidOperationException($"{name} must not be empty or null");
             }
         }
 

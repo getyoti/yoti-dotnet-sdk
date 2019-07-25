@@ -51,20 +51,11 @@ namespace Yoti.Auth.Document
 
         public DocumentDetails Build()
         {
-            CheckStringIsNotNullOrEmpty(_type);
-            CheckStringIsNotNullOrEmpty(_issuingCountry);
-            CheckStringIsNotNullOrEmpty(_number);
+            Validation.NotNullOrEmpty(_type, "_type");
+            Validation.NotNullOrEmpty(_issuingCountry, "_issuingCountry");
+            Validation.NotNullOrEmpty(_number, "_number");
 
             return new DocumentDetails(_type, _issuingCountry, _number, _expirationDate, _authority);
-        }
-
-        private static void CheckStringIsNotNullOrEmpty(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                throw new InvalidOperationException(
-                    $"'{nameof(str)}' cannot be null or empty");
-            }
         }
     }
 }
