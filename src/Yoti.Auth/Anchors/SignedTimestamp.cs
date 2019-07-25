@@ -3,8 +3,8 @@
 namespace Yoti.Auth.Anchors
 {
     /// <summary>
-    /// SignedTimestamp is a timestamp associated with a message that has a
-    /// cryptographic signature proving that it was issued by the correct authority
+    /// SignedTimestamp is a timestamp associated with a message that has a cryptographic signature
+    /// proving that it was issued by the correct authority
     /// </summary>
     public class SignedTimestamp
     {
@@ -50,9 +50,9 @@ namespace Yoti.Auth.Anchors
         }
 
         /// <summary>
-        /// MessageDigest is the digest of the message this timestamp is
-        /// associated with. The first step in verifying the timestamp is
-        /// ensuring the MessageDigest matches the original message data
+        /// MessageDigest is the digest of the message this timestamp is associated with. The first
+        /// step in verifying the timestamp is ensuring the MessageDigest matches the original
+        /// message data
         /// <para>For version 1 objects, the message digest algorithm is SHA-512/224</para>
         /// </summary>
         public byte[] GetMessageDigest()
@@ -61,13 +61,14 @@ namespace Yoti.Auth.Anchors
         }
 
         /// <summary>
-        /// ChainDigest is the digest of the previous SignedTimestamp message
-        /// in the chain. The second step in verifying the timestamp is walking
-        /// back over the chain and checking each SignedTimestamp's ChainDigest
-        /// field. The SignedTimestamp at the beginning of the chain has this
-        /// field set to a specific, publish value
-        /// <para>For version 1 objects, the chain digest algorithm is HMAC-SHA-512/224,
-        /// with the secret being equal to the MessageDigest field</para>
+        /// ChainDigest is the digest of the previous SignedTimestamp message in the chain. The
+        /// second step in verifying the timestamp is walking back over the chain and checking each
+        /// SignedTimestamp's ChainDigest field. The SignedTimestamp at the beginning of the chain
+        /// has this field set to a specific, publish value
+        /// <para>
+        /// For version 1 objects, the chain digest algorithm is HMAC-SHA-512/224, with the secret
+        /// being equal to the MessageDigest field
+        /// </para>
         /// </summary>
         public byte[] GetChainDigest()
         {
@@ -75,8 +76,8 @@ namespace Yoti.Auth.Anchors
         }
 
         /// <summary>
-        /// ChainDigestSkip1 is only populated once every 500 nodes. It is the
-        /// ChainDigest value of the timestamp 500 nodes previously
+        /// ChainDigestSkip1 is only populated once every 500 nodes. It is the ChainDigest value of
+        /// the timestamp 500 nodes previously
         /// </summary>
         public byte[] GetChainDigestSkip1()
         {
@@ -84,9 +85,9 @@ namespace Yoti.Auth.Anchors
         }
 
         /// <summary>
-        /// ChainDigestSkip2 is only populated once every 250000 nodes (or once
-        /// every 500 nodes that have ChainDigestSkip1 populated). It is the
-        /// ChainDigest value of the timestamp 250000 nodes previously
+        /// ChainDigestSkip2 is only populated once every 250000 nodes (or once every 500 nodes that
+        /// have ChainDigestSkip1 populated). It is the ChainDigest value of the timestamp 250000
+        /// nodes previously
         /// </summary>
         public byte[] GetChainDigestSkip2()
         {

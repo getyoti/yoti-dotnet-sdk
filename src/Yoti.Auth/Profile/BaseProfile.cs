@@ -7,9 +7,8 @@ namespace Yoti.Auth.Profile
     public abstract class BaseProfile : IBaseProfile
     {
         /// <summary>
-        /// Dictionary of <see cref="BaseAttribute"/>s.
-        /// BaseAttributes do not have an associated value, and must be cast to a <see cref="YotiAttribute{T}"/>
-        /// (see <see cref="GetAttributeByName{T}(string)"/>)
+        /// Dictionary of <see cref="BaseAttribute"/>. BaseAttributes do not have an associated
+        /// value, and must be cast to a <see cref="YotiAttribute{T}"/> (see <see cref="GetAttributeByName{T}(string)"/>)
         /// </summary>
         public Dictionary<string, BaseAttribute> Attributes { get; private set; }
 
@@ -45,9 +44,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// Returns all of the <see cref="YotiAttribute"/>s  where the name starts with the
-        /// given string, and the type can be cast to the given generic type
-        /// Returns null if there were no matches.
+        /// Returns all of the <see cref="YotiAttribute"/> where the name starts with the given
+        /// string, and the type can be cast to the given generic type Returns null if there were no matches.
         /// </summary>
         /// <typeparam name="T">The type parameter indicating the type of the desired attribute</typeparam>
         /// <param name="prefix">Attribute name to search for</param>

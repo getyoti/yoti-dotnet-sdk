@@ -4,11 +4,10 @@ using Yoti.Auth.Anchors;
 namespace Yoti.Auth.Attribute
 {
     /// <summary>
-    /// A class to represent a Yoti attribute, extending <see cref="BaseAttribute"/>.
-    /// A Yoti attribute consists of the attribute name, an associated
-    /// <see cref="YotiAttributeValue"/>, and a list of <see cref="Anchor"/>s from Yoti.
-    /// It may hold one or more anchors, which specify how an attribute has been provided
-    /// and how it has been verified within the Yoti platform.
+    /// A class to represent a Yoti attribute, extending <see cref="BaseAttribute"/>. A Yoti
+    /// attribute consists of the attribute name, an associated <see cref="YotiAttributeValue"/>, and
+    /// a list of <see cref="Anchor"/> from Yoti. It may hold one or more anchors, which specify how
+    /// an attribute has been provided and how it has been verified within the Yoti platform.
     /// </summary>
     public class YotiAttribute<T> : BaseAttribute
     {
