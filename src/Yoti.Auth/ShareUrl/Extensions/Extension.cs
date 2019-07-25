@@ -3,7 +3,8 @@
 namespace Yoti.Auth.ShareUrl.Extensions
 {
     /// <summary>
-    /// Type and content of a feature for an application. Implemented <see cref="BaseExtension"/>, and adds generic content on top
+    /// Type and content of a feature for an application. Implemented <see cref="BaseExtension"/>,
+    /// and adds generic content on top
     /// </summary>
     /// <typeparam name="T">Type of the extension's content</typeparam>
     public class Extension<T> : BaseExtension

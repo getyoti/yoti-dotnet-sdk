@@ -32,8 +32,8 @@
         }
 
         /// <summary>
-        /// Radius of the circle, centred on the specified location coordinates, where the device is allowed to perform the share.
-        /// If not provided, a default value of 150m will be used.
+        /// Radius of the circle, centred on the specified location coordinates, where the device is
+        /// allowed to perform the share. If not provided, a default value of 150m will be used.
         /// </summary>
         /// <param name="radius">The allowable distance, in metres, from the given lat/long location</param>
         /// <returns>This LocationConstraintExtensionBuilder</returns>
@@ -45,8 +45,8 @@
         }
 
         /// <summary>
-        /// Maximum acceptable distance, in metres, of the area of uncertainty associated with the device location coordinates.
-        /// If not provided, a default value of 150m will be used.
+        /// Maximum acceptable distance, in metres, of the area of uncertainty associated with the
+        /// device location coordinates. If not provided, a default value of 150m will be used.
         /// </summary>
         /// <param name="maxUncertainty">Maximum allowed measurement uncertainty, in metres</param>
         /// <returns>This LocationConstraintExtensionBuilder</returns>

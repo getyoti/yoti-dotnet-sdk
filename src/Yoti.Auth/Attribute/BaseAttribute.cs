@@ -5,11 +5,10 @@ using Yoti.Auth.Anchors;
 namespace Yoti.Auth.Attribute
 {
     /// <summary>
-    /// A class to represent a base Yoti attribute, without any generics. A Yoti attribute
-    /// consists of the attribute name, an associated <see cref="YotiAttributeValue"/>,
-    /// and a list of <see cref="Anchor"/>s from Yoti. It may hold one or more anchors,
-    /// which specify how an attribute has been provided and how it has been verified
-    /// within the Yoti platform.
+    /// A class to represent a base Yoti attribute, without any generics. A Yoti attribute consists
+    /// of the attribute name, an associated <see cref="YotiAttributeValue"/>, and a list of <see
+    /// cref="Anchor"/> from Yoti. It may hold one or more anchors, which specify how an attribute
+    /// has been provided and how it has been verified within the Yoti platform.
     /// </summary>
     public abstract class BaseAttribute
     {
@@ -32,9 +31,9 @@ namespace Yoti.Auth.Attribute
         }
 
         /// <summary>
-        /// Get the anchors for an attribute. If an attribute has only one SOURCE
-        /// Anchor with the value set to "USER_PROVIDED" and zero VERIFIER Anchors,
-        /// then the attribute is a self-certified one.
+        /// Get the anchors for an attribute. If an attribute has only one SOURCE Anchor with the
+        /// value set to "USER_PROVIDED" and zero VERIFIER Anchors, then the attribute is a
+        /// self-certified one.
         /// </summary>
         /// <returns>A list of all of the anchors associated with an attribute</returns>
         public List<Anchor> GetAnchors()
@@ -43,8 +42,8 @@ namespace Yoti.Auth.Attribute
         }
 
         /// <summary>
-        /// Sources are a subset of the anchors associated with an attribute, where the
-        /// anchor type is <see cref="AnchorType.SOURCE"/>".
+        /// Sources are a subset of the anchors associated with an attribute, where the anchor type
+        /// is <see cref="AnchorType.SOURCE"/>".
         /// </summary>
         /// <returns>A list of <see cref="AnchorType.SOURCE"/>" anchors</returns>
         public List<Anchor> GetSources()
@@ -53,8 +52,8 @@ namespace Yoti.Auth.Attribute
         }
 
         /// <summary>
-        /// Verifiers are a subset of the anchors associated with an attribute, where the
-        /// anchor type is <see cref="AnchorType.VERIFIER"/>".
+        /// Verifiers are a subset of the anchors associated with an attribute, where the anchor type
+        /// is <see cref="AnchorType.VERIFIER"/>".
         /// </summary>
         /// <returns>A list of <see cref="AnchorType.VERIFIER"/>" anchors</returns>
         public List<Anchor> GetVerifiers()

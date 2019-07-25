@@ -36,7 +36,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         }
 
         /// <summary>
-        /// Set of required <see cref="WantedAttribute"/>s
+        /// Set of required <see cref="WantedAttribute"/>
         /// </summary>
         [JsonIgnore]
         public ICollection<WantedAttribute> WantedAttributes

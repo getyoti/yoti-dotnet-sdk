@@ -51,7 +51,8 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
-        /// The background color that will be displayed on each receipt the user gets, as a result of a share with the application.
+        /// The background color that will be displayed on each receipt the user gets, as a result of
+        /// a share with the application.
         /// </summary>
         public YotiAttribute<string> ReceiptBackgroundColor
         {

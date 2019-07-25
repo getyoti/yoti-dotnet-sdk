@@ -7,7 +7,8 @@ using Yoti.Auth.Attribute;
 namespace Yoti.Auth.Verifications
 {
     /// <summary>
-    /// Wraps an 'Age Verify/Condition' attribute to provide behaviour specific to verifying someone's age.
+    /// Wraps an 'Age Verify/Condition' attribute to provide behaviour specific to verifying
+    /// someone's age.
     /// </summary>
     public class AgeVerification
     {
@@ -50,8 +51,8 @@ namespace Yoti.Auth.Verifications
         }
 
         /// <summary>
-        /// The type of age check performed, as specified on dashboard.
-        /// Currently this might be 'age_over' or 'age_under'.
+        /// The type of age check performed, as specified on dashboard. Currently this might be
+        /// 'age_over' or 'age_under'.
         /// </summary>
         /// <returns>The type of age check performed</returns>
         public string CheckType()
@@ -69,8 +70,7 @@ namespace Yoti.Auth.Verifications
         }
 
         /// <summary>
-        /// The wrapped profile attribute. Use this if you need access
-        /// to the underlying List of <see cref="Anchor"/>s.
+        /// The wrapped profile attribute. Use this if you need access to the underlying List of <see cref="Anchor"/>.
         /// </summary>
         /// <returns>The wrapped profile attribute</returns>
         public YotiAttribute<string> Attribute()

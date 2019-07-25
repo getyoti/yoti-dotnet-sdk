@@ -1,8 +1,9 @@
 ﻿namespace Yoti.Auth.ShareUrl.Extensions
 {
     /// <summary>
-    /// Allows you to provide a non-null object representing the content to be submitted in the TRANSACTIONAL_FLOW extension.
-    /// The object will be mapped to a Json representation using Jackson ObjectMapper.
+    /// Allows you to provide a non-null object representing the content to be submitted in the
+    /// TRANSACTIONAL_FLOW extension. The object will be mapped to a Json representation using
+    /// Jackson ObjectMapper.
     /// </summary>
     /// <typeparam name="T">The type of the content</typeparam>
     public class TransactionalFlowExtensionBuilder<T>

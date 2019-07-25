@@ -19,15 +19,16 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Return the rememberMeId, which is a unique, stable identifier for a user in the context of an application.
-        /// You can use it to identify returning users. This value will be different for the same user in different applications.
+        /// Return the rememberMeId, which is a unique, stable identifier for a user in the context
+        /// of an application. You can use it to identify returning users. This value will be
+        /// different for the same user in different applications.
         /// </summary>
         public string RememberMeId { get; private set; }
 
         /// <summary>
-        /// Return the parentRememberMeId, which is a unique, stable identifier for a user in the context of an organisation.
-        /// You can use it to identify returning users. This value is consistent for a given user across different applications
-        /// belonging to a single organisation.
+        /// Return the parentRememberMeId, which is a unique, stable identifier for a user in the
+        /// context of an organisation. You can use it to identify returning users. This value is
+        /// consistent for a given user across different applications belonging to a single organisation.
         /// </summary>
         public string ParentRememberMeId { get; private set; }
 
