@@ -13,6 +13,8 @@ namespace Yoti.Auth.ShareUrl.Policy
 
         public DynamicPolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
         {
+            Validation.NotNull(wantedAttribute, "wantedAttribute");
+
             string key = wantedAttribute.Derivation ?? wantedAttribute.Name;
             _wantedAttributes[key] = wantedAttribute;
             return this;
