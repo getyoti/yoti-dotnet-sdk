@@ -22,7 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Profile", "Profile", "{6793
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aml", "Aml", "{C3CAC5F0-C455-4634-A989-7443EBDC09E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmlExample", "Examples\Aml\AmlExample\AmlExample.csproj", "{34AC42F8-1D13-4D12-9C77-DB7A42494918}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmlExample", "Examples\Aml\AmlExample\AmlExample.csproj", "{34AC42F8-1D13-4D12-9C77-DB7A42494918}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoti.Auth.Tests.Common", "Yoti.Auth.Tests.Common\Yoti.Auth.Tests.Common.csproj", "{5A23ACEE-3A49-49CA-901D-7142F5EF9517}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{34AC42F8-1D13-4D12-9C77-DB7A42494918}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34AC42F8-1D13-4D12-9C77-DB7A42494918}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34AC42F8-1D13-4D12-9C77-DB7A42494918}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

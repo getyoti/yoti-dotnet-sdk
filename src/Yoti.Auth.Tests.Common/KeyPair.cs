@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using Org.BouncyCastle.Crypto;
 
-namespace Yoti.Auth.Tests.TestTools
+namespace Yoti.Auth.Tests.Common
 {
-    internal static class KeyPair
+    public static class KeyPair
     {
-        internal static AsymmetricCipherKeyPair Get()
+        public static AsymmetricCipherKeyPair Get()
         {
             using (StreamReader stream = File.OpenText("test-key.pem"))
             {
