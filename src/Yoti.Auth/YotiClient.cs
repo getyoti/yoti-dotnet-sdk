@@ -16,8 +16,8 @@ namespace Yoti.Auth
         /// <summary>
         /// Create a <see cref="YotiClient"/>
         /// </summary>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
-        /// <param name="privateStreamKey">The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
+        /// <param name="privateStreamKey">The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.</param>
         public YotiClient(string sdkId, StreamReader privateStreamKey)
         {
             if (string.IsNullOrEmpty(sdkId))
