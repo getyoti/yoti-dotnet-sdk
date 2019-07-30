@@ -179,7 +179,7 @@ Yoti will provide a boolean result on the following checks:
 * Fraud list - Verify against  US Social Security Administration Fraud (SSN Fraud) list
 * Watch list - Verify against watch lists from the Office of Foreign Assets Control
 
-To use this functionality you must ensure your application is assigned to your Organisation in the Yoti Dashboard - please see [here](https://www.yoti.com/developers/documentation/#1-creating-an-organisation) for further information.
+To use this functionality you must ensure your application is assigned to your Organisation in the Yoti Dashboard - please see [here](https://developers.yoti.com/yoti-app/web-integration#step-1-creating-an-organisation) for further information.
 
 For the AML check you will need to provide the following:
 
@@ -279,4 +279,4 @@ Please provide the following to get you up and working as quickly as possible:
 
 Once we have answered your question we may contact you again to discuss Yoti products and services. If you’d prefer us not to do this, please let us know when you e-mail.
 
-For further documentation, see [https://www.yoti.com/developers/documentation/?csharp](https://www.yoti.com/developers/documentation/?csharp)
+For further documentation, see <https://developers.yoti.com/yoti-app/web-integration>
