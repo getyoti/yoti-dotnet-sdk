@@ -106,29 +106,23 @@ namespace Yoti.Auth.ShareUrl.Policy
 
         public DynamicPolicyBuilder WithSelfieAuthentication(bool enabled)
         {
-            if (enabled)
-            {
-                return WithAuthType(DynamicPolicy.SelfieAuthType);
-            }
-
-            _wantedAuthTypes.Remove(DynamicPolicy.SelfieAuthType);
-            return this;
+            return WithAuthType(DynamicPolicy.SelfieAuthType, enabled);
         }
 
         public DynamicPolicyBuilder WithPinAuthentication(bool enabled)
         {
-            if (enabled)
-            {
-                return WithAuthType(DynamicPolicy.PinAuthType);
-            }
-
-            _wantedAuthTypes.Remove(DynamicPolicy.PinAuthType);
-            return this;
+            return WithAuthType(DynamicPolicy.PinAuthType, enabled);
         }
 
-        public DynamicPolicyBuilder WithAuthType(int authType)
+        public DynamicPolicyBuilder WithAuthType(int authType, bool enabled)
         {
-            _wantedAuthTypes.Add(authType);
+            if (enabled)
+            {
+                _wantedAuthTypes.Add(authType);
+                return this;
+            }
+
+            _wantedAuthTypes.Remove(authType);
             return this;
         }
 
