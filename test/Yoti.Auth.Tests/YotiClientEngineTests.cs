@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.ShareUrl;
-using Yoti.Auth.Tests.TestTools;
 using Yoti.Auth.Tests.Common;
 using Yoti.Auth.Web;
 
