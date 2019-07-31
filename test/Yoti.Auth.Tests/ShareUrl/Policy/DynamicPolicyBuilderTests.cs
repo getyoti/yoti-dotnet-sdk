@@ -109,7 +109,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
                 .WithPinAuthentication(enabled: true)
-                .WithAuthType(99)
+                .WithAuthType(authType: 99, enabled: true)
                 .Build();
 
             HashSet<int> result = dynamicPolicy.WantedAuthTypes;
@@ -129,6 +129,33 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             HashSet<int> result = dynamicPolicy.WantedAuthTypes;
 
             Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void BuildsWithAuthTypeEnabledThenDisabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithAuthType(24, enabled: true)
+                .WithAuthType(24, enabled: false)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void BuildsWithAuthTypeDisabledThenEnabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithAuthType(23, enabled: false)
+                .WithAuthType(23, enabled: true)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.SetEquals(new HashSet<int> { 23 }));
         }
 
         [TestMethod]
@@ -175,7 +202,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
-                .WithAuthType(DynamicPolicy.SelfieAuthType)
+                .WithAuthType(DynamicPolicy.SelfieAuthType, enabled: true)
                 .Build();
 
             HashSet<int> result = dynamicPolicy.WantedAuthTypes;
@@ -189,7 +216,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithPinAuthentication(enabled: true)
-                .WithAuthType(DynamicPolicy.PinAuthType)
+                .WithAuthType(DynamicPolicy.PinAuthType, enabled: true)
                 .Build();
 
             HashSet<int> result = dynamicPolicy.WantedAuthTypes;
