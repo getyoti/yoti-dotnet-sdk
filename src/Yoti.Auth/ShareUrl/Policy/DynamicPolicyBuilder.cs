@@ -4,11 +4,8 @@ namespace Yoti.Auth.ShareUrl.Policy
 {
     public class DynamicPolicyBuilder
     {
-        private const int _selfieAuthType = 1;
-        private const int _pinAuthType = 2;
-
         private readonly Dictionary<string, WantedAttribute> _wantedAttributes = new Dictionary<string, WantedAttribute>();
-        private readonly List<int> _wantedAuthTypes = new List<int>();
+        private readonly HashSet<int> _wantedAuthTypes = new HashSet<int>();
         private bool _wantedRememberMeId;
 
         public DynamicPolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
@@ -111,8 +108,10 @@ namespace Yoti.Auth.ShareUrl.Policy
         {
             if (enabled)
             {
-                return WithAuthType(_selfieAuthType);
+                return WithAuthType(DynamicPolicy.SelfieAuthType);
             }
+
+            _wantedAuthTypes.Remove(DynamicPolicy.SelfieAuthType);
             return this;
         }
 
@@ -120,8 +119,10 @@ namespace Yoti.Auth.ShareUrl.Policy
         {
             if (enabled)
             {
-                return WithAuthType(_pinAuthType);
+                return WithAuthType(DynamicPolicy.PinAuthType);
             }
+
+            _wantedAuthTypes.Remove(DynamicPolicy.PinAuthType);
             return this;
         }
 

@@ -8,6 +8,9 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
     [TestClass]
     public class DynamicPolicyBuilderTests
     {
+        private readonly int _expectedSelfieAuthValue = 1;
+        private readonly int _expectedPinAuthValue = 2;
+
         [TestMethod]
         public void EnsuresAnAttributeCanOnlyExistOnce()
         {
@@ -109,10 +112,10 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
                 .WithAuthType(99)
                 .Build();
 
-            List<int> result = dynamicPolicy.WantedAuthTypes;
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
 
             Assert.AreEqual(3, result.Count);
-            CollectionAssert.AreEqual(result, new List<int> { 1, 2, 99 });
+            Assert.IsTrue(result.SetEquals(new HashSet<int> { _expectedSelfieAuthValue, _expectedPinAuthValue, 99 }));
         }
 
         [TestMethod]
@@ -123,7 +126,113 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
                 .WithPinAuthentication(enabled: false)
                 .Build();
 
-            List<int> result = dynamicPolicy.WantedAuthTypes;
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void BuildsWithSelfieAuthenticationEnabledThenDisabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithSelfieAuthentication(enabled: true)
+                .WithSelfieAuthentication(enabled: false)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void BuildsWithSelfieAuthenticationDisabledThenEnabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithSelfieAuthentication(enabled: false)
+                .WithSelfieAuthentication(enabled: true)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.SetEquals(new HashSet<int> { _expectedSelfieAuthValue }));
+        }
+
+        [TestMethod]
+        public void BuildsWithSelfieAuthenticationDisabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithSelfieAuthentication(enabled: false)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void FiltersSelfieAuthenticationDuplicates()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithSelfieAuthentication(enabled: true)
+                .WithAuthType(DynamicPolicy.SelfieAuthType)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.SetEquals(new HashSet<int> { _expectedSelfieAuthValue }));
+        }
+
+        [TestMethod]
+        public void FiltersPinAuthenticationDuplicates()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithPinAuthentication(enabled: true)
+                .WithAuthType(DynamicPolicy.PinAuthType)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.SetEquals(new HashSet<int> { _expectedPinAuthValue }));
+        }
+
+        [TestMethod]
+        public void BuildsWithPinAuthenticationEnabledThenDisabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithPinAuthentication(enabled: true)
+                .WithPinAuthentication(enabled: false)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void BuildsWithPinAuthenticationDisabledThenEnabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithPinAuthentication(enabled: false)
+                .WithPinAuthentication(enabled: true)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
+
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.SetEquals(new HashSet<int> { _expectedPinAuthValue }));
+        }
+
+        [TestMethod]
+        public void BuildsWithPinAuthenticationDisabled()
+        {
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithPinAuthentication(enabled: false)
+                .Build();
+
+            HashSet<int> result = dynamicPolicy.WantedAuthTypes;
 
             Assert.AreEqual(0, result.Count);
         }

@@ -8,11 +8,14 @@ namespace Yoti.Auth.ShareUrl.Policy
     /// </summary>
     public class DynamicPolicy
     {
+        internal const int SelfieAuthType = 1;
+        internal const int PinAuthType = 2;
+
         [JsonProperty(PropertyName = "wanted")]
         private readonly ICollection<WantedAttribute> _wantedAttributes;
 
         [JsonProperty(PropertyName = "wanted_auth_types")]
-        private readonly List<int> _wantedAuthTypes;
+        private readonly HashSet<int> _wantedAuthTypes;
 
         [JsonProperty(PropertyName = "wanted_remember_me")]
         private readonly bool _wantedRememberMeId;
@@ -26,7 +29,7 @@ namespace Yoti.Auth.ShareUrl.Policy
 
         public DynamicPolicy(
             ICollection<WantedAttribute> wantedAttributes,
-            List<int> wantedAuthTypes,
+            HashSet<int> wantedAuthTypes,
             bool wantedRememberMeId)
         {
             _wantedAttributes = wantedAttributes;
@@ -51,7 +54,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         /// Type of authentications
         /// </summary>
         [JsonIgnore]
-        public List<int> WantedAuthTypes
+        public HashSet<int> WantedAuthTypes
         {
             get
             {
