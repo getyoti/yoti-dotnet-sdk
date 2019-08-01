@@ -11,20 +11,24 @@ namespace CoreExample.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly string _appId;
+        private readonly string _clientSdkId;
         private readonly ILogger _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
 
-            _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
-            _logger.LogInformation(string.Format("appId='{0}'", _appId));
+            _clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
+            _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
 
         public IActionResult Index()
         {
-            ViewBag.YotiAppId = _appId;
+            ViewBag.YotiClientSdKId = _clientSdkId;
+
+            string _scenarioId = Environment.GetEnvironmentVariable("YOTI_SCENARIO_ID");
+            _logger.LogInformation(string.Format("Yoti Scenario ID='{0}'", _scenarioId));
+            ViewBag.YotiScenarioId = _scenarioId;
 
             return View();
         }
@@ -34,9 +38,6 @@ namespace CoreExample.Controllers
         {
             try
             {
-                string sdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
-                _logger.LogInformation(string.Format("sdkId='{0}'", sdkId));
-
                 string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
                 _logger.LogInformation(
                     string.Format(
@@ -45,7 +46,7 @@ namespace CoreExample.Controllers
 
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
-                var yotiClient = new YotiClient(sdkId, privateKeyStream);
+                var yotiClient = new YotiClient(_clientSdkId, privateKeyStream);
 
                 var givenNamesWantedAttribute = new WantedAttributeBuilder()
                     .WithName("given_names")
@@ -75,7 +76,7 @@ namespace CoreExample.Controllers
                     .Build();
                 ShareUrlResult shareUrlResult = yotiClient.CreateShareUrl(dynamicScenario);
 
-                ViewBag.YotiAppId = _appId;
+                ViewBag.YotiClientSdkId = _clientSdkId;
 
                 return View("DynamicScenario", shareUrlResult);
             }

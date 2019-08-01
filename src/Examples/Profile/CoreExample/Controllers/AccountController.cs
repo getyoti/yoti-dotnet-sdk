@@ -12,7 +12,6 @@ namespace CoreExample.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly string _appId = Environment.GetEnvironmentVariable("YOTI_APPLICATION_ID");
         private readonly ILogger _logger;
         private byte[] _photoBytes;
 

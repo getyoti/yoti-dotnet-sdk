@@ -26,7 +26,7 @@
             <h1 class="yoti-top-header">We now accept Yoti</h1>
 
             <div class="yoti-sdk-integration-section">
-                <button data-yoti-application-id="@ViewBag.YotiAppId">Use Yoti</button>
+                <div id="yoti-share-button"></div>
             </div>
 
             <div class="yoti-login-or-separator">or</div>
@@ -65,9 +65,18 @@
         </section>
     </main>
 
-    <script src="https://sdk.yoti.com/clients/browser.2.2.0.js"></script>
+    <script src="https://www.yoti.com/share/client/"></script>
     <script>
-        _ybg.init()
+        window.Yoti.Share.init({
+            "elements": [{
+                "domId": "yoti-share-button",
+                "scenarioId": "@ViewBag.YotiScenarioId",
+                "clientSdkId": "@ViewBag.YotiClientSdkId",
+                "button": {
+                    "label": "Use Yoti"
+                }
+            }]
+        });
     </script>
 </body>
 </html>
