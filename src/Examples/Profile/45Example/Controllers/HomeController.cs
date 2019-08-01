@@ -11,20 +11,26 @@ namespace Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly string _appId;
-
-        public ActionResult Index()
-        {
-            ViewBag.YotiAppId = _appId;
-            return View();
-        }
+        private readonly string _yotiClientSdkId;
 
         public HomeController()
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-            _appId = ConfigurationManager.AppSettings["YOTI_APPLICATION_ID"];
-            logger.Info(string.Format("appId='{0}'", _appId));
+            _yotiClientSdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
+            logger.Info(string.Format("Yoti Client SDK ID='{0}'", _yotiClientSdkId));
+            ViewBag.YotiClientSdkId = _yotiClientSdkId;
+        }
+
+        public ActionResult Index()
+        {
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+            string scenarioId = ConfigurationManager.AppSettings["YOTI_SCENARIO_ID"];
+            logger.Info(string.Format("Yoti Scenario ID='{0}'", scenarioId));
+            ViewBag.YotiScenarioId = scenarioId;
+
+            return View();
         }
 
         // GET: Home/DynamicScenario
@@ -34,9 +40,6 @@ namespace Example.Controllers
 
             try
             {
-                string sdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
-                logger.Info(string.Format("sdkId='{0}'", sdkId));
-
                 string yotiKeyFilePath = ConfigurationManager.AppSettings["YOTI_KEY_FILE_PATH"];
                 logger.Info(
                     string.Format(
@@ -45,7 +48,7 @@ namespace Example.Controllers
 
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
-                var yotiClient = new YotiClient(sdkId, privateKeyStream);
+                var yotiClient = new YotiClient(_yotiClientSdkId, privateKeyStream);
 
                 var givenNamesWantedAttribute = new WantedAttributeBuilder()
                     .WithName("given_names")
@@ -74,8 +77,6 @@ namespace Example.Controllers
                     .WithExtension(locationExtension)
                     .Build();
                 ShareUrlResult shareUrlResult = yotiClient.CreateShareUrl(dynamicScenario);
-
-                ViewBag.YotiAppId = _appId;
 
                 return View("DynamicScenario", shareUrlResult);
             }
