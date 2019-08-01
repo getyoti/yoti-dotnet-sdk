@@ -88,6 +88,9 @@
   width: 220px;
   height: 220px;
   border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .yoti-profile-picture-powered,
@@ -333,6 +336,24 @@
   font-size: 18px;
   color: #333b40;
   word-break: break-word;
+}
+
+.yoti-attribute-value-text table {
+  font-size: 14px;
+  border-spacing: 0;
+}
+
+.yoti-attribute-value-text table td:first-child {
+  font-weight: bold;
+}
+
+.yoti-attribute-value-text table td {
+  border-bottom: 1px solid #f7f8f9;
+  padding: 5px;
+}
+
+.yoti-attribute-value-text img {
+  width: 100%;
 }
 
 .yoti-attribute-anchors-layout {
