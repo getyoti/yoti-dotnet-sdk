@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using Example.Models;
+using Newtonsoft.Json.Linq;
 using Yoti.Auth;
 using Yoti.Auth.Attribute;
 using Yoti.Auth.Images;
@@ -106,11 +107,11 @@ namespace Example.Controllers
                         break;
 
                     case Yoti.Auth.Constants.UserProfile.PostalAddressAttribute:
-                        AddDisplayAttribute<string>("Address", "yoti-icon-address", yotiAttribute, displayAttributes);
+                        AddDisplayAttribute<string>("Postal Address", "yoti-icon-address", yotiAttribute, displayAttributes);
                         break;
 
                     case Yoti.Auth.Constants.UserProfile.StructuredPostalAddressAttribute:
-                        // Do nothing - we are handling this with the postalAddress attribute
+                        AddDisplayAttribute<Dictionary<string, JToken>>("Structured Postal Address", "yoti-icon-address", yotiAttribute, displayAttributes);
                         break;
 
                     case Yoti.Auth.Constants.UserProfile.PhoneNumberAttribute:

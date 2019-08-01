@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Connect";
 }
+@using Newtonsoft.Json.Linq;
 @model CoreExample.Models.DisplayAttributes
 <!DOCTYPE html>
 <html class="yoti-html">
@@ -65,7 +66,24 @@
                         </div>
 
                         <div class="yoti-attribute-value">
-                            <div class="yoti-attribute-value-text">@a.GetDisplayValue()</div>
+                            <div class="yoti-attribute-value-text">
+                                @if (a.GetDisplayName() == "Structured Postal Address")
+                                {
+                                    <table>
+                                        @foreach (var item in (Dictionary<string, JToken>)a.GetValue())
+                                        {
+                                            <tr>
+                                                <td>@item.Key</td>
+                                                <td>@item.Value</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                }
+                                else
+                                {
+                                    @a.GetDisplayValue()
+                                }
+                            </div>
                         </div>
 
                         <div class="yoti-attribute-anchors-layout">
