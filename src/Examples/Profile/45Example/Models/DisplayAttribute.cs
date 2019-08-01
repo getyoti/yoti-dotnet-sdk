@@ -53,5 +53,10 @@ namespace Example.Models
         {
             return _preValue + _value.ToString();
         }
+
+        public object GetValue()
+        {
+            return _value;
+        }
     }
 }
