@@ -66,12 +66,12 @@ namespace Yoti.Auth.Anchors
         /// <summary>
         /// Gets the value of the given anchor.
         /// <para>
-        /// For <see cref="AnchorType.SOURCE"/> this can be "USER_PROVIDED", "PASSPORT",
-        /// "DRIVING_LICENCE" or "AADHAAR"
+        /// For <see cref="AnchorType.SOURCE"/>, among the possible options are "USER_PROVIDED",
+        /// "PASSPORT", "DRIVING_LICENCE", "PASSCARD", "NATIONAL_ID" or "YOTI_AI"
         /// </para>
         /// <para>
-        /// For <see cref="AnchorType.VERIFIER"/> this can be "YOTI_ADMIN", "YOTI_IDENTITY",
-        /// "YOTI_OTP", "YOTI_UIDAI" or "PASSPORT_NFC_SIGNATURE"
+        /// For <see cref="AnchorType.VERIFIER"/>, among the possible options are "YOTI_ADMIN",
+        /// "YOTI_IDENTITY", "YOTI_OTP", "PASSPORT_NFC_SIGNATURE", "ISSUING_AUTHORITY" or "ISSUING_AUTHORITY_PKI"
         /// </para>
         /// </summary>
         /// <returns>A string value for this anchor type</returns>
