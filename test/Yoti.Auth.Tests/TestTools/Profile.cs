@@ -25,5 +25,20 @@ namespace Yoti.Auth.Tests.TestTools
 
             return new YotiProfile(attributes);
         }
+
+        public static YotiProfile CreateUserProfileWithSingleAttribute<T>(ProtoBuf.Attribute.Attribute attribute)
+        {
+            return AddAttributeToProfile<T>(new YotiProfile(), attribute);
+        }
+
+        public static YotiProfile AddAttributeToProfile<T>(YotiProfile yotiProfile, ProtoBuf.Attribute.Attribute attribute)
+        {
+            BaseAttribute parsedAttribute = AttributeConverter.ConvertToBaseAttribute(attribute);
+
+            if (parsedAttribute != null)
+                yotiProfile.Add((YotiAttribute<T>)parsedAttribute);
+
+            return yotiProfile;
+        }
     }
 }
