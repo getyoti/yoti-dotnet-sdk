@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using Yoti.Auth.Anchors;
+using Yoti.Auth.Images;
+using Yoti.Auth.Profile;
 using Yoti.Auth.Tests.TestData;
 using Yoti.Auth.Tests.TestTools;
 
@@ -11,6 +15,15 @@ namespace Yoti.Auth.Tests
     [TestClass]
     public class AnchorTests
     {
+        private YotiProfile _yotiProfile;
+
+        private const string YotiAdminVerifierType = "YOTI_ADMIN";
+        private const string PassportSourceType = "PASSPORT";
+        private const string DrivingLicenseSourceType = "DRIVING_LICENCE";
+
+        private const string StringValue = "Value";
+        private const string DateOfBirthString = "1980-01-13";
+
         [TestMethod]
         public void Anchor_Getters()
         {
@@ -42,6 +55,92 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(new DateTime(2018, 4, 5, 14, 27, 36, DateTimeKind.Utc), firstOriginServerCert.NotBefore.ToUniversalTime());
             Assert.AreEqual(new DateTime(2018, 4, 12, 14, 27, 36, DateTimeKind.Utc), firstOriginServerCert.NotAfter.ToUniversalTime());
             Assert.AreEqual("3C753FFD1D8A359EC89AD2BD679563F2E4F9B767", firstOriginServerCert.Thumbprint);
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesDrivingLicense_String()
+        {
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+                Constants.UserProfile.GivenNamesAttribute,
+                StringValue,
+                ProtoBuf.Attribute.ContentType.String,
+                TestAnchors.DrivingLicenseAnchor);
+
+            _yotiProfile = TestTools.Profile.AddAttributeToProfile<string>(new YotiProfile(), attribute);
+
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.GivenNames.GetSources();
+
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesDrivingLicense()
+        {
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+                Constants.UserProfile.EmailAddressAttribute,
+                "true",
+                ProtoBuf.Attribute.ContentType.String,
+                TestAnchors.DrivingLicenseAnchor);
+
+            _yotiProfile = TestTools.Profile.AddAttributeToProfile<string>(new YotiProfile(), attribute);
+
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.EmailAddress.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
+        {
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+                Constants.UserProfile.StructuredPostalAddressAttribute,
+                "{ \"properties\": { \"name\": { \"type\": \"string\"} } }",
+                ProtoBuf.Attribute.ContentType.Json,
+                TestAnchors.DrivingLicenseAnchor);
+
+            _yotiProfile = TestTools.Profile.AddAttributeToProfile<Dictionary<string, JToken>>(new YotiProfile(), attribute);
+
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.StructuredPostalAddress.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetSources_IncludesPassport()
+        {
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+                Constants.UserProfile.DateOfBirthAttribute,
+                DateOfBirthString,
+                ProtoBuf.Attribute.ContentType.Date,
+                TestAnchors.PassportAnchor);
+
+            _yotiProfile = TestTools.Profile.AddAttributeToProfile<DateTime>(new YotiProfile(), attribute);
+
+            IEnumerable<Anchors.Anchor> sources = _yotiProfile.DateOfBirth.GetSources();
+            Assert.IsTrue(
+                sources.Any(
+                    s => s.GetValue().Contains(PassportSourceType)));
+        }
+
+        [TestMethod]
+        public void Activity_GetVerifiers_IncludesYotiAdmin()
+        {
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+                Constants.UserProfile.SelfieAttribute,
+                StringValue,
+                ProtoBuf.Attribute.ContentType.Jpeg,
+                TestAnchors.YotiAdminAnchor);
+
+            _yotiProfile = TestTools.Profile.AddAttributeToProfile<Image>(new YotiProfile(), attribute);
+
+            IEnumerable<Anchors.Anchor> verifiers = _yotiProfile.Selfie.GetVerifiers();
+            Assert.IsTrue(
+                verifiers.Any(
+                    s => s.GetValue().Contains(YotiAdminVerifierType)));
         }
     }
 }
