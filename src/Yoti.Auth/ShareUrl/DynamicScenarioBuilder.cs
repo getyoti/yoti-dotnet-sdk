@@ -34,7 +34,7 @@ namespace Yoti.Auth.ShareUrl
         }
 
         /// <summary>
-        /// List of <see cref="Extension{T}"/> to be activated for the application
+        /// <see cref="Extension{T}"/> to be activated for the application
         /// </summary>
         /// <param name="extension"><see cref="Extension{T}"/> to add</param>
         /// <returns><see cref="DynamicScenarioBuilder"/> with an extension added</returns>
