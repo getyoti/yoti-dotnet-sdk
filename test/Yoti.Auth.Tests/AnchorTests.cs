@@ -25,7 +25,7 @@ namespace Yoti.Auth.Tests
         private const string DateOfBirthString = "1980-01-13";
 
         [TestMethod]
-        public void Anchor_Getters()
+        public void AnchorGetters()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                "given_names",
@@ -58,42 +58,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Activity_GetSources_IncludesDrivingLicense_String()
-        {
-            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                Constants.UserProfile.GivenNamesAttribute,
-                StringValue,
-                ProtoBuf.Attribute.ContentType.String,
-                TestAnchors.DrivingLicenseAnchor);
-
-            _yotiProfile = TestTools.Profile.AddAttributeToProfile<string>(new YotiProfile(), attribute);
-
-            IEnumerable<Anchors.Anchor> sources = _yotiProfile.GivenNames.GetSources();
-
-            Assert.IsTrue(
-                sources.Any(
-                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
-        }
-
-        [TestMethod]
-        public void Activity_GetSources_IncludesDrivingLicense()
-        {
-            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-                Constants.UserProfile.EmailAddressAttribute,
-                "true",
-                ProtoBuf.Attribute.ContentType.String,
-                TestAnchors.DrivingLicenseAnchor);
-
-            _yotiProfile = TestTools.Profile.AddAttributeToProfile<string>(new YotiProfile(), attribute);
-
-            IEnumerable<Anchors.Anchor> sources = _yotiProfile.EmailAddress.GetSources();
-            Assert.IsTrue(
-                sources.Any(
-                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
-        }
-
-        [TestMethod]
-        public void Activity_GetSources_IncludesDrivingLicense_StructuredPostalAddress()
+        public void GetSourcesIncludesDrivingLicense()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.StructuredPostalAddressAttribute,
@@ -110,7 +75,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Activity_GetSources_IncludesPassport()
+        public void GetSourcesIncludesPassport()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.DateOfBirthAttribute,
@@ -127,7 +92,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void Activity_GetVerifiers_IncludesYotiAdmin()
+        public void GetSourcesIncludesYotiAdmin()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.SelfieAttribute,
