@@ -54,7 +54,6 @@ namespace CoreExample.Controllers
 
                 DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                    .WithWantedAttribute(givenNamesWantedAttribute)
-                   .WithWantedAttribute("nationality")
                    .WithFullName()
                    .WithSelfie()
                    .WithPhoneNumber()
