@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yoti.Auth.CustomAttributes
+namespace Yoti.Auth.Anchors
 {
     [AttributeUsage(AttributeTargets.Field)]
     internal sealed class ExtensionOidAttribute : System.Attribute

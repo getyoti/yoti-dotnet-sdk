@@ -28,14 +28,14 @@ namespace Yoti.Auth.Tests
         public void AnchorGetters()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
-               "given_names",
-               "givenNameValue",
+               Constants.UserProfile.GivenNamesAttribute,
+               StringValue,
                Yoti.Auth.ProtoBuf.Attribute.ContentType.String,
                TestAnchors.DrivingLicenseAnchor);
 
             ProtoBuf.Attribute.Anchor protobufAnchor = attribute.Anchors.Single();
 
-            var yotiAnchor = new Yoti.Auth.Anchors.Anchor(protobufAnchor);
+            var yotiAnchor = new Anchor(protobufAnchor);
 
             Assert.AreEqual(AnchorType.SOURCE, yotiAnchor.GetAnchorType());
             Assert.IsFalse(yotiAnchor.GetSignature().IsDefault());
@@ -68,10 +68,10 @@ namespace Yoti.Auth.Tests
 
             _yotiProfile = TestTools.Profile.AddAttributeToProfile<Dictionary<string, JToken>>(new YotiProfile(), attribute);
 
-            IEnumerable<Anchors.Anchor> sources = _yotiProfile.StructuredPostalAddress.GetSources();
+            IEnumerable<Anchor> sources = _yotiProfile.StructuredPostalAddress.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.GetValue().Contains(DrivingLicenseSourceType)));
+                    s => s.GetValue() == DrivingLicenseSourceType));
         }
 
         [TestMethod]
@@ -85,10 +85,10 @@ namespace Yoti.Auth.Tests
 
             _yotiProfile = TestTools.Profile.AddAttributeToProfile<DateTime>(new YotiProfile(), attribute);
 
-            IEnumerable<Anchors.Anchor> sources = _yotiProfile.DateOfBirth.GetSources();
+            IEnumerable<Anchor> sources = _yotiProfile.DateOfBirth.GetSources();
             Assert.IsTrue(
                 sources.Any(
-                    s => s.GetValue().Contains(PassportSourceType)));
+                    s => s.GetValue() == PassportSourceType));
         }
 
         [TestMethod]
@@ -102,10 +102,30 @@ namespace Yoti.Auth.Tests
 
             _yotiProfile = TestTools.Profile.AddAttributeToProfile<Image>(new YotiProfile(), attribute);
 
-            IEnumerable<Anchors.Anchor> verifiers = _yotiProfile.Selfie.GetVerifiers();
+            IEnumerable<Anchor> verifiers = _yotiProfile.Selfie.GetVerifiers();
             Assert.IsTrue(
                 verifiers.Any(
-                    s => s.GetValue().Contains(YotiAdminVerifierType)));
+                    s => s.GetValue() == YotiAdminVerifierType));
+        }
+
+        [TestMethod]
+        public void RetrievingAnUnknownAnchor()
+        {
+            ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
+                Constants.UserProfile.NationalityAttribute,
+                "LND",
+                ProtoBuf.Attribute.ContentType.String,
+                TestAnchors.UnknownAnchor);
+
+            ProtoBuf.Attribute.Anchor protobufAnchor = attribute.Anchors.Single();
+
+            var yotiAnchor = new Anchor(protobufAnchor);
+
+            Assert.AreEqual(AnchorType.UNKNOWN, yotiAnchor.GetAnchorType());
+            Assert.AreEqual("", yotiAnchor.GetValue());
+            Assert.AreEqual("TEST UNKNOWN SUB TYPE", yotiAnchor.GetSubType());
+            Assert.AreEqual(636873795118400370, yotiAnchor.GetSignedTimeStamp().GetTimestamp().Ticks);
+            Assert.AreEqual("00ABA6DD34D84D2696171C6E856E952C81", yotiAnchor.GetOriginServerCerts().First().SerialNumber);
         }
     }
 }
