@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using Google.Protobuf;
 using Org.BouncyCastle.Asn1;
-using Yoti.Auth.CustomAttributes;
 
 namespace Yoti.Auth.Anchors
 {
@@ -24,22 +23,31 @@ namespace Yoti.Auth.Anchors
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
                 var anchorEnum = typeof(AnchorType);
 
-                foreach (AnchorType type in Enum.GetValues(anchorEnum))
+                foreach (X509Extension x509Extension in certificate.Extensions.OfType<X509Extension>())
                 {
-                    var name = Enum.GetName(anchorEnum, type);
-                    string extensionOid = anchorEnum.GetRuntimeField(name)
-                        .GetCustomAttributes(inherit: false)
-                        .OfType<ExtensionOidAttribute>()
-                        .Single().ExtensionOid;
+                    var extensionOid = x509Extension.Oid.Value;
+
+                    if (extensionOid == AnchorType.SOURCE.ExtensionOid())
+                    {
+                        anchorType = AnchorType.SOURCE;
+                    }
+                    else if (extensionOid == AnchorType.VERIFIER.ExtensionOid())
+                    {
+                        anchorType = AnchorType.VERIFIER;
+                    }
+                    else
+                    {
+                        continue;
+                    }
 
                     extensions = GetListOfStringsFromExtension(certificate, extensionOid);
-
-                    if (extensions.Any())
-                    {
-                        anchorType = type;
-                        break;
-                    }
                 }
+
+                if (extensions.Count == 0)
+                {
+                    return new AnchorVerifierSourceData(new HashSet<string> { "" }, AnchorType.UNKNOWN);
+                }
+
                 types.UnionWith(extensions);
             }
 
@@ -72,6 +80,18 @@ namespace Yoti.Auth.Anchors
             }
 
             return extensionStrings;
+        }
+
+        private static string ExtensionOid(this Enum value)
+        {
+            var enumType = value.GetType();
+            var name = Enum.GetName(enumType, value);
+
+            return enumType.GetField(name)
+                .GetCustomAttributes(false)
+                .OfType<ExtensionOidAttribute>()
+                .SingleOrDefault()
+                .ExtensionOid;
         }
     }
 }
