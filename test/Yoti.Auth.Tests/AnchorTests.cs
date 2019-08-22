@@ -8,7 +8,6 @@ using Yoti.Auth.Anchors;
 using Yoti.Auth.Images;
 using Yoti.Auth.Profile;
 using Yoti.Auth.Tests.TestData;
-using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests
 {

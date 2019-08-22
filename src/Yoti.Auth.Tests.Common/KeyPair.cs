@@ -12,5 +12,15 @@ namespace Yoti.Auth.Tests.Common
                 return CryptoEngine.LoadRsaKey(stream);
             }
         }
+
+        internal static StreamReader GetValidKeyStream()
+        {
+            return File.OpenText("test-key.pem");
+        }
+
+        internal static StreamReader GetInvalidFormatKeyStream()
+        {
+            return File.OpenText("test-key-invalid-format.pem");
+        }
     }
 }
