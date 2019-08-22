@@ -30,7 +30,7 @@ namespace Yoti.Auth.Verifications
             if (!Regex.IsMatch(attributeName, expectedFormatRegex))
             {
                 throw new InvalidOperationException(
-                    $"{nameof(attributeName)} does not match expected format: '{expectedFormatRegex}'");
+                    $"{nameof(attributeName)} {Properties.Resources.FormatMismatch} '{expectedFormatRegex}'");
             }
 
             _derivedAttribute = derivedAttribute;
