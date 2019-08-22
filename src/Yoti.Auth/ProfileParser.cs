@@ -23,14 +23,14 @@ namespace Yoti.Auth
 
             if (string.IsNullOrEmpty(response.Content))
             {
-                throw new YotiProfileException("The content of the response is null");
+                throw new YotiProfileException(Properties.Resources.NullOrEmptyResponseContent);
             }
 
             ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
 
             if (parsedResponse.Receipt == null)
             {
-                throw new YotiProfileException("The receipt of the parsed response is null");
+                throw new YotiProfileException(Properties.Resources.NullParsedResponse);
             }
             else if (parsedResponse.Receipt.SharingOutcome != "SUCCESS")
             {

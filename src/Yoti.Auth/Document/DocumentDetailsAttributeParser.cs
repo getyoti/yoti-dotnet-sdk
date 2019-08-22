@@ -18,7 +18,7 @@ namespace Yoti.Auth.Document
         {
             if (attributeValue == null || !Regex.IsMatch(attributeValue, _minimumAcceptable))
             {
-                throw new InvalidOperationException("Unable to parse attribute value to a DocumentDetails");
+                throw new InvalidOperationException(Properties.Resources.InvalidDocumentDetails);
             }
 
             string[] attributes = Regex.Split(attributeValue, @"\s+").Where(s => !string.IsNullOrEmpty(s)).ToArray();

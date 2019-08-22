@@ -38,7 +38,7 @@ namespace Yoti.Auth.Attribute
 
             if (attribute.ContentType != ContentType.String
                     && attribute.Value.Length == 0)
-                throw new InvalidOperationException("Empty value is invalid for non-string content types");
+                throw new InvalidOperationException(Properties.Resources.EmptyValueInvalid);
 
             byte[] byteAttributeValue = attribute.Value.ToByteArray();
 
@@ -125,7 +125,7 @@ namespace Yoti.Auth.Attribute
             {
                 return date;
             }
-            else throw new InvalidCastException("Unable to cast to DateTime");
+            else throw new InvalidCastException(Properties.Resources.InvalidCastDateTime);
         }
     }
 }
