@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Yoti.Auth
 {
@@ -16,7 +17,7 @@ namespace Yoti.Auth
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new InvalidOperationException($"{name} must not be empty or null");
+                throw new InvalidOperationException($"'{name}' must not be empty or null");
             }
         }
 
@@ -36,6 +37,25 @@ namespace Yoti.Auth
         {
             NotLessThan(value, lowerLimit, name);
             NotGreaterThan(value, upperLimit, name);
+        }
+
+        public static void IsNotDefault(this object value, string name)
+        {
+            if (value.IsDefault())
+                throw new InvalidOperationException(
+                    $"the value of '{name}' must not be equal to the default value for '{value.GetType().ToString()}'");
+        }
+
+        public static bool IsDefault(this object value)
+        {
+            if (value == null)
+                return true;
+
+            if (!value.GetType().GetTypeInfo().IsValueType)
+                return false;
+
+            object defaultValue = Activator.CreateInstance(value.GetType());
+            return value.Equals(defaultValue);
         }
     }
 }
