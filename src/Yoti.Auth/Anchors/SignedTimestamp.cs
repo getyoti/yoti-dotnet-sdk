@@ -17,6 +17,7 @@ namespace Yoti.Auth.Anchors
 
         public SignedTimestamp(ProtoBuf.Common.SignedTimestamp protobufSignedTimestamp)
         {
+            Validation.NotNull(protobufSignedTimestamp, nameof(protobufSignedTimestamp));
             _timestamp = ConvertMicroSecondsSinceEpochToDateTime(protobufSignedTimestamp);
             _version = protobufSignedTimestamp.Version;
             _messageDigest = protobufSignedTimestamp.MessageDigest.ToByteArray();

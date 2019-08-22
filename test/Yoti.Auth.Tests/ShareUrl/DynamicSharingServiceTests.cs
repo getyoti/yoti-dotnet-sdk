@@ -36,7 +36,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("HTTP Client"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("httpClient"));
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("HTTP Requester"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("httpRequester"));
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("API URL"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("apiUrl"));
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("Client SDK ID"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("Application Key Pair"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("Dynamic Scenario"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("dynamicScenario"));
         }
     }
 }

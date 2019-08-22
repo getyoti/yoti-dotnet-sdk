@@ -13,12 +13,12 @@ namespace Yoti.Auth.ShareUrl
     {
         internal static async Task<ShareUrlResult> CreateShareURL(HttpClient httpClient, IHttpRequester httpRequester, string apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, DynamicScenario dynamicScenario)
         {
-            Validation.NotNull(httpClient, "HTTP Client");
-            Validation.NotNull(httpRequester, "HTTP Requester");
-            Validation.NotNull(apiUrl, "API URL");
-            Validation.NotNull(sdkId, "Client SDK ID");
-            Validation.NotNull(keyPair, "Application Key Pair");
-            Validation.NotNull(dynamicScenario, "Dynamic Scenario");
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(httpRequester, nameof(httpRequester));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(dynamicScenario, nameof(dynamicScenario));
 
             string endpoint = EndpointFactory.CreateDynamicSharingPath(sdkId);
             HttpMethod httpMethod = HttpMethod.Post;

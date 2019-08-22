@@ -5,38 +5,14 @@ namespace Example.Models
 {
     public class DisplayAttributes
     {
-        public List<DisplayAttribute> AttributeList;
-        public string _base64Selfie;
-        public string _fullName;
-
         internal DisplayAttributes()
         {
             AttributeList = new List<DisplayAttribute>();
         }
 
-        public string Base64Selfie
-        {
-            get
-            {
-                return _base64Selfie;
-            }
-            internal set
-            {
-                _base64Selfie = value;
-            }
-        }
-
-        public string FullName
-        {
-            get
-            {
-                return _fullName;
-            }
-            internal set
-            {
-                _fullName = value;
-            }
-        }
+        public List<DisplayAttribute> AttributeList { get; internal set; }
+        public string Base64Selfie { get; internal set; }
+        public string FullName { get; internal set; }
 
         internal void Add(DisplayAttribute displayAttribute)
         {
