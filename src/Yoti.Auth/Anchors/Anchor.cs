@@ -28,7 +28,7 @@ namespace Yoti.Auth.Anchors
 
         public Anchor(ProtoBuf.Attribute.Anchor protobufAnchor)
         {
-            Validation.NotNull(protobufAnchor, "protobufAnchor");
+            Validation.NotNull(protobufAnchor, nameof(protobufAnchor));
 
             AnchorVerifierSourceData anchorSourceData = AnchorCertificateParser.GetTypesFromAnchor(protobufAnchor);
 

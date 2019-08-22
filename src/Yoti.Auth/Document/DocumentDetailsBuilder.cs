@@ -51,9 +51,9 @@ namespace Yoti.Auth.Document
 
         public DocumentDetails Build()
         {
-            Validation.NotNullOrEmpty(_type, "_type");
-            Validation.NotNullOrEmpty(_issuingCountry, "_issuingCountry");
-            Validation.NotNullOrEmpty(_number, "_number");
+            Validation.NotNullOrEmpty(_type, nameof(_type));
+            Validation.NotNullOrEmpty(_issuingCountry, nameof(_issuingCountry));
+            Validation.NotNullOrEmpty(_number, nameof(_number));
 
             return new DocumentDetails(_type, _issuingCountry, _number, _expirationDate, _authority);
         }
