@@ -3,26 +3,17 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Yoti.Auth.Aml;
+using Yoti.Auth.Tests.Common;
 
 namespace Yoti.Auth.Tests
 {
     [TestClass]
     public class YotiClientTests
     {
-        private static StreamReader GetValidKeyStream()
-        {
-            return File.OpenText("test-key.pem");
-        }
-
-        private static StreamReader GetInvalidFormatKeyStream()
-        {
-            return File.OpenText("test-key-invalid-format.pem");
-        }
-
         [TestMethod]
         public void YotiClient_NullSdkId_ThrowsException()
         {
-            StreamReader keystream = GetValidKeyStream();
+            StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = null;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -33,7 +24,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiClient_EmptySdkId_ThrowsException()
         {
-            StreamReader keystream = GetValidKeyStream();
+            StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = string.Empty;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -55,7 +46,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void YotiClient_InvalidKeyStream_ThrowsException()
         {
-            StreamReader keystream = GetInvalidFormatKeyStream();
+            StreamReader keystream = KeyPair.GetInvalidFormatKeyStream();
             const string sdkId = "fake-sdk-id";
             Assert.ThrowsException<FormatException>(() =>
             {
@@ -167,7 +158,7 @@ namespace Yoti.Auth.Tests
         private static YotiClient CreateYotiClient()
         {
             const string sdkId = "fake-sdk-id";
-            StreamReader privateStreamKey = GetValidKeyStream();
+            StreamReader privateStreamKey = KeyPair.GetValidKeyStream();
 
             return new YotiClient(sdkId, privateStreamKey);
         }

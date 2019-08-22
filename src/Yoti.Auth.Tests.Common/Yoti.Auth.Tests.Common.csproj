@@ -7,4 +7,19 @@
   <ItemGroup>
     <ProjectReference Include="..\Yoti.Auth\Yoti.Auth.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="test-key-invalid-format.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test-key.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Yoti.Auth.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>
