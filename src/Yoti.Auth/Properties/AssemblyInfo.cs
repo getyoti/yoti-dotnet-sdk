@@ -19,3 +19,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("fd86a254-0965-4748-9d10-782eeea23d07")]
 [assembly: InternalsVisibleTo("Yoti.Auth.Tests")]
 [assembly: InternalsVisibleTo("Yoti.Auth.Tests.Common")]
+[assembly: InternalsVisibleTo("Yoti.Auth.Sandbox")]
+[assembly: InternalsVisibleTo("Yoti.Auth.Sandbox.Tests")]
