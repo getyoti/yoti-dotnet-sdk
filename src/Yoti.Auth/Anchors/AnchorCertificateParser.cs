@@ -21,7 +21,6 @@ namespace Yoti.Auth.Anchors
             {
                 var extensions = new List<string>();
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
-                var anchorEnum = typeof(AnchorType);
 
                 foreach (X509Extension x509Extension in certificate.Extensions.OfType<X509Extension>())
                 {

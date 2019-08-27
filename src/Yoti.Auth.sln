@@ -26,6 +26,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmlExample", "Examples\Aml\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoti.Auth.Tests.Common", "Yoti.Auth.Tests.Common\Yoti.Auth.Tests.Common.csproj", "{5A23ACEE-3A49-49CA-901D-7142F5EF9517}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Sandbox.Tests", "Yoti.Auth.Sandbox.Tests\Yoti.Auth.Sandbox.Tests.csproj", "{874D9CE6-C744-4E96-B14A-73C9E020A301}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Sandbox", "Yoti.Auth.Sandbox\Yoti.Auth.Sandbox.csproj", "{E17A22B8-E885-49A4-B0C6-57539CDF06F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{D786C927-1004-428F-984D-F395140EB345}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +62,14 @@ Global
 		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A23ACEE-3A49-49CA-901D-7142F5EF9517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{874D9CE6-C744-4E96-B14A-73C9E020A301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{874D9CE6-C744-4E96-B14A-73C9E020A301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{874D9CE6-C744-4E96-B14A-73C9E020A301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{874D9CE6-C744-4E96-B14A-73C9E020A301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E17A22B8-E885-49A4-B0C6-57539CDF06F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E17A22B8-E885-49A4-B0C6-57539CDF06F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E17A22B8-E885-49A4-B0C6-57539CDF06F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E17A22B8-E885-49A4-B0C6-57539CDF06F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +80,8 @@ Global
 		{67932B76-FC59-4E96-B1B7-D8C574638897} = {F3EB26B1-6385-4A89-A8F9-8BAFFEC581F9}
 		{C3CAC5F0-C455-4634-A989-7443EBDC09E3} = {F3EB26B1-6385-4A89-A8F9-8BAFFEC581F9}
 		{34AC42F8-1D13-4D12-9C77-DB7A42494918} = {C3CAC5F0-C455-4634-A989-7443EBDC09E3}
+		{874D9CE6-C744-4E96-B14A-73C9E020A301} = {D786C927-1004-428F-984D-F395140EB345}
+		{E17A22B8-E885-49A4-B0C6-57539CDF06F2} = {D786C927-1004-428F-984D-F395140EB345}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A3AE710-68BB-4034-921C-EBAE5186F5DF}
