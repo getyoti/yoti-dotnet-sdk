@@ -4,18 +4,13 @@ namespace Yoti.Auth.Document
 {
     internal class DocumentDetailsBuilder
     {
-        public static DocumentDetailsBuilder Builder()
-        {
-            return new DocumentDetailsBuilder();
-        }
-
         private string _type;
         private string _issuingCountry;
         private string _number;
         private DateTime? _expirationDate;
         private string _authority;
 
-        private DocumentDetailsBuilder()
+        internal DocumentDetailsBuilder()
         {
         }
 
