@@ -23,7 +23,7 @@ namespace Yoti.Auth.Document
 
             string[] attributes = Regex.Split(attributeValue, @"\s+").Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
-            return DocumentDetailsBuilder.Builder()
+            return new DocumentDetailsBuilder()
                     .WithType(attributes[TYPE_INDEX])
                     .WithIssuingCountry(attributes[COUNTRY_INDEX])
                     .WithNumber(attributes[NUMBER_INDEX])
