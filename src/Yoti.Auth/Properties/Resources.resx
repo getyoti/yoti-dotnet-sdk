@@ -120,6 +120,9 @@
   <data name="EmptyValueInvalid" xml:space="preserve">
     <value>Empty value is invalid for non-string content types</value>
   </data>
+  <data name="EndpointMustBeginWithSlash" xml:space="preserve">
+    <value>EndpointMustBeginWithSlash</value>
+  </data>
   <data name="FormatMismatch" xml:space="preserve">
     <value>does not match expected format:</value>
   </data>
@@ -134,5 +137,8 @@
   </data>
   <data name="NullParsedResponse" xml:space="preserve">
     <value>The receipt of the parsed response is null</value>
+  </data>
+  <data name="UseRelativePath" xml:space="preserve">
+    <value>The path must not be an Absolute URI, use Relative (UriKind.Relative)</value>
   </data>
 </root>

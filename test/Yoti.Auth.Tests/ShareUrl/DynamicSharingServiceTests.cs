@@ -13,10 +13,9 @@ namespace Yoti.Auth.Tests.ShareUrl
     public class DynamicSharingServiceTests
     {
         private const string _sdkID = "sdkID";
-        private const string _apiURL = @"https://apiurl.com";
+        private readonly Uri _apiURL = new Uri("https://apiurl.com");
         private readonly Dictionary<string, string> _someHeaders = new Dictionary<string, string>();
         private readonly HttpClient _httpClient = new HttpClient();
-        private readonly HttpRequester _httpRequester = new HttpRequester();
         private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
         private DynamicScenario _someDynamicScenario;
 
@@ -28,11 +27,11 @@ namespace Yoti.Auth.Tests.ShareUrl
         }
 
         [TestMethod]
-        public void ShouldFaillWithNullHttpClient()
+        public void ShouldFailWithNullHttpClient()
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DynamicSharingService.CreateShareURL(null, _httpRequester, _apiURL, _sdkID, _keyPair, _someDynamicScenario).Wait();
+                DynamicSharingService.CreateShareURL(null, _apiURL, _sdkID, _keyPair, _someDynamicScenario).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -40,23 +39,11 @@ namespace Yoti.Auth.Tests.ShareUrl
         }
 
         [TestMethod]
-        public void ShouldFaillWithNullHttpRequester()
+        public void ShouldFailWithNullApiUrl()
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DynamicSharingService.CreateShareURL(_httpClient, null, _apiURL, _sdkID, _keyPair, _someDynamicScenario).Wait();
-            });
-
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("httpRequester"));
-        }
-
-        [TestMethod]
-        public void ShouldFaillWithNullapiUrl()
-        {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                DynamicSharingService.CreateShareURL(_httpClient, _httpRequester, null, _sdkID, _keyPair, _someDynamicScenario).Wait();
+                DynamicSharingService.CreateShareURL(_httpClient, null, _sdkID, _keyPair, _someDynamicScenario).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -64,11 +51,11 @@ namespace Yoti.Auth.Tests.ShareUrl
         }
 
         [TestMethod]
-        public void ShouldFaillWithNullSdkId()
+        public void ShouldFailWithNullSdkId()
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DynamicSharingService.CreateShareURL(_httpClient, _httpRequester, _apiURL, null, _keyPair, _someDynamicScenario).Wait();
+                DynamicSharingService.CreateShareURL(_httpClient, _apiURL, null, _keyPair, _someDynamicScenario).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -76,11 +63,11 @@ namespace Yoti.Auth.Tests.ShareUrl
         }
 
         [TestMethod]
-        public void ShouldFaillWithNullKeyPair()
+        public void ShouldFailWithNullKeyPair()
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DynamicSharingService.CreateShareURL(_httpClient, _httpRequester, _apiURL, _sdkID, null, _someDynamicScenario).Wait();
+                DynamicSharingService.CreateShareURL(_httpClient, _apiURL, _sdkID, null, _someDynamicScenario).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -88,11 +75,11 @@ namespace Yoti.Auth.Tests.ShareUrl
         }
 
         [TestMethod]
-        public void ShouldFaillWithNullDynamicScenario()
+        public void ShouldFailWithNullDynamicScenario()
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DynamicSharingService.CreateShareURL(_httpClient, _httpRequester, _apiURL, _sdkID, _keyPair, null).Wait();
+                DynamicSharingService.CreateShareURL(_httpClient, _apiURL, _sdkID, _keyPair, null).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));

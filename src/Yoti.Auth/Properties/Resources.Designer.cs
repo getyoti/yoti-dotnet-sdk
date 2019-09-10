@@ -71,6 +71,15 @@ namespace Yoti.Auth.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EndpointMustBeginWithSlash.
+        /// </summary>
+        internal static string EndpointMustBeginWithSlash {
+            get {
+                return ResourceManager.GetString("EndpointMustBeginWithSlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to does not match expected format:.
         /// </summary>
         internal static string FormatMismatch {
@@ -112,6 +121,15 @@ namespace Yoti.Auth.Properties {
         internal static string NullParsedResponse {
             get {
                 return ResourceManager.GetString("NullParsedResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path must not be an Absolute URI, use Relative (UriKind.Relative).
+        /// </summary>
+        internal static string UseRelativePath {
+            get {
+                return ResourceManager.GetString("UseRelativePath", resourceCulture);
             }
         }
     }

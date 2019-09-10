@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.Common
             }
         }
 
-        internal static StreamReader GetValidKeyStream()
+        public static StreamReader GetValidKeyStream()
         {
             return File.OpenText("test-key.pem");
         }

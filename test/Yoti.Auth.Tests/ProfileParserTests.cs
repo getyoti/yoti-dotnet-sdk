@@ -18,7 +18,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<YotiProfileException>(() =>
             {
-                ProfileParser.HandleResponse(KeyPair.Get(), response);
+                ProfileParser.HandleResponse(KeyPair.Get(), response.Content);
             });
         }
 
@@ -33,7 +33,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<YotiProfileException>(() =>
             {
-                ProfileParser.HandleResponse(KeyPair.Get(), response);
+                ProfileParser.HandleResponse(KeyPair.Get(), response.Content);
             });
         }
     }

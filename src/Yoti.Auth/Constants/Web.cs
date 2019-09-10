@@ -1,4 +1,6 @@
-﻿namespace Yoti.Auth.Constants
+﻿using System;
+
+namespace Yoti.Auth.Constants
 {
     public static class Web
     {
