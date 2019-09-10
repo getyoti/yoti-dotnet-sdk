@@ -14,19 +14,14 @@ namespace Yoti.Auth
 {
     internal static class ProfileParser
     {
-        public static ActivityDetails HandleResponse(AsymmetricCipherKeyPair keyPair, Response response)
+        public static ActivityDetails HandleResponse(AsymmetricCipherKeyPair keyPair, string responseContent)
         {
-            if (!response.Success)
-            {
-                Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
-            }
-
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(responseContent))
             {
                 throw new YotiProfileException(Properties.Resources.NullOrEmptyResponseContent);
             }
 
-            ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(response.Content);
+            ProfileDO parsedResponse = JsonConvert.DeserializeObject<ProfileDO>(responseContent);
 
             if (parsedResponse.Receipt == null)
             {

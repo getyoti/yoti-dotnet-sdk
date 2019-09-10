@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
+using Yoti.Auth.Exceptions;
 using Yoti.Auth.ShareUrl;
 using Yoti.Auth.Web;
 
@@ -12,12 +12,10 @@ namespace Yoti.Auth
 {
     internal class YotiClientEngine
     {
-        private readonly IHttpRequester _httpRequester;
         private readonly HttpClient _httpClient;
 
-        public YotiClientEngine(IHttpRequester httpRequester, HttpClient httpClient)
+        public YotiClientEngine(HttpClient httpClient)
         {
-            _httpRequester = httpRequester;
             _httpClient = httpClient;
 
 #if !NETSTANDARD1_6
@@ -28,25 +26,28 @@ namespace Yoti.Auth
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl)
         {
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
-            const string path = "profile";
-            byte[] httpContent = null;
-            HttpMethod httpMethod = HttpMethod.Get;
+            string path = $"profile/{token}";
 
-            string endpoint = EndpointFactory.CreateProfileEndpoint(path, token, sdkId);
+            Request profileRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithHttpMethod(HttpMethod.Get)
+                .WithBaseUri(apiUrl)
+                .WithEndpoint(path)
+                .WithQueryParam("appId", sdkId)
+                .Build();
 
-            Dictionary<string, string> headers = HeadersFactory.Create(keyPair, httpMethod, endpoint, httpContent: null);
+            using (HttpResponseMessage response = await profileRequest.Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                    Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
 
-            Response response = await _httpRequester.DoRequest(
-                _httpClient,
-                HttpMethod.Get,
-                new Uri(apiUrl.ToString().TrimEnd('/') + endpoint),
-                headers,
-                httpContent).ConfigureAwait(false);
-
-            return ProfileParser.HandleResponse(keyPair, response);
+                return ProfileParser.HandleResponse(
+                    keyPair,
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(true));
+            }
         }
 
-        public Task<AmlResult> PerformAmlCheckAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        public Task<AmlResult> PerformAmlCheckAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, IAmlProfile amlProfile)
         {
             if (apiUrl == null)
             {
@@ -61,29 +62,23 @@ namespace Yoti.Auth
             return PerformAmlCheckInternalAsync(sdkId, keyPair, apiUrl, amlProfile);
         }
 
-        private async Task<AmlResult> PerformAmlCheckInternalAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, IAmlProfile amlProfile)
+        private async Task<AmlResult> PerformAmlCheckInternalAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, IAmlProfile amlProfile)
         {
             string serializedProfile = Newtonsoft.Json.JsonConvert.SerializeObject(amlProfile);
             byte[] httpContent = System.Text.Encoding.UTF8.GetBytes(serializedProfile);
 
-            HttpMethod httpMethod = HttpMethod.Post;
-
-            string endpoint = EndpointFactory.CreateAmlEndpoint(sdkId);
-
-            Dictionary<string, string> headers = HeadersFactory.Create(keyPair, httpMethod, endpoint, httpContent);
-
             AmlResult result = await Task.Run(async () => await new RemoteAmlService()
                 .PerformCheck(
-                _httpClient, _httpRequester, headers, apiUrl, endpoint, httpContent).ConfigureAwait(false))
+                _httpClient, keyPair, apiUrl, sdkId, httpContent).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;
         }
 
-        public async Task<ShareUrlResult> CreateShareURLAsync(string sdkId, AsymmetricCipherKeyPair keyPair, string apiUrl, DynamicScenario dynamicScenario)
+        public async Task<ShareUrlResult> CreateShareURLAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, DynamicScenario dynamicScenario)
         {
             ShareUrlResult result = await Task.Run(async () => await DynamicSharingService.CreateShareURL(
-                _httpClient, _httpRequester, apiUrl, sdkId, keyPair, dynamicScenario).ConfigureAwait(false))
+                _httpClient, apiUrl, sdkId, keyPair, dynamicScenario).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;

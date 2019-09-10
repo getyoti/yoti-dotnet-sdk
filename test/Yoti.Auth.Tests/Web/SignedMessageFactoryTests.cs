@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Tests.Common;
 using Yoti.Auth.Web;
 
-namespace Yoti.Auth.Tests
+namespace Yoti.Auth.Tests.Web
 {
     [TestClass]
     public class SignedMessageFactoryTests

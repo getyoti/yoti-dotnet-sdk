@@ -14,7 +14,7 @@ namespace Yoti.Auth
         private readonly string _sdkId;
         private readonly AsymmetricCipherKeyPair _keyPair;
         private readonly YotiClientEngine _yotiClientEngine;
-        private readonly string _defaultApiUrl = Constants.Web.DefaultYotiApiUrl;
+        private readonly Uri _defaultApiUrl = new Uri(Constants.Web.DefaultYotiApiUrl);
 
         /// <summary>
         /// Create a <see cref="YotiClient"/>
@@ -50,7 +50,7 @@ namespace Yoti.Auth
             _sdkId = sdkId;
             _keyPair = CryptoEngine.LoadRsaKey(privateStreamKey);
 
-            _yotiClientEngine = new YotiClientEngine(new HttpRequester(), httpClient);
+            _yotiClientEngine = new YotiClientEngine(httpClient);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Yoti.Auth
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken, Uri apiUrl = null)
         {
             if (apiUrl == null)
-                apiUrl = new Uri(_defaultApiUrl);
+                apiUrl = _defaultApiUrl;
 
             return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, apiUrl).ConfigureAwait(false);
         }

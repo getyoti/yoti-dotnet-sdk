@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Web;
 
@@ -9,25 +10,30 @@ namespace Yoti.Auth.Aml
 {
     internal class RemoteAmlService : IRemoteAmlService
     {
-        public async Task<AmlResult> PerformCheck(HttpClient httpClient, IHttpRequester httpRequester, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
+        public async Task<AmlResult> PerformCheck(
+            HttpClient httpClient,
+            AsymmetricCipherKeyPair keyPair,
+            Uri apiUrl,
+            string sdkId,
+            byte[] httpContent)
         {
-            HttpMethod httpMethod = HttpMethod.Post;
+            Request amlRequest = new RequestBuilder()
+               .WithKeyPair(keyPair)
+               .WithBaseUri(apiUrl)
+               .WithEndpoint("/aml-check")
+               .WithQueryParam("appId", sdkId)
+               .WithHttpMethod(HttpMethod.Post)
+               .WithContent(httpContent)
+               .Build();
 
-            Response response = await httpRequester.DoRequest(
-                httpClient,
-                httpMethod,
-                new Uri(apiUrl + endpoint),
-                headers,
-                httpContent).ConfigureAwait(false);
-
-            if (!response.Success)
+            using (HttpResponseMessage response = await amlRequest.Execute(httpClient).ConfigureAwait(false))
             {
-                Response.CreateExceptionFromStatusCode<AmlException>(response);
+                if (!response.IsSuccessStatusCode)
+                    Response.CreateExceptionFromStatusCode<AmlException>(response);
+
+                return JsonConvert.DeserializeObject<AmlResult>(
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(true));
             }
-
-            var amlResult = Newtonsoft.Json.JsonConvert.DeserializeObject<AmlResult>(response.Content);
-
-            return amlResult;
         }
     }
 }
