@@ -10,7 +10,7 @@ namespace Yoti.Auth.Document
         private DateTime? _expirationDate;
         private string _authority;
 
-        internal DocumentDetailsBuilder()
+        public DocumentDetailsBuilder()
         {
         }
 
