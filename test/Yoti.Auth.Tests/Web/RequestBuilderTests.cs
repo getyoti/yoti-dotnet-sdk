@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Tests.Common;
 using Yoti.Auth.Web;
@@ -31,10 +30,10 @@ namespace Yoti.Auth.Tests.Web
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 new RequestBuilder()
-                .WithBaseUri(_testBaseUri)
-                .WithEndpoint("/a")
-                .WithHttpMethod(HttpMethod.Get)
-                .Build();
+                    .WithBaseUri(_testBaseUri)
+                    .WithEndpoint("/a")
+                    .WithHttpMethod(HttpMethod.Get)
+                    .Build();
             });
 
             Assert.IsTrue(argumentNullException.Message.Contains("_keyPair"));
@@ -46,10 +45,10 @@ namespace Yoti.Auth.Tests.Web
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 new RequestBuilder()
-                .WithKeyPair(KeyPair.Get())
-                .WithEndpoint("/a")
-                .WithHttpMethod(HttpMethod.Post)
-                .Build();
+                    .WithKeyPair(KeyPair.Get())
+                    .WithEndpoint("/a")
+                    .WithHttpMethod(HttpMethod.Post)
+                    .Build();
             });
 
             Assert.IsTrue(argumentNullException.Message.Contains("_baseUri"));
@@ -61,10 +60,10 @@ namespace Yoti.Auth.Tests.Web
             var invalidOperationException = Assert.ThrowsException<InvalidOperationException>(() =>
             {
                 new RequestBuilder()
-                .WithBaseUri(_testBaseUri)
-                .WithKeyPair(KeyPair.Get())
-                .WithHttpMethod(HttpMethod.Delete)
-                .Build();
+                    .WithBaseUri(_testBaseUri)
+                    .WithKeyPair(KeyPair.Get())
+                    .WithHttpMethod(HttpMethod.Delete)
+                    .Build();
             });
 
             Assert.IsTrue(invalidOperationException.Message.Contains("_endpoint"));
@@ -76,10 +75,10 @@ namespace Yoti.Auth.Tests.Web
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 new RequestBuilder()
-                .WithBaseUri(_testBaseUri)
-                .WithKeyPair(KeyPair.Get())
-                .WithEndpoint("/a")
-                .Build();
+                    .WithBaseUri(_testBaseUri)
+                    .WithKeyPair(KeyPair.Get())
+                    .WithEndpoint("/a")
+                    .Build();
             });
 
             Assert.IsTrue(argumentNullException.Message.Contains("_httpMethod"));
@@ -89,8 +88,8 @@ namespace Yoti.Auth.Tests.Web
         public void AddsQueryParams()
         {
             Request request = CreateRequestBuilder()
-            .WithQueryParam("key", "value")
-            .Build();
+                .WithQueryParam("key", "value")
+                .Build();
 
             Assert.IsTrue(request.RequestMessage.RequestUri.Query.Contains("key=value"));
         }
@@ -99,8 +98,8 @@ namespace Yoti.Auth.Tests.Web
         public void ContentIsAdded()
         {
             Request request = CreateRequestBuilder()
-            .WithContent(_content)
-            .Build();
+                .WithContent(_content)
+                .Build();
 
             Assert.IsTrue(_content.SequenceEqual(request.RequestMessage.Content.ReadAsByteArrayAsync().Result));
         }
@@ -109,8 +108,8 @@ namespace Yoti.Auth.Tests.Web
         public void CustomHeadersAreAdded()
         {
             Request request = CreateRequestBuilder()
-            .WithHeader("key", "value")
-            .Build();
+                .WithHeader("key", "value")
+                .Build();
 
             request.RequestMessage.Headers.TryGetValues("key", out IEnumerable<string> headers);
             Assert.IsTrue(headers.Contains("value"));
@@ -119,21 +118,21 @@ namespace Yoti.Auth.Tests.Web
         private RequestBuilder CreateRequestBuilder()
         {
             return new RequestBuilder()
-            .WithBaseUri(_testBaseUri)
-            .WithKeyPair(KeyPair.Get())
-            .WithEndpoint("/a")
-            .WithHttpMethod(HttpMethod.Post);
+                .WithBaseUri(_testBaseUri)
+                .WithKeyPair(KeyPair.Get())
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Post);
         }
 
         [TestMethod]
         public void ExtraSlashInUriIsntIncluded()
         {
             Request request = new RequestBuilder()
-               .WithBaseUri(new Uri("https://test.com/"))
-               .WithKeyPair(KeyPair.Get())
-               .WithEndpoint("/a")
-               .WithHttpMethod(HttpMethod.Patch)
-               .Build();
+                .WithBaseUri(new Uri("https://test.com/"))
+                .WithKeyPair(KeyPair.Get())
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Patch)
+                .Build();
 
             Assert.IsTrue(request.RequestMessage.RequestUri.ToString().Contains("https://test.com/a"));
         }
@@ -142,11 +141,11 @@ namespace Yoti.Auth.Tests.Web
         public void EndpointTrailingSlashIsAdded()
         {
             Request request = new RequestBuilder()
-              .WithBaseUri(_testBaseUri)
-              .WithKeyPair(KeyPair.Get())
-              .WithEndpoint("a")
-              .WithHttpMethod(HttpMethod.Patch)
-              .Build();
+                .WithBaseUri(_testBaseUri)
+                .WithKeyPair(KeyPair.Get())
+                .WithEndpoint("a")
+                .WithHttpMethod(HttpMethod.Patch)
+                .Build();
 
             Assert.IsTrue(request.RequestMessage.RequestUri.ToString().Contains("https://test.com/a"));
         }
@@ -222,6 +221,28 @@ namespace Yoti.Auth.Tests.Web
             Assert.IsTrue(
                 amlRequest.RequestMessage.RequestUri.ToString().StartsWith(
                     $"https://api.yoti.com/api/v1/aml-check?appId={_sdkId}&"));
+        }
+
+        [TestMethod]
+        public void TestDocScanRequest()
+        {
+            StreamReader privateKeyStream = KeyPair.GetValidKeyStream();
+
+            Uri docScanUri = new UriBuilder("https", "docscan.base", 443, "/idverify/v1").Uri;
+
+            Request docScanRequest = new RequestBuilder()
+               .WithStreamReader(privateKeyStream)
+               .WithHttpMethod(HttpMethod.Post)
+               .WithBaseUri(docScanUri)
+               .WithEndpoint("/sessions")
+               .WithQueryParam("sdkId", _sdkId)
+               .WithContent(_content)
+               .WithHeader("X-Yoti-Auth-Id", _sdkId)
+               .Build();
+
+            Assert.IsTrue(
+                docScanRequest.RequestMessage.RequestUri.ToString().StartsWith(
+                    $"https://docscan.base/idverify/v1/sessions?sdkId={_sdkId}&"));
         }
     }
 }
