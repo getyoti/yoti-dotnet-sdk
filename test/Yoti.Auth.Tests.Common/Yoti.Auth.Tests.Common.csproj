@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yoti.Auth\Yoti.Auth.csproj" />
+    <ProjectReference Include="..\..\src\Yoti.Auth\Yoti.Auth.csproj" />
   </ItemGroup>
 
   <ItemGroup>
