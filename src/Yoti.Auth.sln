@@ -24,9 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aml", "Aml", "{C3CAC5F0-C45
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmlExample", "Examples\Aml\AmlExample\AmlExample.csproj", "{34AC42F8-1D13-4D12-9C77-DB7A42494918}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoti.Auth.Tests.Common", "Yoti.Auth.Tests.Common\Yoti.Auth.Tests.Common.csproj", "{5A23ACEE-3A49-49CA-901D-7142F5EF9517}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoti.Auth.Tests.Common", "..\test\Yoti.Auth.Tests.Common\Yoti.Auth.Tests.Common.csproj", "{5A23ACEE-3A49-49CA-901D-7142F5EF9517}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Sandbox.Tests", "Yoti.Auth.Sandbox.Tests\Yoti.Auth.Sandbox.Tests.csproj", "{874D9CE6-C744-4E96-B14A-73C9E020A301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Sandbox.Tests", "..\test\Yoti.Auth.Sandbox.Tests\Yoti.Auth.Sandbox.Tests.csproj", "{874D9CE6-C744-4E96-B14A-73C9E020A301}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yoti.Auth.Sandbox", "Yoti.Auth.Sandbox\Yoti.Auth.Sandbox.csproj", "{E17A22B8-E885-49A4-B0C6-57539CDF06F2}"
 EndProject
