@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
 using Yoti.Auth.ShareUrl;
-using Yoti.Auth.Web;
 
 namespace Yoti.Auth
 {
@@ -14,16 +13,16 @@ namespace Yoti.Auth
         private readonly string _sdkId;
         private readonly AsymmetricCipherKeyPair _keyPair;
         private readonly YotiClientEngine _yotiClientEngine;
-        private readonly Uri _defaultApiUrl = new Uri(Constants.Web.DefaultYotiApiUrl);
+        private Uri _apiUri = new Uri(Constants.Web.DefaultYotiApiUrl);
 
         /// <summary>
         /// Create a <see cref="YotiClient"/>
         /// </summary>
         /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
-        /// <param name="privateStreamKey">
+        /// <param name="privateKeyStream">
         /// The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.
         /// </param>
-        public YotiClient(string sdkId, StreamReader privateStreamKey) : this(new HttpClient(), sdkId, privateStreamKey)
+        public YotiClient(string sdkId, StreamReader privateKeyStream) : this(new HttpClient(), sdkId, privateKeyStream)
         {
         }
 
@@ -32,23 +31,40 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="httpClient">Allows the specification of a HttpClient</param>
         /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
-        /// <param name="privateStreamKey">
+        /// <param name="privateKeyStream">
         /// The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.
         /// </param>
-        public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateStreamKey)
+        public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateKeyStream)
         {
             if (string.IsNullOrEmpty(sdkId))
             {
                 throw new ArgumentNullException(nameof(sdkId));
             }
 
-            if (privateStreamKey == null)
+            if (privateKeyStream == null)
             {
-                throw new ArgumentNullException(nameof(privateStreamKey));
+                throw new ArgumentNullException(nameof(privateKeyStream));
             }
 
             _sdkId = sdkId;
-            _keyPair = CryptoEngine.LoadRsaKey(privateStreamKey);
+            _keyPair = CryptoEngine.LoadRsaKey(privateKeyStream);
+
+            _yotiClientEngine = new YotiClientEngine(httpClient);
+        }
+
+        /// <summary>
+        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// </summary>
+        /// <param name="httpClient">Allows the specification of a HttpClient</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
+        /// <param name="keyPair">The key pair from the Yoti Hub.</param>
+        public YotiClient(HttpClient httpClient, string sdkId, AsymmetricCipherKeyPair keyPair)
+        {
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+
+            _sdkId = sdkId;
+            _keyPair = keyPair;
 
             _yotiClientEngine = new YotiClientEngine(httpClient);
         }
@@ -59,9 +75,9 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>.</returns>
-        public ActivityDetails GetActivityDetails(string encryptedToken, Uri apiUrl = null)
+        public ActivityDetails GetActivityDetails(string encryptedToken)
         {
-            Task<ActivityDetails> task = Task.Run(async () => await GetActivityDetailsAsync(encryptedToken, apiUrl).ConfigureAwait(false));
+            Task<ActivityDetails> task = Task.Run(async () => await GetActivityDetailsAsync(encryptedToken).ConfigureAwait(false));
 
             return task.Result;
         }
@@ -72,12 +88,9 @@ namespace Yoti.Auth
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>.</returns>
-        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken, Uri apiUrl = null)
+        public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken)
         {
-            if (apiUrl == null)
-                apiUrl = _defaultApiUrl;
-
-            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, apiUrl).ConfigureAwait(false);
+            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _apiUri).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -99,7 +112,7 @@ namespace Yoti.Auth
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>.</returns>
         public async Task<AmlResult> PerformAmlCheckAsync(IAmlProfile amlProfile)
         {
-            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile).ConfigureAwait(false);
+            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _apiUri, amlProfile).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -127,7 +140,14 @@ namespace Yoti.Auth
         /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
         public async Task<ShareUrlResult> CreateShareUrlAsync(DynamicScenario dynamicScenario)
         {
-            return await _yotiClientEngine.CreateShareURLAsync(_sdkId, _keyPair, _defaultApiUrl, dynamicScenario).ConfigureAwait(false);
+            return await _yotiClientEngine.CreateShareURLAsync(_sdkId, _keyPair, _apiUri, dynamicScenario).ConfigureAwait(false);
+        }
+
+        public YotiClient OverrideApiUri(Uri apiUri)
+        {
+            _apiUri = apiUri;
+
+            return this;
         }
     }
 }

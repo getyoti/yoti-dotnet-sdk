@@ -17,19 +17,21 @@ namespace Yoti.Auth.Web
             {
                 case HttpStatusCode.BadRequest:
                     throw Activator.CreateInstance(typeof(E),
-                        $"Failed validation:{Environment.NewLine}{response.Content.ReadAsStringAsync()}") as E;
+                        $"Failed validation:{Environment.NewLine}{response.Content.ReadAsStringAsync().Result}") as E;
 
                 case HttpStatusCode.Unauthorized:
                     throw Activator.CreateInstance(typeof(E),
-                        $"Failed authorization with the given key:{Environment.NewLine}{response.Content.ReadAsStringAsync()}") as E;
+                        $"Failed authorization with the given key:{Environment.NewLine}{response.Content.ReadAsStringAsync().Result}") as E;
 
                 case HttpStatusCode.InternalServerError:
                     throw Activator.CreateInstance(typeof(E),
-                        $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content.ReadAsStringAsync()}") as E;
+                        $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content.ReadAsStringAsync().Result}") as E;
 
                 default:
                     throw Activator.CreateInstance(typeof(E),
-                        $"Unexpected error:{Environment.NewLine}{response.Content.ReadAsStringAsync()}") as E;
+                        $"Unexpected error:" +
+                        $"{Environment.NewLine} Status Code: '{response.StatusCode}'" +
+                        $"{Environment.NewLine} Content: '{response.Content.ReadAsStringAsync().Result}'") as E;
             }
         }
     }

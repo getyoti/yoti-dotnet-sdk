@@ -21,3 +21,4 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Yoti.Auth.Tests.Common")]
 [assembly: InternalsVisibleTo("Yoti.Auth.Sandbox")]
 [assembly: InternalsVisibleTo("Yoti.Auth.Sandbox.Tests")]
+[assembly: InternalsVisibleTo("Yoti.Sandbox.Integration")]

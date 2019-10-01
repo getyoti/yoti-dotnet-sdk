@@ -4,12 +4,12 @@ namespace Yoti.Auth.Sandbox.Profile.Request.Attribute
 {
     public class SandboxAnchor
     {
-        internal SandboxAnchor(string type, string value, string subType, long timestamp)
+        internal SandboxAnchor(string type, string value, string subType, long unixMicrosecondTimestamp)
         {
             Type = type;
             Value = value;
             SubType = subType;
-            Timestamp = timestamp;
+            UnixMicrosecondTimestamp = unixMicrosecondTimestamp;
         }
 
         public static SandboxAnchorBuilder Builder()
@@ -27,6 +27,6 @@ namespace Yoti.Auth.Sandbox.Profile.Request.Attribute
         public string SubType { get; }
 
         [JsonProperty(PropertyName = "timestamp")]
-        public long Timestamp { get; }
+        public long UnixMicrosecondTimestamp { get; }
     }
 }

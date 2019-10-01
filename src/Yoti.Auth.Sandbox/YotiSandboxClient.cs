@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Sandbox.Profile.Request;
 using Yoti.Auth.Sandbox.Profile.Response;
@@ -12,8 +12,9 @@ namespace Yoti.Auth.Sandbox
     public class YotiSandboxClient
     {
         private const string _yotiSandboxPathPrefix = "/sandbox/v1";
-        private readonly string _defaultSandboxApiUrl = Constants.Web.DefaultYotiHost + _yotiSandboxPathPrefix;
-
+        private readonly Uri _defaultSandboxApiUrl = new Uri(Constants.Web.DefaultYotiHost + _yotiSandboxPathPrefix);
+        private readonly HttpClient _httpClient;
+        private readonly Uri _apiUri;
         private readonly string _appId;
         private readonly AsymmetricCipherKeyPair _keyPair;
 
@@ -22,37 +23,39 @@ namespace Yoti.Auth.Sandbox
             return new YotiSandboxClientBuilder();
         }
 
-        public YotiSandboxClient(string appId, AsymmetricCipherKeyPair keyPair)
+        public YotiSandboxClient(HttpClient httpClient, Uri apiUri, string appId, AsymmetricCipherKeyPair keyPair)
         {
+            _httpClient = httpClient;
+            _apiUri = apiUri ?? _defaultSandboxApiUrl;
             _appId = appId;
             _keyPair = keyPair;
         }
 
-        internal string SetupSharingProfile(HttpClient httpClient, IHttpRequester httpRequester, YotiTokenRequest yotiTokenRequest)
+        public string SetupSharingProfile(YotiTokenRequest yotiTokenRequest)
         {
-            string endpoint = SandboxPathFactory.CreateSandboxPath(_appId);
-            HttpMethod httpMethod = HttpMethod.Post;
-
             try
             {
-                string serializedTokenRequest = Newtonsoft.Json.JsonConvert.SerializeObject(yotiTokenRequest);
+                string serializedTokenRequest = JsonConvert.SerializeObject(yotiTokenRequest);
                 byte[] body = Encoding.UTF8.GetBytes(serializedTokenRequest);
 
-                Dictionary<string, string> headers = HeadersFactory.Create(_keyPair, HttpMethod.Post, endpoint, body);
+                Request request = new RequestBuilder()
+                    .WithKeyPair(_keyPair)
+                    .WithBaseUri(_apiUri)
+                    .WithEndpoint($"/apps/{_appId}/tokens")
+                    .WithHttpMethod(HttpMethod.Post)
+                    .WithContent(body)
+                    .Build();
 
-                Response response = httpRequester.DoRequest(
-                    httpClient,
-                    httpMethod,
-                    new Uri(_defaultSandboxApiUrl + endpoint),
-                    headers,
-                    body).Result;
+                HttpResponseMessage response = request.Execute(_httpClient).Result;
 
-                if (!response.Success)
+                if (!response.IsSuccessStatusCode)
                 {
                     Response.CreateExceptionFromStatusCode<SandboxException>(response);
                 }
 
-                YotiTokenResponse yotiTokenResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<YotiTokenResponse>(response.Content);
+                YotiTokenResponse yotiTokenResponse =
+                    JsonConvert.DeserializeObject<YotiTokenResponse>(
+                        response.Content.ReadAsStringAsync().Result);
 
                 return yotiTokenResponse.Token;
             }

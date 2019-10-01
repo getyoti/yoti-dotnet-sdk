@@ -467,7 +467,7 @@ namespace Yoti.Auth.Sandbox.Tests.Profile.Request
         [Fact]
         public static void ShouldCreateRequestWithDocumentDetails()
         {
-            DocumentDetails documentDetails = DocumentDetailsBuilder.Builder()
+            DocumentDetails documentDetails = new DocumentDetailsBuilder()
                     .WithType("type")
                     .WithIssuingCountry("country")
                     .WithNumber("number")
@@ -485,7 +485,7 @@ namespace Yoti.Auth.Sandbox.Tests.Profile.Request
         [Fact]
         public static void ShouldCreateRequestWithDocumentDetailsAndAnchors()
         {
-            DocumentDetails documentDetails = DocumentDetailsBuilder.Builder()
+            DocumentDetails documentDetails = new DocumentDetailsBuilder()
                     .WithType("type")
                     .WithIssuingCountry("country")
                     .WithNumber("number")

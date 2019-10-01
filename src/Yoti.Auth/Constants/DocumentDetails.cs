@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.Constants
 {
-    internal static class DocumentDetails
+    public static class DocumentDetails
     {
         public const string DocumentTypePassport = "PASSPORT";
         public const string DocumentTypeDrivingLicense = "DRIVING_LICENCE";
