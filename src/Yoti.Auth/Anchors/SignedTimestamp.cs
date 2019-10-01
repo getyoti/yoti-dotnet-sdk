@@ -28,7 +28,7 @@ namespace Yoti.Auth.Anchors
 
         private static DateTime ConvertMicroSecondsSinceEpochToDateTime(ProtoBuf.Common.SignedTimestamp protobufSignedTimestamp)
         {
-            DateTime epoch = new DateTime(1970, 1, 1);
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             long timeInMicroSecondsSinceEpoch = (long)protobufSignedTimestamp.Timestamp;
             long timeInTicksSinceEpoch = timeInMicroSecondsSinceEpoch * 10;
             return epoch.Add(new TimeSpan(timeInTicksSinceEpoch));

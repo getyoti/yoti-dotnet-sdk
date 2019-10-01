@@ -8,7 +8,7 @@ namespace Yoti.Auth.Sandbox.Profile.Request.Attribute
         private string _type;
         private string _value;
         private string _subType;
-        private long _timestamp;
+        private long _unixMicrosecondTimestamp;
 
         internal SandboxAnchorBuilder()
         {
@@ -40,20 +40,13 @@ namespace Yoti.Auth.Sandbox.Profile.Request.Attribute
 
         public SandboxAnchorBuilder WithTimestamp(DateTime dateTime)
         {
-            DateTimeOffset dto = new DateTimeOffset(dateTime);
-            _timestamp = dto.ToUnixTimeSeconds();
-            return this;
-        }
-
-        public SandboxAnchorBuilder WithTimestamp(long timestamp)
-        {
-            _timestamp = timestamp;
+            _unixMicrosecondTimestamp = Timestamp.GetUnixTimeMicroseconds(dateTime);
             return this;
         }
 
         public SandboxAnchor Build()
         {
-            return new SandboxAnchor(_type, _value, _subType, _timestamp);
+            return new SandboxAnchor(_type, _value, _subType, _unixMicrosecondTimestamp);
         }
     }
 }

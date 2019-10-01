@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
-using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Aml
 {
