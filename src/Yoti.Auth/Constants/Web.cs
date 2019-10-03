@@ -1,6 +1,6 @@
 ﻿namespace Yoti.Auth.Constants
 {
-    public static class Web
+    public static class Api
     {
         public const string DefaultYotiHost = @"https://api.yoti.com";
         public const string YotiApiPathPrefix = "api/v1";

@@ -195,7 +195,7 @@ namespace Yoti.Auth.Tests.Web
 
             Request profileRequest = new RequestBuilder()
                 .WithKeyPair(KeyPair.Get())
-                .WithBaseUri(new Uri(Constants.Web.DefaultYotiApiUrl))
+                .WithBaseUri(new Uri(Constants.Api.DefaultYotiApiUrl))
                 .WithEndpoint($"/profile/{token}")
                 .WithHttpMethod(HttpMethod.Get)
                 .WithQueryParam("appId", _sdkId)
@@ -211,7 +211,7 @@ namespace Yoti.Auth.Tests.Web
         {
             Request amlRequest = new RequestBuilder()
                 .WithKeyPair(KeyPair.Get())
-                .WithBaseUri(new Uri(Constants.Web.DefaultYotiApiUrl))
+                .WithBaseUri(new Uri(Constants.Api.DefaultYotiApiUrl))
                 .WithEndpoint("/aml-check")
                 .WithHttpMethod(HttpMethod.Post)
                 .WithQueryParam("appId", _sdkId)
