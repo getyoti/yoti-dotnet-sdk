@@ -34,7 +34,7 @@ namespace Yoti.Auth.Tests
 
             var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
             {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl));
+                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
             }).Result;
 
             Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
@@ -51,7 +51,7 @@ namespace Yoti.Auth.Tests
 
             var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
             {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl));
+                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
             }).Result;
 
             Assert.IsTrue(profileException.Message.StartsWith("The receipt of the parsed response is null"));
@@ -72,7 +72,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
+            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
             Assert.IsNotNull(activityDetails);
 
@@ -119,7 +119,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
+            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
             Assert.AreEqual(string.Empty, activityDetails.ParentRememberMeId);
         }
@@ -135,7 +135,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
+            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
             Assert.IsNotNull(activityDetails.Profile);
 
@@ -157,7 +157,7 @@ namespace Yoti.Auth.Tests
 
             AmlResult amlResult = await engine.PerformAmlCheckAsync(
                 SdkId, _keyPair,
-                new Uri(Constants.Web.DefaultYotiApiUrl),
+                new Uri(Constants.Api.DefaultYotiApiUrl),
                 amlProfile);
 
             Assert.IsNotNull(amlResult);
@@ -185,7 +185,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsExceptionAsync<AmlException>(async () =>
             {
-                await engine.PerformAmlCheckAsync(SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl), amlProfile);
+                await engine.PerformAmlCheckAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), amlProfile);
             });
         }
 
@@ -202,7 +202,7 @@ namespace Yoti.Auth.Tests
             var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
             DynamicScenario dynamicScenario = TestTools.ShareUrl.CreateStandardDynamicScenario();
 
-            ShareUrlResult shareUrlResult = await engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl), dynamicScenario);
+            ShareUrlResult shareUrlResult = await engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario);
 
             Assert.IsNotNull(shareUrlResult);
             Assert.AreEqual(new Uri(shareUrl), shareUrlResult.Url);
@@ -228,7 +228,7 @@ namespace Yoti.Auth.Tests
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl), dynamicScenario).Wait();
+                engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DynamicShareException>(aggregateException));

@@ -16,9 +16,9 @@ namespace Yoti.Auth.Web
 
         internal static HttpRequestMessage PutHeaders(HttpRequestMessage httpRequestMessage, string authDigest, string SDKVersion)
         {
-            httpRequestMessage.Headers.Add(Constants.Web.DigestHeader, authDigest);
-            httpRequestMessage.Headers.Add(Constants.Web.YotiSdkHeader, Constants.Web.SdkIdentifier);
-            httpRequestMessage.Headers.Add(Constants.Web.YotiSdkVersionHeader, $"{Constants.Web.SdkIdentifier}-{SDKVersion}");
+            httpRequestMessage.Headers.Add(Constants.Api.DigestHeader, authDigest);
+            httpRequestMessage.Headers.Add(Constants.Api.YotiSdkHeader, Constants.Api.SdkIdentifier);
+            httpRequestMessage.Headers.Add(Constants.Api.YotiSdkVersionHeader, $"{Constants.Api.SdkIdentifier}-{SDKVersion}");
 
             return httpRequestMessage;
         }

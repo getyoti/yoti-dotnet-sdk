@@ -22,13 +22,13 @@ namespace Yoti.Auth.Tests.Web
 
             Assert.AreEqual(
                 _someDigest,
-                result.Headers.GetValues(Constants.Web.DigestHeader).Single());
+                result.Headers.GetValues(Constants.Api.DigestHeader).Single());
             Assert.AreEqual(
-                Constants.Web.SdkIdentifier,
-                result.Headers.GetValues(Constants.Web.YotiSdkHeader).Single());
+                Constants.Api.SdkIdentifier,
+                result.Headers.GetValues(Constants.Api.YotiSdkHeader).Single());
             Assert.AreEqual(
-                $"{Constants.Web.SdkIdentifier}-{SDKVersionHeader}",
-                result.Headers.GetValues(Constants.Web.YotiSdkVersionHeader).Single());
+                $"{Constants.Api.SdkIdentifier}-{SDKVersionHeader}",
+                result.Headers.GetValues(Constants.Api.YotiSdkVersionHeader).Single());
         }
     }
 }
