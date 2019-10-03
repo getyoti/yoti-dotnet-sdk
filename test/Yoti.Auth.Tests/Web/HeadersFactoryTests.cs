@@ -12,21 +12,17 @@ namespace Yoti.Auth.Tests.Web
     public class HeadersFactoryTests
     {
         private const string _someDigest = "someDigest";
-        private const string _someKey = "someKey";
 
         [TestMethod]
         public void ShouldCreateHeadersWithDigestAndKey()
         {
             string SDKVersionHeader = typeof(YotiClientEngine).GetTypeInfo().Assembly.GetName().Version.ToString();
 
-            HttpRequestMessage result = HeadersFactory.PutHeaders(new HttpRequestMessage(), _someDigest, _someKey, SDKVersionHeader);
+            HttpRequestMessage result = HeadersFactory.PutHeaders(new HttpRequestMessage(), _someDigest, SDKVersionHeader);
 
             Assert.AreEqual(
                 _someDigest,
                 result.Headers.GetValues(Constants.Web.DigestHeader).Single());
-            Assert.AreEqual(
-                _someKey,
-                result.Headers.GetValues(Constants.Web.AuthKeyHeader).Single());
             Assert.AreEqual(
                 Constants.Web.SdkIdentifier,
                 result.Headers.GetValues(Constants.Web.YotiSdkHeader).Single());

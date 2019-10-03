@@ -34,6 +34,7 @@ namespace Yoti.Auth
                 .WithBaseUri(apiUrl)
                 .WithEndpoint(path)
                 .WithQueryParam("appId", sdkId)
+                .WithHeader(Constants.Web.AuthKeyHeader, CryptoEngine.GetAuthKey(keyPair))
                 .Build();
 
             using (HttpResponseMessage response = await profileRequest.Execute(_httpClient).ConfigureAwait(false))
