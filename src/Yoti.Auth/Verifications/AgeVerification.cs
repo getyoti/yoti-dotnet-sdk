@@ -42,7 +42,7 @@ namespace Yoti.Auth.Verifications
         }
 
         /// <summary>
-        /// The age that was that checked, as specified on dashboard.
+        /// The age that was that checked, as specified on Yoti Hub.
         /// </summary>
         /// <returns>The age that was that checked</returns>
         public int Age()
@@ -51,7 +51,7 @@ namespace Yoti.Auth.Verifications
         }
 
         /// <summary>
-        /// The type of age check performed, as specified on dashboard. Currently this might be
+        /// The type of age check performed, as specified on Yoti Hub. Currently this might be
         /// 'age_over' or 'age_under'.
         /// </summary>
         /// <returns>The type of age check performed</returns>
