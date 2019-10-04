@@ -18,9 +18,9 @@ namespace Yoti.Auth
         /// <summary>
         /// Create a <see cref="YotiClient"/>
         /// </summary>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
         /// <param name="privateKeyStream">
-        /// The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.
+        /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
         /// </param>
         public YotiClient(string sdkId, StreamReader privateKeyStream) : this(new HttpClient(), sdkId, privateKeyStream)
         {
@@ -30,9 +30,9 @@ namespace Yoti.Auth
         /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
         /// </summary>
         /// <param name="httpClient">Allows the specification of a HttpClient</param>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
         /// <param name="privateKeyStream">
-        /// The private key file provided on the Yoti dashboard as a <see cref="StreamReader"/>.
+        /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
         /// </param>
         public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateKeyStream)
         {
@@ -56,7 +56,7 @@ namespace Yoti.Auth
         /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
         /// </summary>
         /// <param name="httpClient">Allows the specification of a HttpClient</param>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti dashboard.</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
         /// <param name="keyPair">The key pair from the Yoti Hub.</param>
         public YotiClient(HttpClient httpClient, string sdkId, AsymmetricCipherKeyPair keyPair)
         {
