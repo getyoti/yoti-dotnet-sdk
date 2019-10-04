@@ -22,26 +22,33 @@ namespace Yoti.Auth.Anchors
                 var extensions = new List<string>();
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
 
-                foreach (X509Extension x509Extension in certificate.Extensions.OfType<X509Extension>())
+                // certificate is only disposable in .NET 4.6+
+#if NETSTANDARD1_6 || NET46 || NET461
+                using (certificate)
                 {
-                    var extensionOid = x509Extension.Oid.Value;
+#endif
+                    foreach (X509Extension x509Extension in certificate.Extensions.OfType<X509Extension>())
+                    {
+                        var extensionOid = x509Extension.Oid.Value;
 
-                    if (extensionOid == AnchorType.SOURCE.ExtensionOid())
-                    {
-                        anchorType = AnchorType.SOURCE;
-                    }
-                    else if (extensionOid == AnchorType.VERIFIER.ExtensionOid())
-                    {
-                        anchorType = AnchorType.VERIFIER;
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                        if (extensionOid == AnchorType.SOURCE.ExtensionOid())
+                        {
+                            anchorType = AnchorType.SOURCE;
+                        }
+                        else if (extensionOid == AnchorType.VERIFIER.ExtensionOid())
+                        {
+                            anchorType = AnchorType.VERIFIER;
+                        }
+                        else
+                        {
+                            continue;
+                        }
 
-                    extensions = GetListOfStringsFromExtension(certificate, extensionOid);
+                        extensions = GetListOfStringsFromExtension(certificate, extensionOid);
+                    }
+#if NETSTANDARD1_6 || NET46 || NET461
                 }
-
+#endif
                 if (extensions.Count == 0)
                 {
                     return new AnchorVerifierSourceData(new HashSet<string> { "" }, AnchorType.UNKNOWN);
