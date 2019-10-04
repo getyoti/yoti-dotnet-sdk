@@ -12,7 +12,7 @@ namespace Yoti.Auth.Sandbox
     public class YotiSandboxClient
     {
         private const string _yotiSandboxPathPrefix = "/sandbox/v1";
-        private readonly Uri _defaultSandboxApiUrl = new Uri(Constants.Web.DefaultYotiHost + _yotiSandboxPathPrefix);
+        private readonly Uri _defaultSandboxApiUrl = new Uri(Constants.Api.DefaultYotiHost + _yotiSandboxPathPrefix);
         private readonly HttpClient _httpClient;
         private readonly Uri _apiUri;
         private readonly string _appId;

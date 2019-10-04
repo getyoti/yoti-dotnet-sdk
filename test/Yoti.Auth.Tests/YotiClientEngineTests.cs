@@ -102,9 +102,9 @@ namespace Yoti.Auth.Tests
 
             var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            ActivityDetails _ = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Web.DefaultYotiApiUrl)).Result;
+            ActivityDetails _ = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
-            Assert.IsTrue(_httpRequestMessage.Headers.Contains(Constants.Web.AuthKeyHeader));
+            Assert.IsTrue(_httpRequestMessage.Headers.Contains(Constants.Api.AuthKeyHeader));
         }
 
         [TestMethod]
