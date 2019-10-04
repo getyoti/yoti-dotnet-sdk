@@ -12,7 +12,7 @@ namespace Yoti.Auth.ShareUrl
 
         /// <summary>
         /// The device's callback endpoint. Must be a URL relative to the Application Domain
-        /// specified in your Dashboard
+        /// specified in Yoti Hub
         /// </summary>
         /// <param name="callbackEndpoint"></param>
         /// <returns><see cref="DynamicScenarioBuilder"/> with a Callback Endpoint added</returns>
