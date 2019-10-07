@@ -7,6 +7,9 @@ Welcome to the Yoti .NET SDK. This repo contains the tools and step by step inst
 
 ## Table of Contents
 
+1) [Supported Frameworks](#supported-frameworks) -
+Frameworks supported by this .NET class library
+
 1) [An Architectural View](#an-architectural-view) -
 High level overview of integration
 
@@ -33,6 +36,11 @@ Attributes defined
 
 1) [Support](#support) -
 Please feel free to reach out
+
+## Supported Frameworks
+- .NET Standard 1.6
+- .NET 4.5
+- .NET 4.6
 
 ## An Architectural View
 
@@ -222,7 +230,7 @@ Performing an AML check on a person *requires* their consent.
 #### 2b) With .NET Core installed locally
 1) From the Yoti Hub, set the application domain to `localhost:44344` and the scenario callback URL to `/account/connect`
 1) Download the .NET SDK for your operating system from step no.1 on ([Windows](https://www.microsoft.com/net/learn/get-started/windows) | [Linux](https://www.microsoft.com/net/learn/get-started/linux/rhel) | [MacOS](https://www.microsoft.com/net/learn/get-started/macos))
-1) Enter `dotnet run` into the terminal 
+1) Enter `dotnet run -p CoreExample.csproj` into the terminal 
 1) Navigate to the page specified in the terminal window, which should be <https://localhost:44344>
 
 
