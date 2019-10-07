@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}coreexample
     build:
       context: ../../../
-      dockerfile: Profile/Examples/CoreExample/Dockerfile
+      dockerfile: Examples/Profile/CoreExample/Dockerfile
