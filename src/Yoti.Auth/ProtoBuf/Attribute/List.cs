@@ -30,9 +30,10 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             "dHJpYnV0ZUFuZElkTGlzdBI8ChVhdHRyaWJ1dGVfYW5kX2lkX2xpc3QYASAD",
             "KAsyHS5hdHRycHViYXBpX3YxLkF0dHJpYnV0ZUFuZElkIj0KDUF0dHJpYnV0",
             "ZUxpc3QSLAoKYXR0cmlidXRlcxgBIAMoCzIYLmF0dHJwdWJhcGlfdjEuQXR0",
-            "cmlidXRlQnUKJGNvbS55b3RpLmFwaS5jbGllbnQuc3BpLnJlbW90ZS5wcm90",
-            "b0ISQXR0cmlidXRlTGlzdFByb3RvWg15b3RpcHJvdG9hdHRyqgIcWW90aS5B",
-            "dXRoLlByb3RvQnVmLkF0dHJpYnV0ZcoCCkF0dHJwdWJhcGliBnByb3RvMw=="));
+            "cmlidXRlQpABCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJv",
+            "dG9CEkF0dHJpYnV0ZUxpc3RQcm90b1oNeW90aXByb3RvYXR0cqoCHFlvdGku",
+            "QXV0aC5Qcm90b0J1Zi5BdHRyaWJ1dGXKAgpBdHRycHViYXBp6gIYWW90aS5Q",
+            "cm90b2J1Zi5BdHRycHViYXBpYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Yoti.Auth.ProtoBuf.Attribute.AttributeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

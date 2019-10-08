@@ -28,10 +28,10 @@ namespace Yoti.Auth.ProtoBuf.Common {
             "bmVkVGltZXN0YW1wEg8KB3ZlcnNpb24YASABKAUSEQoJdGltZXN0YW1wGAIg",
             "ASgEEhYKDm1lc3NhZ2VfZGlnZXN0GAMgASgMEhQKDGNoYWluX2RpZ2VzdBgE",
             "IAEoDBIaChJjaGFpbl9kaWdlc3Rfc2tpcDEYBSABKAwSGgoSY2hhaW5fZGln",
-            "ZXN0X3NraXAyGAYgASgMQnIKJGNvbS55b3RpLmFwaS5jbGllbnQuc3BpLnJl",
-            "bW90ZS5wcm90b0IUU2lnbmVkVGltZXN0YW1wUHJvdG9aDHlvdGlwcm90b2Nv",
-            "baoCGVlvdGkuQXV0aC5Qcm90b0J1Zi5Db21tb27KAglDb21wdWJhcGliBnBy",
-            "b3RvMw=="));
+            "ZXN0X3NraXAyGAYgASgMQowBCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5y",
+            "ZW1vdGUucHJvdG9CFFNpZ25lZFRpbWVzdGFtcFByb3RvWgx5b3RpcHJvdG9j",
+            "b22qAhlZb3RpLkF1dGguUHJvdG9CdWYuQ29tbW9uygIJQ29tcHViYXBp6gIX",
+            "WW90aS5Qcm90b2J1Zi5Db21wdWJhcGliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
