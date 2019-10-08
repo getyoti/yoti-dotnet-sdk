@@ -25,10 +25,11 @@ namespace Yoti.Auth.ProtoBuf.Common {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChNFbmNyeXB0ZWREYXRhLnByb3RvEgxjb21wdWJhcGlfdjEiMAoNRW5jcnlw",
-            "dGVkRGF0YRIKCgJpdhgBIAEoDBITCgtjaXBoZXJfdGV4dBgCIAEoDEJwCiRj",
-            "b20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJvdG9CEkVuY3J5cHRl",
-            "ZERhdGFQcm90b1oMeW90aXByb3RvY29tqgIZWW90aS5BdXRoLlByb3RvQnVm",
-            "LkNvbW1vbsoCCUNvbXB1YmFwaWIGcHJvdG8z"));
+            "dGVkRGF0YRIKCgJpdhgBIAEoDBITCgtjaXBoZXJfdGV4dBgCIAEoDEKKAQok",
+            "Y29tLnlvdGkuYXBpLmNsaWVudC5zcGkucmVtb3RlLnByb3RvQhJFbmNyeXB0",
+            "ZWREYXRhUHJvdG9aDHlvdGlwcm90b2NvbaoCGVlvdGkuQXV0aC5Qcm90b0J1",
+            "Zi5Db21tb27KAglDb21wdWJhcGnqAhdZb3RpLlByb3RvYnVmLkNvbXB1YmFw",
+            "aWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

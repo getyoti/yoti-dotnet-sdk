@@ -31,15 +31,19 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             "Y2hvciKYAQoGQW5jaG9yEhUKDWFydGlmYWN0X2xpbmsYASABKAwSGwoTb3Jp",
             "Z2luX3NlcnZlcl9jZXJ0cxgCIAMoDBIaChJhcnRpZmFjdF9zaWduYXR1cmUY",
             "AyABKAwSEAoIc3ViX3R5cGUYBCABKAkSEQoJc2lnbmF0dXJlGAUgASgMEhkK",
-            "EXNpZ25lZF90aW1lX3N0YW1wGAYgASgMQmwKJGNvbS55b3RpLmFwaS5jbGll",
-            "bnQuc3BpLnJlbW90ZS5wcm90b0IJQXR0clByb3RvWg15b3RpcHJvdG9hdHRy",
-            "qgIcWW90aS5BdXRoLlByb3RvQnVmLkF0dHJpYnV0ZcoCCkF0dHJwdWJhcGli",
-            "BnByb3RvMw=="));
+            "EXNpZ25lZF90aW1lX3N0YW1wGAYgASgMIoYBCgpNdWx0aVZhbHVlEi8KBnZh",
+            "bHVlcxgBIAMoCzIfLmF0dHJwdWJhcGlfdjEuTXVsdGlWYWx1ZS5WYWx1ZRpH",
+            "CgVWYWx1ZRIwCgxjb250ZW50X3R5cGUYASABKA4yGi5hdHRycHViYXBpX3Yx",
+            "LkNvbnRlbnRUeXBlEgwKBGRhdGEYAiABKAxChwEKJGNvbS55b3RpLmFwaS5j",
+            "bGllbnQuc3BpLnJlbW90ZS5wcm90b0IJQXR0clByb3RvWg15b3RpcHJvdG9h",
+            "dHRyqgIcWW90aS5BdXRoLlByb3RvQnVmLkF0dHJpYnV0ZcoCCkF0dHJwdWJh",
+            "cGnqAhhZb3RpLlByb3RvYnVmLkF0dHJwdWJhcGliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Yoti.Auth.ProtoBuf.Attribute.ContentTypeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.Attribute), global::Yoti.Auth.ProtoBuf.Attribute.Attribute.Parser, new[]{ "Name", "Value", "ContentType", "Anchors" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.Anchor), global::Yoti.Auth.ProtoBuf.Attribute.Anchor.Parser, new[]{ "ArtifactLink", "OriginServerCerts", "ArtifactSignature", "SubType", "Signature", "SignedTimeStamp" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.Anchor), global::Yoti.Auth.ProtoBuf.Attribute.Anchor.Parser, new[]{ "ArtifactLink", "OriginServerCerts", "ArtifactSignature", "SubType", "Signature", "SignedTimeStamp" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.MultiValue), global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Parser, new[]{ "Values" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value), global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value.Parser, new[]{ "ContentType", "Data" }, null, null, null)})
           }));
     }
     #endregion
@@ -509,6 +513,291 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
         }
       }
     }
+
+  }
+
+  public sealed partial class MultiValue : pb::IMessage<MultiValue> {
+    private static readonly pb::MessageParser<MultiValue> _parser = new pb::MessageParser<MultiValue>(() => new MultiValue());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<MultiValue> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Yoti.Auth.ProtoBuf.Attribute.AttributeReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MultiValue() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MultiValue(MultiValue other) : this() {
+      values_ = other.values_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MultiValue Clone() {
+      return new MultiValue(this);
+    }
+
+    /// <summary>Field number for the "values" field.</summary>
+    public const int ValuesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value> _repeated_values_codec
+        = pb::FieldCodec.ForMessage(10, global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value.Parser);
+    private readonly pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value> values_ = new pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Types.Value> Values {
+      get { return values_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as MultiValue);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(MultiValue other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!values_.Equals(other.values_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= values_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      values_.WriteTo(output, _repeated_values_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += values_.CalculateSize(_repeated_values_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(MultiValue other) {
+      if (other == null) {
+        return;
+      }
+      values_.Add(other.values_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            values_.AddEntriesFrom(input, _repeated_values_codec);
+            break;
+          }
+        }
+      }
+    }
+
+    #region Nested types
+    /// <summary>Container for nested types declared in the MultiValue message type.</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static partial class Types {
+      public sealed partial class Value : pb::IMessage<Value> {
+        private static readonly pb::MessageParser<Value> _parser = new pb::MessageParser<Value>(() => new Value());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<Value> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Yoti.Auth.ProtoBuf.Attribute.MultiValue.Descriptor.NestedTypes[0]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Value() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Value(Value other) : this() {
+          contentType_ = other.contentType_;
+          data_ = other.data_;
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Value Clone() {
+          return new Value(this);
+        }
+
+        /// <summary>Field number for the "content_type" field.</summary>
+        public const int ContentTypeFieldNumber = 1;
+        private global::Yoti.Auth.ProtoBuf.Attribute.ContentType contentType_ = 0;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public global::Yoti.Auth.ProtoBuf.Attribute.ContentType ContentType {
+          get { return contentType_; }
+          set {
+            contentType_ = value;
+          }
+        }
+
+        /// <summary>Field number for the "data" field.</summary>
+        public const int DataFieldNumber = 2;
+        private pb::ByteString data_ = pb::ByteString.Empty;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pb::ByteString Data {
+          get { return data_; }
+          set {
+            data_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as Value);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(Value other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          if (ContentType != other.ContentType) return false;
+          if (Data != other.Data) return false;
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (ContentType != 0) hash ^= ContentType.GetHashCode();
+          if (Data.Length != 0) hash ^= Data.GetHashCode();
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (ContentType != 0) {
+            output.WriteRawTag(8);
+            output.WriteEnum((int) ContentType);
+          }
+          if (Data.Length != 0) {
+            output.WriteRawTag(18);
+            output.WriteBytes(Data);
+          }
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (ContentType != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ContentType);
+          }
+          if (Data.Length != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeBytesSize(Data);
+          }
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(Value other) {
+          if (other == null) {
+            return;
+          }
+          if (other.ContentType != 0) {
+            ContentType = other.ContentType;
+          }
+          if (other.Data.Length != 0) {
+            Data = other.Data;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+              case 8: {
+                contentType_ = (global::Yoti.Auth.ProtoBuf.Attribute.ContentType) input.ReadEnum();
+                break;
+              }
+              case 18: {
+                Data = input.ReadBytes();
+                break;
+              }
+            }
+          }
+        }
+
+      }
+
+    }
+    #endregion
 
   }
 
