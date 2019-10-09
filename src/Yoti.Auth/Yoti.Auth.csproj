@@ -13,12 +13,16 @@
     <Authors>Yoti,Edward.Harrod</Authors>
     <Description>Yoti .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</Description>
     <PackageProjectUrl>https://www.yoti.com/developers/documentation/?csharp</PackageProjectUrl>
-    <PackageIconUrl>https://static.yoti.com/images/logo.svg</PackageIconUrl>
+    <PackageIcon>Yoti.png</PackageIcon>
     <RepositoryUrl>https://github.com/getyoti/yoti-dotnet-sdk</RepositoryUrl>
     <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <Version>3.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
@@ -44,6 +48,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Yoti.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
