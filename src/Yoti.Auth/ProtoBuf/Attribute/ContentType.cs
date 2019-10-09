@@ -24,12 +24,13 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     static ContentTypeReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFDb250ZW50VHlwZS5wcm90bxINYXR0cnB1YmFwaV92MSpPCgtDb250ZW50",
+            "ChFDb250ZW50VHlwZS5wcm90bxINYXR0cnB1YmFwaV92MSppCgtDb250ZW50",
             "VHlwZRINCglVTkRFRklORUQQABIKCgZTVFJJTkcQARIICgRKUEVHEAISCAoE",
-            "REFURRADEgcKA1BORxAEEggKBEpTT04QBUJzCiRjb20ueW90aS5hcGkuY2xp",
-            "ZW50LnNwaS5yZW1vdGUucHJvdG9CEENvbnRlbnRUeXBlUHJvdG9aDXlvdGlw",
-            "cm90b2F0dHKqAhxZb3RpLkF1dGguUHJvdG9CdWYuQXR0cmlidXRlygIKQXR0",
-            "cnB1YmFwaWIGcHJvdG8z"));
+            "REFURRADEgcKA1BORxAEEggKBEpTT04QBRIPCgtNVUxUSV9WQUxVRRAGEgcK",
+            "A0lOVBAHQo4BCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJv",
+            "dG9CEENvbnRlbnRUeXBlUHJvdG9aDXlvdGlwcm90b2F0dHKqAhxZb3RpLkF1",
+            "dGguUHJvdG9CdWYuQXR0cmlidXRlygIKQXR0cnB1YmFwaeoCGFlvdGkuUHJv",
+            "dG9idWYuQXR0cnB1YmFwaWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Yoti.Auth.ProtoBuf.Attribute.ContentType), }, null));
@@ -45,6 +46,8 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     [pbr::OriginalName("DATE")] Date = 3,
     [pbr::OriginalName("PNG")] Png = 4,
     [pbr::OriginalName("JSON")] Json = 5,
+    [pbr::OriginalName("MULTI_VALUE")] MultiValue = 6,
+    [pbr::OriginalName("INT")] Int = 7,
   }
 
   #endregion
