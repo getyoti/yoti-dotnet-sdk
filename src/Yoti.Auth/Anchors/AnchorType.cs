@@ -1,19 +1,14 @@
-﻿using Yoti.Auth.CustomAttributes;
-
-namespace Yoti.Auth.Anchors
+﻿namespace Yoti.Auth.Anchors
 {
     public enum AnchorType
     {
-        [StringValue("UNKNOWN")]
         [ExtensionOid("")]
-        Unknown,
+        UNKNOWN,
 
-        [StringValue("SOURCE")]
         [ExtensionOid("1.3.6.1.4.1.47127.1.1.1")]
-        Source,
+        SOURCE,
 
-        [StringValue("VERIFIER")]
         [ExtensionOid("1.3.6.1.4.1.47127.1.1.2")]
-        Verifier
+        VERIFIER
     }
 }

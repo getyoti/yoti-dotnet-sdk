@@ -1,83 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Exceptions;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Aml
 {
     internal class RemoteAmlService : IRemoteAmlService
     {
-        public async Task<AmlResult> PerformCheck(IHttpRequester httpRequester, IAmlProfile amlProfile, Dictionary<string, string> headers, string apiUrl, string endpoint, byte[] httpContent)
+        public async Task<AmlResult> PerformCheck(
+            HttpClient httpClient,
+            AsymmetricCipherKeyPair keyPair,
+            Uri apiUrl,
+            string sdkId,
+            byte[] httpContent)
         {
-            if (amlProfile == null)
-                throw new ArgumentNullException(nameof(amlProfile));
+            Request amlRequest = new RequestBuilder()
+               .WithKeyPair(keyPair)
+               .WithBaseUri(apiUrl)
+               .WithEndpoint("/aml-check")
+               .WithQueryParam("appId", sdkId)
+               .WithHttpMethod(HttpMethod.Post)
+               .WithContent(httpContent)
+               .Build();
 
-            try
+            using (HttpResponseMessage response = await amlRequest.Execute(httpClient).ConfigureAwait(false))
             {
-                HttpMethod httpMethod = HttpMethod.Post;
+                if (!response.IsSuccessStatusCode)
+                    Response.CreateExceptionFromStatusCode<AmlException>(response);
 
-                Response response = await httpRequester.DoRequest(
-                    new HttpClient(),
-                    httpMethod,
-                    new Uri(apiUrl + endpoint),
-                    headers,
-                    httpContent);
-
-                if (!response.Success)
-                {
-                    CreateExceptionFromStatusCode(response);
-                }
-
-                var amlResult = Newtonsoft.Json.JsonConvert.DeserializeObject<AmlResult>(response.Content);
-
-                return amlResult;
-            }
-            catch (Exception ex)
-            {
-                if (ex is AmlException)
-                    throw;
-
-                throw new AmlException(
-                    string.Format(
-                        "Inner exception:{0}{1}",
-                        Environment.NewLine,
-                        ex.Message),
-                    ex);
-            }
-        }
-
-        private AmlException CreateExceptionFromStatusCode(Response response)
-        {
-            switch ((HttpStatusCode)response.StatusCode)
-            {
-                case HttpStatusCode.BadRequest:
-                    throw new AmlException(
-                        string.Format(
-                            "Failed validation:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
-
-                case HttpStatusCode.Unauthorized:
-                    throw new AmlException(
-                        string.Format(
-                        "Failed authorization with the given key:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
-
-                case HttpStatusCode.InternalServerError:
-                    throw new AmlException(
-                        string.Format(
-                            "An unexpected error occurred on the server:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
-
-                default:
-                    throw new AmlException(
-                        string.Format(
-                            "Unexpected error:{0}{1}",
-                            Environment.NewLine,
-                            response.Content));
+                return JsonConvert.DeserializeObject<AmlResult>(
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(true));
             }
         }
     }

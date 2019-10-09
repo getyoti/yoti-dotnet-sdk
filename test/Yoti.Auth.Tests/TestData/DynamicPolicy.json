@@ -1,0 +1,47 @@
+﻿{
+  "callback_endpoint": "someEndpoint",
+  "policy": {
+    "wanted": [
+      {
+        "name": "date_of_birth",
+        "derivation": null,
+        "optional": false
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_over:18",
+        "optional": false
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_under:30",
+        "optional": false
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_under:40",
+        "optional": false
+      }
+    ],
+    "wanted_auth_types": [ 2 ],
+    "wanted_remember_me": false,
+    "wanted_remember_me_optional": false
+  },
+  "extensions": [
+    {
+      "content": "content",
+      "type": "string type"
+    },
+    {
+      "content": {
+        "expected_device_location": {
+          "latitude": 51.5044772,
+          "longitude": -0.082161,
+          "radius": 1500.0,
+          "max_uncertainty_radius": 300.0
+        }
+      },
+      "type": "LOCATION_CONSTRAINT"
+    }
+  ]
+}

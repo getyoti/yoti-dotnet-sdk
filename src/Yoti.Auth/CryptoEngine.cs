@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using AttrpubapiV1;
-using CompubapiV1;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
@@ -10,7 +8,8 @@ using Org.BouncyCastle.Crypto.Paddings;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
-using Org.BouncyCastle.X509;
+using Yoti.Auth.ProtoBuf.Attribute;
+using Yoti.Auth.ProtoBuf.Common;
 
 namespace Yoti.Auth
 {
@@ -66,7 +65,7 @@ namespace Yoti.Auth
 
         public static byte[] GetDerEncodedPublicKey(AsymmetricCipherKeyPair keypair)
         {
-            return SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keypair.Public).GetDerEncoded();
+            return Org.BouncyCastle.X509.SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keypair.Public).GetDerEncoded();
         }
 
         public static string GenerateNonce()

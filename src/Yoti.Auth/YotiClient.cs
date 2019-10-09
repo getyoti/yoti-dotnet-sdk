@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
+using Yoti.Auth.ShareUrl;
 
 namespace Yoti.Auth
 {
@@ -11,77 +13,141 @@ namespace Yoti.Auth
         private readonly string _sdkId;
         private readonly AsymmetricCipherKeyPair _keyPair;
         private readonly YotiClientEngine _yotiClientEngine;
-        private readonly string _defaultApiUrl = Constants.Web.DefaultYotiApiUrl;
+        private Uri _apiUri = new Uri(Constants.Api.DefaultYotiApiUrl);
 
         /// <summary>
         /// Create a <see cref="YotiClient"/>
         /// </summary>
         /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
-        /// <param name="privateStreamKey">The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.</param>
-        public YotiClient(string sdkId, StreamReader privateStreamKey)
+        /// <param name="privateKeyStream">
+        /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
+        /// </param>
+        public YotiClient(string sdkId, StreamReader privateKeyStream) : this(new HttpClient(), sdkId, privateKeyStream)
+        {
+        }
+
+        /// <summary>
+        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// </summary>
+        /// <param name="httpClient">Allows the specification of a HttpClient</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
+        /// <param name="privateKeyStream">
+        /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
+        /// </param>
+        public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateKeyStream)
         {
             if (string.IsNullOrEmpty(sdkId))
             {
                 throw new ArgumentNullException(nameof(sdkId));
             }
 
-            if (privateStreamKey == null)
+            if (privateKeyStream == null)
             {
-                throw new ArgumentNullException(nameof(privateStreamKey));
+                throw new ArgumentNullException(nameof(privateKeyStream));
             }
 
             _sdkId = sdkId;
+            _keyPair = CryptoEngine.LoadRsaKey(privateKeyStream);
 
-            try
-            {
-                _keyPair = CryptoEngine.LoadRsaKey(privateStreamKey);
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException("Could not read private key file: Are you sure it is valid", e);
-            }
-
-            _yotiClientEngine = new YotiClientEngine(new HttpRequester());
+            _yotiClientEngine = new YotiClientEngine(httpClient);
         }
 
         /// <summary>
-        /// Request an <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
+        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// </summary>
+        /// <param name="httpClient">Allows the specification of a HttpClient</param>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
+        /// <param name="keyPair">The key pair from the Yoti Hub.</param>
+        public YotiClient(HttpClient httpClient, string sdkId, AsymmetricCipherKeyPair keyPair)
+        {
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+
+            _sdkId = sdkId;
+            _keyPair = keyPair;
+
+            _yotiClientEngine = new YotiClientEngine(httpClient);
+        }
+
+        /// <summary>
+        /// Request an <see cref="ActivityDetails"/> using the encrypted token provided by yoti
+        /// during the login process.
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
-        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
+        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>.</returns>
         public ActivityDetails GetActivityDetails(string encryptedToken)
         {
-            return _yotiClientEngine.GetActivityDetails(encryptedToken, _sdkId, _keyPair, _defaultApiUrl);
+            Task<ActivityDetails> task = Task.Run(async () => await GetActivityDetailsAsync(encryptedToken).ConfigureAwait(false));
+
+            return task.Result;
         }
 
         /// <summary>
-        /// Asynchronously request a <see cref="ActivityDetails"/>  using the encrypted token provided by yoti during the login process.
+        /// Asynchronously request a <see cref="ActivityDetails"/> using the encrypted token provided
+        /// by yoti during the login process.
         /// </summary>
         /// <param name="encryptedToken">The encrypted returned by Yoti after successfully authenticating.</param>
-        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>. </returns>
+        /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>.</returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken)
         {
-            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _defaultApiUrl);
+            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _apiUri).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Request an <see cref="AmlResult"/>  using an individual's name and address.
+        /// Request an <see cref="AmlResult"/> using an individual's name and address.
         /// </summary>
         /// <param name="amlProfile">An individual's name and address.</param>
-        /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
+        /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>.</returns>
         public AmlResult PerformAmlCheck(IAmlProfile amlProfile)
         {
-            return _yotiClientEngine.PerformAmlCheck(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
+            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(amlProfile).ConfigureAwait(true));
+
+            return task.Result;
         }
 
         /// <summary>
-        /// Asynchronously request a <see cref="AmlResult"/>  using an individual's name and address.
+        /// Asynchronously request a <see cref="AmlResult"/> using an individual's name and address.
         /// </summary>
         /// <param name="amlProfile">An individual's name and address.</param>
-        /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>. </returns>
+        /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>.</returns>
         public async Task<AmlResult> PerformAmlCheckAsync(IAmlProfile amlProfile)
         {
-            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _defaultApiUrl, amlProfile);
+            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _apiUri, amlProfile).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Initiate a sharing process based on a <see cref="DynamicScenario"/>.
+        /// </summary>
+        /// <param name="dynamicScenario">
+        /// Details of the device's callback endpoint, <see
+        /// cref="Yoti.Auth.ShareUrl.Policy.DynamicPolicy"/> and extensions for the application
+        /// </param>
+        /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
+        public ShareUrlResult CreateShareUrl(DynamicScenario dynamicScenario)
+        {
+            Task<ShareUrlResult> task = Task.Run(async () => await CreateShareUrlAsync(dynamicScenario).ConfigureAwait(true));
+
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Asynchronously initiate a sharing process based on a <see cref="DynamicScenario"/>.
+        /// </summary>
+        /// <param name="dynamicScenario">
+        /// Details of the device's callback endpoint, <see
+        /// cref="Yoti.Auth.ShareUrl.Policy.DynamicPolicy"/> and extensions for the application
+        /// </param>
+        /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
+        public async Task<ShareUrlResult> CreateShareUrlAsync(DynamicScenario dynamicScenario)
+        {
+            return await _yotiClientEngine.CreateShareURLAsync(_sdkId, _keyPair, _apiUri, dynamicScenario).ConfigureAwait(false);
+        }
+
+        public YotiClient OverrideApiUri(Uri apiUri)
+        {
+            _apiUri = apiUri;
+
+            return this;
         }
     }
 }

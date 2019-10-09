@@ -13,16 +13,11 @@ secrets.config
 [Oo]bj/
 [Bb]in/
 
-# Visual Studio 2015 cache/options directory
+# Visual Studio cache/options directory
 .vs/
 
-# Static files in Core Example
-/src/Examples/CoreExample/wwwroot
-
-# Static files in 4.5 Example
-/src/Examples/45Example/Content
-/src/Examples/45Example/Scripts
-/src/Examples/45Example/fonts
+# PEM files in Examples
+/src/Examples/**/*.pem
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. 
@@ -36,6 +31,8 @@ Backup*/
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
 
-# SQL Server files
-*.mdf
-*.ldf
+# Coverage
+OpenCover/
+
+# .NET tools
+src/tools/

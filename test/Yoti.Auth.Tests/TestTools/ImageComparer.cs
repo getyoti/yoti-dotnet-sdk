@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yoti.Auth.Images;
 
 namespace Yoti.Auth.Tests.TestTools
 {
@@ -16,8 +17,8 @@ namespace Yoti.Auth.Tests.TestTools
                 return false;
             }
 
-            return (x.Data == y.Data)
-                && (x.Type == y.Type);
+            return (x.GetContent() == y.GetContent())
+                && (x.GetMIMEType() == y.GetMIMEType());
         }
 
         public int GetHashCode(Image obj)

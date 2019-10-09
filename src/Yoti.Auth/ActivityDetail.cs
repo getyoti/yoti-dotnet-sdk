@@ -1,59 +1,46 @@
 ﻿using System;
+using Yoti.Auth.Profile;
 
 namespace Yoti.Auth
 {
     /// <summary>
-    /// A enum to represent the success state when requesting a <see cref="YotiUserProfile"/> from Yoti.
-    /// </summary>
-    public enum ActivityOutcome { Success, ProfileNotFound, Failure, SharingFailure }
-
-    /// <summary>
-    /// A class to represent the outcome of a request for a <see cref="YotiUserProfile"/> from Yoti.
+    /// A class to represent the details of a share between a user and an application.
     /// </summary>
     public class ActivityDetails
     {
-        public ActivityDetails(ActivityOutcome activityOutcome)
-        {
-            RememberMeId = null;
-            Timestamp = null;
-            UserProfile = null;
-            Profile = null;
-            ApplicationProfile = null;
-            ReceiptID = null;
-            Outcome = activityOutcome;
-        }
-
-        public ActivityDetails(string rememberMeId, DateTime? timestamp, YotiUserProfile yotiUserProfile, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptID, ActivityOutcome activityOutcome)
+        internal ActivityDetails(string rememberMeId, string parentRememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptId)
         {
             RememberMeId = rememberMeId;
+            ParentRememberMeId = parentRememberMeId;
             Timestamp = timestamp;
-            UserProfile = yotiUserProfile;
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
-            ReceiptID = receiptID;
-            Outcome = activityOutcome;
+            ReceiptId = receiptId;
         }
 
         /// <summary>
-        /// The unique identifier for a particular user.
+        /// Return the rememberMeId, which is a unique, stable identifier for a user in the context
+        /// of an application. You can use it to identify returning users. This value will be
+        /// different for the same user in different applications.
         /// </summary>
         public string RememberMeId { get; private set; }
 
         /// <summary>
-        /// Time and date of the share.
+        /// Return the parentRememberMeId, which is a unique, stable identifier for a user in the
+        /// context of an organisation. You can use it to identify returning users. This value is
+        /// consistent for a given user across different applications belonging to a single organisation.
+        /// </summary>
+        public string ParentRememberMeId { get; private set; }
+
+        /// <summary>
+        /// Time (UTC) and date of the sharing activity.
         /// </summary>
         public DateTime? Timestamp { get; private set; }
 
         /// <summary>
-        /// The <see cref="YotiUserProfile"/> returned by Yoti if the request was successful.
-        /// </summary>
-        [Obsolete("Please use Profile instead")]
-        public YotiUserProfile UserProfile { get; set; }
-
-        /// <summary>
         /// The <see cref="YotiProfile"/> returned by Yoti if the request was successful.
         /// </summary>
-        public YotiProfile Profile { get; set; }
+        public YotiProfile Profile { get; private set; }
 
         /// <summary>
         /// The profile associated with the application.
@@ -61,14 +48,9 @@ namespace Yoti.Auth
         public ApplicationProfile ApplicationProfile { get; private set; }
 
         /// <summary>
-        /// The outcome status of the request.
-        /// </summary>
-        public ActivityOutcome Outcome { get; set; }
-
-        /// <summary>
-        /// Receipt ID identifying a completed activity.
+        /// Receipt ID identifying a completed sharing activity.
         /// </summary>
         /// <returns></returns>
-        public string ReceiptID { get; private set; }
+        public string ReceiptId { get; private set; }
     }
 }
