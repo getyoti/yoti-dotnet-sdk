@@ -41,6 +41,7 @@ Please feel free to reach out
 - .NET Standard 1.6
 - .NET Standard 2.0
 - .NET Core App 1.1
+- .NET Core App 2.0
 - .NET Core App 2.1
 - .NET 4.5
 - .NET 4.6
