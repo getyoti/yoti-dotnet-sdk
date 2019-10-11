@@ -34,7 +34,7 @@ namespace Example.Controllers
         }
 
         // GET: Home/DynamicScenario
-        public ActionResult DynamicScenario(string token)
+        public ActionResult DynamicScenario()
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
