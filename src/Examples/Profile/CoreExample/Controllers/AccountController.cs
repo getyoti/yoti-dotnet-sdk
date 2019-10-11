@@ -14,21 +14,10 @@ namespace CoreExample.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger _logger;
-        private byte[] _photoBytes;
 
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
-        }
-
-        public byte[] GetPhotoBytes()
-        {
-            return _photoBytes;
-        }
-
-        public void SetPhotoBytes(byte[] value)
-        {
-            _photoBytes = value;
         }
 
         public ActionResult Error()
@@ -73,10 +62,7 @@ namespace CoreExample.Controllers
                 YotiAttribute<Image> selfie = profile.Selfie;
                 if (profile.Selfie != null)
                 {
-                    Image selfieValue = selfie.GetValue();
-                    SetPhotoBytes(selfieValue.GetContent());
-                    DownloadImageFile();
-                    displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
+                    displayAttributes.Base64Selfie = selfie.GetValue().GetBase64URI();
                 }
 
                 return View(displayAttributes);
@@ -174,14 +160,6 @@ namespace CoreExample.Controllers
         public ActionResult Logout()
         {
             return RedirectToAction("Index", "Home");
-        }
-
-        public FileContentResult DownloadImageFile()
-        {
-            if (GetPhotoBytes() == null)
-                throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
-
-            return File(GetPhotoBytes(), System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
         }
     }
 }
