@@ -7,6 +7,7 @@ using Example.Models;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth;
 using Yoti.Auth.Attribute;
+using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
 namespace Example.Controllers
@@ -118,6 +119,14 @@ namespace Example.Controllers
 
                     case Yoti.Auth.Constants.UserProfile.GenderAttribute:
                         AddDisplayAttribute<string>("Gender", "yoti-icon-gender", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.DocumentDetailsAttribute:
+                        AddDisplayAttribute<DocumentDetails>("Document Details", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.DocumentImagesAttribute:
+                        AddDisplayAttribute<List<Image>>("Document Images", "yoti-icon-profile", yotiAttribute, displayAttributes);
                         break;
 
                     default:

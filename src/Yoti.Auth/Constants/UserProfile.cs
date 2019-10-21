@@ -16,5 +16,6 @@
         public const string StructuredPostalAddressAttribute = "structured_postal_address";
         public const string DateOfBirthAttribute = "date_of_birth";
         public const string DocumentDetailsAttribute = "document_details";
+        public const string DocumentImagesAttribute = "document_images";
     }
 }

@@ -6,7 +6,6 @@ using Moq;
 using Xunit;
 using Yoti.Auth.Sandbox.Profile.Request;
 using Yoti.Auth.Tests.Common;
-using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Sandbox
 {
