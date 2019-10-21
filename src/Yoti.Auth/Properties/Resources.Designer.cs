@@ -125,6 +125,15 @@ namespace Yoti.Auth.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unsupported image type.
+        /// </summary>
+        internal static string UnsupportedImageType {
+            get {
+                return ResourceManager.GetString("UnsupportedImageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The path must not be an Absolute URI, use Relative (UriKind.Relative).
         /// </summary>
         internal static string UseRelativePath {

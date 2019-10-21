@@ -104,6 +104,11 @@ namespace Yoti.Auth.ShareUrl.Policy
             return WithWantedAttribute(Constants.UserProfile.DocumentDetailsAttribute);
         }
 
+        public DynamicPolicyBuilder WithDocumentImages()
+        {
+            return WithWantedAttribute(Constants.UserProfile.DocumentImagesAttribute);
+        }
+
         public DynamicPolicyBuilder WithSelfieAuthentication(bool enabled)
         {
             return WithAuthType(DynamicPolicy.SelfieAuthType, enabled);

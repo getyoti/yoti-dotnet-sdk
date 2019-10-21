@@ -138,6 +138,9 @@
   <data name="NullParsedResponse" xml:space="preserve">
     <value>The receipt of the parsed response is null</value>
   </data>
+  <data name="UnsupportedImageType" xml:space="preserve">
+    <value>Unsupported image type</value>
+  </data>
   <data name="UseRelativePath" xml:space="preserve">
     <value>The path must not be an Absolute URI, use Relative (UriKind.Relative)</value>
   </data>

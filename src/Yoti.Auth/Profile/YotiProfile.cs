@@ -172,6 +172,17 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
+        /// Document Images. This will be null if not provided by Yoti.
+        /// </summary>
+        public YotiAttribute<List<Image>> DocumentImages
+        {
+            get
+            {
+                return GetAttributeByName<List<Image>>(name: Constants.UserProfile.DocumentImagesAttribute);
+            }
+        }
+
+        /// <summary>
         /// Finds all the 'Age Over' and 'Age Under' derived attributes returned with the profile,
         /// and returns them wrapped in <see cref="AgeVerification"/> objects. Returns null if no
         /// matches were found.
