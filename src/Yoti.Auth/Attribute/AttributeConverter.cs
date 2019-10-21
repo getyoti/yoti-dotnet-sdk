@@ -107,6 +107,12 @@ namespace Yoti.Auth.Attribute
                         multiValueList,
                         ParseAnchors(attribute));
 
+                case ContentType.Int:
+                    return new YotiAttribute<int>(
+                      attribute.Name,
+                      (int)value,
+                      ParseAnchors(attribute));
+
                 default:
                     logger.Warn($"Unknown content type {attribute.ContentType}, attempting to parse it as a string");
                     return new YotiAttribute<string>(
@@ -137,6 +143,10 @@ namespace Yoti.Auth.Attribute
 
                 case ContentType.MultiValue:
                     return ConvertMultiValue(byteAttributeValue);
+
+                case ContentType.Int:
+                    string stringValue = Conversion.BytesToUtf8(byteAttributeValue);
+                    return int.Parse(stringValue, CultureInfo.InvariantCulture);
 
                 default:
                     logger.Warn($"Unknown content type {contentType}, attempting to parse it as a string");

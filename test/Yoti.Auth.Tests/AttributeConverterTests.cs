@@ -31,7 +31,7 @@ namespace Yoti.Auth.Tests
                 Attributes = { attribute1, invalidAttribute, attribute2 }
             };
 
-            var result = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var result = AttributeConverter.ConvertToBaseAttributes(attributeList);
 
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.ContainsKey(attribute1Name));
@@ -46,7 +46,7 @@ namespace Yoti.Auth.Tests
                 ContentType.String,
                 _emptyByteStringValue);
 
-            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
             var result = (Attribute.YotiAttribute<string>)convertedAttributes.Values.First();
             Assert.AreEqual("", result.GetValue());
         }
@@ -58,6 +58,7 @@ namespace Yoti.Auth.Tests
         [DataRow(ContentType.Png)]
         [DataRow(ContentType.Undefined)]
         [DataRow(ContentType.MultiValue)]
+        [DataRow(ContentType.Int)]
         public void OtherAttributesWithEmptyValueAreNotAdded(ContentType contentType)
         {
             AttributeList attributeList = CreateAttributeListWithSingleAttribute(
@@ -65,7 +66,7 @@ namespace Yoti.Auth.Tests
                contentType,
                 _emptyByteStringValue);
 
-            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
             Assert.AreEqual(0, convertedAttributes.Count);
         }
 
@@ -76,13 +77,14 @@ namespace Yoti.Auth.Tests
         [DataRow(ContentType.Png)]
         [DataRow(ContentType.Undefined)]
         [DataRow(ContentType.MultiValue)]
+        [DataRow(ContentType.Int)]
         public void OtherAttributesWithEmptyValueThrowsException(ContentType contentType)
         {
             ProtoBuf.Attribute.Attribute attribute = CreateProtobufAttribute("attributeName", _emptyByteStringValue, contentType);
 
             Assert.ThrowsException<System.InvalidOperationException>(() =>
             {
-                Attribute.AttributeConverter.ConvertToBaseAttribute(attribute);
+                AttributeConverter.ConvertToBaseAttribute(attribute);
             });
         }
 
@@ -124,7 +126,7 @@ namespace Yoti.Auth.Tests
                ContentType.MultiValue,
                multiValue.ToByteString());
 
-            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
             var attribute = (Attribute.YotiAttribute<List<Image>>)convertedAttributes.Values.First();
 
             var attributeValues = attribute.GetValue();
@@ -150,7 +152,7 @@ namespace Yoti.Auth.Tests
                ContentType.MultiValue,
                multiValue.ToByteString());
 
-            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
             Assert.AreEqual(0, convertedAttributes.Count);
         }
 
@@ -173,13 +175,54 @@ namespace Yoti.Auth.Tests
                ContentType.MultiValue,
                multiValue.ToByteString());
 
-            var convertedAttributes = Attribute.AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
             var attribute = (Attribute.YotiAttribute<List<MultiValueItem>>)convertedAttributes.Values.First();
 
             var attributeValue = attribute.GetValue().First();
 
             Assert.AreEqual(ContentType.String, attributeValue.ContentType);
             Assert.AreEqual(stringValue, attributeValue.Value);
+        }
+
+        [DataTestMethod]
+        [DataRow("-10", -10)]
+        [DataRow("-1", -1)]
+        [DataRow("0", 0)]
+        [DataRow("1", 1)]
+        [DataRow("0001", 1)]
+        [DataRow("123456", 123456)]
+        [DataRow("2147483647", 2147483647)]
+        public void ShouldParseIntAttribute(string stringValue, int expectedIntegerValue)
+        {
+            string intAttributeName = "intAttributeName";
+
+            AttributeList attributeList = CreateAttributeListWithSingleAttribute(
+               intAttributeName,
+               ContentType.Int,
+                ByteString.CopyFromUtf8(stringValue));
+
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
+            var attribute = (Attribute.YotiAttribute<int>)convertedAttributes.Values.First();
+
+            Assert.AreEqual(expectedIntegerValue, attribute.GetValue());
+        }
+
+        [DataTestMethod]
+        [DataRow("2147483648")]
+        [DataRow("abcd")]
+        [DataRow("1a")]
+        public void ShouldNotAddInvalidValues(string stringValue)
+        {
+            string intAttributeName = "intAttributeName";
+
+            AttributeList attributeList = CreateAttributeListWithSingleAttribute(
+               intAttributeName,
+               ContentType.Int,
+                ByteString.CopyFromUtf8(stringValue));
+
+            var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
+
+            Assert.AreEqual(0, convertedAttributes.Count);
         }
 
         private static AttributeList CreateAttributeListWithSingleAttribute(string name, ContentType contentType, ByteString byteStringValue)
