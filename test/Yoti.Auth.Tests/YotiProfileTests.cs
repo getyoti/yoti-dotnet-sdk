@@ -15,7 +15,7 @@ namespace Yoti.Auth.Tests
         private readonly string _value = "value";
 
         [TestMethod]
-        public void YotiProfile_SelfieAttribute()
+        public void ShouldRetrieveSelfieAttribute()
         {
             var initialAttribute = new YotiAttribute<Image>(
                name: Constants.UserProfile.SelfieAttribute,
@@ -30,7 +30,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_FullNameAttribute()
+        public void ShouldRetrieveFullNameAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.FullNameAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -41,7 +41,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_GivenNamesAttribute()
+        public void ShouldRetrieveGivenNamesAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.GivenNamesAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -52,7 +52,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_FamilyNameAttribute()
+        public void ShouldRetrieveFamilyNameAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.FamilyNameAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -63,7 +63,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_PhoneNumberAttribute()
+        public void ShouldRetrievePhoneNumberAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.PhoneNumberAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -74,7 +74,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_EmailAddressAttribute()
+        public void ShouldRetrieveEmailAddressAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.EmailAddressAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -85,7 +85,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_DateOfBirthAttribute()
+        public void ShouldRetrieveDateOfBirthAttribute()
         {
             var initialAttribute = new YotiAttribute<DateTime>(
                 name: Constants.UserProfile.DateOfBirthAttribute,
@@ -100,7 +100,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_AddressAttribute()
+        public void ShouldRetrieveAddressAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.PostalAddressAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -111,7 +111,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_StructuredPostalAddressAttribute()
+        public void ShouldRetrieveStructuredPostalAddressAttribute()
         {
             var jsonValue = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(
                     "{ \"properties\": { \"name\": { \"type\": \"string\" } } }");
@@ -129,7 +129,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_GenderAttribute()
+        public void ShouldRetrieveGenderAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.GenderAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -140,7 +140,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiProfile_NationalityAttribute()
+        public void ShouldRetrieveNationalityAttribute()
         {
             YotiAttribute<string> initialAttribute = CreateStringAttribute(Constants.UserProfile.NationalityAttribute);
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
@@ -148,6 +148,22 @@ namespace Yoti.Auth.Tests
             YotiAttribute<string> nationalityAttribute = yotiProfile.Nationality;
 
             Assert.AreSame(initialAttribute, nationalityAttribute);
+        }
+
+        [TestMethod]
+        public void ShouldRetrieveIntAttribute()
+        {
+            string intAttributeName = "intAttributeName";
+            int intValue = 92387;
+            var initialAttribute = new YotiAttribute<int>(
+                intAttributeName,
+                intValue,
+                anchors: null);
+
+            YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
+            YotiAttribute<int> intAttribute = yotiProfile.GetAttributeByName<int>(intAttributeName);
+
+            Assert.AreEqual(intValue, intAttribute.GetValue());
         }
 
         private YotiAttribute<string> CreateStringAttribute(string name)
