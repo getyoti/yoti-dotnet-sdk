@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Document;
 using Yoti.Auth.Images;
+using Yoti.Auth.Properties;
 using Yoti.Auth.ProtoBuf.Attribute;
 
 namespace Yoti.Auth.Attribute
@@ -42,14 +43,19 @@ namespace Yoti.Auth.Attribute
 
             byte[] byteAttributeValue = attribute.Value.ToByteArray();
 
+            return CreateYotiAttribute(attribute, logger, byteAttributeValue);
+        }
+
+        private static BaseAttribute CreateYotiAttribute(ProtoBuf.Attribute.Attribute attribute, NLog.Logger logger, byte[] byteAttributeValue)
+        {
+            object value = ParseAttributeValue(attribute.ContentType, logger, byteAttributeValue);
+
             switch (attribute.ContentType)
             {
                 case ContentType.String:
-                    string stringAttributeValue = Conversion.BytesToUtf8(byteAttributeValue);
-
                     if (attribute.Name == Constants.UserProfile.DocumentDetailsAttribute)
                     {
-                        DocumentDetails documementDetails = DocumentDetailsAttributeParser.ParseFrom(stringAttributeValue);
+                        DocumentDetails documementDetails = DocumentDetailsAttributeParser.ParseFrom((string)value);
 
                         return new YotiAttribute<DocumentDetails>(
                           attribute.Name,
@@ -59,39 +65,92 @@ namespace Yoti.Auth.Attribute
 
                     return new YotiAttribute<string>(
                       attribute.Name,
-                      Conversion.BytesToUtf8(byteAttributeValue),
+                      (string)value,
                       ParseAnchors(attribute));
 
                 case ContentType.Date:
                     return new YotiAttribute<DateTime>(
                       attribute.Name,
-                      GetDateValue(byteAttributeValue),
+                      (DateTime)value,
                       ParseAnchors(attribute));
 
                 case ContentType.Jpeg:
                     return new YotiAttribute<Image>(
                       attribute.Name,
-                      new JpegImage(byteAttributeValue),
+                      (JpegImage)value,
                       ParseAnchors(attribute));
 
                 case ContentType.Png:
                     return new YotiAttribute<Image>(
                       attribute.Name,
-                      new PngImage(byteAttributeValue),
+                      (PngImage)value,
                       ParseAnchors(attribute));
 
                 case ContentType.Json:
                     return new YotiAttribute<Dictionary<string, JToken>>(
                       attribute.Name,
-                      value: GetJsonValue(byteAttributeValue),
+                      (Dictionary<string, JToken>)value,
+                      ParseAnchors(attribute));
+
+                case ContentType.MultiValue:
+                    var multiValueList = (List<MultiValueItem>)value;
+                    if (attribute.Name == Constants.UserProfile.DocumentImagesAttribute)
+                    {
+                        return new YotiAttribute<List<Image>>(
+                            attribute.Name,
+                            value: CreateImageListFromMultiValue(multiValueList),
+                            ParseAnchors(attribute));
+                    }
+
+                    return new YotiAttribute<List<MultiValueItem>>(
+                        attribute.Name,
+                        multiValueList,
+                        ParseAnchors(attribute));
+
+                case ContentType.Int:
+                    return new YotiAttribute<int>(
+                      attribute.Name,
+                      (int)value,
                       ParseAnchors(attribute));
 
                 default:
                     logger.Warn($"Unknown content type {attribute.ContentType}, attempting to parse it as a string");
                     return new YotiAttribute<string>(
                         attribute.Name,
-                        Conversion.BytesToUtf8(attribute.Value.ToByteArray()),
+                        Conversion.BytesToUtf8(byteAttributeValue),
                         ParseAnchors(attribute));
+            }
+        }
+
+        private static object ParseAttributeValue(ContentType contentType, NLog.Logger logger, byte[] byteAttributeValue)
+        {
+            switch (contentType)
+            {
+                case ContentType.String:
+                    return Conversion.BytesToUtf8(byteAttributeValue);
+
+                case ContentType.Date:
+                    return GetDateValue(byteAttributeValue);
+
+                case ContentType.Jpeg:
+                    return new JpegImage(byteAttributeValue);
+
+                case ContentType.Png:
+                    return new PngImage(byteAttributeValue);
+
+                case ContentType.Json:
+                    return GetJsonValue(byteAttributeValue);
+
+                case ContentType.MultiValue:
+                    return ConvertMultiValue(byteAttributeValue);
+
+                case ContentType.Int:
+                    string stringValue = Conversion.BytesToUtf8(byteAttributeValue);
+                    return int.Parse(stringValue, CultureInfo.InvariantCulture);
+
+                default:
+                    logger.Warn($"Unknown content type {contentType}, attempting to parse it as a string");
+                    return Conversion.BytesToUtf8(byteAttributeValue);
             }
         }
 
@@ -112,6 +171,39 @@ namespace Yoti.Auth.Attribute
             string utf8JSON = Conversion.BytesToUtf8(bytes);
             Dictionary<string, JToken> deserializedJson = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, JToken>>(utf8JSON);
             return deserializedJson;
+        }
+
+        private static List<MultiValueItem> ConvertMultiValue(byte[] byteAttributeValue)
+        {
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+            List<MultiValueItem> multiValueList = new List<MultiValueItem>();
+
+            var protobufultiValue = ProtoBuf.Attribute.MultiValue.Parser.ParseFrom(byteAttributeValue);
+            foreach (MultiValue.Types.Value value in protobufultiValue.Values)
+            {
+                object attributeValue = ParseAttributeValue(value.ContentType, logger, value.Data.ToByteArray());
+
+                multiValueList.Add(new MultiValueItem(attributeValue, value.ContentType));
+            }
+
+            return multiValueList;
+        }
+
+        private static List<Image> CreateImageListFromMultiValue(List<MultiValueItem> multiValueItemList)
+        {
+            var imageList = new List<Image>();
+
+            foreach (var multiValueItem in multiValueItemList)
+            {
+                if (multiValueItem.ContentType == ContentType.Jpeg)
+                    imageList.Add((JpegImage)multiValueItem.Value);
+                else if (multiValueItem.ContentType == ContentType.Png)
+                    imageList.Add((PngImage)multiValueItem.Value);
+                else
+                    throw new InvalidOperationException(Resources.UnsupportedImageType);
+            }
+
+            return imageList;
         }
 
         private static DateTime GetDateValue(byte[] bytes)

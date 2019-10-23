@@ -7,24 +7,13 @@ using Example.Models;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth;
 using Yoti.Auth.Attribute;
+using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
 namespace Example.Controllers
 {
     public class AccountController : Controller
     {
-        private byte[] _photoBytes;
-
-        public byte[] GetPhotoBytes()
-        {
-            return _photoBytes;
-        }
-
-        public void SetPhotoBytes(byte[] value)
-        {
-            _photoBytes = value;
-        }
-
         public ActionResult Error()
         {
             return View();
@@ -66,8 +55,6 @@ namespace Example.Controllers
                 if (profile.Selfie != null)
                 {
                     Image selfieValue = selfie.GetValue();
-                    SetPhotoBytes(selfieValue.GetContent());
-                    DownloadImageFile();
                     displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
                 }
 
@@ -134,6 +121,14 @@ namespace Example.Controllers
                         AddDisplayAttribute<string>("Gender", "yoti-icon-gender", yotiAttribute, displayAttributes);
                         break;
 
+                    case Yoti.Auth.Constants.UserProfile.DocumentDetailsAttribute:
+                        AddDisplayAttribute<DocumentDetails>("Document Details", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.DocumentImagesAttribute:
+                        AddDisplayAttribute<List<Image>>("Document Images", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
                     default:
                         YotiAttribute<string> stringAttribute = yotiAttribute as YotiAttribute<string>;
 
@@ -168,14 +163,6 @@ namespace Example.Controllers
             authManager.SignOut("ApplicationCookie");
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public FileContentResult DownloadImageFile()
-        {
-            if (GetPhotoBytes() == null)
-                throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
-
-            return File(GetPhotoBytes(), System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
         }
     }
 }

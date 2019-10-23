@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth;
 using Yoti.Auth.Attribute;
+using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
 namespace CoreExample.Controllers
@@ -14,21 +15,10 @@ namespace CoreExample.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger _logger;
-        private byte[] _photoBytes;
 
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
-        }
-
-        public byte[] GetPhotoBytes()
-        {
-            return _photoBytes;
-        }
-
-        public void SetPhotoBytes(byte[] value)
-        {
-            _photoBytes = value;
         }
 
         public ActionResult Error()
@@ -73,10 +63,7 @@ namespace CoreExample.Controllers
                 YotiAttribute<Image> selfie = profile.Selfie;
                 if (profile.Selfie != null)
                 {
-                    Image selfieValue = selfie.GetValue();
-                    SetPhotoBytes(selfieValue.GetContent());
-                    DownloadImageFile();
-                    displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
+                    displayAttributes.Base64Selfie = selfie.GetValue().GetBase64URI();
                 }
 
                 return View(displayAttributes);
@@ -145,6 +132,14 @@ namespace CoreExample.Controllers
                         AddDisplayAttribute<string>("Gender", "yoti-icon-gender", yotiAttribute, displayAttributes);
                         break;
 
+                    case Yoti.Auth.Constants.UserProfile.DocumentDetailsAttribute:
+                        AddDisplayAttribute<DocumentDetails>("Document Details", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
+                    case Yoti.Auth.Constants.UserProfile.DocumentImagesAttribute:
+                        AddDisplayAttribute<List<Image>>("Document Images", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
                     default:
                         YotiAttribute<string> stringAttribute = yotiAttribute as YotiAttribute<string>;
 
@@ -174,14 +169,6 @@ namespace CoreExample.Controllers
         public ActionResult Logout()
         {
             return RedirectToAction("Index", "Home");
-        }
-
-        public FileContentResult DownloadImageFile()
-        {
-            if (GetPhotoBytes() == null)
-                throw new InvalidOperationException("The 'PhotoBytes' variable has not been set");
-
-            return File(GetPhotoBytes(), System.Net.Mime.MediaTypeNames.Application.Octet, "YotiSelfie.jpg");
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Yoti.Auth.Anchors
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
 
                 // certificate is only disposable in .NET 4.6+
-#if NETSTANDARD1_6 || NET46 || NET461
+#if !NET45
                 using (certificate)
                 {
 #endif
@@ -46,7 +46,7 @@ namespace Yoti.Auth.Anchors
 
                         extensions = GetListOfStringsFromExtension(certificate, extensionOid);
                     }
-#if NETSTANDARD1_6 || NET46 || NET461
+#if !NET45
                 }
 #endif
                 if (extensions.Count == 0)

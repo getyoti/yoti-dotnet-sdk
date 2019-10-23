@@ -28,10 +28,11 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             "cm90byKqAQoQQXR0cmlidXRlU2lnbmluZxIMCgRuYW1lGAEgASgJEg0KBXZh",
             "bHVlGAIgASgMEjAKDGNvbnRlbnRfdHlwZRgDIAEoDjIaLmF0dHJwdWJhcGlf",
             "djEuQ29udGVudFR5cGUSGgoSYXJ0aWZhY3Rfc2lnbmF0dXJlGAQgASgMEhAK",
-            "CHN1Yl90eXBlGAUgASgJEhkKEXNpZ25lZF90aW1lX3N0YW1wGAYgASgMQm8K",
-            "JGNvbS55b3RpLmFwaS5jbGllbnQuc3BpLnJlbW90ZS5wcm90b0IMU2lnbmlu",
-            "Z1Byb3RvWg15b3RpcHJvdG9hdHRyqgIcWW90aS5BdXRoLlByb3RvQnVmLkF0",
-            "dHJpYnV0ZcoCCkF0dHJwdWJhcGliBnByb3RvMw=="));
+            "CHN1Yl90eXBlGAUgASgJEhkKEXNpZ25lZF90aW1lX3N0YW1wGAYgASgMQooB",
+            "CiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJvdG9CDFNpZ25p",
+            "bmdQcm90b1oNeW90aXByb3RvYXR0cqoCHFlvdGkuQXV0aC5Qcm90b0J1Zi5B",
+            "dHRyaWJ1dGXKAgpBdHRycHViYXBp6gIYWW90aS5Qcm90b2J1Zi5BdHRycHVi",
+            "YXBpYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Yoti.Auth.ProtoBuf.Attribute.ContentTypeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

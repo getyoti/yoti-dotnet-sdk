@@ -31,8 +31,11 @@ namespace Yoti.Auth
         /// </summary>
         public static byte[] UrlSafeBase64ToBytes(string urlSafeBase64)
         {
+#if NETCOREAPP2_1 || NETCOREAPP2_0
+            string base64 = urlSafeBase64.Replace("-", "+", StringComparison.Ordinal).Replace("_", "/", StringComparison.Ordinal);
+#else
             string base64 = urlSafeBase64.Replace("-", "+").Replace("_", "/");
-
+#endif
             return Base64ToBytes(base64);
         }
     }
