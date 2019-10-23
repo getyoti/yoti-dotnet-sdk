@@ -129,6 +129,7 @@ if (user != null)
     string gender = profile.Gender?.GetValue();
     string nationality = profile.Nationality?.GetValue();
     Yoti.Auth.Document.DocumentDetails documentDetails = profile.DocumentDetails?.GetValue();
+    List<Yoti.Auth.Images.Image> documentImages = profile.DocumentImages?.GetValue();
     bool? isAgedOver18 = profile.FindAgeOverVerification(18)?.Result();
     bool? isAgedUnder55 = profile.FindAgeUnderVerification(55)?.Result();
 }
@@ -260,6 +261,8 @@ Performing an AML check on a person *requires* their consent.
     * [X] Structured Postal Address `StructuredPostalAddress`
     * [X] Gender `Gender`
     * [X] Nationality `Nationality`
+    * [X] Document Details `DocumentDetails`
+    * [X] Document Images `DocumentImages`
     * [X] Age Verifications `AgeVerifications`
   * [X] ApplicationProfile `ApplicationProfile`
     * [X] Name `Name`
@@ -279,5 +282,4 @@ Please provide the following to get you up and working as quickly as possible:
 
 Once we have answered your question we may contact you again to discuss Yoti products and services. If you’d prefer us not to do this, please let us know when you e-mail.
 
-For further documentation, see <https://www.yoti.com/developers/documentation/?csharp>
 For further documentation, see <https://developers.yoti.com/yoti-app/web-integration>
