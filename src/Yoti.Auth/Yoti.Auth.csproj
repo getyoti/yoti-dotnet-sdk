@@ -23,6 +23,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <ProjectGuid>{ef6b57ba-e361-47d5-8a37-5733f038e4ff}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -12,6 +12,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Yoti.Auth\Yoti.Auth.csproj" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <ProjectGuid>{5A23ACEE-3A49-49CA-901D-7142F5EF9517}</ProjectGuid>
+  </PropertyGroup>
 
   <ItemGroup>
     <None Update="test-key-invalid-format.pem">

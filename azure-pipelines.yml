@@ -4,7 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  branches:
+    include:
+    - '*'  # must quote since "*" is a YAML reserved character; we want a string
 
 pool:
   vmImage: 'windows-latest'
@@ -15,6 +17,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare analysis on SonarCloud'
+  inputs:
+    SonarCloud: 'Yoti SonarCloud'
+    organization: 'getyoti'
+    scannerMode: 'MSBuild'
+    projectKey: 'getyoti_yoti-dotnet-sdk'
+    projectName: 'dotnet-sdk'
+    projectVersion: '3.3.0'
+    extraProperties: |
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
+      sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
+      sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -28,7 +44,20 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    projects: 'test/Yoti.Auth.Tests/Yoti.Auth.Tests.csproj'
+    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutputFormat=opencover'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'test/Yoti.Auth.Sandbox.Tests/Yoti.Auth.Sandbox.Tests.csproj'
+    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutputFormat=opencover'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
