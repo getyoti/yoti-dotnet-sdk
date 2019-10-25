@@ -7,6 +7,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         private string _name;
         private string _derivation;
         private List<Constraint> _constraints;
+        private bool _acceptSelfAsserted;
 
         public WantedAttributeBuilder WithName(string name)
         {
@@ -31,11 +32,21 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
+        /// <summary>
+        /// Allow or deny the acceptance of self asserted attributes
+        /// </summary>
+        /// <param name="acceptSelfAsserted"></param>
+        public WantedAttributeBuilder WithAcceptSelfAsserted(bool acceptSelfAsserted)
+        {
+            _acceptSelfAsserted = acceptSelfAsserted;
+            return this;
+        }
+
         public WantedAttribute Build()
         {
             Validation.NotNullOrEmpty(_name, nameof(_name));
 
-            return new WantedAttribute(_name, _derivation, _constraints);
+            return new WantedAttribute(_name, _derivation, _constraints, _acceptSelfAsserted);
         }
     }
 }

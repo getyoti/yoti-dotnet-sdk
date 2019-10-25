@@ -26,7 +26,28 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.AreEqual(_someName, result.Name);
             Assert.AreEqual(_someDerivation, result.Derivation);
-            Assert.AreEqual(_someDerivation, result.Derivation);
+        }
+
+        [TestMethod]
+        public void ShouldSetAcceptSelfAssertedToFalseByDefault()
+        {
+            WantedAttribute result = new WantedAttributeBuilder()
+                .WithName("name")
+                .Build();
+
+            Assert.AreEqual(false, result.AcceptSelfAsserted);
+        }
+
+        [TestMethod]
+        public void ShouldRetainLatestAcceptSelfAsserted()
+        {
+            WantedAttribute result = new WantedAttributeBuilder()
+                .WithName("name")
+                .WithAcceptSelfAsserted(false)
+                .WithAcceptSelfAsserted(true)
+                .Build();
+
+            Assert.AreEqual(true, result.AcceptSelfAsserted);
         }
 
         [TestMethod]
