@@ -1,45 +1,34 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Yoti.Auth.ShareUrl.Policy
 {
     public class WantedAttribute
     {
+        [JsonRequired]
         [JsonProperty(PropertyName = "name")]
-        private readonly string _name;
+        public string Name { get; private set; }
 
         [JsonProperty(PropertyName = "derivation")]
-        private readonly string _derivation;
+        public string Derivation { get; private set; }
 
 #pragma warning disable 0414 //"Value never used" warning: the JsonProperty is used when creating the DynamicPolicy JSON
 
+        [JsonRequired]
         [JsonProperty(PropertyName = "optional")]
-        private readonly bool _optional;
+        public bool Optional { get; private set; }
 
 #pragma warning restore 0414
 
-        public WantedAttribute(string name, string derivation)
-        {
-            _name = name;
-            _derivation = derivation;
-            _optional = false;
-        }
+        [JsonProperty(PropertyName = "constraints")]
+        public List<Constraint> Constraints { get; private set; }
 
-        [JsonIgnore]
-        public string Name
+        public WantedAttribute(string name, string derivation, List<Constraint> constraints)
         {
-            get
-            {
-                return _name;
-            }
-        }
-
-        [JsonIgnore]
-        public string Derivation
-        {
-            get
-            {
-                return _derivation;
-            }
+            Name = name;
+            Derivation = derivation;
+            Optional = false;
+            Constraints = constraints;
         }
     }
 }
