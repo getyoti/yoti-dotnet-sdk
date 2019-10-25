@@ -5,22 +5,26 @@
       {
         "name": "date_of_birth",
         "derivation": null,
-        "optional": false
+        "optional": false,
+        "constraints": null
       },
       {
         "name": "date_of_birth",
         "derivation": "age_over:18",
-        "optional": false
+        "optional": false,
+        "constraints": null
       },
       {
         "name": "date_of_birth",
         "derivation": "age_under:30",
-        "optional": false
+        "optional": false,
+        "constraints": null
       },
       {
         "name": "date_of_birth",
         "derivation": "age_under:40",
-        "optional": false
+        "optional": false,
+        "constraints": null
       }
     ],
     "wanted_auth_types": [ 2 ],
