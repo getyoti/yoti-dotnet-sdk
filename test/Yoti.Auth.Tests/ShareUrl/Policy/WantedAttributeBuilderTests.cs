@@ -21,7 +21,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             WantedAttribute result = new WantedAttributeBuilder()
                 .WithName(_someName)
                 .WithDerivation(_someDerivation)
-                .WithConstraints(new List<Constraint> { sourceConstraint })
+                .WithConstraint(sourceConstraint)
                 .Build();
 
             Assert.AreEqual(_someName, result.Name);
@@ -61,7 +61,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                 .WithName("attribute_name")
-                .WithConstraints(new List<Constraint> { sourceConstraint })
+                .WithConstraint(sourceConstraint)
                 .Build();
 
             var result = (SourceConstraint)wantedAttribute.Constraints.Single();
@@ -79,7 +79,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                 .WithName("attribute_name")
-                .WithConstraints(new List<Constraint> { sourceConstraint })
+                .WithConstraint(sourceConstraint)
                 .Build();
 
             var result = (SourceConstraint)wantedAttribute.Constraints.Single();
@@ -98,7 +98,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                 .WithName("attribute_name")
-                .WithConstraints(new List<Constraint> { sourceConstraint })
+                .WithConstraint(sourceConstraint)
                 .Build();
 
             var result = (SourceConstraint)wantedAttribute.Constraints.Single();
@@ -110,6 +110,54 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.AreEqual("NATIONAL_ID", result.PreferredSources.WantedAnchors[1].Name);
             Assert.AreEqual("AADHAR", result.PreferredSources.WantedAnchors[1].SubType);
+        }
+
+        [TestMethod]
+        public void WithConstraintShouldAddToCurrentConstraints()
+        {
+            Constraint drivingLicenseConstraint = new SourceConstraintBuilder()
+               .WithDrivingLicense()
+               .Build();
+
+            Constraint passcardConstraint = new SourceConstraintBuilder()
+               .WithPasscard()
+               .Build();
+
+            WantedAttribute wantedAttribute = new WantedAttributeBuilder()
+                .WithName("attribute_name")
+                .WithConstraints(new List<Constraint> { drivingLicenseConstraint })
+                .WithConstraint(passcardConstraint)
+                .Build();
+
+            Assert.AreEqual(2, wantedAttribute.Constraints.Count);
+
+            var sourceConstraint1 = (SourceConstraint)wantedAttribute.Constraints.First();
+            Assert.AreEqual("DRIVING_LICENCE", sourceConstraint1.PreferredSources.WantedAnchors[0].Name);
+
+            var sourceConstraint2 = (SourceConstraint)wantedAttribute.Constraints.Last();
+            Assert.AreEqual("PASS_CARD", sourceConstraint2.PreferredSources.WantedAnchors[0].Name);
+        }
+
+        [TestMethod]
+        public void WithConstraintsShouldOverrideCurrentConstraint()
+        {
+            Constraint drivingLicenseConstraint = new SourceConstraintBuilder()
+               .WithDrivingLicense()
+               .Build();
+
+            Constraint passcardConstraint = new SourceConstraintBuilder()
+               .WithPasscard()
+               .Build();
+
+            WantedAttribute wantedAttribute = new WantedAttributeBuilder()
+                .WithName("attribute_name")
+                .WithConstraint(passcardConstraint)
+                .WithConstraints(new List<Constraint> { drivingLicenseConstraint })
+                .Build();
+
+            var result = (SourceConstraint)wantedAttribute.Constraints.Single();
+            Assert.AreEqual(1, result.PreferredSources.WantedAnchors.Count);
+            Assert.AreEqual("DRIVING_LICENCE", result.PreferredSources.WantedAnchors[0].Name);
         }
     }
 }
