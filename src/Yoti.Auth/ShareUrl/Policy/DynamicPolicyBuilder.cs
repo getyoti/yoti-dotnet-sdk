@@ -13,6 +13,12 @@ namespace Yoti.Auth.ShareUrl.Policy
             Validation.NotNull(wantedAttribute, nameof(wantedAttribute));
 
             string key = wantedAttribute.Derivation ?? wantedAttribute.Name;
+
+            if (wantedAttribute.Constraints?.Count > 0)
+            {
+                key += wantedAttribute.Constraints.GetHashCode();
+            }
+
             _wantedAttributes[key] = wantedAttribute;
             return this;
         }
