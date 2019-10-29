@@ -16,7 +16,7 @@ namespace Yoti.Auth.ShareUrl.Policy
 
             if (wantedAttribute.Constraints?.Count > 0)
             {
-                key += wantedAttribute.Constraints.GetHashCode();
+                key += "-" + wantedAttribute.Constraints.GetHashCode();
             }
 
             _wantedAttributes[key] = wantedAttribute;
