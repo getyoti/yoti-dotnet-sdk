@@ -24,6 +24,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
                 .WithConstraint(sourceConstraint)
                 .Build();
 
+            Assert.AreEqual(1, result.Constraints.Count);
             Assert.AreEqual(_someName, result.Name);
             Assert.AreEqual(_someDerivation, result.Derivation);
         }
