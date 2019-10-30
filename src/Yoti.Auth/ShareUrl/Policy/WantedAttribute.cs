@@ -17,12 +17,12 @@ namespace Yoti.Auth.ShareUrl.Policy
         public bool Optional { get; private set; }
 
         [JsonProperty(PropertyName = "accept_self_asserted")]
-        public bool AcceptSelfAsserted { get; private set; }
+        public bool? AcceptSelfAsserted { get; private set; }
 
         [JsonProperty(PropertyName = "constraints")]
         public List<Constraint> Constraints { get; private set; }
 
-        public WantedAttribute(string name, string derivation, List<Constraint> constraints, bool acceptSelfAsserted = false)
+        public WantedAttribute(string name, string derivation, List<Constraint> constraints, bool? acceptSelfAsserted = null)
         {
             Name = name;
             Derivation = derivation;

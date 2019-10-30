@@ -4,31 +4,22 @@
     "wanted": [
       {
         "name": "date_of_birth",
-        "derivation": null,
-        "optional": false,
-        "accept_self_asserted": false,
-        "constraints": null
+        "optional": false
       },
       {
         "name": "date_of_birth",
         "derivation": "age_over:18",
-        "optional": false,
-        "accept_self_asserted": false,
-        "constraints": null
+        "optional": false
       },
       {
         "name": "date_of_birth",
         "derivation": "age_under:30",
-        "optional": false,
-        "accept_self_asserted": false,
-        "constraints": null
+        "optional": false
       },
       {
         "name": "date_of_birth",
         "derivation": "age_under:40",
-        "optional": false,
-        "accept_self_asserted": false,
-        "constraints": null
+        "optional": false
       }
     ],
     "wanted_auth_types": [ 2 ],

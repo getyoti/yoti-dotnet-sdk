@@ -42,7 +42,13 @@ namespace Yoti.Auth.Tests.ShareUrl
             Assert.AreEqual(somePolicy, result.DynamicPolicy);
             CollectionAssert.AreEqual(expectedExtensions, result.Extensions);
 
-            string serializedScenario = JsonConvert.SerializeObject(result);
+            string serializedScenario = JsonConvert.SerializeObject(
+                result,
+
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
 
             object deserializedObject;
             using (StreamReader r = File.OpenText("TestData/DynamicPolicy.json"))

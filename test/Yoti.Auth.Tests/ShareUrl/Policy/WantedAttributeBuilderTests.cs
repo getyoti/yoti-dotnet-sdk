@@ -30,13 +30,13 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void ShouldSetAcceptSelfAssertedToFalseByDefault()
+        public void ShouldSetAcceptSelfAssertedToNullByDefault()
         {
             WantedAttribute result = new WantedAttributeBuilder()
                 .WithName("name")
                 .Build();
 
-            Assert.AreEqual(false, result.AcceptSelfAsserted);
+            Assert.AreEqual(null, result.AcceptSelfAsserted);
         }
 
         [TestMethod]
