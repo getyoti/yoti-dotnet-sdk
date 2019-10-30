@@ -4,10 +4,6 @@ namespace Yoti.Auth.ShareUrl.Policy
 {
     public class SourceConstraintBuilder
     {
-        internal const string _anchorValuePassport = "PASSPORT";
-        internal const string _anchorValueDrivingLicense = "DRIVING_LICENCE";
-        internal const string _anchorValueNationalId = "NATIONAL_ID";
-        internal const string _anchorValuePassCard = "PASS_CARD";
         private readonly List<WantedAnchor> _wantedAnchors = new List<WantedAnchor>();
         private bool _softPreference = false;
 
@@ -50,22 +46,22 @@ namespace Yoti.Auth.ShareUrl.Policy
 
         public SourceConstraintBuilder WithPassport(string subType = "")
         {
-            return WithAnchorByValue(_anchorValuePassport, subType);
+            return WithAnchorByValue(Constants.DocumentDetails.DocumentTypePassport, subType);
         }
 
         public SourceConstraintBuilder WithDrivingLicense(string subType = "")
         {
-            return WithAnchorByValue(_anchorValueDrivingLicense, subType);
+            return WithAnchorByValue(Constants.DocumentDetails.DocumentTypeDrivingLicense, subType);
         }
 
         public SourceConstraintBuilder WithNationalId(string subType = "")
         {
-            return WithAnchorByValue(_anchorValueNationalId, subType);
+            return WithAnchorByValue(Constants.DocumentDetails.DocumentTypeNationalId, subType);
         }
 
         public SourceConstraintBuilder WithPasscard(string subType = "")
         {
-            return WithAnchorByValue(_anchorValuePassCard, subType);
+            return WithAnchorByValue(Constants.DocumentDetails.DocumentTypePassCard, subType);
         }
 
         public SourceConstraint Build()
