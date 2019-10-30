@@ -7,7 +7,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         private string _name;
         private string _derivation;
         private List<Constraint> _constraints = new List<Constraint>();
-        private bool _acceptSelfAsserted;
+        private bool? _acceptSelfAsserted;
 
         public WantedAttributeBuilder WithName(string name)
         {

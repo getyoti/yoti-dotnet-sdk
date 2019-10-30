@@ -19,7 +19,12 @@ namespace Yoti.Auth.ShareUrl
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(dynamicScenario, nameof(dynamicScenario));
 
-            string serializedScenario = JsonConvert.SerializeObject(dynamicScenario);
+            string serializedScenario = JsonConvert.SerializeObject(
+                dynamicScenario,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
             byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
             Request shareUrlRequest = new RequestBuilder()
