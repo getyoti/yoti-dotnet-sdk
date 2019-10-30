@@ -6,5 +6,6 @@
         public const string DocumentTypeDrivingLicense = "DRIVING_LICENCE";
         public const string DocumentTypeAadhaar = "AADHAAR";
         public const string DocumentTypePassCard = "PASS_CARD";
+        public const string DocumentTypeNationalId = "NATIONAL_ID";
     }
 }
