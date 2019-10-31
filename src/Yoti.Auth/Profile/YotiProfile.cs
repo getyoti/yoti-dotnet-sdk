@@ -23,7 +23,7 @@ namespace Yoti.Auth.Profile
             _ageVerificationParser = new AgeVerificationParser(baseProfile);
         }
 
-        internal YotiProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
+        internal YotiProfile(List<BaseAttribute> attributes) : base(attributes)
         {
             _ageVerificationParser = new AgeVerificationParser(baseProfile: this);
         }
