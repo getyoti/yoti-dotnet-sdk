@@ -8,7 +8,7 @@ namespace Yoti.Auth.Profile
 {
     public abstract class BaseProfile : IBaseProfile
     {
-        private readonly List<BaseAttribute> _attributeList = new List<BaseAttribute>();
+        private readonly Dictionary<string, List<BaseAttribute>> _attributes = new Dictionary<string, List<BaseAttribute>>();
 
         /// <summary>
         /// Dictionary of <see cref="BaseAttribute"/>. BaseAttributes do not have an associated
@@ -21,24 +21,33 @@ namespace Yoti.Auth.Profile
         /// Collection of <see cref="BaseAttribute"/>. BaseAttributes do not have an associated
         /// value, and must be cast to a <see cref="YotiAttribute{T}"/> (see <see cref="GetAttributeByName{T}(string)"/>)
         /// </summary>
-        public ReadOnlyCollection<BaseAttribute> AttributeCollection => _attributeList.AsReadOnly();
+        public ReadOnlyCollection<BaseAttribute> AttributeCollection
+        {
+            get
+            {
+                return _attributes
+                    .SelectMany(x => x.Value)
+                    .ToList()
+                    .AsReadOnly();
+            }
+        }
 
         protected BaseProfile()
         {
             Attributes = new Dictionary<string, BaseAttribute>();
         }
 
-        protected BaseProfile(List<BaseAttribute> attributes)
+        protected BaseProfile(Dictionary<string, List<BaseAttribute>> attributes)
         {
             Validation.NotNull(attributes, nameof(attributes));
 
             Attributes = new Dictionary<string, BaseAttribute>();
-            foreach (var attribute in attributes)
+            foreach (var attributeList in attributes.Values)
             {
-                TryAddAttribute(attribute);
+                TryAddAttribute(attributeList.FirstOrDefault());
             }
 
-            _attributeList = attributes;
+            _attributes = attributes;
         }
 
         private void TryAddAttribute(BaseAttribute attribute)
@@ -51,10 +60,22 @@ namespace Yoti.Auth.Profile
             }
         }
 
-        internal void Add<T>(YotiAttribute<T> value)
+        internal void Add<T>(YotiAttribute<T> newValue)
         {
-            TryAddAttribute(value);
-            _attributeList.Add(value);
+            TryAddAttribute(newValue);
+
+            string attributeName = newValue.GetName();
+
+            if (_attributes.ContainsKey(attributeName))
+            {
+                List<BaseAttribute> attributeList = _attributes[attributeName];
+                attributeList.Add(newValue);
+                _attributes[attributeName] = attributeList;
+            }
+            else
+            {
+                _attributes.Add(attributeName, new List<BaseAttribute> { newValue });
+            }
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -34,8 +35,8 @@ namespace Yoti.Auth.Tests
             var result = AttributeConverter.ConvertToBaseAttributes(attributeList);
 
             Assert.AreEqual(2, result.Count);
-            Assert.IsTrue(result.Any(a => a.GetName() == attribute1Name));
-            Assert.IsTrue(result.Any(a => a.GetName() == attribute2Name));
+            Assert.IsTrue(result.Any(dict => dict.Value.Any(a => a.GetName() == attribute1Name)));
+            Assert.IsTrue(result.Any(dict => dict.Value.Any(a => a.GetName() == attribute2Name)));
         }
 
         [TestMethod]
@@ -47,8 +48,41 @@ namespace Yoti.Auth.Tests
                 _emptyByteStringValue);
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var result = (Attribute.YotiAttribute<string>)convertedAttributes.First();
+            var result = (YotiAttribute<string>)convertedAttributes.Values.First().First();
             Assert.AreEqual("", result.GetValue());
+        }
+
+        [TestMethod]
+        public void ShouldAddMultipleSameNamedAttributes()
+        {
+            string name = "sameName";
+
+            var attribute1 = new ProtoBuf.Attribute.Attribute
+            {
+                Name = name,
+                ContentType = ContentType.String,
+                Value = _emptyByteStringValue
+            };
+            var attribute2 = new ProtoBuf.Attribute.Attribute
+            {
+                Name = name,
+                ContentType = ContentType.String,
+                Value = _emptyByteStringValue
+            };
+
+            AttributeList attributeList = new AttributeList
+            {
+                Attributes = { attribute1, attribute2 }
+            };
+
+            Dictionary<string, List<BaseAttribute>> convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
+
+            Assert.AreEqual(1, convertedAttributes.Count);
+
+            List<BaseAttribute> result = convertedAttributes.First().Value;
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(name, result[0].GetName());
+            Assert.AreEqual(name, result[1].GetName());
         }
 
         [DataTestMethod]
@@ -127,7 +161,7 @@ namespace Yoti.Auth.Tests
                multiValue.ToByteString());
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var attribute = (Attribute.YotiAttribute<List<Image>>)convertedAttributes.First();
+            var attribute = (YotiAttribute<List<Image>>)convertedAttributes.First().Value.First();
 
             var attributeValues = attribute.GetValue();
 
@@ -176,7 +210,7 @@ namespace Yoti.Auth.Tests
                multiValue.ToByteString());
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var attribute = (Attribute.YotiAttribute<List<MultiValueItem>>)convertedAttributes.First();
+            var attribute = (YotiAttribute<List<MultiValueItem>>)convertedAttributes.First().Value.First();
 
             var attributeValue = attribute.GetValue().First();
 
@@ -202,7 +236,7 @@ namespace Yoti.Auth.Tests
                 ByteString.CopyFromUtf8(stringValue));
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var attribute = (Attribute.YotiAttribute<int>)convertedAttributes.First();
+            var attribute = (YotiAttribute<int>)convertedAttributes.First().Value.First();
 
             Assert.AreEqual(expectedIntegerValue, attribute.GetValue());
         }
