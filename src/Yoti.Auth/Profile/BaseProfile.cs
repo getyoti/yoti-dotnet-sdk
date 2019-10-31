@@ -1,46 +1,99 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Yoti.Auth.Attribute;
 
 namespace Yoti.Auth.Profile
 {
     public abstract class BaseProfile : IBaseProfile
     {
+        private readonly List<BaseAttribute> _attributeList = new List<BaseAttribute>();
+
         /// <summary>
         /// Dictionary of <see cref="BaseAttribute"/>. BaseAttributes do not have an associated
         /// value, and must be cast to a <see cref="YotiAttribute{T}"/> (see <see cref="GetAttributeByName{T}(string)"/>)
         /// </summary>
+        [Obsolete("Attributes is deprecated after the introduction of multiple same-named attributes, use AttributeCollection instead")]
         public Dictionary<string, BaseAttribute> Attributes { get; private set; }
+
+        /// <summary>
+        /// Collection of <see cref="BaseAttribute"/>. BaseAttributes do not have an associated
+        /// value, and must be cast to a <see cref="YotiAttribute{T}"/> (see <see cref="GetAttributeByName{T}(string)"/>)
+        /// </summary>
+        public ReadOnlyCollection<BaseAttribute> AttributeCollection => _attributeList.AsReadOnly();
 
         protected BaseProfile()
         {
             Attributes = new Dictionary<string, BaseAttribute>();
         }
 
-        protected BaseProfile(Dictionary<string, BaseAttribute> attributes)
+        protected BaseProfile(List<BaseAttribute> attributes)
         {
-            Attributes = attributes;
+            Validation.NotNull(attributes, nameof(attributes));
+
+            Attributes = new Dictionary<string, BaseAttribute>();
+            foreach (var attribute in attributes)
+            {
+                TryAddAttribute(attribute);
+            }
+
+            _attributeList = attributes;
+        }
+
+        private void TryAddAttribute(BaseAttribute attribute)
+        {
+            string attributeName = attribute.GetName();
+
+            if (!Attributes.ContainsKey(attributeName))
+            {
+                Attributes.Add(attributeName, attribute);
+            }
         }
 
         internal void Add<T>(YotiAttribute<T> value)
         {
-            Attributes.Add(value.GetName(), value);
+            TryAddAttribute(value);
+            _attributeList.Add(value);
         }
 
         /// <summary>
-        /// Retrieves an attribute based on its name
+        /// Retrieves an attribute which matches the attribute name specified.
         /// </summary>
         /// <typeparam name="T">The expected type of the attribute</typeparam>
         /// <param name="name">The name of the attribute</param>
-        /// <returns>Yoti Attribute</returns>
+        /// <returns><see cref="YotiAttribute{T}"/></returns>
         public YotiAttribute<T> GetAttributeByName<T>(string name)
         {
-            if (Attributes.TryGetValue(name, out BaseAttribute matchingAttribute))
+            BaseAttribute firstMatchingAttribute = AttributeCollection.FirstOrDefault(a => a.GetName() == name);
+
+            if (firstMatchingAttribute != null)
             {
-                return (YotiAttribute<T>)matchingAttribute;
+                return (YotiAttribute<T>)firstMatchingAttribute;
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Retrieves a list of attributes which match the attribute name specified.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the attribute</typeparam>
+        /// <param name="name">The name to match</param>
+        /// <returns>List of <see cref="YotiAttribute{T}"/></returns>
+        public ReadOnlyCollection<YotiAttribute<T>> GetAttributesByName<T>(string name)
+        {
+            List<YotiAttribute<T>> attributes = new List<YotiAttribute<T>>();
+
+            foreach (var attribute in AttributeCollection)
+            {
+                if (attribute.GetName() == name)
+                {
+                    attributes.Add((YotiAttribute<T>)attribute);
+                }
+            }
+
+            return attributes.AsReadOnly();
         }
 
         /// <summary>

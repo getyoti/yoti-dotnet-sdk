@@ -12,17 +12,17 @@ namespace Yoti.Auth.Attribute
 {
     internal static class AttributeConverter
     {
-        public static Dictionary<string, BaseAttribute> ConvertToBaseAttributes(AttributeList attributeList)
+        public static List<BaseAttribute> ConvertToBaseAttributes(AttributeList attributeList)
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-            var parsedAttributes = new Dictionary<string, BaseAttribute>();
+            var parsedAttributes = new List<BaseAttribute>();
 
             foreach (ProtoBuf.Attribute.Attribute attribute in attributeList.Attributes)
             {
                 try
                 {
-                    parsedAttributes.Add(attribute.Name, ConvertToBaseAttribute(attribute));
+                    parsedAttributes.Add(ConvertToBaseAttribute(attribute));
                 }
                 catch (Exception ex)
                 {

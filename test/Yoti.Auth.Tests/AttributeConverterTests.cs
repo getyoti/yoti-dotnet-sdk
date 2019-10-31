@@ -34,8 +34,8 @@ namespace Yoti.Auth.Tests
             var result = AttributeConverter.ConvertToBaseAttributes(attributeList);
 
             Assert.AreEqual(2, result.Count);
-            Assert.IsTrue(result.ContainsKey(attribute1Name));
-            Assert.IsTrue(result.ContainsKey(attribute2Name));
+            Assert.IsTrue(result.Any(a => a.GetName() == attribute1Name));
+            Assert.IsTrue(result.Any(a => a.GetName() == attribute2Name));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Yoti.Auth.Tests
                 _emptyByteStringValue);
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var result = (Attribute.YotiAttribute<string>)convertedAttributes.Values.First();
+            var result = (Attribute.YotiAttribute<string>)convertedAttributes.First();
             Assert.AreEqual("", result.GetValue());
         }
 
@@ -127,7 +127,7 @@ namespace Yoti.Auth.Tests
                multiValue.ToByteString());
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var attribute = (Attribute.YotiAttribute<List<Image>>)convertedAttributes.Values.First();
+            var attribute = (Attribute.YotiAttribute<List<Image>>)convertedAttributes.First();
 
             var attributeValues = attribute.GetValue();
 
@@ -176,7 +176,7 @@ namespace Yoti.Auth.Tests
                multiValue.ToByteString());
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var attribute = (Attribute.YotiAttribute<List<MultiValueItem>>)convertedAttributes.Values.First();
+            var attribute = (Attribute.YotiAttribute<List<MultiValueItem>>)convertedAttributes.First();
 
             var attributeValue = attribute.GetValue().First();
 
@@ -202,7 +202,7 @@ namespace Yoti.Auth.Tests
                 ByteString.CopyFromUtf8(stringValue));
 
             var convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
-            var attribute = (Attribute.YotiAttribute<int>)convertedAttributes.Values.First();
+            var attribute = (Attribute.YotiAttribute<int>)convertedAttributes.First();
 
             Assert.AreEqual(expectedIntegerValue, attribute.GetValue());
         }
