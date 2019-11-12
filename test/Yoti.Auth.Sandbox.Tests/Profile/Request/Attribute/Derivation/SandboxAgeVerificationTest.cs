@@ -32,7 +32,8 @@ namespace Yoti.Auth.Sandbox.Tests.Profile.Request.Attribute.Derivation
                 .WithAnchors(null);
             });
 
-            Assert.Contains("Value cannot be null.\r\nParameter name: anchors", exception.Message, StringComparison.Ordinal);
+            Assert.Contains("Value cannot be null.", exception.Message, StringComparison.Ordinal);
+            Assert.Contains("Parameter name: anchors", exception.Message, StringComparison.Ordinal);
         }
 
         [Fact]
