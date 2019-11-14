@@ -86,11 +86,11 @@ namespace Yoti.Auth.Profile
         /// <returns><see cref="YotiAttribute{T}"/></returns>
         public YotiAttribute<T> GetAttributeByName<T>(string name)
         {
-            BaseAttribute firstMatchingAttribute = AttributeCollection.FirstOrDefault(a => a.GetName() == name);
+            bool found = _attributes.TryGetValue(name, out List<BaseAttribute> matchingAttributes);
 
-            if (firstMatchingAttribute != null)
+            if (found)
             {
-                return (YotiAttribute<T>)firstMatchingAttribute;
+                return (YotiAttribute<T>)matchingAttributes.First();
             }
 
             return null;
@@ -104,17 +104,17 @@ namespace Yoti.Auth.Profile
         /// <returns>List of <see cref="YotiAttribute{T}"/></returns>
         public ReadOnlyCollection<YotiAttribute<T>> GetAttributesByName<T>(string name)
         {
-            List<YotiAttribute<T>> attributes = new List<YotiAttribute<T>>();
+            List<YotiAttribute<T>> matchingAttributes = new List<YotiAttribute<T>>();
 
-            foreach (var attribute in AttributeCollection)
+            if (_attributes.ContainsKey(name))
             {
-                if (attribute.GetName() == name)
+                foreach (var attribute in _attributes[name])
                 {
-                    attributes.Add((YotiAttribute<T>)attribute);
+                    matchingAttributes.Add((YotiAttribute<T>)attribute);
                 }
             }
 
-            return attributes.AsReadOnly();
+            return matchingAttributes.AsReadOnly();
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Yoti.Auth.Profile
 
             List<YotiAttribute<T>> matches = new List<YotiAttribute<T>>();
 
-            foreach (KeyValuePair<string, BaseAttribute> attribute in Attributes)
+            foreach (KeyValuePair<string, List<BaseAttribute>> attribute in _attributes)
             {
                 if (attribute.Key.StartsWith(prefix, System.StringComparison.Ordinal)
                     && attribute.Value is YotiAttribute<T> castableAttribute)
