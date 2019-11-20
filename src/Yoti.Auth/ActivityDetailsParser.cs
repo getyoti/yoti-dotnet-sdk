@@ -8,10 +8,11 @@ using Yoti.Auth.Attribute;
 using Yoti.Auth.DataObjects;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Profile;
+using Yoti.Auth.Share;
 
 namespace Yoti.Auth
 {
-    internal static class ProfileParser
+    internal static class ActivityDetailsParser
     {
         public static ActivityDetails HandleResponse(AsymmetricCipherKeyPair keyPair, string responseContent)
         {
@@ -41,6 +42,16 @@ namespace Yoti.Auth
             var applicationProfile = new ApplicationProfile(
                 ParseProfileContent(keyPair, receipt.WrappedReceiptKey, receipt.ProfileContent));
 
+            ExtraData extraData = new ExtraData();
+
+            if (!string.IsNullOrEmpty(parsedResponse.Receipt.ExtraDataContent))
+            {
+                extraData = CryptoEngine.DecryptExtraData(
+                    receipt.WrappedReceiptKey,
+                    parsedResponse.Receipt.ExtraDataContent,
+                    keyPair);
+            }
+
             DateTime? timestamp = null;
             if (receipt.Timestamp != null
                 && DateTime.TryParseExact(
@@ -53,7 +64,7 @@ namespace Yoti.Auth
                 timestamp = parsedDate;
             }
 
-            return new ActivityDetails(parsedResponse.Receipt.RememberMeId, parsedResponse.Receipt.ParentRememberMeId, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.ReceiptId);
+            return new ActivityDetails(parsedResponse.Receipt.RememberMeId, parsedResponse.Receipt.ParentRememberMeId, timestamp, userProfile, applicationProfile, parsedResponse.Receipt.ReceiptId, extraData);
         }
 
         private static Dictionary<string, BaseAttribute> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
@@ -62,7 +73,7 @@ namespace Yoti.Auth
 
             if (!string.IsNullOrEmpty(profileContent))
             {
-                ProtoBuf.Attribute.AttributeList profileAttributeList = CryptoEngine.DecryptCurrentUserReceipt(
+                ProtoBuf.Attribute.AttributeList profileAttributeList = CryptoEngine.DecryptAttributeList(
                     wrappedReceiptKey,
                     profileContent,
                     keyPair);
