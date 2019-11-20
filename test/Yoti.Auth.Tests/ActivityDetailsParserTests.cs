@@ -6,7 +6,7 @@ using Yoti.Auth.Web;
 namespace Yoti.Auth.Tests
 {
     [TestClass]
-    public class ProfileParserTests
+    public class ActivityDetailsParserTests
     {
         [TestMethod]
         public void UnsuccessfulResponseThrowsYotiProfileException()
@@ -18,7 +18,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<YotiProfileException>(() =>
             {
-                ProfileParser.HandleResponse(KeyPair.Get(), response.Content);
+                ActivityDetailsParser.HandleResponse(KeyPair.Get(), response.Content);
             });
         }
 
@@ -33,7 +33,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsException<YotiProfileException>(() =>
             {
-                ProfileParser.HandleResponse(KeyPair.Get(), response.Content);
+                ActivityDetailsParser.HandleResponse(KeyPair.Get(), response.Content);
             });
         }
     }

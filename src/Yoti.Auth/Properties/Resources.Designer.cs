@@ -62,6 +62,24 @@ namespace Yoti.Auth.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unsupported/invalid data entry.
+        /// </summary>
+        internal static string DataEntryError {
+            get {
+                return ResourceManager.GetString("DataEntryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to parse data entry.
+        /// </summary>
+        internal static string DataEntryParsingFail {
+            get {
+                return ResourceManager.GetString("DataEntryParsingFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty value is invalid for non-string content types.
         /// </summary>
         internal static string EmptyValueInvalid {
@@ -103,6 +121,15 @@ namespace Yoti.Auth.Properties {
         internal static string InvalidDocumentDetails {
             get {
                 return ResourceManager.GetString("InvalidDocumentDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThirdPartyAttribute issuance token is missing.
+        /// </summary>
+        internal static string IssuanceTokenMissing {
+            get {
+                return ResourceManager.GetString("IssuanceTokenMissing", resourceCulture);
             }
         }
         

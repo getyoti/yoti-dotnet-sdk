@@ -82,6 +82,7 @@ namespace Yoti.Auth.Tests
 
             Assert.AreEqual(rememberMeId, activityDetails.RememberMeId);
             Assert.AreEqual(parentRememberMeId, activityDetails.ParentRememberMeId);
+            Assert.IsNull(activityDetails.ExtraData.AttributeIssuanceDetails);
 
             Assert.AreEqual(new DateTime(2016, 1, 1, 0, 0, 0), activityDetails.Timestamp);
 

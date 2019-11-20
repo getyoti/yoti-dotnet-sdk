@@ -10,6 +10,7 @@ using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using Yoti.Auth.ProtoBuf.Attribute;
 using Yoti.Auth.ProtoBuf.Common;
+using Yoti.Auth.Share;
 
 namespace Yoti.Auth
 {
@@ -93,6 +94,20 @@ namespace Yoti.Auth
             byte[] cipherBytes = Conversion.Base64ToBytes(wrappedKey);
 
             return DecryptRsa(cipherBytes, keyPair);
+        }
+
+        internal static AttributeList DecryptAttributeList(string wrappedReceiptKey, string profileContent, AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] decipheredBytes = DecipherContent(wrappedReceiptKey, profileContent, keyPair);
+
+            return AttributeList.Parser.ParseFrom(decipheredBytes);
+        }
+
+        internal static ExtraData DecryptExtraData(string wrappedReceiptKey, string extraDataContent, AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] decipheredBytes = DecipherContent(wrappedReceiptKey, extraDataContent, keyPair);
+
+            return ExtraDataConverter.ParseExtraDataProto(decipheredBytes);
         }
 
         private static byte[] DecipherContent(string wrappedReceiptKey, string content, AsymmetricCipherKeyPair keyPair)
