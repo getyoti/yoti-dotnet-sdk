@@ -7,7 +7,7 @@ using Yoti.Auth.ShareUrl;
 using Yoti.Auth.ShareUrl.Extensions;
 using Yoti.Auth.ShareUrl.Policy;
 
-namespace Example.Controllers
+namespace _47Example.Controllers
 {
     public class HomeController : Controller
     {

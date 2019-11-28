@@ -1,7 +1,7 @@
 Yoti .NET SDK
 =============
 
-[![Build Status](https://travis-ci.com/getyoti/yoti-dotnet-sdk.svg?branch=master)](https://travis-ci.com/getyoti/yoti-dotnet-sdk)
+[![Build Status](https://dev.azure.com/yoti/Dotnet%20SDK/_apis/build/status/getyoti.yoti-dotnet-sdk?branchName=master)](https://dev.azure.com/yoti/Dotnet%20SDK/_build/latest?definitionId=3&branchName=master)
 
 Welcome to the Yoti .NET SDK. This repo contains the tools and step by step instructions you need to quickly integrate your .NET back-end with Yoti so that your users can share their identity details with your application in a secure and trusted way.
 

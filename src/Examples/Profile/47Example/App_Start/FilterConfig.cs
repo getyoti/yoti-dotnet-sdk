@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 
-namespace Example
+namespace _47Example
 {
-    public static class FilterConfig
+    public class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
