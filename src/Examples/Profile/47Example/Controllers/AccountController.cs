@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Web;
 using System.Web.Mvc;
-using Example.Models;
+using _47Example.Models;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth;
 using Yoti.Auth.Attribute;
 using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
-namespace Example.Controllers
+namespace _47Example.Controllers
 {
     public class AccountController : Controller
     {
@@ -157,11 +156,6 @@ namespace Example.Controllers
 
         public ActionResult Logout()
         {
-            var ctx = Request.GetOwinContext();
-            var authManager = ctx.Authentication;
-
-            authManager.SignOut("ApplicationCookie");
-
             return RedirectToAction("Index", "Home");
         }
     }

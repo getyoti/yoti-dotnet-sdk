@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Example
+namespace _47Example
 {
     public class MvcApplication : System.Web.HttpApplication
     {
