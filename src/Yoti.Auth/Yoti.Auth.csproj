@@ -18,7 +18,7 @@
     <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
-    <Version>3.1.0</Version>
+    <Version>3.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
