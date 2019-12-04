@@ -1,0 +1,8 @@
+repos:
+- repo: local
+  hooks:
+    - id: local-dotnet-test
+      name: 'tests'
+      entry: test.sh
+      language: 'script'
+      description: "Run unit tests"

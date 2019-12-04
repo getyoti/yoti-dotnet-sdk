@@ -4,7 +4,6 @@
     "wanted": [
       {
         "name": "date_of_birth",
-        "derivation": null,
         "optional": false
       },
       {

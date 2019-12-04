@@ -3,12 +3,12 @@ using Yoti.Auth.ProtoBuf.Attribute;
 
 namespace Yoti.Auth.Tests.TestTools
 {
-    internal class Attributes
+    internal static class Attributes
     {
         public static ProtoBuf.Attribute.Attribute CreateProtobufAttributeFromRawAnchor(string rawAnchor)
         {
-            byte[] anchorBytes = Conversion.Base64ToBytes(rawAnchor);
-            return ProtoBuf.Attribute.Attribute.Parser.ParseFrom(anchorBytes);
+            byte[] attributeBytes = Conversion.Base64ToBytes(rawAnchor);
+            return ProtoBuf.Attribute.Attribute.Parser.ParseFrom(attributeBytes);
         }
 
         public static ProtoBuf.Attribute.Attribute CreateMultiValueAttribute(string multiValueAttributeName, ContentType innerContentType, ByteString value)

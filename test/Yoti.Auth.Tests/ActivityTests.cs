@@ -436,7 +436,7 @@ namespace Yoti.Auth.Tests
 
             _yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<Dictionary<string, JToken>>(attribute);
 
-            ProfileParser.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
+            ActivityDetailsParser.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
 
             Assert.AreEqual(_yotiProfile.Address.GetValue(), formattedAddress);
         }
@@ -481,7 +481,7 @@ namespace Yoti.Auth.Tests
             _yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<Dictionary<string, JToken>>(structuredAddressAttribute);
             _yotiProfile = TestTools.Profile.AddAttributeToProfile<string>(_yotiProfile, addressAttribute);
 
-            ProfileParser.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
+            ActivityDetailsParser.SetAddressToBeFormattedAddressIfNull(_yotiProfile);
 
             Assert.AreNotEqual(_yotiProfile.Address.GetValue(), formattedAddress);
         }
@@ -562,6 +562,24 @@ namespace Yoti.Auth.Tests
 
             AssertImages.ContainsExpectedImage(actualDocumentImages, "image/jpeg", "38TVEH/9k=");
             AssertImages.ContainsExpectedImage(actualDocumentImages, "image/jpeg", "vWgD//2Q==");
+        }
+
+        [TestMethod]
+        public void ShouldAddThirdPartyAttributeToProfile()
+        {
+            var thirdPartyAttribute = TestTools.Attributes.CreateProtobufAttributeFromRawAnchor(TestData.TestAttributes.ThirdPartyAssignedAttribute);
+
+            YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<string>(thirdPartyAttribute);
+
+            YotiAttribute<string> yotiAttribute = yotiProfile.GetAttributeByName<string>("com.thirdparty.id");
+
+            Assert.AreEqual("test-third-party-attribute-0", yotiAttribute.GetValue());
+
+            Assert.AreEqual("THIRD_PARTY", yotiAttribute.GetSources().First().GetValue());
+            Assert.AreEqual("orgName", yotiAttribute.GetSources().First().GetSubType());
+
+            Assert.AreEqual("THIRD_PARTY", yotiAttribute.GetVerifiers().First().GetValue());
+            Assert.AreEqual("orgName", yotiAttribute.GetVerifiers().First().GetSubType());
         }
 
         [TestMethod]

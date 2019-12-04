@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Yoti.Auth.Anchors;
 using Yoti.Auth.Attribute;
 
 namespace Yoti.Auth.Verifications

@@ -10,10 +10,11 @@ using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using Yoti.Auth.ProtoBuf.Attribute;
 using Yoti.Auth.ProtoBuf.Common;
+using Yoti.Auth.Share;
 
 namespace Yoti.Auth
 {
-    internal static class CryptoEngine
+    public static class CryptoEngine
     {
         private const string DigestAlgorithm = "SHA-256withRSA";
 
@@ -23,7 +24,7 @@ namespace Yoti.Auth
             return (AsymmetricCipherKeyPair)pemReader.ReadObject();
         }
 
-        public static byte[] DecipherAes(byte[] key, byte[] iv, byte[] cipherBytes)
+        internal static byte[] DecipherAes(byte[] key, byte[] iv, byte[] cipherBytes)
         {
             var keyParam = new KeyParameter(key);
             var keyParamWithIv = new ParametersWithIV(keyParam, iv);
@@ -44,7 +45,7 @@ namespace Yoti.Auth
             return result;
         }
 
-        public static byte[] DecryptRsa(byte[] cipherBytes, AsymmetricCipherKeyPair keypair)
+        internal static byte[] DecryptRsa(byte[] cipherBytes, AsymmetricCipherKeyPair keypair)
         {
             // decrypt using rsa with private key and PKCS 1 v1.5 padding
             var engine = new RsaEngine();
@@ -54,7 +55,7 @@ namespace Yoti.Auth
             return blockCipher.ProcessBlock(cipherBytes, 0, cipherBytes.Length);
         }
 
-        public static byte[] SignDigest(byte[] digestBytes, AsymmetricCipherKeyPair keypair)
+        internal static byte[] SignDigest(byte[] digestBytes, AsymmetricCipherKeyPair keypair)
         {
             // create a signature from the digest using SHA256 hashing with RSA
             ISigner signer = SignerUtilities.GetSigner(DigestAlgorithm);
@@ -63,12 +64,12 @@ namespace Yoti.Auth
             return signer.GenerateSignature();
         }
 
-        public static byte[] GetDerEncodedPublicKey(AsymmetricCipherKeyPair keypair)
+        internal static byte[] GetDerEncodedPublicKey(AsymmetricCipherKeyPair keypair)
         {
             return Org.BouncyCastle.X509.SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keypair.Public).GetDerEncoded();
         }
 
-        public static string GenerateNonce()
+        internal static string GenerateNonce()
         {
             var random = new SecureRandom();
 
@@ -78,7 +79,7 @@ namespace Yoti.Auth
             return new Guid(bytes).ToString("D");
         }
 
-        public static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
+        internal static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
         {
             // token was encoded as a URL-safe base64 so it can be transferred in a URL
             byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
@@ -88,29 +89,42 @@ namespace Yoti.Auth
             return Conversion.BytesToUtf8(decipheredBytes);
         }
 
-        public static byte[] UnwrapKey(string wrappedKey, AsymmetricCipherKeyPair keyPair)
+        internal static byte[] UnwrapKey(string wrappedKey, AsymmetricCipherKeyPair keyPair)
         {
             byte[] cipherBytes = Conversion.Base64ToBytes(wrappedKey);
 
             return DecryptRsa(cipherBytes, keyPair);
         }
 
-        public static AttributeList DecryptCurrentUserReceipt(string wrappedReceiptKey, string otherPartyProfile, AsymmetricCipherKeyPair keyPair)
+        internal static AttributeList DecryptAttributeList(string wrappedReceiptKey, string profileContent, AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] decipheredBytes = DecipherContent(wrappedReceiptKey, profileContent, keyPair);
+
+            return AttributeList.Parser.ParseFrom(decipheredBytes);
+        }
+
+        internal static ExtraData DecryptExtraData(string wrappedReceiptKey, string extraDataContent, AsymmetricCipherKeyPair keyPair)
+        {
+            byte[] decipheredBytes = DecipherContent(wrappedReceiptKey, extraDataContent, keyPair);
+
+            return ExtraDataConverter.ParseExtraDataProto(decipheredBytes);
+        }
+
+        private static byte[] DecipherContent(string wrappedReceiptKey, string content, AsymmetricCipherKeyPair keyPair)
         {
             byte[] unwrappedKey = UnwrapKey(wrappedReceiptKey, keyPair);
 
-            byte[] otherPartyProfileContentBytes = Conversion.Base64ToBytes(otherPartyProfile);
-            EncryptedData encryptedData = EncryptedData.Parser.ParseFrom(otherPartyProfileContentBytes);
+            byte[] contentBytes = Conversion.Base64ToBytes(content);
+            EncryptedData encryptedData = EncryptedData.Parser.ParseFrom(contentBytes);
 
             byte[] iv = encryptedData.Iv.ToByteArray();
             byte[] cipherText = encryptedData.CipherText.ToByteArray();
 
             byte[] decipheredBytes = DecipherAes(unwrappedKey, iv, cipherText);
-
-            return AttributeList.Parser.ParseFrom(decipheredBytes);
+            return decipheredBytes;
         }
 
-        public static string GetAuthKey(AsymmetricCipherKeyPair keyPair)
+        internal static string GetAuthKey(AsymmetricCipherKeyPair keyPair)
         {
             byte[] publicKey = GetDerEncodedPublicKey(keyPair);
 

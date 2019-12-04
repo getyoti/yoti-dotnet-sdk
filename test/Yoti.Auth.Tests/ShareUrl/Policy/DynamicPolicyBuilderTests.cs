@@ -42,6 +42,9 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
                 .WithPhoneNumber()
                 .WithSelfie()
                 .WithEmail()
+                .WithDocumentDetails()
+                .WithDocumentImages()
+
                 .WithAgeOver(55)
                 .WithAgeUnder(18)
                 .Build();
@@ -49,7 +52,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             ICollection<WantedAttribute> result = dynamicPolicy.WantedAttributes;
             var attributeMatcher = new WantedAttributeMatcher(result);
 
-            Assert.AreEqual(13, result.Count);
+            Assert.AreEqual(15, result.Count);
 
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.FamilyNameAttribute));
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.GivenNamesAttribute));
@@ -61,6 +64,8 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.PhoneNumberAttribute));
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.SelfieAttribute));
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.EmailAddressAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DocumentImagesAttribute));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DocumentDetailsAttribute));
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute));
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{Constants.UserProfile.AgeOverAttribute}:55"));
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{Constants.UserProfile.AgeUnderAttribute}:18"));
@@ -101,6 +106,41 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             Assert.AreEqual(1, result.Count);
 
             Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DateOfBirthAttribute, derivation: $"{UserProfile.AgeUnderAttribute}:{30}"));
+        }
+
+        [TestMethod]
+        public void ShouldAddMultipleAttributesWithSameNameAndDifferentConstraints()
+        {
+            var passportConstraint = new SourceConstraintBuilder()
+                  .WithPassport()
+                  .Build();
+
+            var docImage1 = new WantedAttributeBuilder()
+                .WithName(Yoti.Auth.Constants.UserProfile.DocumentImagesAttribute)
+                .WithConstraint(passportConstraint)
+                .Build();
+
+            var drivingLicenseConstraint = new SourceConstraintBuilder()
+               .WithDrivingLicense()
+               .Build();
+
+            var docImage2 = new WantedAttributeBuilder()
+                .WithName(Yoti.Auth.Constants.UserProfile.DocumentImagesAttribute)
+                .WithConstraints(new List<Constraint> { drivingLicenseConstraint })
+                .Build();
+
+            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+                .WithWantedAttribute(docImage1)
+                .WithWantedAttribute(docImage2)
+                .Build();
+
+            ICollection<WantedAttribute> result = dynamicPolicy.WantedAttributes;
+            var attributeMatcher = new WantedAttributeMatcher(result);
+
+            Assert.AreEqual(2, result.Count);
+
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DocumentImagesAttribute, null, new List<Constraint> { passportConstraint }));
+            Assert.IsTrue(attributeMatcher.ContainsAttribute(UserProfile.DocumentImagesAttribute, null, new List<Constraint> { drivingLicenseConstraint }));
         }
 
         [TestMethod]

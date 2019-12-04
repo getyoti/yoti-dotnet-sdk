@@ -42,7 +42,7 @@ namespace Yoti.Auth
                 if (!response.IsSuccessStatusCode)
                     Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
 
-                return ProfileParser.HandleResponse(
+                return ActivityDetailsParser.HandleResponse(
                     keyPair,
                     await response.Content.ReadAsStringAsync().ConfigureAwait(true));
             }

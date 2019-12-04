@@ -1,5 +1,6 @@
 ﻿using System;
 using Yoti.Auth.Profile;
+using Yoti.Auth.Share;
 
 namespace Yoti.Auth
 {
@@ -8,7 +9,7 @@ namespace Yoti.Auth
     /// </summary>
     public class ActivityDetails
     {
-        internal ActivityDetails(string rememberMeId, string parentRememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptId)
+        internal ActivityDetails(string rememberMeId, string parentRememberMeId, DateTime? timestamp, YotiProfile yotiProfile, ApplicationProfile applicationProfile, string receiptId, ExtraData extraData)
         {
             RememberMeId = rememberMeId;
             ParentRememberMeId = parentRememberMeId;
@@ -16,6 +17,7 @@ namespace Yoti.Auth
             Profile = yotiProfile;
             ApplicationProfile = applicationProfile;
             ReceiptId = receiptId;
+            ExtraData = extraData;
         }
 
         /// <summary>
@@ -52,5 +54,10 @@ namespace Yoti.Auth
         /// </summary>
         /// <returns></returns>
         public string ReceiptId { get; private set; }
+
+        /// <summary>
+        /// Extra data associated with the receipt
+        /// </summary>
+        public ExtraData ExtraData { get; private set; }
     }
 }

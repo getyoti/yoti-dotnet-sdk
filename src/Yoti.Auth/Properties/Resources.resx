@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DataEntryError" xml:space="preserve">
+    <value>Unsupported/invalid data entry</value>
+  </data>
+  <data name="DataEntryParsingFail" xml:space="preserve">
+    <value>Failed to parse data entry</value>
+  </data>
   <data name="EmptyValueInvalid" xml:space="preserve">
     <value>Empty value is invalid for non-string content types</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="InvalidDocumentDetails" xml:space="preserve">
     <value>Unable to parse attribute value to a DocumentDetails</value>
+  </data>
+  <data name="IssuanceTokenMissing" xml:space="preserve">
+    <value>ThirdPartyAttribute issuance token is missing</value>
   </data>
   <data name="NullOrEmptyResponseContent" xml:space="preserve">
     <value>The content of the response is null</value>

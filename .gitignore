@@ -36,3 +36,6 @@ OpenCover/
 
 # .NET tools
 src/tools/
+
+# Code Coverage Results
+src/TestResults/
