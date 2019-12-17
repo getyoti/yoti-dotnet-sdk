@@ -18,7 +18,7 @@ namespace Yoti.Auth
         {
             _httpClient = httpClient;
 
-#if NET45 || NET46 || NET47 || NET48
+#if NET452 || NET462 || NET472 || NET48
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 #endif
         }
