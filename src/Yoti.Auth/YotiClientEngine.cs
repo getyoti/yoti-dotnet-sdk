@@ -37,15 +37,13 @@ namespace Yoti.Auth
                 .WithHeader(Constants.Api.AuthKeyHeader, CryptoEngine.GetAuthKey(keyPair))
                 .Build();
 
-            using (HttpResponseMessage response = await profileRequest.Execute(_httpClient).ConfigureAwait(false))
-            {
-                if (!response.IsSuccessStatusCode)
-                    Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
+            using HttpResponseMessage response = await profileRequest.Execute(_httpClient).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+                Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
 
-                return ActivityDetailsParser.HandleResponse(
-                    keyPair,
-                    await response.Content.ReadAsStringAsync().ConfigureAwait(true));
-            }
+            return ActivityDetailsParser.HandleResponse(
+                keyPair,
+                await response.Content.ReadAsStringAsync().ConfigureAwait(true));
         }
 
         public Task<AmlResult> PerformAmlCheckAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, IAmlProfile amlProfile)

@@ -131,9 +131,7 @@ namespace _47Example.Controllers
                         break;
 
                     default:
-                        YotiAttribute<string> stringAttribute = yotiAttribute as YotiAttribute<string>;
-
-                        if (stringAttribute != null)
+                        if (yotiAttribute is YotiAttribute<string> stringAttribute)
                         {
                             if (stringAttribute.GetName().Contains(":"))
                             {
