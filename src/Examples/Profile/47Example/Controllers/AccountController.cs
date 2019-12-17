@@ -13,12 +13,14 @@ namespace _47Example.Controllers
 {
     public class AccountController : Controller
     {
+        [HttpGet]
         public ActionResult Error()
         {
             return View();
         }
 
         // GET: Account/Connect?token
+        [HttpGet]
         public ActionResult Connect(string token)
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -154,6 +156,7 @@ namespace _47Example.Controllers
                 displayAttributes.Add(name, icon, yotiAttribute.GetAnchors(), yotiAttribute.GetValue());
         }
 
+        [HttpGet]
         public ActionResult Logout()
         {
             return RedirectToAction("Index", "Home");
