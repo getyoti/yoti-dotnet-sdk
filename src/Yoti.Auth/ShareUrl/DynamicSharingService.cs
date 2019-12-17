@@ -35,16 +35,14 @@ namespace Yoti.Auth.ShareUrl
                  .WithContent(body)
                  .Build();
 
-            using (HttpResponseMessage response = await shareUrlRequest.Execute(httpClient).ConfigureAwait(false))
+            using HttpResponseMessage response = await shareUrlRequest.Execute(httpClient).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
             {
-                if (!response.IsSuccessStatusCode)
-                {
-                    Response.CreateExceptionFromStatusCode<DynamicShareException>(response);
-                }
-
-                return JsonConvert.DeserializeObject<ShareUrlResult>(
-                    response.Content.ReadAsStringAsync().Result);
+                Response.CreateExceptionFromStatusCode<DynamicShareException>(response);
             }
+
+            return JsonConvert.DeserializeObject<ShareUrlResult>(
+                response.Content.ReadAsStringAsync().Result);
         }
     }
 }

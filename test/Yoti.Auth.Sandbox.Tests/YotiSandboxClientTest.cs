@@ -14,7 +14,7 @@ namespace Yoti.Auth.Sandbox
         private const string _someAppId = "someAppId";
         private readonly YotiSandboxClient _yotiSandboxClient;
         private readonly YotiTokenRequest _yotiTokenRequest;
-        private static Uri _someUri = new Uri("https://www.test.com");
+        private static readonly Uri _someUri = new Uri("https://www.test.com");
 
         public YotiSandboxClientTest()
         {
