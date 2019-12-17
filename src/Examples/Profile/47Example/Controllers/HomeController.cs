@@ -22,6 +22,7 @@ namespace _47Example.Controllers
             ViewBag.YotiClientSdkId = _yotiClientSdkId;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -34,6 +35,7 @@ namespace _47Example.Controllers
         }
 
         // GET: Home/DynamicScenario
+        [HttpGet]
         public ActionResult DynamicScenario()
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
