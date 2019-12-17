@@ -38,14 +38,14 @@ Attributes defined
 Please feel free to reach out
 
 ## Supported Frameworks
-- .NET Standard 1.6
-- .NET Standard 2.0
-- .NET Core App 1.1
-- .NET Core App 2.0
-- .NET Core App 2.1
-- .NET 4.5
-- .NET 4.6
-- .NET 4.7
+- .NET Standard 1.0-1.6
+- .NET Standard 2.0-2.1
+- .NET Core App 1.0-1.1
+- .NET Core App 2.0-2.2
+- .NET Core App 3.0-3.1
+- .NET 4.5-4.5.2
+- .NET 4.6-4.6.2
+- .NET 4.7-4.7.2
 - .NET 4.8
 
 ## An Architectural View
