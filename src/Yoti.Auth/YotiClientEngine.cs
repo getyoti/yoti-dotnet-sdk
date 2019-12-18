@@ -1,5 +1,11 @@
 ﻿using System;
+
+#pragma warning disable S1128
+
 using System.Net;
+
+#pragma warning restore S1128
+
 using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
