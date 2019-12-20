@@ -72,15 +72,17 @@ namespace Yoti.Auth.Anchors
 
             if (extensionBytes != null)
             {
-                using Asn1InputStream stream = new Asn1InputStream(extensionBytes);
-                DerSequence obj = (DerSequence)stream.ReadObject();
-
-                foreach (object innerObj in obj)
+                using (Asn1InputStream stream = new Asn1InputStream(extensionBytes))
                 {
-                    Asn1TaggedObject seqObject = (Asn1TaggedObject)innerObj;
-                    Asn1OctetString octetString = Asn1OctetString.GetInstance(obj: seqObject, isExplicit: false);
+                    DerSequence obj = (DerSequence)stream.ReadObject();
 
-                    extensionStrings.Add(System.Text.Encoding.UTF8.GetString(octetString.GetOctets()));
+                    foreach (object innerObj in obj)
+                    {
+                        Asn1TaggedObject seqObject = (Asn1TaggedObject)innerObj;
+                        Asn1OctetString octetString = Asn1OctetString.GetInstance(obj: seqObject, isExplicit: false);
+
+                        extensionStrings.Add(System.Text.Encoding.UTF8.GetString(octetString.GetOctets()));
+                    }
                 }
             }
 
