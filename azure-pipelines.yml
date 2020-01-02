@@ -50,7 +50,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[Yoti.Auth]ProtoBuf.*'
+    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[*]Yoti.Auth.ProtoBuf.*" /p:ExcludeByAttribute="GeneratedCodeAttribute"'
     projects: '**/*Tests/*.csproj'
     nobuild: true
   displayName: Run Tests With Cobertura
@@ -59,7 +59,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    arguments: '--logger trx --configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[Yoti.Auth]ProtoBuf.*'
+    arguments: '--logger trx --configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude="[*]Yoti.Auth.ProtoBuf.*" /p:ExcludeByAttribute="GeneratedCodeAttribute"'
     projects: '**/*Tests/*.csproj'
     nobuild: true
   displayName: Run Tests With OpenCover
