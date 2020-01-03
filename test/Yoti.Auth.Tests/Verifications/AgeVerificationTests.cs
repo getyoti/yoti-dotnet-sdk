@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,7 +8,7 @@ using Yoti.Auth.Attribute;
 using Yoti.Auth.Profile;
 using Yoti.Auth.Verifications;
 
-namespace Yoti.Auth.Tests
+namespace Yoti.Auth.Tests.Verifications
 {
     [TestClass]
     public class AgeVerificationTests
@@ -132,6 +133,39 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(age, ageUnderVerification.Age());
             Assert.AreEqual(Constants.UserProfile.AgeUnderAttribute, ageUnderVerification.CheckType());
             Assert.AreEqual(_ageUnder21Attribute, ageUnderVerification.Attribute());
+        }
+
+        [TestMethod]
+        public void ExceptionThrownForNullDerivedAttribute()
+        {
+            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                new AgeVerification(derivedAttribute: null);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Value cannot be null."));
+            Assert.IsTrue(exception.Message.Contains("Parameter name: derivedAttribute"));
+        }
+
+        [DataTestMethod]
+        [DataRow("invalid_name")]
+        [DataRow("age_over::18")]
+        [DataRow(":21")]
+        [DataRow("age_over:eighteen")]
+        [DataRow("age_over:")]
+        public void ExceptionThrownForInvalidAttributeNames(string attributeName)
+        {
+            var attribute = new YotiAttribute<string>(
+                name: attributeName,
+                value: "true",
+                anchors: null);
+
+            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                new AgeVerification(attribute);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("does not match expected format:"));
         }
     }
 }

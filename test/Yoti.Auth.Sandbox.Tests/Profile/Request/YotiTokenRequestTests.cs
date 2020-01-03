@@ -11,7 +11,7 @@ using Yoti.Auth.Sandbox.Profile.Request.Attribute.Derivation;
 
 namespace Yoti.Auth.Sandbox.Tests.Profile.Request
 {
-    public static class YotiTokenRequestTest
+    public static class YotiTokenRequestTests
     {
         private const string _someAttributeName = "someAttributeName";
         private const string _someFamilyName = "someFamilyName";

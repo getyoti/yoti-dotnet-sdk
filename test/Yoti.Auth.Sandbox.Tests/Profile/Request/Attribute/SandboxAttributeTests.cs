@@ -3,7 +3,7 @@ using Yoti.Auth.Sandbox.Profile.Request.Attribute;
 
 namespace Yoti.Auth.Sandbox.Tests.Profile.Request.Attribute
 {
-    public static class SandboxAttributeTest
+    public static class SandboxAttributeTests
     {
         private const string _someName = "someName";
         private const string _someDerivation = "someDerivation";

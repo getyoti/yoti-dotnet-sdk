@@ -8,7 +8,7 @@ using Yoti.Auth.ShareUrl.Extensions;
 namespace Yoti.Auth.Tests.ShareUrl.Extensions
 {
     [TestClass]
-    public class ThirdPartyAttributeExtensionBuilderTest
+    public class ThirdPartyAttributeExtensionBuilderTests
     {
         private readonly DateTime _someDate = DateTime.Today.AddDays(1);
         private const string _someDefinition = "com.thirdparty.id";
