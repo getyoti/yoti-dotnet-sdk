@@ -5,7 +5,7 @@ using Yoti.Auth.Sandbox.Profile.Request.Attribute.Derivation;
 
 namespace Yoti.Auth.Sandbox.Tests.Profile.Request.Attribute.Derivation
 {
-    public static class SandboxAgeVerificationTest
+    public static class SandboxAgeVerificationTests
     {
         private const string _validDateString = "1980-08-05";
         private static readonly DateTime _validDate = new DateTime(1980, 8, 5);
