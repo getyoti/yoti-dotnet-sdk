@@ -1,5 +1,11 @@
 ﻿using System;
+
+#pragma warning disable S1128
+
 using System.Net;
+
+#pragma warning restore S1128
+
 using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
@@ -18,7 +24,7 @@ namespace Yoti.Auth
         {
             _httpClient = httpClient;
 
-#if !NETSTANDARD1_6 && !NETCOREAPP1_1
+#if NET452 || NET462 || NET472 || NET48
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 #endif
         }

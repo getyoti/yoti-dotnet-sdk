@@ -1,53 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using CoreExample.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Configuration;
+using System.Web.Mvc;
+using _47Example.Models;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth;
 using Yoti.Auth.Attribute;
 using Yoti.Auth.Document;
 using Yoti.Auth.Images;
 
-namespace CoreExample.Controllers
+namespace _47Example.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ILogger _logger;
-
-        public AccountController(ILogger<AccountController> logger)
-        {
-            _logger = logger;
-        }
-
+        [HttpGet]
         public ActionResult Error()
         {
             return View();
         }
 
         // GET: Account/Connect?token
+        [HttpGet]
         public ActionResult Connect(string token)
         {
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
             if (token == null)
+            {
+                logger.Error("token is null");
                 return RedirectToAction("Index", "Home");
+            }
 
             try
             {
-                string sdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
-                _logger.LogInformation(string.Format("sdkId='{0}'", sdkId));
+                string sdkId = ConfigurationManager.AppSettings["YOTI_CLIENT_SDK_ID"];
+                logger.Info(string.Format("sdkId='{0}'", sdkId));
 
-                string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
-                _logger.LogInformation(
-                    string.Format(
-                        "yotiKeyFilePath='{0}'",
-                        yotiKeyFilePath));
-
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
-
+                var privateKeyStream = System.IO.File.OpenText(ConfigurationManager.AppSettings["YOTI_KEY_FILE_PATH"]);
                 var yotiClient = new YotiClient(sdkId, privateKeyStream);
 
-                ActivityDetails activityDetails = yotiClient.GetActivityDetails(token);
+                var activityDetails = yotiClient.GetActivityDetails(token);
 
                 var profile = activityDetails.Profile;
 
@@ -63,17 +55,15 @@ namespace CoreExample.Controllers
                 YotiAttribute<Image> selfie = profile.Selfie;
                 if (profile.Selfie != null)
                 {
-                    displayAttributes.Base64Selfie = selfie.GetValue().GetBase64URI();
+                    Image selfieValue = selfie.GetValue();
+                    displayAttributes.Base64Selfie = selfieValue.GetBase64URI();
                 }
 
                 return View(displayAttributes);
             }
             catch (Exception e)
             {
-                _logger.LogError(
-                     exception: e,
-                     message: e.Message);
-
+                logger.Error(e);
                 TempData["Error"] = e.Message;
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error");
@@ -164,6 +154,7 @@ namespace CoreExample.Controllers
                 displayAttributes.Add(name, icon, yotiAttribute.GetAnchors(), yotiAttribute.GetValue());
         }
 
+        [HttpGet]
         public ActionResult Logout()
         {
             return RedirectToAction("Index", "Home");

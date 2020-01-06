@@ -1,7 +1,7 @@
 Yoti .NET SDK
 =============
 
-[![Build Status](https://travis-ci.com/getyoti/yoti-dotnet-sdk.svg?branch=master)](https://travis-ci.com/getyoti/yoti-dotnet-sdk)
+[![Build Status](https://dev.azure.com/yoti/Dotnet%20SDK/_apis/build/status/getyoti.yoti-dotnet-sdk?branchName=master)](https://dev.azure.com/yoti/Dotnet%20SDK/_build/latest?definitionId=3&branchName=master)
 
 Welcome to the Yoti .NET SDK. This repo contains the tools and step by step instructions you need to quickly integrate your .NET back-end with Yoti so that your users can share their identity details with your application in a secure and trusted way.
 
@@ -38,14 +38,14 @@ Attributes defined
 Please feel free to reach out
 
 ## Supported Frameworks
-- .NET Standard 1.6
-- .NET Standard 2.0
-- .NET Core App 1.1
-- .NET Core App 2.0
-- .NET Core App 2.1
-- .NET 4.5
-- .NET 4.6
-- .NET 4.7
+- .NET Standard 1.0-1.6
+- .NET Standard 2.0-2.1
+- .NET Core App 1.0-1.1
+- .NET Core App 2.0-2.2
+- .NET Core App 3.0-3.1
+- .NET 4.5-4.5.2
+- .NET 4.6-4.6.2
+- .NET 4.7-4.7.2
 - .NET 4.8
 
 ## An Architectural View
@@ -209,13 +209,13 @@ Performing an AML check on a person *requires* their consent.
 
 ## Running the Profile Examples
 
-### .NET 4.5 (Windows only)
+### .NET 4.7 (Windows only)
 
 1) Open the Yoti.Auth.sln solution in Visual Studio, found in the [/src](/src) folder
-1) Rename the [secrets.config.example](src/Examples/Profile/45Example/secrets.config.example) file to `secrets.config`
+1) Rename the [secrets.config.example](src/Examples/Profile/47Example/secrets.config.example) file to `secrets.config`
 1) Fill in the environment variables in this file with the ones specific to your application (mentioned in the [Client initialisation](#client-initialisation) section)
 1) From the Yoti Hub, set the application domain to `localhost:44321` and the scenario callback URL to `/account/connect`
-1) Right click on "45Example" in the Solution Explorer and select "Set as StartUp Project"
+1) Right click on "47Example" in the Solution Explorer and select "Set as StartUp Project"
 1) Run the project
 1) The web page should open automatically with URL `https://localhost:44321`
 
