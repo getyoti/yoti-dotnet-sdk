@@ -18,7 +18,6 @@ variables:
 
 steps:
 - task: SonarCloudPrepare@1
-  displayName: 'Prepare analysis on SonarCloud'
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
@@ -27,15 +26,17 @@ steps:
     projectName: 'dotnet-sdk'
     projectVersion: '3.3.0'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
+      sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
       sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll
+  displayName: SonarCloud Prepare Analysis
 
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+  displayName: Restore Solution
 
 - task: VSBuild@1
   inputs:
@@ -43,21 +44,53 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=false /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+  displayName: Build Solution
 
+# Cobertura is used to display tests and code coverage in Azure
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'test'
-    projects: 'test/Yoti.Auth.Tests/Yoti.Auth.Tests.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutputFormat=opencover'
-
+    command: test
+    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[*]Yoti.Auth.ProtoBuf.*" /p:ExcludeByAttribute="GeneratedCodeAttribute"'
+    projects: '**/*Tests/*.csproj'
+    nobuild: true
+  displayName: Run Tests With Cobertura
+    
+# OpenCover is used to display code coverage in SonarCloud
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'test'
-    projects: 'test/Yoti.Auth.Sandbox.Tests/Yoti.Auth.Sandbox.Tests.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutputFormat=opencover'
+    command: test
+    arguments: '--logger trx --configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude="[*]Yoti.Auth.ProtoBuf.*" /p:ExcludeByAttribute="GeneratedCodeAttribute"'
+    projects: '**/*Tests/*.csproj'
+    nobuild: true
+  displayName: Run Tests With OpenCover
+  
+# Generate the report using ReportGenerator (https://github.com/danielpalme/ReportGenerator)
+- task: DotNetCoreCLI@2
+  inputs:
+    command: custom
+    custom: tool
+    arguments: install --tool-path . dotnet-reportgenerator-globaltool
+  displayName: Install ReportGenerator tool
+  
+- script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:Cobertura
+  displayName: Cobertura Code Coverage
 
+- script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.opencover.xml -targetdir:D:\Reports
+  displayName: OpenCover Code Coverage
+
+# Publish the code coverage result (summary and web site)
+# The summary allows to view the coverage percentage in the summary tab
+# The web site allows to view which lines are covered directly in Azure Pipeline
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+  displayName: 'Publish Cobertura Code Coverage'
+  
 - task: SonarCloudAnalyze@1
+  displayName: Sonar Cloud Analyze
 
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+  displayName: Sonar Cloud Publish
