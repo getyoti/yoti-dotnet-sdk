@@ -19,8 +19,8 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
             var exception = Assert.ThrowsException<InvalidOperationException>(() =>
             {
                 new ThirdPartyAttributeExtensionBuilder()
-                               .WithDefinition(null)
-                               .Build();
+                .WithDefinition(null)
+                .Build();
             });
 
             Assert.IsTrue(exception.Message.Contains("definition"));
