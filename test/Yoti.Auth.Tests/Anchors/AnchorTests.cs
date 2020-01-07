@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Google.Protobuf.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Anchors;
@@ -9,7 +10,7 @@ using Yoti.Auth.Images;
 using Yoti.Auth.Profile;
 using Yoti.Auth.Tests.TestData;
 
-namespace Yoti.Auth.Tests
+namespace Yoti.Auth.Tests.Anchors
 {
     [TestClass]
     public class AnchorTests
