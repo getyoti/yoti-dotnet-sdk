@@ -58,14 +58,13 @@ namespace Yoti.Auth.Share.ThirdParty
             if (string.IsNullOrEmpty(dateTimeStringValue))
                 return null;
 
-            if (DateTime.TryParseExact(
+            if (DateTime.TryParse(
                  dateTimeStringValue,
-                 format: Constants.Format.RFC3339PatternMilli,
                  provider: CultureInfo.InvariantCulture,
-                 style: DateTimeStyles.None,
+                 styles: DateTimeStyles.None,
                  result: out DateTime date))
             {
-                return date;
+                return date.ToUniversalTime();
             }
             else
                 logger.Warn($"Failed to parse date: {dateTimeStringValue}");
