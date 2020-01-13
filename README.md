@@ -2,6 +2,10 @@ Yoti .NET SDK
 =============
 
 [![Build Status](https://dev.azure.com/yoti/Dotnet%20SDK/_apis/build/status/getyoti.yoti-dotnet-sdk?branchName=master)](https://dev.azure.com/yoti/Dotnet%20SDK/_build/latest?definitionId=3&branchName=master)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=getyoti_yoti-dotnet-sdk&metric=coverage)](https://sonarcloud.io/dashboard?id=getyoti_yoti-dotnet-sdk)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=getyoti_yoti-dotnet-sdk&metric=bugs)](https://sonarcloud.io/dashboard?id=getyoti_yoti-dotnet-sdk)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=getyoti_yoti-dotnet-sdk&metric=code_smells)](https://sonarcloud.io/dashboard?id=getyoti_yoti-dotnet-sdk)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=getyoti_yoti-dotnet-sdk&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=getyoti_yoti-dotnet-sdk)
 
 Welcome to the Yoti .NET SDK. This repo contains the tools and step by step instructions you need to quickly integrate your .NET back-end with Yoti so that your users can share their identity details with your application in a secure and trusted way.
 
