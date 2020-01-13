@@ -25,7 +25,7 @@ namespace Yoti.Auth.Tests.Anchors
         private const string DateOfBirthString = "1980-01-13";
 
         [TestMethod]
-        public void AnchorGetters()
+        public void AnchorGettersShouldRetrieveCorrectValues()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                Constants.UserProfile.GivenNamesAttribute,
@@ -58,7 +58,7 @@ namespace Yoti.Auth.Tests.Anchors
         }
 
         [TestMethod]
-        public void GetSourcesIncludesDrivingLicense()
+        public void DrivingLicenseShouldBeAddedToAttribute()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.StructuredPostalAddressAttribute,
@@ -75,7 +75,7 @@ namespace Yoti.Auth.Tests.Anchors
         }
 
         [TestMethod]
-        public void GetSourcesIncludesPassport()
+        public void PassportShouldBeAddedToAttribute()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.DateOfBirthAttribute,
@@ -92,7 +92,7 @@ namespace Yoti.Auth.Tests.Anchors
         }
 
         [TestMethod]
-        public void GetSourcesIncludesYotiAdmin()
+        public void YotiAdminShouldBeAddedToAttribute()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.SelfieAttribute,
@@ -109,7 +109,7 @@ namespace Yoti.Auth.Tests.Anchors
         }
 
         [TestMethod]
-        public void RetrievingAnUnknownAnchor()
+        public void UnknownAnchorShouldHaveCorrectValues()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.NationalityAttribute,

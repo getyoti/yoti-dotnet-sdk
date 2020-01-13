@@ -132,7 +132,7 @@ namespace Yoti.Auth.Sandbox
         }
 
         [Fact]
-        public void SetupSharingProfileNonSuccessCode()
+        public void SetupSharingProfileShouldThrowForNonSuccessCode()
         {
             using (var httpResponseMessage = new HttpResponseMessage
             {

@@ -9,7 +9,7 @@ namespace Yoti.Auth.Sandbox.Tests.Profile.Request.Attribute
         private static SandboxAnchorBuilder _builder;
 
         [Fact]
-        public static void BuilderShouldSetType()
+        public static void BuilderShouldSetEnumType()
         {
             _builder = SandboxAnchor.Builder();
 

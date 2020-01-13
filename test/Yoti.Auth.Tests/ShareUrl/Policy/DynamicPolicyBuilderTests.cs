@@ -12,7 +12,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         private readonly int _expectedPinAuthValue = 2;
 
         [TestMethod]
-        public void EnsuresAnAttributeCanOnlyExistOnce()
+        public void AttributeShouldOnlyExistOnce()
         {
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                 .WithName("SomeAttributeName")
@@ -28,7 +28,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildWithAttributes()
+        public void ShouldContainAllAddedAttributes()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithFamilyName()
@@ -44,7 +44,6 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
                 .WithEmail()
                 .WithDocumentDetails()
                 .WithDocumentImages()
-
                 .WithAgeOver(55)
                 .WithAgeUnder(18)
                 .Build();
@@ -72,7 +71,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildWithMultipleAgeDerivedAttributes()
+        public void ShouldBuildWithMultipleAgeDerivedAttributes()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithDateOfBirth()
@@ -144,7 +143,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithAuthTypesTrue()
+        public void ShouldBuildWithAuthTypesTrue()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
@@ -159,7 +158,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithAuthTypesFalse()
+        public void ShouoldBuildWithAuthTypesFalse()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: false)
@@ -172,7 +171,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithAuthTypeEnabledThenDisabled()
+        public void ShouldBuildWithAuthTypeEnabledThenDisabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithAuthType(24, enabled: true)
@@ -185,7 +184,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithAuthTypeDisabledThenEnabled()
+        public void ShouldBuildWithAuthTypeDisabledThenEnabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithAuthType(23, enabled: false)
@@ -199,7 +198,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithSelfieAuthenticationEnabledThenDisabled()
+        public void ShouldBuildWithSelfieAuthenticationEnabledThenDisabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
@@ -212,7 +211,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithSelfieAuthenticationDisabledThenEnabled()
+        public void ShouldBuildWithSelfieAuthenticationDisabledThenEnabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: false)
@@ -226,7 +225,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithSelfieAuthenticationDisabled()
+        public void ShouldBuildWithSelfieAuthenticationDisabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: false)
@@ -238,7 +237,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void FiltersSelfieAuthenticationDuplicates()
+        public void ShouldFilterSelfieAuthenticationDuplicates()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
@@ -252,7 +251,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void FiltersPinAuthenticationDuplicates()
+        public void ShouldFilterPinAuthenticationDuplicates()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithPinAuthentication(enabled: true)
@@ -266,7 +265,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithPinAuthenticationEnabledThenDisabled()
+        public void ShouldBuildWithPinAuthenticationEnabledThenDisabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithPinAuthentication(enabled: true)
@@ -279,7 +278,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithPinAuthenticationDisabledThenEnabled()
+        public void ShouldBuildWithPinAuthenticationDisabledThenEnabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithPinAuthentication(enabled: false)
@@ -293,7 +292,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithPinAuthenticationDisabled()
+        public void ShouldBuildWithPinAuthenticationDisabled()
         {
             DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                 .WithPinAuthentication(enabled: false)
@@ -305,7 +304,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         }
 
         [TestMethod]
-        public void BuildsWithRememberMeFlag()
+        public void ShouldBuildWithRememberMeFlag()
         {
             DynamicPolicy result = new DynamicPolicyBuilder()
                 .WithRememberMeId(true)

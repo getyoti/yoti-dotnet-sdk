@@ -9,7 +9,7 @@ namespace Yoti.Auth.Tests
     public class ActivityDetailsParserTests
     {
         [TestMethod]
-        public void UnsuccessfulResponseThrowsYotiProfileException()
+        public void UnsuccessfulResponseShouldThrowYotiProfileException()
         {
             var response = new Response
             {
@@ -23,7 +23,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void NullOrEmptyContentThrowsProfileException()
+        public void NullOrEmptyContentShouldThrowProfileException()
         {
             var response = new Response
             {
