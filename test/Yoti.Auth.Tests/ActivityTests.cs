@@ -50,7 +50,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void SelfieJpegAddedToProfile()
+        public void JpegSelfieShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -69,7 +69,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void SelfiePngAddedToProfile()
+        public void PngSelfieShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -90,7 +90,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void FullNameAddedToProfile()
+        public void FullNameShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -105,7 +105,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GivenNamesAddedToProfile()
+        public void GivenNamesShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -120,7 +120,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void FamilyNameAddedToProfile()
+        public void FamilyNameShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -135,7 +135,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void MobileNumberAddedToProfile()
+        public void MobileNumberShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -150,7 +150,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void EmailAddressAddedToProfile()
+        public void EmailAddressShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -165,7 +165,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void DateOfBirthAddedToProfile()
+        public void DateOfBirthShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -181,7 +181,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void AddressAddedToProfile()
+        public void AddressShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -196,7 +196,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void UKStructuredPostalAddressAddedToProfile()
+        public void UKStructuredPostalAddressShouldBeAddedToProfile()
         {
             const string addressFormat = "1";
             const string buildingNumber = "15a";
@@ -238,7 +238,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void IndiaStructuredPostalAddressAddedToProfile()
+        public void IndiaStructuredPostalAddressShouldBeAddedToProfile()
         {
             const string rajguraNagar = "Rajguru Nagar";
 
@@ -297,7 +297,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void USAStructuredPostalAddressAddedToProfile()
+        public void USAStructuredPostalAddressShouldBeAddedToProfile()
         {
             const string addressFormat = "3";
             const string addressLineOne = "1512 Ferry Street";
@@ -339,7 +339,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void NestedJSONStructuredPostalAddressAddedToProfile()
+        public void NestedJSONStructuredPostalAddressShouldBeAddedToProfile()
         {
             object nestedValueObject;
             using (StreamReader r = File.OpenText("TestData/NestedJSON.json"))
@@ -406,7 +406,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void AddressIsTakenFromFormattedAddressIfNull()
+        public void AddressShouldBeTakenFromFormattedAddressIfNull()
         {
             const string addressFormat = "1";
             const string buildingNumber = "15a";
@@ -442,7 +442,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void AddressIsNotTakenFromFormattedAddressIfAddressIsPresent()
+        public void AddressShouldNotBeTakenFromFormattedAddressIfAddressIsPresent()
         {
             const string addressFormat = "1";
             const string buildingNumber = "15a";
@@ -487,7 +487,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GenderAddedToProfile()
+        public void GenderShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -502,7 +502,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void NationalityAddedToProfile()
+        public void NationalityShouldBeAddedToProfile()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -517,7 +517,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void DocumentDetailsAddedToProfile()
+        public void DocumentDetailsShouldBeAddedToProfile()
         {
             string issuingCountry = "GBR";
             string documentNumber = "1234abc";
@@ -552,7 +552,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void DocumentImagesAttributeIsAddedToProfile()
+        public void DocumentImagesAttributeShouldBeAddedToProfile()
         {
             var multiValueProtobufAttribute = TestTools.Attributes.CreateProtobufAttributeFromRawAnchor(TestData.TestAttributes.MultiValueAttribute);
 
@@ -583,7 +583,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void NestedMultiValueIsAddedToProfile()
+        public void NestedMultiValueShouldBeAddedToProfile()
         {
             var attributeName = "multiValueName";
 
@@ -610,7 +610,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void UndefinedContentTypeIsConvertedToString()
+        public void UndefinedContentTypeShouldBeConvertedToString()
         {
             var attribute = new ProtoBuf.Attribute.Attribute
             {
@@ -625,7 +625,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void NewContentTypeIsRetrieved()
+        public void NewContentTypeShouldBeRetrieved()
         {
             string name = "newType";
             var attribute = new ProtoBuf.Attribute.Attribute

@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests
         private readonly string _value = "value";
 
         [TestMethod]
-        public void ApplicationProfile_NameAttribute()
+        public void NameShouldBeRetrieved()
         {
             var initialAttribute = new YotiAttribute<string>(
               name: Constants.ApplicationProfile.ApplicationNameAttribute,
@@ -28,7 +28,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_URLAttribute()
+        public void URLShouldBeRetrieved()
         {
             var initialAttribute = new YotiAttribute<string>(
                 name: Constants.ApplicationProfile.ApplicationURLAttribute,
@@ -43,7 +43,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_LogoAttribute()
+        public void LogoShouldBeRetrieved()
         {
             var initialAttribute = new YotiAttribute<Image>(
               name: Constants.ApplicationProfile.ApplicationLogoAttribute,
@@ -58,7 +58,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_ReceiptBgColorAttribute()
+        public void ReceiptBgColorShouldBeRetrieved()
         {
             var initialAttribute = new YotiAttribute<string>(
                 name: Constants.ApplicationProfile.ApplicationReceiptBgColorAttribute,
@@ -73,7 +73,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_GetAttribute_String()
+        public void StringShouldBeRetrieved()
         {
             var initialAttribute = new YotiAttribute<string>(
                 name: Constants.ApplicationProfile.ApplicationNameAttribute,
@@ -88,7 +88,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_GetAttribute_Image()
+        public void ImageShouldBeRetrieved()
         {
             var initialAttribute = new YotiAttribute<Image>(
                 name: Constants.ApplicationProfile.ApplicationLogoAttribute,
@@ -103,7 +103,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_GetAttribute_WithWrongType()
+        public void WrongAttributeTypeShouldThrowException()
         {
             var initialAttribute = new YotiAttribute<string>(
                 name: Constants.ApplicationProfile.ApplicationNameAttribute,
@@ -119,7 +119,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApplicationProfile_GetAttributeNotPresent()
+        public void GetAttributeShouldReturnNullWhenNoAttributePresent()
         {
             var applicationProfile = new ApplicationProfile();
 

@@ -37,7 +37,7 @@ namespace Yoti.Auth.Tests.Verifications
         private readonly List<YotiAttribute<string>> _emptyAttributeStringList = new List<YotiAttribute<string>>();
 
         [TestMethod]
-        public void AgeVerifications_ShouldBeNullSafe()
+        public void AgeVerificationsShouldBeNullSafe()
         {
             ReadOnlyCollection<AgeVerification> result = new YotiProfile().AgeVerifications;
 
@@ -45,7 +45,7 @@ namespace Yoti.Auth.Tests.Verifications
         }
 
         [TestMethod]
-        public void AgeVerifications_IncludesAllResults()
+        public void AgeVerificationsShouldIncludeAllResults()
         {
             var mockBaseProfile = new Mock<IBaseProfile>();
             mockBaseProfile.Setup(x => x.FindAttributesStartingWith<string>(Constants.UserProfile.AgeOverAttribute))
@@ -64,7 +64,7 @@ namespace Yoti.Auth.Tests.Verifications
         }
 
         [TestMethod]
-        public void FindAgeOverVerification_returnsNullForNoMatch()
+        public void FindAgeOverVerificationShouldReturnNullForNoMatch()
         {
             var mockBaseProfile = new Mock<IBaseProfile>();
             mockBaseProfile.Setup(
@@ -77,7 +77,7 @@ namespace Yoti.Auth.Tests.Verifications
         }
 
         [TestMethod]
-        public void FindAgeOverVerification_ReturnsCorrectResult()
+        public void FindAgeOverVerificationShouldReturnCorrectResult()
         {
             int age = 18;
             var ageover18List = new List<YotiAttribute<string>> { _ageOver18Attribute };
@@ -101,7 +101,7 @@ namespace Yoti.Auth.Tests.Verifications
         }
 
         [TestMethod]
-        public void FindAgeUnderVerification_returnsNullForNoMatch()
+        public void FindAgeUnderVerificationShouldReturnNullForNoMatch()
         {
             var mockBaseProfile = new Mock<IBaseProfile>();
             mockBaseProfile.Setup(
@@ -114,7 +114,7 @@ namespace Yoti.Auth.Tests.Verifications
         }
 
         [TestMethod]
-        public void FindAgeUnderVerification_ReturnsCorrectResult()
+        public void FindAgeUnderVerificationShouldReturnCorrectResult()
         {
             int age = 21;
 
@@ -136,7 +136,7 @@ namespace Yoti.Auth.Tests.Verifications
         }
 
         [TestMethod]
-        public void ExceptionThrownForNullDerivedAttribute()
+        public void NullDerivedAttributeShouldThrowException()
         {
             var exception = Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -153,7 +153,7 @@ namespace Yoti.Auth.Tests.Verifications
         [DataRow(":21")]
         [DataRow("age_over:eighteen")]
         [DataRow("age_over:")]
-        public void ExceptionThrownForInvalidAttributeNames(string attributeName)
+        public void InvalidAttributeNamesShouldThrowException(string attributeName)
         {
             var attribute = new YotiAttribute<string>(
                 name: attributeName,

@@ -9,7 +9,7 @@ namespace Yoti.Auth.Tests
     public class YotiAttributeTests
     {
         [TestMethod]
-        public void YotiAttribute_GetImageValue()
+        public void GetValueShouldRetrieveImage()
         {
             byte[] imageBytes = Conversion.UtfToBytes("ImageValue");
 
@@ -25,7 +25,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiAttribute_JpegBase64Uri()
+        public void JpegBase64UriShouldRetrieveCorrectValue()
         {
             byte[] jpegBytes = Conversion.UtfToBytes("jpegData");
             var yotiAttribute = new YotiAttribute<Image>(
@@ -39,7 +39,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiAttribute_PngBase64Uri()
+        public void PngBase64UriShouldRetrieveCorrectValue()
         {
             byte[] pngBytes = Conversion.UtfToBytes("PngData");
             var yotiAttribute = new YotiAttribute<Image>(

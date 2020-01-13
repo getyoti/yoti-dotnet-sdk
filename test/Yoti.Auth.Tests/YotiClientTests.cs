@@ -11,7 +11,7 @@ namespace Yoti.Auth.Tests
     public class YotiClientTests
     {
         [TestMethod]
-        public void YotiClient_NullSdkId_ThrowsException()
+        public void NullSdkIdShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = null;
@@ -22,7 +22,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_EmptySdkId_ThrowsException()
+        public void EmptySdkIdShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = string.Empty;
@@ -33,7 +33,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_NoKeyStream_ThrowsException()
+        public void NoKeyStreamShouldThrowException()
         {
             StreamReader keystream = null;
             string sdkId = "fake-sdk-id";
@@ -44,7 +44,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_InvalidKeyStream_ThrowsException()
+        public void InvalidKeyStreamShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetInvalidFormatKeyStream();
             const string sdkId = "fake-sdk-id";
@@ -55,7 +55,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_PerformAmlCheck_NullAmlProfile_ThrowsException()
+        public void NullAmlProfileShouldThrowException()
         {
             YotiClient client = CreateYotiClient();
 
@@ -68,7 +68,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_PerformAmlCheck_NullAmlAddress_ThrowsException()
+        public void NullAmlAddressShouldThrowException()
         {
             YotiClient client = CreateYotiClient();
 
@@ -86,7 +86,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_PerformAmlCheck_NullGivenName_ThrowsException()
+        public void NullAmlGivenNameShouldThrowException()
         {
             YotiClient client = CreateYotiClient();
 
@@ -104,7 +104,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_PerformAmlCheck_NullFamilyName_ThrowsException()
+        public void NullAmlFamilyNameShouldThrowException()
         {
             YotiClient client = CreateYotiClient();
 
@@ -122,7 +122,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void YotiClient_PerformAmlCheck_NullCountry_ThrowsException()
+        public void NullAmlCountryShouldThrowException()
         {
             YotiClient client = CreateYotiClient();
 
@@ -143,7 +143,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void CreateShareUrl_NullDynamicScenario_ThrowsException()
+        public void NullDynamicScenarioShouldThrowException()
         {
             YotiClient client = CreateYotiClient();
 

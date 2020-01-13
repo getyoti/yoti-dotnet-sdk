@@ -7,7 +7,7 @@ namespace Yoti.Auth.Tests
     public class AmlObjectsTests
     {
         [TestMethod]
-        public void AmlProfile_Getters()
+        public void GettersShouldRetrieveProfile()
         {
             const string givenNames = "Edward Richard George";
             const string familyName = "Heath";
@@ -27,7 +27,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void AmlAddress_Getters()
+        public void GettersShouldRetrieveAddress()
         {
             const string country = "UK";
             const string postcode = "AA01 0AA";

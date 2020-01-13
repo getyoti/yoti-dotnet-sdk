@@ -15,7 +15,7 @@ namespace Yoti.Auth.Tests
         private readonly ByteString _emptyByteStringValue = ByteString.CopyFromUtf8("");
 
         [TestMethod]
-        public void FailureInAttributeParsing_ShouldNotStopOtherAttributes()
+        public void FailureInAttributeParsingShouldNotStopOtherAttributes()
         {
             string jsonValue = "{}";
             ByteString byteJsonValue = ByteString.CopyFromUtf8(jsonValue);
@@ -39,7 +39,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void StringAttributeWithEmptyValueIsAdded()
+        public void StringAttributeWithEmptyValueShouldBeAdded()
         {
             AttributeList attributeList = CreateAttributeListWithSingleAttribute(
                 Constants.UserProfile.FullNameAttribute,
@@ -59,7 +59,7 @@ namespace Yoti.Auth.Tests
         [DataRow(ContentType.Undefined)]
         [DataRow(ContentType.MultiValue)]
         [DataRow(ContentType.Int)]
-        public void OtherAttributesWithEmptyValueAreNotAdded(ContentType contentType)
+        public void OtherAttributesWithEmptyValueShouldNotBeAdded(ContentType contentType)
         {
             AttributeList attributeList = CreateAttributeListWithSingleAttribute(
                 Constants.UserProfile.FullNameAttribute,
@@ -78,7 +78,7 @@ namespace Yoti.Auth.Tests
         [DataRow(ContentType.Undefined)]
         [DataRow(ContentType.MultiValue)]
         [DataRow(ContentType.Int)]
-        public void OtherAttributesWithEmptyValueThrowsException(ContentType contentType)
+        public void OtherAttributesWithEmptyValueShouldThrowException(ContentType contentType)
         {
             ProtoBuf.Attribute.Attribute attribute = CreateProtobufAttribute("attributeName", _emptyByteStringValue, contentType);
 
