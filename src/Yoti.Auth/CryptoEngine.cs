@@ -81,6 +81,8 @@ namespace Yoti.Auth
 
         internal static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
         {
+            Validation.NotNullOrEmpty(encryptedConnectToken, "one time use token");
+
             // token was encoded as a URL-safe base64 so it can be transferred in a URL
             byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
 
