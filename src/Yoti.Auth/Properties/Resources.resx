@@ -123,6 +123,9 @@
   <data name="DataEntryParsingFail" xml:space="preserve">
     <value>Failed to parse data entry</value>
   </data>
+  <data name="DocDetailsMultipleConsecutiveSpaces" xml:space="preserve">
+    <value>Invalid Document Details value: multiple consecutive spaces</value>
+  </data>
   <data name="EmptyValueInvalid" xml:space="preserve">
     <value>Empty value is invalid for non-string content types</value>
   </data>
@@ -136,7 +139,7 @@
     <value>Unable to cast to DateTime</value>
   </data>
   <data name="InvalidDocumentDetails" xml:space="preserve">
-    <value>Unable to parse attribute value to a DocumentDetails</value>
+    <value>Invalid DocumentDetails value</value>
   </data>
   <data name="IssuanceTokenMissing" xml:space="preserve">
     <value>ThirdPartyAttribute issuance token is missing</value>
