@@ -26,22 +26,14 @@ namespace Yoti.Auth.Tests
             });
         }
 
-        [TestMethod]
-        public void ShouldThrowExceptionForInvalidNumber()
-        {
-            Assert.ThrowsException<InvalidOperationException>(() =>
-
-            {
-                DocumentDetailsAttributeParser.ParseFrom("PASSPORT GBR $%^$%^£ 2016-05-01");
-            });
-        }
-
-        [TestMethod]
-        public void ShouldThrowExceptionForInvalidCountry()
+        [DataTestMethod]
+        [DataRow("")]
+        [DataRow("''")]
+        public void ShouldThrowExceptionForInvalidValues(string value)
         {
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
-                DocumentDetailsAttributeParser.ParseFrom("PASSPORT 13 1234abc 2016-05-01");
+                DocumentDetailsAttributeParser.ParseFrom(value);
             });
         }
 
@@ -108,6 +100,47 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual("1234abc", result.DocumentNumber);
             Assert.IsNull(result.ExpirationDate);
             Assert.AreEqual("DVLA", result.IssuingAuthority);
+        }
+
+        [TestMethod]
+        public void ShouldParseRedactedAadhar()
+        {
+            DocumentDetails result = DocumentDetailsAttributeParser.ParseFrom("NATIONAL_ID IND ********6421 - UIDAI");
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(Constants.DocumentDetails.DocumentTypeNationalId, result.DocumentType);
+            Assert.AreEqual("IND", result.IssuingCountry);
+            Assert.AreEqual("********6421", result.DocumentNumber);
+            Assert.IsNull(result.ExpirationDate);
+            Assert.AreEqual("UIDAI", result.IssuingAuthority);
+        }
+
+        [DataTestMethod]
+        [DataRow("****")]
+        [DataRow("~!@#$%^&*()-_=+[]{}|;':,./<>?")]
+        [DataRow("\"\"")]
+        [DataRow("\\")]
+        [DataRow("\"")]
+        [DataRow("''")]
+        [DataRow("'")]
+        public void ShouldParseDocumentDetailsWithSpecialCharacters(string documentNumber)
+        {
+            DocumentDetails result = DocumentDetailsAttributeParser.ParseFrom($"PASS_CARD GBR {documentNumber} - DVLA");
+
+            Assert.AreEqual(documentNumber, result.DocumentNumber);
+        }
+
+        [DataTestMethod]
+        [DataRow("PASSPORT  GBR 1234abc")]
+        [DataRow("PASSPORT GBR  1234abc")]
+        [DataRow("DRIVING_LICENCE GBR 1234abc  2016-05-01 DVLA")]
+        [DataRow("DRIVING_LICENCE GBR 1234abc 2016-05-01  DVLA")]
+        public void ShouldFailForMoreThanOneConsecutiveSpaces(string stringToParse)
+        {
+            Assert.ThrowsException<FormatException>(() =>
+            {
+                DocumentDetails result = DocumentDetailsAttributeParser.ParseFrom(stringToParse);
+            });
         }
 
         [TestMethod]
