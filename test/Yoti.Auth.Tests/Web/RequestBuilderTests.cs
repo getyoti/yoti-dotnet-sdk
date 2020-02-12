@@ -25,7 +25,7 @@ namespace Yoti.Auth.Tests.Web
         private readonly byte[] _content = Conversion.UtfToBytes("bytes");
 
         [TestMethod]
-        public void DoesNotBuildWithoutKeyPair()
+        public void ShouldNotBuildWithoutKeyPair()
         {
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -40,7 +40,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void DoesNotBuildWithoutBaseUri()
+        public void ShouldNotBuildWithoutBaseUri()
         {
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -55,7 +55,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void DoesNotBuildWithoutEndpoint()
+        public void ShouldNotBuildWithoutEndpoint()
         {
             var invalidOperationException = Assert.ThrowsException<InvalidOperationException>(() =>
             {
@@ -70,7 +70,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void DoesNotBuildWithoutHttpMethod()
+        public void ShouldNotBuildWithoutHttpMethod()
         {
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -85,7 +85,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void AddsQueryParams()
+        public void ShouldAddQueryParams()
         {
             Request request = CreateRequestBuilder()
                 .WithQueryParam("key", "value")
@@ -95,7 +95,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void ContentIsAdded()
+        public void ContentShouldBeAdded()
         {
             Request request = CreateRequestBuilder()
                 .WithContent(_content)
@@ -105,7 +105,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void CustomHeadersAreAdded()
+        public void CustomHeadersShoudlBeAdded()
         {
             Request request = CreateRequestBuilder()
                 .WithHeader("key", "value")
@@ -125,7 +125,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void ExtraSlashInUriIsntIncluded()
+        public void ExtraSlashInUriShouldntBeIncluded()
         {
             Request request = new RequestBuilder()
                 .WithBaseUri(new Uri("https://test.com/"))
@@ -151,7 +151,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void TestAgeScanBackgroundRequest()
+        public void AgeScanBackgroundRequestBuildsCorrectly()
         {
             Request backgroundImageRequest = new RequestBuilder()
                 .WithKeyPair(KeyPair.Get())
@@ -169,7 +169,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void TestAgeScanChecksRequest()
+        public void AgeScanChecksRequestBuildsCorrectly()
         {
             StreamReader privateKeyStream = KeyPair.GetValidKeyStream();
 
@@ -189,7 +189,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void TestProfileRequest()
+        public void ProfileRequestBuildsCorrectly()
         {
             string token = "cabc7ad2a172f-4974-a7a2-4ff9-36ba2ec9";
 
@@ -207,7 +207,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void TestAmlRequest()
+        public void AmlRequestBuildsCorrectly()
         {
             Request amlRequest = new RequestBuilder()
                 .WithKeyPair(KeyPair.Get())
@@ -224,7 +224,7 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void TestDocScanRequest()
+        public void DocScanRequestBuildsCorrectly()
         {
             StreamReader privateKeyStream = KeyPair.GetValidKeyStream();
 

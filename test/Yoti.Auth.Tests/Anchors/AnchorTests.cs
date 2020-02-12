@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Google.Protobuf.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Anchors;
@@ -9,7 +10,7 @@ using Yoti.Auth.Images;
 using Yoti.Auth.Profile;
 using Yoti.Auth.Tests.TestData;
 
-namespace Yoti.Auth.Tests
+namespace Yoti.Auth.Tests.Anchors
 {
     [TestClass]
     public class AnchorTests
@@ -24,7 +25,7 @@ namespace Yoti.Auth.Tests
         private const string DateOfBirthString = "1980-01-13";
 
         [TestMethod]
-        public void AnchorGetters()
+        public void AnchorGettersShouldRetrieveCorrectValues()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                Constants.UserProfile.GivenNamesAttribute,
@@ -57,7 +58,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetSourcesIncludesDrivingLicense()
+        public void DrivingLicenseShouldBeAddedToAttribute()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.StructuredPostalAddressAttribute,
@@ -74,7 +75,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetSourcesIncludesPassport()
+        public void PassportShouldBeAddedToAttribute()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.DateOfBirthAttribute,
@@ -91,7 +92,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetSourcesIncludesYotiAdmin()
+        public void YotiAdminShouldBeAddedToAttribute()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.SelfieAttribute,
@@ -108,7 +109,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void RetrievingAnUnknownAnchor()
+        public void UnknownAnchorShouldHaveCorrectValues()
         {
             ProtoBuf.Attribute.Attribute attribute = TestTools.Anchors.BuildAnchoredAttribute(
                 Constants.UserProfile.NationalityAttribute,

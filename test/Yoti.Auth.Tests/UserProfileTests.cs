@@ -11,7 +11,7 @@ namespace Yoti.Auth.Tests
     public class UserProfileTests
     {
         [TestMethod]
-        public void GetAttributeByName_Datetime()
+        public void GetAttributeByNameShouldRetrieveDatetime()
         {
             DateTime value = new DateTime(1990, 1, 13);
             var initialAttribute = new YotiAttribute<DateTime>(
@@ -28,7 +28,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetAttributeByName_String()
+        public void GetAttributeByNameShouldRetrieveString()
         {
             var initialAttribute = new YotiAttribute<string>(
                 name: Constants.UserProfile.NationalityAttribute,
@@ -44,7 +44,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetAttributeByName_Bool()
+        public void GetAttributeByNameShouldRetrieveBool()
         {
             bool boolValue = true;
             string attributeName = "Bool";
@@ -63,7 +63,7 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void GetAttributeByName_Image()
+        public void GetAttributeByNameShouldRetrieveImage()
         {
             Image imageValue = new PngImage(Encoding.UTF8.GetBytes("Value"));
 

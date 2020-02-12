@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Yoti.Auth.Document
 {
     internal static class DocumentDetailsAttributeParser
     {
-        private const string _minimumAcceptable = "([A-Za-z_]*) ([A-Za-z]{3}) ([A-Za-z0-9]{1}).*";
         private const int TYPE_INDEX = 0;
         private const int COUNTRY_INDEX = 1;
         private const int NUMBER_INDEX = 2;
@@ -16,12 +13,22 @@ namespace Yoti.Auth.Document
 
         public static DocumentDetails ParseFrom(string attributeValue)
         {
-            if (attributeValue == null || !Regex.IsMatch(attributeValue, _minimumAcceptable))
+            if (string.IsNullOrEmpty(attributeValue))
             {
                 throw new InvalidOperationException(Properties.Resources.InvalidDocumentDetails);
             }
 
-            string[] attributes = Regex.Split(attributeValue, @"\s+").Where(s => !string.IsNullOrEmpty(s)).ToArray();
+            string[] attributes = attributeValue.Split(' ');
+
+            if (Array.Exists(attributes, s => string.IsNullOrEmpty(s)))
+            {
+                throw new FormatException(Properties.Resources.DocDetailsMultipleConsecutiveSpaces);
+            }
+
+            if (attributes.Length < 3)
+            {
+                throw new InvalidOperationException(Properties.Resources.InvalidDocumentDetails);
+            }
 
             return new DocumentDetailsBuilder()
                     .WithType(attributes[TYPE_INDEX])
