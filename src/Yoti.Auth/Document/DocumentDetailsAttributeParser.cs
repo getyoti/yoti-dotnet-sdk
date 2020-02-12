@@ -20,12 +20,9 @@ namespace Yoti.Auth.Document
 
             string[] attributes = attributeValue.Split(' ');
 
-            foreach (var s in attributes)
+            if (Array.Exists(attributes, s => string.IsNullOrEmpty(s)))
             {
-                if (string.IsNullOrEmpty(s))
-                {
-                    throw new FormatException(Properties.Resources.DocDetailsMultipleConsecutiveSpaces);
-                }
+                throw new FormatException(Properties.Resources.DocDetailsMultipleConsecutiveSpaces);
             }
 
             if (attributes.Length < 3)
