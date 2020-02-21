@@ -2,13 +2,20 @@
 
 namespace Yoti.Auth.Exceptions
 {
-    public class DynamicShareException : Exception
+    public class DynamicShareException : YotiException
     {
-        public DynamicShareException(string message) : base(message)
+        public DynamicShareException()
+            : base()
         {
         }
 
-        public DynamicShareException(string message, Exception innerException) : base(message, innerException)
+        public DynamicShareException(string message)
+            : base(message)
+        {
+        }
+
+        public DynamicShareException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

@@ -11,6 +11,7 @@ namespace Yoti.Auth.Web
     public class RequestBuilder
     {
         private readonly Dictionary<string, string> _customHeaders = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _customContentHeaders = new Dictionary<string, string>();
         private readonly Dictionary<string, string> _queryParams = new Dictionary<string, string>();
         private UriBuilder _baseUriBuilder;
         private string _endpoint;
@@ -96,7 +97,9 @@ namespace Yoti.Auth.Web
         /// <summary>
         /// Adds a custom header to the request. See <see cref="HeadersFactory.AddHeaders(
         /// HttpRequestMessage, AsymmetricCipherKeyPair, HttpMethod, string, byte[])"/>
-        /// to see which headers are already added.
+        /// to see which headers are already added. To add headers pertaining to the
+        /// content, use <see cref="WithContentHeader(string, string)"/> instead of this
+        /// method.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
@@ -104,6 +107,20 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithHeader(string name, string value)
         {
             _customHeaders[name] = value;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a custom content header to the request. To add headers pertaining to
+        /// the <see cref="HttpRequestMessage"/>, rather than the content, use <see cref="WithHeader(
+        /// string, string)"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns><see cref="RequestBuilder"/></returns>
+        public RequestBuilder WithContentHeader(string name, string value)
+        {
+            _customContentHeaders[name] = value;
             return this;
         }
 
@@ -164,6 +181,7 @@ namespace Yoti.Auth.Web
                 _content);
 
             AddCustomHeaders(httpRequestMessage);
+            AddCustomContentHeaders(httpRequestMessage);
 
             return new Request(httpRequestMessage);
         }
@@ -180,6 +198,19 @@ namespace Yoti.Auth.Web
             foreach (var header in _customHeaders)
             {
                 httpRequestMessage.Headers.Add(header.Key, header.Value);
+            }
+        }
+
+        private void AddCustomContentHeaders(HttpRequestMessage httpRequestMessage)
+        {
+            if (_customContentHeaders.Count > 0 && httpRequestMessage.Content == null)
+            {
+                throw new InvalidOperationException(Properties.Resources.NullHTTPContent);
+            }
+
+            foreach (var header in _customContentHeaders)
+            {
+                httpRequestMessage.Content.Headers.Add(header.Key, header.Value);
             }
         }
 

@@ -13,6 +13,14 @@ namespace Yoti.Auth.Tests.Common
             }
         }
 
+        public static AsymmetricCipherKeyPair GetInvalidKeyPair()
+        {
+            using (StreamReader stream = File.OpenText("test-key-invalid-format.pem"))
+            {
+                return CryptoEngine.LoadRsaKey(stream);
+            }
+        }
+
         public static StreamReader GetValidKeyStream()
         {
             return File.OpenText("test-key.pem");

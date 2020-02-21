@@ -102,7 +102,7 @@ namespace Yoti.Auth
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>.</returns>
         public AmlResult PerformAmlCheck(IAmlProfile amlProfile)
         {
-            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(amlProfile).ConfigureAwait(true));
+            Task<AmlResult> task = Task.Run(async () => await PerformAmlCheckAsync(amlProfile).ConfigureAwait(false));
 
             return task.Result;
         }
@@ -127,7 +127,7 @@ namespace Yoti.Auth
         /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
         public ShareUrlResult CreateShareUrl(DynamicScenario dynamicScenario)
         {
-            Task<ShareUrlResult> task = Task.Run(async () => await CreateShareUrlAsync(dynamicScenario).ConfigureAwait(true));
+            Task<ShareUrlResult> task = Task.Run(async () => await CreateShareUrlAsync(dynamicScenario).ConfigureAwait(false));
 
             return task.Result;
         }
