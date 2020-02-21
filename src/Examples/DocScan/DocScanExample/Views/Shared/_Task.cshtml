@@ -1,0 +1,29 @@
+﻿@using DocScanExample
+@using DocScanExample.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Yoti.Auth.DocScan.Session.Retrieve.Task.TaskResponse
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>State</td>
+            <td>
+                <span class="badge badge-@(Model.State == "DONE" ? "success" : "secondary")">
+                    @Model.State
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>Created</td>
+            <td>@Model.Created</td>
+        </tr>
+        <tr>
+            <td>Last Updated</td>
+            <td>@Model.LastUpdated</td>
+        </tr>
+    </tbody>
+</table>
