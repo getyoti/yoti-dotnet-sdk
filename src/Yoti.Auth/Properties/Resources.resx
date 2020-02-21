@@ -144,6 +144,9 @@
   <data name="IssuanceTokenMissing" xml:space="preserve">
     <value>ThirdPartyAttribute issuance token is missing</value>
   </data>
+  <data name="NullHTTPContent" xml:space="preserve">
+    <value>Cannot add a content header to a HTTP Request Message when content has not been set</value>
+  </data>
   <data name="NullOrEmptyResponseContent" xml:space="preserve">
     <value>The content of the response is null</value>
   </data>

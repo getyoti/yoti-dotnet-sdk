@@ -143,6 +143,15 @@ namespace Yoti.Auth.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot add a content header to a HTTP Request Message when content has not been set.
+        /// </summary>
+        internal static string NullHTTPContent {
+            get {
+                return ResourceManager.GetString("NullHTTPContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The content of the response is null.
         /// </summary>
         internal static string NullOrEmptyResponseContent {

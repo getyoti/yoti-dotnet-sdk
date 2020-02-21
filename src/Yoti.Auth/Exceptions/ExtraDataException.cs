@@ -2,9 +2,10 @@
 
 namespace Yoti.Auth.Exceptions
 {
-    public class ExtraDataException : Exception
+    public class ExtraDataException : YotiException
     {
         public ExtraDataException()
+            : base()
         {
         }
 
