@@ -82,10 +82,10 @@ namespace Yoti.Auth.Web
         }
 
         /// <summary>
-        /// Setting the keyPair with a <see cref="StreamReader"/>. Use either this or
+        /// Setting the keyPair with a <see cref="AsymmetricCipherKeyPair"/>. Use either this or
         /// <see cref="WithStreamReader(StreamReader)"/>.
         /// </summary>
-        /// <param name="streamReader"></param> <param name="keyPair"></param>
+        /// <param name="keyPair"></param>
         /// <returns><see cref="RequestBuilder"/></returns>
         public RequestBuilder WithKeyPair(AsymmetricCipherKeyPair keyPair)
         {
