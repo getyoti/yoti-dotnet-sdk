@@ -22,7 +22,7 @@ steps:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
     scannerMode: 'MSBuild'
-    projectKey: 'getyoti_yoti-dotnet-sdk'
+    projectKey: 'getyoti:dotnet'
     projectName: '.NET SDK'
     projectVersion: '3.3.1'
     extraProperties: |
