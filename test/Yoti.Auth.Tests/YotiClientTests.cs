@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System;
+using System.IO;
 using Yoti.Auth.Aml;
 using Yoti.Auth.Tests.Common;
 
@@ -153,6 +153,39 @@ namespace Yoti.Auth.Tests
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+        }
+
+        [DataTestMethod]
+        [DataRow("")]
+        [DataRow(null)]
+        public void ApiUriDefaultIsUsedForNullOrEmpty(string envVar)
+        {
+            Environment.SetEnvironmentVariable("YOTI_API_URL", envVar);
+            YotiClient client = CreateYotiClient();
+            Uri expectedDefaultUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+
+            Assert.AreEqual(expectedDefaultUri, client.ApiUri);
+        }
+
+        [TestMethod]
+        public void ApiUriOverriddenOverEnvVariable()
+        {
+            Uri overriddenApiUri = new Uri("https://overridden.com");
+            Environment.SetEnvironmentVariable("YOTI_API_URL", "https://envapiuri.com");
+            YotiClient client = CreateYotiClient();
+            client.OverrideApiUri(overriddenApiUri);
+
+            Assert.AreEqual(overriddenApiUri, client.ApiUri);
+        }
+
+        [TestMethod]
+        public void ApiUriEnvVariableIsUsed()
+        {
+            Environment.SetEnvironmentVariable("YOTI_API_URL", "https://envapiuri.com");
+            YotiClient client = CreateYotiClient();
+
+            Uri expectedApiUri = new Uri("https://envapiuri.com");
+            Assert.AreEqual(expectedApiUri, client.ApiUri);
         }
 
         private static YotiClient CreateYotiClient()
