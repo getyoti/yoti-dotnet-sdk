@@ -144,7 +144,7 @@ namespace Yoti.Auth.Tests.Verifications
             });
 
             Assert.IsTrue(exception.Message.Contains("Value cannot be null."));
-            Assert.IsTrue(exception.Message.Contains("Parameter name: derivedAttribute"));
+            Assert.IsTrue(exception.Message.Contains("Parameter 'derivedAttribute'"));
         }
 
         [DataTestMethod]
