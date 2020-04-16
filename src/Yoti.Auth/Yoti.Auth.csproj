@@ -10,16 +10,16 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <DebugType>Full</DebugType>
-    <Authors>Yoti,Edward.Harrod</Authors>
+    <Authors>Yoti</Authors>
     <Description>Yoti .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</Description>
     <PackageProjectUrl>https://developers.yoti.com/yoti-app/web-integration</PackageProjectUrl>
     <PackageIcon>Yoti.png</PackageIcon>
     <RepositoryUrl>https://github.com/getyoti/yoti-dotnet-sdk</RepositoryUrl>
-    <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk</PackageTags>
+    <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk sandbox documents docs KYC AML</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <Version>3.3.1</Version>
+    <Version>3.4.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -28,6 +28,7 @@
 
   <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage></NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
@@ -36,13 +37,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.11.2" />
+    <PackageReference Include="Google.Protobuf" Version="3.11.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NLog" Version="4.6.8" />
+    <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>

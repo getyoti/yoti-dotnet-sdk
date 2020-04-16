@@ -13,7 +13,7 @@ namespace Yoti.Auth
         private readonly string _sdkId;
         private readonly AsymmetricCipherKeyPair _keyPair;
         private readonly YotiClientEngine _yotiClientEngine;
-        private Uri _apiUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+        internal Uri ApiUri { get; private set; }
 
         /// <summary>
         /// Create a <see cref="YotiClient"/>
@@ -48,6 +48,8 @@ namespace Yoti.Auth
 
             _sdkId = sdkId;
             _keyPair = CryptoEngine.LoadRsaKey(privateKeyStream);
+
+            SetYotiApiUri();
 
             _yotiClientEngine = new YotiClientEngine(httpClient);
         }
@@ -90,7 +92,7 @@ namespace Yoti.Auth
         /// <returns>The account details of the logged in user as a <see cref="ActivityDetails"/>.</returns>
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedToken)
         {
-            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, _apiUri).ConfigureAwait(false);
+            return await _yotiClientEngine.GetActivityDetailsAsync(encryptedToken, _sdkId, _keyPair, ApiUri).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace Yoti.Auth
         /// <returns>The result of the AML check in the form of a <see cref="AmlResult"/>.</returns>
         public async Task<AmlResult> PerformAmlCheckAsync(IAmlProfile amlProfile)
         {
-            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, _apiUri, amlProfile).ConfigureAwait(false);
+            return await _yotiClientEngine.PerformAmlCheckAsync(_sdkId, _keyPair, ApiUri, amlProfile).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -140,12 +142,24 @@ namespace Yoti.Auth
         /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
         public async Task<ShareUrlResult> CreateShareUrlAsync(DynamicScenario dynamicScenario)
         {
-            return await _yotiClientEngine.CreateShareURLAsync(_sdkId, _keyPair, _apiUri, dynamicScenario).ConfigureAwait(false);
+            return await _yotiClientEngine.CreateShareURLAsync(_sdkId, _keyPair, ApiUri, dynamicScenario).ConfigureAwait(false);
+        }
+
+        internal void SetYotiApiUri()
+        {
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_API_URL")))
+            {
+                ApiUri = new Uri(Environment.GetEnvironmentVariable("YOTI_API_URL"));
+            }
+            else
+            {
+                ApiUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+            }
         }
 
         public YotiClient OverrideApiUri(Uri apiUri)
         {
-            _apiUri = apiUri;
+            ApiUri = apiUri;
 
             return this;
         }

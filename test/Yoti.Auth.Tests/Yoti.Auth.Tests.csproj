@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Yoti.Auth.Tests</AssemblyName>
     <PackageId>Yoti.Auth.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -28,17 +28,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.8.0">
+    <PackageReference Include="coverlet.msbuild" Version="2.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
     <PackageReference Include="OpenCover" Version="4.7.922" />
-    <PackageReference Include="ReportGenerator" Version="4.4.5" />
-    <PackageReference Include="Microsoft.AspNetCore.All" />
   </ItemGroup>
 
   <ItemGroup>
