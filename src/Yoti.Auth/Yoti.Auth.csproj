@@ -19,7 +19,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <Version>3.4.0</Version>
+    <Version>3.5.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
