@@ -183,9 +183,9 @@ namespace Yoti.Auth.DocScan
 
         private static Uri GetApiUri()
         {
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_API_URL")))
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_DOC_SCAN_API_URL")))
             {
-                return new Uri(Environment.GetEnvironmentVariable("YOTI_API_URL"));
+                return new Uri(Environment.GetEnvironmentVariable("YOTI_DOC_SCAN_API_URL"));
             }
             else
             {

@@ -31,7 +31,7 @@ namespace Yoti.Auth.Tests.DocScan
         [DataRow(null)]
         public void ApiUriDefaultIsUsedForNullOrEmpty(string envVar)
         {
-            Environment.SetEnvironmentVariable("YOTI_API_URL", envVar);
+            Environment.SetEnvironmentVariable("YOTI_DOC_SCAN_API_URL", envVar);
             DocScanService service = new DocScanService(new HttpClient(), null);
 
             Uri expectedDefaultUri = Constants.Api.DefaultYotiDocsUrl;
@@ -43,7 +43,7 @@ namespace Yoti.Auth.Tests.DocScan
         public void ApiUriConstructorOverEnvVariable()
         {
             Uri overriddenApiUri = new Uri("https://overridden.com");
-            Environment.SetEnvironmentVariable("YOTI_API_URL", "https://envapiuri.com");
+            Environment.SetEnvironmentVariable("YOTI_DOC_SCAN_API_URL", "https://envapiuri.com");
             DocScanService service = new DocScanService(new HttpClient(), overriddenApiUri);
 
             Assert.AreEqual(overriddenApiUri, service.ApiUri);
@@ -52,7 +52,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void ApiUriEnvVariableIsUsed()
         {
-            Environment.SetEnvironmentVariable("YOTI_API_URL", "https://envapiuri.com");
+            Environment.SetEnvironmentVariable("YOTI_DOC_SCAN_API_URL", "https://envapiuri.com");
             DocScanService service = new DocScanService(new HttpClient(), apiUri: null);
 
             Uri expectedApiUri = new Uri("https://envapiuri.com");
