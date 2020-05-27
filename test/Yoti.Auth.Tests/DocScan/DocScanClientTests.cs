@@ -199,7 +199,7 @@ namespace Yoti.Auth.Tests.DocScan
                 StatusCode = HttpStatusCode.OK,
                 Content = new ByteArrayContent(imageBytes),
             };
-            successResponse.Content.Headers.Add(Constants.Api.ContentType, contentTypeImageJpeg);
+            successResponse.Content.Headers.Add(Constants.Api.ContentTypeHeader, contentTypeImageJpeg);
 
             Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
             var httpClient = new HttpClient(handlerMock.Object);
