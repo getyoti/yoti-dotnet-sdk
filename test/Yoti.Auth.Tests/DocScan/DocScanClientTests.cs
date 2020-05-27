@@ -123,13 +123,32 @@ namespace Yoti.Auth.Tests.DocScan
         [DataRow(HttpStatusCode.RequestTimeout)]
         [DataRow(HttpStatusCode.NotFound)]
         [DataRow(HttpStatusCode.Forbidden)]
-        public void DeleteMediaShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        public void DeleteMediaContentShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            Assert.ThrowsException<DocScanException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                docScanClient.DeleteMedia("someSessionId", "someMediaId");
+                docScanClient.DeleteMediaContent("someSessionId", "someMediaId");
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+        [DataTestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void DeleteMediaContentAsyncShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            Assert.ThrowsExceptionAsync<DocScanException>(async () =>
+            {
+                await docScanClient.DeleteMediaContentAsync("someSessionId", "someMediaId");
             });
         }
 
@@ -144,9 +163,28 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            Assert.ThrowsException<DocScanException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
                 docScanClient.DeleteSession("someSessionId");
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+        [DataTestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void DeleteSessionAsyncShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            Assert.ThrowsExceptionAsync<DocScanException>(async () =>
+            {
+                await docScanClient.DeleteSessionAsync("someSessionId");
             });
         }
 

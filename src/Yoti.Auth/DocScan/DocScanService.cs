@@ -97,7 +97,7 @@ namespace Yoti.Auth.DocScan
             }
         }
 
-        public void DeleteSession(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+        public async Task DeleteSession(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
         {
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
@@ -114,7 +114,7 @@ namespace Yoti.Auth.DocScan
                 .WithQueryParam("sdkId", sdkId)
                 .Build();
 
-            using (HttpResponseMessage response = deleteSessionRequest.Execute(_httpClient).Result)
+            using (HttpResponseMessage response = await deleteSessionRequest.Execute(_httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -154,7 +154,7 @@ namespace Yoti.Auth.DocScan
             }
         }
 
-        public void DeleteMediaContent(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, string mediaId)
+        public async Task DeleteMediaContent(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, string mediaId)
         {
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
@@ -172,7 +172,7 @@ namespace Yoti.Auth.DocScan
                 .WithQueryParam("sdkId", sdkId)
                 .Build();
 
-            using (HttpResponseMessage response = deleteMediaContentRequest.Execute(_httpClient).Result)
+            using (HttpResponseMessage response = await deleteMediaContentRequest.Execute(_httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
