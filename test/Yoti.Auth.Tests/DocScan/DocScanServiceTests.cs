@@ -128,34 +128,37 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteSessionShouldThrowExceptionForMissingSdkId()
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteSession(null, _keyPair, _someSessionId);
+                _docScanService.DeleteSession(null, _keyPair, _someSessionId).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("sdkId"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<InvalidOperationException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
         }
 
         [TestMethod]
         public void DeleteSessionShouldThrowExceptionForMissingKeyPair()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteSession(_sdkId, null, _someSessionId);
+                _docScanService.DeleteSession(_sdkId, null, _someSessionId).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
         }
 
         [TestMethod]
         public void DeleteSessionShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteSession(_sdkId, _keyPair, null);
+                _docScanService.DeleteSession(_sdkId, _keyPair, null).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("sessionId"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sessionId"));
         }
 
         [TestMethod]
@@ -205,45 +208,49 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingSdkId()
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(null, _keyPair, _someSessionId, _someMediaId);
+                _docScanService.DeleteMediaContent(null, _keyPair, _someSessionId, _someMediaId).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("sdkId"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<InvalidOperationException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
         }
 
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingKeyPair()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(_sdkId, null, _someSessionId, _someMediaId);
+                _docScanService.DeleteMediaContent(_sdkId, null, _someSessionId, _someMediaId).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
         }
 
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(_sdkId, _keyPair, null, _someMediaId);
+                _docScanService.DeleteMediaContent(_sdkId, _keyPair, null, _someMediaId).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("sessionId"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sessionId"));
         }
 
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingMediaId()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(_sdkId, _keyPair, _someSessionId, null);
+                _docScanService.DeleteMediaContent(_sdkId, _keyPair, _someSessionId, null).Wait();
             });
 
-            Assert.IsTrue(exception.Message.Contains("mediaId"));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("mediaId"));
         }
 
         [TestMethod]

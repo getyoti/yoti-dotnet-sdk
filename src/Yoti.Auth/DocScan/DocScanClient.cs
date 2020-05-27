@@ -86,11 +86,20 @@ namespace Yoti.Auth.DocScan
         /// Deletes a previously created Yoti Doc Scan session and all of its related resources
         /// </summary>
         /// <param name="sessionId">The session ID</param>
-        public void DeleteSession(string sessionId)
+        public async Task DeleteSessionAsync(string sessionId)
         {
             _logger.Debug($"Deleting session '{sessionId}'");
 
-            _docScanService.DeleteSession(_sdkId, _keyPair, sessionId);
+            await _docScanService.DeleteSession(_sdkId, _keyPair, sessionId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Deletes a previously created Yoti Doc Scan session and all of its related resources
+        /// </summary>
+        /// <param name="sessionId">The session ID</param>
+        public void DeleteSession(string sessionId)
+        {
+            DeleteSessionAsync(sessionId).Wait();
         }
 
         /// <summary>
@@ -121,11 +130,21 @@ namespace Yoti.Auth.DocScan
         /// </summary>
         /// <param name="sessionId">The Session ID</param>
         /// <param name="mediaId">The Media ID</param>
-        public void DeleteMedia(string sessionId, string mediaId)
+        public void DeleteMediaContent(string sessionId, string mediaId)
+        {
+            DeleteMediaContentAsync(sessionId, mediaId).Wait();
+        }
+
+        /// <summary>
+        /// Deletes media related to a Yoti Doc Scan session based on the supplied media ID
+        /// </summary>
+        /// <param name="sessionId">The Session ID</param>
+        /// <param name="mediaId">The Media ID</param>
+        public async Task DeleteMediaContentAsync(string sessionId, string mediaId)
         {
             _logger.Debug($"Deleting media content '{mediaId}' in session '{sessionId}'");
 
-            _docScanService.DeleteMediaContent(_sdkId, _keyPair, sessionId, mediaId);
+            await _docScanService.DeleteMediaContent(_sdkId, _keyPair, sessionId, mediaId).ConfigureAwait(false);
         }
     }
 }
