@@ -24,7 +24,7 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'getyoti:dotnet'
     projectName: '.NET SDK'
-    projectVersion: '3.4.0'
+    projectVersion: '3.5.0'
     extraProperties: |
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
