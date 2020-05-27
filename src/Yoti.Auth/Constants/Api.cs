@@ -16,10 +16,9 @@ namespace Yoti.Auth.Constants
         public const string DigestHeader = "X-Yoti-Auth-Digest";
         public const string YotiSdkHeader = "X-Yoti-SDK";
         public const string YotiSdkVersionHeader = YotiSdkHeader + "-Version";
+        public const string ContentTypeHeader = "Content-Type";
+        public const string ContentTypeJson = "application/json";
 
         public const string SdkIdentifier = ".NET";
-
-        public const string ContentType = "Content-Type";
-        public const string ContentTypeJson = "application/json";
     }
 }

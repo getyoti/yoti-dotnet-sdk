@@ -53,7 +53,7 @@ namespace Yoti.Auth.DocScan
                 .WithEndpoint("/sessions")
                 .WithQueryParam("sdkId", sdkId)
                 .WithContent(body)
-                .WithContentHeader(Constants.Api.ContentType, Constants.Api.ContentTypeJson)
+                .WithContentHeader(Constants.Api.ContentTypeHeader, Constants.Api.ContentTypeJson)
                 .Build();
 
             using (HttpResponseMessage response = await createSessionRequest.Execute(_httpClient).ConfigureAwait(false))

@@ -24,7 +24,7 @@ namespace Yoti.Auth.Aml
                .WithQueryParam("appId", sdkId)
                .WithHttpMethod(HttpMethod.Post)
                .WithContent(httpContent)
-               .WithContentHeader(Constants.Api.ContentType, Constants.Api.ContentTypeJson)
+               .WithContentHeader(Constants.Api.ContentTypeHeader, Constants.Api.ContentTypeJson)
                .Build();
 
             using (HttpResponseMessage response = await amlRequest.Execute(httpClient).ConfigureAwait(false))
