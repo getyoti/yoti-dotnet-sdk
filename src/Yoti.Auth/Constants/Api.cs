@@ -9,7 +9,7 @@ namespace Yoti.Auth.Constants
         public const string YotiApiPathPrefix = "api/v1";
         public readonly static string DefaultYotiApiUrl = string.Join("/", DefaultYotiHost, YotiApiPathPrefix);
 
-        public const string YotiDocsPathPrefix = "idverify/v1";
+        public const string YotiDocsPathPrefix = "idverify/v1/";
         public readonly static Uri DefaultYotiDocsUrl = new Uri(string.Join("/", DefaultYotiHost, YotiDocsPathPrefix));
 
         public const string AuthKeyHeader = "X-Yoti-Auth-Key";
