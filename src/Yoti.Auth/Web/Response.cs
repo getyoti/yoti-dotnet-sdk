@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using Yoti.Auth.Exceptions;
 
 namespace Yoti.Auth.Web
 {
@@ -11,28 +12,44 @@ namespace Yoti.Auth.Web
         public string Content { get; set; }
         public string ReasonPhrase { get; set; }
 
-        public static void CreateExceptionFromStatusCode<E>(HttpResponseMessage response) where E : Exception
+        public static void CreateYotiExceptionFromStatusCode<E>(HttpResponseMessage response) where E : YotiException
         {
+            YotiException exception;
+
             switch (response.StatusCode)
             {
                 case HttpStatusCode.BadRequest:
-                    throw Activator.CreateInstance(typeof(E),
-                        $"Failed validation:{Environment.NewLine}{response.Content.ReadAsStringAsync().Result}") as E;
+                    exception = Activator.CreateInstance(typeof(E),
+                        $"Failed validation - " +
+                        $"Status Code: '{(int)response.StatusCode}' ({response.StatusCode}). " +
+                        $"Content: '{response.Content.ReadAsStringAsync().Result}'") as E;
+                    break;
 
                 case HttpStatusCode.Unauthorized:
-                    throw Activator.CreateInstance(typeof(E),
-                        $"Failed authorization with the given key:{Environment.NewLine}{response.Content.ReadAsStringAsync().Result}") as E;
+                    exception = Activator.CreateInstance(typeof(E),
+                        $"Failed authorization with the given key - " +
+                        $"Status Code: '{(int)response.StatusCode}' ({response.StatusCode}). " +
+                        $"Content: '{response.Content.ReadAsStringAsync().Result}'") as E;
+                    break;
 
                 case HttpStatusCode.InternalServerError:
-                    throw Activator.CreateInstance(typeof(E),
-                        $"An unexpected error occurred on the server:{Environment.NewLine}{response.Content.ReadAsStringAsync().Result}") as E;
+                    exception = Activator.CreateInstance(typeof(E),
+                        "An unexpected error occurred on the server - " +
+                        $"Status Code: '{(int)response.StatusCode}' ({response.StatusCode}). " +
+                        $"Content: '{response.Content.ReadAsStringAsync().Result}'") as E;
+                    break;
 
                 default:
-                    throw Activator.CreateInstance(typeof(E),
-                        $"Unexpected error:" +
-                        $"{Environment.NewLine} Status Code: '{response.StatusCode}'" +
-                        $"{Environment.NewLine} Content: '{response.Content.ReadAsStringAsync().Result}'") as E;
+                    exception = Activator.CreateInstance(typeof(E),
+                        $"Unexpected error - " +
+                        $"Status Code: '{(int)response.StatusCode}' ({response.StatusCode}). " +
+                        $"Content: '{response.Content.ReadAsStringAsync().Result}'") as E;
+                    break;
             }
+
+            exception.HttpResponseMessage = response;
+
+            throw exception;
         }
     }
 }

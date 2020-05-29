@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Anchors;
 using Yoti.Auth.Constants;

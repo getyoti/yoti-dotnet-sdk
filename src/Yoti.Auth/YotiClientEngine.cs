@@ -46,11 +46,11 @@ namespace Yoti.Auth
             using (HttpResponseMessage response = await profileRequest.Execute(_httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                    Response.CreateExceptionFromStatusCode<YotiProfileException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<YotiProfileException>(response);
 
                 return ActivityDetailsParser.HandleResponse(
                     keyPair,
-                    await response.Content.ReadAsStringAsync().ConfigureAwait(true));
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
         }
 

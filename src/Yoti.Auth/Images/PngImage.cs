@@ -2,13 +2,8 @@
 {
     public class PngImage : Image
     {
-        public PngImage(byte[] content) : base(content)
+        public PngImage(byte[] content) : base("image/png", content)
         {
-        }
-
-        public override string GetMIMEType()
-        {
-            return "image/png";
         }
     }
 }

@@ -115,6 +115,31 @@ namespace Yoti.Auth.Tests.Web
             Assert.IsTrue(headers.Contains("value"));
         }
 
+        [TestMethod]
+        public void ErrorThrownWhenContentHeaderIsAddedWithoutContent()
+        {
+            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                Request request = CreateRequestBuilder()
+                .WithContentHeader("key", "value")
+                .Build();
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Cannot add a content header to a HTTP Request Message when content has not been set"));
+        }
+
+        [TestMethod]
+        public void CustomContentHeadersShoudlBeAdded()
+        {
+            Request request = CreateRequestBuilder()
+                .WithContent(_content)
+                .WithContentHeader("key", "value")
+                .Build();
+
+            request.RequestMessage.Content.Headers.TryGetValues("key", out IEnumerable<string> headers);
+            Assert.IsTrue(headers.Contains("value"));
+        }
+
         private RequestBuilder CreateRequestBuilder()
         {
             return new RequestBuilder()
