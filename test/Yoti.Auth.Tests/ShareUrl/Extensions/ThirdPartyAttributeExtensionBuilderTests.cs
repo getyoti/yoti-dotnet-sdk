@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Constants;
 using Yoti.Auth.Share.ThirdParty;
 using Yoti.Auth.ShareUrl.Extensions;
 
@@ -58,6 +59,36 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
             List<AttributeDefinition> definitions = extension.Content.Definitions;
             Assert.AreEqual(1, definitions.Count);
             Assert.AreEqual(_someDefinition, definitions[0].Name);
+        }
+
+        [DataTestMethod]
+        [DataRow("2006-01-02T22:04:05Z", "2006-01-02T22:04:05.000Z")]
+        [DataRow("2006-01-02T22:04:05.1Z", "2006-01-02T22:04:05.100Z")]
+        [DataRow("2006-01-02T22:04:05.12Z", "2006-01-02T22:04:05.120Z")]
+        [DataRow("2006-01-02T22:04:05.123Z", "2006-01-02T22:04:05.123Z")]
+        [DataRow("2006-01-02T22:04:05.1234Z", "2006-01-02T22:04:05.123Z")]
+        [DataRow("2006-01-02T22:04:05.999999Z", "2006-01-02T22:04:05.999Z")]
+        [DataRow("2006-01-02T22:04:05.123456Z", "2006-01-02T22:04:05.123Z")]
+        [DataRow("2002-10-02T10:00:00.1-05:00", "2002-10-02T15:00:00.100Z")]
+        [DataRow("2002-10-02T10:00:00.12345+11:00", "2002-10-01T23:00:00.123Z")]
+        [TestMethod]
+        public void ShouldBuildThirdPartyAttributeExtensionWithExpiryDates(string expiryDateInputString, string expectedExpiryDate)
+        {
+            bool parseSuccess = DateTime.TryParse(
+                expiryDateInputString,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.AdjustToUniversal,
+                out DateTime expiryDate);
+
+            Assert.IsTrue(parseSuccess);
+
+            Extension<ThirdPartyAttributeContent> extension =
+                new ThirdPartyAttributeExtensionBuilder()
+                .WithDefinition(_someDefinition)
+                .WithExpiryDate(expiryDate)
+                .Build();
+
+            Assert.AreEqual(expectedExpiryDate, extension.Content.ExpiryDate);
         }
 
         [TestMethod]
