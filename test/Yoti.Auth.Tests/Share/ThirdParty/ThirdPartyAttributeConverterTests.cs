@@ -53,7 +53,7 @@ namespace Yoti.Auth.Tests.Share.ThirdParty
             AttributeIssuanceDetails result = ThirdPartyAttributeConverter.ParseThirdPartyAttribute(byteValue);
             DateTime nonNullableExpiryDate = (DateTime)result.ExpiryDate;
 
-            string actualString = nonNullableExpiryDate.ToString(Format.RFC3339PatternMilli, DateTimeFormatInfo.InvariantInfo);
+            string actualString = nonNullableExpiryDate.ToString(Format.RFC3339PatternMicro, DateTimeFormatInfo.InvariantInfo);
             Assert.AreEqual(expectedValue, actualString);
         }
 
