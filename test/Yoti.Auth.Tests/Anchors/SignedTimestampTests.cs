@@ -16,7 +16,7 @@ namespace Yoti.Auth.Tests.Anchors
             var protoBufSignedTimestamp = new ProtoBuf.Common.SignedTimestamp { Timestamp = unsignedUnixTimestamp };
 
             var signedTimestamp = new SignedTimestamp(protoBufSignedTimestamp);
-            string result = signedTimestamp.GetTimestamp().ToString(Format.RFC3339PatternMilli, DateTimeFormatInfo.InvariantInfo);
+            string result = signedTimestamp.GetTimestamp().ToString(Format.RFC3339PatternMicro, DateTimeFormatInfo.InvariantInfo);
 
             Assert.AreEqual("1920-03-13T19:50:54.000001Z", result);
         }
