@@ -14,13 +14,14 @@ To use this functionality you must ensure your application is assigned to your O
 
 For the AML check you will need to provide the following:
 
-* Data provided by Yoti (please ensure you have selected the Given name(s) and Family name attributes from the Data tab in the Yoti Hub)
+* Data provided by Yoti
   * Given name(s)
   * Family name
+  * Postcode/Zip code (US citizens only) - this can be retrieved from the Structured Postal Address attribute
+
 * Data that must be collected from the user:
   * Country of residence (must be an ISO 3166 3-letter code)
   * Social Security Number (US citizens only)
-  * Postcode/Zip code (US citizens only)
 
 ## Consent
 
