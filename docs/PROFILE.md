@@ -1,4 +1,4 @@
-Yoti .NET SDK Profile Service
+.NET Yoti App Integration
 =============================
 
 1) [An Architectural View](#an-architectural-view) -
@@ -26,7 +26,7 @@ Yoti SDK carries out for you steps 6, 7 ,8 and the profile decryption in step 9.
 
 ![alt text](login_flow.png "Login flow")
 
-Yoti also allows you to enable user details verification from your mobile app by means of the Android (TBA) and iOS (TBA) SDKs. In that scenario, your Yoti-enabled mobile app is playing both the role of the browser and the Yoti app. By the way, your back-end doesn't need to handle these cases in a significantly different way. You might just decide to handle the `User-Agent` header in order to provide different responses for web and mobile clients.
+Yoti also allows you to enable user details verification from your mobile app by means of the [Android](https://github.com/getyoti/android-sdk-button) and [iOS](https://github.com/getyoti/ios-sdk-button) SDKs. In that scenario, your Yoti-enabled mobile app is playing both the role of the browser and the Yoti app. By the way, your back-end doesn't need to handle these cases in a significantly different way. You might just decide to handle the `User-Agent` header in order to provide different responses for web and mobile clients.
 
 ## Profile Retrieval
 
