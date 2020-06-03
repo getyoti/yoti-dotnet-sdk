@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Aml;
 using Yoti.Auth.Tests.Common;
 
@@ -10,12 +12,21 @@ namespace Yoti.Auth.Tests
     [TestClass]
     public class YotiClientTests
     {
+        private const string _someSdkId = "some-sdk-id";
+        private Uri _expectedDefaultUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+
+        [TestInitialize]
+        public void BeforeTests()
+        {
+            Environment.SetEnvironmentVariable("YOTI_API_URL", null);
+        }
+
         [TestMethod]
         public void NullSdkIdShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = null;
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsException<InvalidOperationException>(() =>
             {
                 new YotiClient(sdkId, keystream);
             });
@@ -26,7 +37,7 @@ namespace Yoti.Auth.Tests
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = string.Empty;
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsException<InvalidOperationException>(() =>
             {
                 new YotiClient(sdkId, keystream);
             });
@@ -36,10 +47,9 @@ namespace Yoti.Auth.Tests
         public void NoKeyStreamShouldThrowException()
         {
             StreamReader keystream = null;
-            string sdkId = "fake-sdk-id";
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                new YotiClient(sdkId, keystream);
+                new YotiClient(_someSdkId, keystream);
             });
         }
 
@@ -47,10 +57,9 @@ namespace Yoti.Auth.Tests
         public void InvalidKeyStreamShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetInvalidFormatKeyStream();
-            const string sdkId = "fake-sdk-id";
             Assert.ThrowsException<FormatException>(() =>
             {
-                new YotiClient(sdkId, keystream);
+                new YotiClient(_someSdkId, keystream);
             });
         }
 
@@ -162,9 +171,8 @@ namespace Yoti.Auth.Tests
         {
             Environment.SetEnvironmentVariable("YOTI_API_URL", envVar);
             YotiClient client = CreateYotiClient();
-            Uri expectedDefaultUri = new Uri(Constants.Api.DefaultYotiApiUrl);
 
-            Assert.AreEqual(expectedDefaultUri, client.ApiUri);
+            Assert.AreEqual(_expectedDefaultUri, client.ApiUri);
         }
 
         [TestMethod]
@@ -190,10 +198,49 @@ namespace Yoti.Auth.Tests
 
         private static YotiClient CreateYotiClient()
         {
-            const string sdkId = "fake-sdk-id";
             StreamReader privateStreamKey = KeyPair.GetValidKeyStream();
 
-            return new YotiClient(sdkId, privateStreamKey);
+            return new YotiClient(_someSdkId, privateStreamKey);
+        }
+
+        [TestMethod]
+        public void ApiUriSetForPrivateKeyInitialisation()
+        {
+            AsymmetricCipherKeyPair keyPair = KeyPair.Get();
+
+            YotiClient yotiClient = new YotiClient(_someSdkId, keyPair);
+
+            Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
+        }
+
+        [TestMethod]
+        public void ApiUriSetForPrivateKeyInitialisationHttpClient()
+        {
+            AsymmetricCipherKeyPair keyPair = KeyPair.Get();
+
+            YotiClient yotiClient = new YotiClient(new HttpClient(), _someSdkId, keyPair);
+
+            Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
+        }
+
+        [TestMethod]
+        public void ApiUriSetForStreamInitialisation()
+        {
+            StreamReader privateStreamKey = KeyPair.GetValidKeyStream();
+
+            YotiClient yotiClient = new YotiClient(_someSdkId, privateStreamKey);
+
+            Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
+        }
+
+        [TestMethod]
+        public void ApiUriSetForStreamInitialisationHttpClient()
+        {
+            StreamReader privateStreamKey = KeyPair.GetValidKeyStream();
+
+            YotiClient yotiClient = new YotiClient(new HttpClient(), _someSdkId, privateStreamKey);
+
+            Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
         }
     }
 }
