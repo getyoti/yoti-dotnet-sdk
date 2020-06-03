@@ -12,7 +12,7 @@
     <DebugType>Full</DebugType>
     <Authors>Yoti</Authors>
     <Description>Yoti .NET SDK, providing Yoti API support for Login, Verify (2FA) and Age Verification</Description>
-    <PackageProjectUrl>https://developers.yoti.com/yoti-app/web-integration</PackageProjectUrl>
+    <PackageProjectUrl>https://developers.yoti.com/yoti</PackageProjectUrl>
     <PackageIcon>Yoti.png</PackageIcon>
     <RepositoryUrl>https://github.com/getyoti/yoti-dotnet-sdk</RepositoryUrl>
     <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk sandbox documents docs KYC AML</PackageTags>
