@@ -22,7 +22,8 @@ namespace Yoti.Auth
         /// <param name="privateKeyStream">
         /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
         /// </param>
-        public YotiClient(string sdkId, StreamReader privateKeyStream) : this(new HttpClient(), sdkId, privateKeyStream)
+        public YotiClient(string sdkId, StreamReader privateKeyStream)
+            : this(new HttpClient(), sdkId, privateKeyStream)
         {
         }
 
@@ -35,23 +36,18 @@ namespace Yoti.Auth
         /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
         /// </param>
         public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateKeyStream)
+            : this(httpClient, sdkId, CryptoEngine.LoadRsaKey(privateKeyStream))
         {
-            if (string.IsNullOrEmpty(sdkId))
-            {
-                throw new ArgumentNullException(nameof(sdkId));
-            }
+        }
 
-            if (privateKeyStream == null)
-            {
-                throw new ArgumentNullException(nameof(privateKeyStream));
-            }
-
-            _sdkId = sdkId;
-            _keyPair = CryptoEngine.LoadRsaKey(privateKeyStream);
-
-            SetYotiApiUri();
-
-            _yotiClientEngine = new YotiClientEngine(httpClient);
+        /// <summary>
+        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// </summary>
+        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
+        /// <param name="keyPair">The key pair from the Yoti Hub.</param>
+        public YotiClient(string sdkId, AsymmetricCipherKeyPair keyPair)
+            : this(new HttpClient(), sdkId, keyPair)
+        {
         }
 
         /// <summary>
@@ -62,11 +58,13 @@ namespace Yoti.Auth
         /// <param name="keyPair">The key pair from the Yoti Hub.</param>
         public YotiClient(HttpClient httpClient, string sdkId, AsymmetricCipherKeyPair keyPair)
         {
-            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
 
             _sdkId = sdkId;
             _keyPair = keyPair;
+
+            SetYotiApiUri();
 
             _yotiClientEngine = new YotiClientEngine(httpClient);
         }
