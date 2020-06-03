@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
 
 namespace Yoti.Auth
@@ -37,6 +38,12 @@ namespace Yoti.Auth
         {
             NotLessThan(value, lowerLimit, name);
             NotGreaterThan(value, upperLimit, name);
+        }
+
+        public static void CollectionNotEmpty(ICollection collection, string name)
+        {
+            if (collection.Count == 0)
+                throw new InvalidOperationException($"Collection '{name}' must not be empty");
         }
 
         public static void IsNotDefault(this object value, string name)

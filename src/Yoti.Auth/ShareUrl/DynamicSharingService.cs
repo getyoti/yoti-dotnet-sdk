@@ -39,7 +39,7 @@ namespace Yoti.Auth.ShareUrl
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Response.CreateExceptionFromStatusCode<DynamicShareException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
                 }
 
                 return JsonConvert.DeserializeObject<ShareUrlResult>(

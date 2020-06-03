@@ -24,15 +24,16 @@ namespace Yoti.Auth.Aml
                .WithQueryParam("appId", sdkId)
                .WithHttpMethod(HttpMethod.Post)
                .WithContent(httpContent)
+               .WithContentHeader(Constants.Api.ContentTypeHeader, Constants.Api.ContentTypeJson)
                .Build();
 
             using (HttpResponseMessage response = await amlRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                    Response.CreateExceptionFromStatusCode<AmlException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<AmlException>(response);
 
                 return JsonConvert.DeserializeObject<AmlResult>(
-                    await response.Content.ReadAsStringAsync().ConfigureAwait(true));
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
         }
     }

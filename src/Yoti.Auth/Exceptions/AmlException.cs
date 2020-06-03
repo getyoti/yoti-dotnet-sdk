@@ -2,13 +2,20 @@
 
 namespace Yoti.Auth.Exceptions
 {
-    public class AmlException : Exception
+    public class AmlException : YotiException
     {
-        public AmlException(string message) : base(message)
+        public AmlException()
+            : base()
         {
         }
 
-        public AmlException(string message, Exception innerException) : base(message, innerException)
+        public AmlException(string message)
+            : base(message)
+        {
+        }
+
+        public AmlException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

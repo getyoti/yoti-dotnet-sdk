@@ -2,13 +2,8 @@
 {
     public class JpegImage : Image
     {
-        public JpegImage(byte[] content) : base(content)
+        public JpegImage(byte[] content) : base("image/jpeg", content)
         {
-        }
-
-        public override string GetMIMEType()
-        {
-            return "image/jpeg";
         }
     }
 }

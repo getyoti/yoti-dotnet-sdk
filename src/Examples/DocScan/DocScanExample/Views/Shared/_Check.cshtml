@@ -1,0 +1,128 @@
+﻿@using DocScanExample
+@using DocScanExample.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Yoti.Auth.DocScan.Session.Retrieve.Check.CheckResponse
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>State</td>
+            <td>
+                <span class="badge badge-@(Model.State == "DONE" ? "success" : "secondary")">
+                    @Model.State
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>Created</td>
+            <td>@Model.Created</td>
+        </tr>
+        <tr>
+            <td>Last Updated</td>
+            <td>@Model.LastUpdated</td>
+        </tr>
+        <tr>
+            <td>Resources Used</td>
+            <td>@string.Join(',', Model.ResourcesUsed)</td>
+        </tr>
+
+        @if (Model.Report != null)
+        {
+
+            @if (Model.Report.Recommendation != null)
+            {
+                <tr>
+                    <td>Recommendation</td>
+                    <td>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Value</td>
+                                    <td>@Model.Report.Recommendation.Value</td>
+                                </tr>
+                                <tr>
+                                    <td>Reason</td>
+                                    <td>@Model.Report.Recommendation.Reason</td>
+                                </tr>
+                                <tr>
+                                    <td>Recovery Suggestion</td>
+                                    <td>@Model.Report.Recommendation.RecoverySuggestion</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+            @if (Model.Report.Breakdown.Count > 0)
+            {
+                <tr>
+                    <td>Breakdown</td>
+                    <td>
+                        @foreach (var breakdown in Model.Report.Breakdown)
+                        {
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Sub Check</td>
+                                        <td>@breakdown.SubCheck</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Result</td>
+                                        <td>@breakdown.Result</td>
+                                    </tr>
+                                    @if (breakdown.Details.Count > 0)
+                                    {
+                                        <tr>
+                                            <td>Details</td>
+                                            <td>
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        @foreach (var details in breakdown.Details)
+                                                        {
+                                                            <tr>
+                                                                <td>@details.Name</td>
+                                                                <td>@details.Value</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            }
+
+        }
+        @if (Model.GeneratedMedia.Count > 0)
+        {
+            <tr>
+                <td>Generated Media</td>
+                <td>
+                    @foreach (var media in Model.GeneratedMedia)
+                    {
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>ID</td>
+                                    <td><a href="/home/media?mediaId=@media.Id&sessionId=@ViewBag.SessionId">@media.Id</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>@media.Type</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
