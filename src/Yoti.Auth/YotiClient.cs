@@ -23,7 +23,7 @@ namespace Yoti.Auth
         /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
         /// </param>
         public YotiClient(string sdkId, StreamReader privateKeyStream)
-            : this(new HttpClient(), sdkId, privateKeyStream)
+            : this(new HttpClient(), sdkId, CryptoEngine.LoadRsaKey(privateKeyStream))
         {
         }
 
@@ -37,16 +37,6 @@ namespace Yoti.Auth
         /// </param>
         public YotiClient(HttpClient httpClient, string sdkId, StreamReader privateKeyStream)
             : this(httpClient, sdkId, CryptoEngine.LoadRsaKey(privateKeyStream))
-        {
-        }
-
-        /// <summary>
-        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
-        /// </summary>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
-        /// <param name="keyPair">The key pair from the Yoti Hub.</param>
-        public YotiClient(string sdkId, AsymmetricCipherKeyPair keyPair)
-            : this(new HttpClient(), sdkId, keyPair)
         {
         }
 

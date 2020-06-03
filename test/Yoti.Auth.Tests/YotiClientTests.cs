@@ -204,16 +204,6 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
-        public void ApiUriSetForPrivateKeyInitialisation()
-        {
-            AsymmetricCipherKeyPair keyPair = KeyPair.Get();
-
-            YotiClient yotiClient = new YotiClient(_someSdkId, keyPair);
-
-            Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
-        }
-
-        [TestMethod]
         public void ApiUriSetForPrivateKeyInitialisationHttpClient()
         {
             AsymmetricCipherKeyPair keyPair = KeyPair.Get();
