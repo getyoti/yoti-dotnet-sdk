@@ -23,6 +23,21 @@ namespace Yoti.Auth.Tests
         private static HttpRequestMessage _httpRequestMessage;
         private const string SdkId = "fake-sdk-id";
 
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        public void InvalidTokenShouldThrowException(string encryptedToken)
+        {
+            var engine = new YotiClientEngine(new HttpClient());
+
+            var profileException = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await engine.GetActivityDetailsAsync(encryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+            }).Result;
+
+            Assert.IsTrue(profileException.Message.Contains("'encryptedConnectToken' must not be empty or null"));
+        }
+
         [TestMethod]
         public void SharingFailureShouldReturnSharingFailure()
         {

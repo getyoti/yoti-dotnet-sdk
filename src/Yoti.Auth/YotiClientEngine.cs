@@ -31,6 +31,8 @@ namespace Yoti.Auth
 
         public async Task<ActivityDetails> GetActivityDetailsAsync(string encryptedConnectToken, string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl)
         {
+            Validation.NotNullOrEmpty(encryptedConnectToken, nameof(encryptedConnectToken));
+
             string token = CryptoEngine.DecryptToken(encryptedConnectToken, keyPair);
             string path = $"profile/{token}";
 
