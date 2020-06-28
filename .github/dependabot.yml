@@ -9,13 +9,5 @@ updates:
   reviewers:
   - echarrod
   - davidgrayston
-  - MrBurtyyy
   assignees:
   - echarrod
-  ignore:
-  - dependency-name: Microsoft.VisualStudio.Web.CodeGeneration.Design
-    versions:
-    - "> 3.0.0"
-  - dependency-name: Portable.BouncyCastle
-    versions:
-    - "> 1.8.5"
