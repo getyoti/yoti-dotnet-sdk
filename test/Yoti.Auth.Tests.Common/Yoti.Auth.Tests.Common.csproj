@@ -33,6 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.14.1" />
+    <PackageReference Include="Moq" Version="4.14.4" />
   </ItemGroup>
 </Project>
