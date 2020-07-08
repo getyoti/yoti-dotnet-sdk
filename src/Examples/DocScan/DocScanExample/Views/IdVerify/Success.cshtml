@@ -201,6 +201,29 @@
                             </div>
                         }
 
+                        @if (document.DocumentIdPhoto != null)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="document-photo-@document.Id">
+                                    <h4 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                data-target="#collapse-document-photo-@document.Id" aria-expanded="true"
+                                                aria-controls="collapse-document-photo-@document.Id">
+                                            Document ID Photo
+                                        </button>
+                                    </h4>
+                                </div>
+                                <div id="collapse-document-photo-@document.Id" class="collapse" aria-labelledby="document-photo-@document.Id">
+                                    <div class="card-body">
+                                        @if (document.DocumentIdPhoto.Media != null)
+                                        {
+                                            <img class="card-img-top" src="/media?mediaId=@document.DocumentIdPhoto.Media.Id&sessionId=@Model.SessionId" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                         @if (document.GetTextExtractionTasks().Count > 0)
                         {
                             <div class="card">

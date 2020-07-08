@@ -5,6 +5,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Task
     public class RequestedTextExtractionTaskBuilder
     {
         private string _manualCheck;
+        private string _chipData;
 
         public RequestedTextExtractionTaskBuilder WithManualCheckAlways()
         {
@@ -24,11 +25,23 @@ namespace Yoti.Auth.DocScan.Session.Create.Task
             return this;
         }
 
+        public RequestedTextExtractionTaskBuilder WithChipDataDesired()
+        {
+            _chipData = DocScanConstants.Desired;
+            return this;
+        }
+
+        public RequestedTextExtractionTaskBuilder WithChipDataIgnore()
+        {
+            _chipData = DocScanConstants.Ignore;
+            return this;
+        }
+
         public RequestedTextExtractionTask Build()
         {
             Validation.NotNullOrEmpty(_manualCheck, nameof(_manualCheck));
 
-            RequestedTextExtractionTaskConfig config = new RequestedTextExtractionTaskConfig(_manualCheck);
+            RequestedTextExtractionTaskConfig config = new RequestedTextExtractionTaskConfig(_manualCheck, _chipData);
 
             return new RequestedTextExtractionTask(config);
         }

@@ -20,5 +20,8 @@
         public const string Always = "ALWAYS";
         public const string Fallback = "FALLBACK";
         public const string Never = "NEVER";
+
+        public const string Desired = "DESIRED";
+        public const string Ignore = "IGNORE";
     }
 }
