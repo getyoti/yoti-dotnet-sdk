@@ -154,6 +154,7 @@ namespace Yoti.Auth.Tests
             ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
             Assert.IsNotNull(activityDetails.Profile);
+            Assert.AreEqual(0, activityDetails.ApplicationProfile.Attributes.Count);
 
             Assert.IsNull(activityDetails.ReceiptId);
             Assert.IsNull(activityDetails.RememberMeId);

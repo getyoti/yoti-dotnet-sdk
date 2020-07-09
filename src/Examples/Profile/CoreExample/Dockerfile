@@ -12,7 +12,7 @@ COPY . .
 WORKDIR /src/Examples/Profile/CoreExample
 
 FROM build AS publish
-RUN dotnet publish CoreExample.csproj -c Release -r linux-x64 -o /app -p:TargetFrameworks=netcoreapp2.1 -f netcoreapp2.1
+RUN dotnet publish CoreExample.csproj -c Release -r linux-x64 -o /app -p:TargetFrameworks=netcoreapp2.2 -f netcoreapp2.2
 
 FROM base AS final
 WORKDIR /app

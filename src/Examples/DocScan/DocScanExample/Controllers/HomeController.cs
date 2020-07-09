@@ -43,12 +43,13 @@ namespace DocScanExample.Controllers
                 )
                 .WithRequestedCheck(
                   new RequestedFaceMatchCheckBuilder()
-                    .WithManualCheckFallback()
+                    .WithManualCheckNever()
                     .Build()
                 )
                 .WithRequestedTask(
                   new RequestedTextExtractionTaskBuilder()
-                    .WithManualCheckAlways()
+                    .WithManualCheckNever()
+                    .WithChipDataDesired()
                     .Build()
                 )
                 .WithSdkConfig(

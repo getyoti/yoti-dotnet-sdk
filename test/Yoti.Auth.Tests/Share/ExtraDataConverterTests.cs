@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Constants;
 using Yoti.Auth.Share;
 
 namespace Yoti.Auth.Tests.Share
@@ -16,10 +17,10 @@ namespace Yoti.Auth.Tests.Share
 
             ExtraData result = ExtraDataConverter.ParseExtraDataProto(extraDataBytes);
 
-            string expectedDateTime = "2019-10-15T22:04:05.123000";
+            string expectedDateTime = "2019-10-15T22:04:05.123Z";
             DateTime nonNullableExpiryDate = (DateTime)result.AttributeIssuanceDetails.ExpiryDate;
 
-            string actualDateTime = nonNullableExpiryDate.ToString("yyyy-MM-dd'T'HH:mm:ss.ffffff", DateTimeFormatInfo.InvariantInfo);
+            string actualDateTime = nonNullableExpiryDate.ToString(Format.RFC3339PatternMilli, DateTimeFormatInfo.InvariantInfo);
 
             Assert.AreEqual(expectedDateTime, actualDateTime);
             Assert.AreEqual("c29tZUlzc3VhbmNlVG9rZW4=", result.AttributeIssuanceDetails.Token);
