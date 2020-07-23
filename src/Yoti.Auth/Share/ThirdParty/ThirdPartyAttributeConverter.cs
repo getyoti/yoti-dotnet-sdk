@@ -18,7 +18,7 @@ namespace Yoti.Auth.Share.ThirdParty
             IssuingAttributes issuingAttributes = ParseIssuingAttributes(thirdPartyAttribute.IssuingAttributes);
 
             ByteString token = thirdPartyAttribute.IssuanceToken;
-            string base64Token = Conversion.BytesToBase64(token.ToByteArray());
+            string base64Token = Conversion.BytesToUrlSafeBase64(token.ToByteArray(), false);
 
             DateTime? expiryDate = issuingAttributes.ExpiryDate;
             List<AttributeDefinition> attributeDefinitions = issuingAttributes.AttributeDefinitions;

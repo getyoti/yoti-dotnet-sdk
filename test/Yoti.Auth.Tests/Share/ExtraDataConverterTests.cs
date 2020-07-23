@@ -23,7 +23,7 @@ namespace Yoti.Auth.Tests.Share
             string actualDateTime = nonNullableExpiryDate.ToString(Format.RFC3339PatternMilli, DateTimeFormatInfo.InvariantInfo);
 
             Assert.AreEqual(expectedDateTime, actualDateTime);
-            Assert.AreEqual("c29tZUlzc3VhbmNlVG9rZW4=", result.AttributeIssuanceDetails.Token);
+            Assert.AreEqual("c29tZUlzc3VhbmNlVG9rZW4", result.AttributeIssuanceDetails.Token);
             Assert.AreEqual(2, result.AttributeIssuanceDetails.IssuingAttributes.Count);
             Assert.AreEqual("com.thirdparty.id", result.AttributeIssuanceDetails.IssuingAttributes[0].Name);
             Assert.AreEqual("com.thirdparty.other_id", result.AttributeIssuanceDetails.IssuingAttributes[1].Name);
