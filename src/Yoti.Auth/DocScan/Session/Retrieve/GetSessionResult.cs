@@ -9,7 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
     public class GetSessionResult
     {
         /// <summary>
-        /// The time-to-live (TTL) for the client sessionn token for the created session
+        /// The time-to-live (TTL) for the client session token for the created session
         /// </summary>
         [JsonProperty(PropertyName = "client_session_token_ttl")]
         public int ClientSessionTokenTtl { get; internal set; }

@@ -5,6 +5,9 @@ using Yoti.Auth.DocScan.Session.Retrieve.Task;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
 {
+    /// <summary>
+    /// Represents an Identity Document resource for a given session
+    /// </summary>
     public class IdDocumentResourceResponse : ResourceResponse
     {
         [JsonProperty(PropertyName = "document_type")]

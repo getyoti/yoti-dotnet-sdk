@@ -2,6 +2,9 @@
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
+    /// <summary>
+    /// RecommendationResponse represents the recommendation given for a check
+    /// </summary>
     public class RecommendationResponse
     {
         [JsonProperty(PropertyName = "value")]

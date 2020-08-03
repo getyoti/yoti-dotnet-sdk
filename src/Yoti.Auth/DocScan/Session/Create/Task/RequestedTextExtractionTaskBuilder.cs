@@ -2,6 +2,9 @@
 
 namespace Yoti.Auth.DocScan.Session.Create.Task
 {
+    /// <summary>
+    /// Builds a <see cref="RequestedTextExtractionTask"/>
+    /// </summary>
     public class RequestedTextExtractionTaskBuilder
     {
         private string _manualCheck;
