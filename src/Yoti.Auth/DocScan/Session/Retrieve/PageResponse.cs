@@ -2,6 +2,9 @@
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
+    /// <summary>
+    /// PageResponse represents information about an uploaded document Page
+    /// </summary>
     public class PageResponse
     {
         [JsonProperty(PropertyName = "capture_method")]

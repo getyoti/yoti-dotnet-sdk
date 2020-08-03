@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve.Task
 {
+    /// <summary>
+    /// TaskResponse represents the attributes of a task, for any given session
+    /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "type")]
     [JsonSubtypes.KnownSubType(typeof(TextExtractionTaskResponse), Constants.DocScanConstants.IdDocumentTextDataExtraction)]
     public class TaskResponse

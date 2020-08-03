@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
+    /// <summary>
+    /// ReportResponse represents a report for a given check
+    /// </summary>
     public class ReportResponse
     {
         [JsonProperty(PropertyName = "recommendation")]

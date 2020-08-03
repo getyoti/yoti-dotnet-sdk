@@ -2,6 +2,9 @@
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
+    /// <summary>
+    /// DetailsResponse represents a specific detail for a breakdown
+    /// </summary>
     public class DetailsResponse
     {
         [JsonProperty(PropertyName = "name")]
