@@ -346,42 +346,6 @@
                         </table>
 
                         <div class="accordion mt-3">
-
-                            @if (livenessResource.FaceMap != null)
-                            {
-                                <div class="card">
-                                    <div class="card-header" id="liveness-@livenessResource.Id-facemap">
-                                        <h3 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                    data-target="#collapse-liveness-@livenessResource.Id-facemap" aria-expanded="true"
-                                                    aria-controls="collapse-liveness-@livenessResource.Id-facemap">
-                                                Face Map
-                                            </button>
-                                        </h3>
-                                    </div>
-                                    <div id="collapse-liveness-@livenessResource.Id-facemap" class="collapse" aria-labelledby="liveness-@livenessResource.Id-facemap">
-                                        <div class="card-body">
-                                            @if (livenessResource.FaceMap.Media != null)
-                                            {
-                                                <h4>Media</h4>
-                                                <table class="table table-striped">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>ID</td>
-                                                            <td>
-                                                                <a href="/media?mediaId=@livenessResource.FaceMap.Media.Id&sessionId=@Model.SessionId&base64zip=1">
-                                                                    @livenessResource.FaceMap.Media.Id
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
                             @if (livenessResource.Frames.Count > 0)
                             {
                                 <div class="card">
