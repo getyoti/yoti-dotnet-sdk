@@ -5,7 +5,7 @@ namespace Yoti.Auth.ShareUrl.Policy
     public class SourceConstraintBuilder
     {
         private readonly List<WantedAnchor> _wantedAnchors = new List<WantedAnchor>();
-        private bool _softPreference = false;
+        private bool _softPreference;
 
         /// <summary>
         /// Add an anchor to the source constraints list.
