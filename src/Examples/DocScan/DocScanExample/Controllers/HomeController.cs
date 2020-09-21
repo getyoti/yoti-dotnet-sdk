@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using DocScanExample.Models;
 using Microsoft.AspNetCore.Mvc;
 using Yoti.Auth;

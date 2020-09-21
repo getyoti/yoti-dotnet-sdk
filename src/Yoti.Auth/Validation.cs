@@ -42,6 +42,7 @@ namespace Yoti.Auth
 
         public static void CollectionNotEmpty(ICollection collection, string name)
         {
+            NotNull(collection, name);
             if (collection.Count == 0)
                 throw new InvalidOperationException($"Collection '{name}' must not be empty");
         }
@@ -50,7 +51,7 @@ namespace Yoti.Auth
         {
             if (value.IsDefault())
                 throw new InvalidOperationException(
-                    $"the value of '{name}' must not be equal to the default value for '{value.GetType().ToString()}'");
+                    $"the value of '{name}' must not be equal to the default value for '{value.GetType()}'");
         }
 
         public static bool IsDefault(this object value)

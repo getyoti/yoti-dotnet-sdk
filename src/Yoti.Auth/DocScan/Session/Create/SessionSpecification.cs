@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace Yoti.Auth.DocScan.Session.Create
 {
     public class SessionSpecification
     {
-        internal SessionSpecification(int clientSessionTokenTtl, int resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig)
+        internal SessionSpecification(int clientSessionTokenTtl, int resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments)
         {
             ClientSessionTokenTtl = clientSessionTokenTtl;
             ResourcesTtl = resourcesTtl;
@@ -16,6 +17,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             RequestedChecks = requestedChecks;
             RequestedTasks = requestedTasks;
             SdkConfig = sdkConfig;
+            RequiredDocuments = requiredDocuments;
         }
 
         [JsonProperty(PropertyName = "client_session_token_ttl")]
@@ -38,5 +40,8 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "sdk_config")]
         public SdkConfig SdkConfig { get; }
+
+        [JsonProperty(PropertyName = "required_documents")]
+        public List<RequiredDocument> RequiredDocuments { get; }
     }
 }
