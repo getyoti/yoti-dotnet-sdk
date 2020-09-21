@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Support;
 
 namespace Yoti.Auth.DocScan
 {
@@ -145,6 +146,26 @@ namespace Yoti.Auth.DocScan
             _logger.Debug($"Deleting media content '{mediaId}' in session '{sessionId}'");
 
             await _docScanService.DeleteMediaContent(_sdkId, _keyPair, sessionId, mediaId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a list of supported documents.
+        /// </summary>
+        /// <returns>The supported documents</returns>
+        public SupportedDocumentsResponse GetSupportedDocuments()
+        {
+            return GetSupportedDocumentsAsync().Result;
+        }
+
+        /// <summary>
+        /// Gets a list of supported documents.
+        /// </summary>
+        /// <returns>The supported documents</returns>
+        public async Task<SupportedDocumentsResponse> GetSupportedDocumentsAsync()
+        {
+            _logger.Debug("Retrieving supported documents");
+
+            return await _docScanService.GetSupportedDocuments(_sdkId, _keyPair).ConfigureAwait(false);
         }
     }
 }

@@ -23,5 +23,12 @@
 
         public const string Desired = "DESIRED";
         public const string Ignore = "IGNORE";
+
+        public const string IdDocument = "ID_DOCUMENT";
+        public const string OrthogonalRestrictions = "ORTHOGONAL_RESTRICTIONS";
+        public const string DocumentRestrictions = "DOCUMENT_RESTRICTIONS";
+
+        public const string IncludeList = "WHITELIST";
+        public const string ExcludeList = "BLACKLIST";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.Common;
 
@@ -248,6 +250,40 @@ namespace Yoti.Auth.Tests.DocScan
 
             Assert.IsTrue(imageBytes.SequenceEqual(mediaValue.GetContent()));
             Assert.AreEqual(contentTypeImageJpeg, mediaValue.GetMIMEType());
+        }
+
+        [TestMethod]
+        public void GetSupportedDocumentShouldSucceed()
+        {
+            var passport = new SupportedDocument("PASSPORT");
+            var drivingLicence = new SupportedDocument("DRIVING_LICENCE");
+
+            var supportedDocumentsResponse = new SupportedDocumentsResponse(
+                new List<SupportedCountry>{
+                    new SupportedCountry(
+                    "FRA",
+                    new List<SupportedDocument> { passport, drivingLicence })
+                });
+
+            string jsonResponse = JsonConvert.SerializeObject(supportedDocumentsResponse);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments();
+
+            Assert.AreEqual(1, result.SupportedCountries.Count);
+            Assert.AreEqual("FRA", result.SupportedCountries[0].Code);
+            Assert.AreEqual("PASSPORT", result.SupportedCountries[0].SupportedDocuments[0].Type);
+            Assert.AreEqual("DRIVING_LICENCE", result.SupportedCountries[0].SupportedDocuments[1].Type);
         }
 
         private DocScanClient SetupDocScanClientResponse(HttpStatusCode httpStatusCode)
