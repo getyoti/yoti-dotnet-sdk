@@ -18,6 +18,8 @@ namespace NonBrowserQrExample
 {
     internal class Program
     {
+        private static string _token;
+
         private static void Main(string[] args)
         {
             string refId = GetRefId();
@@ -35,19 +37,11 @@ namespace NonBrowserQrExample
                 throw new InvalidOperationException("unable to find `callback_endpoint` in JSON response");
             }
 
-            var clientWebSocket = new ClientWebSocket();
-
-            Connect(sessionData);
-
-            UTF8Encoding encoding = new UTF8Encoding();
-
-            while (true)
-            {
-                Task.WaitAll(ParseTokenOnMessage(clientWebSocket));
-            }
+            string token = GetToken(sessionData).Result;
+            Debug.WriteLine($"token = {token}");
         }
 
-        public static async Task Connect(string sessionData)
+        public static async Task<string> GetToken(string sessionData)
         {
             ClientWebSocket webSocket = null;
             try
@@ -56,22 +50,47 @@ namespace NonBrowserQrExample
 
                 webSocket = new ClientWebSocket();
                 await webSocket.ConnectAsync(url, CancellationToken.None);
-                await Task.WhenAll(ParseTokenOnMessage(webSocket));
+                string jsonSubscriptionMessage = JsonConvert.SerializeObject(new
+                {
+                    subscription = sessionData
+                });
+
+                await SendSubscriptionMessage(webSocket, jsonSubscriptionMessage);
+
+                var subscriptionResult = ParseResponse(webSocket).Result;
+
+                UTF8Encoding encoding = new UTF8Encoding();
+
+                while (true)
+                {
+                    Task.WaitAll(ParseTokenOnMessage(webSocket));
+                }
             }
             catch (Exception ex)
             {
-                // Log it
+                Debug.WriteLine($"exception: {ex}");
             }
             finally
             {
-                if (webSocket != null)
-                {
-                    webSocket.Dispose();
-                }
+                webSocket?.Dispose();
+            }
+
+            return _token;
+        }
+
+        private static async Task SendSubscriptionMessage(ClientWebSocket connection, string jsonSubscriptionMessage)
+        {
+            while (!connection.CloseStatus.HasValue)
+            {
+                await connection.SendAsync(
+                    System.Text.Encoding.UTF8.GetBytes(jsonSubscriptionMessage),
+                    WebSocketMessageType.Text,
+                    true,
+                    CancellationToken.None);
             }
         }
 
-        public static async Task<string> ParseTokenOnMessage(ClientWebSocket webSocket)
+        public static async Task ParseTokenOnMessage(ClientWebSocket webSocket)
         {
             byte[] buffer = new byte[1024];
             while (webSocket.State == WebSocketState.Open)
@@ -96,7 +115,8 @@ namespace NonBrowserQrExample
                             Debug.WriteLine("subscription result:");
                             Debug.WriteLine(tokenResponse.ToString());
 
-                            return tokenResponse.Token;
+                            _token = tokenResponse.Token;
+                            break;
 
                         case "ACCEPTED":
                             continue;
