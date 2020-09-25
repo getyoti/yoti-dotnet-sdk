@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create
@@ -94,7 +96,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuild()
+        public void ShouldBuildWithUserTrackingId()
         {
             string userTrackingId = "someTrackingId";
 
@@ -104,6 +106,34 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
               .Build();
 
             Assert.AreEqual(userTrackingId, sessionSpec.UserTrackingId);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithWithRequiredDocument()
+        {
+            SessionSpecification sessionSpec =
+              new SessionSpecificationBuilder()
+              .WithRequiredDocument(
+                  new RequiredIdDocumentBuilder()
+                  .WithFilter(
+                      new DocumentRestrictionsFilterBuilder()
+                      .ForIncludeList()
+                      .WithDocumentRestriction(
+                          new List<string> { "USA" },
+                          new List<string> { "PASSPORT" })
+                      .Build())
+                  .Build())
+              .Build();
+
+            RequiredIdDocument result = (RequiredIdDocument)sessionSpec.RequiredDocuments.Single();
+            Assert.AreEqual("ID_DOCUMENT", result.Type);
+            Assert.AreEqual("DOCUMENT_RESTRICTIONS", result.Filter.Type);
+
+            DocumentRestrictionsFilter filter = (DocumentRestrictionsFilter)result.Filter;
+
+            Assert.AreEqual("WHITELIST", filter.Inclusion);
+            Assert.AreEqual("USA", filter.Documents.Single().CountryCodes.Single());
+            Assert.AreEqual("PASSPORT", filter.Documents.Single().DocumentTypes.Single());
         }
     }
 }

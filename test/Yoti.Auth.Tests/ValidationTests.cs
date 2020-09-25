@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Xml.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Exceptions;
 
 namespace Yoti.Auth.Tests
@@ -22,6 +23,23 @@ namespace Yoti.Auth.Tests
         public void IsDefaultShouldReturnTrueForValueType()
         {
             Assert.IsTrue(Validation.IsDefault(0));
+        }
+
+        [TestMethod]
+        public void IsNotDefaultShouldAllowNonDefaultType()
+        {
+            int someInteger = 2;
+            Validation.IsNotDefault(someInteger, nameof(someInteger));
+        }
+
+        [TestMethod]
+        public void IsNotDefaultShouldThrowForDefaultType()
+        {
+            int defaultValue = 0;
+            Assert.ThrowsException<System.InvalidOperationException>(() =>
+            {
+                Validation.IsNotDefault(defaultValue, nameof(defaultValue));
+            });
         }
     }
 }
