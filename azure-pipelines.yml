@@ -8,6 +8,14 @@ trigger:
     include:
     - '*'  # must quote since "*" is a YAML reserved character; we want a string
 
+schedules:
+- cron: "0 12 * * 0"
+  displayName: Weekly Sunday build
+  branches:
+    include:
+    - master
+  always: true
+
 pool:
   vmImage: 'windows-latest'
 
