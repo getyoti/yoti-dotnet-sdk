@@ -100,7 +100,8 @@ namespace Yoti.Auth.DocScan.Session.Create
         /// <returns>the builder</returns>
         public SessionSpecificationBuilder WithRequiredDocument(RequiredDocument requiredDocument)
         {
-            _requiredDocuments ??= new List<RequiredDocument>();
+            if (_requiredDocuments == null)
+                _requiredDocuments = new List<RequiredDocument>();
 
             _requiredDocuments.Add(requiredDocument);
             return this;

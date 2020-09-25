@@ -21,7 +21,8 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
 
         public DocumentRestrictionsFilterBuilder WithDocumentRestriction(List<string> countryCodes, List<string> documentTypes)
         {
-            _documents ??= new List<DocumentRestriction>();
+            if (_documents == null)
+                _documents = new List<DocumentRestriction>();
 
             _documents.Add(new DocumentRestriction(countryCodes, documentTypes));
             return this;
@@ -29,7 +30,8 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
 
         public DocumentRestrictionsFilterBuilder WithDocumentRestriction(DocumentRestriction documentRestriction)
         {
-            _documents ??= new List<DocumentRestriction>();
+            if (_documents == null)
+                _documents = new List<DocumentRestriction>();
 
             _documents.Add(documentRestriction);
             return this;
