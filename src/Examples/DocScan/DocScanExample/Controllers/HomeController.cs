@@ -36,23 +36,26 @@ namespace DocScanExample.Controllers
                     .Build()
                 )
                 .WithRequestedCheck(
-                  new RequestedLivenessCheckBuilder()
+                    new RequestedLivenessCheckBuilder()
                     .ForZoomLiveness()
                     .Build()
                 )
                 .WithRequestedCheck(
-                  new RequestedFaceMatchCheckBuilder()
+                    new RequestedFaceMatchCheckBuilder()
                     .WithManualCheckNever()
                     .Build()
                 )
+                .WithRequestedCheck(
+                    new RequestedIdDocumentComparisonCheckBuilder()
+                    .Build())
                 .WithRequestedTask(
-                  new RequestedTextExtractionTaskBuilder()
+                    new RequestedTextExtractionTaskBuilder()
                     .WithManualCheckNever()
                     .WithChipDataDesired()
                     .Build()
                 )
                 .WithSdkConfig(
-                  new SdkConfigBuilder()
+                    new SdkConfigBuilder()
                     .WithAllowsCameraAndUpload()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
