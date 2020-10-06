@@ -74,6 +74,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void IdDocumentComaprisonChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new IdDocumentComparisonCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetIdDocumentComparisonChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetIdDocumentComparisonChecks().First(), typeof(IdDocumentComparisonCheckResponse));
+        }
+
+        [TestMethod]
         public void ShouldParseAllChecks()
         {
             var checks = new List<CheckResponse>

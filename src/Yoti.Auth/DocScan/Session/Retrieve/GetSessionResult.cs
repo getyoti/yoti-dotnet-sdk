@@ -63,5 +63,10 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
         {
             return Checks?.OfType<LivenessCheckResponse>()?.ToList();
         }
+
+        public List<IdDocumentComparisonCheckResponse> GetIdDocumentComparisonChecks()
+        {
+            return Checks?.OfType<IdDocumentComparisonCheckResponse>()?.ToList();
+        }
     }
 }

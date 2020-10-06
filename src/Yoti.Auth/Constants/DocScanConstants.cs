@@ -3,6 +3,7 @@
     public static class DocScanConstants
     {
         public const string IdDocumentAuthenticity = "ID_DOCUMENT_AUTHENTICITY";
+        public const string IdDocumentComparison = "ID_DOCUMENT_COMPARISON";
         public const string IdDocumentTextDataCheck = "ID_DOCUMENT_TEXT_DATA_CHECK";
         public const string IdDocumentTextDataExtraction = "ID_DOCUMENT_TEXT_DATA_EXTRACTION";
         public const string IdDocumentFaceMatch = "ID_DOCUMENT_FACE_MATCH";
