@@ -46,27 +46,42 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         public List<AuthenticityCheckResponse> GetAuthenticityChecks()
         {
-            return Checks?.OfType<AuthenticityCheckResponse>()?.ToList();
+            if (Checks == null)
+                return new List<AuthenticityCheckResponse>();
+
+            return Checks.OfType<AuthenticityCheckResponse>().ToList();
         }
 
         public List<FaceMatchCheckResponse> GetFaceMatchChecks()
         {
-            return Checks?.OfType<FaceMatchCheckResponse>()?.ToList();
+            if (Checks == null)
+                return new List<FaceMatchCheckResponse>();
+
+            return Checks.OfType<FaceMatchCheckResponse>().ToList();
         }
 
         public List<TextDataCheckResponse> GetTextDataChecks()
         {
-            return Checks?.OfType<TextDataCheckResponse>()?.ToList();
+            if (Checks == null)
+                return new List<TextDataCheckResponse>();
+
+            return Checks.OfType<TextDataCheckResponse>().ToList();
         }
 
         public List<LivenessCheckResponse> GetLivenessChecks()
         {
-            return Checks?.OfType<LivenessCheckResponse>()?.ToList();
+            if (Checks == null)
+                return new List<LivenessCheckResponse>();
+
+            return Checks.OfType<LivenessCheckResponse>().ToList();
         }
 
         public List<IdDocumentComparisonCheckResponse> GetIdDocumentComparisonChecks()
         {
-            return Checks?.OfType<IdDocumentComparisonCheckResponse>()?.ToList();
+            if (Checks == null)
+                return new List<IdDocumentComparisonCheckResponse>();
+
+            return Checks.OfType<IdDocumentComparisonCheckResponse>().ToList();
         }
     }
 }
