@@ -41,6 +41,13 @@
                         <td>User Tracking ID</td>
                         <td>@Model.UserTrackingId</td>
                     </tr>
+                    @if (Model.BiometricConsentTimestamp != null)
+                    {
+                        <tr>
+                            <td>Biometric Consent Timestamp</td>
+                            <td>@Model.BiometricConsentTimestamp.ToString()</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

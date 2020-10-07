@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
@@ -43,6 +44,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "resources")]
         public ResourceContainer Resources { get; internal set; }
+
+        [JsonProperty(PropertyName = "biometric_consent")]
+        public DateTime? BiometricConsentTimestamp { get; internal set; }
 
         public List<AuthenticityCheckResponse> GetAuthenticityChecks()
         {

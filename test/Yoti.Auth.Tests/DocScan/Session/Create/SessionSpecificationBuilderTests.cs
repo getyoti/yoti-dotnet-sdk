@@ -135,5 +135,27 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             Assert.AreEqual("USA", filter.Documents.Single().CountryCodes.Single());
             Assert.AreEqual("PASSPORT", filter.Documents.Single().DocumentTypes.Single());
         }
+
+        [TestMethod]
+        public void ShouldBuildWithWithBlockBiometricConsentTrue()
+        {
+            SessionSpecification sessionSpec =
+              new SessionSpecificationBuilder()
+              .WithBlockBiometricConsent(true)
+              .Build();
+
+            Assert.IsTrue((bool)sessionSpec.BlockBiometricConsent);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithWithBlockBiometricConsentFalse()
+        {
+            SessionSpecification sessionSpec =
+              new SessionSpecificationBuilder()
+              .WithBlockBiometricConsent(false)
+              .Build();
+
+            Assert.IsFalse((bool)sessionSpec.BlockBiometricConsent);
+        }
     }
 }

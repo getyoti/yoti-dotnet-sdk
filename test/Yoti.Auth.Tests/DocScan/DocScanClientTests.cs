@@ -250,6 +250,33 @@ namespace Yoti.Auth.Tests.DocScan
             GetSessionResult result = docScanClient.GetSession("some-session-id");
 
             Assert.AreEqual("COMPLETED", result.State);
+            Assert.IsNull(result.BiometricConsentTimestamp);
+        }
+
+        [TestMethod]
+        public void ShouldReturnBiometricConsentTimestamp()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                BiometricConsentTimestamp = new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc)
+            };
+
+            string jsonResponse = JsonConvert.SerializeObject(getSessionResult);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            GetSessionResult result = docScanClient.GetSession("some-session-id");
+
+            Assert.AreEqual(new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc), result.BiometricConsentTimestamp);
         }
 
         [TestMethod]

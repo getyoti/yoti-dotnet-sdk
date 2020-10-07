@@ -8,7 +8,7 @@ namespace Yoti.Auth.DocScan.Session.Create
 {
     public class SessionSpecification
     {
-        internal SessionSpecification(int clientSessionTokenTtl, int resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments)
+        internal SessionSpecification(int clientSessionTokenTtl, int resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent)
         {
             ClientSessionTokenTtl = clientSessionTokenTtl;
             ResourcesTtl = resourcesTtl;
@@ -18,6 +18,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             RequestedTasks = requestedTasks;
             SdkConfig = sdkConfig;
             RequiredDocuments = requiredDocuments;
+            BlockBiometricConsent = blockBiometricConsent;
         }
 
         [JsonProperty(PropertyName = "client_session_token_ttl")]
@@ -43,5 +44,8 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "required_documents")]
         public List<RequiredDocument> RequiredDocuments { get; }
+
+        [JsonProperty(PropertyName = "block_biometric_consent")]
+        public bool? BlockBiometricConsent { get; }
     }
 }
