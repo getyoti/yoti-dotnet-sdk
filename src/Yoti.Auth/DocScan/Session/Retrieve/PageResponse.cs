@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
@@ -12,5 +13,8 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "media")]
         public MediaResponse Media { get; private set; }
+
+        [JsonProperty(PropertyName = "frames")]
+        public List<FrameResponse> Frames { get; internal set; }
     }
 }

@@ -189,8 +189,9 @@
             </div>
         }
 
-        @foreach (IdDocumentResourceResponse document in Model.Resources.IdDocuments)
+        for (var idDocIndex = 0; idDocIndex < Model.Resources.IdDocuments.Count; idDocIndex++)
         {
+            IdDocumentResourceResponse document = Model.Resources.IdDocuments[idDocIndex];
             <div class="row pt-4">
                 <div class="col">
                     <h3>@document.DocumentType<span class="badge badge-primary">@document.IssuingCountry</span></h3>
@@ -198,16 +199,16 @@
                         @if (document.DocumentFields != null)
                         {
                             <div class="card">
-                                <div class="card-header" id="document-fields-@document.Id">
+                                <div class="card-header" id="document-fields-@idDocIndex">
                                     <h4 class="mb-0">
                                         <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapse-document-fields-@document.Id" aria-expanded="true"
-                                                aria-controls="collapse-document-fields-@document.Id">
+                                                data-target="#collapse-document-fields-@idDocIndex" aria-expanded="true"
+                                                aria-controls="collapse-document-fields-@idDocIndex">
                                             Document Fields
                                         </button>
                                     </h4>
                                 </div>
-                                <div id="collapse-document-fields-@document.Id" class="collapse" aria-labelledby="document-fields-@document.Id">
+                                <div id="collapse-document-fields-@idDocIndex" class="collapse" aria-labelledby="document-fields-@idDocIndex">
                                     <div class="card-body">
                                         @if (document.DocumentFields.Media != null)
                                         {
@@ -233,16 +234,16 @@
                         @if (document.DocumentIdPhoto != null)
                         {
                             <div class="card">
-                                <div class="card-header" id="document-photo-@document.Id">
+                                <div class="card-header" id="document-photo-@idDocIndex">
                                     <h4 class="mb-0">
                                         <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapse-document-photo-@document.Id" aria-expanded="true"
-                                                aria-controls="collapse-document-photo-@document.Id">
+                                                data-target="#collapse-document-photo-@idDocIndex" aria-expanded="true"
+                                                aria-controls="collapse-document-photo-@idDocIndex">
                                             Document ID Photo
                                         </button>
                                     </h4>
                                 </div>
-                                <div id="collapse-document-photo-@document.Id" class="collapse" aria-labelledby="document-photo-@document.Id">
+                                <div id="collapse-document-photo-@idDocIndex" class="collapse" aria-labelledby="document-photo-@idDocIndex">
                                     <div class="card-body">
                                         @if (document.DocumentIdPhoto.Media != null)
                                         {
@@ -256,16 +257,16 @@
                         @if (document.GetTextExtractionTasks().Count > 0)
                         {
                             <div class="card">
-                                <div class="card-header" id="text-extraction-tasks-@document.Id">
+                                <div class="card-header" id="text-extraction-tasks-@idDocIndex">
                                     <h4 class="mb-0">
                                         <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapse-text-extraction-tasks-@document.Id" aria-expanded="true"
-                                                aria-controls="collapse-text-extraction-tasks-@document.Id">
+                                                data-target="#collapse-text-extraction-tasks-@idDocIndex" aria-expanded="true"
+                                                aria-controls="collapse-text-extraction-tasks-@idDocIndex">
                                             Text Extraction Tasks
                                         </button>
                                     </h4>
                                 </div>
-                                <div id="collapse-text-extraction-tasks-@document.Id" class="collapse" aria-labelledby="text-extraction-tasks-@document.Id">
+                                <div id="collapse-text-extraction-tasks-@idDocIndex" class="collapse" aria-labelledby="text-extraction-tasks-@idDocIndex">
                                     <div class="card-body">
                                         @foreach (var task in document.GetTextExtractionTasks())
                                         {
@@ -316,36 +317,56 @@
 
                             @if (document.Pages.Count > 0)
                             {
-                                <div class="card">
-                                    <div class="card-header" id="document-pages-@document.Id">
-                                        <h4 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                    data-target="#collapse-document-pages-@document.Id" aria-expanded="true"
-                                                    aria-controls="collapse-document-pages-@document.Id">
-                                                Pages
-                                            </button>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse-document-pages-@document.Id" class="collapse" aria-labelledby="document-pages-@document.Id">
-                                        <div class="card-body">
+                                foreach (var p in document.Pages)
+                                {
+                                    var pageIndex = document.Pages.IndexOf(p);
+                                    <div class="card">
+                                        <div class="card-header" id="document-pages-@pageIndex">
+                                            <h4 class="mb-0">
+                                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                        data-target="#collapse-document-pages-@idDocIndex-@pageIndex" aria-expanded="true"
+                                                        aria-controls="collapse-document-pages-@idDocIndex-@pageIndex">
+                                                    Page @(pageIndex + 1)
+                                                </button>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse-document-pages-@idDocIndex-@pageIndex" class="collapse"
+                                             aria-labelledby="document-pages-@idDocIndex-@pageIndex">
+
                                             <div class="card-group">
-                                                @foreach (var p in document.Pages)
+                                                @if (p.Media != null)
                                                 {
-                                                    @if (p.Media != null)
-                                                    {
-                                                        <div class="card" style="width: 18rem;">
-                                                            @{string mediaId = p.Media.Id;}
-                                                            <img class="card-img-top" src="/media?mediaId=@mediaId&sessionId=@Model.SessionId" />
-                                                            <div class="card-body">
-                                                                <p>Method:@p.CaptureMethod</p>
-                                                            </div>
+                                                    <div class="card" style="width: 18rem;">
+                                                        <img class="card-img-top"
+                                                             src="/media?mediaId=@p.Media.Id&sessionId=@Model.SessionId" />
+                                                        <div class="card-body">
+                                                            <p>Method: @p.CaptureMethod</p>
                                                         </div>
-                                                    }
+                                                    </div>
                                                 }
                                             </div>
+
+                                            @if (p.Frames != null)
+                                            {
+                                                <div class="card-group">
+                                                    @foreach (var frame in p.Frames)
+                                                    {
+                                                        if (frame.Media != null)
+                                                        {
+                                                            <div class="card">
+                                                                <img class="card-img-top"
+                                                                     src="/media?mediaId=@p.Media.Id&sessionId=@Model.SessionId" />
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Frame</h5>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                </div>
+                                }
                             }
                         }
                     </div>
