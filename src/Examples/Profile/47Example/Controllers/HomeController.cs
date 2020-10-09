@@ -4,7 +4,6 @@ using System.IO;
 using System.Web.Mvc;
 using Yoti.Auth;
 using Yoti.Auth.ShareUrl;
-using Yoti.Auth.ShareUrl.Extensions;
 using Yoti.Auth.ShareUrl.Policy;
 
 namespace _47Example.Controllers
