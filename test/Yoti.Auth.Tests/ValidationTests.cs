@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Exceptions;
 
 namespace Yoti.Auth.Tests

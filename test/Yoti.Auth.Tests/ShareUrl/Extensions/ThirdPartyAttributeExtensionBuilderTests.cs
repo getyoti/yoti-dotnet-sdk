@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yoti.Auth.Constants;
 using Yoti.Auth.Share.ThirdParty;
 using Yoti.Auth.ShareUrl.Extensions;
 
