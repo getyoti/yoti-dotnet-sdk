@@ -2,6 +2,9 @@
 
 namespace Yoti.Auth.DocScan.Session.Create
 {
+    /// <summary>
+    /// SdkConfig provides configuration properties for the the web/native clients
+    /// </summary>
     public class SdkConfig
     {
         [JsonProperty(PropertyName = "allowed_capture_methods")]

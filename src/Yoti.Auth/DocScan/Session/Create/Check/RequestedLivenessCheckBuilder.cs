@@ -7,6 +7,10 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         private string _livenessType;
         private int _maxRetries = 1;
 
+        /// <summary>
+        /// ForZoomLiveness sets the liveness type to "ZOOM"
+        /// </summary>
+        /// <returns></returns>
         public RequestedLivenessCheckBuilder ForZoomLiveness()
         {
             return ForLivenessType(DocScanConstants.Zoom);

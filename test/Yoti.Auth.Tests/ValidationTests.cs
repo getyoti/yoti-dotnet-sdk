@@ -23,5 +23,22 @@ namespace Yoti.Auth.Tests
         {
             Assert.IsTrue(Validation.IsDefault(0));
         }
+
+        [TestMethod]
+        public void IsNotDefaultShouldAllowNonDefaultType()
+        {
+            int someInteger = 2;
+            Validation.IsNotDefault(someInteger, nameof(someInteger));
+        }
+
+        [TestMethod]
+        public void IsNotDefaultShouldThrowForDefaultType()
+        {
+            int defaultValue = 0;
+            Assert.ThrowsException<System.InvalidOperationException>(() =>
+            {
+                Validation.IsNotDefault(defaultValue, nameof(defaultValue));
+            });
+        }
     }
 }

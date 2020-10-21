@@ -5,7 +5,7 @@ using Yoti.Auth.DocScan.Session.Retrieve;
 using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 using Yoti.Auth.DocScan.Session.Retrieve.Task;
 
-namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
+namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Task
 {
     [TestClass]
     public class IdDocumentResourceResponseTests

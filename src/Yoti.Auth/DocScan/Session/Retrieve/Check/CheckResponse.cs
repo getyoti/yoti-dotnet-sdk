@@ -10,6 +10,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Check
     [JsonSubtypes.KnownSubType(typeof(FaceMatchCheckResponse), Constants.DocScanConstants.IdDocumentFaceMatch)]
     [JsonSubtypes.KnownSubType(typeof(TextDataCheckResponse), Constants.DocScanConstants.IdDocumentTextDataCheck)]
     [JsonSubtypes.KnownSubType(typeof(LivenessCheckResponse), Constants.DocScanConstants.Liveness)]
+    [JsonSubtypes.KnownSubType(typeof(IdDocumentComparisonCheckResponse), Constants.DocScanConstants.IdDocumentComparison)]
     public class CheckResponse
     {
         [JsonProperty(PropertyName = "id")]

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -13,6 +14,8 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _userTrackingId;
         private NotificationConfig _notifications;
         private SdkConfig _sdkConfig;
+        private List<RequiredDocument> _requiredDocuments;
+        private bool? _blockBiometricConsent;
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)
@@ -92,6 +95,31 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the <see cref="RequiredDocument"/>
+        /// </summary>
+        /// <param name="requiredDocument">The <see cref="RequiredDocument"/></param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithRequiredDocument(RequiredDocument requiredDocument)
+        {
+            if (_requiredDocuments == null)
+                _requiredDocuments = new List<RequiredDocument>();
+
+            _requiredDocuments.Add(requiredDocument);
+            return this;
+        }
+
+        /// <summary>
+        /// Sets whether or not to block the collection of biometric consent
+        /// </summary>
+        /// <param name="blockBiometricConsent">Boolean value to choose whether to block biometric consent</param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithBlockBiometricConsent(bool blockBiometricConsent)
+        {
+            _blockBiometricConsent = blockBiometricConsent;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SessionSpecification"/></returns>
@@ -104,7 +132,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _notifications,
                 _requestedChecks,
                 _requestedTasks,
-                _sdkConfig);
+                _sdkConfig,
+                _requiredDocuments,
+                _blockBiometricConsent);
         }
     }
 }

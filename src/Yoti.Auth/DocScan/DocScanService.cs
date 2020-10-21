@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Retrieve;
-
+using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Web;
 
@@ -178,6 +178,32 @@ namespace Yoti.Auth.DocScan
                 {
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
+            }
+        }
+
+        public async Task<SupportedDocumentsResponse> GetSupportedDocuments(string sdkId, AsymmetricCipherKeyPair keyPair)
+        {
+            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            _logger.Info($"Retrieving supported documents'");
+
+            Request supportedDocumentsRequest = GetSignedRequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithHttpMethod(HttpMethod.Get)
+                .WithBaseUri(ApiUri)
+                .WithEndpoint("/supported-documents")
+                .WithQueryParam("sdkId", sdkId)
+                .Build();
+
+            using (HttpResponseMessage response = await supportedDocumentsRequest.Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
+                }
+
+                return JsonConvert.DeserializeObject<SupportedDocumentsResponse>(
+                    response.Content.ReadAsStringAsync().Result);
             }
         }
 

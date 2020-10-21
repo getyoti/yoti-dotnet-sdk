@@ -10,6 +10,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
     public class GetSessionResultTests
     {
         [TestMethod]
+        public void AuthenticityChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new FaceMatchCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetAuthenticityChecks().Count);
+        }
+
+        [TestMethod]
         public void AuthenticityChecksShouldFilterChecks()
         {
             var getSessionResult = new GetSessionResult
@@ -23,6 +37,32 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetAuthenticityChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetAuthenticityChecks().First(), typeof(AuthenticityCheckResponse));
+        }
+
+        [TestMethod]
+        public void ChecksShouldReturnEmptyListWhenNotPresent()
+        {
+            var getSessionResult = new GetSessionResult();
+
+            Assert.AreEqual(0, getSessionResult.GetAuthenticityChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetFaceMatchChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetIdDocumentComparisonChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetLivenessChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetTextDataChecks().Count);
+        }
+
+        [TestMethod]
+        public void FaceMatchChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetFaceMatchChecks().Count);
         }
 
         [TestMethod]
@@ -42,6 +82,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void TextDataChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetTextDataChecks().Count);
+        }
+
+        [TestMethod]
         public void TextDataChecksShouldFilterChecks()
         {
             var getSessionResult = new GetSessionResult
@@ -58,6 +112,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void LivenessChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetLivenessChecks().Count);
+        }
+
+        [TestMethod]
         public void LivenessChecksShouldFilterChecks()
         {
             var getSessionResult = new GetSessionResult
@@ -71,6 +139,36 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetLivenessChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetLivenessChecks().First(), typeof(LivenessCheckResponse));
+        }
+
+        [TestMethod]
+        public void IdDocumentComaprisonChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetIdDocumentComparisonChecks().Count);
+        }
+
+        [TestMethod]
+        public void IdDocumentComaprisonChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new IdDocumentComparisonCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetIdDocumentComparisonChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetIdDocumentComparisonChecks().First(), typeof(IdDocumentComparisonCheckResponse));
         }
 
         [TestMethod]

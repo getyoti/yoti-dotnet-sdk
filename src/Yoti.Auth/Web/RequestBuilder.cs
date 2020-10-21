@@ -17,7 +17,7 @@ namespace Yoti.Auth.Web
         private string _endpoint;
         private AsymmetricCipherKeyPair _keyPair;
         private HttpMethod _httpMethod;
-        private byte[] _content = null;
+        private byte[] _content;
 
         /// <summary>
         /// Builds a (signed) request.

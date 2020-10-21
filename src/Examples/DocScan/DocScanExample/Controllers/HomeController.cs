@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using DocScanExample.Models;
 using Microsoft.AspNetCore.Mvc;
 using Yoti.Auth;
@@ -37,23 +36,26 @@ namespace DocScanExample.Controllers
                     .Build()
                 )
                 .WithRequestedCheck(
-                  new RequestedLivenessCheckBuilder()
+                    new RequestedLivenessCheckBuilder()
                     .ForZoomLiveness()
                     .Build()
                 )
                 .WithRequestedCheck(
-                  new RequestedFaceMatchCheckBuilder()
+                    new RequestedFaceMatchCheckBuilder()
                     .WithManualCheckNever()
                     .Build()
                 )
+                .WithRequestedCheck(
+                    new RequestedIdDocumentComparisonCheckBuilder()
+                    .Build())
                 .WithRequestedTask(
-                  new RequestedTextExtractionTaskBuilder()
+                    new RequestedTextExtractionTaskBuilder()
                     .WithManualCheckNever()
                     .WithChipDataDesired()
                     .Build()
                 )
                 .WithSdkConfig(
-                  new SdkConfigBuilder()
+                    new SdkConfigBuilder()
                     .WithAllowsCameraAndUpload()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
@@ -79,22 +81,11 @@ namespace DocScanExample.Controllers
         }
 
         [Route("media")]
-        public IActionResult Media(string mediaId, string sessionId, int? base64zip)
+        public IActionResult Media(string mediaId, string sessionId)
         {
             MediaValue media = _client.GetMediaContent(sessionId, mediaId);
 
-            var contentType = media.GetMIMEType();
-            var content = media.GetContent();
-
-            if (contentType == "application/octet-stream" && base64zip == 1)
-            {
-                string base64Media = Encoding.ASCII.GetString(content);
-                byte[] mediaBytes = Convert.FromBase64String(base64Media);
-
-                return File(mediaBytes, "application/zip", $"{mediaId}.zip");
-            }
-
-            return File(content, contentType);
+            return File(media.GetContent(), media.GetMIMEType());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

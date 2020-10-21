@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,6 +10,8 @@ using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.Common;
 
@@ -227,6 +230,72 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
+        public void GetSessionSuccessShouldReturnResult()
+        {
+            var getSessionResult = new GetSessionResult { State = "COMPLETED" };
+
+            string jsonResponse = JsonConvert.SerializeObject(getSessionResult);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            GetSessionResult result = docScanClient.GetSession("some-session-id");
+
+            Assert.AreEqual("COMPLETED", result.State);
+            Assert.IsNull(result.BiometricConsentTimestamp);
+        }
+
+        [TestMethod]
+        public void ShouldReturnBiometricConsentTimestamp()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                BiometricConsentTimestamp = new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc)
+            };
+
+            string jsonResponse = JsonConvert.SerializeObject(getSessionResult);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            GetSessionResult result = docScanClient.GetSession("some-session-id");
+
+            Assert.AreEqual(new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc), result.BiometricConsentTimestamp);
+        }
+
+        [TestMethod]
+        public void DeleteSessionSuccessShouldSucceed()
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(HttpStatusCode.OK);
+
+            docScanClient.DeleteSession("some-session-id");
+        }
+
+        [TestMethod]
+        public void DeleteMediaContentSuccessShouldSucceed()
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(HttpStatusCode.OK);
+
+            docScanClient.DeleteMediaContent("some-session-id", "some-media-id");
+        }
+
+        [TestMethod]
         public void GetMediaContentShouldReturnMedia()
         {
             string contentTypeImageJpeg = "image/jpeg";
@@ -248,6 +317,59 @@ namespace Yoti.Auth.Tests.DocScan
 
             Assert.IsTrue(imageBytes.SequenceEqual(mediaValue.GetContent()));
             Assert.AreEqual(contentTypeImageJpeg, mediaValue.GetMIMEType());
+        }
+
+        [TestMethod]
+        public void GetSupportedDocumentShouldSucceed()
+        {
+            var passport = new SupportedDocument("PASSPORT");
+            var drivingLicence = new SupportedDocument("DRIVING_LICENCE");
+
+            var supportedDocumentsResponse = new SupportedDocumentsResponse(
+                new List<SupportedCountry>{
+                    new SupportedCountry(
+                    "FRA",
+                    new List<SupportedDocument> { passport, drivingLicence })
+                });
+
+            string jsonResponse = JsonConvert.SerializeObject(supportedDocumentsResponse);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments();
+
+            Assert.AreEqual(1, result.SupportedCountries.Count);
+            Assert.AreEqual("FRA", result.SupportedCountries[0].Code);
+            Assert.AreEqual("PASSPORT", result.SupportedCountries[0].SupportedDocuments[0].Type);
+            Assert.AreEqual("DRIVING_LICENCE", result.SupportedCountries[0].SupportedDocuments[1].Type);
+        }
+
+        [DataTestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void GetSupportedDocumentsShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                docScanClient.GetSupportedDocuments();
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
         private DocScanClient SetupDocScanClientResponse(HttpStatusCode httpStatusCode)

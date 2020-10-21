@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
+    /// <summary>
+    /// BreakdownResponse represents one breakdown item for a given check
+    /// </summary>
     public class BreakdownResponse
     {
         [JsonProperty(PropertyName = "sub_check")]
