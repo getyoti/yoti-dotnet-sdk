@@ -65,7 +65,10 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                   .Build())
               .Build();
 
-            Assert.AreEqual("ID_DOCUMENT_TEXT_DATA_EXTRACTION", sessionSpec.RequestedTasks.Single().Type);
+            var result = (RequestedTextExtractionTask)sessionSpec.RequestedTasks.Single();
+
+            Assert.AreEqual("ID_DOCUMENT_TEXT_DATA_EXTRACTION", result.Type);
+            Assert.AreEqual("FALLBACK", result.Config.ManualCheck);
         }
 
         [TestMethod]

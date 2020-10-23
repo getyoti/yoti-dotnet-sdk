@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.GetTextDataChecks().Count > 0)
+                    @if (Model.GetIdDocumentTextDataChecks().Count > 0)
                     {
                         <div class="card">
                             <div class="card-header" id="text-data-checks">
@@ -99,7 +99,7 @@
 
                             <div id="collapse-text-data-checks" class="collapse" aria-labelledby="text-data-checks">
                                 <div class="card-body">
-                                    @foreach (var check in Model.GetTextDataChecks())
+                                    @foreach (var check in Model.GetIdDocumentTextDataChecks())
                                     {
                                         @await Html.PartialAsync("_Check", check)
                                     }
