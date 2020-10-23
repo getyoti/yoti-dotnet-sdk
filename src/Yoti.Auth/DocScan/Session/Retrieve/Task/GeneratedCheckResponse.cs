@@ -8,6 +8,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Task
     /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "type")]
     [JsonSubtypes.KnownSubType(typeof(GeneratedTextDataCheckResponse), Constants.DocScanConstants.IdDocumentTextDataCheck)]
+    [JsonSubtypes.KnownSubType(typeof(GeneratedSupplementaryDocTextDataCheckResponse), Constants.DocScanConstants.SupplementaryDocumentTextDataCheck)]
     public class GeneratedCheckResponse
     {
         [JsonProperty(PropertyName = "id")]

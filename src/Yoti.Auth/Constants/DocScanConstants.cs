@@ -7,6 +7,8 @@
         public const string IdDocumentTextDataCheck = "ID_DOCUMENT_TEXT_DATA_CHECK";
         public const string IdDocumentTextDataExtraction = "ID_DOCUMENT_TEXT_DATA_EXTRACTION";
         public const string IdDocumentFaceMatch = "ID_DOCUMENT_FACE_MATCH";
+        public const string SupplementaryDocumentTextDataCheck = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_CHECK";
+        public const string SupplementaryDocumentTextDataExtraction = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_EXTRACTION";
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
 
@@ -28,8 +30,11 @@
         public const string IdDocument = "ID_DOCUMENT";
         public const string OrthogonalRestrictions = "ORTHOGONAL_RESTRICTIONS";
         public const string DocumentRestrictions = "DOCUMENT_RESTRICTIONS";
+        public const string SupplementaryDocument = "SUPPLEMENTARY_DOCUMENT";
 
         public const string IncludeList = "WHITELIST";
         public const string ExcludeList = "BLACKLIST";
+
+        public const string ProofOfAddress = "PROOF_OF_ADDRESS";
     }
 }

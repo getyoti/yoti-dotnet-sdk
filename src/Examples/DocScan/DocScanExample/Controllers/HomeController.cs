@@ -8,6 +8,8 @@ using Yoti.Auth;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.Filter;
+using Yoti.Auth.DocScan.Session.Create.Objectives;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace DocScanExample.Controllers
@@ -33,7 +35,8 @@ namespace DocScanExample.Controllers
                 .WithUserTrackingId("some-user-tracking-id")
                 .WithRequestedCheck(
                   new RequestedDocumentAuthenticityCheckBuilder()
-                    .Build()
+                  .WithManualCheckAlways()
+                  .Build()
                 )
                 .WithRequestedCheck(
                     new RequestedLivenessCheckBuilder()
@@ -50,8 +53,13 @@ namespace DocScanExample.Controllers
                     .Build())
                 .WithRequestedTask(
                     new RequestedTextExtractionTaskBuilder()
-                    .WithManualCheckNever()
+                    .WithManualCheckAlways()
                     .WithChipDataDesired()
+                    .Build()
+                )
+                .WithRequestedTask(
+                    new RequestedSupplementaryDocTextExtractionTaskBuilder()
+                    .WithManualCheckAlways()
                     .Build()
                 )
                 .WithSdkConfig(
@@ -66,7 +74,12 @@ namespace DocScanExample.Controllers
                     .WithErrorUrl(Path.Combine(_baseUrl, "idverify/error"))
                     .Build()
                   )
-                  .Build();
+                .WithRequiredDocument(
+                    new RequiredSupplementaryDocumentBuilder()
+                .WithObjective(
+                    new ProofOfAddressObjectiveBuilder().Build())
+                .Build())
+                .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;

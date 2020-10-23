@@ -6,9 +6,9 @@ using Yoti.Auth.DocScan.Session.Retrieve.Task;
 namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
 {
     /// <summary>
-    /// Represents an Identity Document resource for a given session
+    /// Represents a Supplementary Document resource for a given session
     /// </summary>
-    public class IdDocumentResourceResponse : ResourceResponse
+    public class SupplementaryDocResourceResponse : ResourceResponse
     {
         [JsonProperty(PropertyName = "document_type")]
         public string DocumentType { get; internal set; }
@@ -22,19 +22,19 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         [JsonProperty(PropertyName = "document_fields")]
         public DocumentFieldsResponse DocumentFields { get; internal set; }
 
-        [JsonProperty(PropertyName = "document_id_photo")]
-        public DocumentIdPhotoResponse DocumentIdPhoto { get; internal set; }
+        [JsonProperty(PropertyName = "file")]
+        public FileResponse DocumentFile { get; internal set; }
 
         /// <summary>
         /// Filters the tasks for the text extraction tasks associated with the ID document
         /// </summary>
         /// <returns>Returns a list of text extraction tasks</returns>
-        public List<TextExtractionTaskResponse> GetTextExtractionTasks()
+        public List<SupplementaryDocTextExtractionTaskResponse> GetTextExtractionTasks()
         {
             if (Tasks == null)
-                return new List<TextExtractionTaskResponse>();
+                return new List<SupplementaryDocTextExtractionTaskResponse>();
 
-            return Tasks.OfType<TextExtractionTaskResponse>().ToList();
+            return Tasks.OfType<SupplementaryDocTextExtractionTaskResponse>().ToList();
         }
     }
 }
