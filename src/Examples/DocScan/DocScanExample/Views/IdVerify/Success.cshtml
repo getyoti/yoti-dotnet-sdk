@@ -92,7 +92,7 @@
                                     <button class="btn btn-link" type="button" data-toggle="collapse"
                                             data-target="#collapse-text-data-checks" aria-expanded="true"
                                             aria-controls="collapse-text-data-checks">
-                                        Text Data Checks
+                                        Identity Document Text Data Checks
                                     </button>
                                 </h3>
                             </div>
@@ -169,6 +169,29 @@
                             <div id="collapse-comparison-checks" class="collapse" aria-labelledby="comparison-checks">
                                 <div class="card-body">
                                     @foreach (var check in Model.GetIdDocumentComparisonChecks())
+                                    {
+                                        @await Html.PartialAsync("_Check", check)
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.GetSupplementaryDocTextDataChecks().Count > 0)
+                    {
+
+                        <div class="card">
+                            <div class="card-header" id="sup-text-data-checks">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapse-sup-text-data-checks" aria-expanded="true"
+                                            aria-controls="collapse-sup-text-data-checks">
+                                        Supplementary Document Text Data Checks
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapse-sup-text-data-checks" class="collapse" aria-labelledby="sup-text-data-checks">
+                                <div class="card-body">
+                                    @foreach (var check in Model.GetSupplementaryDocTextDataChecks())
                                     {
                                         @await Html.PartialAsync("_Check", check)
                                     }
@@ -373,8 +396,203 @@
                 </div>
             </div>
         }
+        @if (Model.Resources.SupplementaryDocuments.Count > 0)
+        {
 
-        @if (@Model.Resources.ZoomLivenessResources.Count > 0)
+            <div class="row pt-4">
+                <div class="col">
+                    <h2>Supplementary Documents</h2>
+                </div>
+            </div>
+
+            @foreach (var document in Model.Resources.SupplementaryDocuments)
+            {
+                var supDocNum = Model.Resources.SupplementaryDocuments.IndexOf(document);
+                <div class="row pt-4">
+                    <div class="col">
+                        <h3>@document.DocumentType <span class="badge badge-primary">@document.IssuingCountry</span></h3>
+                        <div class="accordion mt-3">
+                            @if (document.DocumentFields != null)
+                            {
+                                <div class="card">
+                                    <div class="card-header" id="sup-doc-fields-@supDocNum">
+                                        <h4 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapse-sup-doc-fields-@supDocNum" aria-expanded="true"
+                                                    aria-controls="collapse-sup-doc-fields-@supDocNum">
+                                                Document Fields
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-sup-doc-fields-@supDocNum" class="collapse" aria-labelledby="sup-doc-fields-@supDocNum">
+                                        <div class="card-body">
+                                            @if (document.DocumentFields.Media != null)
+                                            {
+
+                                                <h5> Media </h5>
+
+                                                <table class="table table-striped table-light">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>ID</td>
+                                                            <td>
+                                                                <a href="/media?mediaId=@document.DocumentFields.Media.Id&sessionId=@Model.SessionId">
+                                                                    @document.DocumentFields.Media.Id
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (document.GetTextExtractionTasks().Count > 0)
+                            {
+                                <div class="card">
+
+                                    <div class="card-header" id="sup-doc-text-extraction-tasks-@supDocNum">
+
+                                        <h4 class="mb-0">
+
+                                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapse-sup-doc-text-extraction-tasks-@supDocNum" aria-expanded="true"
+                                                    aria-controls="collapse-sup-doc-text-extraction-tasks-@supDocNum">
+                                                Text Extraction Tasks
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-sup-doc-text-extraction-tasks-@supDocNum" class="collapse" aria-labelledby="sup-doc-text-extraction-tasks-@supDocNum">
+
+                                        <div class="card-body">
+
+                                            @foreach (var task in document.GetTextExtractionTasks())
+                                            {
+                                                await Html.PartialAsync("_Task", task);
+
+                                                if (task.GetGeneratedTextDataChecks().Count > 0)
+                                                {
+
+                                                    <h5> Generated Text Data Checks </h5>
+
+                                                    @foreach (var check in task.GetGeneratedTextDataChecks())
+                                                    {
+                                                        <table class="table table-striped">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>ID</td>
+                                                                    <td>@check.Id</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                }
+                                                @if (task.GeneratedMedia.Count > 0)
+                                                {
+
+                                                    <h5> Generated Media </h5>
+
+                                                    @foreach (var media in task.GeneratedMedia)
+                                                    {
+                                                        <table class="table table-striped">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>ID</td>
+                                                                    <td>
+                                                                        <a href="/media?mediaId=@media.Id&sessionId=@Model.SessionId">@media.Id</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Type</td>
+                                                                    <td>@media.Type</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (document.DocumentFile != null)
+                            {
+
+                                <div class="card">
+
+                                    <div class="card-header" id="sup-doc-file-@supDocNum">
+
+                                        <h4 class="mb-0">
+
+                                            <a href="/media?mediaId=@document.DocumentFile.Media.Id&sessionId=@Model.SessionId" class="btn btn-link" type="button">
+                                                Download File
+                                            </a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            }
+                            @if (document.Pages.Count > 0)
+                            {
+                                foreach (var p in document.Pages)
+                                {
+                                    var pageIndex = document.Pages.IndexOf(p);
+                                    <div class="card">
+                                        <div class="card-header" id="sup-doc-pages-@supDocNum-@pageIndex">
+                                            <h4 class="mb-0">
+                                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                        data-target="#collapse-sup-doc-pages-@supDocNum-@pageIndex" aria-expanded="true"
+                                                        aria-controls="collapse-sup-doc-pages-@supDocNum-@pageIndex">
+                                                    Page @pageIndex
+                                                </button>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse-sup-doc-pages-@supDocNum-@pageIndex" class="collapse" aria-labelledby="sup-doc-pages-@supDocNum-@pageIndex">
+                                            <div class="card-group">
+                                                @if (p.Media != null)
+                                                {
+                                                    <div class="card" style="width: 18rem;">
+
+                                                        <img class="card-img-top" src="/media?mediaId=@p.Media.Id&sessionId=@Model.SessionId" />
+
+                                                        <div class="card-body">
+                                                            <p> Method: @p.CaptureMethod</p>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            @if (p.Frames.Count > 0)
+                                            {
+                                                <div class="card-group">
+                                                    @foreach (var frame in p.Frames)
+                                                    {
+                                                        @if (frame.Media != null)
+                                                        {
+
+                                                            <div class="card">
+
+                                                                <img class="card-img-top" src="/media?mediaId=@frame.Media.Id&sessionId=@Model.SessionId" />
+
+                                                                <div class="card-body">
+
+                                                                    <h5 class="card-title"> Frame </h5>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (Model.Resources.ZoomLivenessResources.Count > 0)
         {
             <div class="row pt-4">
                 <div class="col">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -45,7 +46,7 @@ namespace DocScanExample.Controllers
                 )
                 .WithRequestedCheck(
                     new RequestedFaceMatchCheckBuilder()
-                    .WithManualCheckNever()
+                    .WithManualCheckAlways()
                     .Build()
                 )
                 .WithRequestedCheck(
@@ -73,13 +74,31 @@ namespace DocScanExample.Controllers
                     .WithSuccessUrl(Path.Combine(_baseUrl, "idverify/success"))
                     .WithErrorUrl(Path.Combine(_baseUrl, "idverify/error"))
                     .Build()
-                  )
+                    )
+                .WithRequiredDocument(
+                    new RequiredIdDocumentBuilder()
+                    .WithFilter(
+                        (new OrthogonalRestrictionsFilterBuilder())
+                        .WithIncludedDocumentTypes(new List<string> { "PASSPORT" })
+                        .Build()
+                    )
+                    .Build()
+                )
+                .WithRequiredDocument(
+                    new RequiredIdDocumentBuilder()
+                    .WithFilter(
+                        (new OrthogonalRestrictionsFilterBuilder())
+                        .WithIncludedDocumentTypes(new List<string> { "DRIVING_LICENCE" })
+                        .Build()
+                    )
+                    .Build()
+                )
                 .WithRequiredDocument(
                     new RequiredSupplementaryDocumentBuilder()
                 .WithObjective(
                     new ProofOfAddressObjectiveBuilder().Build())
                 .Build())
-                .Build();
+            .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;
