@@ -320,6 +320,25 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
+        public void GetMediaContentShouldReturnNullFor204Response()
+        {
+            var noContentResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.NoContent,
+                Content = null,
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(noContentResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            MediaValue mediaValue = docScanClient.GetMediaContent(_someSessionId, _someMediaId);
+
+            Assert.IsNull(mediaValue);
+        }
+
+        [TestMethod]
         public void GetSupportedDocumentShouldSucceed()
         {
             var passport = new SupportedDocument("PASSPORT");

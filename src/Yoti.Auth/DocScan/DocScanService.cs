@@ -148,6 +148,11 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
+                if (response.Content == null)
+                {
+                    return null;
+                }
+
                 string contentType = response.Content.Headers.ContentType.MediaType;
 
                 return new MediaValue(contentType, response.Content.ReadAsByteArrayAsync().Result);
