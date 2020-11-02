@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    @if (Model.Checks.Count > 0)
+    @if (Model.Checks != null && Model.Checks.Count > 0)
     {
         <div class="row pt-4">
             <div class="col">
@@ -203,7 +203,7 @@
             </div>
         </div>
 
-        if (Model.Resources.IdDocuments.Count > 0)
+        if (Model.Resources.IdDocuments != null && Model.Resources.IdDocuments.Count > 0)
         {
             <div class="row pt-4">
                 <div class="col">
@@ -310,7 +310,7 @@
                                                     </table>
                                                 }
                                             }
-                                            @if (task.GeneratedMedia.Count > 0)
+                                            @if (task.GeneratedMedia != null && task.GeneratedMedia.Count > 0)
                                             {
                                                 <h5>Generated Media</h5>
                                                 @foreach (var media in task.GeneratedMedia)
@@ -338,7 +338,7 @@
                                 </div>
                             </div>
 
-                            @if (document.Pages.Count > 0)
+                            @if (document.Pages != null && document.Pages.Count > 0)
                             {
                                 foreach (var p in document.Pages)
                                 {
@@ -488,7 +488,7 @@
                                                         </table>
                                                     }
                                                 }
-                                                @if (task.GeneratedMedia.Count > 0)
+                                                @if (task.GeneratedMedia != null && task.GeneratedMedia.Count > 0)
                                                 {
 
                                                     <h5> Generated Media </h5>
@@ -532,7 +532,7 @@
                                     </div>
                                 </div>
                             }
-                            @if (document.Pages.Count > 0)
+                            @if (document.Pages != null && document.Pages.Count > 0)
                             {
                                 foreach (var p in document.Pages)
                                 {
@@ -561,7 +561,7 @@
                                                     </div>
                                                 }
                                             </div>
-                                            @if (p.Frames.Count > 0)
+                                            @if (p.Frames != null && p.Frames.Count > 0)
                                             {
                                                 <div class="card-group">
                                                     @foreach (var frame in p.Frames)
@@ -614,7 +614,7 @@
                         </table>
 
                         <div class="accordion mt-3">
-                            @if (livenessResource.Frames.Count > 0)
+                            @if (livenessResource.Frames != null && livenessResource.Frames.Count > 0)
                             {
                                 <div class="card">
                                     <div class="card-header" id="liveness-@livenessResource.Id-frames">
