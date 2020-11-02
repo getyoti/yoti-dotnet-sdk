@@ -17,7 +17,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         public string IssuingCountry { get; internal set; }
 
         [JsonProperty(PropertyName = "pages")]
-        public List<PageResponse> Pages { get; internal set; }
+        public List<PageResponse> Pages { get; internal set; } = new List<PageResponse>();
 
         [JsonProperty(PropertyName = "document_fields")]
         public DocumentFieldsResponse DocumentFields { get; internal set; }
