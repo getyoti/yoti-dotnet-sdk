@@ -8,6 +8,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         [JsonProperty(PropertyName = "id_documents")]
         public List<IdDocumentResourceResponse> IdDocuments { get; internal set; }
 
+        [JsonProperty(PropertyName = "supplementary_documents")]
+        public List<SupplementaryDocResourceResponse> SupplementaryDocuments { get; internal set; } = new List<SupplementaryDocResourceResponse>();
+
         [JsonProperty(PropertyName = "liveness_capture")]
         public List<LivenessResourceResponse> LivenessCapture { get; internal set; }
 

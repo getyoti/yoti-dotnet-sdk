@@ -72,6 +72,14 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Task
         }
 
         [TestMethod]
+        public void ShouldReturnEmptyListWhenNoChecksArePresent()
+        {
+            TaskResponse taskResponse = new TaskResponse { GeneratedChecks = null };
+
+            Assert.AreEqual(0, taskResponse.GetGeneratedTextDataChecks().Count);
+        }
+
+        [TestMethod]
         public void ShouldReturnEmptyListForEmptyGeneratedCheckResponse()
         {
             var emptyCheckResponses = new List<GeneratedCheckResponse>();

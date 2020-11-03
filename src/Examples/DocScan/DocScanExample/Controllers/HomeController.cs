@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -8,6 +9,8 @@ using Yoti.Auth;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.Filter;
+using Yoti.Auth.DocScan.Session.Create.Objectives;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace DocScanExample.Controllers
@@ -33,7 +36,8 @@ namespace DocScanExample.Controllers
                 .WithUserTrackingId("some-user-tracking-id")
                 .WithRequestedCheck(
                   new RequestedDocumentAuthenticityCheckBuilder()
-                    .Build()
+                  .WithManualCheckAlways()
+                  .Build()
                 )
                 .WithRequestedCheck(
                     new RequestedLivenessCheckBuilder()
@@ -42,7 +46,7 @@ namespace DocScanExample.Controllers
                 )
                 .WithRequestedCheck(
                     new RequestedFaceMatchCheckBuilder()
-                    .WithManualCheckNever()
+                    .WithManualCheckAlways()
                     .Build()
                 )
                 .WithRequestedCheck(
@@ -50,8 +54,13 @@ namespace DocScanExample.Controllers
                     .Build())
                 .WithRequestedTask(
                     new RequestedTextExtractionTaskBuilder()
-                    .WithManualCheckNever()
+                    .WithManualCheckAlways()
                     .WithChipDataDesired()
+                    .Build()
+                )
+                .WithRequestedTask(
+                    new RequestedSupplementaryDocTextExtractionTaskBuilder()
+                    .WithManualCheckAlways()
                     .Build()
                 )
                 .WithSdkConfig(
@@ -65,8 +74,31 @@ namespace DocScanExample.Controllers
                     .WithSuccessUrl(Path.Combine(_baseUrl, "idverify/success"))
                     .WithErrorUrl(Path.Combine(_baseUrl, "idverify/error"))
                     .Build()
-                  )
-                  .Build();
+                    )
+                .WithRequiredDocument(
+                    new RequiredIdDocumentBuilder()
+                    .WithFilter(
+                        (new OrthogonalRestrictionsFilterBuilder())
+                        .WithIncludedDocumentTypes(new List<string> { "PASSPORT" })
+                        .Build()
+                    )
+                    .Build()
+                )
+                .WithRequiredDocument(
+                    new RequiredIdDocumentBuilder()
+                    .WithFilter(
+                        (new OrthogonalRestrictionsFilterBuilder())
+                        .WithIncludedDocumentTypes(new List<string> { "DRIVING_LICENCE" })
+                        .Build()
+                    )
+                    .Build()
+                )
+                .WithRequiredDocument(
+                    new RequiredSupplementaryDocumentBuilder()
+                .WithObjective(
+                    new ProofOfAddressObjectiveBuilder().Build())
+                .Build())
+            .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;

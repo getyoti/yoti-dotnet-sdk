@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests
     public class YotiClientTests
     {
         private const string _someSdkId = "some-sdk-id";
-        private Uri _expectedDefaultUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+        private readonly Uri _expectedDefaultUri = new Uri(Constants.Api.DefaultYotiApiUrl);
 
         [TestInitialize]
         public void BeforeTests()

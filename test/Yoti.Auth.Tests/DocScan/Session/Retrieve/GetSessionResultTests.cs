@@ -48,7 +48,11 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
             Assert.AreEqual(0, getSessionResult.GetFaceMatchChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetIdDocumentComparisonChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetLivenessChecks().Count);
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.AreEqual(0, getSessionResult.GetTextDataChecks().Count);
+#pragma warning restore CS0618 // Type or member is obsolete
+            Assert.AreEqual(0, getSessionResult.GetIdDocumentTextDataChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
         }
 
         [TestMethod]
@@ -92,7 +96,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 }
             };
 
-            Assert.AreEqual(0, getSessionResult.GetTextDataChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetIdDocumentTextDataChecks().Count);
         }
 
         [TestMethod]
@@ -107,8 +111,8 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 }
             };
 
-            Assert.AreEqual(1, getSessionResult.GetTextDataChecks().Count);
-            Assert.IsInstanceOfType(getSessionResult.GetTextDataChecks().First(), typeof(TextDataCheckResponse));
+            Assert.AreEqual(1, getSessionResult.GetIdDocumentTextDataChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetIdDocumentTextDataChecks().First(), typeof(TextDataCheckResponse));
         }
 
         [TestMethod]
@@ -169,6 +173,36 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetIdDocumentComparisonChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetIdDocumentComparisonChecks().First(), typeof(IdDocumentComparisonCheckResponse));
+        }
+
+        [TestMethod]
+        public void SupplementaryDocTextDataChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
+        }
+
+        [TestMethod]
+        public void SupplementaryDocTextDataChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new SupplementaryDocTextDataCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetSupplementaryDocTextDataChecks().First(), typeof(SupplementaryDocTextDataCheckResponse));
         }
 
         [TestMethod]

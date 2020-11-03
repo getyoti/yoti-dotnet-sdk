@@ -10,6 +10,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Task
     /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "type")]
     [JsonSubtypes.KnownSubType(typeof(TextExtractionTaskResponse), Constants.DocScanConstants.IdDocumentTextDataExtraction)]
+    [JsonSubtypes.KnownSubType(typeof(SupplementaryDocTextExtractionTaskResponse), Constants.DocScanConstants.SupplementaryDocumentTextDataExtraction)]
     public class TaskResponse
     {
         [JsonProperty(PropertyName = "id")]
@@ -35,7 +36,10 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Task
 
         public List<GeneratedTextDataCheckResponse> GetGeneratedTextDataChecks()
         {
-            return GeneratedChecks?.OfType<GeneratedTextDataCheckResponse>()?.ToList();
+            if (GeneratedChecks == null)
+                return new List<GeneratedTextDataCheckResponse>();
+
+            return GeneratedChecks.OfType<GeneratedTextDataCheckResponse>().ToList();
         }
     }
 }

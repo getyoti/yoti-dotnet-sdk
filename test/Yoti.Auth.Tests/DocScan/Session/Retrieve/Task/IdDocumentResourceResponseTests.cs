@@ -38,6 +38,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Task
         }
 
         [TestMethod]
+        public void ShouldReturnEmptyListWhenNoTextExtractionTasks()
+        {
+            var idDocuments = new List<IdDocumentResourceResponse>
+            {
+                new IdDocumentResourceResponse { Tasks = null }
+            };
+
+            GetSessionResult getSessionResult = new GetSessionResult { Resources = new ResourceContainer { IdDocuments = idDocuments } };
+
+            var result = getSessionResult.Resources.IdDocuments.Single();
+
+            Assert.IsNull(result.Tasks);
+            Assert.AreEqual(0, result.GetTextExtractionTasks().Count);
+        }
+
+        [TestMethod]
         public void ShouldReturnEmptyListForEmptyTextExtractionTaskResponse()
         {
             var idDocuments = new List<IdDocumentResourceResponse>
