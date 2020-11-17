@@ -12,6 +12,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _presetIssuingCountry;
         private string _successUrl;
         private string _errorUrl;
+        private string _privacyPolicyUrl;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -120,6 +121,17 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the privacy policy URL
+        /// </summary>
+        /// <param name="privacyPolicyUrl">The privacy policy URL</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithPrivacyPolicyUrl(string privacyPolicyUrl)
+        {
+            _privacyPolicyUrl = privacyPolicyUrl;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -133,7 +145,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _locale,
                 _presetIssuingCountry,
                 _successUrl,
-                _errorUrl);
+                _errorUrl,
+                _privacyPolicyUrl);
         }
     }
 }
