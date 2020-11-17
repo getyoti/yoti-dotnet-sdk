@@ -31,6 +31,9 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "error_url")]
         public string ErrorUrl { get; }
 
+        [JsonProperty(PropertyName = "privacy_policy_url")]
+        public string PrivacyPolicyUrl { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                         string primaryColour,
                         string secondaryColour,
@@ -38,7 +41,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                         string locale,
                         string presetIssuingCountry,
                         string successUrl,
-                        string errorUrl)
+                        string errorUrl,
+                        string privacyPolicyUrl)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -48,6 +52,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             PresetIssuingCountry = presetIssuingCountry;
             SuccessUrl = successUrl;
             ErrorUrl = errorUrl;
+            PrivacyPolicyUrl = privacyPolicyUrl;
         }
     }
 }

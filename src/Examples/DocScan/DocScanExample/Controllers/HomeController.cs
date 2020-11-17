@@ -73,6 +73,7 @@ namespace DocScanExample.Controllers
                     .WithPresetIssuingCountry("GBR")
                     .WithSuccessUrl(Path.Combine(_baseUrl, "idverify/success"))
                     .WithErrorUrl(Path.Combine(_baseUrl, "idverify/error"))
+                    .WithPrivacyPolicyUrl(Path.Combine(_baseUrl, "privacy-policy"))
                     .Build()
                     )
                 .WithRequiredDocument(
@@ -151,6 +152,11 @@ namespace DocScanExample.Controllers
                 apiUrl += "/";
 
             return new Uri(apiUrl);
+        }
+
+        public IActionResult PrivacyPolicy()
+        {
+            return View();
         }
     }
 }
