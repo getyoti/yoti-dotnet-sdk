@@ -1,0 +1,22 @@
+name: Unit Tests
+on: [push, pull_request_target]
+
+jobs:
+  rake:
+    name: Unit Tests
+    runs-on: windows-latest
+    # always run on push events
+    # only run on pull_request_target event when pull request pulls from fork repository
+    if: >
+      github.event_name == 'push' || 
+      github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository 
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+
+      - run: cd src && dotnet restore ../test/Yoti.Auth.Tests/Yoti.Auth.Tests.csproj
+
+      - run: cd src && dotnet test Yoti.Auth.sln -c Release --verbosity normal
+
