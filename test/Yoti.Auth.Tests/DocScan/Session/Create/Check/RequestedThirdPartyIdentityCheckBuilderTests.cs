@@ -14,6 +14,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
               .Build();
 
             Assert.AreEqual("THIRD_PARTY_IDENTITY", check.Type);
+            Assert.IsNotNull(check.Config);
         }
     }
 }
