@@ -74,9 +74,9 @@ namespace DocScanExample.Controllers
                     .WithFontColour("#FFFFFF")
                     .WithLocale("en-GB")
                     .WithPresetIssuingCountry("GBR")
-                    .WithSuccessUrl(Path.Combine(_baseUrl, "idverify/success"))
-                    .WithErrorUrl(Path.Combine(_baseUrl, "idverify/error"))
-                    .WithPrivacyPolicyUrl(Path.Combine(_baseUrl, "privacy-policy"))
+                    .WithSuccessUrl(string.Join("/", _baseUrl, "idverify/success"))
+                    .WithErrorUrl(string.Join("/", _baseUrl, "idverify/error"))
+                    .WithPrivacyPolicyUrl(string.Join("/", _baseUrl, "privacy-policy"))
                     .Build()
                     )
                 .WithRequiredDocument(
