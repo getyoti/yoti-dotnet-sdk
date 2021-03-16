@@ -52,6 +52,9 @@ namespace DocScanExample.Controllers
                 .WithRequestedCheck(
                     new RequestedIdDocumentComparisonCheckBuilder()
                     .Build())
+                 .WithRequestedCheck(
+                    new RequestedThirdPartyIdentityCheckBuilder()
+                    .Build())
                 .WithRequestedTask(
                     new RequestedTextExtractionTaskBuilder()
                     .WithManualCheckAlways()
