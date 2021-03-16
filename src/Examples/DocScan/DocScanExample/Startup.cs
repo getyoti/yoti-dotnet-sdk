@@ -50,7 +50,7 @@ namespace DocScanExample
                 endpoints.MapControllerRoute(
                     name: "PrivacyPolicy",
                     pattern: "privacy-policy",
-                    new { controller = "Home", action = "PrivacyPolicy"});
+                    new { controller = "Home", action = "PrivacyPolicy" });
             });
         }
     }

@@ -9,6 +9,7 @@
         public const string IdDocumentFaceMatch = "ID_DOCUMENT_FACE_MATCH";
         public const string SupplementaryDocumentTextDataCheck = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_CHECK";
         public const string SupplementaryDocumentTextDataExtraction = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_EXTRACTION";
+        public const string ThirdPartyIdentity = "THIRD_PARTY_IDENTITY";
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
 
