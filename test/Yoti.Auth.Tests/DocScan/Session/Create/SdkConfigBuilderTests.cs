@@ -119,6 +119,19 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShouldBuildWithPrivacyPolicyUrl()
+        {
+            string privacyPolicyUrl = "https://yourdomain.com/some/privacy/policy";
+
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .WithPrivacyPolicyUrl(privacyPolicyUrl)
+             .Build();
+
+            Assert.AreEqual(privacyPolicyUrl, sdkConfig.PrivacyPolicyUrl);
+        }
+
+        [TestMethod]
         public void ShouldBuildWithErrorUrl()
         {
             string error = "https://yourdomain.com/some/failure/endpoint";

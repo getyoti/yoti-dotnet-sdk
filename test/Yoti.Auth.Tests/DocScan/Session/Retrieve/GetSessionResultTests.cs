@@ -53,6 +53,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 #pragma warning restore CS0618 // Type or member is obsolete
             Assert.AreEqual(0, getSessionResult.GetIdDocumentTextDataChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityChecks().Count);
         }
 
         [TestMethod]
@@ -190,6 +191,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void ThirdPartyIdentityChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityChecks().Count);
+        }
+
+        [TestMethod]
         public void SupplementaryDocTextDataChecksShouldFilterChecks()
         {
             var getSessionResult = new GetSessionResult
@@ -203,6 +218,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetSupplementaryDocTextDataChecks().First(), typeof(SupplementaryDocTextDataCheckResponse));
+        }
+
+        [TestMethod]
+        public void ThirdPartyIdentityChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new ThirdPartyIdentityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetThirdPartyIdentityChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetThirdPartyIdentityChecks().First(), typeof(ThirdPartyIdentityCheckResponse));
         }
 
         [TestMethod]

@@ -52,6 +52,9 @@ namespace DocScanExample.Controllers
                 .WithRequestedCheck(
                     new RequestedIdDocumentComparisonCheckBuilder()
                     .Build())
+                 .WithRequestedCheck(
+                    new RequestedThirdPartyIdentityCheckBuilder()
+                    .Build())
                 .WithRequestedTask(
                     new RequestedTextExtractionTaskBuilder()
                     .WithManualCheckAlways()
@@ -71,8 +74,9 @@ namespace DocScanExample.Controllers
                     .WithFontColour("#FFFFFF")
                     .WithLocale("en-GB")
                     .WithPresetIssuingCountry("GBR")
-                    .WithSuccessUrl(Path.Combine(_baseUrl, "idverify/success"))
-                    .WithErrorUrl(Path.Combine(_baseUrl, "idverify/error"))
+                    .WithSuccessUrl(string.Join("/", _baseUrl, "idverify/success"))
+                    .WithErrorUrl(string.Join("/", _baseUrl, "idverify/error"))
+                    .WithPrivacyPolicyUrl(string.Join("/", _baseUrl, "privacy-policy"))
                     .Build()
                     )
                 .WithRequiredDocument(
@@ -151,6 +155,11 @@ namespace DocScanExample.Controllers
                 apiUrl += "/";
 
             return new Uri(apiUrl);
+        }
+
+        public IActionResult PrivacyPolicy()
+        {
+            return View();
         }
     }
 }

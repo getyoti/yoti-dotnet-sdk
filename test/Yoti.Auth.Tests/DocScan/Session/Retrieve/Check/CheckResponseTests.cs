@@ -15,6 +15,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [DataRow("ID_DOCUMENT_AUTHENTICITY", typeof(AuthenticityCheckResponse))]
         [DataRow("ID_DOCUMENT_FACE_MATCH", typeof(FaceMatchCheckResponse))]
         [DataRow("ID_DOCUMENT_TEXT_DATA_CHECK", typeof(TextDataCheckResponse))]
+        [DataRow("THIRD_PARTY_IDENTITY", typeof(ThirdPartyIdentityCheckResponse))]
         [DataRow("LIVENESS", typeof(LivenessCheckResponse))]
         [DataRow("OTHER", typeof(CheckResponse))]
         [DataRow("", typeof(CheckResponse))]
