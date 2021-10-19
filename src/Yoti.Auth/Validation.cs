@@ -22,6 +22,14 @@ namespace Yoti.Auth
             }
         }
 
+        public static void NotNullOrWhiteSpace(string value, string name)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new InvalidOperationException($"'{name}' must not be null, empty, or consist only of white-space");
+            }
+        }
+
         public static void NotGreaterThan<T>(T value, T upperLimit, string name) where T : IComparable<T>
         {
             if (value.CompareTo(upperLimit) > 0)

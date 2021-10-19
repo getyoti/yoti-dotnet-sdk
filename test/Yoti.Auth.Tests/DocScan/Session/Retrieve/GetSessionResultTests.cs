@@ -54,6 +54,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
             Assert.AreEqual(0, getSessionResult.GetIdDocumentTextDataChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetWatchlistScreeningChecks().Count);
         }
 
         [TestMethod]
@@ -205,6 +206,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void WatchlistScreeningChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetWatchlistScreeningChecks().Count);
+        }
+
+        [TestMethod]
         public void SupplementaryDocTextDataChecksShouldFilterChecks()
         {
             var getSessionResult = new GetSessionResult
@@ -234,6 +249,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetThirdPartyIdentityChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetThirdPartyIdentityChecks().First(), typeof(ThirdPartyIdentityCheckResponse));
+        }
+
+        [TestMethod]
+        public void WatchlistScreeningChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new WatchlistScreeningCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetWatchlistScreeningChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetWatchlistScreeningChecks().First(), typeof(WatchlistScreeningCheckResponse));
         }
 
         [TestMethod]
