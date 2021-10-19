@@ -121,7 +121,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBuildWithPrivacyPolicyUrl()
         {
-            string privacyPolicyUrl = "https://yourdomain.com/some/privacy/policy";
+            string privacyPolicyUrl = "https://yourdomain.com/some/privacy-policy";
 
             SdkConfig sdkConfig =
              new SdkConfigBuilder()
@@ -142,6 +142,29 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
              .Build();
 
             Assert.AreEqual(error, sdkConfig.ErrorUrl);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithMobileHandoff()
+        {
+            bool mobileHandoff = true;
+
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .WithAllowHandoff(mobileHandoff)
+             .Build();
+
+            Assert.AreEqual(mobileHandoff, sdkConfig.AllowHandoff);
+        }
+
+        [TestMethod]
+        public void MobileHandoffShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .Build();
+
+            Assert.IsNull(sdkConfig.AllowHandoff);
         }
     }
 }
