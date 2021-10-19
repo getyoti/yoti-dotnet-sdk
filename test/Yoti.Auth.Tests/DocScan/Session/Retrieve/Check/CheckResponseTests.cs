@@ -16,6 +16,8 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [DataRow("ID_DOCUMENT_FACE_MATCH", typeof(FaceMatchCheckResponse))]
         [DataRow("ID_DOCUMENT_TEXT_DATA_CHECK", typeof(TextDataCheckResponse))]
         [DataRow("THIRD_PARTY_IDENTITY", typeof(ThirdPartyIdentityCheckResponse))]
+        [DataRow("WATCHLIST_SCREENING", typeof(WatchlistScreeningCheckResponse))]
+        [DataRow("WATCHLIST_ADVANCED_CA", typeof(WatchlistAdvancedCaCheckResponse))]
         [DataRow("LIVENESS", typeof(LivenessCheckResponse))]
         [DataRow("WATCHLIST_SCREENING", typeof(WatchlistScreeningCheckResponse))]
         [DataRow("OTHER", typeof(CheckResponse))]

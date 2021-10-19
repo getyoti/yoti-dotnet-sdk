@@ -117,5 +117,13 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
             return Checks.OfType<WatchlistScreeningCheckResponse>().ToList();
         }
+
+        public List<WatchlistAdvancedCaCheckResponse> GetWatchlistAdvancedCaChecks()
+        {
+            if (Checks == null)
+                return new List<WatchlistAdvancedCaCheckResponse>();
+
+            return Checks.OfType<WatchlistAdvancedCaCheckResponse>().ToList();
+        }
     }
 }

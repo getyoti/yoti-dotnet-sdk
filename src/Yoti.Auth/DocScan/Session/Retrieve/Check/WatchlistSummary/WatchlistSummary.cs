@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve.Check.WatchlistSummary
 {
-    public class WatchlistSummaryBase
+    public class WatchlistSummary
     {
         [JsonProperty(PropertyName = "total_hits")]
         public int TotalHits { get; internal set; }

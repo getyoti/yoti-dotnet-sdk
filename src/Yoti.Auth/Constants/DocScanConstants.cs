@@ -11,6 +11,15 @@
         public const string SupplementaryDocumentTextDataExtraction = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_EXTRACTION";
         public const string ThirdPartyIdentity = "THIRD_PARTY_IDENTITY";
         public const string WatchlistScreening = "WATCHLIST_SCREENING";
+        public const string WatchlistAdvancedCa = "WATCHLIST_ADVANCED_CA";
+
+        public const string WithYotiAccount = "WITH_YOTI_ACCOUNT";
+        public const string WithCustomAccount = "WITH_CUSTOM_ACCOUNT";
+        public const string TypeList = "TYPE_LIST";
+        public const string Profile = "PROFILE";
+        public const string Exact = "EXACT";
+        public const string Fuzzy = "FUZZY";
+
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
 
