@@ -55,6 +55,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
             Assert.AreEqual(0, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetWatchlistScreeningChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetWatchlistAdvancedCaChecks().Count);
         }
 
         [TestMethod]
@@ -220,6 +221,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void WatchlistAdvancedCaChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetWatchlistAdvancedCaChecks().Count);
+        }
+
+        [TestMethod]
         public void SupplementaryDocTextDataChecksShouldFilterChecks()
         {
             var getSessionResult = new GetSessionResult
@@ -265,6 +280,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetWatchlistScreeningChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetWatchlistScreeningChecks().First(), typeof(WatchlistScreeningCheckResponse));
+        }
+
+        [TestMethod]
+        public void WatchlistAdvancedCaChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new WatchlistAdvancedCaCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetWatchlistAdvancedCaChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetWatchlistAdvancedCaChecks().First(), typeof(WatchlistAdvancedCaCheckResponse));
         }
 
         [TestMethod]
