@@ -21,6 +21,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [DataRow(DocScanConstants.IdDocumentComparison, typeof(IdDocumentComparisonCheckResponse))]
         [DataRow(DocScanConstants.SupplementaryDocumentTextDataCheck, typeof(SupplementaryDocTextDataCheckResponse))]
         [DataRow(DocScanConstants.WatchlistScreening, typeof(WatchlistScreeningCheckResponse))]
+        [DataRow(DocScanConstants.WatchlistAdvancedCa, typeof(WatchlistAdvancedCaCheckResponse))]
         [DataRow("OTHER", typeof(CheckResponse))]
         [DataRow("", typeof(CheckResponse))]
         [DataRow(null, typeof(CheckResponse))]
