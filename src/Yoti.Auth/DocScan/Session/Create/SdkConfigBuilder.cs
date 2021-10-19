@@ -13,6 +13,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _successUrl;
         private string _errorUrl;
         private string _privacyPolicyUrl;
+        private bool? _allowHandoff;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -132,6 +133,25 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets if the user is allowed to perform mobile handoff
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Mobile handoff allows the user to start a session on their desktop device, and then switch to using their mobile to upload resources (generally due to better camera quality on mobile devices)
+        ///     </para>
+        ///     <para>
+        ///         Note: Passing this value will override any value set in the Yoti Connect backend (which itself takes precedence over any value in lists of configured organisations)   
+        ///     </para>
+        /// </remarks>
+        /// <param name="allowHandoff">If mobile handoff is allowed</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithAllowHandoff(bool allowHandoff)
+        {
+            _allowHandoff = allowHandoff;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -146,7 +166,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _presetIssuingCountry,
                 _successUrl,
                 _errorUrl,
-                _privacyPolicyUrl);
+                _privacyPolicyUrl,
+                _allowHandoff);
         }
     }
 }

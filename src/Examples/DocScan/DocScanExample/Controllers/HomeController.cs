@@ -77,6 +77,7 @@ namespace DocScanExample.Controllers
                     .WithSuccessUrl(string.Join("/", _baseUrl, "idverify/success"))
                     .WithErrorUrl(string.Join("/", _baseUrl, "idverify/error"))
                     .WithPrivacyPolicyUrl(string.Join("/", _baseUrl, "privacy-policy"))
+                    .WithAllowHandoff(false)
                     .Build()
                     )
                 .WithRequiredDocument(

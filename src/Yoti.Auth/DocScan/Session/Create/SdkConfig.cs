@@ -34,6 +34,9 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "privacy_policy_url")]
         public string PrivacyPolicyUrl { get; }
 
+        [JsonProperty(PropertyName = "allow_handoff")]
+        public bool? AllowHandoff { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                         string primaryColour,
                         string secondaryColour,
@@ -42,8 +45,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                         string presetIssuingCountry,
                         string successUrl,
                         string errorUrl,
-                        string privacyPolicyUrl)
-        {
+                        string privacyPolicyUrl,
+                        bool? allowHandoff = null)
+        { 
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
             SecondaryColour = secondaryColour;
@@ -53,6 +57,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             SuccessUrl = successUrl;
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
+            AllowHandoff = allowHandoff;
         }
     }
 }
