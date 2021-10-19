@@ -10,6 +10,7 @@
         public const string SupplementaryDocumentTextDataCheck = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_CHECK";
         public const string SupplementaryDocumentTextDataExtraction = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_EXTRACTION";
         public const string ThirdPartyIdentity = "THIRD_PARTY_IDENTITY";
+        public const string WatchlistScreening = "WATCHLIST_SCREENING";
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
 
@@ -20,6 +21,9 @@
         public const string TaskCompletion = "TASK_COMPLETION";
         public const string CheckCompletion = "CHECK_COMPLETION";
         public const string SessionCompletion = "SESSION_COMPLETION";
+
+        public const string Sanctions = "SANCTIONS";
+        public const string AdverseMedia = "ADVERSE-MEDIA";
 
         public const string Always = "ALWAYS";
         public const string Fallback = "FALLBACK";

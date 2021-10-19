@@ -4,7 +4,7 @@
     {
         public RequestedThirdPartyIdentityCheck Build()
         {
-            RequestedThirdPartyIdentityCheckConfig config = new RequestedThirdPartyIdentityCheckConfig();
+            RequestedThirdPartyIdentityConfig config = new RequestedThirdPartyIdentityConfig();
 
             return new RequestedThirdPartyIdentityCheck(config);
         }
