@@ -5,3 +5,7 @@
 table td:first-child {
     width: 30%;
 }
+
+table td {
+    overflow-wrap: anywhere;
+}
