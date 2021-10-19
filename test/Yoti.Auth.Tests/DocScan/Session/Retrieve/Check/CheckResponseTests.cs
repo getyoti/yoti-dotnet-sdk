@@ -16,10 +16,11 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [DataRow(DocScanConstants.IdDocumentAuthenticity, typeof(AuthenticityCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentFaceMatch, typeof(FaceMatchCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentTextDataCheck, typeof(TextDataCheckResponse))]
+        [DataRow(DocScanConstants.ThirdPartyIdentity, typeof(ThirdPartyIdentityCheckResponse))]
         [DataRow(DocScanConstants.Liveness, typeof(LivenessCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentComparison, typeof(IdDocumentComparisonCheckResponse))]
         [DataRow(DocScanConstants.SupplementaryDocumentTextDataCheck, typeof(SupplementaryDocTextDataCheckResponse))]
-        [DataRow(DocScanConstants.ThirdPartyIdentity, typeof(ThirdPartyIdentityCheckResponse))]
+        [DataRow(DocScanConstants.WatchlistScreening, typeof(WatchlistScreeningCheckResponse))]
         [DataRow("OTHER", typeof(CheckResponse))]
         [DataRow("", typeof(CheckResponse))]
         [DataRow(null, typeof(CheckResponse))]
@@ -92,7 +93,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
                 recommendation = GetRecommendationResponse(),
                 breakdown = new List<dynamic>
                 {
-                    GetBreakdownResponse() 
+                    GetBreakdownResponse()
                 }
             };
 
