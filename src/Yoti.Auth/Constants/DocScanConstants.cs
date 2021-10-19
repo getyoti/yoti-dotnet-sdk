@@ -37,5 +37,8 @@
         public const string ExcludeList = "BLACKLIST";
 
         public const string ProofOfAddress = "PROOF_OF_ADDRESS";
+
+        public const string Basic = "BASIC";
+        public const string Bearer = "BEARER";
     }
 }

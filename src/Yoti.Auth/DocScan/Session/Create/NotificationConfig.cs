@@ -10,15 +10,19 @@ namespace Yoti.Auth.DocScan.Session.Create
     /// </summary>
     public class NotificationConfig
     {
-        public NotificationConfig(string authToken, string endpoint, List<string> topics)
+        public NotificationConfig(string authToken, string endpoint, List<string> topics, string authType = null)
         {
             AuthToken = authToken;
             Endpoint = endpoint;
             Topics = topics;
+            AuthType = authType;
         }
 
         [JsonProperty(PropertyName = "auth_token")]
         public string AuthToken { get; }
+
+        [JsonProperty(PropertyName = "auth_type")]
+        public string AuthType { get; }
 
         [JsonProperty(PropertyName = "endpoint")]
         public string Endpoint { get; }
