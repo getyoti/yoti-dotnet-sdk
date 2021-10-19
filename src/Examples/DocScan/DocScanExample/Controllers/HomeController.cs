@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using DocScanExample.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Yoti.Auth;
 using Yoti.Auth.DocScan;
@@ -19,21 +20,26 @@ namespace DocScanExample.Controllers
     {
         private readonly DocScanClient _client;
 
-        private readonly string _baseUrl = "https://localhost:5001";
+        private readonly string _baseUrl;
         private readonly Uri _apiUrl;
 
-        public HomeController()
+        public HomeController(IHttpContextAccessor httpContextAccessor)
         {
+            var request = httpContextAccessor.HttpContext.Request;
+            
+            _baseUrl = $"{request.Scheme}://{request.Host}"; ;
             _apiUrl = GetApiUrl();
             _client = GetDocScanClient(_apiUrl);
         }
 
         public IActionResult Index()
         {
+            //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
                 .WithResourcesTtl(90000)
                 .WithUserTrackingId("some-user-tracking-id")
+                //Add Checks (using builders)
                 .WithRequestedCheck(
                   new RequestedDocumentAuthenticityCheckBuilder()
                   .WithManualCheckAlways()
@@ -52,9 +58,16 @@ namespace DocScanExample.Controllers
                 .WithRequestedCheck(
                     new RequestedIdDocumentComparisonCheckBuilder()
                     .Build())
-                 .WithRequestedCheck(
+                .WithRequestedCheck(
                     new RequestedThirdPartyIdentityCheckBuilder()
                     .Build())
+                .WithRequestedCheck(
+                    new RequestedWatchlistScreeningCheckBuilder()
+                    .ForAdverseMedia()
+                    .ForSanctions()
+                    .Build()
+                )
+                //Add Tasks (using builders)
                 .WithRequestedTask(
                     new RequestedTextExtractionTaskBuilder()
                     .WithManualCheckAlways()
@@ -66,6 +79,7 @@ namespace DocScanExample.Controllers
                     .WithManualCheckAlways()
                     .Build()
                 )
+                //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
                     .WithAllowsCameraAndUpload()
@@ -74,12 +88,13 @@ namespace DocScanExample.Controllers
                     .WithFontColour("#FFFFFF")
                     .WithLocale("en-GB")
                     .WithPresetIssuingCountry("GBR")
-                    .WithSuccessUrl(string.Join("/", _baseUrl, "idverify/success"))
-                    .WithErrorUrl(string.Join("/", _baseUrl, "idverify/error"))
-                    .WithPrivacyPolicyUrl(string.Join("/", _baseUrl, "privacy-policy"))
+                    .WithSuccessUrl($"{_baseUrl}/idverify/success")
+                    .WithErrorUrl($"{_baseUrl}/idverify/error")
+                    .WithPrivacyPolicyUrl($"{_baseUrl}/privacy-policy")
                     .WithAllowHandoff(false)
                     .Build()
                     )
+                //Add Required Documents (with builders)
                 .WithRequiredDocument(
                     new RequiredIdDocumentBuilder()
                     .WithFilter(
@@ -99,10 +114,11 @@ namespace DocScanExample.Controllers
                     .Build()
                 )
                 .WithRequiredDocument(
-                    new RequiredSupplementaryDocumentBuilder()
-                .WithObjective(
-                    new ProofOfAddressObjectiveBuilder().Build())
-                .Build())
+                    new RequiredSupplementaryDocumentBuilder()  
+                    .WithObjective(
+                        new ProofOfAddressObjectiveBuilder().Build())
+                    .Build()
+                )
             .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
@@ -114,10 +130,9 @@ namespace DocScanExample.Controllers
             ViewBag.iframeUrl = uri.ToString();
 
             TempData["sessionId"] = sessionId;
-            return View(createSessionResult);
+            return View();
         }
 
-        [Route("media")]
         public IActionResult Media(string mediaId, string sessionId)
         {
             MediaValue media = _client.GetMediaContent(sessionId, mediaId);
