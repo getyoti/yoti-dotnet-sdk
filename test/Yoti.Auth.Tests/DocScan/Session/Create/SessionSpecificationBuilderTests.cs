@@ -112,7 +112,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithWithRequiredDocument()
+        public void ShouldBuildWithRequiredDocument() 
         {
             SessionSpecification sessionSpec =
               new SessionSpecificationBuilder()
@@ -140,7 +140,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithWithBlockBiometricConsentTrue()
+        public void ShouldBuildWithBlockBiometricConsentTrue()
         {
             SessionSpecification sessionSpec =
               new SessionSpecificationBuilder()
@@ -151,7 +151,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithWithBlockBiometricConsentFalse()
+        public void ShouldBuildWithBlockBiometricConsentFalse()
         {
             SessionSpecification sessionSpec =
               new SessionSpecificationBuilder()
