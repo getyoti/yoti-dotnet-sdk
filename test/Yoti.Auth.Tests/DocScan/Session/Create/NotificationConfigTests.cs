@@ -19,9 +19,11 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             NotificationConfig notificationConfig =
               new NotificationConfig(authToken, endpoint, topics);
 
+
             Assert.AreEqual(authToken, notificationConfig.AuthToken);
             Assert.AreEqual(endpoint, notificationConfig.Endpoint);
             Assert.AreEqual(topicName, notificationConfig.Topics.Single());
+            Assert.IsNull(notificationConfig.AuthType);
         }
 
         [TestMethod]
