@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Retrieve;
 using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 
@@ -12,7 +13,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     public class LivenessResourceResponseTests
     {
         [DataTestMethod]
-        [DataRow("ZOOM", typeof(ZoomLivenessResourceResponse))]
+        [DataRow(DocScanConstants.Zoom, typeof(ZoomLivenessResourceResponse))]
         [DataRow("OTHER", typeof(LivenessResourceResponse))]
         [DataRow("", typeof(LivenessResourceResponse))]
         [DataRow(null, typeof(LivenessResourceResponse))]
