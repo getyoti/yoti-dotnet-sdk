@@ -65,45 +65,43 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [TestMethod]
         public void CheckRecommendationResponseIsParsed()
         {
-            dynamic recommendationResponse = new
-            {
-                value = "NOT_AVAILABLE",
-                reason = "PICTURE_TOO_DARK",
-                recovery_suggestion = "BETTER_LIGHTING"
-            };
-
+            dynamic recommendationResponse = GetRecommendationResponse();
             string json = JsonConvert.SerializeObject(recommendationResponse);
             RecommendationResponse response =
                 JsonConvert.DeserializeObject<RecommendationResponse>(json);
 
-            Assert.AreEqual("NOT_AVAILABLE", response.Value);
-            Assert.AreEqual("PICTURE_TOO_DARK", response.Reason);
-            Assert.AreEqual("BETTER_LIGHTING", response.RecoverySuggestion);
+            AssertRecommendationResponseValuesCorrect(recommendationResponse, response);
         }
 
         [TestMethod]
         public void CheckBreakdownResponseIsParsed()
         {
-            dynamic breakdownResponse = new
-            {
-                sub_check = "issuing_authority_verification",
-                result = "PASS",
-                details = new List<dynamic> {
-                    new { name = "n1", value = "v1" },
-                    new { name = "n2", value = "v2" }
-                }
-            };
+            dynamic breakdownResponse = GetBreakdownResponse();
 
             string json = JsonConvert.SerializeObject(breakdownResponse);
             BreakdownResponse response =
                 JsonConvert.DeserializeObject<BreakdownResponse>(json);
+            AssertBreakdownResponseValuesCorrect(breakdownResponse, response);
+        }
 
-            Assert.AreEqual("issuing_authority_verification", response.SubCheck);
-            Assert.AreEqual("PASS", response.Result);
-            Assert.AreEqual("n1", response.Details.First().Name);
-            Assert.AreEqual("v1", response.Details.First().Value);
-            Assert.AreEqual("n2", response.Details.Last().Name);
-            Assert.AreEqual("v2", response.Details.Last().Value);
+        [TestMethod]
+        public void CheckReportResponseIsParsed()
+        {
+            dynamic reportResponse = new
+            {
+                recommendation = GetRecommendationResponse(),
+                breakdown = new List<dynamic>
+                {
+                    GetBreakdownResponse() 
+                }
+            };
+
+            string json = JsonConvert.SerializeObject(reportResponse);
+            ReportResponse response =
+                JsonConvert.DeserializeObject<ReportResponse>(json);
+
+            AssertRecommendationResponseValuesCorrect(reportResponse.recommendation, response.Recommendation);
+            AssertBreakdownResponseValuesCorrect((reportResponse.breakdown as IEnumerable<dynamic>).First(), response.Breakdown.First());
         }
 
         [DataTestMethod]
@@ -197,6 +195,50 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
             Assert.AreEqual(originalData.created, response.Media.Created);
             Assert.AreEqual(originalData.last_updated, response.Media.LastUpdated);
             Assert.IsInstanceOfType(response, requiredType);
+        }
+
+        private dynamic GetRecommendationResponse()
+        {
+            dynamic recommendationResponse = new
+            {
+                value = "NOT_AVAILABLE",
+                reason = "PICTURE_TOO_DARK",
+                recovery_suggestion = "BETTER_LIGHTING"
+            };
+            return recommendationResponse;
+        }
+
+        private dynamic GetBreakdownResponse()
+        {
+            dynamic breakdownResponse = new
+            {
+                sub_check = "issuing_authority_verification",
+                result = "PASS",
+                details = new List<dynamic> {
+                    new { name = "n1", value = "v1" },
+                    new { name = "n2", value = "v2" }
+                }
+            };
+            return breakdownResponse;
+        }
+
+        private static void AssertRecommendationResponseValuesCorrect(dynamic recommmendationResponse, RecommendationResponse response)
+        {
+            Assert.AreEqual(recommmendationResponse.value, response.Value);
+            Assert.AreEqual(recommmendationResponse.reason, response.Reason);
+            Assert.AreEqual(recommmendationResponse.recovery_suggestion, response.RecoverySuggestion);
+        }
+
+        private static void AssertBreakdownResponseValuesCorrect(dynamic breakdownResponse, BreakdownResponse response)
+        {
+            Assert.AreEqual(breakdownResponse.sub_check, response.SubCheck);
+            Assert.AreEqual(breakdownResponse.result, response.Result);
+
+            var detailsList = (breakdownResponse.details as IEnumerable<dynamic>);
+            Assert.AreEqual(detailsList.First().name, response.Details.First().Name);
+            Assert.AreEqual(detailsList.First().value, response.Details.First().Value);
+            Assert.AreEqual(detailsList.Last().name, response.Details.Last().Name);
+            Assert.AreEqual(detailsList.Last().value, response.Details.Last().Value);
         }
     }
 }
