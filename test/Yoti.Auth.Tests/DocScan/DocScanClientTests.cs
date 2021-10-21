@@ -65,6 +65,13 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
+        public void ShouldNotFailForValidKeyPair()
+        {
+            var docScanClient = new DocScanClient(_sdkId, KeyPair.GetValidKeyStream(), null, null);
+            Assert.IsNotNull(docScanClient);
+        }
+
+        [TestMethod]
         public void CreateSessionShouldSucceed()
         {
             string clientSessionToken = "e8b1c85f-f9e7-405b-88eb-f1c318371f16";
@@ -389,6 +396,13 @@ namespace Yoti.Auth.Tests.DocScan
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+        [TestMethod]
+        public void ConstructClientWithNullHttpClientShouldSucceed()
+        {
+            var docScanClient = new DocScanClient(_sdkId, _keyPair, null);
+            Assert.IsNotNull(docScanClient);
         }
 
         private DocScanClient SetupDocScanClientResponse(HttpStatusCode httpStatusCode)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create.Check;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
@@ -15,6 +16,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
               .WithManualCheckAlways()
               .Build();
 
+            Assert.AreEqual(DocScanConstants.IdDocumentFaceMatch, check.Type);
             Assert.AreEqual("ALWAYS", check.Config.ManualCheck);
         }
 
