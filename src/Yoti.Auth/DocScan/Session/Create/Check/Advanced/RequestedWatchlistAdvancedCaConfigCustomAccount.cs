@@ -8,8 +8,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check.Advanced
 	{
 		public override string Type => DocScanConstants.WithCustomAccount;
 
-		public RequestedWatchlistAdvancedCaConfigCustomAccount(bool removeDeceased, bool shareUrl, RequestedCaSources sources, RequestedCaMatchingStrategy matchingStrategy,
-			string apiKey, bool monitoring, Dictionary<string, string> tags, string clientRef)
+		public RequestedWatchlistAdvancedCaConfigCustomAccount(bool removeDeceased, bool shareUrl, RequestedCaSources sources, RequestedCaMatchingStrategy matchingStrategy, string apiKey, bool monitoring, Dictionary<string, string> tags, string clientRef)
 			: base(removeDeceased, shareUrl, sources, matchingStrategy)
 		{
 			ApiKey = apiKey;
