@@ -5,14 +5,14 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
     /// <summary>
     /// Requests creation of a Third Party Identity Check
     /// </summary>
-    public class RequestedThirdPartyIdentityCheck : RequestedCheck<RequestedThirdPartyIdentityConfig>
+    public class RequestedThirdPartyIdentityCheck : RequestedCheck<RequestedThirdPartyIdentityCheckConfig>
     {
-        public RequestedThirdPartyIdentityCheck(RequestedThirdPartyIdentityConfig config)
+        public RequestedThirdPartyIdentityCheck(RequestedThirdPartyIdentityCheckConfig config)
         {
             Config = config;
         }
 
-        public override RequestedThirdPartyIdentityConfig Config { get; }
+        public override RequestedThirdPartyIdentityCheckConfig Config { get; }
 
         public override string Type => DocScanConstants.ThirdPartyIdentity;
     }

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Retrieve;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
+using Yoti.Auth.DocScan.Session.Retrieve.Check.WatchlistSummary;
 
 namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
 {
@@ -46,6 +47,24 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
                 JsonConvert.DeserializeObject<GetSessionResult>(json);
 
             Assert.IsInstanceOfType(getSessionResult.Checks.Single(), expectedType);
+        }
+
+        [TestMethod]
+        public void CheckWatchlistSummaryIsParsed()
+        {
+            dynamic watchlistSummary = new
+            {
+                total_hits = 1,
+                associated_country_codes = new List<string> { "GBR" },
+            };
+
+            string json = JsonConvert.SerializeObject(watchlistSummary);
+            WatchlistSummary response =
+                JsonConvert.DeserializeObject<WatchlistSummary>(json);
+
+            Assert.IsInstanceOfType(response, typeof(WatchlistSummary));
+            Assert.AreEqual(watchlistSummary.total_hits, response.TotalHits);
+            CollectionAssert.AreEqual(new List<string> { "GBR" }, response.AssociatedCountryCodes);
         }
 
         [TestMethod]

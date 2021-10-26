@@ -5,7 +5,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 {
     public class RequestedWatchlistScreeningConfig : RequestedCheckConfig
     {
-        [JsonProperty(PropertyName = "categories", Required = Required.DisallowNull)]
+        [JsonProperty(PropertyName = "categories")]
         public List<string> Categories { get; }
 
         public RequestedWatchlistScreeningConfig(List<string> categories)

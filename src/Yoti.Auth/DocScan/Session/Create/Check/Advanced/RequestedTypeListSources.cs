@@ -11,7 +11,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check.Advanced
 		[JsonProperty(PropertyName = "types")]
 		public List<string> Types { get; }
 
-        public RequestedTypeListSources(List<string> types)
+        	public RequestedTypeListSources(List<string> types)
 		{
 			Types = types;
 		}

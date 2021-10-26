@@ -49,6 +49,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 		public RequestedWatchlistScreeningCheck Build()
 		{
 			var config = new RequestedWatchlistScreeningConfig(_categories);
+
 			return new RequestedWatchlistScreeningCheck(config);
 		}
 	}

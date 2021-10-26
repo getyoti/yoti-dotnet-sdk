@@ -1,4 +1,6 @@
 ﻿@using DocScanExample.Models
+@using Yoti.Auth.DocScan.Session.Retrieve
+@using Yoti.Auth.DocScan.Session.Retrieve.Check.WatchlistSummary
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model Yoti.Auth.DocScan.Session.Retrieve.Check.CheckResponse
 
@@ -26,7 +28,7 @@
             <td>Last Updated</td>
             <td>@Model.LastUpdated</td>
         </tr>
-        <tr>
+        <tr>  
             <td>Resources Used</td>
             <td>@string.Join(',', Model.ResourcesUsed)</td>
         </tr>
@@ -125,7 +127,7 @@
                     </td>
                 </tr>
             }
-            @if (Model.Report is Yoti.Auth.DocScan.Session.Retrieve.Check.WatchlistSummary.ReportResponseWithSummary advancedReport)
+            @if (Model.Report is ReportResponseWithSummary advancedReport)
             {
                 <tr>
                     <td>Watchlist Summary</td>
@@ -150,7 +152,7 @@
                                         @String.Join(", ", advancedReport.WatchlistSummary.AssociatedCountryCodes)
                                     </td>
                                 </tr>
-                                @if (advancedReport.WatchlistSummary?.RawResults?.Media is Yoti.Auth.DocScan.Session.Retrieve.MediaResponse media)
+                                @if (advancedReport.WatchlistSummary?.RawResults?.Media is MediaResponse media)
                                 {
                                     <tr>
                                         <td>Raw Results Media ID</td>
