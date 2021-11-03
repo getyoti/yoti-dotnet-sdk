@@ -53,5 +53,12 @@
 
         public const string Basic = "BASIC";
         public const string Bearer = "BEARER";
+
+        public const string MultiPartBoundary = "yoti-doc-scan-boundary";
+        public const string UploadFaceCaptureImageBinaryContentName = "binary-content";
+        public const string UploadFaceCaptureImageFileName = "face-capture-image";
+
+        public const string MimeTypeJpg = "image/jpeg";
+        public const string MimeTypePng = "image/png";
     }
 }

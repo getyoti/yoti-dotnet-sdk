@@ -6,6 +6,14 @@ namespace Yoti.Auth
 {
     internal static class Validation
     {
+        public static void IsNull(object value, string name)
+        {
+            if (value != null)
+            {
+                throw new InvalidOperationException($"'{name}' must be null but value is '{value}'");
+            }
+        }
+
         public static void NotNull(object value, string name)
         {
             if (value == null)

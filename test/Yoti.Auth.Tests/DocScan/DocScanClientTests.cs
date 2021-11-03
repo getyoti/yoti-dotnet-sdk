@@ -8,9 +8,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.Common;
@@ -24,13 +27,21 @@ namespace Yoti.Auth.Tests.DocScan
 
         private const string _someSessionId = "someSessionId";
         private const string _someMediaId = "someMediaId";
+        private string _someRequirementId = "someRequirementId";
+        private string _someResourceId = "someResourceId";
+        private string _someImageContentType = DocScanConstants.MimeTypeJpg;
+        private static byte[] _someImageContents = new byte[] { 0x00, 0x21, 0x60, 0x1F, 0xA1 };
 
         private AsymmetricCipherKeyPair _keyPair;
+        private CreateFaceCaptureResourcePayload _createFaceCaptureResourcePayload;
+        private UploadFaceCaptureImagePayload _uploadFaceCaptureImagePayload;
 
         [TestInitialize]
         public void Startup()
         {
-            _keyPair = Tests.Common.KeyPair.Get();
+            _keyPair = KeyPair.Get();
+            _createFaceCaptureResourcePayload = new CreateFaceCaptureResourcePayload(_someRequirementId);
+            _uploadFaceCaptureImagePayload = new UploadFaceCaptureImagePayload(_someImageContentType, _someImageContents);
         }
 
         [TestMethod]
@@ -403,6 +414,59 @@ namespace Yoti.Auth.Tests.DocScan
         {
             var docScanClient = new DocScanClient(_sdkId, _keyPair, null);
             Assert.IsNotNull(docScanClient);
+        }
+
+        [TestMethod]
+        public void CreateFaceCaptureResourceShouldSucceed()
+        {
+            string id = "someId";
+            int frames = 4;
+            dynamic createFaceCaptureResourceResponse = new { id, frames };
+            DocScanClient docScanClient = SetupDocScanClient(createFaceCaptureResourceResponse);
+
+            CreateFaceCaptureResourceResponse result = docScanClient.CreateFaceCaptureResource(_someSessionId, _createFaceCaptureResourcePayload);
+
+            Assert.AreEqual(id, result.Id);
+            Assert.AreEqual(frames, result.Frames);
+        }
+
+        [DataTestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void CreateFaceCaptureResourceShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                docScanClient.CreateFaceCaptureResource(_someSessionId, _createFaceCaptureResourcePayload);
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+        [TestMethod]
+        public void UploadFaceCaptureImageShouldSucceed()
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(HttpStatusCode.OK);
+
+            docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+        }
+
+        private DocScanClient SetupDocScanClient(dynamic createFaceCaptureResourceResponse)
+        {
+            string jsonResponse = JsonConvert.SerializeObject(createFaceCaptureResourceResponse);
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+            Mock<HttpMessageHandler> handlerMock = Http.SetupMockMessageHandler(successResponse);
+            return new DocScanClient(_sdkId, _keyPair, new HttpClient(handlerMock.Object));
         }
 
         private DocScanClient SetupDocScanClientResponse(HttpStatusCode httpStatusCode)
