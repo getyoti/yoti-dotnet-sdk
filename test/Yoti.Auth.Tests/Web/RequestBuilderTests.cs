@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Constants;
+using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.Tests.Common;
 using Yoti.Auth.Web;
 
@@ -268,6 +270,76 @@ namespace Yoti.Auth.Tests.Web
             Assert.IsTrue(
                 docScanRequest.RequestMessage.RequestUri.ToString().StartsWith(
                     $"https://docscan.base/idverify/v1/sessions?sdkId={_sdkId}&"));
+        }
+
+        [TestMethod]
+        public void UploadFaceCaptureImagePayloadRequestBuildsCorrectly()
+        {
+            var keyPair = KeyPair.Get();
+            Uri docScanUri = new UriBuilder("https", "docscan.base", 443, "/idverify/v1").Uri;
+            var sessionId = "someSessionId";
+            var resourceId = "someResourceId";
+            var imageContents = new byte[] { 0x00, 0x21, 0x60, 0x1F, 0xA1 };
+            UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload = new UploadFaceCaptureImagePayloadBuilder()
+                .ForJpeg()
+                .WithImageContents(imageContents)
+                .Build();
+
+            Request uploadFaceCaptureImageRequest = new RequestBuilder()
+                   .WithMultipartBoundary(DocScanConstants.MultiPartBoundary)
+                   .WithMultipartBinaryContent(DocScanConstants.UploadFaceCaptureImageBinaryContentName,
+                              uploadFaceCaptureImagePayload.ImageContents,
+                              uploadFaceCaptureImagePayload.ImageContentType,
+                              DocScanConstants.UploadFaceCaptureImageFileName)
+                   .WithKeyPair(keyPair)
+                   .WithHttpMethod(HttpMethod.Put)
+                   .WithBaseUri(docScanUri)
+                   .WithEndpoint($"/sessions/{sessionId}/resources/face-capture/{resourceId}/image")
+                   .WithQueryParam("sdkId", _sdkId)
+                   .Build();
+
+            Assert.IsTrue(uploadFaceCaptureImageRequest.RequestMessage.RequestUri.ToString().StartsWith(
+                $"https://docscan.base/idverify/v1/sessions/{sessionId}/resources/face-capture/{resourceId}/image?sdkId={_sdkId}"));
+        }
+
+        [TestMethod]
+        public void RequestWithRepeatedWithMultipartBinaryContentCallsBuildsCorrectly()
+        {
+            var keyPair = KeyPair.Get();
+            Uri docScanUri = new UriBuilder("https", "docscan.base", 443, "/idverify/v1").Uri;
+            var sessionId = "someSessionId";
+            var resourceId = "someResourceId";
+            var imageContents = new byte[] { 0x00, 0x21, 0x60, 0x1F, 0xA1 };
+            UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload = new UploadFaceCaptureImagePayloadBuilder()
+                .ForJpeg()
+                .WithImageContents(imageContents)
+                .Build();
+
+            var imageContents2 = new byte[] { 0xA1, 0x00 };
+            UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload2 = new UploadFaceCaptureImagePayloadBuilder()
+                .ForPng()
+                .WithImageContents(imageContents2)
+                .Build();
+
+            Request uploadFaceCaptureImageRequest = new RequestBuilder()
+                   .WithMultipartBoundary(DocScanConstants.MultiPartBoundary)
+                   .WithMultipartBinaryContent(DocScanConstants.UploadFaceCaptureImageBinaryContentName,
+                              uploadFaceCaptureImagePayload.ImageContents,
+                              uploadFaceCaptureImagePayload.ImageContentType,
+                              DocScanConstants.UploadFaceCaptureImageFileName)
+                    .WithMultipartBinaryContent(DocScanConstants.UploadFaceCaptureImageBinaryContentName,
+                              uploadFaceCaptureImagePayload2.ImageContents,
+                              uploadFaceCaptureImagePayload2.ImageContentType,
+                              DocScanConstants.UploadFaceCaptureImageFileName)
+                   .WithKeyPair(keyPair)
+                   .WithHttpMethod(HttpMethod.Put)
+                   .WithBaseUri(docScanUri)
+                   .WithEndpoint($"/sessions/{sessionId}/resources/face-capture/{resourceId}/image")
+                   .WithQueryParam("sdkId", _sdkId)
+                   .Build();
+
+            Assert.IsTrue(uploadFaceCaptureImageRequest.RequestMessage.RequestUri.ToString().StartsWith(
+                $"https://docscan.base/idverify/v1/sessions/{sessionId}/resources/face-capture/{resourceId}/image?sdkId={_sdkId}"));
         }
     }
 }

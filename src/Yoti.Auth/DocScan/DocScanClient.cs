@@ -4,7 +4,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
 
 namespace Yoti.Auth.DocScan
@@ -166,6 +168,54 @@ namespace Yoti.Auth.DocScan
             _logger.Debug("Retrieving supported documents");
 
             return await _docScanService.GetSupportedDocuments(_sdkId, _keyPair).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Creates a Face Capture resource, that will be linked using the supplied Requirement Id (a property of <see cref="CreateFaceCaptureResourcePayload"/>).
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <param name="createFaceCaptureResourcePayload">Object containing Requirement Id</param>
+        /// <returns>The <see cref="CreateFaceCaptureResourceResponse"/> Response</returns>
+        public CreateFaceCaptureResourceResponse CreateFaceCaptureResource(string sessionId, CreateFaceCaptureResourcePayload createFaceCaptureResourcePayload)
+        {
+            return CreateFaceCaptureResourceAsync(sessionId, createFaceCaptureResourcePayload).Result;
+        }
+
+        /// <summary>
+        /// Creates a Face Capture resource, that will be linked using the supplied Requirement Id (a property of <see cref="CreateFaceCaptureResourcePayload"/>).
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <param name="createFaceCaptureResourcePayload">Object containing Requirement Id</param>
+        /// <returns>The <see cref="CreateFaceCaptureResourceResponse"/> Response</returns>
+        public async Task<CreateFaceCaptureResourceResponse> CreateFaceCaptureResourceAsync(string sessionId, CreateFaceCaptureResourcePayload createFaceCaptureResourcePayload)
+        {
+            _logger.Debug($"Creating Face Capture resource in session '{sessionId}' for requirement '{createFaceCaptureResourcePayload.RequirementId}'");
+
+            return await _docScanService.CreateFaceCaptureResource(_sdkId, _keyPair, sessionId, createFaceCaptureResourcePayload).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Uploads an image to the specified Face Capture resource.
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <param name="resourceId">The Resource Id</param>
+        /// <param name="uploadFaceCaptureImagePayload">The Face Capture image payload as binary data and a content type (mime type)</param>
+        public void UploadFaceCaptureImage(string sessionId, string resourceId, UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload)
+        {
+            UploadFaceCaptureImageAsync(sessionId, resourceId, uploadFaceCaptureImagePayload).Wait();
+        }
+
+        /// <summary>
+        /// Uploads an image to the specified Face Capture resource.
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <param name="resourceId">The Resource Id</param>
+        /// <param name="uploadFaceCaptureImagePayload">The Face Capture image payload as binary data and a content type (mime type)</param>
+        public async Task UploadFaceCaptureImageAsync(string sessionId, string resourceId, UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload)
+        {
+            _logger.Debug($"Uploading image to Face Capture resource '{resourceId}' for session '{sessionId}'");
+
+            await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, sessionId, resourceId, uploadFaceCaptureImagePayload).ConfigureAwait(false);
         }
     }
 }

@@ -132,6 +132,8 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [DataRow(typeof(FileResponse))]
         [DataRow(typeof(FrameResponse))]
         [DataRow(typeof(PageResponse))]
+        [DataRow(typeof(FaceCaptureImageResponse))]
+        [DataRow(typeof(GeneratedProfileResponse))]
         public void CheckMediaResponsesAreParsed(Type requiredType)
         {
             dynamic mediaResponse = GetMediaResponse();
@@ -186,6 +188,21 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
 
             AssertMediaValuesCorrect(pageResponse.media, response, typeof(PageResponse));
             AssertMediaValuesCorrect((pageResponse.frames as IEnumerable<dynamic>).First().media, response.Frames.First(), typeof(FrameResponse));
+        }
+
+        [TestMethod]
+        public void CheckFaceCaptureResourceResponseIsParsed()
+        {
+            dynamic faceCaptureResourceResponse = new
+            {
+                image = new { media = GetMediaResponse() }
+            };
+
+            string json = JsonConvert.SerializeObject(faceCaptureResourceResponse);
+            FaceCaptureResourceResponse response =
+                JsonConvert.DeserializeObject<FaceCaptureResourceResponse>(json);
+
+            AssertMediaValuesCorrect(faceCaptureResourceResponse.image.media, response.Image, typeof(FaceCaptureImageResponse));
         }
 
         public TResponseTypeWithMedia GetMediaResponseOfType<TResponseTypeWithMedia>(dynamic mediaResponse) where TResponseTypeWithMedia : IResponseWithMediaProperty

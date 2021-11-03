@@ -11,5 +11,8 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
 
         [JsonProperty(PropertyName = "tasks")]
         public List<TaskResponse> Tasks { get; internal set; }
+
+        [JsonProperty(PropertyName = "source")]
+        public AllowedSourceResponse Source { get; internal set; }
     }
 }
