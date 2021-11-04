@@ -17,6 +17,7 @@ using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.Common;
+using Yoti.Auth.Tests.TestTools;
 
 namespace Yoti.Auth.Tests.DocScan
 {
@@ -454,7 +455,28 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(HttpStatusCode.OK);
 
-            docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+            Action act = () => docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+
+            Assert.That.DoesNotThrowException(act);
+        }
+
+        [DataTestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void UploadFaceCaptureImageShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload); 
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
         private DocScanClient SetupDocScanClient(dynamic createFaceCaptureResourceResponse)
