@@ -214,7 +214,7 @@ namespace Yoti.Auth.DocScan
         public async Task UploadFaceCaptureImageAsync(string sessionId, string resourceId, UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload)
         {
             _logger.Debug($"Uploading image to Face Capture resource '{resourceId}' for session '{sessionId}'");
-
+            
             await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, sessionId, resourceId, uploadFaceCaptureImagePayload).ConfigureAwait(false);
         }
     }

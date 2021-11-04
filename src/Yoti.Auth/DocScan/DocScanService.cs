@@ -246,10 +246,10 @@ namespace Yoti.Auth.DocScan
 
         public async Task UploadFaceCaptureImage(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, string resourceId, UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload)
         {
-            Validation.NotNullOrWhiteSpace(sdkId, nameof(sdkId)); 
+            Validation.NotNullOrWhiteSpace(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId)); 
-            Validation.NotNullOrWhiteSpace(resourceId, nameof(resourceId)); 
+            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
+            Validation.NotNullOrWhiteSpace(resourceId, nameof(resourceId));
             Validation.NotNull(uploadFaceCaptureImagePayload, nameof(uploadFaceCaptureImagePayload));
 
             _logger.Info($"Uploading image to Face Capture resource");
