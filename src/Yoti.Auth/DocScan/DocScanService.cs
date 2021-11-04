@@ -41,7 +41,7 @@ namespace Yoti.Auth.DocScan
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(sessionSpec, nameof(sessionSpec));
 
-            string serializedSessionSpec = JsonConvert.SerializeObject(sessionSpec, DefaultJsonSettings);
+            string serializedSessionSpec = JsonConvert.SerializeObject(sessionSpec, YotiDefaultJsonSettings);
             byte[] body = Encoding.UTF8.GetBytes(serializedSessionSpec);
 
             Request createSessionRequest = GetSignedRequestBuilder()
@@ -80,7 +80,7 @@ namespace Yoti.Auth.DocScan
                 .WithHttpMethod(HttpMethod.Get)
                 .WithBaseUri(ApiUri)
                 .WithEndpoint(sessionEndpoint)
-                .WithQueryParam("sdkId", sdkId)  
+                .WithQueryParam("sdkId", sdkId)
                 .Build();
 
             using (HttpResponseMessage response = await sessionRequest.Execute(_httpClient).ConfigureAwait(false))
@@ -219,7 +219,7 @@ namespace Yoti.Auth.DocScan
 
             _logger.Info($"Creating new Face Capture resource");
 
-            string serializedFaceCaptureResourcePayload = JsonConvert.SerializeObject(createFaceCaptureResourcePayload, DefaultJsonSettings);
+            string serializedFaceCaptureResourcePayload = JsonConvert.SerializeObject(createFaceCaptureResourcePayload, YotiDefaultJsonSettings);
             byte[] body = Encoding.UTF8.GetBytes(serializedFaceCaptureResourcePayload);
 
             Request createFaceCaptureRequest = GetSignedRequestBuilder()
@@ -303,6 +303,6 @@ namespace Yoti.Auth.DocScan
             return $"sessions/{sessionId}/media/{mediaId}/content";
         }
 
-        private static JsonSerializerSettings DefaultJsonSettings => new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+        private static JsonSerializerSettings YotiDefaultJsonSettings => new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
     }
 }
