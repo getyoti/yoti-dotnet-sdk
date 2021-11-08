@@ -284,7 +284,7 @@ namespace Yoti.Auth.Tests.DocScan
 
             Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
         }
-       
+
         [TestMethod]
         public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenKeyPairIsNull()
         {
@@ -301,7 +301,7 @@ namespace Yoti.Auth.Tests.DocScan
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
-        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId) 
+        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
             var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
             {
@@ -387,6 +387,47 @@ namespace Yoti.Auth.Tests.DocScan
             });
 
             Assert.IsTrue(exception.Message.Contains("uploadFaceCaptureImagePayload"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task GetSessionConfigurationShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.GetSessionConfiguration(sdkId, _keyPair, _someSessionId);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
+        }
+
+        [TestMethod]
+        public async Task GetSessionConfigurationShouldThrowExceptionWhenKeyPairIsNull()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await _docScanService.GetSessionConfiguration(_sdkId, null, _someSessionId);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("keyPair"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task GetSessionConfigurationShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.GetSessionConfiguration(_sdkId, _keyPair, sessionId);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
         }
     }
 }
