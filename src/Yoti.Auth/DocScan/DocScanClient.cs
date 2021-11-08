@@ -6,6 +6,7 @@ using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration;
 using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
 
@@ -214,8 +215,30 @@ namespace Yoti.Auth.DocScan
         public async Task UploadFaceCaptureImageAsync(string sessionId, string resourceId, UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload)
         {
             _logger.Debug($"Uploading image to Face Capture resource '{resourceId}' for session '{sessionId}'");
-            
+
             await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, sessionId, resourceId, uploadFaceCaptureImagePayload).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the configuration for a specific session.
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <returns>The <see cref="SessionConfigurationResponse"/> Response</returns>
+        public SessionConfigurationResponse GetSessionConfiguration(string sessionId)
+        {
+            return GetSessionConfigurationAsync(sessionId).Result;
+        }
+
+        /// <summary>
+        /// Gets the configuration for a specific session.
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <returns>The <see cref="SessionConfigurationResponse"/> Response</returns>
+        public async Task<SessionConfigurationResponse> GetSessionConfigurationAsync(string sessionId)
+        {
+            _logger.Debug($"Getting configuration for session '{sessionId}'");
+
+            return await _docScanService.GetSessionConfiguration(_sdkId, _keyPair, sessionId).ConfigureAwait(false);
         }
     }
 }

@@ -22,6 +22,7 @@
 
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
+        public const string FaceCapture = "FACE_CAPTURE";
 
         public const string Camera = "CAMERA";
         public const string CameraAndUpload = "CAMERA_AND_UPLOAD";
@@ -60,5 +61,9 @@
 
         public const string MimeTypeJpg = "image/jpeg";
         public const string MimeTypePng = "image/png";
+
+        public const string EndUser = "END_USER";
+        public const string RelyingBusiness = "RELYING_BUSINESS";
+        public const string Ibv = "IBV";
     }
 }

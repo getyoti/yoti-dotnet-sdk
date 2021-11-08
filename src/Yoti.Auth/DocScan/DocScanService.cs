@@ -8,6 +8,7 @@ using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration;
 using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
@@ -273,6 +274,34 @@ namespace Yoti.Auth.DocScan
                 {
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
+            }
+        }
+
+        public async Task<SessionConfigurationResponse> GetSessionConfiguration(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+        {
+            Validation.NotNullOrWhiteSpace(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
+
+            _logger.Info($"Getting Session Configuration");
+
+            Request getSessionConfigurationRequest = GetSignedRequestBuilder()
+              .WithKeyPair(keyPair)
+              .WithHttpMethod(HttpMethod.Get)
+              .WithBaseUri(ApiUri)
+              .WithEndpoint($"/sessions/{sessionId}/configuration")
+              .WithQueryParam("sdkId", sdkId)
+              .Build();
+
+            using (HttpResponseMessage response = await getSessionConfigurationRequest.Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
+                }
+
+                return JsonConvert.DeserializeObject<SessionConfigurationResponse>(
+                    response.Content.ReadAsStringAsync().Result);
             }
         }
 

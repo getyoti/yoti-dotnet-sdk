@@ -13,7 +13,13 @@ using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture.Document;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture.FaceCapture;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture.Liveness;
 using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
+using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.Common;
@@ -473,7 +479,89 @@ namespace Yoti.Auth.Tests.DocScan
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload); 
+                docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+        [TestMethod]
+        public void GetSessionConfigurationShouldSucceed()
+        {
+            int clientSessionTokenTtl = 3600;
+            var requestedChecks = new List<string> { "check1", "check2" };
+            string biometricConsent = "someBiometricConsent";
+            var requiredIdDocumentResourceResponse = Mock.Of<RequiredIdDocumentResourceResponse>(ctx => ctx.Type == DocScanConstants.IdDocument);
+            var requiredSupplementaryDocumentResourceResponse = Mock.Of<RequiredSupplementaryDocumentResourceResponse>(ctx => ctx.Type == DocScanConstants.SupplementaryDocument);
+            var requiredLivenessResourceResponse = Mock.Of<RequiredLivenessResourceResponse>(ctx => ctx.Type == DocScanConstants.Liveness);
+            var requiredZoomLivenessResourceResponse = Mock.Of<RequiredZoomLivenessResourceResponse>(ctx => ctx.Type == DocScanConstants.Liveness
+                && ctx.LivenessType == DocScanConstants.Zoom);
+            var relyingBusinessAllowedSourceResponse = Mock.Of<AllowedSourceResponse>(ctx => ctx.Type == DocScanConstants.RelyingBusiness);
+            var allowedSources = new List<AllowedSourceResponse> {
+               relyingBusinessAllowedSourceResponse
+            };
+            var id = "someId";
+            var state = "someState";
+            var requiredFaceCaptureResourceResponse = Mock.Of<RequiredFaceCaptureResourceResponse>(ctx => ctx.Type == DocScanConstants.FaceCapture
+                && ctx.AllowedSources == allowedSources
+                && ctx.Id == id
+                && ctx.State == state);
+            List<RequiredResourceResponse> requiredResourceResponses = new List<RequiredResourceResponse>
+            {
+                requiredIdDocumentResourceResponse,
+                requiredSupplementaryDocumentResourceResponse,
+                requiredLivenessResourceResponse,
+                requiredZoomLivenessResourceResponse,
+                requiredFaceCaptureResourceResponse
+            };
+            dynamic captureResponse = new
+            {
+                biometric_consent = biometricConsent,
+                required_resources = requiredResourceResponses
+            };
+            dynamic sessionConfigurationResponse = new
+            {
+                client_session_token_ttl = clientSessionTokenTtl,
+                session_id = _someSessionId,
+                requested_checks = requestedChecks,
+                capture = captureResponse
+            };
+            DocScanClient docScanClient = SetupDocScanClient(sessionConfigurationResponse);
+
+            SessionConfigurationResponse result = docScanClient.GetSessionConfiguration(_someSessionId);
+
+            var faceCaptureResourceRequirement = result.Capture.GetFaceCaptureResourceRequirements().First();
+
+            Assert.AreEqual(clientSessionTokenTtl, result.ClientSessionTokenTtl);
+            Assert.AreEqual(_someSessionId, result.SessionId);
+            CollectionAssert.AreEqual(requestedChecks, result.RequestedChecks);
+            Assert.AreEqual(biometricConsent, result.Capture.BiometricConsent);
+            Assert.AreEqual(requiredResourceResponses.Count, result.Capture.RequiredResources.Count);
+            Assert.AreEqual(2, result.Capture.GetDocumentResourceRequirements().Count);
+            Assert.AreEqual(1, result.Capture.GetIdDocumentResourceRequirements().Count);
+            Assert.AreEqual(1, result.Capture.GetSupplementaryResourceRequirements().Count);
+            Assert.AreEqual(2, result.Capture.GetLivenessResourceRequirements().Count);
+            Assert.AreEqual(1, result.Capture.GetZoomLivenessResourceRequirements().Count);
+            Assert.AreEqual(1, result.Capture.GetFaceCaptureResourceRequirements().Count);
+            Assert.IsTrue(faceCaptureResourceRequirement.IsRelyingBusinessAllowed);
+            Assert.AreEqual(id, faceCaptureResourceRequirement.Id);
+            Assert.AreEqual(state, faceCaptureResourceRequirement.State);
+        }
+
+        [DataTestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void GetSessionConfigurationShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                docScanClient.GetSessionConfiguration(_someSessionId);
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
@@ -481,7 +569,12 @@ namespace Yoti.Auth.Tests.DocScan
 
         private DocScanClient SetupDocScanClient(dynamic createFaceCaptureResourceResponse)
         {
-            string jsonResponse = JsonConvert.SerializeObject(createFaceCaptureResourceResponse);
+            string jsonResponse = JsonConvert.SerializeObject(createFaceCaptureResourceResponse,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }
+                );
             var successResponse = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
