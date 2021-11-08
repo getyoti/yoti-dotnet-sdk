@@ -9,7 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture.Document
         /// List of supported country codes that can be used to satisfy the requirement
         /// </summary>
         /// <remarks>
-        ///     Each supported country will contain a list of document types that can be used
+        /// Each supported country will contain a list of document types that can be used
         /// </remarks>
         [JsonProperty(PropertyName = "supported_countries")]
         public List<SupportedCountryResponse> SupportedCountries { get; private set; }

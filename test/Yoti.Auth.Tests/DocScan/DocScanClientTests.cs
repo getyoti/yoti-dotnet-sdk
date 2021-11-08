@@ -567,9 +567,9 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
-        private DocScanClient SetupDocScanClient(dynamic createFaceCaptureResourceResponse)
+        private DocScanClient SetupDocScanClient(dynamic responseContent)
         {
-            string jsonResponse = JsonConvert.SerializeObject(createFaceCaptureResourceResponse,
+            string jsonResponse = JsonConvert.SerializeObject(responseContent,
                 new JsonSerializerSettings()
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
