@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
@@ -8,7 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Create
 {
     public class SessionSpecification
     {
-        internal SessionSpecification(int clientSessionTokenTtl, int resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent)
+        internal SessionSpecification(int? clientSessionTokenTtl, int resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent, DateTimeOffset? sessionDeadline)
         {
             ClientSessionTokenTtl = clientSessionTokenTtl;
             ResourcesTtl = resourcesTtl;
@@ -19,10 +20,11 @@ namespace Yoti.Auth.DocScan.Session.Create
             SdkConfig = sdkConfig;
             RequiredDocuments = requiredDocuments;
             BlockBiometricConsent = blockBiometricConsent;
+            SessionDeadline = sessionDeadline;
         }
 
         [JsonProperty(PropertyName = "client_session_token_ttl")]
-        public int ClientSessionTokenTtl { get; }
+        public int? ClientSessionTokenTtl { get; }
 
         [JsonProperty(PropertyName = "resources_ttl")]
         public int ResourcesTtl { get; }
@@ -47,5 +49,8 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "block_biometric_consent")]
         public bool? BlockBiometricConsent { get; }
+
+        [JsonProperty(PropertyName = "session_deadline")]
+        public DateTimeOffset? SessionDeadline { get; }
     }
 }
