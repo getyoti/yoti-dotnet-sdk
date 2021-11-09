@@ -65,5 +65,8 @@
         public const string EndUser = "END_USER";
         public const string RelyingBusiness = "RELYING_BUSINESS";
         public const string Ibv = "IBV";
+
+        public const string Reclassification = "RECLASSIFICATION";
+        public const string Generic = "GENERIC";
     }
 }
