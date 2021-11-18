@@ -11,7 +11,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private readonly List<BaseRequestedCheck> _requestedChecks = new List<BaseRequestedCheck>();
         private readonly List<BaseRequestedTask> _requestedTasks = new List<BaseRequestedTask>();
         private int? _clientSessionTokenTtl;
-        private int _resourcesTtl;
+        private int? _resourcesTtl;
         private string _userTrackingId;
         private NotificationConfig _notifications;
         private SdkConfig _sdkConfig;
