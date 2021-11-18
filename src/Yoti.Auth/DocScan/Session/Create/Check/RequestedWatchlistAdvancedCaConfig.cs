@@ -15,7 +15,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         [JsonProperty(PropertyName = "type")]
         public abstract string Type { get; }
 
-        public RequestedWatchlistAdvancedCaConfig(bool removeDeceased, bool shareUrl, RequestedCaSources sources, RequestedCaMatchingStrategy matchingStrategy)
+        protected RequestedWatchlistAdvancedCaConfig(bool removeDeceased, bool shareUrl, RequestedCaSources sources, RequestedCaMatchingStrategy matchingStrategy)
         {
             RemoveDeceased = removeDeceased;
             ShareUrl = shareUrl;
