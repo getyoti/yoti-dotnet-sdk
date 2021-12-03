@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
@@ -112,7 +114,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithWithRequiredDocument()
+        public void ShouldBuildWithRequiredDocument()
         {
             SessionSpecification sessionSpec =
               new SessionSpecificationBuilder()
@@ -140,7 +142,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithWithBlockBiometricConsentTrue()
+        public void ShouldBuildWithBlockBiometricConsentTrue()
         {
             SessionSpecification sessionSpec =
               new SessionSpecificationBuilder()
@@ -151,7 +153,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithWithBlockBiometricConsentFalse()
+        public void ShouldBuildWithBlockBiometricConsentFalse()
         {
             SessionSpecification sessionSpec =
               new SessionSpecificationBuilder()
@@ -159,6 +161,57 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
               .Build();
 
             Assert.IsFalse((bool)sessionSpec.BlockBiometricConsent);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithSessionDeadline()
+        {
+            var correctFormat = "2021-09-14T17:48:26.902+01:00";
+            DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(correctFormat);
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithSessionDeadline(dateTimeOffset)
+                .Build();
+
+            Assert.AreEqual(dateTimeOffset, sessionSpec.SessionDeadline);
+        }
+
+        [TestMethod]
+        public void ShouldCorrectlySerialiseSessionDeadlineFormat()
+        {
+            var correctFormat = "2021-09-14T17:48:26.902+01:00";
+            DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(correctFormat);
+            var correctKvp = $"\"session_deadline\":\"{correctFormat}\"";
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithSessionDeadline(dateTimeOffset)
+                .Build();
+            string sessionSpecJson = JsonConvert.SerializeObject(sessionSpec);
+
+            Assert.AreEqual(dateTimeOffset, sessionSpec.SessionDeadline);
+            Assert.IsTrue(sessionSpecJson.Contains(correctKvp));
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForSessionDeadline()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.SessionDeadline);
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForClientSessionTokenTtl()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.ClientSessionTokenTtl);
         }
     }
 }

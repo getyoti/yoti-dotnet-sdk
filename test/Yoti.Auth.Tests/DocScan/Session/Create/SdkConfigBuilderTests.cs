@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create
@@ -121,7 +123,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBuildWithPrivacyPolicyUrl()
         {
-            string privacyPolicyUrl = "https://yourdomain.com/some/privacy/policy";
+            string privacyPolicyUrl = "https://yourdomain.com/some/privacy-policy";
 
             SdkConfig sdkConfig =
              new SdkConfigBuilder()
@@ -142,6 +144,92 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
              .Build();
 
             Assert.AreEqual(error, sdkConfig.ErrorUrl);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithMobileHandoff()
+        {
+            bool mobileHandoff = true;
+
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .WithAllowHandoff(mobileHandoff)
+             .Build();
+
+            Assert.AreEqual(mobileHandoff, sdkConfig.AllowHandoff);
+        }
+
+        [TestMethod]
+        public void MobileHandoffShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .Build();
+
+            Assert.IsNull(sdkConfig.AllowHandoff);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithIdDocumentTextExtractionCategoryRetries()
+        {
+            string category = "someCategory";
+            int retries = 2;
+            var kvp = new KeyValuePair<string, int>(category, retries);
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithIdDocumentTextExtractionCategoryRetries(category, retries)
+                .Build();
+
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvp);
+        }
+
+        [TestMethod]
+        public void AttemptsConfigurationShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            Assert.IsNull(sdkConfig.AttemptsConfiguration);
+        }
+
+        [TestMethod]
+        public void AttemptsConfigurationShouldResetSameValueWithRepeatedCalls()
+        {
+            var kvp = new KeyValuePair<string, int>(DocScanConstants.Reclassification, 4);
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithIdDocumentTextExtractionReclassificationRetries(2)
+                .WithIdDocumentTextExtractionReclassificationRetries(3)
+                .WithIdDocumentTextExtractionReclassificationRetries(4)
+                .Build();
+
+            Assert.AreEqual(1, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvp);
+        }
+
+        [TestMethod]
+        public void AttemptsConfigurationShouldAllowMultipleCategories()
+        {
+            var kvpReclassificationRetries = new KeyValuePair<string, int>(DocScanConstants.Reclassification, 1);
+            string category = "someCategory";
+            int retries = 2;
+            var kvpUsersChoiceOfCategory = new KeyValuePair<string, int>(category, retries);
+            var kvpGenericRetries = new KeyValuePair<string, int>(DocScanConstants.Generic, 3);
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithIdDocumentTextExtractionReclassificationRetries(1)
+                .WithIdDocumentTextExtractionCategoryRetries(category, retries)
+                .WithIdDocumentTextExtractionGenericRetries(3)
+                .Build();
+
+            Assert.AreEqual(3, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpReclassificationRetries);
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpUsersChoiceOfCategory);
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericRetries);
         }
     }
 }

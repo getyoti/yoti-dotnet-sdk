@@ -4,8 +4,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration;
+using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Web;
@@ -38,12 +42,7 @@ namespace Yoti.Auth.DocScan
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(sessionSpec, nameof(sessionSpec));
 
-            string serializedSessionSpec = JsonConvert.SerializeObject(
-               sessionSpec,
-               new JsonSerializerSettings
-               {
-                   NullValueHandling = NullValueHandling.Ignore
-               });
+            string serializedSessionSpec = JsonConvert.SerializeObject(sessionSpec, YotiDefaultJsonSettings);
             byte[] body = Encoding.UTF8.GetBytes(serializedSessionSpec);
 
             Request createSessionRequest = GetSignedRequestBuilder()
@@ -53,7 +52,7 @@ namespace Yoti.Auth.DocScan
                 .WithEndpoint("/sessions")
                 .WithQueryParam("sdkId", sdkId)
                 .WithContent(body)
-                .WithContentHeader(Constants.Api.ContentTypeHeader, Constants.Api.ContentTypeJson)
+                .WithContentHeader(Api.ContentTypeHeader, Api.ContentTypeJson)
                 .Build();
 
             using (HttpResponseMessage response = await createSessionRequest.Execute(_httpClient).ConfigureAwait(false))
@@ -212,6 +211,100 @@ namespace Yoti.Auth.DocScan
             }
         }
 
+        public async Task<CreateFaceCaptureResourceResponse> CreateFaceCaptureResource(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, CreateFaceCaptureResourcePayload createFaceCaptureResourcePayload)
+        {
+            Validation.NotNullOrWhiteSpace(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
+            Validation.NotNull(createFaceCaptureResourcePayload, nameof(createFaceCaptureResourcePayload));
+
+            _logger.Info($"Creating new Face Capture resource");
+
+            string serializedFaceCaptureResourcePayload = JsonConvert.SerializeObject(createFaceCaptureResourcePayload, YotiDefaultJsonSettings);
+            byte[] body = Encoding.UTF8.GetBytes(serializedFaceCaptureResourcePayload);
+
+            Request createFaceCaptureRequest = GetSignedRequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithHttpMethod(HttpMethod.Post)
+                .WithBaseUri(ApiUri)
+                .WithEndpoint($"/sessions/{sessionId}/resources/face-capture")
+                .WithQueryParam("sdkId", sdkId)
+                .WithContent(body)
+                .WithContentHeader(Api.ContentTypeHeader, Api.ContentTypeJson)
+                .Build();
+
+            using (HttpResponseMessage response = await createFaceCaptureRequest.Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
+                }
+
+                return JsonConvert.DeserializeObject<CreateFaceCaptureResourceResponse>(
+                    response.Content.ReadAsStringAsync().Result);
+            }
+        }
+
+        public async Task UploadFaceCaptureImage(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, string resourceId, UploadFaceCaptureImagePayload uploadFaceCaptureImagePayload)
+        {
+            Validation.NotNullOrWhiteSpace(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
+            Validation.NotNullOrWhiteSpace(resourceId, nameof(resourceId));
+            Validation.NotNull(uploadFaceCaptureImagePayload, nameof(uploadFaceCaptureImagePayload));
+
+            _logger.Info($"Uploading image to Face Capture resource");
+
+            Request uploadFaceCaptureImageRequest = GetSignedRequestBuilder()
+                     .WithMultipartBoundary(DocScanConstants.MultiPartBoundary)
+                     .WithMultipartBinaryContent(DocScanConstants.UploadFaceCaptureImageBinaryContentName,
+                                uploadFaceCaptureImagePayload.ImageContents,
+                                uploadFaceCaptureImagePayload.ImageContentType,
+                                DocScanConstants.UploadFaceCaptureImageFileName)
+                     .WithKeyPair(keyPair)
+                     .WithHttpMethod(HttpMethod.Put)
+                     .WithBaseUri(ApiUri)
+                     .WithEndpoint($"/sessions/{sessionId}/resources/face-capture/{resourceId}/image")
+                     .WithQueryParam("sdkId", sdkId)
+                     .Build();
+
+            using (HttpResponseMessage response = await uploadFaceCaptureImageRequest.Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
+                }
+            }
+        }
+
+        public async Task<SessionConfigurationResponse> GetSessionConfiguration(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+        {
+            Validation.NotNullOrWhiteSpace(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
+
+            _logger.Info($"Getting Session Configuration");
+
+            Request getSessionConfigurationRequest = GetSignedRequestBuilder()
+              .WithKeyPair(keyPair)
+              .WithHttpMethod(HttpMethod.Get)
+              .WithBaseUri(ApiUri)
+              .WithEndpoint($"/sessions/{sessionId}/configuration")
+              .WithQueryParam("sdkId", sdkId)
+              .Build();
+
+            using (HttpResponseMessage response = await getSessionConfigurationRequest.Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
+                }
+
+                return JsonConvert.DeserializeObject<SessionConfigurationResponse>(
+                    response.Content.ReadAsStringAsync().Result);
+            }
+        }
+
         private static Uri GetApiUri()
         {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_DOC_SCAN_API_URL")))
@@ -220,7 +313,7 @@ namespace Yoti.Auth.DocScan
             }
             else
             {
-                return Constants.Api.DefaultYotiDocsUrl;
+                return Api.DefaultYotiDocsUrl;
             }
         }
 
@@ -238,5 +331,7 @@ namespace Yoti.Auth.DocScan
         {
             return $"sessions/{sessionId}/media/{mediaId}/content";
         }
+
+        private static JsonSerializerSettings YotiDefaultJsonSettings => new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
     }
 }

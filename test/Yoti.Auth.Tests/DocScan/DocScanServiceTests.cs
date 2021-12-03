@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Tests.DocScan
@@ -18,12 +21,17 @@ namespace Yoti.Auth.Tests.DocScan
 
         private AsymmetricCipherKeyPair _keyPair;
         private DocScanService _docScanService;
+        private CreateFaceCaptureResourcePayload _createFaceCaptureResourcePayload;
+        private string _someResourceId = "someResourceId";
+        private UploadFaceCaptureImagePayload _uploadFaceCaptureImagePayload;
 
         [TestInitialize]
         public void Startup()
         {
             _keyPair = Tests.Common.KeyPair.Get();
             _docScanService = new DocScanService(new HttpClient(), apiUri: null);
+            _createFaceCaptureResourcePayload = new CreateFaceCaptureResourcePayload("someRequirementId");
+            _uploadFaceCaptureImagePayload = new UploadFaceCaptureImagePayload(DocScanConstants.MimeTypePng, new byte[] { 0x00, 0x21, 0x60, 0x1F, 0xA1 });
         }
 
         [DataTestMethod]
@@ -260,6 +268,166 @@ namespace Yoti.Auth.Tests.DocScan
             RequestBuilder requestBuilder2 = DocScanService.GetSignedRequestBuilder();
 
             Assert.AreNotSame(requestBuilder1, requestBuilder2);
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.CreateFaceCaptureResource(sdkId, _keyPair, _someSessionId, _createFaceCaptureResourcePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
+        }
+
+        [TestMethod]
+        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenKeyPairIsNull()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await _docScanService.CreateFaceCaptureResource(_sdkId, null, _someSessionId, _createFaceCaptureResourcePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("keyPair"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.CreateFaceCaptureResource(_sdkId, _keyPair, sessionId, _createFaceCaptureResourcePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
+        }
+
+        [TestMethod]
+        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenCreateFaceCaptureResourcePayloadIsNull()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await _docScanService.CreateFaceCaptureResource(_sdkId, _keyPair, _someSessionId, null);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("createFaceCaptureResourcePayload"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.UploadFaceCaptureImage(sdkId, _keyPair, _someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
+        }
+
+        [TestMethod]
+        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenKeyPairIsNull()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await _docScanService.UploadFaceCaptureImage(_sdkId, null, _someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("keyPair"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, sessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenResourceIdIsNullEmptyOrWhitespace(string resourceId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, _someSessionId, resourceId, _uploadFaceCaptureImagePayload);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(resourceId)));
+        }
+
+        [TestMethod]
+        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenUploadFaceCaptureImagePayloadIsNull()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, _someSessionId, _someResourceId, null);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("uploadFaceCaptureImagePayload"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task GetSessionConfigurationShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.GetSessionConfiguration(sdkId, _keyPair, _someSessionId);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
+        }
+
+        [TestMethod]
+        public async Task GetSessionConfigurationShouldThrowExceptionWhenKeyPairIsNull()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await _docScanService.GetSessionConfiguration(_sdkId, null, _someSessionId);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("keyPair"));
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public async Task GetSessionConfigurationShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
+        {
+            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await _docScanService.GetSessionConfiguration(_sdkId, _keyPair, sessionId);
+            });
+
+            Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
         }
     }
 }

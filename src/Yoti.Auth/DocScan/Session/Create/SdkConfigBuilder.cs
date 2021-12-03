@@ -1,4 +1,5 @@
-﻿using Yoti.Auth.Constants;
+﻿using System.Collections.Generic;
+using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.DocScan.Session.Create
 {
@@ -13,6 +14,8 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _successUrl;
         private string _errorUrl;
         private string _privacyPolicyUrl;
+        private bool? _allowHandoff;
+        private Dictionary<string, int> _idDocumentTextDataExtractionRetriesConfig;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -132,6 +135,108 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets if the user is allowed to perform mobile handoff
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Mobile handoff allows the user to start a session on their desktop device, and then switch to using their mobile to upload resources (generally due to better camera quality on mobile devices)
+        ///     </para>
+        ///     <para>
+        ///         Note: Passing this value will override any value set in the Yoti Connect backend (which itself takes precedence over any value in lists of configured organisations)   
+        ///     </para>
+        /// </remarks>
+        /// <param name="allowHandoff">If mobile handoff is allowed</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithAllowHandoff(bool allowHandoff)
+        {
+            _allowHandoff = allowHandoff;
+            return this;
+        }
+
+        /// <summary>
+        /// Allows configuring the number of attempts permitted for text extraction on an ID document
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Can be used in conjunction with call(s) to <see cref="SessionSpecificationBuilder.WithRequestedTask(Task.BaseRequestedTask)"/> passing a <see cref="Task.RequestedTextExtractionTask"/>
+        ///     </para>
+        ///     <para>
+        ///         A <see cref="Task.RequestedTextExtractionTask"/> can be created with a <see cref="Task.RequestedTextExtractionTaskBuilder"/>
+        ///     </para>
+        ///     <para>
+        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some retries number being decremented
+        ///     </para>
+        /// </remarks>
+        /// <param name="category">The category for the retries number</param>
+        /// <param name="retries">The number of retries for the category specified</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithIdDocumentTextExtractionCategoryRetries(string category, int retries)
+        {
+            if (_idDocumentTextDataExtractionRetriesConfig == null)
+                _idDocumentTextDataExtractionRetriesConfig = new Dictionary<string, int>();
+
+            if (_idDocumentTextDataExtractionRetriesConfig.ContainsKey(category))
+                _idDocumentTextDataExtractionRetriesConfig[category] = retries;
+            else
+                _idDocumentTextDataExtractionRetriesConfig.Add(category, retries);
+            return this;
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Allows configuring the number of 'Reclassification' attempts permitted for text extraction on an ID document
+        ///     </para>
+        ///     <para>
+        ///         The Reclassification retries value is decremented whenever the uploaded document is reclassified to be used by another resource requirement
+        ///     </para>
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Can be used in conjunction with call(s) to <see cref="SessionSpecificationBuilder.WithRequestedTask(Task.BaseRequestedTask)"/> passing a <see cref="Task.RequestedTextExtractionTask"/>
+        ///     </para>
+        ///     <para>
+        ///         A <see cref="Task.RequestedTextExtractionTask"/> can be created with a <see cref="Task.RequestedTextExtractionTaskBuilder"/>
+        ///     </para>
+        ///     <para>
+        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some retries number being decremented
+        ///     </para>
+        /// </remarks>
+        /// <param name="reclassificationRetries">The number of retries for reclassification</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithIdDocumentTextExtractionReclassificationRetries(int reclassificationRetries)
+        {
+            WithIdDocumentTextExtractionCategoryRetries(DocScanConstants.Reclassification, reclassificationRetries);
+            return this;
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Allows configuring the number of 'Generic' attempts permitted for text extraction on an ID document
+        ///     </para>
+        ///     <para>
+        ///         The Generic retries value is decremented whenever some event concerning the uploaded document occurs which has not otherwise been categorised (e.g. as 'Reclassification')
+        ///     </para>
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Can be used in conjunction with call(s) to <see cref="SessionSpecificationBuilder.WithRequestedTask(Task.BaseRequestedTask)"/> passing a <see cref="Task.RequestedTextExtractionTask"/>
+        ///     </para>
+        ///     <para>
+        ///         A <see cref="Task.RequestedTextExtractionTask"/> can be created with a <see cref="Task.RequestedTextExtractionTaskBuilder"/>
+        ///     </para>
+        ///     <para>
+        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some retries number being decremented
+        ///     </para>
+        /// </remarks>
+        /// <param name="genericRetries">The number of generic retries</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithIdDocumentTextExtractionGenericRetries(int genericRetries)
+        {
+            WithIdDocumentTextExtractionCategoryRetries(DocScanConstants.Generic, genericRetries);
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -146,7 +251,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _presetIssuingCountry,
                 _successUrl,
                 _errorUrl,
-                _privacyPolicyUrl);
+                _privacyPolicyUrl,
+                _allowHandoff,
+                _idDocumentTextDataExtractionRetriesConfig);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create
@@ -103,6 +104,38 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.AreEqual(1, notificationConfig.Topics.Count);
             Assert.AreEqual(topicName, notificationConfig.Topics.Single());
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForAuthType()
+        {
+            NotificationConfig notificationConfig =
+              new NotificationConfigBuilder()
+              .Build();
+
+            Assert.IsNull(notificationConfig.AuthType);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithAuthTypeBasic()
+        {
+            NotificationConfig notificationConfig =
+              new NotificationConfigBuilder()
+              .WithAuthTypeBasic()
+              .Build();
+
+            Assert.AreEqual(DocScanConstants.Basic, notificationConfig.AuthType);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithAuthTypeBearer()
+        {
+            NotificationConfig notificationConfig =
+              new NotificationConfigBuilder()
+              .WithAuthTypeBearer()
+              .Build();
+
+            Assert.AreEqual(DocScanConstants.Bearer, notificationConfig.AuthType);
         }
     }
 }

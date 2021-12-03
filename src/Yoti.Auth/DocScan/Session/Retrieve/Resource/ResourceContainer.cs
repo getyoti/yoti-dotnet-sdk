@@ -14,6 +14,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         [JsonProperty(PropertyName = "liveness_capture")]
         public List<LivenessResourceResponse> LivenessCapture { get; internal set; }
 
+        [JsonProperty(PropertyName = "face_capture")]
+        public List<FaceCaptureResourceResponse> FaceCapture { get; internal set; }
+
         public List<ZoomLivenessResourceResponse> ZoomLivenessResources
         {
             get

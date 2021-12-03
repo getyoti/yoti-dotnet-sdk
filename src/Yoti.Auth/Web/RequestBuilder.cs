@@ -18,6 +18,7 @@ namespace Yoti.Auth.Web
         private AsymmetricCipherKeyPair _keyPair;
         private HttpMethod _httpMethod;
         private byte[] _content;
+        private MultipartFormDataContent _multipartFormDataContent;
 
         /// <summary>
         /// Builds a (signed) request.
@@ -36,7 +37,6 @@ namespace Yoti.Auth.Web
             Validation.NotNull(baseUri, nameof(baseUri));
 
             _baseUriBuilder = new UriBuilder(baseUri);
-
             return this;
         }
 
@@ -53,7 +53,6 @@ namespace Yoti.Auth.Web
                 endpoint = "/" + endpoint;
 
             _endpoint = endpoint;
-
             return this;
         }
 
@@ -65,7 +64,6 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithQueryParam(string key, string value)
         {
             _queryParams.Add(key, value);
-
             return this;
         }
 
@@ -78,7 +76,6 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithStreamReader(StreamReader streamReader)
         {
             _keyPair = CryptoEngine.LoadRsaKey(streamReader);
-
             return this;
         }
 
@@ -142,7 +139,55 @@ namespace Yoti.Auth.Web
         /// <returns><see cref="RequestBuilder"/></returns>
         public RequestBuilder WithContent(byte[] content)
         {
+            Validation.IsNull(_multipartFormDataContent, nameof(_multipartFormDataContent));
+           
             _content = content;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the boundary to be used on the multipart request.
+        /// </summary>
+        /// <remarks>
+        ///     Use with <see cref="WithMultipartBinaryContent"/>
+        /// </remarks>
+        /// <param name="multipartBoundaryName">The multipart boundary name to use to split the content</param>
+        /// <returns>The <see cref="RequestBuilder"/></returns>
+        public RequestBuilder WithMultipartBoundary(string multipartBoundaryName)
+        {
+            Validation.NotNullOrWhiteSpace(multipartBoundaryName, nameof(multipartBoundaryName));
+            Validation.IsNull(_content, nameof(_content));
+
+            _multipartFormDataContent = new MultipartFormDataContent(multipartBoundaryName); 
+            return this;
+        }
+
+        /// <summary>
+        /// Adds binary content to the multipart request.
+        /// </summary>
+        /// <remarks>
+        ///     Use with <see cref="WithMultipartBoundary"/>
+        /// </remarks>
+        /// <param name="name">The name of the binary content</param>
+        /// <param name="payload">The payload of the binary content</param>
+        /// <param name="contentType">The content type of the binary content</param>
+        /// <param name="fileName">The filename of the binary content</param>
+        /// <returns>The <see cref="RequestBuilder"/></returns>
+        public RequestBuilder WithMultipartBinaryContent(
+            string name,
+            byte[] payload,
+            string contentType, 
+            string fileName)
+        {
+            Validation.NotNull(_multipartFormDataContent, nameof(_multipartFormDataContent));
+            Validation.NotNullOrWhiteSpace(name, nameof(name));
+            Validation.NotNull(payload, nameof(payload));
+            Validation.NotNull(contentType, nameof(contentType));
+            Validation.NotNullOrWhiteSpace(fileName, nameof(fileName)); 
+            
+            var binaryContent = new ByteArrayContent(payload);
+            binaryContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+            _multipartFormDataContent.Add(binaryContent, name, fileName);
             return this;
         }
 
@@ -153,7 +198,7 @@ namespace Yoti.Auth.Web
         public Request Build()
         {
             Validation.NotNull(_baseUriBuilder, nameof(_baseUriBuilder));
-            Validation.NotNullOrEmpty(_endpoint, nameof(_endpoint));
+            Validation.NotNullOrWhiteSpace(_endpoint, nameof(_endpoint));
             Validation.NotNull(_keyPair, nameof(_keyPair));
             Validation.NotNull(_httpMethod, nameof(_httpMethod));
 
@@ -168,9 +213,18 @@ namespace Yoti.Auth.Web
                 Method = _httpMethod
             };
 
+            byte[] contentForHeaderCreation = null;
+
             if (_content != null)
             {
-                httpRequestMessage.Content = new ByteArrayContent(_content);
+                var byteContent = new ByteArrayContent(_content);
+                httpRequestMessage.Content = byteContent;
+                contentForHeaderCreation = byteContent.ReadAsByteArrayAsync().Result;
+            }
+            else if(_multipartFormDataContent != null)
+            {
+                httpRequestMessage.Content = _multipartFormDataContent;
+                contentForHeaderCreation = _multipartFormDataContent.ReadAsByteArrayAsync().Result;
             }
 
             httpRequestMessage = HeadersFactory.AddHeaders(
@@ -178,7 +232,7 @@ namespace Yoti.Auth.Web
                 _keyPair,
                 _httpMethod,
                 endpointWithParameters,
-                _content);
+                contentForHeaderCreation);
 
             AddCustomHeaders(httpRequestMessage);
             AddCustomContentHeaders(httpRequestMessage);

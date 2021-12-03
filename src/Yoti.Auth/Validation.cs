@@ -6,6 +6,14 @@ namespace Yoti.Auth
 {
     internal static class Validation
     {
+        public static void IsNull(object value, string name)
+        {
+            if (value != null)
+            {
+                throw new InvalidOperationException($"'{name}' must be null but value is '{value}'");
+            }
+        }
+
         public static void NotNull(object value, string name)
         {
             if (value == null)
@@ -19,6 +27,14 @@ namespace Yoti.Auth
             if (string.IsNullOrEmpty(value))
             {
                 throw new InvalidOperationException($"'{name}' must not be empty or null");
+            }
+        }
+
+        public static void NotNullOrWhiteSpace(string value, string name)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new InvalidOperationException($"'{name}' must not be null, empty, or consist only of white-space");
             }
         }
 

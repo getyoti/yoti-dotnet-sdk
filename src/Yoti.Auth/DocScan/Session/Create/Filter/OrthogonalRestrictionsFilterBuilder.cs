@@ -30,7 +30,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
             _typeRestriction = new TypeRestriction(Constants.DocScanConstants.ExcludeList, documentTypes);
             return this;
         }
-
+        
         public OrthogonalRestrictionsFilter Build()
         {
             return new OrthogonalRestrictionsFilter(_countryRestriction, _typeRestriction);

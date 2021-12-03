@@ -3,7 +3,7 @@
 namespace Yoti.Auth.DocScan.Session.Create.Check
 {
     /// <summary>
-    /// Requests creation of a FaceMatch Check
+    /// Requests creation of a Third Party Identity Check
     /// </summary>
     public class RequestedThirdPartyIdentityCheck : RequestedCheck<RequestedThirdPartyIdentityCheckConfig>
     {

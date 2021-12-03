@@ -1,8 +1,11 @@
-﻿namespace Yoti.Auth.DocScan.Session.Create.Check
+﻿using Yoti.Auth.DocScan.Session.Create.Filter;
+
+namespace Yoti.Auth.DocScan.Session.Create.Check
 {
     public class RequestedDocumentAuthenticityCheckBuilder
     {
         private string _manualCheck;
+        private IssuingAuthoritySubCheck _issuingAuthoritySubCheck;
 
         /// <summary>
         /// Requires that a manual follow-up check is always performed
@@ -34,9 +37,37 @@
             return this;
         }
 
+        /// <summary>
+        /// Adds an Issuing Authority Sub Check
+        /// </summary>
+        /// <returns>The <see cref="RequestedDocumentAuthenticityCheckBuilder"/></returns>
+        public RequestedDocumentAuthenticityCheckBuilder WithIssuingAuthoritySubCheck()
+        {
+            _issuingAuthoritySubCheck = new IssuingAuthoritySubCheckBuilder()
+                    .WithRequested(true)
+                    .Build();
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an Issuing Authority Sub Check with a <see cref="DocumentFilter">documentFilter</see> (used to determine which documents the sub check is performed on).
+        /// </summary>
+        /// <param name="documentFilter">The <see cref="DocumentFilter"/> used to determine which documents the sub check is performed on</param>
+        /// <returns>The <see cref="RequestedDocumentAuthenticityCheckBuilder"/></returns>
+        public RequestedDocumentAuthenticityCheckBuilder WithIssuingAuthoritySubCheck(DocumentFilter documentFilter)
+        {
+            _issuingAuthoritySubCheck = new IssuingAuthoritySubCheckBuilder()
+                    .WithRequested(true)
+                    .WithFilter(documentFilter)
+                    .Build();
+            return this;
+        }
+
         public RequestedDocumentAuthenticityCheck Build()
         {
-            return new RequestedDocumentAuthenticityCheck(new RequestedDocumentAuthenticityConfig(_manualCheck));
+            var config = new RequestedDocumentAuthenticityConfig(_manualCheck, _issuingAuthoritySubCheck);
+
+            return new RequestedDocumentAuthenticityCheck(config);
         }
     }
 }

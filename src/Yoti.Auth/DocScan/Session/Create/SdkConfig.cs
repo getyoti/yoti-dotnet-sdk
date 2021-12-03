@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
 {
@@ -34,15 +35,23 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "privacy_policy_url")]
         public string PrivacyPolicyUrl { get; }
 
+        [JsonProperty(PropertyName = "allow_handoff")]
+        public bool? AllowHandoff { get; }
+
+        [JsonProperty(PropertyName = "attempts_configuration")]
+        public AttemptsConfiguration AttemptsConfiguration { get; }
+
         public SdkConfig(string allowedCaptureMethods,
-                        string primaryColour,
-                        string secondaryColour,
-                        string fontColour,
-                        string locale,
-                        string presetIssuingCountry,
-                        string successUrl,
-                        string errorUrl,
-                        string privacyPolicyUrl)
+                            string primaryColour,
+                            string secondaryColour,
+                            string fontColour,
+                            string locale,
+                            string presetIssuingCountry,
+                            string successUrl,
+                            string errorUrl,
+                            string privacyPolicyUrl,
+                            bool? allowHandoff = null,
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -53,6 +62,15 @@ namespace Yoti.Auth.DocScan.Session.Create
             SuccessUrl = successUrl;
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
+            AllowHandoff = allowHandoff;
+
+            if (idDocumentTextDataExtractionRetriesConfig != null)
+            {
+                AttemptsConfiguration = new AttemptsConfiguration
+                {
+                    IdDocumentTextDataExtraction = idDocumentTextDataExtractionRetriesConfig
+                };
+            }
         }
     }
 }

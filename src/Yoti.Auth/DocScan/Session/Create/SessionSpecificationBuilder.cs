@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
@@ -9,17 +10,21 @@ namespace Yoti.Auth.DocScan.Session.Create
     {
         private readonly List<BaseRequestedCheck> _requestedChecks = new List<BaseRequestedCheck>();
         private readonly List<BaseRequestedTask> _requestedTasks = new List<BaseRequestedTask>();
-        private int _clientSessionTokenTtl;
-        private int _resourcesTtl;
+        private int? _clientSessionTokenTtl;
+        private int? _resourcesTtl;
         private string _userTrackingId;
         private NotificationConfig _notifications;
         private SdkConfig _sdkConfig;
         private List<RequiredDocument> _requiredDocuments;
         private bool? _blockBiometricConsent;
+        private DateTimeOffset? _sessionDeadline;
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)
         /// </summary>
+        /// <remarks>
+        /// Can be used as an alternative to <see cref="WithSessionDeadline"/> 
+        /// </remarks>
         /// <param name="clientSessionTokenTtl">the client session token TTL</param>
         /// <returns>the builder</returns>
         public SessionSpecificationBuilder WithClientSessionTokenTtl(int clientSessionTokenTtl)
@@ -120,6 +125,20 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the deadline that the session needs to be completed by
+        /// </summary>
+        /// <remarks>
+        /// Can be used as an alternative to <see cref="WithClientSessionTokenTtl"/> 
+        /// </remarks>
+        /// <param name="sessionDeadline">The <see cref="DateTimeOffset"/> for the session to end</param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithSessionDeadline(DateTimeOffset sessionDeadline)
+        {
+            _sessionDeadline = sessionDeadline;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SessionSpecification"/></returns>
@@ -134,7 +153,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _requestedTasks,
                 _sdkConfig,
                 _requiredDocuments,
-                _blockBiometricConsent);
+                _blockBiometricConsent,
+                _sessionDeadline
+                );
         }
     }
 }
