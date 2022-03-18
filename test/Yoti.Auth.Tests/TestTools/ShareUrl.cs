@@ -18,7 +18,29 @@ namespace Yoti.Auth.Tests.TestTools
               .WithAgeUnder(30)
               .WithAgeUnder(40)
               .WithPinAuthentication(true)
+              .WithIdentityProfileRequirements(CreateStandardIdentityProfileRequirements())
               .Build();
+        }
+
+        public static object CreateStandardIdentityProfileRequirements()
+        {
+            return new
+            {
+                trust_framework = "UK_TFIDA",
+                scheme = new
+                {
+                    type = "DBS",
+                    objective = "STANDARD"
+                }
+            };
+        }
+
+        public static object CreateStandardSubject()
+        {
+            return new
+            {
+                subject_id = "some_subject_id_string"
+            };
         }
     }
 }

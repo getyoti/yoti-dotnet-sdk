@@ -312,5 +312,18 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.IsTrue(result.WantedRememberMeId);
         }
+
+
+        [TestMethod]
+        public void ShouldBuildWithIdentityProfileRequirements()
+        {
+            object identityProfileRequirements = TestTools.ShareUrl.CreateStandardIdentityProfileRequirements();
+
+            DynamicPolicy result = new DynamicPolicyBuilder()
+                    .WithIdentityProfileRequirements(identityProfileRequirements)
+                    .Build();
+
+            Assert.AreEqual(identityProfileRequirements, result.IdentityProfileRequirements);
+        }
     }
 }

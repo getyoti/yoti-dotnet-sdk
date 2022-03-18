@@ -29,11 +29,14 @@ namespace Yoti.Auth.Tests.ShareUrl
         public void ShouldBuildADynamicScenario()
         {
             DynamicPolicy somePolicy = TestTools.ShareUrl.CreateStandardPolicy();
+            object someSubject = TestTools.ShareUrl.CreateStandardSubject();
+
             DynamicScenario result = new DynamicScenarioBuilder()
                 .WithCallbackEndpoint(_someEndpoint)
                 .WithPolicy(somePolicy)
                 .WithExtension(extension1)
                 .WithExtension(extension2)
+                .WithSubject(someSubject)
                 .Build();
 
             var expectedExtensions = new List<BaseExtension> { extension1, extension2 };
@@ -41,6 +44,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             Assert.AreEqual(_someEndpoint, result.CallbackEndpoint);
             Assert.AreEqual(somePolicy, result.DynamicPolicy);
             CollectionAssert.AreEqual(expectedExtensions, result.Extensions);
+            Assert.AreEqual(someSubject, result.Subject);
 
             string serializedScenario = JsonConvert.SerializeObject(
                 result,

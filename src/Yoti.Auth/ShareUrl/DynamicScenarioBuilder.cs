@@ -9,6 +9,7 @@ namespace Yoti.Auth.ShareUrl
         private string _callbackEndpoint;
         private DynamicPolicy _dynamicPolicy;
         private readonly List<BaseExtension> _extensions = new List<BaseExtension>();
+        private object _subject;
 
         /// <summary>
         /// The device's callback endpoint. Must be a URL relative to the Application Domain
@@ -44,9 +45,20 @@ namespace Yoti.Auth.ShareUrl
             return this;
         }
 
+        /// <summary>
+        /// The subject object
+        /// </summary>
+        /// <param name="subject">The object describing the subject</param>
+        /// <returns><see cref="DynamicScenarioBuilder"/> with the subject details provided</returns>
+        public DynamicScenarioBuilder WithSubject(object subject)
+        {
+            _subject = subject;
+            return this;
+        }
+
         public DynamicScenario Build()
         {
-            return new DynamicScenario(_callbackEndpoint, _dynamicPolicy, _extensions);
+            return new DynamicScenario(_callbackEndpoint, _dynamicPolicy, _extensions, _subject);
         }
     }
 }
