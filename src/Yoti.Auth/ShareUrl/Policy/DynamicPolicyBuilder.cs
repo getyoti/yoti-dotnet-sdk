@@ -7,6 +7,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         private readonly Dictionary<string, WantedAttribute> _wantedAttributes = new Dictionary<string, WantedAttribute>();
         private readonly HashSet<int> _wantedAuthTypes = new HashSet<int>();
         private bool _wantedRememberMeId;
+        private object _identityProfileRequirements;
 
         public DynamicPolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
         {
@@ -145,9 +146,20 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
+        /// <summary>
+        /// Use an Identity Profile Requirement object for the share
+        /// </summary>
+        /// <param name="identityProfileRequirements"> object describing the identity profile requirements to use</param>
+        /// <returns><see cref="DynamicPolicyBuilder"/> with the identity profile requirements</returns>
+        public DynamicPolicyBuilder WithIdentityProfileRequirements(object identityProfileRequirements)
+        {
+            _identityProfileRequirements = identityProfileRequirements;
+            return this;
+        }
+
         public DynamicPolicy Build()
         {
-            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId);
+            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements);
         }
     }
 }
