@@ -26,38 +26,47 @@ namespace Yoti.Auth.ProtoBuf.Share {
           string.Concat(
             "Cg9FeHRyYURhdGEucHJvdG8SDnNoYXJlcHViYXBpX3YxGg9EYXRhRW50cnku",
             "cHJvdG8iNAoJRXh0cmFEYXRhEicKBGxpc3QYASADKAsyGS5zaGFyZXB1YmFw",
-            "aV92MS5EYXRhRW50cnlCrwEKJGNvbS55b3RpLmFwaS5jbGllbnQuc3BpLnJl",
-            "bW90ZS5wcm90b0IORXh0cmFEYXRhUHJvdG9aDnlvdGlwcm90b3NoYXJlqgIY",
-            "WW90aS5BdXRoLlByb3RvQnVmLlNoYXJlygIQWW90aVxTaGFyZXB1YmFwaeIC",
-            "HFlvdGlcU2hhcmVwdWJhcGlcR1BCTWV0YWRhdGHqAhlZb3RpLlByb3RvYnVm",
-            "LlNoYXJlcHViYXBpYgZwcm90bzM="));
+            "aV92MS5EYXRhRW50cnlC5QEKJGNvbS55b3RpLmFwaS5jbGllbnQuc3BpLnJl",
+            "bW90ZS5wcm90b0IORXh0cmFEYXRhUHJvdG9aMGdpdGh1Yi5jb20vZ2V0eW90",
+            "aS95b3RpLWdvLXNkay92My95b3RpcHJvdG9zaGFyZaoCGFlvdGkuQXV0aC5Q",
+            "cm90b0J1Zi5TaGFyZcoCGVlvdGlcUHJvdG9idWZcU2hhcmVwdWJhcGniAiVZ",
+            "b3RpXFByb3RvYnVmXFNoYXJlcHViYXBpXEdQQk1ldGFkYXRh6gIbWW90aTo6",
+            "UHJvdG9idWY6OlNoYXJlcHViYXBpYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Yoti.Auth.ProtoBuf.Share.DataEntryReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Share.ExtraData), global::Yoti.Auth.ProtoBuf.Share.ExtraData.Parser, new[]{ "List" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Share.ExtraData), global::Yoti.Auth.ProtoBuf.Share.ExtraData.Parser, new[]{ "List" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class ExtraData : pb::IMessage<ExtraData> {
+  public sealed partial class ExtraData : pb::IMessage<ExtraData>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<ExtraData> _parser = new pb::MessageParser<ExtraData>(() => new ExtraData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<ExtraData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Share.ExtraDataReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ExtraData() {
       OnConstruction();
     }
@@ -65,12 +74,14 @@ namespace Yoti.Auth.ProtoBuf.Share {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ExtraData(ExtraData other) : this() {
       list_ = other.list_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ExtraData Clone() {
       return new ExtraData(this);
     }
@@ -81,16 +92,19 @@ namespace Yoti.Auth.ProtoBuf.Share {
         = pb::FieldCodec.ForMessage(10, global::Yoti.Auth.ProtoBuf.Share.DataEntry.Parser);
     private readonly pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Share.DataEntry> list_ = new pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Share.DataEntry>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Share.DataEntry> List {
       get { return list_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as ExtraData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(ExtraData other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -103,6 +117,7 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       hash ^= list_.GetHashCode();
@@ -113,19 +128,37 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
       list_.WriteTo(output, _repeated_list_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      list_.WriteTo(ref output, _repeated_list_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       size += list_.CalculateSize(_repeated_list_codec);
@@ -136,6 +169,7 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(ExtraData other) {
       if (other == null) {
         return;
@@ -145,7 +179,11 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -158,7 +196,27 @@ namespace Yoti.Auth.ProtoBuf.Share {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            list_.AddEntriesFrom(ref input, _repeated_list_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 

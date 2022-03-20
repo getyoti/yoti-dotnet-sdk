@@ -30,39 +30,49 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             "dHJpYnV0ZUFuZElkTGlzdBI8ChVhdHRyaWJ1dGVfYW5kX2lkX2xpc3QYASAD",
             "KAsyHS5hdHRycHViYXBpX3YxLkF0dHJpYnV0ZUFuZElkIj0KDUF0dHJpYnV0",
             "ZUxpc3QSLAoKYXR0cmlidXRlcxgBIAMoCzIYLmF0dHJwdWJhcGlfdjEuQXR0",
-            "cmlidXRlQpABCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJv",
-            "dG9CEkF0dHJpYnV0ZUxpc3RQcm90b1oNeW90aXByb3RvYXR0cqoCHFlvdGku",
-            "QXV0aC5Qcm90b0J1Zi5BdHRyaWJ1dGXKAgpBdHRycHViYXBp6gIYWW90aS5Q",
-            "cm90b2J1Zi5BdHRycHViYXBpYgZwcm90bzM="));
+            "cmlidXRlQukBCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJv",
+            "dG9CEkF0dHJpYnV0ZUxpc3RQcm90b1ovZ2l0aHViLmNvbS9nZXR5b3RpL3lv",
+            "dGktZ28tc2RrL3YzL3lvdGlwcm90b2F0dHKqAhxZb3RpLkF1dGguUHJvdG9C",
+            "dWYuQXR0cmlidXRlygIYWW90aVxQcm90b2J1ZlxBdHRycHViYXBp4gIkWW90",
+            "aVxQcm90b2J1ZlxBdHRycHViYXBpXEdQQk1ldGFkYXRh6gIaWW90aTo6UHJv",
+            "dG9idWY6OkF0dHJwdWJhcGliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Yoti.Auth.ProtoBuf.Attribute.AttributeReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId), global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId.Parser, new[]{ "Attribute", "AttributeId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndIdList), global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndIdList.Parser, new[]{ "AttributeAndIdList_" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeList), global::Yoti.Auth.ProtoBuf.Attribute.AttributeList.Parser, new[]{ "Attributes" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId), global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId.Parser, new[]{ "Attribute", "AttributeId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndIdList), global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndIdList.Parser, new[]{ "AttributeAndIdList_" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeList), global::Yoti.Auth.ProtoBuf.Attribute.AttributeList.Parser, new[]{ "Attributes" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class AttributeAndId : pb::IMessage<AttributeAndId> {
+  public sealed partial class AttributeAndId : pb::IMessage<AttributeAndId>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<AttributeAndId> _parser = new pb::MessageParser<AttributeAndId>(() => new AttributeAndId());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<AttributeAndId> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Attribute.ListReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeAndId() {
       OnConstruction();
     }
@@ -70,6 +80,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeAndId(AttributeAndId other) : this() {
       attribute_ = other.attribute_ != null ? other.attribute_.Clone() : null;
       attributeId_ = other.attributeId_;
@@ -77,6 +88,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeAndId Clone() {
       return new AttributeAndId(this);
     }
@@ -85,6 +97,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int AttributeFieldNumber = 1;
     private global::Yoti.Auth.ProtoBuf.Attribute.Attribute attribute_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Yoti.Auth.ProtoBuf.Attribute.Attribute Attribute {
       get { return attribute_; }
       set {
@@ -96,6 +109,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int AttributeIdFieldNumber = 2;
     private pb::ByteString attributeId_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString AttributeId {
       get { return attributeId_; }
       set {
@@ -104,11 +118,13 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as AttributeAndId);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(AttributeAndId other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -122,6 +138,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       if (attribute_ != null) hash ^= Attribute.GetHashCode();
@@ -133,12 +150,17 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
       if (attribute_ != null) {
         output.WriteRawTag(10);
         output.WriteMessage(Attribute);
@@ -150,9 +172,29 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (attribute_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Attribute);
+      }
+      if (AttributeId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(AttributeId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       if (attribute_ != null) {
@@ -168,13 +210,14 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(AttributeAndId other) {
       if (other == null) {
         return;
       }
       if (other.attribute_ != null) {
         if (attribute_ == null) {
-          attribute_ = new global::Yoti.Auth.ProtoBuf.Attribute.Attribute();
+          Attribute = new global::Yoti.Auth.ProtoBuf.Attribute.Attribute();
         }
         Attribute.MergeFrom(other.Attribute);
       }
@@ -185,7 +228,11 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -194,9 +241,35 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             break;
           case 10: {
             if (attribute_ == null) {
-              attribute_ = new global::Yoti.Auth.ProtoBuf.Attribute.Attribute();
+              Attribute = new global::Yoti.Auth.ProtoBuf.Attribute.Attribute();
             }
-            input.ReadMessage(attribute_);
+            input.ReadMessage(Attribute);
+            break;
+          }
+          case 18: {
+            AttributeId = input.ReadBytes();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (attribute_ == null) {
+              Attribute = new global::Yoti.Auth.ProtoBuf.Attribute.Attribute();
+            }
+            input.ReadMessage(Attribute);
             break;
           }
           case 18: {
@@ -206,26 +279,35 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
         }
       }
     }
+    #endif
 
   }
 
-  public sealed partial class AttributeAndIdList : pb::IMessage<AttributeAndIdList> {
+  public sealed partial class AttributeAndIdList : pb::IMessage<AttributeAndIdList>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<AttributeAndIdList> _parser = new pb::MessageParser<AttributeAndIdList>(() => new AttributeAndIdList());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<AttributeAndIdList> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Attribute.ListReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeAndIdList() {
       OnConstruction();
     }
@@ -233,12 +315,14 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeAndIdList(AttributeAndIdList other) : this() {
       attributeAndIdList_ = other.attributeAndIdList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeAndIdList Clone() {
       return new AttributeAndIdList(this);
     }
@@ -249,16 +333,19 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
         = pb::FieldCodec.ForMessage(10, global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId.Parser);
     private readonly pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId> attributeAndIdList_ = new pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.AttributeAndId> AttributeAndIdList_ {
       get { return attributeAndIdList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as AttributeAndIdList);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(AttributeAndIdList other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -271,6 +358,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       hash ^= attributeAndIdList_.GetHashCode();
@@ -281,19 +369,37 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
       attributeAndIdList_.WriteTo(output, _repeated_attributeAndIdList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      attributeAndIdList_.WriteTo(ref output, _repeated_attributeAndIdList_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       size += attributeAndIdList_.CalculateSize(_repeated_attributeAndIdList_codec);
@@ -304,6 +410,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(AttributeAndIdList other) {
       if (other == null) {
         return;
@@ -313,7 +420,11 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -326,27 +437,55 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            attributeAndIdList_.AddEntriesFrom(ref input, _repeated_attributeAndIdList_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 
-  public sealed partial class AttributeList : pb::IMessage<AttributeList> {
+  public sealed partial class AttributeList : pb::IMessage<AttributeList>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<AttributeList> _parser = new pb::MessageParser<AttributeList>(() => new AttributeList());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<AttributeList> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Attribute.ListReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeList() {
       OnConstruction();
     }
@@ -354,12 +493,14 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeList(AttributeList other) : this() {
       attributes_ = other.attributes_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeList Clone() {
       return new AttributeList(this);
     }
@@ -370,16 +511,19 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
         = pb::FieldCodec.ForMessage(10, global::Yoti.Auth.ProtoBuf.Attribute.Attribute.Parser);
     private readonly pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.Attribute> attributes_ = new pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.Attribute>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<global::Yoti.Auth.ProtoBuf.Attribute.Attribute> Attributes {
       get { return attributes_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as AttributeList);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(AttributeList other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -392,6 +536,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       hash ^= attributes_.GetHashCode();
@@ -402,19 +547,37 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
       attributes_.WriteTo(output, _repeated_attributes_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      attributes_.WriteTo(ref output, _repeated_attributes_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       size += attributes_.CalculateSize(_repeated_attributes_codec);
@@ -425,6 +588,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(AttributeList other) {
       if (other == null) {
         return;
@@ -434,7 +598,11 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -447,7 +615,27 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            attributes_.AddEntriesFrom(ref input, _repeated_attributes_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 
