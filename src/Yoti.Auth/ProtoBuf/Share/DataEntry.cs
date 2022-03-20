@@ -29,38 +29,48 @@ namespace Yoti.Auth.ProtoBuf.Share {
             "eXBlEg0KBXZhbHVlGAIgASgMIpIBCgRUeXBlEg0KCVVOREVGSU5FRBAAEgsK",
             "B0lOVk9JQ0UQARIXChNQQVlNRU5UX1RSQU5TQUNUSU9OEAISDAoITE9DQVRJ",
             "T04QAxIPCgtUUkFOU0FDVElPThAEEhsKF0FHRV9WRVJJRklDQVRJT05fU0VD",
-            "UkVUEAUSGQoVVEhJUkRfUEFSVFlfQVRUUklCVVRFEAZCrwEKJGNvbS55b3Rp",
+            "UkVUEAUSGQoVVEhJUkRfUEFSVFlfQVRUUklCVVRFEAZC5QEKJGNvbS55b3Rp",
             "LmFwaS5jbGllbnQuc3BpLnJlbW90ZS5wcm90b0IORGF0YUVudHJ5UHJvdG9a",
-            "DnlvdGlwcm90b3NoYXJlqgIYWW90aS5BdXRoLlByb3RvQnVmLlNoYXJlygIQ",
-            "WW90aVxTaGFyZXB1YmFwaeICHFlvdGlcU2hhcmVwdWJhcGlcR1BCTWV0YWRh",
-            "dGHqAhlZb3RpLlByb3RvYnVmLlNoYXJlcHViYXBpYgZwcm90bzM="));
+            "MGdpdGh1Yi5jb20vZ2V0eW90aS95b3RpLWdvLXNkay92My95b3RpcHJvdG9z",
+            "aGFyZaoCGFlvdGkuQXV0aC5Qcm90b0J1Zi5TaGFyZcoCGVlvdGlcUHJvdG9i",
+            "dWZcU2hhcmVwdWJhcGniAiVZb3RpXFByb3RvYnVmXFNoYXJlcHViYXBpXEdQ",
+            "Qk1ldGFkYXRh6gIbWW90aTo6UHJvdG9idWY6OlNoYXJlcHViYXBpYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Share.DataEntry), global::Yoti.Auth.ProtoBuf.Share.DataEntry.Parser, new[]{ "Type", "Value" }, null, new[]{ typeof(global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type) }, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Share.DataEntry), global::Yoti.Auth.ProtoBuf.Share.DataEntry.Parser, new[]{ "Type", "Value" }, null, new[]{ typeof(global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type) }, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class DataEntry : pb::IMessage<DataEntry> {
+  public sealed partial class DataEntry : pb::IMessage<DataEntry>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<DataEntry> _parser = new pb::MessageParser<DataEntry>(() => new DataEntry());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<DataEntry> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Share.DataEntryReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DataEntry() {
       OnConstruction();
     }
@@ -68,6 +78,7 @@ namespace Yoti.Auth.ProtoBuf.Share {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DataEntry(DataEntry other) : this() {
       type_ = other.type_;
       value_ = other.value_;
@@ -75,14 +86,16 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DataEntry Clone() {
       return new DataEntry(this);
     }
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type type_ = 0;
+    private global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type type_ = global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type.Undefined;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type Type {
       get { return type_; }
       set {
@@ -94,6 +107,7 @@ namespace Yoti.Auth.ProtoBuf.Share {
     public const int ValueFieldNumber = 2;
     private pb::ByteString value_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString Value {
       get { return value_; }
       set {
@@ -102,11 +116,13 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as DataEntry);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(DataEntry other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -120,9 +136,10 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != 0) hash ^= Type.GetHashCode();
+      if (Type != global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type.Undefined) hash ^= Type.GetHashCode();
       if (Value.Length != 0) hash ^= Value.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -131,13 +148,18 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Type != 0) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Type != global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type.Undefined) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
@@ -148,12 +170,32 @@ namespace Yoti.Auth.ProtoBuf.Share {
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Type != global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type.Undefined) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
+      if (Value.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(Value);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != 0) {
+      if (Type != global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type.Undefined) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       if (Value.Length != 0) {
@@ -166,11 +208,12 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(DataEntry other) {
       if (other == null) {
         return;
       }
-      if (other.Type != 0) {
+      if (other.Type != global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type.Undefined) {
         Type = other.Type;
       }
       if (other.Value.Length != 0) {
@@ -180,7 +223,11 @@ namespace Yoti.Auth.ProtoBuf.Share {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -188,7 +235,30 @@ namespace Yoti.Auth.ProtoBuf.Share {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            type_ = (global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type) input.ReadEnum();
+            Type = (global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            Value = input.ReadBytes();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Type = (global::Yoti.Auth.ProtoBuf.Share.DataEntry.Types.Type) input.ReadEnum();
             break;
           }
           case 18: {
@@ -198,10 +268,12 @@ namespace Yoti.Auth.ProtoBuf.Share {
         }
       }
     }
+    #endif
 
     #region Nested types
     /// <summary>Container for nested types declared in the DataEntry message type.</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static partial class Types {
       public enum Type {
         [pbr::OriginalName("UNDEFINED")] Undefined = 0,
