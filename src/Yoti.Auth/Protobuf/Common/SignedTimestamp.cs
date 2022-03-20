@@ -28,37 +28,47 @@ namespace Yoti.Auth.ProtoBuf.Common {
             "bmVkVGltZXN0YW1wEg8KB3ZlcnNpb24YASABKAUSEQoJdGltZXN0YW1wGAIg",
             "ASgEEhYKDm1lc3NhZ2VfZGlnZXN0GAMgASgMEhQKDGNoYWluX2RpZ2VzdBgE",
             "IAEoDBIaChJjaGFpbl9kaWdlc3Rfc2tpcDEYBSABKAwSGgoSY2hhaW5fZGln",
-            "ZXN0X3NraXAyGAYgASgMQowBCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5y",
-            "ZW1vdGUucHJvdG9CFFNpZ25lZFRpbWVzdGFtcFByb3RvWgx5b3RpcHJvdG9j",
-            "b22qAhlZb3RpLkF1dGguUHJvdG9CdWYuQ29tbW9uygIJQ29tcHViYXBp6gIX",
-            "WW90aS5Qcm90b2J1Zi5Db21wdWJhcGliBnByb3RvMw=="));
+            "ZXN0X3NraXAyGAYgASgMQuQBCiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5y",
+            "ZW1vdGUucHJvdG9CFFNpZ25lZFRpbWVzdGFtcFByb3RvWi5naXRodWIuY29t",
+            "L2dldHlvdGkveW90aS1nby1zZGsvdjMveW90aXByb3RvY29tqgIZWW90aS5B",
+            "dXRoLlByb3RvQnVmLkNvbW1vbsoCF1lvdGlcUHJvdG9idWZcQ29tcHViYXBp",
+            "4gIjWW90aVxQcm90b2J1ZlxDb21wdWJhcGlcR1BCTWV0YWRhdGHqAhlZb3Rp",
+            "OjpQcm90b2J1Zjo6Q29tcHViYXBpYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Common.SignedTimestamp), global::Yoti.Auth.ProtoBuf.Common.SignedTimestamp.Parser, new[]{ "Version", "Timestamp", "MessageDigest", "ChainDigest", "ChainDigestSkip1", "ChainDigestSkip2" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Common.SignedTimestamp), global::Yoti.Auth.ProtoBuf.Common.SignedTimestamp.Parser, new[]{ "Version", "Timestamp", "MessageDigest", "ChainDigest", "ChainDigestSkip1", "ChainDigestSkip2" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class SignedTimestamp : pb::IMessage<SignedTimestamp> {
+  public sealed partial class SignedTimestamp : pb::IMessage<SignedTimestamp>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<SignedTimestamp> _parser = new pb::MessageParser<SignedTimestamp>(() => new SignedTimestamp());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<SignedTimestamp> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Common.SignedTimestampReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SignedTimestamp() {
       OnConstruction();
     }
@@ -66,6 +76,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SignedTimestamp(SignedTimestamp other) : this() {
       version_ = other.version_;
       timestamp_ = other.timestamp_;
@@ -77,6 +88,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SignedTimestamp Clone() {
       return new SignedTimestamp(this);
     }
@@ -85,6 +97,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     public const int VersionFieldNumber = 1;
     private int version_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Version {
       get { return version_; }
       set {
@@ -96,6 +109,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     public const int TimestampFieldNumber = 2;
     private ulong timestamp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ulong Timestamp {
       get { return timestamp_; }
       set {
@@ -107,6 +121,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     public const int MessageDigestFieldNumber = 3;
     private pb::ByteString messageDigest_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString MessageDigest {
       get { return messageDigest_; }
       set {
@@ -118,6 +133,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     public const int ChainDigestFieldNumber = 4;
     private pb::ByteString chainDigest_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString ChainDigest {
       get { return chainDigest_; }
       set {
@@ -129,6 +145,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     public const int ChainDigestSkip1FieldNumber = 5;
     private pb::ByteString chainDigestSkip1_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString ChainDigestSkip1 {
       get { return chainDigestSkip1_; }
       set {
@@ -140,6 +157,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     public const int ChainDigestSkip2FieldNumber = 6;
     private pb::ByteString chainDigestSkip2_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString ChainDigestSkip2 {
       get { return chainDigestSkip2_; }
       set {
@@ -148,11 +166,13 @@ namespace Yoti.Auth.ProtoBuf.Common {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as SignedTimestamp);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(SignedTimestamp other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -170,6 +190,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       if (Version != 0) hash ^= Version.GetHashCode();
@@ -185,12 +206,17 @@ namespace Yoti.Auth.ProtoBuf.Common {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
       if (Version != 0) {
         output.WriteRawTag(8);
         output.WriteInt32(Version);
@@ -218,9 +244,45 @@ namespace Yoti.Auth.ProtoBuf.Common {
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Version != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Version);
+      }
+      if (Timestamp != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(Timestamp);
+      }
+      if (MessageDigest.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteBytes(MessageDigest);
+      }
+      if (ChainDigest.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteBytes(ChainDigest);
+      }
+      if (ChainDigestSkip1.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteBytes(ChainDigestSkip1);
+      }
+      if (ChainDigestSkip2.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteBytes(ChainDigestSkip2);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       if (Version != 0) {
@@ -248,6 +310,7 @@ namespace Yoti.Auth.ProtoBuf.Common {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(SignedTimestamp other) {
       if (other == null) {
         return;
@@ -274,7 +337,11 @@ namespace Yoti.Auth.ProtoBuf.Common {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -307,7 +374,47 @@ namespace Yoti.Auth.ProtoBuf.Common {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Version = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            Timestamp = input.ReadUInt64();
+            break;
+          }
+          case 26: {
+            MessageDigest = input.ReadBytes();
+            break;
+          }
+          case 34: {
+            ChainDigest = input.ReadBytes();
+            break;
+          }
+          case 42: {
+            ChainDigestSkip1 = input.ReadBytes();
+            break;
+          }
+          case 50: {
+            ChainDigestSkip2 = input.ReadBytes();
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 
