@@ -313,7 +313,6 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
             Assert.IsTrue(result.WantedRememberMeId);
         }
 
-
         [TestMethod]
         public void ShouldBuildWithIdentityProfileRequirements()
         {
