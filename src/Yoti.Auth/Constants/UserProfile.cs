@@ -17,5 +17,6 @@
         public const string DateOfBirthAttribute = "date_of_birth";
         public const string DocumentDetailsAttribute = "document_details";
         public const string DocumentImagesAttribute = "document_images";
+        public const string IdentityProfileReportAttribute = "identity_profile_report";
     }
 }

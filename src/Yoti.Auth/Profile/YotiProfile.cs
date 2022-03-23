@@ -183,6 +183,19 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
+        /// IdentityProfileReport represents the JSON object containing identity assertion and the
+        /// verification report. This will be null if not provided by Yoti.
+        /// </summary>
+        public YotiAttribute<Dictionary<string, JToken>> IdentityProfileReport
+        {
+            get
+            {
+                return GetAttributeByName<Dictionary<string, JToken>>(name: Constants.UserProfile.IdentityProfileReportAttribute);
+            }
+        }
+
+
+        /// <summary>
         /// Finds all the 'Age Over' and 'Age Under' derived attributes returned with the profile,
         /// and returns them wrapped in <see cref="AgeVerification"/> objects. Returns null if no
         /// matches were found.
