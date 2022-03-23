@@ -584,9 +584,8 @@ namespace Yoti.Auth.Tests
 
             _yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<Dictionary<string, JToken>>(attribute);
 
-            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.IdentityProfileReport.GetValue();
-            AssertDictionaryValue("<signature provided here>", "proof", structuredPostalAddress);
-
+            Dictionary<string, JToken> identityProfileReport = _yotiProfile.IdentityProfileReport.GetValue();
+            AssertDictionaryValue("<signature provided here>", "proof", identityProfileReport);
         }
 
         [TestMethod]
