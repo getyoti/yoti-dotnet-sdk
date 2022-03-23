@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Yoti.Auth.Attribute;
 using Yoti.Auth.Document;
@@ -563,6 +564,30 @@ namespace Yoti.Auth.Tests
 
             AssertImages.ContainsExpectedImage(actualDocumentImages, "image/jpeg", "38TVEH/9k=");
             AssertImages.ContainsExpectedImage(actualDocumentImages, "image/jpeg", "vWgD//2Q==");
+        }
+
+
+        [TestMethod]
+        public void IdentityProfileReportAttributeShouldBeAddedToProfile()
+        {
+            string json;
+            using (StreamReader r = File.OpenText("TestData/RTWIdentityProfileReport.json"))
+            {
+                json = r.ReadToEnd();
+            }
+
+            var attribute = new ProtoBuf.Attribute.Attribute
+            {
+                Name = Constants.UserProfile.IdentityProfileReportAttribute,
+                ContentType = ContentType.Json,
+                Value = ByteString.CopyFromUtf8(json)
+            };
+
+            _yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<Dictionary<string, JToken>>(attribute);
+
+            Dictionary<string, JToken> structuredPostalAddress = _yotiProfile.IdentityProfileReport.GetValue();
+            AssertDictionaryValue("<signature provided here>", "proof", structuredPostalAddress);
+
         }
 
         [TestMethod]
