@@ -131,12 +131,17 @@ namespace Yoti.Auth.Profile
 
             List<YotiAttribute<T>> matches = new List<YotiAttribute<T>>();
 
-            foreach (KeyValuePair<string, List<BaseAttribute>> attribute in _attributes)
+            foreach (KeyValuePair<string, List<BaseAttribute>> attributesByName in _attributes)
             {
-                if (attribute.Key.StartsWith(prefix, System.StringComparison.Ordinal)
-                    && attribute.Value is YotiAttribute<T> castableAttribute)
+                if (attributesByName.Key.StartsWith(prefix, StringComparison.Ordinal))
                 {
-                    matches.Add(castableAttribute);
+                    foreach (var attribute in attributesByName.Value)
+                    {
+                        if (attribute is YotiAttribute<T> castableAttribute)
+                        {
+                            matches.Add(castableAttribute);
+                        }
+                    }
                 }
             }
 
