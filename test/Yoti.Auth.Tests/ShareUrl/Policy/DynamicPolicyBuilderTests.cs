@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Constants;
 using Yoti.Auth.ShareUrl.Policy;
+using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests.ShareUrl.Policy
 {
@@ -316,7 +317,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         [TestMethod]
         public void ShouldBuildWithIdentityProfileRequirements()
         {
-            object identityProfileRequirements = TestTools.ShareUrl.CreateStandardIdentityProfileRequirements();
+            object identityProfileRequirements = IdentityProfiles.CreateStandardIdentityProfileRequirements();
 
             DynamicPolicy result = new DynamicPolicyBuilder()
                     .WithIdentityProfileRequirements(identityProfileRequirements)

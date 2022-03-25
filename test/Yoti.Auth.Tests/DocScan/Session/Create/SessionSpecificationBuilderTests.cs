@@ -7,6 +7,7 @@ using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
+using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create
 {
@@ -212,6 +213,29 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                 .Build();
 
             Assert.IsNull(sessionSpec.ClientSessionTokenTtl);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithIdentityProfileRequirements()
+        {
+            object identityProfileRequirements = IdentityProfiles.CreateStandardIdentityProfileRequirements();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithIdentityProfileRequirements(identityProfileRequirements)
+                .Build();
+
+            Assert.AreEqual(identityProfileRequirements, sessionSpec.IdentityProfileRequirements);
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForIdentityProfileRequirements()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.IdentityProfileRequirements);
         }
     }
 }
