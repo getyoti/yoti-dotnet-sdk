@@ -9,7 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Create
 {
     public class SessionSpecification
     {
-        internal SessionSpecification(int? clientSessionTokenTtl, int? resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent, DateTimeOffset? sessionDeadline, object identityProfileRequirements)
+        internal SessionSpecification(int? clientSessionTokenTtl, int? resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent, DateTimeOffset? sessionDeadline, object identityProfileRequirements, object subject)
         {
             ClientSessionTokenTtl = clientSessionTokenTtl;
             ResourcesTtl = resourcesTtl;
@@ -22,6 +22,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             BlockBiometricConsent = blockBiometricConsent;
             SessionDeadline = sessionDeadline;
             IdentityProfileRequirements = identityProfileRequirements;
+            Subject = subject;
         }
 
         [JsonProperty(PropertyName = "client_session_token_ttl")]
@@ -56,5 +57,8 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "identity_profile_requirements")]
         public object IdentityProfileRequirements { get; }
+
+        [JsonProperty(PropertyName = "subject")]
+        public object Subject { get; }
     }
 }

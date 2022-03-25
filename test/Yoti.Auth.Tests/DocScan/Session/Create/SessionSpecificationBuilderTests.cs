@@ -237,5 +237,28 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.IsNull(sessionSpec.IdentityProfileRequirements);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithSubject()
+        {
+            object subject = IdentityProfiles.CreateStandardSubject();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithSubject(subject)
+                .Build();
+
+            Assert.AreEqual(subject, sessionSpec.Subject);
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForSubject()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.Subject);
+        }
     }
 }
