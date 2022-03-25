@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -162,8 +163,10 @@ namespace Yoti.Auth.Tests
 
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
             YotiAttribute<int> intAttribute = yotiProfile.GetAttributeByName<int>(intAttributeName);
+            YotiAttribute<int> intAttributeFromCollection = yotiProfile.GetAttributesByName<int>(intAttributeName).Single();
 
             Assert.AreEqual(intValue, intAttribute.GetValue());
+            Assert.AreEqual(intValue, intAttributeFromCollection.GetValue());
         }
 
         private YotiAttribute<string> CreateStringAttribute(string name)

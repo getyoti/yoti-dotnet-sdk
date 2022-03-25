@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -572,7 +573,6 @@ namespace Yoti.Auth.Tests
             YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<string>(thirdPartyAttribute);
 
             YotiAttribute<string> yotiAttribute = yotiProfile.GetAttributeByName<string>("com.thirdparty.id");
-
             Assert.AreEqual("test-third-party-attribute-0", yotiAttribute.GetValue());
 
             Assert.AreEqual("THIRD_PARTY", yotiAttribute.GetSources().First().GetValue());
@@ -580,6 +580,16 @@ namespace Yoti.Auth.Tests
 
             Assert.AreEqual("THIRD_PARTY", yotiAttribute.GetVerifiers().First().GetValue());
             Assert.AreEqual("orgName", yotiAttribute.GetVerifiers().First().GetSubType());
+
+            ReadOnlyCollection<YotiAttribute<string>> yotiAttributes = yotiProfile.GetAttributesByName<string>(name: "com.thirdparty.id");
+            var yotiAttributeFromCollection = yotiAttributes.Single();
+            Assert.AreEqual("test-third-party-attribute-0", yotiAttributeFromCollection.GetValue());
+
+            Assert.AreEqual("THIRD_PARTY", yotiAttributeFromCollection.GetSources().First().GetValue());
+            Assert.AreEqual("orgName", yotiAttributeFromCollection.GetSources().First().GetSubType());
+
+            Assert.AreEqual("THIRD_PARTY", yotiAttributeFromCollection.GetVerifiers().First().GetValue());
+            Assert.AreEqual("orgName", yotiAttributeFromCollection.GetVerifiers().First().GetSubType());
         }
 
         [TestMethod]
@@ -607,6 +617,13 @@ namespace Yoti.Auth.Tests
             var innerMultiValue = innerMultiValueList.First();
             Assert.AreEqual(ContentType.String, innerMultiValue.ContentType);
             Assert.AreEqual(StringValue, innerMultiValue.Value);
+
+            List<MultiValueItem> retrievedMultiValueFromCollection = _yotiProfile.GetAttributesByName<List<MultiValueItem>>(attributeName).Single().GetValue();
+            MultiValueItem outerMultiValueFromCollection = retrievedMultiValueFromCollection.First();
+            List<MultiValueItem> innerMultiValueListFromCollection = (List<MultiValueItem>)outerMultiValueFromCollection.Value;
+            var innerMultiValueFromCollection = innerMultiValueListFromCollection.First();
+            Assert.AreEqual(ContentType.String, innerMultiValueFromCollection.ContentType);
+            Assert.AreEqual(StringValue, innerMultiValueFromCollection.Value);
         }
 
         [TestMethod]
@@ -638,6 +655,7 @@ namespace Yoti.Auth.Tests
             _yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute<string>(attribute);
 
             Assert.AreEqual(StringValue, _yotiProfile.GetAttributeByName<string>(name).GetValue().ToString());
+            Assert.AreEqual(StringValue, _yotiProfile.GetAttributesByName<string>(name).Single().GetValue().ToString());
         }
 
         private void AssertDictionaryValue(string expectedValue, string dictionaryKey, Dictionary<string, JToken> dictionary)
