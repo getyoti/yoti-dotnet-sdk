@@ -191,12 +191,24 @@ namespace Yoti.Auth.Tests
                 Name = Constants.UserProfile.GivenNamesAttribute,
                 ContentType = ContentType.String,
                 Value = ByteString.CopyFromUtf8("Alan")
-            }; 
-            
+            };
+
             TestTools.Profile.AddAttributeToProfile<string>(yotiProfile, givenNamesattribute);
 
             Assert.AreSame(attribute1, yotiProfile.GetAttributeById<Image>(attributeId1));
             Assert.AreSame(attribute2, yotiProfile.GetAttributeById<Image>(attributeId2));
+        }
+
+        [TestMethod]
+        public void GetAttributeByIdReturnsNullWhenNotPresent()
+        {
+            var attribute = CreateImageAttribute(
+                Constants.UserProfile.SelfieAttribute,
+                "9e2b479a-7be9-4e88-b4ab-e47fc930af61");
+
+            YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(attribute);
+
+            Assert.IsNull(yotiProfile.GetAttributeById<Image>("not-matching-id"));
         }
 
         private YotiAttribute<string> CreateStringAttribute(string name)
