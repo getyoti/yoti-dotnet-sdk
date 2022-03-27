@@ -36,7 +36,7 @@ namespace Yoti.Auth.Attribute
         /// Gets the ID of the attribute
         /// </summary>
         /// <returns>Attribute ID</returns>
-        public string GetID()
+        public string GetId()
         {
             return _id;
         }

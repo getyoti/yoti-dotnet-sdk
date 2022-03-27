@@ -122,14 +122,14 @@ namespace Yoti.Auth.Profile
         /// </summary>
         /// <typeparam name="T">The expected type of the attribute</typeparam>
         /// <param name="name">The ID to match</param>
-        /// <returns>List of <see cref="YotiAttribute{T}"/></returns>
-        public YotiAttribute<T> GetAttributeByID<T>(string id)
+        /// <returns><see cref="YotiAttribute{T}"/></returns>
+        public YotiAttribute<T> GetAttributeById<T>(string id)
         {
             foreach (var attributesByName in _attributes)
             {
                 foreach (var attribute in attributesByName.Value)
                 {
-                    if (attribute.GetID() == id)
+                    if (attribute.GetId() == id)
                     {
                         return (YotiAttribute<T>)attribute;
                     }

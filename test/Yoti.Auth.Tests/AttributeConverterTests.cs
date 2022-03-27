@@ -87,8 +87,8 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(name, attributes[0].GetName());
             Assert.AreEqual(name, attributes[1].GetName());
 
-            Assert.AreEqual(_id1, attributes[0].GetID());
-            Assert.AreEqual(_id2, attributes[1].GetID());
+            Assert.AreEqual(_id1, attributes[0].GetId());
+            Assert.AreEqual(_id2, attributes[1].GetId());
         }
 
         [DataTestMethod]
