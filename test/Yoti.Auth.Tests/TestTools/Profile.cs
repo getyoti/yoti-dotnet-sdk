@@ -26,6 +26,11 @@ namespace Yoti.Auth.Tests.TestTools
             return new YotiProfile(attributes);
         }
 
+        public static YotiProfile CreateUserProfileWithAttributes<T>(Dictionary<string, List<BaseAttribute>> attributes)
+        {
+            return new YotiProfile(attributes);
+        }
+
         public static YotiProfile CreateUserProfileWithSingleAttribute<T>(ProtoBuf.Attribute.Attribute attribute)
         {
             return AddAttributeToProfile<T>(new YotiProfile(), attribute);
