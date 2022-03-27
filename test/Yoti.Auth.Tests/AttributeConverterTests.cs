@@ -13,6 +13,8 @@ namespace Yoti.Auth.Tests
     public class AttributeConverterTests
     {
         private readonly ByteString _emptyByteStringValue = ByteString.CopyFromUtf8("");
+        private readonly string _id1 = "f6dcdee6-af1d-474d-9658-e949d676bfe7";
+        private readonly string _id2 = "6b2ad943-1ace-4b2c-8dec-06b7ab44ba9a";
 
         [TestMethod]
         public void FailureInAttributeParsingShouldNotStopOtherAttributes()
@@ -60,13 +62,15 @@ namespace Yoti.Auth.Tests
             {
                 Name = name,
                 ContentType = ContentType.String,
-                Value = _emptyByteStringValue
+                Value = _emptyByteStringValue,
+                EphemeralId = _id1
             };
             var attribute2 = new ProtoBuf.Attribute.Attribute
             {
                 Name = name,
                 ContentType = ContentType.String,
-                Value = _emptyByteStringValue
+                Value = _emptyByteStringValue,
+                EphemeralId = _id2
             };
 
             AttributeList attributeList = new AttributeList
@@ -74,14 +78,17 @@ namespace Yoti.Auth.Tests
                 Attributes = { attribute1, attribute2 }
             };
 
-            Dictionary<string, List<BaseAttribute>> convertedAttributes = AttributeConverter.ConvertToBaseAttributes(attributeList);
+            Dictionary<string, List<BaseAttribute>> convertedAttributeNameDictionary = AttributeConverter.ConvertToBaseAttributes(attributeList);
 
-            Assert.AreEqual(1, convertedAttributes.Count);
+            Assert.AreEqual(1, convertedAttributeNameDictionary.Count);
 
-            List<BaseAttribute> result = convertedAttributes.First().Value;
-            Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(name, result[0].GetName());
-            Assert.AreEqual(name, result[1].GetName());
+            List<BaseAttribute> attributes = convertedAttributeNameDictionary.First().Value;
+            Assert.AreEqual(2, attributes.Count);
+            Assert.AreEqual(name, attributes[0].GetName());
+            Assert.AreEqual(name, attributes[1].GetName());
+
+            Assert.AreEqual(_id1, attributes[0].GetID());
+            Assert.AreEqual(_id2, attributes[1].GetID());
         }
 
         [DataTestMethod]

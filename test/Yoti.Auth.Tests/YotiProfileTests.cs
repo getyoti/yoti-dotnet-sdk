@@ -169,12 +169,34 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(intValue, intAttributeFromCollection.GetValue());
         }
 
+        [TestMethod]
+        public void ShouldRetrieveAttributeByID()
+        {
+            string attributeId = "9e2b479a-7be9-4e88-b4ab-e47fc930af61";
+            YotiAttribute<Image> initialAttribute = CreateImageAttribute(Constants.UserProfile.SelfieAttribute, attributeId);
+            YotiProfile yotiProfile = TestTools.Profile.CreateUserProfileWithSingleAttribute(initialAttribute);
+
+            YotiAttribute<Image> selfieAttribute = yotiProfile.Selfie;
+
+            Assert.AreSame(initialAttribute, selfieAttribute);
+            Assert.AreSame(initialAttribute, yotiProfile.GetAttributeByID<Image>(attributeId));
+        }
+
         private YotiAttribute<string> CreateStringAttribute(string name)
         {
             return new YotiAttribute<string>(
                name,
                _value,
                anchors: null);
+        }
+
+        private YotiAttribute<Image> CreateImageAttribute(string name, string id)
+        {
+            return new YotiAttribute<Image>(
+               name,
+               value: new JpegImage(Encoding.UTF8.GetBytes(_value)),
+               anchors: null,
+               id);
         }
     }
 }
