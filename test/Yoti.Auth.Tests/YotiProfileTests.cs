@@ -179,7 +179,7 @@ namespace Yoti.Auth.Tests
             YotiAttribute<Image> selfieAttribute = yotiProfile.Selfie;
 
             Assert.AreSame(initialAttribute, selfieAttribute);
-            Assert.AreSame(initialAttribute, yotiProfile.GetAttributeByID<Image>(attributeId));
+            Assert.AreSame(initialAttribute, yotiProfile.GetAttributeById<Image>(attributeId));
         }
 
         private YotiAttribute<string> CreateStringAttribute(string name)
