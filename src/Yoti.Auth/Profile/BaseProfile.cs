@@ -118,6 +118,28 @@ namespace Yoti.Auth.Profile
         }
 
         /// <summary>
+        /// Retrieves an attribute which matches the ID specified.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the attribute</typeparam>
+        /// <param name="name">The ID to match</param>
+        /// <returns>List of <see cref="YotiAttribute{T}"/></returns>
+        public YotiAttribute<T> GetAttributeByID<T>(string id)
+        {
+            foreach (var attributesByName in _attributes)
+            {
+                foreach (var attribute in attributesByName.Value)
+                {
+                    if (attribute.GetID() == id)
+                    {
+                        return (YotiAttribute<T>)attribute;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Returns all of the <see cref="YotiAttribute"/> where the name starts with the given
         /// string, and the type can be cast to the given generic type Returns null if there were no matches.
         /// </summary>
