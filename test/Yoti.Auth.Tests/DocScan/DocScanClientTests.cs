@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan;
@@ -565,6 +567,56 @@ namespace Yoti.Auth.Tests.DocScan
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+
+        [TestMethod]
+        public void ShouldParseIdentityProfileResponse()
+        {
+            string mediaId = "c69ff2db-6caf-4e74-8386-037711bbc8d7";
+            string getSessionResult;
+            using (StreamReader r = File.OpenText("TestData/GetSessionResultWithIdentityProfile.json"))
+            {
+                getSessionResult = r.ReadToEnd();
+            }
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(getSessionResult),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            GetSessionResult result = docScanClient.GetSession("some-session-id");
+
+            Assert.AreEqual("DONE", result.IdentityProfile.Result);
+            Assert.AreEqual("someStringHere", result.IdentityProfile.SubjectId);
+            Assert.AreEqual("MANDATORY_DOCUMENT_COULD_NOT_BE_PROVIDED", result.IdentityProfile.FailureReason.ReasonCode);
+
+            Assert.AreEqual("UK_TFIDA", result.IdentityProfile.Report["trust_framework"]);
+            JToken expectedSchemesCompliance = JToken.FromObject(
+            new[]
+            {
+                new
+                {
+                    scheme = new
+                    {
+                        type=  "DBS",
+                        objective=  "STANDARD"
+                    },
+                    requirements_met = true,
+                    requirements_not_met_info = "some string here"
+                }
+            });
+            Assert.IsTrue(JToken.DeepEquals(
+                JToken.FromObject(expectedSchemesCompliance),
+                result.IdentityProfile.Report["schemes_compliance"]));
+
+            Assert.AreEqual(mediaId, result.IdentityProfile.Report["media"]["id"]);
         }
 
         private DocScanClient SetupDocScanClient(dynamic responseContent)
