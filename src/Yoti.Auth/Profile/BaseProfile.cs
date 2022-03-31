@@ -150,10 +150,10 @@ namespace Yoti.Auth.Profile
         {
             if (prefix == null)
                 throw new ArgumentNullException(nameof(prefix));
-            return _attributes
-                .Where(a => a.Key.StartsWith(prefix, StringComparison.Ordinal))
-                .SelectMany(at => at.Value.Where(ya => ya is YotiAttribute<T>)
-                .Select(yac => yac as YotiAttribute<T>)).ToList();
+
+            return _attributes.Where(a => a.Key.StartsWith(prefix, StringComparison.Ordinal))
+                .SelectMany(a => a.Value.OfType<YotiAttribute<T>>())
+                .ToList();
         }
     }
 }
