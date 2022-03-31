@@ -141,6 +141,10 @@ namespace CoreExample.Controllers
                         AddDisplayAttribute<List<Image>>("Document Images", "yoti-icon-profile", yotiAttribute, displayAttributes);
                         break;
 
+                    case Yoti.Auth.Constants.UserProfile.IdentityProfileReportAttribute:
+                        AddDisplayAttribute<Dictionary<string, JToken>>("Identity Profile Report", "yoti-icon-profile", yotiAttribute, displayAttributes);
+                        break;
+
                     default:
                         if (yotiAttribute is YotiAttribute<string> stringAttribute)
                         {
