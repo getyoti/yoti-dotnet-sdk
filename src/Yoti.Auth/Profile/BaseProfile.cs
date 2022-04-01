@@ -151,23 +151,9 @@ namespace Yoti.Auth.Profile
             if (prefix == null)
                 throw new ArgumentNullException(nameof(prefix));
 
-            List<YotiAttribute<T>> matches = new List<YotiAttribute<T>>();
-
-            foreach (KeyValuePair<string, List<BaseAttribute>> attributesByName in _attributes)
-            {
-                if (attributesByName.Key.StartsWith(prefix, StringComparison.Ordinal))
-                {
-                    foreach (var attribute in attributesByName.Value)
-                    {
-                        if (attribute is YotiAttribute<T> castableAttribute)
-                        {
-                            matches.Add(castableAttribute);
-                        }
-                    }
-                }
-            }
-
-            return matches;
+            return _attributes.Where(a => a.Key.StartsWith(prefix, StringComparison.Ordinal))
+                .SelectMany(a => a.Value.OfType<YotiAttribute<T>>())
+                .ToList();
         }
     }
 }
