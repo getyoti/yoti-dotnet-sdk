@@ -114,6 +114,14 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
             return Checks.OfType<ThirdPartyIdentityCheckResponse>().ToList();
         }
 
+        public List<ThirdPartyIdentityFraudOneCheckResponse> GetThirdPartyIdentityFraudOneChecks()
+        {
+            if (Checks == null)
+                return new List<ThirdPartyIdentityFraudOneCheckResponse>();
+
+            return Checks.OfType<ThirdPartyIdentityFraudOneCheckResponse>().ToList();
+        }
+
         public List<WatchlistScreeningCheckResponse> GetWatchlistScreeningChecks()
         {
             if (Checks == null)
