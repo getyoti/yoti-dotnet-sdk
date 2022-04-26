@@ -10,6 +10,7 @@
         public const string SupplementaryDocumentTextDataCheck = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_CHECK";
         public const string SupplementaryDocumentTextDataExtraction = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_EXTRACTION";
         public const string ThirdPartyIdentity = "THIRD_PARTY_IDENTITY";
+        public const string ThirdPartyIdentityFraudOne = "THIRD_PARTY_IDENTITY_FRAUD_1";
         public const string WatchlistScreening = "WATCHLIST_SCREENING";
         public const string WatchlistAdvancedCa = "WATCHLIST_ADVANCED_CA";
 

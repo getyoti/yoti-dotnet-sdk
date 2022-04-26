@@ -13,6 +13,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Check
     [JsonSubtypes.KnownSubType(typeof(IdDocumentComparisonCheckResponse), Constants.DocScanConstants.IdDocumentComparison)]
     [JsonSubtypes.KnownSubType(typeof(SupplementaryDocTextDataCheckResponse), Constants.DocScanConstants.SupplementaryDocumentTextDataCheck)]
     [JsonSubtypes.KnownSubType(typeof(ThirdPartyIdentityCheckResponse), Constants.DocScanConstants.ThirdPartyIdentity)]
+    [JsonSubtypes.KnownSubType(typeof(ThirdPartyIdentityFraudOneCheckResponse), Constants.DocScanConstants.ThirdPartyIdentityFraudOne)]
     [JsonSubtypes.KnownSubType(typeof(WatchlistScreeningCheckResponse), Constants.DocScanConstants.WatchlistScreening)]
     [JsonSubtypes.KnownSubType(typeof(WatchlistAdvancedCaCheckResponse), Constants.DocScanConstants.WatchlistAdvancedCa)]
     public class CheckResponse

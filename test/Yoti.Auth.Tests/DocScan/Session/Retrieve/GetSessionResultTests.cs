@@ -53,6 +53,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 #pragma warning restore CS0618 // Type or member is obsolete
             Assert.AreEqual(0, getSessionResult.GetIdDocumentTextDataChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetSupplementaryDocTextDataChecks().Count);
+            Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityFraudOneChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetWatchlistScreeningChecks().Count);
             Assert.AreEqual(0, getSessionResult.GetWatchlistAdvancedCaChecks().Count);
@@ -207,6 +208,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void ThirdPartyIdentityFraudOneChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetThirdPartyIdentityFraudOneChecks().Count);
+        }
+
+        [TestMethod]
         public void WatchlistScreeningChecksShouldReturnEmptyCollectionWhenNoneOfTypeArePresent()
         {
             var getSessionResult = new GetSessionResult
@@ -264,6 +279,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetThirdPartyIdentityChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetThirdPartyIdentityChecks().First(), typeof(ThirdPartyIdentityCheckResponse));
+        }
+
+        [TestMethod]
+        public void ThirdPartyIdentityFraudOneChecksShouldFilterChecks()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new LivenessCheckResponse(),
+                    new ThirdPartyIdentityFraudOneCheckResponse()
+                }
+            };
+
+            Assert.AreEqual(1, getSessionResult.GetThirdPartyIdentityFraudOneChecks().Count);
+            Assert.IsInstanceOfType(getSessionResult.GetThirdPartyIdentityFraudOneChecks().First(), typeof(ThirdPartyIdentityFraudOneCheckResponse));
         }
 
         [TestMethod]
