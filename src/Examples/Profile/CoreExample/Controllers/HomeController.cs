@@ -32,7 +32,8 @@ namespace CoreExample.Controllers
             return View();
         }
 
-        // GET: home/dynamicscenario
+        // GET: /dynamic-scenario
+        [Route("dynamic-scenario")]
         public IActionResult DynamicScenario()
         {
             try
@@ -82,7 +83,8 @@ namespace CoreExample.Controllers
             }
         }
 
-        // GET: home/dbsstandard
+        // GET: /dbs-check
+        [Route("dbs-check")]
         public IActionResult DBSStandard()
         {
             try
@@ -120,7 +122,7 @@ namespace CoreExample.Controllers
 
                 ViewBag.YotiClientSdkId = _clientSdkId;
 
-                return View("DBSStandard", shareUrlResult);
+                return View("DBSCheck", shareUrlResult);
             }
             catch (Exception e)
             {

@@ -2,6 +2,7 @@
     ViewData["Title"] = "Connect";
 }
 @using System.Globalization;
+@using Newtonsoft.Json
 @using Newtonsoft.Json.Linq;
 @using Yoti.Auth.Document;
 @using Yoti.Auth.Images;
@@ -73,13 +74,29 @@
                                 @switch (a.GetDisplayName())
                                 {
                                     case "Structured Postal Address":
-                                    case "Identity Profile Report":
                                         <table>
                                             @foreach (var item in (Dictionary<string, JToken>)a.GetValue())
                                             {
                                                 <tr>
                                                     <td>@item.Key</td>
                                                     <td>@item.Value</td>
+                                                </tr>
+                                            }
+                                        </table>
+                                        break;
+
+                                    case "Identity Profile Report":
+                                        <table>
+                                            @foreach (var item in (Dictionary<string, JToken>)a.GetValue())
+                                            {
+                                                <tr>
+
+                                                    <td>@item.Key</td>
+                                                    <td>
+                                                        <pre>
+                                                            @Html.Raw(@item.Value.ToString(Formatting.Indented))
+                                                        </pre>
+                                                    </td>
                                                 </tr>
                                             }
                                         </table>
