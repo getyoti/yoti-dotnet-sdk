@@ -106,7 +106,7 @@ namespace CoreExample.Controllers
                          scheme = new
                          {
                              type = "DBS",
-                             objective = "STANDARD"
+                             objective = "BASIC"
                          }
                      }).Build();
 
