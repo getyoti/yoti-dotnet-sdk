@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.Attribute;
@@ -83,8 +84,10 @@ namespace Yoti.Auth.Tests
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
             YotiAttribute<string> applicationNameAttribute = applicationProfile.GetAttributeByName<string>(Constants.ApplicationProfile.ApplicationNameAttribute);
+            YotiAttribute<string> applicationNameAttributeFromCollection = applicationProfile.GetAttributesByName<string>(Constants.ApplicationProfile.ApplicationNameAttribute).Single();
 
             Assert.AreSame(initialAttribute, applicationNameAttribute);
+            Assert.AreSame(initialAttribute, applicationNameAttributeFromCollection);
         }
 
         [TestMethod]
@@ -98,8 +101,10 @@ namespace Yoti.Auth.Tests
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
             YotiAttribute<Image> logoAttribute = applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute);
+            YotiAttribute<Image> logoAttributeFromCollection = applicationProfile.GetAttributesByName<Image>(Constants.ApplicationProfile.ApplicationLogoAttribute).Single();
 
             Assert.AreSame(initialAttribute, logoAttribute);
+            Assert.AreSame(initialAttribute, logoAttributeFromCollection);
         }
 
         [TestMethod]
@@ -115,6 +120,22 @@ namespace Yoti.Auth.Tests
             Assert.ThrowsException<InvalidCastException>(() =>
             {
                 applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
+            });
+        }
+
+        [TestMethod]
+        public void WrongAttributeTypeForGetAttributesShouldThrowException()
+        {
+            var initialAttribute = new YotiAttribute<string>(
+                name: Constants.ApplicationProfile.ApplicationNameAttribute,
+                value: _value,
+                anchors: null);
+
+            ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
+
+            Assert.ThrowsException<InvalidCastException>(() =>
+            {
+                applicationProfile.GetAttributesByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
             });
         }
 

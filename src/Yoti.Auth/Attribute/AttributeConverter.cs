@@ -12,17 +12,28 @@ namespace Yoti.Auth.Attribute
 {
     internal static class AttributeConverter
     {
-        public static Dictionary<string, BaseAttribute> ConvertToBaseAttributes(AttributeList attributeList)
+        public static Dictionary<string, List<BaseAttribute>> ConvertToBaseAttributes(AttributeList attributeList)
         {
             NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-            var parsedAttributes = new Dictionary<string, BaseAttribute>();
+            var parsedAttributes = new Dictionary<string, List<BaseAttribute>>();
 
             foreach (ProtoBuf.Attribute.Attribute attribute in attributeList.Attributes)
             {
                 try
                 {
-                    parsedAttributes.Add(attribute.Name, ConvertToBaseAttribute(attribute));
+                    BaseAttribute attributeValue = ConvertToBaseAttribute(attribute);
+
+                    if (parsedAttributes.ContainsKey(attribute.Name))
+                    {
+                        List<BaseAttribute> attributes = parsedAttributes[attribute.Name];
+                        attributes.Add(attributeValue);
+                        parsedAttributes[attribute.Name] = attributes;
+                    }
+                    else
+                    {
+                        parsedAttributes.Add(attribute.Name, new List<BaseAttribute> { attributeValue });
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -49,6 +60,7 @@ namespace Yoti.Auth.Attribute
         private static BaseAttribute CreateYotiAttribute(ProtoBuf.Attribute.Attribute attribute, NLog.Logger logger, byte[] byteAttributeValue)
         {
             object value = ParseAttributeValue(attribute.ContentType, logger, byteAttributeValue);
+            string id = attribute.EphemeralId;
 
             switch (attribute.ContentType)
             {
@@ -60,37 +72,43 @@ namespace Yoti.Auth.Attribute
                         return new YotiAttribute<DocumentDetails>(
                           attribute.Name,
                           documementDetails,
-                          ParseAnchors(attribute));
+                          ParseAnchors(attribute),
+                          id);
                     }
 
                     return new YotiAttribute<string>(
                       attribute.Name,
                       (string)value,
-                      ParseAnchors(attribute));
+                      ParseAnchors(attribute),
+                      id);
 
                 case ContentType.Date:
                     return new YotiAttribute<DateTime>(
                       attribute.Name,
                       (DateTime)value,
-                      ParseAnchors(attribute));
+                      ParseAnchors(attribute),
+                      id);
 
                 case ContentType.Jpeg:
                     return new YotiAttribute<Image>(
                       attribute.Name,
                       (JpegImage)value,
-                      ParseAnchors(attribute));
+                      ParseAnchors(attribute),
+                      id);
 
                 case ContentType.Png:
                     return new YotiAttribute<Image>(
                       attribute.Name,
                       (PngImage)value,
-                      ParseAnchors(attribute));
+                      ParseAnchors(attribute),
+                      id);
 
                 case ContentType.Json:
                     return new YotiAttribute<Dictionary<string, JToken>>(
                       attribute.Name,
                       (Dictionary<string, JToken>)value,
-                      ParseAnchors(attribute));
+                      ParseAnchors(attribute),
+                      id);
 
                 case ContentType.MultiValue:
                     var multiValueList = (List<MultiValueItem>)value;
@@ -99,26 +117,30 @@ namespace Yoti.Auth.Attribute
                         return new YotiAttribute<List<Image>>(
                             attribute.Name,
                             value: CreateImageListFromMultiValue(multiValueList),
-                            ParseAnchors(attribute));
+                            ParseAnchors(attribute),
+                            id);
                     }
 
                     return new YotiAttribute<List<MultiValueItem>>(
                         attribute.Name,
                         multiValueList,
-                        ParseAnchors(attribute));
+                        ParseAnchors(attribute),
+                        id);
 
                 case ContentType.Int:
                     return new YotiAttribute<int>(
                       attribute.Name,
                       (int)value,
-                      ParseAnchors(attribute));
+                      ParseAnchors(attribute),
+                      id);
 
                 default:
                     logger.Warn($"Unknown content type {attribute.ContentType}, attempting to parse it as a string");
                     return new YotiAttribute<string>(
                         attribute.Name,
                         Conversion.BytesToUtf8(byteAttributeValue),
-                        ParseAnchors(attribute));
+                        ParseAnchors(attribute),
+                        id);
             }
         }
 

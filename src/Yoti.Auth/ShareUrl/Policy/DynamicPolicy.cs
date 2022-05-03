@@ -27,15 +27,20 @@ namespace Yoti.Auth.ShareUrl.Policy
 
 #pragma warning restore 0414
 
+        [JsonProperty(PropertyName = "identity_profile_requirements")]
+        private readonly object _identityProfileRequirements;
+
         public DynamicPolicy(
-            ICollection<WantedAttribute> wantedAttributes,
-            HashSet<int> wantedAuthTypes,
-            bool wantedRememberMeId)
+                 ICollection<WantedAttribute> wantedAttributes,
+                 HashSet<int> wantedAuthTypes,
+                 bool wantedRememberMeId,
+                 object identityProfileRequirements = null)
         {
             _wantedAttributes = wantedAttributes;
             _wantedAuthTypes = wantedAuthTypes;
             _wantedRememberMeId = wantedRememberMeId;
             _isWantedRememberMeIdOptional = false;
+            _identityProfileRequirements = identityProfileRequirements;
         }
 
         /// <summary>
@@ -71,6 +76,18 @@ namespace Yoti.Auth.ShareUrl.Policy
             get
             {
                 return _wantedRememberMeId;
+            }
+        }
+
+        /// <summary>
+        /// IdentityProfileRequirements requested in the policy
+        /// </summary>
+        [JsonIgnore]
+        public object IdentityProfileRequirements
+        {
+            get
+            {
+                return _identityProfileRequirements;
             }
         }
     }

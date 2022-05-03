@@ -12,11 +12,13 @@ namespace Yoti.Auth.Attribute
     /// </summary>
     public abstract class BaseAttribute
     {
+        private readonly string _id;
         private readonly string _name;
         private readonly List<Anchor> _anchors;
 
-        private protected BaseAttribute(string name, List<Anchor> anchors)
+        private protected BaseAttribute(string name, List<Anchor> anchors, string id)
         {
+            _id = id;
             _name = name;
             _anchors = anchors;
         }
@@ -28,6 +30,15 @@ namespace Yoti.Auth.Attribute
         public string GetName()
         {
             return _name;
+        }
+
+        /// <summary>
+        /// Gets the ID of the attribute
+        /// </summary>
+        /// <returns>Attribute ID</returns>
+        public string GetId()
+        {
+            return _id;
         }
 
         /// <summary>

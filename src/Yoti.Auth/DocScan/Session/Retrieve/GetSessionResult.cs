@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
+using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile;
 using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
@@ -47,6 +48,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "biometric_consent")]
         public DateTime? BiometricConsentTimestamp { get; internal set; }
+
+        [JsonProperty(PropertyName = "identity_profile")]
+        public IdentityProfileResponse IdentityProfile { get; internal set; }
 
         public List<AuthenticityCheckResponse> GetAuthenticityChecks()
         {
@@ -108,6 +112,14 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
                 return new List<ThirdPartyIdentityCheckResponse>();
 
             return Checks.OfType<ThirdPartyIdentityCheckResponse>().ToList();
+        }
+
+        public List<ThirdPartyIdentityFraudOneCheckResponse> GetThirdPartyIdentityFraudOneChecks()
+        {
+            if (Checks == null)
+                return new List<ThirdPartyIdentityFraudOneCheckResponse>();
+
+            return Checks.OfType<ThirdPartyIdentityFraudOneCheckResponse>().ToList();
         }
 
         public List<WatchlistScreeningCheckResponse> GetWatchlistScreeningChecks()

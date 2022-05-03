@@ -25,41 +25,51 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cg1TaWduaW5nLnByb3RvEg1hdHRycHViYXBpX3YxGhFDb250ZW50VHlwZS5w",
-            "cm90byKqAQoQQXR0cmlidXRlU2lnbmluZxIMCgRuYW1lGAEgASgJEg0KBXZh",
+            "cm90byLFAQoQQXR0cmlidXRlU2lnbmluZxIMCgRuYW1lGAEgASgJEg0KBXZh",
             "bHVlGAIgASgMEjAKDGNvbnRlbnRfdHlwZRgDIAEoDjIaLmF0dHJwdWJhcGlf",
             "djEuQ29udGVudFR5cGUSGgoSYXJ0aWZhY3Rfc2lnbmF0dXJlGAQgASgMEhAK",
-            "CHN1Yl90eXBlGAUgASgJEhkKEXNpZ25lZF90aW1lX3N0YW1wGAYgASgMQooB",
-            "CiRjb20ueW90aS5hcGkuY2xpZW50LnNwaS5yZW1vdGUucHJvdG9CDFNpZ25p",
-            "bmdQcm90b1oNeW90aXByb3RvYXR0cqoCHFlvdGkuQXV0aC5Qcm90b0J1Zi5B",
-            "dHRyaWJ1dGXKAgpBdHRycHViYXBp6gIYWW90aS5Qcm90b2J1Zi5BdHRycHVi",
-            "YXBpYgZwcm90bzM="));
+            "CHN1Yl90eXBlGAUgASgJEhkKEXNpZ25lZF90aW1lX3N0YW1wGAYgASgMEhkK",
+            "EWFzc29jaWF0ZWRfc291cmNlGAcgASgJQuMBCiRjb20ueW90aS5hcGkuY2xp",
+            "ZW50LnNwaS5yZW1vdGUucHJvdG9CDFNpZ25pbmdQcm90b1ovZ2l0aHViLmNv",
+            "bS9nZXR5b3RpL3lvdGktZ28tc2RrL3YzL3lvdGlwcm90b2F0dHKqAhxZb3Rp",
+            "LkF1dGguUHJvdG9CdWYuQXR0cmlidXRlygIYWW90aVxQcm90b2J1ZlxBdHRy",
+            "cHViYXBp4gIkWW90aVxQcm90b2J1ZlxBdHRycHViYXBpXEdQQk1ldGFkYXRh",
+            "6gIaWW90aTo6UHJvdG9idWY6OkF0dHJwdWJhcGliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Yoti.Auth.ProtoBuf.Attribute.ContentTypeReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeSigning), global::Yoti.Auth.ProtoBuf.Attribute.AttributeSigning.Parser, new[]{ "Name", "Value", "ContentType", "ArtifactSignature", "SubType", "SignedTimeStamp" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Yoti.Auth.ProtoBuf.Attribute.AttributeSigning), global::Yoti.Auth.ProtoBuf.Attribute.AttributeSigning.Parser, new[]{ "Name", "Value", "ContentType", "ArtifactSignature", "SubType", "SignedTimeStamp", "AssociatedSource" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class AttributeSigning : pb::IMessage<AttributeSigning> {
+  public sealed partial class AttributeSigning : pb::IMessage<AttributeSigning>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<AttributeSigning> _parser = new pb::MessageParser<AttributeSigning>(() => new AttributeSigning());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<AttributeSigning> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::Yoti.Auth.ProtoBuf.Attribute.SigningReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeSigning() {
       OnConstruction();
     }
@@ -67,6 +77,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeSigning(AttributeSigning other) : this() {
       name_ = other.name_;
       value_ = other.value_;
@@ -74,10 +85,12 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       artifactSignature_ = other.artifactSignature_;
       subType_ = other.subType_;
       signedTimeStamp_ = other.signedTimeStamp_;
+      associatedSource_ = other.associatedSource_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AttributeSigning Clone() {
       return new AttributeSigning(this);
     }
@@ -86,6 +99,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int NameFieldNumber = 1;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Name {
       get { return name_; }
       set {
@@ -97,6 +111,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int ValueFieldNumber = 2;
     private pb::ByteString value_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString Value {
       get { return value_; }
       set {
@@ -106,8 +121,9 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
 
     /// <summary>Field number for the "content_type" field.</summary>
     public const int ContentTypeFieldNumber = 3;
-    private global::Yoti.Auth.ProtoBuf.Attribute.ContentType contentType_ = 0;
+    private global::Yoti.Auth.ProtoBuf.Attribute.ContentType contentType_ = global::Yoti.Auth.ProtoBuf.Attribute.ContentType.Undefined;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Yoti.Auth.ProtoBuf.Attribute.ContentType ContentType {
       get { return contentType_; }
       set {
@@ -119,6 +135,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int ArtifactSignatureFieldNumber = 4;
     private pb::ByteString artifactSignature_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString ArtifactSignature {
       get { return artifactSignature_; }
       set {
@@ -130,6 +147,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int SubTypeFieldNumber = 5;
     private string subType_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string SubType {
       get { return subType_; }
       set {
@@ -141,6 +159,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     public const int SignedTimeStampFieldNumber = 6;
     private pb::ByteString signedTimeStamp_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pb::ByteString SignedTimeStamp {
       get { return signedTimeStamp_; }
       set {
@@ -148,12 +167,26 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       }
     }
 
+    /// <summary>Field number for the "associated_source" field.</summary>
+    public const int AssociatedSourceFieldNumber = 7;
+    private string associatedSource_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string AssociatedSource {
+      get { return associatedSource_; }
+      set {
+        associatedSource_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as AttributeSigning);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(AttributeSigning other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -167,18 +200,21 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       if (ArtifactSignature != other.ArtifactSignature) return false;
       if (SubType != other.SubType) return false;
       if (SignedTimeStamp != other.SignedTimeStamp) return false;
+      if (AssociatedSource != other.AssociatedSource) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Value.Length != 0) hash ^= Value.GetHashCode();
-      if (ContentType != 0) hash ^= ContentType.GetHashCode();
+      if (ContentType != global::Yoti.Auth.ProtoBuf.Attribute.ContentType.Undefined) hash ^= ContentType.GetHashCode();
       if (ArtifactSignature.Length != 0) hash ^= ArtifactSignature.GetHashCode();
       if (SubType.Length != 0) hash ^= SubType.GetHashCode();
       if (SignedTimeStamp.Length != 0) hash ^= SignedTimeStamp.GetHashCode();
+      if (AssociatedSource.Length != 0) hash ^= AssociatedSource.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -186,12 +222,17 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
       if (Name.Length != 0) {
         output.WriteRawTag(10);
         output.WriteString(Name);
@@ -200,7 +241,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
         output.WriteRawTag(18);
         output.WriteBytes(Value);
       }
-      if (ContentType != 0) {
+      if (ContentType != global::Yoti.Auth.ProtoBuf.Attribute.ContentType.Undefined) {
         output.WriteRawTag(24);
         output.WriteEnum((int) ContentType);
       }
@@ -216,12 +257,56 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
         output.WriteRawTag(50);
         output.WriteBytes(SignedTimeStamp);
       }
+      if (AssociatedSource.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(AssociatedSource);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
+    #endif
     }
 
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Value.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(Value);
+      }
+      if (ContentType != global::Yoti.Auth.ProtoBuf.Attribute.ContentType.Undefined) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) ContentType);
+      }
+      if (ArtifactSignature.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteBytes(ArtifactSignature);
+      }
+      if (SubType.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(SubType);
+      }
+      if (SignedTimeStamp.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteBytes(SignedTimeStamp);
+      }
+      if (AssociatedSource.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(AssociatedSource);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       if (Name.Length != 0) {
@@ -230,7 +315,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       if (Value.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Value);
       }
-      if (ContentType != 0) {
+      if (ContentType != global::Yoti.Auth.ProtoBuf.Attribute.ContentType.Undefined) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ContentType);
       }
       if (ArtifactSignature.Length != 0) {
@@ -242,6 +327,9 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       if (SignedTimeStamp.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(SignedTimeStamp);
       }
+      if (AssociatedSource.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AssociatedSource);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -249,6 +337,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(AttributeSigning other) {
       if (other == null) {
         return;
@@ -259,7 +348,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       if (other.Value.Length != 0) {
         Value = other.Value;
       }
-      if (other.ContentType != 0) {
+      if (other.ContentType != global::Yoti.Auth.ProtoBuf.Attribute.ContentType.Undefined) {
         ContentType = other.ContentType;
       }
       if (other.ArtifactSignature.Length != 0) {
@@ -271,11 +360,18 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
       if (other.SignedTimeStamp.Length != 0) {
         SignedTimeStamp = other.SignedTimeStamp;
       }
+      if (other.AssociatedSource.Length != 0) {
+        AssociatedSource = other.AssociatedSource;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -291,7 +387,7 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             break;
           }
           case 24: {
-            contentType_ = (global::Yoti.Auth.ProtoBuf.Attribute.ContentType) input.ReadEnum();
+            ContentType = (global::Yoti.Auth.ProtoBuf.Attribute.ContentType) input.ReadEnum();
             break;
           }
           case 34: {
@@ -306,9 +402,57 @@ namespace Yoti.Auth.ProtoBuf.Attribute {
             SignedTimeStamp = input.ReadBytes();
             break;
           }
+          case 58: {
+            AssociatedSource = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 18: {
+            Value = input.ReadBytes();
+            break;
+          }
+          case 24: {
+            ContentType = (global::Yoti.Auth.ProtoBuf.Attribute.ContentType) input.ReadEnum();
+            break;
+          }
+          case 34: {
+            ArtifactSignature = input.ReadBytes();
+            break;
+          }
+          case 42: {
+            SubType = input.ReadString();
+            break;
+          }
+          case 50: {
+            SignedTimeStamp = input.ReadBytes();
+            break;
+          }
+          case 58: {
+            AssociatedSource = input.ReadString();
+            break;
+          }
         }
       }
     }
+    #endif
 
   }
 

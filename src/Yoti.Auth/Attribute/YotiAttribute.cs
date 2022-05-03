@@ -13,7 +13,7 @@ namespace Yoti.Auth.Attribute
     {
         private readonly T _value;
 
-        public YotiAttribute(string name, T value, List<Anchor> anchors) : base(name, anchors)
+        public YotiAttribute(string name, T value, List<Anchor> anchors, string id = null) : base(name, anchors, id)
         {
             _value = value;
         }

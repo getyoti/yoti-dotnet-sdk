@@ -8,9 +8,9 @@ namespace Yoti.Auth.Tests.TestTools
     {
         public static ApplicationProfile CreateApplicationProfileWithSingleAttribute<T>(YotiAttribute<T> attribute)
         {
-            var attributes = new Dictionary<string, BaseAttribute>
+            var attributes = new Dictionary<string, List<BaseAttribute>>
             {
-                { attribute.GetName(), attribute }
+                { attribute.GetName(), new List<BaseAttribute> {attribute } }
             };
 
             return new ApplicationProfile(attributes);
@@ -18,11 +18,16 @@ namespace Yoti.Auth.Tests.TestTools
 
         public static YotiProfile CreateUserProfileWithSingleAttribute<T>(YotiAttribute<T> attribute)
         {
-            var attributes = new Dictionary<string, BaseAttribute>
+            var attributes = new Dictionary<string, List<BaseAttribute>>
             {
-                { attribute.GetName(), attribute }
+                { attribute.GetName(), new List<BaseAttribute> {attribute } }
             };
 
+            return new YotiProfile(attributes);
+        }
+
+        public static YotiProfile CreateUserProfileWithAttributes<T>(Dictionary<string, List<BaseAttribute>> attributes)
+        {
             return new YotiProfile(attributes);
         }
 

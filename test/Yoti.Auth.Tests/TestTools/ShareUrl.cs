@@ -1,5 +1,6 @@
 ﻿using Yoti.Auth.ShareUrl;
 using Yoti.Auth.ShareUrl.Policy;
+using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests.TestTools
 {
@@ -18,6 +19,7 @@ namespace Yoti.Auth.Tests.TestTools
               .WithAgeUnder(30)
               .WithAgeUnder(40)
               .WithPinAuthentication(true)
+              .WithIdentityProfileRequirements(IdentityProfiles.CreateStandardIdentityProfileRequirements())
               .Build();
         }
     }

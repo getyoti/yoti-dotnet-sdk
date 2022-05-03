@@ -16,6 +16,9 @@ namespace Yoti.Auth.ShareUrl
         [JsonProperty(PropertyName = "extensions")]
         private readonly List<BaseExtension> _extensions;
 
+        [JsonProperty(PropertyName = "subject")]
+        private readonly object _subject;
+
         [JsonIgnore]
         public string CallbackEndpoint
         {
@@ -43,11 +46,22 @@ namespace Yoti.Auth.ShareUrl
             }
         }
 
-        public DynamicScenario(string callbackEndpoint, DynamicPolicy dynamicPolicy, List<BaseExtension> extensions = null)
+
+        [JsonIgnore]
+        public object Subject
+        {
+            get
+            {
+                return _subject;
+            }
+        }
+
+        public DynamicScenario(string callbackEndpoint, DynamicPolicy dynamicPolicy, List<BaseExtension> extensions = null, object subject = null)
         {
             _callbackEndpoint = callbackEndpoint;
             _dynamicPolicy = dynamicPolicy;
             _extensions = extensions ?? new List<BaseExtension>();
+            _subject = subject;
         }
     }
 }

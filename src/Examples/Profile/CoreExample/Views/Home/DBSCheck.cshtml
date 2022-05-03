@@ -1,6 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "DBS Check";
 }
+@model Yoti.Auth.ShareUrl.ShareUrlResult
+
 <!DOCTYPE html>
 <html class="yoti-html">
 
@@ -23,7 +25,7 @@
                      alt="Yoti" />
             </div>
 
-            <h1 class="yoti-top-header">We now accept Yoti</h1>
+            <h1 class="yoti-top-header">DBS Check Example</h1>
 
             <div class="yoti-sdk-integration-section">
                 <div id="yoti-share-button"></div>
@@ -64,14 +66,13 @@
             </div>
         </section>
     </main>
-
     <script src="https://www.yoti.com/share/client/"></script>
     <script>
         window.Yoti.Share.init({
             "elements": [{
                 "domId": "yoti-share-button",
-                "scenarioId": "@ViewBag.YotiScenarioId",
                 "clientSdkId": "@ViewBag.YotiClientSdkId",
+                "shareUrl": "@Model.Url",
                 "button": {
                     "label": "Use Yoti",
                     "align": "center",

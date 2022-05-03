@@ -13,7 +13,7 @@ namespace Yoti.Auth.Web
                 throw new ArgumentNullException(nameof(httpMethod));
             }
 
-            string stringToConvert = $"{httpMethod.ToString()}&{endpoint}";
+            string stringToConvert = $"{httpMethod}&{endpoint}";
 
             if (content != null)
                 stringToConvert += "&" + Conversion.BytesToBase64(content);

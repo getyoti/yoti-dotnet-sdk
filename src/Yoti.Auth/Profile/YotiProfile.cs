@@ -23,7 +23,7 @@ namespace Yoti.Auth.Profile
             _ageVerificationParser = new AgeVerificationParser(baseProfile);
         }
 
-        internal YotiProfile(Dictionary<string, BaseAttribute> attributes) : base(attributes)
+        internal YotiProfile(Dictionary<string, List<BaseAttribute>> attributes) : base(attributes)
         {
             _ageVerificationParser = new AgeVerificationParser(baseProfile: this);
         }
@@ -181,6 +181,19 @@ namespace Yoti.Auth.Profile
                 return GetAttributeByName<List<Image>>(name: Constants.UserProfile.DocumentImagesAttribute);
             }
         }
+
+        /// <summary>
+        /// IdentityProfileReport represents the JSON object containing identity assertion and the
+        /// verification report. This will be null if not provided by Yoti.
+        /// </summary>
+        public YotiAttribute<Dictionary<string, JToken>> IdentityProfileReport
+        {
+            get
+            {
+                return GetAttributeByName<Dictionary<string, JToken>>(name: Constants.UserProfile.IdentityProfileReportAttribute);
+            }
+        }
+
 
         /// <summary>
         /// Finds all the 'Age Over' and 'Age Under' derived attributes returned with the profile,

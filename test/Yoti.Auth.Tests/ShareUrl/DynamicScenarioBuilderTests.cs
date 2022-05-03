@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Yoti.Auth.ShareUrl;
 using Yoti.Auth.ShareUrl.Extensions;
 using Yoti.Auth.ShareUrl.Policy;
+using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests.ShareUrl
 {
@@ -29,11 +30,14 @@ namespace Yoti.Auth.Tests.ShareUrl
         public void ShouldBuildADynamicScenario()
         {
             DynamicPolicy somePolicy = TestTools.ShareUrl.CreateStandardPolicy();
+            object someSubject = IdentityProfiles.CreateStandardSubject();
+
             DynamicScenario result = new DynamicScenarioBuilder()
                 .WithCallbackEndpoint(_someEndpoint)
                 .WithPolicy(somePolicy)
                 .WithExtension(extension1)
                 .WithExtension(extension2)
+                .WithSubject(someSubject)
                 .Build();
 
             var expectedExtensions = new List<BaseExtension> { extension1, extension2 };
@@ -41,6 +45,7 @@ namespace Yoti.Auth.Tests.ShareUrl
             Assert.AreEqual(_someEndpoint, result.CallbackEndpoint);
             Assert.AreEqual(somePolicy, result.DynamicPolicy);
             CollectionAssert.AreEqual(expectedExtensions, result.Extensions);
+            Assert.AreEqual(someSubject, result.Subject);
 
             string serializedScenario = JsonConvert.SerializeObject(
                 result,

@@ -18,6 +18,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         [DataRow(DocScanConstants.IdDocumentFaceMatch, typeof(FaceMatchCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentTextDataCheck, typeof(TextDataCheckResponse))]
         [DataRow(DocScanConstants.ThirdPartyIdentity, typeof(ThirdPartyIdentityCheckResponse))]
+        [DataRow(DocScanConstants.ThirdPartyIdentityFraudOne, typeof(ThirdPartyIdentityFraudOneCheckResponse))]
         [DataRow(DocScanConstants.Liveness, typeof(LivenessCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentComparison, typeof(IdDocumentComparisonCheckResponse))]
         [DataRow(DocScanConstants.SupplementaryDocumentTextDataCheck, typeof(SupplementaryDocTextDataCheckResponse))]

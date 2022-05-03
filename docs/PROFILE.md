@@ -107,8 +107,7 @@ string value = givenNamesFirstSource.GetValue();
 
 ## Running the Examples
 
-Follow the below links for instructions on how to run the example projects:
-1) [.NET 4.7 example](../src/Examples/Profile/47Example/README.md) (Windows only)
+Follow the link below for instructions on how to run the example project:
 1) [.NET Core example](../src/Examples/Profile/CoreExample/README.md)
 
 ## API Coverage
