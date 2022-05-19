@@ -56,6 +56,98 @@ namespace Yoti.Auth.Tests
         }
 
         [TestMethod]
+        public void SharingFailureWithErrorCodeShouldThrowExceptionWithErrorCode()
+        {
+            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailure.json");
+
+            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+                HttpStatusCode.OK, jsonResponse);
+                
+            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+
+            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+            {
+                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+            }).Result;
+
+            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+            Assert.AreEqual(profileException.ErrorCode, "SOME_ERROR_CODE");
+        }
+
+        [TestMethod]
+        public void SharingFailureShouldThrowExceptionWithWholeResponseExposed()
+        {
+            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailure.json");
+
+            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+                HttpStatusCode.OK, jsonResponse);
+
+            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+
+            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+            {
+                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+            }).Result;
+
+            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+            Assert.AreEqual(profileException.ErrorCode, "SOME_ERROR_CODE");
+            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
+        }
+
+        [TestMethod]
+        public void SharingFailureShouldThrowExceptionWithWholeResponseExposedRegardlessOfFormOfJson()
+        {
+            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMinimal.json");
+
+            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+               HttpStatusCode.OK, jsonResponse);
+
+            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+
+            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+            {
+                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+            }).Result;
+
+            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+            Assert.AreEqual(profileException.ErrorCode, default(string));
+            Assert.AreEqual(profileException.ResponseContent, jsonResponse); 
+        }
+
+        [TestMethod]
+        public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson()
+        {
+            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMinimal.json");
+
+            YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
+
+            Assert.AreEqual(profileException.ErrorCode, default(string));
+            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
+        }
+
+        [TestMethod]
+        public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson_MissingErrorDetails()
+        {
+            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMissingErrorDetails.json");
+
+            YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
+
+            Assert.AreEqual(profileException.ErrorCode, default(string));
+            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
+        }
+
+        [TestMethod]
+        public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson_MissingErrorCode()
+        {
+            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMissingErrorCode.json");
+
+            YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
+
+            Assert.AreEqual(profileException.ErrorCode, default(string));
+            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
+        }
+
+        [TestMethod]
         public void NullReceiptShouldThrowException()
         {
             Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(

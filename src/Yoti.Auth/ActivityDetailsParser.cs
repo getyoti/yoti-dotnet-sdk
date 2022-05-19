@@ -29,8 +29,8 @@ namespace Yoti.Auth
             }
             else if (parsedResponse.Receipt.SharingOutcome != "SUCCESS")
             {
-                throw new YotiProfileException(
-                    $"The share was not successful, sharing_outcome: '{parsedResponse.Receipt.SharingOutcome}'");
+                throw new YotiProfileException(@$"The share was not successful, sharing_outcome: '{parsedResponse.Receipt.SharingOutcome}'
+, there may be more info in '{nameof(YotiProfileException.ErrorCode)}' or '{nameof(YotiProfileException.ResponseContent)}'", responseContent);
             }
 
             ReceiptDO receipt = parsedResponse.Receipt;
