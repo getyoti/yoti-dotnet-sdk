@@ -16,10 +16,10 @@
     <PackageIcon>Yoti.png</PackageIcon>
     <RepositoryUrl>https://github.com/getyoti/yoti-dotnet-sdk</RepositoryUrl>
     <PackageTags>yoti 2FA multifactor authentication verification identity login register verify 2Factor sdk sandbox documents docs KYC AML</PackageTags>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <Version>3.11.0</Version>
+    <Version>3.12.1-beta</Version>
   </PropertyGroup>
 
   <PropertyGroup>

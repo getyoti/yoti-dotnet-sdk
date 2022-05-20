@@ -15,355 +15,355 @@ using Yoti.Auth.Tests.Common;
 
 namespace Yoti.Auth.Tests
 {
-    [TestClass]
-    public class YotiClientEngineTests
-    {
-        private const string EncryptedToken = "b6H19bUCJhwh6WqQX/sEHWX9RP+A/ANr1fkApwA4Dp2nJQFAjrF9e6YCXhNBpAIhfHnN0iXubyXxXZMNwNMSQ5VOxkqiytrvPykfKQWHC6ypSbfy0ex8ihndaAXG5FUF+qcU8QaFPMy6iF3x0cxnY0Ij0kZj0Ng2t6oiNafb7AhT+VGXxbFbtZu1QF744PpWMuH0LVyBsAa5N5GJw2AyBrnOh67fWMFDKTJRziP5qCW2k4h5vJfiYr/EOiWKCB1d/zINmUm94ZffGXxcDAkq+KxhN1ZuNhGlJ2fKcFh7KxV0BqlUWPsIEiwS0r9CJ2o1VLbEs2U/hCEXaqseEV7L29EnNIinEPVbL4WR7vkF6zQCbK/cehlk2Qwda+VIATqupRO5grKZN78R9lBitvgilDaoE7JB/VFcPoljGQ48kX0wje1mviX4oJHhuO8GdFITS5LTbojGVQWT7LUNgAUe0W0j+FLHYYck3v84OhWTqads5/jmnnLkp9bdJSRuJF0e8pNdePnn2lgF+GIcyW/0kyGVqeXZrIoxnObLpF+YeUteRBKTkSGFcy7a/V/DLiJMPmH8UXDLOyv8TVt3ppzqpyUrLN2JVMbL5wZ4oriL2INEQKvw/boDJjZDGeRlu5m1y7vGDNBRDo64+uQM9fRUULPw+YkABNwC0DeShswzT00=";
-        private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
-        private static HttpRequestMessage _httpRequestMessage;
-        private const string SdkId = "fake-sdk-id";
+	[TestClass]
+	public class YotiClientEngineTests
+	{
+		private const string EncryptedToken = "b6H19bUCJhwh6WqQX/sEHWX9RP+A/ANr1fkApwA4Dp2nJQFAjrF9e6YCXhNBpAIhfHnN0iXubyXxXZMNwNMSQ5VOxkqiytrvPykfKQWHC6ypSbfy0ex8ihndaAXG5FUF+qcU8QaFPMy6iF3x0cxnY0Ij0kZj0Ng2t6oiNafb7AhT+VGXxbFbtZu1QF744PpWMuH0LVyBsAa5N5GJw2AyBrnOh67fWMFDKTJRziP5qCW2k4h5vJfiYr/EOiWKCB1d/zINmUm94ZffGXxcDAkq+KxhN1ZuNhGlJ2fKcFh7KxV0BqlUWPsIEiwS0r9CJ2o1VLbEs2U/hCEXaqseEV7L29EnNIinEPVbL4WR7vkF6zQCbK/cehlk2Qwda+VIATqupRO5grKZN78R9lBitvgilDaoE7JB/VFcPoljGQ48kX0wje1mviX4oJHhuO8GdFITS5LTbojGVQWT7LUNgAUe0W0j+FLHYYck3v84OhWTqads5/jmnnLkp9bdJSRuJF0e8pNdePnn2lgF+GIcyW/0kyGVqeXZrIoxnObLpF+YeUteRBKTkSGFcy7a/V/DLiJMPmH8UXDLOyv8TVt3ppzqpyUrLN2JVMbL5wZ4oriL2INEQKvw/boDJjZDGeRlu5m1y7vGDNBRDo64+uQM9fRUULPw+YkABNwC0DeShswzT00=";
+		private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
+		private static HttpRequestMessage _httpRequestMessage;
+		private const string SdkId = "fake-sdk-id";
 
-        [DataTestMethod]
-        [DataRow(null)]
-        [DataRow("")]
-        public void InvalidTokenShouldThrowException(string encryptedToken)
-        {
-            var engine = new YotiClientEngine(new HttpClient());
+		[DataTestMethod]
+		[DataRow(null)]
+		[DataRow("")]
+		public void InvalidTokenShouldThrowException(string encryptedToken)
+		{
+			var engine = new YotiClientEngine(new HttpClient());
 
-            var profileException = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
-            {
-                await engine.GetActivityDetailsAsync(encryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
-            }).Result;
+			var profileException = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+			{
+				await engine.GetActivityDetailsAsync(encryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+			}).Result;
 
-            Assert.IsTrue(profileException.Message.Contains("'encryptedConnectToken' must not be empty or null"));
-        }
+			Assert.IsTrue(profileException.Message.Contains("'encryptedConnectToken' must not be empty or null"));
+		}
 
-        [TestMethod]
-        public void SharingFailureShouldReturnSharingFailure()
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"session_data\":null,\"receipt\":{\"receipt_id\": null,\"other_party_profile_content\": null,\"policy_uri\":null,\"personal_key\":null,\"remember_me_id\":null, \"sharing_outcome\":\"FAILURE\",\"timestamp\":\"2016-09-23T13:04:11Z\"}}");
+		[TestMethod]
+		public void SharingFailureShouldReturnSharingFailure()
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"session_data\":null,\"receipt\":{\"receipt_id\": null,\"other_party_profile_content\": null,\"policy_uri\":null,\"personal_key\":null,\"remember_me_id\":null, \"sharing_outcome\":\"FAILURE\",\"timestamp\":\"2016-09-23T13:04:11Z\"}}");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
-            {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
-            }).Result;
+			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			{
+				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+			}).Result;
 
-            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
-        }
+			Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+		}
 
-        [TestMethod]
-        public void SharingFailureWithErrorCodeShouldThrowExceptionWithErrorCode()
-        {
-            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailure.json");
+		[TestMethod]
+		public void SharingFailureWithErrorCodeShouldThrowExceptionWithErrorCode()
+		{
+			string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailure.json");
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK, jsonResponse);
-                
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK, jsonResponse);
 
-            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
-            {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
-            }).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
-            Assert.AreEqual(profileException.ErrorCode, "SOME_ERROR_CODE");
-        }
+			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			{
+				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+			}).Result;
 
-        [TestMethod]
-        public void SharingFailureShouldThrowExceptionWithWholeResponseExposed()
-        {
-            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailure.json");
+			Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+			Assert.AreEqual("SOME_ERROR_CODE", profileException.ErrorCode);
+		}
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK, jsonResponse);
+		[TestMethod]
+		public void SharingFailureShouldThrowExceptionWithWholeResponseExposed()
+		{
+			string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailure.json");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK, jsonResponse);
 
-            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
-            {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
-            }).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
-            Assert.AreEqual(profileException.ErrorCode, "SOME_ERROR_CODE");
-            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
-        }
+			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			{
+				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+			}).Result;
 
-        [TestMethod]
-        public void SharingFailureShouldThrowExceptionWithWholeResponseExposedRegardlessOfFormOfJson()
-        {
-            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMinimal.json");
+			Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+			Assert.AreEqual("SOME_ERROR_CODE", profileException.ErrorCode);
+			Assert.AreEqual(jsonResponse, profileException.ResponseContent);
+		}
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-               HttpStatusCode.OK, jsonResponse);
+		[TestMethod]
+		public void SharingFailureShouldThrowExceptionWithWholeResponseExposedRegardlessOfFormOfJson()
+		{
+			string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMinimal.json");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+			   HttpStatusCode.OK, jsonResponse);
 
-            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
-            {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
-            }).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
-            Assert.AreEqual(profileException.ErrorCode, default(string));
-            Assert.AreEqual(profileException.ResponseContent, jsonResponse); 
-        }
+			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			{
+				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+			}).Result;
 
-        [TestMethod]
-        public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson()
-        {
-            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMinimal.json");
+			Assert.IsTrue(profileException.Message.StartsWith("The share was not successful"));
+			Assert.AreEqual(default(string), profileException.ErrorCode);
+			Assert.AreEqual(jsonResponse, profileException.ResponseContent);
+		}
 
-            YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
+		[TestMethod]
+		public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson()
+		{
+			string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMinimal.json");
 
-            Assert.AreEqual(profileException.ErrorCode, default(string));
-            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
-        }
+			YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
 
-        [TestMethod]
-        public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson_MissingErrorDetails()
-        {
-            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMissingErrorDetails.json");
+			Assert.AreEqual(default(string), profileException.ErrorCode);
+			Assert.AreEqual(jsonResponse, profileException.ResponseContent);
+		}
 
-            YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
+		[TestMethod]
+		public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson_MissingErrorDetails()
+		{
+			string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMissingErrorDetails.json");
 
-            Assert.AreEqual(profileException.ErrorCode, default(string));
-            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
-        }
+			YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
 
-        [TestMethod]
-        public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson_MissingErrorCode()
-        {
-            string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMissingErrorCode.json");
+			Assert.AreEqual(default(string), profileException.ErrorCode);
+			Assert.AreEqual(jsonResponse, profileException.ResponseContent);
+		}
 
-            YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
+		[TestMethod]
+		public void SharingFailureExceptionShouldExposeResponseContentRegardlessOfFormOfJson_MissingErrorCode()
+		{
+			string jsonResponse = System.IO.File.ReadAllText("TestData/ShareFailureMissingErrorCode.json");
 
-            Assert.AreEqual(profileException.ErrorCode, default(string));
-            Assert.AreEqual(profileException.ResponseContent, jsonResponse);
-        }
+			YotiProfileException profileException = new YotiProfileException("msg", jsonResponse);
 
-        [TestMethod]
-        public void NullReceiptShouldThrowException()
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"session_data\":null,\"receipt\":null}");
+			Assert.AreEqual(default(string), profileException.ErrorCode);
+			Assert.AreEqual(jsonResponse, profileException.ResponseContent);
+		}
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+		[TestMethod]
+		public void NullReceiptShouldThrowException()
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"session_data\":null,\"receipt\":null}");
 
-            var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
-            {
-                await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
-            }).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsTrue(profileException.Message.StartsWith("The receipt of the parsed response is null"));
-        }
+			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			{
+				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
+			}).Result;
 
-        [TestMethod]
-        public void SuccessfulShareShouldReturnCorrectValues()
-        {
-            const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
-            const string otherPartyProfileContent = "ChCZAib1TBm9Q5GYfFrS1ep9EnAwQB5shpAPWLBgZgFgt6bCG3S5qmZHhrqUbQr3yL6yeLIDwbM7x4nuT/MYp+LDXgmFTLQNYbDTzrEzqNuO2ZPn9Kpg+xpbm9XtP7ZLw3Ep2BCmSqtnll/OdxAqLb4DTN4/wWdrjnFC+L/oQEECu646";
-            const string rememberMeId = "remember_me_id0123456789";
-            const string parentRememberMeId = "parent_remember_me_id0123456789";
-            const string receiptId = "receipt_id_123";
+			Assert.IsTrue(profileException.Message.StartsWith("The receipt of the parsed response is null"));
+		}
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"other_party_profile_content\": \"" + otherPartyProfileContent + "\",\"remember_me_id\":\"" + rememberMeId + "\",\"parent_remember_me_id\":\"" + parentRememberMeId + "\",\"receipt_id\":\"" + receiptId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
+		[TestMethod]
+		public void SuccessfulShareShouldReturnCorrectValues()
+		{
+			const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
+			const string otherPartyProfileContent = "ChCZAib1TBm9Q5GYfFrS1ep9EnAwQB5shpAPWLBgZgFgt6bCG3S5qmZHhrqUbQr3yL6yeLIDwbM7x4nuT/MYp+LDXgmFTLQNYbDTzrEzqNuO2ZPn9Kpg+xpbm9XtP7ZLw3Ep2BCmSqtnll/OdxAqLb4DTN4/wWdrjnFC+L/oQEECu646";
+			const string rememberMeId = "remember_me_id0123456789";
+			const string parentRememberMeId = "parent_remember_me_id0123456789";
+			const string receiptId = "receipt_id_123";
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"other_party_profile_content\": \"" + otherPartyProfileContent + "\",\"remember_me_id\":\"" + rememberMeId + "\",\"parent_remember_me_id\":\"" + parentRememberMeId + "\",\"receipt_id\":\"" + receiptId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsNotNull(activityDetails);
+			ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
-            Assert.IsNotNull(activityDetails.Profile);
+			Assert.IsNotNull(activityDetails);
 
-            Assert.AreEqual(receiptId, activityDetails.ReceiptId);
+			Assert.IsNotNull(activityDetails.Profile);
 
-            Assert.AreEqual(rememberMeId, activityDetails.RememberMeId);
-            Assert.AreEqual(parentRememberMeId, activityDetails.ParentRememberMeId);
-            Assert.IsNull(activityDetails.ExtraData.AttributeIssuanceDetails);
+			Assert.AreEqual(receiptId, activityDetails.ReceiptId);
 
-            Assert.AreEqual(new DateTime(2016, 1, 1, 0, 0, 0), activityDetails.Timestamp);
+			Assert.AreEqual(rememberMeId, activityDetails.RememberMeId);
+			Assert.AreEqual(parentRememberMeId, activityDetails.ParentRememberMeId);
+			Assert.IsNull(activityDetails.ExtraData.AttributeIssuanceDetails);
 
-            Assert.IsNotNull(activityDetails.Profile.Selfie);
-            Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.Profile.Selfie.GetValue().GetContent()));
+			Assert.AreEqual(new DateTime(2016, 1, 1, 0, 0, 0), activityDetails.Timestamp);
 
-            Assert.AreEqual("phone_number0123456789", activityDetails.Profile.MobileNumber.GetValue());
+			Assert.IsNotNull(activityDetails.Profile.Selfie);
+			Assert.AreEqual(Convert.ToBase64String(Encoding.UTF8.GetBytes("selfie0123456789")), Convert.ToBase64String(activityDetails.Profile.Selfie.GetValue().GetContent()));
 
-            Assert.AreEqual(new DateTime(1980, 1, 1), activityDetails.Profile.DateOfBirth.GetValue());
-        }
+			Assert.AreEqual("phone_number0123456789", activityDetails.Profile.MobileNumber.GetValue());
 
-        [TestMethod]
-        public void ShouldAddAuthKeyHeaderToProfileRequest()
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"receipt\":{\"wrapped_receipt_key\": \"kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=\",\"other_party_profile_content\": \"ChCZAib1TBm9Q5GYfFrS1ep9EnAwQB5shpAPWLBgZgFgt6bCG3S5qmZHhrqUbQr3yL6yeLIDwbM7x4nuT/MYp+LDXgmFTLQNYbDTzrEzqNuO2ZPn9Kpg+xpbm9XtP7ZLw3Ep2BCmSqtnll/OdxAqLb4DTN4/wWdrjnFC+L/oQEECu646\",\"remember_me_id\":\"remember_me_id0123456789\",\"parent_remember_me_id\":\"parent_remember_me_id0123456789\",\"receipt_id\":\"receipt_id_123\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
+			Assert.AreEqual(new DateTime(1980, 1, 1), activityDetails.Profile.DateOfBirth.GetValue());
+		}
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+		[TestMethod]
+		public void ShouldAddAuthKeyHeaderToProfileRequest()
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"receipt\":{\"wrapped_receipt_key\": \"kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=\",\"other_party_profile_content\": \"ChCZAib1TBm9Q5GYfFrS1ep9EnAwQB5shpAPWLBgZgFgt6bCG3S5qmZHhrqUbQr3yL6yeLIDwbM7x4nuT/MYp+LDXgmFTLQNYbDTzrEzqNuO2ZPn9Kpg+xpbm9XtP7ZLw3Ep2BCmSqtnll/OdxAqLb4DTN4/wWdrjnFC+L/oQEECu646\",\"remember_me_id\":\"remember_me_id0123456789\",\"parent_remember_me_id\":\"parent_remember_me_id0123456789\",\"receipt_id\":\"receipt_id_123\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
 
-            ActivityDetails _ = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsTrue(_httpRequestMessage.Headers.Contains(Constants.Api.AuthKeyHeader));
-        }
+			ActivityDetails _ = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
-        [TestMethod]
-        public void EmptyStringParentRememberMeIdShouldBeHandled()
-        {
-            const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
-            const string parentRememberMeId = "";
+			Assert.IsTrue(_httpRequestMessage.Headers.Contains(Constants.Api.AuthKeyHeader));
+		}
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"parent_remember_me_id\":\"" + parentRememberMeId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
+		[TestMethod]
+		public void EmptyStringParentRememberMeIdShouldBeHandled()
+		{
+			const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
+			const string parentRememberMeId = "";
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\",\"parent_remember_me_id\":\"" + parentRememberMeId + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.AreEqual(string.Empty, activityDetails.ParentRememberMeId);
-        }
+			ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
 
-        [TestMethod]
-        public void ShouldHandleMissingValuesInReceipt()
-        {
-            const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
+			Assert.AreEqual(string.Empty, activityDetails.ParentRememberMeId);
+		}
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-               HttpStatusCode.OK,
-               "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
+		[TestMethod]
+		public void ShouldHandleMissingValuesInReceipt()
+		{
+			const string wrappedReceiptKey = "kyHPjq2+Y48cx+9yS/XzmW09jVUylSdhbP+3Q9Tc9p6bCEnyfa8vj38AIu744RzzE+Dc4qkSF21VfzQKtJVILfOXu5xRc7MYa5k3zWhjiesg/gsrv7J4wDyyBpHIJB8TWXnubYMbSYQJjlsfwyxE9kGe0YI08pRo2Tiht0bfR5Z/YrhAk4UBvjp84D+oyug/1mtGhKphA4vgPhQ9/y2wcInYxju7Q6yzOsXGaRUXR38Tn2YmY9OBgjxiTnhoYJFP1X9YJkHeWMW0vxF1RHxgIVrpf7oRzdY1nq28qzRg5+wC7cjRpS2i/CKUAo0oVG4pbpXsaFhaTewStVC7UFtA77JHb3EnF4HcSWMnK5FM7GGkL9MMXQenh11NZHKPWXpux0nLZ6/vwffXZfsiyTIcFL/NajGN8C/hnNBljoQ+B3fzWbjcq5ueUOPwARZ1y38W83UwMynzkud/iEdHLaZIu4qUCRkfSxJg7Dc+O9/BdiffkOn2GyFmNjVeq754DCUypxzMkjYxokedN84nK13OU4afVyC7t5DDxAK/MqAc69NCBRLqMi5f8BMeOZfMcSWPGC9a2Qu8VgG125TuZT4+wIykUhGyj3Bb2/fdPsxwuKFR+E0uqs0ZKvcv1tkNRRtKYBqTacgGK9Yoehg12cyLrITLdjU1fmIDn4/vrhztN5w=";
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+			   HttpStatusCode.OK,
+			   "{\"receipt\":{\"wrapped_receipt_key\": \"" + wrappedReceiptKey + "\", \"sharing_outcome\":\"SUCCESS\", \"timestamp\":\"2016-01-01T00:00:00Z\"}}");
 
-            ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.IsNotNull(activityDetails.Profile);
+			ActivityDetails activityDetails = engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl)).Result;
+
+			Assert.IsNotNull(activityDetails.Profile);
 #pragma warning disable CS0618 // Type or member is obsolete
-            Assert.AreEqual(0, activityDetails.ApplicationProfile.Attributes.Count);
+			Assert.AreEqual(0, activityDetails.ApplicationProfile.Attributes.Count);
 #pragma warning restore CS0618 // Type or member is obsolete
-            Assert.AreEqual(0, activityDetails.ApplicationProfile.AttributeCollection.Count);
+			Assert.AreEqual(0, activityDetails.ApplicationProfile.AttributeCollection.Count);
 
-            Assert.IsNull(activityDetails.ReceiptId);
-            Assert.IsNull(activityDetails.RememberMeId);
-            Assert.IsNull(activityDetails.ParentRememberMeId);
-        }
+			Assert.IsNull(activityDetails.ReceiptId);
+			Assert.IsNull(activityDetails.RememberMeId);
+			Assert.IsNull(activityDetails.ParentRememberMeId);
+		}
 
-        [TestMethod]
-        public async Task PerformAmlCheckAsyncShouldReturnCorrectValues()
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"on_fraud_list\":true,\"on_pep_list\":false,\"on_watch_list\":false}");
+		[TestMethod]
+		public async Task PerformAmlCheckAsyncShouldReturnCorrectValues()
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"on_fraud_list\":true,\"on_pep_list\":false,\"on_watch_list\":false}");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
+			AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
-            AmlResult amlResult = await engine.PerformAmlCheckAsync(
-                SdkId, _keyPair,
-                new Uri(Constants.Api.DefaultYotiApiUrl),
-                amlProfile);
+			AmlResult amlResult = await engine.PerformAmlCheckAsync(
+				SdkId, _keyPair,
+				new Uri(Constants.Api.DefaultYotiApiUrl),
+				amlProfile);
 
-            Assert.IsNotNull(amlResult);
-            Assert.IsTrue(amlResult.IsOnFraudList());
-            Assert.IsFalse(amlResult.IsOnPepList());
-            Assert.IsFalse(amlResult.IsOnWatchList());
-        }
+			Assert.IsNotNull(amlResult);
+			Assert.IsTrue(amlResult.IsOnFraudList());
+			Assert.IsFalse(amlResult.IsOnPepList());
+			Assert.IsFalse(amlResult.IsOnWatchList());
+		}
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void AmlBadRequestShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"");
+		[DataTestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void AmlBadRequestShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
+			AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
-            Assert.ThrowsExceptionAsync<AmlException>(async () =>
-            {
-                await engine.PerformAmlCheckAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), amlProfile);
-            });
-        }
+			Assert.ThrowsExceptionAsync<AmlException>(async () =>
+			{
+				await engine.PerformAmlCheckAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), amlProfile);
+			});
+		}
 
-        [TestMethod]
-        public async Task CreateShareURLAsyncShouldReturnCorrectValues()
-        {
-            string shareUrl = @"https://yoti.com/shareurl";
-            string refId = "NpdmVVGC-28356678-c236-4518-9de4-7a93009ccaf0-c5f92f2a-5539-453e-babc-9b06e1d6b7de";
+		[TestMethod]
+		public async Task CreateShareURLAsyncShouldReturnCorrectValues()
+		{
+			string shareUrl = @"https://yoti.com/shareurl";
+			string refId = "NpdmVVGC-28356678-c236-4518-9de4-7a93009ccaf0-c5f92f2a-5539-453e-babc-9b06e1d6b7de";
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"qrcode\":\"" + shareUrl + "\",\"ref_id\":\"" + refId + "\"}");
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				HttpStatusCode.OK,
+				"{\"qrcode\":\"" + shareUrl + "\",\"ref_id\":\"" + refId + "\"}");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
-            DynamicScenario dynamicScenario = TestTools.ShareUrl.CreateStandardDynamicScenario();
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			DynamicScenario dynamicScenario = TestTools.ShareUrl.CreateStandardDynamicScenario();
 
-            ShareUrlResult shareUrlResult = await engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario);
+			ShareUrlResult shareUrlResult = await engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario);
 
-            Assert.IsNotNull(shareUrlResult);
-            Assert.AreEqual(new Uri(shareUrl), shareUrlResult.Url);
-            Assert.AreEqual(refId, shareUrlResult.RefId);
-        }
+			Assert.IsNotNull(shareUrlResult);
+			Assert.AreEqual(new Uri(shareUrl), shareUrlResult.Url);
+			Assert.AreEqual(refId, shareUrlResult.RefId);
+		}
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void ShareURLNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"");
+		[DataTestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void ShareURLNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"");
 
-            var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-            DynamicScenario dynamicScenario = TestTools.ShareUrl.CreateStandardDynamicScenario();
+			DynamicScenario dynamicScenario = TestTools.ShareUrl.CreateStandardDynamicScenario();
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario).Wait();
-            });
+			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			{
+				engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario).Wait();
+			});
 
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DynamicShareException>(aggregateException));
-        }
+			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DynamicShareException>(aggregateException));
+		}
 
-        private static Mock<HttpMessageHandler> SetupMockMessageHandler(HttpStatusCode httpStatusCode, string responseContent)
-        {
-            var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-            handlerMock
-               .Protected()
-               .Setup<Task<HttpResponseMessage>>(
-                  "SendAsync",
-                  ItExpr.IsAny<HttpRequestMessage>(),
-                  ItExpr.IsAny<CancellationToken>()
-               )
-               .ReturnsAsync(new HttpResponseMessage()
-               {
-                   StatusCode = httpStatusCode,
-                   Content = new StringContent(responseContent)
-               })
-               .Callback<HttpRequestMessage, CancellationToken>((http, token) => _httpRequestMessage = http)
-               .Verifiable();
-            return handlerMock;
-        }
-    }
+		private static Mock<HttpMessageHandler> SetupMockMessageHandler(HttpStatusCode httpStatusCode, string responseContent)
+		{
+			var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+			handlerMock
+			   .Protected()
+			   .Setup<Task<HttpResponseMessage>>(
+				  "SendAsync",
+				  ItExpr.IsAny<HttpRequestMessage>(),
+				  ItExpr.IsAny<CancellationToken>()
+			   )
+			   .ReturnsAsync(new HttpResponseMessage()
+			   {
+				   StatusCode = httpStatusCode,
+				   Content = new StringContent(responseContent)
+			   })
+			   .Callback<HttpRequestMessage, CancellationToken>((http, token) => _httpRequestMessage = http)
+			   .Verifiable();
+			return handlerMock;
+		}
+	}
 }
