@@ -6,6 +6,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
     {
         private string _livenessType;
         private int _maxRetries = 1;
+        private string _manualCheck = "NEVER";
 
         /// <summary>
         /// ForZoomLiveness sets the liveness type to "ZOOM"
@@ -14,6 +15,15 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         public RequestedLivenessCheckBuilder ForZoomLiveness()
         {
             return ForLivenessType(DocScanConstants.Zoom);
+        }
+
+        /// <summary>
+        /// ForStaticLiveness sets the liveness type to "STATIC"
+        /// </summary>
+        /// <returns></returns>
+        public RequestedLivenessCheckBuilder ForStaticLiveness()
+        {
+            return ForLivenessType(DocScanConstants.Static);
         }
 
         public RequestedLivenessCheckBuilder ForLivenessType(string livenessType)
@@ -31,7 +41,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         public RequestedLivenessCheck Build()
         {
             Validation.NotNullOrEmpty(_livenessType, nameof(_livenessType));
-            RequestedLivenessConfig config = new RequestedLivenessConfig(_maxRetries, _livenessType);
+            RequestedLivenessConfig config = new RequestedLivenessConfig(_maxRetries, _livenessType, _manualCheck);
 
             return new RequestedLivenessCheck(config);
         }

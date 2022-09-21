@@ -23,6 +23,7 @@
 
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
+        public const string Static = "STATIC";
         public const string FaceCapture = "FACE_CAPTURE";
 
         public const string Camera = "CAMERA";
