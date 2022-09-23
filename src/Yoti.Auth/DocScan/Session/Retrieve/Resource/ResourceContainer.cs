@@ -37,5 +37,26 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
                 return zoomResources;
             }
         }
+
+        public List<StaticLivenessResourceResponse> StaticLivenessResources
+        {
+            get
+            {
+                if (LivenessCapture == null)
+                    return new List<StaticLivenessResourceResponse>();
+
+                List<StaticLivenessResourceResponse> staticResources = new List<StaticLivenessResourceResponse>();
+
+                foreach (var resource in LivenessCapture)
+                {
+                    if (resource is StaticLivenessResourceResponse staticLivenessResource)
+                    {
+                        staticResources.Add(staticLivenessResource);
+                    }
+                }
+
+                return staticResources;
+            }
+        }
     }
 }

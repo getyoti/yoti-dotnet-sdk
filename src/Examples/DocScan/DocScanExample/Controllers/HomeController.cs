@@ -48,6 +48,7 @@ namespace DocScanExample.Controllers
                 .WithRequestedCheck(
                     new RequestedLivenessCheckBuilder()
                     .ForZoomLiveness()
+                    //.ForStaticLiveness() 
                     .Build()
                 )
                 .WithRequestedCheck(
