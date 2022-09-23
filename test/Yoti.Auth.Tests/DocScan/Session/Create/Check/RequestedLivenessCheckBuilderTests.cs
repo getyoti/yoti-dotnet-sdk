@@ -42,6 +42,19 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         }
 
         [TestMethod]
+        public void ShouldBuildWithManualChecks()
+        {
+            RequestedLivenessCheck check =
+              new RequestedLivenessCheckBuilder()
+              .ForStaticLiveness()
+              .WithMaxRetries(5)
+              .WithManualCheck("NEVER")
+              .Build();
+
+            Assert.AreEqual("NEVER", check.Config.ManualCheck);
+        }
+
+        [TestMethod]
         public void ShouldBuildWithMaxRetries()
         {
             RequestedLivenessCheck check =

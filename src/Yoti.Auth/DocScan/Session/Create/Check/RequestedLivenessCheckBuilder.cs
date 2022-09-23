@@ -26,6 +26,12 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
             return ForLivenessType(DocScanConstants.Static);
         }
 
+        public RequestedLivenessCheckBuilder WithManualCheck(string manualCheck)
+        {
+            _manualCheck = manualCheck;
+            return this;
+        }
+
         public RequestedLivenessCheckBuilder ForLivenessType(string livenessType)
         {
             _livenessType = livenessType;
