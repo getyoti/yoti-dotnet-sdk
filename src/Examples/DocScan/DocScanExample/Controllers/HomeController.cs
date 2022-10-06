@@ -51,7 +51,6 @@ namespace DocScanExample.Controllers
                     //.ForStaticLiveness()
                     .Build()
                 )
-                //Face Comparison Request Check, StaticLiveness is mandatory in RequestChecks 
                 //.WithRequestedCheck(
                 //    new RequestedFaceComparisonCheckBuilder()
                 //    .WithManualCheckNever()
