@@ -13,7 +13,7 @@ using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Objectives;
 using Yoti.Auth.DocScan.Session.Create.Task;
-
+ 
 namespace DocScanExample.Controllers
 {
     public class HomeController : Controller
@@ -48,9 +48,15 @@ namespace DocScanExample.Controllers
                 .WithRequestedCheck(
                     new RequestedLivenessCheckBuilder()
                     .ForZoomLiveness()
-                    //.ForStaticLiveness() 
+                    //.ForStaticLiveness()
                     .Build()
                 )
+                //Face Comparison Request Check, StaticLiveness is mandatory in RequestChecks 
+                //.WithRequestedCheck(
+                //    new RequestedFaceComparisonCheckBuilder()
+                //    .WithManualCheckNever()
+                //    .Build()
+                // )
                 .WithRequestedCheck(
                     new RequestedFaceMatchCheckBuilder()
                     .WithManualCheckAlways()
@@ -119,12 +125,12 @@ namespace DocScanExample.Controllers
                     .WithObjective(
                         new ProofOfAddressObjectiveBuilder().Build())
                     .Build()
-                )
+                )          
             .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;
-
+           
             string path = $"web/index.html?sessionID={sessionId}&sessionToken={createSessionResult.ClientSessionToken}";
             Uri uri = new Uri(_apiUrl, path);
 

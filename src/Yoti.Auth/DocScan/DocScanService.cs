@@ -61,7 +61,7 @@ namespace Yoti.Auth.DocScan
                 {
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
-
+                var str = response.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<CreateSessionResult>(
                    response.Content.ReadAsStringAsync().Result);
             }
