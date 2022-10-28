@@ -58,5 +58,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Filter
             Assert.AreEqual("BLACKLIST", result.TypeRestriction.Inclusion);
             Assert.IsNull(result.CountryRestriction);
         }
+
+        [TestMethod]
+        public void WithAllowedNonLatinDocuments()
+        {
+            OrthogonalRestrictionsFilter result = new OrthogonalRestrictionsFilterBuilder()
+                .WithExcludedDocumentTypes(new List<string> { "CO4" })
+                .isAllowNonLatinDocuments(true)
+                .Build();
+
+            Assert.AreEqual("ORTHOGONAL_RESTRICTIONS", result.Type);
+            Assert.AreEqual("CO4", result.TypeRestriction.DocumentTypes.Single());
+            Assert.AreEqual("BLACKLIST", result.TypeRestriction.Inclusion);
+            Assert.IsTrue(result.AllowNonLatinDocuments);
+            Assert.IsNull(result.CountryRestriction);
+        }
+
+        
     }
 }
