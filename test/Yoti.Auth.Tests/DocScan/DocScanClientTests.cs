@@ -399,6 +399,40 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.AreEqual("DRIVING_LICENCE", result.SupportedCountries[0].SupportedDocuments[1].Type);
         }
 
+        [TestMethod]
+        public void GetSupportedDocumentWithIsLatinShouldSucceed()
+        {
+            var passport = new SupportedDocument("PASSPORT", true);
+            var drivingLicence = new SupportedDocument("DRIVING_LICENCE", true);
+
+            var supportedDocumentsResponse = new SupportedDocumentsResponse(
+                new List<SupportedCountry>{
+                    new SupportedCountry(
+                    "FRA",
+                    new List<SupportedDocument> { passport, drivingLicence })
+                });
+
+            string jsonResponse = JsonConvert.SerializeObject(supportedDocumentsResponse);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments();
+
+            Assert.AreEqual(1, result.SupportedCountries.Count);
+            Assert.AreEqual("FRA", result.SupportedCountries[0].Code);
+            Assert.AreEqual("PASSPORT", result.SupportedCountries[0].SupportedDocuments[0].Type);
+            Assert.AreEqual("DRIVING_LICENCE", result.SupportedCountries[0].SupportedDocuments[1].Type);
+        }
+
         [DataTestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
