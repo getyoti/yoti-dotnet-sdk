@@ -391,7 +391,41 @@ namespace Yoti.Auth.Tests.DocScan
 
             DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
 
-            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments();
+            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments(false);
+
+            Assert.AreEqual(1, result.SupportedCountries.Count);
+            Assert.AreEqual("FRA", result.SupportedCountries[0].Code);
+            Assert.AreEqual("PASSPORT", result.SupportedCountries[0].SupportedDocuments[0].Type);
+            Assert.AreEqual("DRIVING_LICENCE", result.SupportedCountries[0].SupportedDocuments[1].Type);
+        }
+
+        [TestMethod]
+        public void GetSupportedDocumentWithIsStrictlyLatinFlagShouldSucceed()
+        {
+            var passport = new SupportedDocument("PASSPORT");
+            var drivingLicence = new SupportedDocument("DRIVING_LICENCE");
+
+            var supportedDocumentsResponse = new SupportedDocumentsResponse(
+                new List<SupportedCountry>{
+                    new SupportedCountry(
+                    "FRA",
+                    new List<SupportedDocument> { passport, drivingLicence })
+                });
+
+            string jsonResponse = JsonConvert.SerializeObject(supportedDocumentsResponse);
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(jsonResponse),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments(true);
 
             Assert.AreEqual(1, result.SupportedCountries.Count);
             Assert.AreEqual("FRA", result.SupportedCountries[0].Code);
@@ -412,7 +446,7 @@ namespace Yoti.Auth.Tests.DocScan
 
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                docScanClient.GetSupportedDocuments();
+                docScanClient.GetSupportedDocuments(false);
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
