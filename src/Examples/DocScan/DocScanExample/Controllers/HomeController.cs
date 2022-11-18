@@ -10,10 +10,12 @@ using Yoti.Auth;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
 using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.FaceCapture;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Objectives;
 using Yoti.Auth.DocScan.Session.Create.Task;
- 
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration;
+
 namespace DocScanExample.Controllers
 {
     public class HomeController : Controller
@@ -51,11 +53,11 @@ namespace DocScanExample.Controllers
                     //.ForStaticLiveness()
                     .Build()
                 )
-                //.WithRequestedCheck(
-                //    new RequestedFaceComparisonCheckBuilder()
-                //    .WithManualCheckNever()
-                //    .Build()
-                // )
+                .WithRequestedCheck(
+                    new RequestedFaceComparisonCheckBuilder()
+                    .WithManualCheckNever()
+                    .Build()
+                 )
                 .WithRequestedCheck(
                     new RequestedFaceMatchCheckBuilder()
                     .WithManualCheckAlways()
@@ -129,7 +131,20 @@ namespace DocScanExample.Controllers
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;
-           
+
+
+            //This is for face Comparison Check
+            //Getting session conf.
+            SessionConfigurationResponse result = _client.GetSessionConfiguration(sessionId);
+            //Getting byte array from file, assuming that we have uploaded file
+            byte[] imageContents = System.IO.File.ReadAllBytes("/Users/mehmetalisepici/Downloads/DriverFront.jpeg");
+            //Get facecapture resource requirements
+            var data = result.Capture.GetFaceCaptureResourceRequirements();
+            //Generating face capture resource with desired Id
+            var response = _client.CreateFaceCaptureResource(sessionId, new Yoti.Auth.DocScan.Session.Create.FaceCapture.CreateFaceCaptureResourcePayload(data[0].Id));
+            //Uploading image with generated resource Id
+            _client.UploadFaceCaptureImage(sessionId, response.Id, new UploadFaceCaptureImagePayload("image/png", imageContents));
+            
             string path = $"web/index.html?sessionID={sessionId}&sessionToken={createSessionResult.ClientSessionToken}";
             Uri uri = new Uri(_apiUrl, path);
 
@@ -139,6 +154,7 @@ namespace DocScanExample.Controllers
             return View();
         }
 
+        
         public IActionResult Media(string mediaId, string sessionId)
         {
             MediaValue media = _client.GetMediaContent(sessionId, mediaId);

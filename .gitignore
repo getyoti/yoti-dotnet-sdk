@@ -15,8 +15,10 @@ secrets.config
 
 # Visual Studio cache/options directory
 .vs/
-
 .vscode/
+.DS_Store
+
+
 
 # PEM files in Examples
 /src/Examples/**/*.pem
@@ -34,7 +36,6 @@ Backup*/
 !**/packages/build/
 
 .DS_STORE
-.DS_Store
 
 # Coverage
 OpenCover/
