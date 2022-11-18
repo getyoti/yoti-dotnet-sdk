@@ -9,5 +9,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture.Document
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; private set; }
+
+        [JsonProperty(PropertyName = "is_strictly_latin")]
+        public string IsStrictlyLatin { get; private set; }
+
     }
 }
