@@ -131,6 +131,30 @@
                         </div>
                     }
 
+                    @if (Model.GetFaceComparisonChecks().Count > 0)
+                    {
+                        <div class="card">
+                            <div class="card-header" id="face-comp-checks">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapse-face-comp-checks" aria-expanded="true"
+                                            aria-controls="collapse-face-comp-checks">
+                                        FaceComparison Checks
+                                    </button>
+                                </h3>
+                            </div>
+
+                            <div id="collapse-face-comp-checks" class="collapse" aria-labelledby="face-comp-checks">
+                                <div class="card-body">
+                                    @foreach (var check in Model.GetFaceComparisonChecks())
+                                    {
+                                        @await Html.PartialAsync("_Check", check)
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     @if (Model.GetLivenessChecks().Count > 0)
                     {
                         <div class="card">

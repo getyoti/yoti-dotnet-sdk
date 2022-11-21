@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2141e812-9f94-4e6b-933d-c4cb9662de8d" name="Changes" comment="Merge branch 'SDK-2032-net-support-for-non-latin-documents-when-fetching-session-configuration' into release/3.13.0&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store&#10;#&#9;src/Yoti.Auth/DocScan/Support/SupportedDocument.cs">
+      <change beforePath="$PROJECT_DIR$/src/Yoti.Auth/DocScan/Session/Retrieve/Configuration/Capture/Document/SupportedDocumentResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Yoti.Auth/DocScan/Session/Retrieve/Configuration/Capture/Document/SupportedDocumentResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Yoti.Auth/DocScan/Support/SupportedDocument.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Yoti.Auth/DocScan/Support/SupportedDocument.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Yoti.Auth.Tests/DocScan/DocScanClientTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Yoti.Auth.Tests/DocScan/DocScanClientTests.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HiELXIJUVzWtIsc8XEjrhaR6Pc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mehmetalisepici/Projects/Yoti-Sdk/yoti-dotnet-sdk&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2141e812-9f94-4e6b-933d-c4cb9662de8d" name="Changes" comment="" />
+      <created>1668759449136</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668759449136</updated>
+      <workItem from="1668759451510" duration="2786000" />
+      <workItem from="1668762261914" duration="387000" />
+      <workItem from="1668762652044" duration="37000" />
+      <workItem from="1668762690399" duration="2000" />
+    </task>
+    <task id="LOCAL-00001" summary="Merge of issues">
+      <created>1668761515991</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668761515991</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge of issues" />
+    <MESSAGE value="Merge of issues cnt" />
+    <MESSAGE value="Merge branch 'SDK-2032-net-support-for-non-latin-documents-when-fetching-session-configuration' into release/3.13.0&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store&#10;#&#9;src/Yoti.Auth/DocScan/Support/SupportedDocument.cs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'SDK-2032-net-support-for-non-latin-documents-when-fetching-session-configuration' into release/3.13.0&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store&#10;#&#9;src/Yoti.Auth/DocScan/Support/SupportedDocument.cs" />
+  </component>
+</project>
