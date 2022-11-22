@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a FaceMatch Check for a given session
     /// </summary>
-    public class FaceMatchCheckResponse : CheckResponse
+    public class FaceComparisonCheckResponse : CheckResponse
     {
     }
 }

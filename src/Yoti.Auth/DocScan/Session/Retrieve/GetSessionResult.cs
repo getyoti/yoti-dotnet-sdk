@@ -68,6 +68,8 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
             return Checks.OfType<FaceMatchCheckResponse>().ToList();
         }
 
+
+
         [Obsolete("Use GetIdDocumentTextDataChecks() instead")]
         public List<TextDataCheckResponse> GetTextDataChecks()
         {
@@ -88,6 +90,14 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
                 return new List<LivenessCheckResponse>();
 
             return Checks.OfType<LivenessCheckResponse>().ToList();
+        }
+
+        public List<FaceComparisonCheckResponse> GetFaceComparisonChecks()
+        {
+            if (Checks == null)
+                return new List<FaceComparisonCheckResponse>();
+
+            return Checks.OfType<FaceComparisonCheckResponse>().ToList();
         }
 
         public List<IdDocumentComparisonCheckResponse> GetIdDocumentComparisonChecks()
