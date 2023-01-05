@@ -14,6 +14,12 @@ namespace Yoti.Auth.DocScan.Support
         public string Type { get; }
 
         [JsonProperty(PropertyName = "is_strictly_latin")]
+<<<<<<< HEAD
         public bool IsStrictlyLatin { get; private set; }
+=======
+        public string IsStrictlyLatin { get; }
+
+
+>>>>>>> origin/development
     }
 }
