@@ -459,7 +459,7 @@ namespace Yoti.Auth.Tests.DocScan
 
             DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
 
-            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments();
+            SupportedDocumentsResponse result = docScanClient.GetSupportedDocuments(false);
 
             Assert.AreEqual(1, result.SupportedCountries.Count);
             Assert.AreEqual("FRA", result.SupportedCountries[0].Code);
