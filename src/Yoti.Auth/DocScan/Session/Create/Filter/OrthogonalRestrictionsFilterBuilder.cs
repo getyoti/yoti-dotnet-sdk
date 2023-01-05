@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create.Filter
 {
@@ -6,6 +6,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
     {
         private CountryRestriction _countryRestriction;
         private TypeRestriction _typeRestriction;
+        private bool _allowExpiredDocuments;
         private bool _isAllowNonLatinDocuments;
 
         public OrthogonalRestrictionsFilterBuilder WithIncludedCountries(List<string> countryCodes)
@@ -39,9 +40,22 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
         }
 
 
+
+        public OrthogonalRestrictionsFilterBuilder withAllowExpiredDocuments()
+        {
+            _allowExpiredDocuments = true;
+            return this;
+        }
+
+        public OrthogonalRestrictionsFilterBuilder withDenyExpiredDocuments()
+        {
+            _allowExpiredDocuments = false;
+            return this;
+        }
+
         public OrthogonalRestrictionsFilter Build()
         {
-            return new OrthogonalRestrictionsFilter(_countryRestriction, _typeRestriction, _isAllowNonLatinDocuments);
+            return new OrthogonalRestrictionsFilter(_countryRestriction, _typeRestriction, _allowExpiredDocuments, _isAllowNonLatinDocuments);
         }
     }
 }

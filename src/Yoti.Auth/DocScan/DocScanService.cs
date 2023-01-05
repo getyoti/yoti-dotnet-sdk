@@ -61,7 +61,7 @@ namespace Yoti.Auth.DocScan
                 {
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
-
+                
                 return JsonConvert.DeserializeObject<CreateSessionResult>(
                    response.Content.ReadAsStringAsync().Result);
             }
@@ -185,7 +185,7 @@ namespace Yoti.Auth.DocScan
             }
         }
 
-        public async Task<SupportedDocumentsResponse> GetSupportedDocuments(string sdkId, AsymmetricCipherKeyPair keyPair)
+        public async Task<SupportedDocumentsResponse> GetSupportedDocuments(string sdkId, AsymmetricCipherKeyPair keyPair, bool isStrictlyLatin)
         {
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
@@ -196,6 +196,7 @@ namespace Yoti.Auth.DocScan
                 .WithHttpMethod(HttpMethod.Get)
                 .WithBaseUri(ApiUri)
                 .WithEndpoint("/supported-documents")
+                .WithQueryParam("includeNonLatin", isStrictlyLatin ? "1": "0")
                 .WithQueryParam("sdkId", sdkId)
                 .Build();
 

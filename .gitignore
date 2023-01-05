@@ -19,6 +19,8 @@ secrets.config
 .DS_Store
 
 
+.vscode/
+
 # PEM files in Examples
 /src/Examples/**/*.pem
 
@@ -33,6 +35,9 @@ Backup*/
 **/packages/*
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
+
+.DS_STORE
+.DS_Store
 
 # Coverage
 OpenCover/

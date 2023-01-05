@@ -42,5 +42,33 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Filter
             Assert.AreEqual("USA", result.Documents[0].CountryCodes.Single());
             Assert.AreEqual("NATIONAL_ID", result.Documents[0].DocumentTypes.Single());
         }
+
+        [TestMethod]
+        public void ShouldBuildWithAllowExpiredDocuments()
+        {
+            DocumentRestrictionsFilter result = new DocumentRestrictionsFilterBuilder()
+               .WithDocumentRestriction(new DocumentRestriction(new List<string> { "USA" }, new List<string> { "NATIONAL_ID" }))
+                 .ForIncludeList()
+                 .withAllowExpiredDocuments()
+                .Build();
+
+            Assert.AreEqual("USA", result.Documents[0].CountryCodes.Single());
+            Assert.AreEqual("NATIONAL_ID", result.Documents[0].DocumentTypes.Single());
+            Assert.IsTrue(result.AllowExpiredDocuments);
+        }
+
+
+        [TestMethod]
+        public void ShouldBuildWithDenyExpiredDocuments()
+        {
+            DocumentRestrictionsFilter result = new DocumentRestrictionsFilterBuilder()
+               .WithDocumentRestriction(new DocumentRestriction(new List<string> { "USA" }, new List<string> { "NATIONAL_ID" }))
+                 .ForIncludeList()
+                 .withDenyExpiredDocuments()
+                .Build();
+            Assert.AreEqual("USA", result.Documents[0].CountryCodes.Single());
+            Assert.AreEqual("NATIONAL_ID", result.Documents[0].DocumentTypes.Single());
+            Assert.IsFalse(result.AllowExpiredDocuments);
+        }
     }
 }
