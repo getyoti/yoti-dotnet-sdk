@@ -13,6 +13,7 @@
         public const string ThirdPartyIdentityFraudOne = "THIRD_PARTY_IDENTITY_FRAUD_1";
         public const string WatchlistScreening = "WATCHLIST_SCREENING";
         public const string WatchlistAdvancedCa = "WATCHLIST_ADVANCED_CA";
+        public const string FaceComparison = "FACE_COMPARISON";
 
         public const string WithYotiAccount = "WITH_YOTI_ACCOUNT";
         public const string WithCustomAccount = "WITH_CUSTOM_ACCOUNT";
@@ -23,6 +24,7 @@
 
         public const string Liveness = "LIVENESS";
         public const string Zoom = "ZOOM";
+        public const string Static = "STATIC";
         public const string FaceCapture = "FACE_CAPTURE";
 
         public const string Camera = "CAMERA";
