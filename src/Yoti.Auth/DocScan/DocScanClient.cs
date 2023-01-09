@@ -155,20 +155,20 @@ namespace Yoti.Auth.DocScan
         /// Gets a list of supported documents.
         /// </summary>
         /// <returns>The supported documents</returns>
-        public SupportedDocumentsResponse GetSupportedDocuments()
+        public SupportedDocumentsResponse GetSupportedDocuments(bool isStrictlyLatin)
         {
-            return GetSupportedDocumentsAsync().Result;
+            return GetSupportedDocumentsAsync(isStrictlyLatin).Result;
         }
 
         /// <summary>
         /// Gets a list of supported documents.
         /// </summary>
         /// <returns>The supported documents</returns>
-        public async Task<SupportedDocumentsResponse> GetSupportedDocumentsAsync()
+        public async Task<SupportedDocumentsResponse> GetSupportedDocumentsAsync(bool isStrictlyLatin)
         {
             _logger.Debug("Retrieving supported documents");
 
-            return await _docScanService.GetSupportedDocuments(_sdkId, _keyPair).ConfigureAwait(false);
+            return await _docScanService.GetSupportedDocuments(_sdkId, _keyPair, isStrictlyLatin).ConfigureAwait(false);
         }
 
         /// <summary>

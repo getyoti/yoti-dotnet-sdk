@@ -15,6 +15,9 @@ secrets.config
 
 # Visual Studio cache/options directory
 .vs/
+.vscode/
+.DS_Store
+.idea/
 
 # PEM files in Examples
 /src/Examples/**/*.pem

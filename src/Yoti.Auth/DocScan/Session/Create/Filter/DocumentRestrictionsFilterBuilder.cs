@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Yoti.Auth.DocScan.Session.Create.Filter
 {
@@ -6,6 +7,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
     {
         private string _inclusion;
         private List<DocumentRestriction> _documents;
+        private bool _allowExpiredDocuments;
 
         public DocumentRestrictionsFilterBuilder ForIncludeList()
         {
@@ -37,10 +39,22 @@ namespace Yoti.Auth.DocScan.Session.Create.Filter
             return this;
         }
 
+        public DocumentRestrictionsFilterBuilder withAllowExpiredDocuments()
+        {
+            _allowExpiredDocuments = true;
+            return this;
+        }
+
+        public DocumentRestrictionsFilterBuilder withDenyExpiredDocuments()
+        {
+            _allowExpiredDocuments = false;
+            return this;
+        }
+
         public DocumentRestrictionsFilter Build()
         {
             Validation.NotNullOrEmpty(_inclusion, nameof(_inclusion));
-            return new DocumentRestrictionsFilter(_inclusion, _documents);
+            return new DocumentRestrictionsFilter(_inclusion, _documents, _allowExpiredDocuments);
         }
     }
 }

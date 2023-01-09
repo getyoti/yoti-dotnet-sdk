@@ -715,5 +715,61 @@
 
             }
         }
+
+
+        @if (Model.Resources.StaticLivenessResources.Count > 0)
+        {
+            <div class="row pt-4">
+                <div class="col">
+                    <h2>Static Liveness Resource</h2>
+                </div>
+            </div>
+
+            @foreach (var livenessResource in Model.Resources.StaticLivenessResources)
+            {
+                <div class="row pt-4">
+                    <div class="col">
+                        <table class="table table-striped table-light">
+                            <tbody>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>@livenessResource.Id</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="accordion mt-3">
+                            @if (livenessResource.image != null)
+                            {
+                                <div class="card">
+                                    <div class="card-header" id="liveness-@livenessResource.Id-frames">
+                                        <h3 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapse-liveness-@livenessResource.Id-frames" aria-expanded="true"
+                                                    aria-controls="collapse-liveness-@livenessResource.Id-frames">
+                                                Image
+                                            </button>
+                                        </h3>
+                                    </div>
+                                    <div id="collapse-liveness-@livenessResource.Id-frames" class="collapse" aria-labelledby="liveness-@livenessResource.Id-frames">
+                                        <div class="card-group">
+                                            @if (livenessResource.image.Media != null)
+                                            {
+                                                <div class="card">
+                                                    <img class="card-img-top" src="/media/@livenessResource.image.Media.Id/@Model.SessionId" />
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+
     }
 </div>
