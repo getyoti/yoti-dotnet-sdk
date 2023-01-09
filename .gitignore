@@ -17,9 +17,7 @@ secrets.config
 .vs/
 .vscode/
 .DS_Store
-
-
-.vscode/
+.idea/
 
 # PEM files in Examples
 /src/Examples/**/*.pem
