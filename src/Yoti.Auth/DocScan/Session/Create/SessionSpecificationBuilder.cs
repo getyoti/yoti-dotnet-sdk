@@ -20,6 +20,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private DateTimeOffset? _sessionDeadline;
         private object _identityProfileRequirements;
         private object _subject;
+        
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)

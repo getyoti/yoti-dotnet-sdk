@@ -20,6 +20,7 @@ namespace Yoti.Auth.Tests.TestTools
               .WithAgeUnder(40)
               .WithPinAuthentication(true)
               .WithIdentityProfileRequirements(IdentityProfiles.CreateStandardIdentityProfileRequirements())
+              .WithCreateIdentityProfilePreview(true)
               .Build();
         }
     }
