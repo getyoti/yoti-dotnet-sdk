@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.ShareUrl.Policy
 {
@@ -8,6 +9,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         private readonly HashSet<int> _wantedAuthTypes = new HashSet<int>();
         private bool _wantedRememberMeId;
         private object _identityProfileRequirements;
+        private bool _createIdentityProfilePreview;
 
         public DynamicPolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
         {
@@ -157,9 +159,20 @@ namespace Yoti.Auth.ShareUrl.Policy
             return this;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="createIdentityProfilePreview"> boolean value for setting createIdentityProfilePreview</param> 
+        /// <returns><see cref="DynamicPolicyBuilder"/> with the identity profile requirements</returns>
+        public DynamicPolicyBuilder WithCreateIdentityProfilePreview(bool createIdentityProfilePreview)
+        {
+            _createIdentityProfilePreview = createIdentityProfilePreview;
+            return this;
+        }
+
         public DynamicPolicy Build()
         {
-            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements);
+            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements, _createIdentityProfilePreview);
         }
     }
 }

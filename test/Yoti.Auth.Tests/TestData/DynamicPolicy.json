@@ -31,7 +31,8 @@
         "type": "DBS",
         "objective": "STANDARD"
       }
-    }
+    },
+    "create_identity_profile_preview":true
   },
   "extensions": [
     {
