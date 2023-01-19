@@ -60,8 +60,5 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "subject")]
         public object Subject { get; }
-
-
-
     }
 }
