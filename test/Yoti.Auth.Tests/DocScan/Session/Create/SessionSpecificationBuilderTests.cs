@@ -143,6 +143,51 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShoudBuildWithIdentityProfileRequirements()
+        {
+            var sessionSpec = new SessionSpecificationBuilder()
+                 .WithIdentityProfileRequirements(new
+                 {
+                     trust_framework = "UK_TFIDA",
+                     scheme = new
+                     {
+                         type = "DBS",
+                         objective = "BASIC"
+                     }
+                 })
+            .Build();
+
+            string sessionSpecJson = JsonConvert.SerializeObject(sessionSpec);
+            Assert.IsTrue(sessionSpecJson.Contains("UK_TFIDA"));
+            Assert.IsTrue(sessionSpecJson.Contains("DBS"));
+            Assert.IsTrue(sessionSpecJson.Contains("BASIC"));
+        }
+
+        [TestMethod]
+        public void ShoudBuildWithSubject()
+        {
+            var sessionSpec = new SessionSpecificationBuilder()
+                .WithSubject(new
+                {
+                    subject_id = "some_subject_id_string"
+                })
+            .Build();
+
+            string sessionSpecJson = JsonConvert.SerializeObject(sessionSpec);
+            Assert.IsTrue(sessionSpecJson.Contains("some_subject_id_string"));
+        }
+
+        [TestMethod]
+        public void ShoudBuildWithCreateIdentityProfilePreview()
+        {
+            var sessionSpec = new SessionSpecificationBuilder()
+                .WithCreateIdentityProfilePreview(true)
+            .Build();
+
+            Assert.IsTrue(sessionSpec.CreateIdentityProfilePreview);
+        }
+
+        [TestMethod]
         public void ShouldBuildWithBlockBiometricConsentTrue()
         {
             SessionSpecification sessionSpec =
@@ -163,6 +208,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.IsFalse((bool)sessionSpec.BlockBiometricConsent);
         }
+
 
         [TestMethod]
         public void ShouldBuildWithSessionDeadline()
@@ -223,6 +269,20 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             SessionSpecification sessionSpec =
                 new SessionSpecificationBuilder()
                 .WithIdentityProfileRequirements(identityProfileRequirements)
+                .Build();
+
+            Assert.AreEqual(identityProfileRequirements, sessionSpec.IdentityProfileRequirements);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithIdentityProfilePreview()
+        {
+            object identityProfileRequirements = IdentityProfiles.CreateStandardIdentityProfileRequirements();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithIdentityProfileRequirements(identityProfileRequirements)
+                .WithCreateIdentityProfilePreview(true)
                 .Build();
 
             Assert.AreEqual(identityProfileRequirements, sessionSpec.IdentityProfileRequirements);
