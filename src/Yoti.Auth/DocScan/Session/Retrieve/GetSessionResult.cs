@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
 using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile;
 using Yoti.Auth.DocScan.Session.Retrieve.Resource;
+using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfilePreview;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve
 {
@@ -51,6 +52,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "identity_profile")]
         public IdentityProfileResponse IdentityProfile { get; internal set; }
+
+        [JsonProperty(PropertyName = "identity_profile_preview")]
+        public IdentityProfilePreviewResponse IdentityProfilePreviewResponse { get; internal set; }
 
         public List<AuthenticityCheckResponse> GetAuthenticityChecks()
         {

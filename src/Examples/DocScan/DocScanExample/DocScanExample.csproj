@@ -12,4 +12,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Yoti.Auth\Yoti.Auth.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Dbs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Dbs\" />
+  </ItemGroup>
 </Project>
