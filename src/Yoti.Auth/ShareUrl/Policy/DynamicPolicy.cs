@@ -30,22 +30,18 @@ namespace Yoti.Auth.ShareUrl.Policy
         [JsonProperty(PropertyName = "identity_profile_requirements")]
         private readonly object _identityProfileRequirements;
 
-        [JsonProperty(PropertyName = "create_identity_profile_preview")]
-        private readonly object _createIdentityProfilePreview;
-
         public DynamicPolicy(
                  ICollection<WantedAttribute> wantedAttributes,
                  HashSet<int> wantedAuthTypes,
                  bool wantedRememberMeId,
-                 object identityProfileRequirements = null,
-                 bool createIdentityProfilePreview = false)
+                 object identityProfileRequirements = null
+            )
         {
             _wantedAttributes = wantedAttributes;
             _wantedAuthTypes = wantedAuthTypes;
             _wantedRememberMeId = wantedRememberMeId;
             _isWantedRememberMeIdOptional = false;
             _identityProfileRequirements = identityProfileRequirements;
-            _createIdentityProfilePreview = createIdentityProfilePreview;
         }
 
         /// <summary>

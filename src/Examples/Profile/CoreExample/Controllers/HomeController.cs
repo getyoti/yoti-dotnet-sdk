@@ -109,7 +109,6 @@ namespace CoreExample.Controllers
                              objective = "BASIC"
                          }
                      })
-                    .WithCreateIdentityProfilePreview(true)
                     .Build();
 
                 var dynamicScenario = new DynamicScenarioBuilder()

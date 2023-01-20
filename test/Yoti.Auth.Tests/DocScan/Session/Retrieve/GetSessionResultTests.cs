@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Retrieve;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
+using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfilePreview;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 {
@@ -327,6 +330,43 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, getSessionResult.GetWatchlistAdvancedCaChecks().Count);
             Assert.IsInstanceOfType(getSessionResult.GetWatchlistAdvancedCaChecks().First(), typeof(WatchlistAdvancedCaCheckResponse));
+        }
+
+        [TestMethod]
+        public void CheckIdentityProfilePreviewResponseIsParsed()
+        {
+            dynamic identityProfilePreviewResponse = new
+            {
+                 media = GetMediaResponse() 
+            };
+
+            string json = JsonConvert.SerializeObject(identityProfilePreviewResponse);
+            IdentityProfilePreviewResponse response =
+                JsonConvert.DeserializeObject<IdentityProfilePreviewResponse>(json);
+
+            AssertMediaValuesCorrect(identityProfilePreviewResponse.media, response.Media, typeof(MediaResponse));
+        }
+
+        private void AssertMediaValuesCorrect(dynamic originalData, MediaResponse response, Type requiredType)
+        {
+            Assert.AreEqual(originalData.id, response.Id);
+            Assert.AreEqual(originalData.type, response.Type);
+            Assert.AreEqual(originalData.created, response.Created);
+            Assert.AreEqual(originalData.last_updated, response.LastUpdated);
+            Assert.IsInstanceOfType(response, requiredType);
+        }
+
+        private dynamic GetMediaResponse()
+        {
+            DateTime now = DateTime.Now;
+            dynamic mediaResponse = new
+            {
+                id = "ca492333-35bf-4cc4-a87a-e4af67c30e67",
+                type = "IMAGE",
+                created = now.AddMinutes(-10),
+                last_updated = now.AddMinutes(-2)
+            };
+            return mediaResponse;
         }
 
         [TestMethod]

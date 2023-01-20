@@ -20,6 +20,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private DateTimeOffset? _sessionDeadline;
         private object _identityProfileRequirements;
         private object _subject;
+        private bool _createIdentityProfilePreview;
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)
@@ -163,6 +164,17 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the Identity Profile Requirements for the session
+        /// </summary>
+        /// <param name="identityProfileRequirements">The Identity Profile Requirements <see cref="object"/> for the session</param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithCreateIdentityProfilePreview(bool createIdentityProfilePreview)
+        {
+            _createIdentityProfilePreview = createIdentityProfilePreview;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SessionSpecification"/></returns>
@@ -180,7 +192,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _blockBiometricConsent,
                 _sessionDeadline,
                 _identityProfileRequirements,
-                _subject
+                _subject,
+                _createIdentityProfilePreview
                 );
         }
     }
