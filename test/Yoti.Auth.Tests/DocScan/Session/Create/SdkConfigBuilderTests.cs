@@ -170,7 +170,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithIdDocumentTextExtractionCategoryRetries()
+        public void ShouldBuildWithIdDocumentTextExtractionCategoryAttempts()
         {
             string category = "someCategory";
             int retries = 2;
@@ -178,7 +178,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithIdDocumentTextExtractionCategoryRetries(category, retries)
+                .WithIdDocumentTextExtractionCategoryAttempts(category, retries)
                 .Build();
 
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvp);
@@ -201,9 +201,9 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithIdDocumentTextExtractionReclassificationRetries(2)
-                .WithIdDocumentTextExtractionReclassificationRetries(3)
-                .WithIdDocumentTextExtractionReclassificationRetries(4)
+                .WithIdDocumentTextExtractionReclassificationAttempts(2)
+                .WithIdDocumentTextExtractionReclassificationAttempts(3)
+                .WithIdDocumentTextExtractionReclassificationAttempts(4)
                 .Build();
 
             Assert.AreEqual(1, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);
@@ -221,9 +221,9 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithIdDocumentTextExtractionReclassificationRetries(1)
-                .WithIdDocumentTextExtractionCategoryRetries(category, retries)
-                .WithIdDocumentTextExtractionGenericRetries(3)
+                .WithIdDocumentTextExtractionReclassificationAttempts(1)
+                .WithIdDocumentTextExtractionCategoryAttempts(category, retries)
+                .WithIdDocumentTextExtractionGenericAttempts(3)
                 .Build();
 
             Assert.AreEqual(3, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);

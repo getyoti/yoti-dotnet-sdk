@@ -15,7 +15,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _errorUrl;
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
-        private Dictionary<string, int> _idDocumentTextDataExtractionRetriesConfig;
+        private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -164,21 +164,21 @@ namespace Yoti.Auth.DocScan.Session.Create
         ///         A <see cref="Task.RequestedTextExtractionTask"/> can be created with a <see cref="Task.RequestedTextExtractionTaskBuilder"/>
         ///     </para>
         ///     <para>
-        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some retries number being decremented
+        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some attempts number being decremented
         ///     </para>
         /// </remarks>
-        /// <param name="category">The category for the retries number</param>
-        /// <param name="retries">The number of retries for the category specified</param>
+        /// <param name="category">The category for the attempts number</param>
+        /// <param name="attempts">The number of attempts for the category specified</param>
         /// <returns>The <see cref="SdkConfigBuilder"/></returns>
-        public SdkConfigBuilder WithIdDocumentTextExtractionCategoryRetries(string category, int retries)
+        public SdkConfigBuilder WithIdDocumentTextExtractionCategoryAttempts(string category, int attempts)
         {
-            if (_idDocumentTextDataExtractionRetriesConfig == null)
-                _idDocumentTextDataExtractionRetriesConfig = new Dictionary<string, int>();
+            if (_idDocumentTextDataExtractionAttemptsConfig == null)
+                _idDocumentTextDataExtractionAttemptsConfig = new Dictionary<string, int>();
 
-            if (_idDocumentTextDataExtractionRetriesConfig.ContainsKey(category))
-                _idDocumentTextDataExtractionRetriesConfig[category] = retries;
+            if (_idDocumentTextDataExtractionAttemptsConfig.ContainsKey(category))
+                _idDocumentTextDataExtractionAttemptsConfig[category] = attempts;
             else
-                _idDocumentTextDataExtractionRetriesConfig.Add(category, retries);
+                _idDocumentTextDataExtractionAttemptsConfig.Add(category, attempts);
             return this;
         }
 
@@ -187,7 +187,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         ///         Allows configuring the number of 'Reclassification' attempts permitted for text extraction on an ID document
         ///     </para>
         ///     <para>
-        ///         The Reclassification retries value is decremented whenever the uploaded document is reclassified to be used by another resource requirement
+        ///         The Reclassification attempts value is decremented whenever the uploaded document is reclassified to be used by another resource requirement
         ///     </para>
         /// </summary>
         /// <remarks>
@@ -198,14 +198,14 @@ namespace Yoti.Auth.DocScan.Session.Create
         ///         A <see cref="Task.RequestedTextExtractionTask"/> can be created with a <see cref="Task.RequestedTextExtractionTaskBuilder"/>
         ///     </para>
         ///     <para>
-        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some retries number being decremented
+        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some attempts number being decremented
         ///     </para>
         /// </remarks>
-        /// <param name="reclassificationRetries">The number of retries for reclassification</param>
+        /// <param name="reclassificationAttempts">The number of attempts for reclassification</param>
         /// <returns>The <see cref="SdkConfigBuilder"/></returns>
-        public SdkConfigBuilder WithIdDocumentTextExtractionReclassificationRetries(int reclassificationRetries)
+        public SdkConfigBuilder WithIdDocumentTextExtractionReclassificationAttempts(int reclassificationAttempts)
         {
-            WithIdDocumentTextExtractionCategoryRetries(DocScanConstants.Reclassification, reclassificationRetries);
+            WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Reclassification, reclassificationAttempts);
             return this;
         }
 
@@ -214,7 +214,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         ///         Allows configuring the number of 'Generic' attempts permitted for text extraction on an ID document
         ///     </para>
         ///     <para>
-        ///         The Generic retries value is decremented whenever some event concerning the uploaded document occurs which has not otherwise been categorised (e.g. as 'Reclassification')
+        ///         The Generic attempts value is decremented whenever some event concerning the uploaded document occurs which has not otherwise been categorised (e.g. as 'Reclassification')
         ///     </para>
         /// </summary>
         /// <remarks>
@@ -225,16 +225,16 @@ namespace Yoti.Auth.DocScan.Session.Create
         ///         A <see cref="Task.RequestedTextExtractionTask"/> can be created with a <see cref="Task.RequestedTextExtractionTaskBuilder"/>
         ///     </para>
         ///     <para>
-        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some retries number being decremented
+        ///         Every attempt to update a Task on an ID Document Resource linked to a requirement will result in some attempts number being decremented
         ///     </para>
         /// </remarks>
-        /// <param name="genericRetries">The number of generic retries</param>
+        /// <param name="genericAttempts">The number of generic attempts</param>
         /// <returns>The <see cref="SdkConfigBuilder"/></returns>
-        public SdkConfigBuilder WithIdDocumentTextExtractionGenericRetries(int genericRetries)
+        public SdkConfigBuilder WithIdDocumentTextExtractionGenericAttempts(int genericAttempts)
         {
-            WithIdDocumentTextExtractionCategoryRetries(DocScanConstants.Generic, genericRetries);
+            WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }
+        }   
 
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
@@ -253,7 +253,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionRetriesConfig);
+                _idDocumentTextDataExtractionAttemptsConfig);
         }
     }
 }
