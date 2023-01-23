@@ -79,6 +79,17 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShouldBuildClientSessionTokenDeleted()
+        {
+            NotificationConfig notificationConfig =
+              new NotificationConfigBuilder()
+              .ForClientSessionCompletion()
+              .Build();
+
+            Assert.AreEqual("CLIENT_SESSION_TOKEN_DELETED", notificationConfig.Topics.Single());
+        }
+
+        [TestMethod]
         public void ShouldBuildWithTopic()
         {
             string topicName = "someTopic";
