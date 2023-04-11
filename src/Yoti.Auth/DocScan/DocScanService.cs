@@ -61,9 +61,11 @@ namespace Yoti.Auth.DocScan
                 {
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
-                
-                return JsonConvert.DeserializeObject<CreateSessionResult>(
-                   response.Content.ReadAsStringAsync().Result);
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateSessionResult>(responseObject));
+
+                return deserialized;
             }
         }
 
@@ -91,8 +93,10 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-                return JsonConvert.DeserializeObject<GetSessionResult>(
-                    response.Content.ReadAsStringAsync().Result);
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
+
+                return deserialized;
             }
         }
 
@@ -154,7 +158,11 @@ namespace Yoti.Auth.DocScan
 
                 string contentType = response.Content.Headers.ContentType.MediaType;
 
-                return new MediaValue(contentType, response.Content.ReadAsByteArrayAsync().Result);
+
+                var responseObject = await response.Content.ReadAsByteArrayAsync();
+                var deserialized = await Task.Factory.StartNew(() => new MediaValue(contentType, responseObject));
+
+                return deserialized;
             }
         }
 
@@ -207,8 +215,10 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-                return JsonConvert.DeserializeObject<SupportedDocumentsResponse>(
-                    response.Content.ReadAsStringAsync().Result);
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<SupportedDocumentsResponse>(responseObject));
+
+                return deserialized;
             }
         }
 
@@ -241,8 +251,12 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-                return JsonConvert.DeserializeObject<CreateFaceCaptureResourceResponse>(
-                    response.Content.ReadAsStringAsync().Result);
+              
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateFaceCaptureResourceResponse>(responseObject));
+
+                return deserialized;
+
             }
         }
 
@@ -301,8 +315,10 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-                return JsonConvert.DeserializeObject<SessionConfigurationResponse>(
-                    response.Content.ReadAsStringAsync().Result);
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<SessionConfigurationResponse>(responseObject));
+
+                return deserialized;
             }
         }
 

@@ -42,8 +42,11 @@ namespace Yoti.Auth.ShareUrl
                     Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
                 }
 
-                return JsonConvert.DeserializeObject<ShareUrlResult>(
-                    response.Content.ReadAsStringAsync().Result);
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareUrlResult>(responseObject));
+
+                return deserialized;
+
             }
         }
     }
