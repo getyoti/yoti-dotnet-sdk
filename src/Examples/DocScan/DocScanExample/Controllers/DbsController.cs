@@ -41,6 +41,7 @@ namespace DocScanExample.Controllers
                 .WithResourcesTtl(90000)
                 .WithUserTrackingId("some-user-tracking-id")
                 //Add Sdk Config (with builder)
+                
                 .WithSdkConfig(
                     new SdkConfigBuilder()
                     .WithAllowsCameraAndUpload()

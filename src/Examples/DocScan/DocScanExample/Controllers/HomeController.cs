@@ -35,6 +35,11 @@ namespace DocScanExample.Controllers
         public IActionResult Index()
         {
             //Build Session Spec
+            NotificationConfig notificationConfig =
+             new NotificationConfigBuilder()
+             .ForClientSessionCompletion()
+             .WithEndpoint("https://post-host.staff.stg1.dmz.yoti.com/hook/e3fecc31-0452-4d6c-8344-4139286a050d")
+             .Build();
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
                 .WithResourcesTtl(90000)
@@ -85,6 +90,7 @@ namespace DocScanExample.Controllers
                     .WithManualCheckAlways()
                     .Build()
                 )
+                .WithNotifications(notificationConfig)
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
