@@ -38,7 +38,7 @@ namespace DocScanExample.Controllers
             NotificationConfig notificationConfig =
              new NotificationConfigBuilder()
              .ForClientSessionCompletion()
-             .WithEndpoint("https://post-host.staff.stg1.dmz.yoti.com/hook/e3fecc31-0452-4d6c-8344-4139286a050d")
+             .WithEndpoint("some_endpoint_url")
              .Build();
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
