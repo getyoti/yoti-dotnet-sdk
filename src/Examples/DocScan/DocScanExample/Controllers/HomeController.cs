@@ -34,12 +34,13 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
-            //Build Session Spec
             NotificationConfig notificationConfig =
-             new NotificationConfigBuilder()
-             .ForClientSessionCompletion()
-             .WithEndpoint("some_endpoint_url")
-             .Build();
+            new NotificationConfigBuilder()
+            .ForClientSessionCompletion()
+            .WithEndpoint("http://www.some_url.com/hook")
+            .Build();
+
+            //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
                 .WithResourcesTtl(90000)
