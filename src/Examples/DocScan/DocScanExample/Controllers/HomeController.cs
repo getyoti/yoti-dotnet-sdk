@@ -34,6 +34,12 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
+            NotificationConfig notificationConfig =
+            new NotificationConfigBuilder()
+            .ForClientSessionCompletion()
+            .WithEndpoint("https://www.yoti.com/hookurl")
+            .Build();
+
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
@@ -85,6 +91,7 @@ namespace DocScanExample.Controllers
                     .WithManualCheckAlways()
                     .Build()
                 )
+                .WithNotifications(notificationConfig)
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
