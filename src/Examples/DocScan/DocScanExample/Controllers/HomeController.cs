@@ -37,7 +37,7 @@ namespace DocScanExample.Controllers
             NotificationConfig notificationConfig =
             new NotificationConfigBuilder()
             .ForClientSessionCompletion()
-            .WithEndpoint("http://www.some_url.com/hook")
+            .WithEndpoint("https://www.yoti.com/hookurl")
             .Build();
 
             //Build Session Spec
