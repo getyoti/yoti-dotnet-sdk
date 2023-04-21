@@ -6,7 +6,7 @@ namespace Yoti.Auth.ShareUrl.Policy
     /// <summary>
     /// Set of data required to request a sharing transaction
     /// </summary>
-    public class DynamicPolicy
+    public class        DynamicPolicy
     {
         internal const int SelfieAuthType = 1;
         internal const int PinAuthType = 2;
@@ -34,7 +34,8 @@ namespace Yoti.Auth.ShareUrl.Policy
                  ICollection<WantedAttribute> wantedAttributes,
                  HashSet<int> wantedAuthTypes,
                  bool wantedRememberMeId,
-                 object identityProfileRequirements = null)
+                 object identityProfileRequirements = null
+            )
         {
             _wantedAttributes = wantedAttributes;
             _wantedAuthTypes = wantedAuthTypes;

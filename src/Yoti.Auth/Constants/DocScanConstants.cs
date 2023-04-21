@@ -34,6 +34,7 @@
         public const string TaskCompletion = "TASK_COMPLETION";
         public const string CheckCompletion = "CHECK_COMPLETION";
         public const string SessionCompletion = "SESSION_COMPLETION";
+        public const string ClientSessionTokenDeleted = "CLIENT_SESSION_TOKEN_DELETED";
 
         public const string Sanctions = "SANCTIONS";
         public const string AdverseMedia = "ADVERSE-MEDIA";

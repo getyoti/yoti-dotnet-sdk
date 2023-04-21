@@ -108,7 +108,8 @@ namespace CoreExample.Controllers
                              type = "DBS",
                              objective = "BASIC"
                          }
-                     }).Build();
+                     })
+                    .Build();
 
                 var dynamicScenario = new DynamicScenarioBuilder()
                     .WithCallbackEndpoint("/account/connect")

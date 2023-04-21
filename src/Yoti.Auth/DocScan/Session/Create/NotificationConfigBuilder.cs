@@ -122,6 +122,15 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Adds CLIENT_SESSION_TOKEN_DELETED to the list of topics that trigger notification messages
+        /// </summary>
+        /// <returns>The builder</returns>
+        public NotificationConfigBuilder ForClientSessionCompletion()
+        {
+            return WithTopic(Constants.DocScanConstants.ClientSessionTokenDeleted);
+        }
+
+        /// <summary>
         /// Adds a topic to the list of topics that trigger notification messages
         /// </summary>
         /// <param name="topicName">A topic to trigger notification messages</param>

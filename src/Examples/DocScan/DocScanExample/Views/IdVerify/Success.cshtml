@@ -264,6 +264,31 @@
                             </div>
                         </div>
                     }
+                    @if (Model.IdentityProfilePreviewResponse != null && Model.IdentityProfilePreviewResponse.Media != null)
+                    {
+                        <div class="row pt-4">
+                            <div class="col">
+                                <h2>Identity Profile Preview</h2>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col">
+                                <table class="table table-striped table-light">
+                                    <tbody>
+                                        <tr>
+                                            <td>ID</td>
+                                            <td>
+                                                <a href="/media/@Model.IdentityProfilePreviewResponse.Media.Id/@Model.SessionId">
+                                                    @Model.IdentityProfilePreviewResponse.Media.Id
+                                                </a>
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

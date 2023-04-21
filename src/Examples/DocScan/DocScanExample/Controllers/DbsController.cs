@@ -16,14 +16,14 @@ using Yoti.Auth.DocScan.Session.Create.Task;
  
 namespace DocScanExample.Controllers
 {
-    public class HomeController : Controller
+    public class DbsController : Controller
     {
         private readonly DocScanClient _client;
 
         private readonly string _baseUrl;
         private readonly Uri _apiUrl;
 
-        public HomeController(IHttpContextAccessor httpContextAccessor)
+        public DbsController(IHttpContextAccessor httpContextAccessor)
         {
             var request = httpContextAccessor.HttpContext.Request;
             
@@ -34,64 +34,12 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
-            NotificationConfig notificationConfig =
-            new NotificationConfigBuilder()
-            .ForClientSessionCompletion()
-            .WithEndpoint("https://www.yoti.com/hookurl")
-            .Build();
 
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
                 .WithResourcesTtl(90000)
                 .WithUserTrackingId("some-user-tracking-id")
-                //Add Checks (using builders)
-                .WithRequestedCheck(
-                  new RequestedDocumentAuthenticityCheckBuilder()
-                  .WithManualCheckAlways()
-                  .Build()
-                )
-                .WithRequestedCheck(
-                    new RequestedLivenessCheckBuilder()
-                    .ForZoomLiveness()
-                    //.ForStaticLiveness()
-                    .Build()
-                )
-                //.WithRequestedCheck(
-                //    new RequestedFaceComparisonCheckBuilder()
-                //    .WithManualCheckNever()
-                //    .Build()
-                // )
-                .WithRequestedCheck(
-                    new RequestedFaceMatchCheckBuilder()
-                    .WithManualCheckAlways()
-                    .Build()
-                )
-                .WithRequestedCheck(
-                    new RequestedIdDocumentComparisonCheckBuilder()
-                    .Build())
-                .WithRequestedCheck(
-                    new RequestedThirdPartyIdentityCheckBuilder()
-                    .Build())
-                .WithRequestedCheck(
-                    new RequestedWatchlistScreeningCheckBuilder()
-                    .ForAdverseMedia()
-                    .ForSanctions()
-                    .Build()
-                )
-                //Add Tasks (using builders)
-                .WithRequestedTask(
-                    new RequestedTextExtractionTaskBuilder()
-                    .WithManualCheckAlways()
-                    .WithChipDataDesired()
-                    .Build()
-                )
-                .WithRequestedTask(
-                    new RequestedSupplementaryDocTextExtractionTaskBuilder()
-                    .WithManualCheckAlways()
-                    .Build()
-                )
-                .WithNotifications(notificationConfig)
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
@@ -104,34 +52,22 @@ namespace DocScanExample.Controllers
                     .WithSuccessUrl($"{_baseUrl}/idverify/success")
                     .WithErrorUrl($"{_baseUrl}/idverify/error")
                     .WithPrivacyPolicyUrl($"{_baseUrl}/privacy-policy")
-                    .WithAllowHandoff(false)
                     .Build()
                     )
-                //Add Required Documents (with builders)
-                .WithRequiredDocument(
-                    new RequiredIdDocumentBuilder()
-                    .WithFilter(
-                        (new OrthogonalRestrictionsFilterBuilder())
-                        .WithIncludedDocumentTypes(new List<string> { "PASSPORT" })
-                        .Build()
-                    )
-                    .Build()
-                )
-                .WithRequiredDocument(
-                    new RequiredIdDocumentBuilder()
-                    .WithFilter(
-                        (new OrthogonalRestrictionsFilterBuilder())
-                        .WithIncludedDocumentTypes(new List<string> { "DRIVING_LICENCE" })
-                        .Build()
-                    )
-                    .Build()
-                )
-                .WithRequiredDocument(
-                    new RequiredSupplementaryDocumentBuilder()  
-                    .WithObjective(
-                        new ProofOfAddressObjectiveBuilder().Build())
-                    .Build()
-                )          
+                .WithCreateIdentityProfilePreview(true)
+                 .WithIdentityProfileRequirements(new
+                 {
+                     trust_framework = "UK_TFIDA",
+                     scheme = new
+                     {
+                         type = "DBS",
+                         objective = "BASIC"
+                     }
+                 })
+                .WithSubject(new
+                {
+                    subject_id = "some_subject_id_string"
+                })    
             .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);

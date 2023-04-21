@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.ShareUrl.Policy
 {

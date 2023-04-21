@@ -170,15 +170,15 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        public void ShouldBuildWithIdDocumentTextExtractionCategoryRetries()
+        public void ShouldBuildWithIdDocumentTextExtractionCategoryAttempts()
         {
             string category = "someCategory";
-            int retries = 2;
-            var kvp = new KeyValuePair<string, int>(category, retries);
+            int attempts = 2;
+            var kvp = new KeyValuePair<string, int>(category, attempts);
 
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithIdDocumentTextExtractionCategoryRetries(category, retries)
+                .WithIdDocumentTextExtractionCategoryAttempts(category, attempts)
                 .Build();
 
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvp);
@@ -201,9 +201,9 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithIdDocumentTextExtractionReclassificationRetries(2)
-                .WithIdDocumentTextExtractionReclassificationRetries(3)
-                .WithIdDocumentTextExtractionReclassificationRetries(4)
+                .WithIdDocumentTextExtractionReclassificationAttempts(2)
+                .WithIdDocumentTextExtractionReclassificationAttempts(3)
+                .WithIdDocumentTextExtractionReclassificationAttempts(4)
                 .Build();
 
             Assert.AreEqual(1, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);
@@ -213,23 +213,23 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void AttemptsConfigurationShouldAllowMultipleCategories()
         {
-            var kvpReclassificationRetries = new KeyValuePair<string, int>(DocScanConstants.Reclassification, 1);
+            var kvpReclassificationAttempts = new KeyValuePair<string, int>(DocScanConstants.Reclassification, 1);
             string category = "someCategory";
-            int retries = 2;
-            var kvpUsersChoiceOfCategory = new KeyValuePair<string, int>(category, retries);
-            var kvpGenericRetries = new KeyValuePair<string, int>(DocScanConstants.Generic, 3);
+            int attempts = 2;
+            var kvpUsersChoiceOfCategory = new KeyValuePair<string, int>(category, attempts);
+            var kvpGenericAttempts = new KeyValuePair<string, int>(DocScanConstants.Generic, 3);
 
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithIdDocumentTextExtractionReclassificationRetries(1)
-                .WithIdDocumentTextExtractionCategoryRetries(category, retries)
-                .WithIdDocumentTextExtractionGenericRetries(3)
+                .WithIdDocumentTextExtractionReclassificationAttempts(1)
+                .WithIdDocumentTextExtractionCategoryAttempts(category, attempts)
+                .WithIdDocumentTextExtractionGenericAttempts(3)
                 .Build();
 
             Assert.AreEqual(3, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);
-            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpReclassificationRetries);
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpReclassificationAttempts);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpUsersChoiceOfCategory);
-            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericRetries);
+            CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericAttempts);
         }
     }
 }
