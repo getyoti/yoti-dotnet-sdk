@@ -86,7 +86,7 @@ steps:
 - script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.opencover.xml -targetdir:D:\Reports
   displayName: OpenCover Code Coverage
 
-# Publish the code coverage result (summary and web site)
+# Publish the code coverage result (summary and web site)  
 # The summary allows to view the coverage percentage in the summary tab
 # The web site allows to view which lines are covered directly in Azure Pipeline
 - task: PublishCodeCoverageResults@1
@@ -94,7 +94,7 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
   displayName: 'Publish Cobertura Code Coverage'
-  
+
 - task: SonarCloudAnalyze@1
   displayName: Sonar Cloud Analyze
 
