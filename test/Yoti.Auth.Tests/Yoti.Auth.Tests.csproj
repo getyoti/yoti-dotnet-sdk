@@ -40,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DigitalIdentity\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="test-key-invalid-format.pem">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -67,5 +70,8 @@
     <None Update="TestData\NestedJSON.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DigitalIdentity\" />
   </ItemGroup>
 </Project>
