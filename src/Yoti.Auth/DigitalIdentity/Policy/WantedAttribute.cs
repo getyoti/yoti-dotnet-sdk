@@ -22,7 +22,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         [JsonProperty(PropertyName = "constraints")]
         public List<Constraint> Constraints { get; private set; }
 
-        public WantedAttribute(string name, string derivation, List<Constraint> constraints, bool? acceptSelfAsserted = null, bool optional=false)
+        public WantedAttribute(string name, string derivation, List<Constraint> constraints, bool? acceptSelfAsserted = null, bool optional = false)
         {
             Name = name;
             Derivation = derivation;
