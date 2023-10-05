@@ -18,7 +18,7 @@ namespace Yoti.Auth.DigitalIdentity
         /// </summary>
         /// <param name="redirectUri"></param>
         /// <returns><see cref="ShareSessionRequestBuilder"/> with a Redirect Uri added</returns>
-        public ShareSessionRequestBuilder  WithRedirectUri(string redirectUri)
+        public ShareSessionRequestBuilder WithRedirectUri(string redirectUri)
         {
             _redirectUri = redirectUri;
             return this;
@@ -71,7 +71,7 @@ namespace Yoti.Auth.DigitalIdentity
 
         public ShareSessionRequest Build()
         {
-            return new ShareSessionRequest(_dynamicPolicy,_redirectUri, _notification, _extensions, _subject );
+            return new ShareSessionRequest(_dynamicPolicy, _redirectUri, _notification, _extensions, _subject);
         }
     }
 }
