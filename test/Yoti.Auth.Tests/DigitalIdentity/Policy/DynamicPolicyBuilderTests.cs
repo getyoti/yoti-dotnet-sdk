@@ -342,4 +342,8 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
     }
 
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c2735ea (SDK:2238 refatoring tests)

@@ -43,14 +43,14 @@ namespace Yoti.Auth.DigitalIdentity
             byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
             Request shareSessionRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
-                .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(sessionCreation)
-                .WithQueryParam("sdkID", sdkId)
-                .WithHttpMethod(HttpMethod.Post)
-                .WithContent(body)
-                .Build();
+                    .WithKeyPair(keyPair)
+                    .WithBaseUri(apiUrl)
+                    .WithHeader(yotiAuthId, sdkId)
+                    .WithEndpoint(sessionCreation)
+                    .WithQueryParam("sdkID", sdkId)
+                    .WithHttpMethod(HttpMethod.Post)
+                    .WithContent(body)
+                    .Build();
 
             using (HttpResponseMessage response = await shareSessionRequest.Execute(httpClient).ConfigureAwait(false))
             {

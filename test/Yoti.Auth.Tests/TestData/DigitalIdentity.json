@@ -2,6 +2,7 @@
   "policy": {
     "wanted": [
       {
+<<<<<<< HEAD
         "name": "date_of_birth"
       },
       {
@@ -15,6 +16,25 @@
       {
         "name": "date_of_birth",
         "derivation": "age_under:40"
+=======
+        "name": "date_of_birth",
+        "optional": false
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_over:18",
+        "optional": false
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_under:30",
+        "optional": false
+      },
+      {
+        "name": "date_of_birth",
+        "derivation": "age_under:40",
+        "optional": false
+>>>>>>> c2735ea (SDK:2238 refatoring tests)
       }
     ],
     "wanted_auth_types": [ 2 ],
@@ -49,4 +69,8 @@
     "subject_id": "some_subject_id_string"
   },
   "redirectUri": "someEndpoint"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c2735ea (SDK:2238 refatoring tests)
