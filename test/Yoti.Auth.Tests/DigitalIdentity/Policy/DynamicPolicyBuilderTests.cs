@@ -6,6 +6,7 @@ using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests.DigitalIdentity.Policy
 {
+    
     [TestClass]
     public class DynamicPolicyBuilderTests
     {
@@ -19,7 +20,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
                 .WithName("SomeAttributeName")
                 .Build();
 
-            DynamicPolicy result = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy result = new PolicyBuilder()
                 .WithWantedAttribute(wantedAttribute)
                 .WithWantedAttribute(wantedAttribute)
                 .Build();
@@ -31,7 +32,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldContainAllAddedAttributes()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithFamilyName()
                 .WithGivenNames()
                 .WithFullName()
@@ -74,7 +75,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithMultipleAgeDerivedAttributes()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithDateOfBirth()
                 .WithAgeOver(18)
                 .WithAgeUnder(30)
@@ -95,7 +96,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldOverwriteIdenticalAgeVerificationToEnsureItOnlyExistsOnce()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithAgeUnder(30)
                 .WithAgeUnder(30)
                 .Build();
@@ -129,7 +130,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
                 .WithConstraints(new List<Constraint> { drivingLicenseConstraint })
                 .Build();
 
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithWantedAttribute(docImage1)
                 .WithWantedAttribute(docImage2)
                 .Build();
@@ -146,7 +147,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithAuthTypesTrue()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
                 .WithPinAuthentication(enabled: true)
                 .WithAuthType(authType: 99, enabled: true)
@@ -161,7 +162,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouoldBuildWithAuthTypesFalse()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithSelfieAuthentication(enabled: false)
                 .WithPinAuthentication(enabled: false)
                 .Build();
@@ -174,7 +175,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithAuthTypeEnabledThenDisabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithAuthType(24, enabled: true)
                 .WithAuthType(24, enabled: false)
                 .Build();
@@ -187,7 +188,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithAuthTypeDisabledThenEnabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithAuthType(23, enabled: false)
                 .WithAuthType(23, enabled: true)
                 .Build();
@@ -201,7 +202,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithSelfieAuthenticationEnabledThenDisabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
                 .WithSelfieAuthentication(enabled: false)
                 .Build();
@@ -214,7 +215,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithSelfieAuthenticationDisabledThenEnabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithSelfieAuthentication(enabled: false)
                 .WithSelfieAuthentication(enabled: true)
                 .Build();
@@ -228,7 +229,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithSelfieAuthenticationDisabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithSelfieAuthentication(enabled: false)
                 .Build();
 
@@ -240,9 +241,9 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldFilterSelfieAuthenticationDuplicates()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithSelfieAuthentication(enabled: true)
-                .WithAuthType(DynamicPolicy.SelfieAuthType, enabled: true)
+                .WithAuthType(Auth.DigitalIdentity.Policy.Policy.SelfieAuthType, enabled: true)
                 .Build();
 
             HashSet<int> result = dynamicPolicy.WantedAuthTypes;
@@ -254,9 +255,9 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldFilterPinAuthenticationDuplicates()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithPinAuthentication(enabled: true)
-                .WithAuthType(DynamicPolicy.PinAuthType, enabled: true)
+                .WithAuthType(Auth.DigitalIdentity.Policy.Policy.PinAuthType, enabled: true)
                 .Build();
 
             HashSet<int> result = dynamicPolicy.WantedAuthTypes;
@@ -268,7 +269,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithPinAuthenticationEnabledThenDisabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithPinAuthentication(enabled: true)
                 .WithPinAuthentication(enabled: false)
                 .Build();
@@ -281,7 +282,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithPinAuthenticationDisabledThenEnabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithPinAuthentication(enabled: false)
                 .WithPinAuthentication(enabled: true)
                 .Build();
@@ -295,7 +296,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithPinAuthenticationDisabled()
         {
-            DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy dynamicPolicy = new PolicyBuilder()
                 .WithPinAuthentication(enabled: false)
                 .Build();
 
@@ -307,7 +308,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithRememberMeFlag()
         {
-            DynamicPolicy result = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy result = new PolicyBuilder()
                 .WithRememberMeId(true)
                 .Build();
 
@@ -319,11 +320,13 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         {
             object identityProfileRequirements = IdentityProfiles.CreateStandardIdentityProfileRequirements();
 
-            DynamicPolicy result = new DynamicPolicyBuilder()
+            Auth.DigitalIdentity.Policy.Policy result = new PolicyBuilder()
                     .WithIdentityProfileRequirements(identityProfileRequirements)
                     .Build();
 
             Assert.AreEqual(identityProfileRequirements, result.IdentityProfileRequirements);
         }
     }
+
+    
 }

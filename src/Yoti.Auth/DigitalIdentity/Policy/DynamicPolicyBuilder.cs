@@ -3,14 +3,14 @@ using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.DigitalIdentity.Policy
 {
-    public class DynamicPolicyBuilder
+    public class PolicyBuilder
     {
         private readonly Dictionary<string, WantedAttribute> _wantedAttributes = new Dictionary<string, WantedAttribute>();
         private readonly HashSet<int> _wantedAuthTypes = new HashSet<int>();
         private bool _wantedRememberMeId;
         private object _identityProfileRequirements;
 
-        public DynamicPolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
+        public PolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
         {
             Validation.NotNull(wantedAttribute, nameof(wantedAttribute));
 
@@ -25,7 +25,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             return this;
         }
 
-        public DynamicPolicyBuilder WithWantedAttribute(string name, List<Constraint> constraints = null)
+        public PolicyBuilder WithWantedAttribute(string name, List<Constraint> constraints = null)
         {
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                     .WithName(name)
@@ -34,37 +34,37 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             return WithWantedAttribute(wantedAttribute);
         }
 
-        public DynamicPolicyBuilder WithFamilyName(List<Constraint> constraints = null)
+        public PolicyBuilder WithFamilyName(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.FamilyNameAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithGivenNames(List<Constraint> constraints = null)
+        public PolicyBuilder WithGivenNames(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.GivenNamesAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithFullName(List<Constraint> constraints = null)
+        public PolicyBuilder WithFullName(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.FullNameAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithDateOfBirth(List<Constraint> constraints = null)
+        public PolicyBuilder WithDateOfBirth(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.DateOfBirthAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithAgeOver(int age, List<Constraint> constraints = null)
+        public PolicyBuilder WithAgeOver(int age, List<Constraint> constraints = null)
         {
             return WithAgeDerivedAttribute($"{Constants.UserProfile.AgeOverAttribute}:{age}", constraints);
         }
 
-        public DynamicPolicyBuilder WithAgeUnder(int age, List<Constraint> constraints = null)
+        public PolicyBuilder WithAgeUnder(int age, List<Constraint> constraints = null)
         {
             return WithAgeDerivedAttribute($"{Constants.UserProfile.AgeUnderAttribute}:{age}", constraints);
         }
 
-        private DynamicPolicyBuilder WithAgeDerivedAttribute(string derivation, List<Constraint> constraints)
+        private PolicyBuilder WithAgeDerivedAttribute(string derivation, List<Constraint> constraints)
         {
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                     .WithName(Constants.UserProfile.DateOfBirthAttribute)
@@ -74,62 +74,62 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             return WithWantedAttribute(wantedAttribute);
         }
 
-        public DynamicPolicyBuilder WithGender(List<Constraint> constraints = null)
+        public PolicyBuilder WithGender(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.GenderAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithPostalAddress(List<Constraint> constraints = null)
+        public PolicyBuilder WithPostalAddress(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.PostalAddressAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithStructuredPostalAddress(List<Constraint> constraints = null)
+        public PolicyBuilder WithStructuredPostalAddress(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.StructuredPostalAddressAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithNationality(List<Constraint> constraints = null)
+        public PolicyBuilder WithNationality(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.NationalityAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithPhoneNumber(List<Constraint> constraints = null)
+        public PolicyBuilder WithPhoneNumber(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.PhoneNumberAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithSelfie(List<Constraint> constraints = null)
+        public PolicyBuilder WithSelfie(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.SelfieAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithEmail(List<Constraint> constraints = null)
+        public PolicyBuilder WithEmail(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.EmailAddressAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithDocumentDetails(List<Constraint> constraints = null)
+        public PolicyBuilder WithDocumentDetails(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.DocumentDetailsAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithDocumentImages(List<Constraint> constraints = null)
+        public PolicyBuilder WithDocumentImages(List<Constraint> constraints = null)
         {
             return WithWantedAttribute(Constants.UserProfile.DocumentImagesAttribute, constraints);
         }
 
-        public DynamicPolicyBuilder WithSelfieAuthentication(bool enabled)
+        public PolicyBuilder WithSelfieAuthentication(bool enabled)
         {
-            return WithAuthType(DynamicPolicy.SelfieAuthType, enabled);
+            return WithAuthType(Policy.SelfieAuthType, enabled);
         }
 
-        public DynamicPolicyBuilder WithPinAuthentication(bool enabled)
+        public PolicyBuilder WithPinAuthentication(bool enabled)
         {
-            return WithAuthType(DynamicPolicy.PinAuthType, enabled);
+            return WithAuthType(Policy.PinAuthType, enabled);
         }
 
-        public DynamicPolicyBuilder WithAuthType(int authType, bool enabled)
+        public PolicyBuilder WithAuthType(int authType, bool enabled)
         {
             if (enabled)
             {
@@ -141,7 +141,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             return this;
         }
 
-        public DynamicPolicyBuilder WithRememberMeId(bool required)
+        public PolicyBuilder WithRememberMeId(bool required)
         {
             _wantedRememberMeId = required;
             return this;
@@ -151,16 +151,16 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         /// Use an Identity Profile Requirement object for the share
         /// </summary>
         /// <param name="identityProfileRequirements"> object describing the identity profile requirements to use</param>
-        /// <returns><see cref="DynamicPolicyBuilder"/> with the identity profile requirements</returns>
-        public DynamicPolicyBuilder WithIdentityProfileRequirements(object identityProfileRequirements)
+        /// <returns><see cref="PolicyBuilder"/> with the identity profile requirements</returns>
+        public PolicyBuilder WithIdentityProfileRequirements(object identityProfileRequirements)
         {
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
 
-        public DynamicPolicy Build()
+        public Policy Build()
         {
-            return new DynamicPolicy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements);
+            return new Policy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements);
         }
     }
 }

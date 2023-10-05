@@ -7,7 +7,7 @@ namespace Yoti.Auth.Constants
         public const string DefaultYotiHost = @"https://api.yoti.com";
 
         public const string YotiApiPathPrefix = "api/v1";
-        public const string YotiApiSharePathPrefix = "/share";
+        public const string YotiApiSharePathPrefix = "share";
         public readonly static string DefaultYotiApiUrl = string.Join("/", DefaultYotiHost, YotiApiPathPrefix);
 
         public readonly static string DefaultYotiShareApiUrl = string.Join("/", DefaultYotiHost, YotiApiSharePathPrefix);

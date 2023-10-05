@@ -26,14 +26,15 @@ namespace Yoti.Auth.Tests.DigitalIdentity
             .WithRadius(1500)
             .Build();
 
+        
         [TestMethod]
         public void ShouldBuildADynamicScenario()
         {
-            DynamicPolicy somePolicy = TestTools.ShareSession.CreateStandardPolicy();
+            Auth.DigitalIdentity.Policy.Policy somePolicy = TestTools.ShareSession.CreateStandardPolicy();
             object someSubject = IdentityProfiles.CreateStandardSubject();
 
             ShareSessionRequest result = new ShareSessionRequestBuilder()
-                .WithCallbackEndpoint(_someEndpoint)
+                .WithRedirectUri(_someEndpoint)
                 .WithPolicy(somePolicy)
                 .WithExtension(extension1)
                 .WithExtension(extension2)
@@ -42,7 +43,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
 
             var expectedExtensions = new List<BaseExtension> { extension1, extension2 };
 
-            Assert.AreEqual(_someEndpoint, result.CallbackEndpoint);
+            Assert.AreEqual(_someEndpoint, result.RedirectUri);
             Assert.AreEqual(somePolicy, result.DynamicPolicy);
             CollectionAssert.AreEqual(expectedExtensions, result.Extensions);
             Assert.AreEqual(someSubject, result.Subject);
@@ -56,7 +57,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
                 });
 
             object deserializedObject;
-            using (StreamReader r = File.OpenText("TestData/DynamicPolicy.json"))
+            using (StreamReader r = File.OpenText("TestData/DigitalIdentity.json"))
             {
                 string json = r.ReadToEnd();
                 deserializedObject = JsonConvert.DeserializeObject(json);
@@ -66,5 +67,6 @@ namespace Yoti.Auth.Tests.DigitalIdentity
 
             Assert.AreEqual(expectedJson, serializedScenario);
         }
+        
     }
 }

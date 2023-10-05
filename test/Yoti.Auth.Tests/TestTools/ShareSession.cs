@@ -9,12 +9,12 @@ namespace Yoti.Auth.Tests.TestTools
     {
         public static ShareSessionRequest CreateStandardShareSessionRequest()
         {
-            return new ShareSessionRequest("callback", CreateStandardPolicy());
+            return new ShareSessionRequest(CreateStandardPolicy(), "redirecturi");
         }
-
-        public static DynamicPolicy CreateStandardPolicy()
+       
+        public static Policy CreateStandardPolicy()
         {
-            return new DynamicPolicyBuilder()
+            return new PolicyBuilder()
               .WithDateOfBirth()
               .WithAgeOver(18)
               .WithAgeUnder(30)

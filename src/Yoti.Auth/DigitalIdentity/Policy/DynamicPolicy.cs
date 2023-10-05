@@ -6,7 +6,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
     /// <summary>
     /// Set of data required to request a sharing transaction
     /// </summary>
-    public class DynamicPolicy
+    public class Policy
     {
         internal const int SelfieAuthType = 1;
         internal const int PinAuthType = 2;
@@ -30,7 +30,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         [JsonProperty(PropertyName = "identity_profile_requirements")]
         private readonly object _identityProfileRequirements;
 
-        public DynamicPolicy(
+        public Policy(
                  ICollection<WantedAttribute> wantedAttributes,
                  HashSet<int> wantedAuthTypes,
                  bool wantedRememberMeId,

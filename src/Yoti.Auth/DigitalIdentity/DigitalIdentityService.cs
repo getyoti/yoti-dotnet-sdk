@@ -27,15 +27,17 @@ namespace Yoti.Auth.DigitalIdentity
                 });
             byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
-            Request shareUrlRequest = new RequestBuilder()
-                 .WithKeyPair(keyPair)
-                 .WithBaseUri(apiUrl)
-                 .WithEndpoint($"/sessions/v2")
-                 .WithHttpMethod(HttpMethod.Post)
-                 .WithContent(body)
-                 .Build();
+            Request shareSessionlRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithBaseUri(apiUrl)
+                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithEndpoint($"/v2/sessions")
+                .WithQueryParam("appId", sdkId)
+                .WithHttpMethod(HttpMethod.Post)
+                .WithContent(body)
+                .Build();
 
-            using (HttpResponseMessage response = await shareUrlRequest.Execute(httpClient).ConfigureAwait(false))
+            using (HttpResponseMessage response = await shareSessionlRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {

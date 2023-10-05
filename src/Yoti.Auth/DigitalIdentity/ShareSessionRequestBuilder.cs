@@ -6,20 +6,21 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public class ShareSessionRequestBuilder
     {
-        private string _callbackEndpoint;
-        private DynamicPolicy _dynamicPolicy;
+        private string _redirectUri;
+        private Policy.Policy _dynamicPolicy;
+        private Notification _notification;
         private readonly List<BaseExtension> _extensions = new List<BaseExtension>();
         private object _subject;
 
         /// <summary>
-        /// The device's callback endpoint. Must be a URL relative to the Application Domain
+        /// The device's redirect url. Must be a URL relative to the Application Domain
         /// specified in Yoti Hub
         /// </summary>
-        /// <param name="callbackEndpoint"></param>
-        /// <returns><see cref="DynamicScenarioBuilder"/> with a Callback Endpoint added</returns>
-        public ShareSessionRequestBuilder  WithCallbackEndpoint(string callbackEndpoint)
+        /// <param name="redirectUri"></param>
+        /// <returns><see cref="ShareSessionRequestBuilder"/> with a Redirect Uri added</returns>
+        public ShareSessionRequestBuilder  WithRedirectUri(string redirectUri)
         {
-            _callbackEndpoint = callbackEndpoint;
+            _redirectUri = redirectUri;
             return this;
         }
 
@@ -28,9 +29,21 @@ namespace Yoti.Auth.DigitalIdentity
         /// </summary>
         /// <param name="dynamicPolicy"></param>
         /// <returns><see cref="ShareSessionRequestBuilder"/> with a Dynamic Policy added</returns>
-        public ShareSessionRequestBuilder WithPolicy(DynamicPolicy dynamicPolicy)
+        public ShareSessionRequestBuilder WithPolicy(Policy.Policy dynamicPolicy)
         {
             _dynamicPolicy = dynamicPolicy;
+            return this;
+        }
+
+        /// <summary>
+        /// The customisable <see cref="Notification"/> to use in the ShareSession
+        /// </summary>
+        /// <param name="notification"></param>
+        /// <returns><see cref="ShareSessionRequestBuilder"/> with a Notification added</returns>
+        public ShareSessionRequestBuilder WithNotification(Notification notification)
+        {
+
+            _notification = notification;
             return this;
         }
 
@@ -38,7 +51,7 @@ namespace Yoti.Auth.DigitalIdentity
         /// <see cref="Extension{T}"/> to be activated for the application
         /// </summary>
         /// <param name="extension"><see cref="Extension{T}"/> to add</param>
-        /// <returns><see cref="DynamicScenarioBuilder"/> with an extension added</returns>
+        /// <returns><see cref="ShareSessionRequestBuilder"/> with an extension added</returns>
         public ShareSessionRequestBuilder WithExtension(BaseExtension extension)
         {
             _extensions.Add(extension);
@@ -49,7 +62,7 @@ namespace Yoti.Auth.DigitalIdentity
         /// The subject object
         /// </summary>
         /// <param name="subject">The object describing the subject</param>
-        /// <returns><see cref="DynamicScenarioBuilder"/> with the subject details provided</returns>
+        /// <returns><see cref="ShareSessionRequestBuilder"/> with the subject details provided</returns>
         public ShareSessionRequestBuilder WithSubject(object subject)
         {
             _subject = subject;
@@ -58,7 +71,7 @@ namespace Yoti.Auth.DigitalIdentity
 
         public ShareSessionRequest Build()
         {
-            return new ShareSessionRequest(_callbackEndpoint, _dynamicPolicy, _extensions, _subject);
+            return new ShareSessionRequest(_dynamicPolicy,_redirectUri, _notification, _extensions, _subject );
         }
     }
 }
