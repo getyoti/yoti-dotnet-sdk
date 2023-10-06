@@ -3,7 +3,7 @@
 
 namespace Yoti.Auth.DigitalIdentity
 {
-    public class ShareSessionResult
+    public class GetSessionResult
     {
 #pragma warning disable 0649
         // These fields are assigned to by JSON deserialization
