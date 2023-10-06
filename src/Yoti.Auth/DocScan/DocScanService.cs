@@ -156,6 +156,11 @@ namespace Yoti.Auth.DocScan
                     return null;
                 }
 
+                if (response.Content.Headers.ContentType == null)
+                {
+                    return null;
+                }
+
                 string contentType = response.Content.Headers.ContentType.MediaType;
 
 
