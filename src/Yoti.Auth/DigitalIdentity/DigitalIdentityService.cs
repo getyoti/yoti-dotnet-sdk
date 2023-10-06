@@ -52,7 +52,7 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        internal static async Task<ShareSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+        internal static async Task<GetSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
@@ -80,7 +80,7 @@ namespace Yoti.Auth.DigitalIdentity
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
 
                 return deserialized;
 
