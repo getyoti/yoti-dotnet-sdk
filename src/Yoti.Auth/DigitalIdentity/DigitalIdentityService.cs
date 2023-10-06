@@ -51,5 +51,43 @@ namespace Yoti.Auth.DigitalIdentity
 
             }
         }
+
+        internal static async Task<ShareSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+        {
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(sessionId, nameof(sessionId));
+
+
+            //byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
+
+            Request shareSessionlRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithBaseUri(apiUrl)
+                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithEndpoint(string.Format($"/v2/sessions/{0}", sessionId))
+                .WithQueryParam("appId", sdkId)
+                .WithHttpMethod(HttpMethod.Get)
+                .Build();
+
+            using (HttpResponseMessage response = await shareSessionlRequest.Execute(httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
+                }
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
+
+                return deserialized;
+
+            }
+        }
+
     }
+
+
 }

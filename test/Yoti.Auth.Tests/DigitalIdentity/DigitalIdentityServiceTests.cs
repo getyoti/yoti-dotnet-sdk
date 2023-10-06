@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DigitalIdentity;
 using Yoti.Auth.Tests.Common;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Yoti.Auth.Tests.DigitalIdentity
 {
@@ -17,6 +19,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
         private ShareSessionRequest _someShareSessionRequest;
+        private const string _sessionID = "someSessionID";
 
         [TestInitialize]
         public void Startup()
@@ -83,6 +86,39 @@ namespace Yoti.Auth.Tests.DigitalIdentity
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("shareSessionRequest"));
+        }
+
+        [TestMethod]
+        public void RetrieveSessionShouldThrowExceptionForMissingSdkId()
+        {
+            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await DigitalIdentityService.GetSession(_httpClient, _apiURL, null, _keyPair, _sessionID);
+            });
+
+            Assert.IsTrue(exception.Exception.InnerException.Message.Contains("sdkId"));
+        }
+
+        [TestMethod]
+        public void RetrieveSessionShouldThrowExceptionForMissingKeyPair()
+        {
+            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await DigitalIdentityService.GetSession(_httpClient, _apiURL, _sdkID, null, _sessionID);
+            }).Result;
+
+            Assert.IsTrue(exception.Message.Contains("keyPair"));
+        }
+
+        [TestMethod]
+        public void RetrieveSessionShouldThrowExceptionForMissingSessionId()
+        {
+            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await DigitalIdentityService.GetSession(_httpClient, _apiURL, _sdkID, _keyPair, null);
+            }).Result;
+
+            Assert.IsTrue(exception.Message.Contains("sessionId"));
         }
     }
 }
