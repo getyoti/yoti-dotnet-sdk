@@ -16,8 +16,34 @@ namespace Yoti.Auth.DigitalIdentity
         [JsonProperty("expiry")]
         public string Expiry { get; set; }
 
+        [JsonProperty("created")]
+        public string Created { get; set; }
+
+        [JsonProperty("updated")]
+        public string Updated { get; set; }
+
+        [JsonProperty("qrCode")]
+        public qrCode QrCode { get; set; }
+
+        [JsonProperty("receipt")]
+        public receipt Receipt { get; set; }
+
 #pragma warning restore 0649
 
+    }
+
+    public class qrCode
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+        [JsonProperty("uri")]
+        public string Uri { get; set; }
+    }
+
+    public class receipt
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
     }
 
 
