@@ -88,6 +88,4 @@ namespace Yoti.Auth.DigitalIdentity
         }
 
     }
-
-
 }
