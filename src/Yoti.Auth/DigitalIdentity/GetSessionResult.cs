@@ -36,8 +36,6 @@ namespace Yoti.Auth.DigitalIdentity
     {
         [JsonProperty("id")]
         public string Id { get; set; }
-        [JsonProperty("uri")]
-        public string Uri { get; set; }
     }
 
     public class receipt
