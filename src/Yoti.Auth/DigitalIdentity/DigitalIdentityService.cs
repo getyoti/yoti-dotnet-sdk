@@ -84,7 +84,7 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, QrRequest qrRequestPayload)
+        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId,QrRequest qrRequestPayload)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
@@ -104,7 +104,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
-                .WithEndpoint($"/v2/sessions")
+                .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
