@@ -20,11 +20,13 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
         private ShareSessionRequest _someShareSessionRequest;
         private const string _sessionID = "someSessionID";
+        private QrRequest _someCreateQrRequest;
 
         [TestInitialize]
         public void Startup()
         {
             _someHeaders.Add("Key", "Value");
+            _someCreateQrRequest = TestTools.CreateQr.CreateQrStandard();
             _someShareSessionRequest = TestTools.ShareSession.CreateStandardShareSessionRequest();
         }
 
@@ -120,5 +122,54 @@ namespace Yoti.Auth.Tests.DigitalIdentity
 
             Assert.IsTrue(exception.Message.Contains("sessionId"));
         }
+
+        [TestMethod]
+        public void CreateQrCodeShouldFailWithNullHttpClient()
+        {
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                DigitalIdentityService.CreateQrCode(null, _apiURL, _sdkID, _keyPair, _someCreateQrRequest).Wait();
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("httpClient"));
+        }
+
+        [TestMethod]
+        public void CreateQrCodeShouldFailWithNullApiUrl()
+        {
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                DigitalIdentityService.CreateQrCode(_httpClient, null, _sdkID, _keyPair, _someCreateQrRequest).Wait();
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("apiUrl"));
+        }
+
+        [TestMethod]
+        public void CreateQrCodeShouldFailWithNullSdkId()
+        {
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, null, _keyPair, _someCreateQrRequest).Wait();
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
+        }
+
+        [TestMethod]
+        public void CreateQrCodeShouldFailWithNullKeyPair()
+        {
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, _sdkID, null, _someCreateQrRequest).Wait();
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
+        }
+
     }
 }
