@@ -125,5 +125,37 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
+        internal static async Task<GetSessionResult> GetQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string qrCodeId)
+        {
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(qrCodeId, nameof(qrCodeId));
+
+            Request shareSessionlRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithBaseUri(apiUrl)
+                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithEndpoint(string.Format($"/v2/qr-codes/{0}", qrCodeId))
+                .WithQueryParam("appId", sdkId)
+                .WithHttpMethod(HttpMethod.Get)
+                .Build();
+
+            using (HttpResponseMessage response = await shareSessionlRequest.Execute(httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
+                }
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
+
+                return deserialized;
+
+            }
+        }
+
     }
 }
