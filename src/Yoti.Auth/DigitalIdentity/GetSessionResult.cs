@@ -1,48 +1,32 @@
-﻿using Newtonsoft.Json;
-
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Yoti.Auth.DigitalIdentity.Extensions;
 
 namespace Yoti.Auth.DigitalIdentity
 {
-    public class GetSessionResult
+    public class GetQrCodeResult
     {
 #pragma warning disable 0649
         // These fields are assigned to by JSON deserialization
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
         [JsonProperty("expiry")]
         public string Expiry { get; set; }
 
-        [JsonProperty("created")]
-        public string Created { get; set; }
+        [JsonProperty("policy")]
+        public string Policy { get; set; }
 
-        [JsonProperty("updated")]
-        public string Updated { get; set; }
+        [JsonProperty("extensions")]
+        private readonly List<BaseExtension> Extensions;
 
-        [JsonProperty("qrCode")]
-        public qrCode QrCode { get; set; }
+        [JsonProperty("session")]
+        public ShareSessionResult Session { get; set; }
 
-        [JsonProperty("receipt")]
-        public receipt Receipt { get; set; }
+        [JsonProperty("redirectUri")]
+        public string RedirectUri { get; set; }
 
 #pragma warning restore 0649
 
     }
-
-    public class qrCode
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-    }
-
-    public class receipt
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-    }
-
-
 }

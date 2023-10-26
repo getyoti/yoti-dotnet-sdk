@@ -90,7 +90,6 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(qrRequestPayload, nameof(qrRequestPayload));
 
             string serializedQrCode = JsonConvert.SerializeObject(
                 qrRequestPayload,
@@ -125,7 +124,7 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        internal static async Task<GetSessionResult> GetQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string qrCodeId)
+        internal static async Task<GetQrCodeResult> GetQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string qrCodeId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
@@ -150,7 +149,7 @@ namespace Yoti.Auth.DigitalIdentity
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetQrCodeResult>(responseObject));
 
                 return deserialized;
 
