@@ -34,7 +34,7 @@ namespace Yoti.Auth.DigitalIdentity
         public QrRequest(string transport = null, string displayMode = null)
         {
             _transport = transport;
-            _displayMode = displayMode;
+            _displayMode = displayMode;//
         }
     }
 }
