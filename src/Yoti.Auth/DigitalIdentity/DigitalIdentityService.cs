@@ -90,8 +90,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(qrRequestPayload, nameof(qrRequestPayload));
-
+            
             string serializedQrCode = JsonConvert.SerializeObject(
                 qrRequestPayload,
                 new JsonSerializerSettings

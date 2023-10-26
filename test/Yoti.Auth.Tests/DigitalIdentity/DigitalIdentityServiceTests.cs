@@ -171,5 +171,6 @@ namespace Yoti.Auth.Tests.DigitalIdentity
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
         }
 
+
     }
 }
