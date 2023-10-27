@@ -41,7 +41,7 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
@@ -73,7 +73,7 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
@@ -113,7 +113,7 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
@@ -145,7 +145,7 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
