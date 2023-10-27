@@ -18,7 +18,7 @@ namespace Yoti.Auth.DigitalIdentity
         public string Policy { get; set; }
 
         [JsonProperty("extensions")]
-        private readonly List<BaseExtension> Extensions;
+        private List<BaseExtension> Extensions { get; set; }
 
         [JsonProperty("session")]
         public ShareSessionResult Session { get; set; }

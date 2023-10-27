@@ -11,23 +11,23 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public static class DigitalIdentityService
     {
-        internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequest)
+        internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequestPayload)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(shareSessionRequest, nameof(shareSessionRequest));
+            Validation.NotNull(shareSessionRequestPayload, nameof(shareSessionRequestPayload));
 
             string serializedScenario = JsonConvert.SerializeObject(
-                shareSessionRequest,
+                shareSessionRequestPayload,
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
                 });
             byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
-            Request shareSessionlRequest = new RequestBuilder()
+            Request shareSessionRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
@@ -37,7 +37,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithContent(body)
                 .Build();
 
-            using (HttpResponseMessage response = await shareSessionlRequest.Execute(httpClient).ConfigureAwait(false))
+            using (HttpResponseMessage response = await shareSessionRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -60,7 +60,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(sessionId, nameof(sessionId));           
 
-            Request shareSessionlRequest = new RequestBuilder()
+            Request getSessionRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
@@ -69,7 +69,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();
 
-            using (HttpResponseMessage response = await shareSessionlRequest.Execute(httpClient).ConfigureAwait(false))
+            using (HttpResponseMessage response = await getSessionRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -99,7 +99,7 @@ namespace Yoti.Auth.DigitalIdentity
                 });
             byte[] body = Encoding.UTF8.GetBytes(serializedQrCode);
 
-            Request qrRequest = new RequestBuilder()
+            Request createQrRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
@@ -109,7 +109,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithContent(body)
                 .Build();
 
-            using (HttpResponseMessage response = await qrRequest.Execute(httpClient).ConfigureAwait(false))
+            using (HttpResponseMessage response = await createQrRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -132,7 +132,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(qrCodeId, nameof(qrCodeId));
 
-            Request shareSessionlRequest = new RequestBuilder()
+            Request QrCodeRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
@@ -141,7 +141,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();
 
-            using (HttpResponseMessage response = await shareSessionlRequest.Execute(httpClient).ConfigureAwait(false))
+            using (HttpResponseMessage response = await QrCodeRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
