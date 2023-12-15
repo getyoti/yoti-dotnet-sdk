@@ -22,5 +22,41 @@
                 subject_id = "some_subject_id_string"
             };
         }
+        
+        public static object CreateStandardAdvancedIdentityProfileRequirements()
+        {
+            string advancedIdentityProfileJson = @"
+            {
+                ""profiles"": [
+                    {
+                        ""trust_framework"": ""UK_TFIDA"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB912"",
+                                ""type"": ""RTW""
+                            },
+                            {
+                                ""label"": ""LB777"",
+                                ""type"": ""DBS"",
+                                ""objective"": ""BASIC""
+                            }
+                        ]
+                    },
+                    {
+                        ""trust_framework"": ""YOTI_GLOBAL"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB321"",
+                                ""type"": ""IDENTITY"",
+                                ""objective"": ""AL_L1"",
+                                ""config"": {}
+                            }
+                        ]
+                    }
+                ]
+            }";
+            
+            return advancedIdentityProfileJson;
+        }
     }
 }

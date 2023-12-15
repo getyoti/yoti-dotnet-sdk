@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.AdvancedIdentityProfile;
+using Yoti.Auth.DocScan.Session.Retrieve.AdvancedIdentityProfilePreview;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
 using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfilePreview;
 
@@ -345,6 +347,21 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 JsonConvert.DeserializeObject<IdentityProfilePreviewResponse>(json);
 
             AssertMediaValuesCorrect(identityProfilePreviewResponse.media, response.Media, typeof(MediaResponse));
+        }
+        
+        [TestMethod]
+        public void CheckAdvancedIdentityProfilePreviewResponseIsParsed()
+        {
+            dynamic advancedIdentityProfilePreviewResponse = new
+            {
+                media = GetMediaResponse() 
+            };
+
+            string json = JsonConvert.SerializeObject(advancedIdentityProfilePreviewResponse);
+            AdvancedIdentityProfilePreviewResponse response =
+                JsonConvert.DeserializeObject<AdvancedIdentityProfilePreviewResponse>(json);
+
+            AssertMediaValuesCorrect(advancedIdentityProfilePreviewResponse.media, response.Media, typeof(MediaResponse));
         }
 
         private void AssertMediaValuesCorrect(dynamic originalData, MediaResponse response, Type requiredType)
