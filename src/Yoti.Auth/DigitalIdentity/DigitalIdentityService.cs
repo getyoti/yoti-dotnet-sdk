@@ -58,7 +58,10 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(sessionId, nameof(sessionId));           
+            Validation.NotNull(sessionId, nameof(sessionId));
+
+
+            //byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
             Request shareSessionlRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
@@ -78,46 +81,6 @@ namespace Yoti.Auth.DigitalIdentity
 
                 var responseObject = await response.Content.ReadAsStringAsync();
                 var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
-
-                return deserialized;
-
-            }
-        }
-
-        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId,QrRequest qrRequestPayload)
-        {
-            Validation.NotNull(httpClient, nameof(httpClient));
-            Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
-            
-            string serializedQrCode = JsonConvert.SerializeObject(
-                qrRequestPayload,
-                new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                });
-            byte[] body = Encoding.UTF8.GetBytes(serializedQrCode);
-
-            Request qrRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
-                .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
-                .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
-                .WithQueryParam("appId", sdkId)
-                .WithHttpMethod(HttpMethod.Post)
-                .WithContent(body)
-                .Build();
-
-            using (HttpResponseMessage response = await qrRequest.Execute(httpClient).ConfigureAwait(false))
-            {
-                if (!response.IsSuccessStatusCode)
-                {
-                    Response.CreateYotiExceptionFromStatusCode<DynamicShareException>(response);
-                }
-
-                var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateQrResult>(responseObject));
 
                 return deserialized;
 
