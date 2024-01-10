@@ -67,7 +67,7 @@ namespace Yoti.Auth.Tests
 				engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), shareSessionRequest).Wait();
 			});
 
-			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DynamicShareException>(aggregateException));
+			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
 		}
 
 		private static Mock<HttpMessageHandler> SetupMockMessageHandler(HttpStatusCode httpStatusCode, string responseContent)
