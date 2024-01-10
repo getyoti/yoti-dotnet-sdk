@@ -34,9 +34,6 @@ Backup*/
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
 
-.DS_STORE
-.DS_Store
-
 # Coverage
 OpenCover/
 
