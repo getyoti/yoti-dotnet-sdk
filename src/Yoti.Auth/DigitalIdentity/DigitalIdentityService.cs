@@ -60,6 +60,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(sessionId, nameof(sessionId));           
 
+
             Request getSessionRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
@@ -99,6 +100,7 @@ namespace Yoti.Auth.DigitalIdentity
                 });
             byte[] body = Encoding.UTF8.GetBytes(serializedQrCode);
 
+
             Request createQrRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
@@ -108,6 +110,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
                 .Build();
+
 
             using (HttpResponseMessage response = await createQrRequest.Execute(httpClient).ConfigureAwait(false))
             {
@@ -123,6 +126,7 @@ namespace Yoti.Auth.DigitalIdentity
 
             }
         }
+
 
         internal static async Task<GetQrCodeResult> GetQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string qrCodeId)
         {
@@ -155,6 +159,5 @@ namespace Yoti.Auth.DigitalIdentity
 
             }
         }
-
     }
 }

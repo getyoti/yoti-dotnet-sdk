@@ -203,5 +203,6 @@ namespace Yoti.Auth.Tests.DigitalIdentity
 
             Assert.IsTrue(exception.Message.Contains("qrCodeId"));
         }
+
     }
 }
