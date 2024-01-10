@@ -171,6 +171,38 @@ namespace Yoti.Auth.Tests.DigitalIdentity
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
         }
 
+        [TestMethod]
+        public void RetrieveQrShouldThrowExceptionForMissingSdkId()
+        {
+            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            {
+                await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, null, _keyPair, _sessionID);
+            });
+
+            Assert.IsTrue(exception.Exception.InnerException.Message.Contains("sdkId"));
+        }
+
+        [TestMethod]
+        public void RetrieveQrCodeShouldThrowExceptionForMissingKeyPair()
+        {
+            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, _sdkID, null, _sessionID);
+            }).Result;
+
+            Assert.IsTrue(exception.Message.Contains("keyPair"));
+        }
+
+        [TestMethod]
+        public void RetrieveQrCodeShouldThrowExceptionForMissingSessionId()
+        {
+            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, _sdkID, _keyPair, null);
+            }).Result;
+
+            Assert.IsTrue(exception.Message.Contains("qrCodeId"));
+        }
 
     }
 }
