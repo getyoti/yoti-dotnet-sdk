@@ -8,6 +8,7 @@ namespace Yoti.Auth.DigitalIdentity
     {
         private string _transport = "";
         private string _displayMode = "";
+
         /// <summary>
         /// Transport property. Optional - default is 'INLINE'
         /// </summary>
@@ -29,7 +30,7 @@ namespace Yoti.Auth.DigitalIdentity
             _displayMode = displayMode ;
             return this;
         }
-      
+
         public QrRequest Build()
         {
             return new QrRequest(_transport,_displayMode);
