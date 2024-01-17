@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
+using Google.Protobuf;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
@@ -8,6 +10,10 @@ using Org.BouncyCastle.Crypto.Paddings;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Crypto.Generators;
+
+
+
 using Yoti.Auth.ProtoBuf.Attribute;
 using Yoti.Auth.ProtoBuf.Common;
 using Yoti.Auth.Share;
@@ -131,6 +137,64 @@ namespace Yoti.Auth
             byte[] publicKey = GetDerEncodedPublicKey(keyPair);
 
             return Conversion.BytesToBase64(publicKey);
+        }
+        
+        public static byte[] DecryptAesGcm(byte[] cipherText, byte[] iv, byte[] secret)
+        {
+            try
+            {
+                GcmBlockCipher cipher = new GcmBlockCipher(new Org.BouncyCastle.Crypto.Engines.AesEngine());
+                ParametersWithIV parameters = new ParametersWithIV(new KeyParameter(secret), iv);
+            
+                cipher.Init(false, parameters);
+
+                byte[] plainText = new byte[cipher.GetOutputSize(cipherText.Length)];
+                int length = cipher.ProcessBytes(cipherText, 0, cipherText.Length, plainText, 0);
+                cipher.DoFinal(plainText, length);
+
+                return plainText;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to decrypt receipt key: {ex.Message}", ex);
+            }
+        }
+        
+        public static byte[] UnwrapReceiptKey(byte[] wrappedReceiptKey, byte[] encryptedItemKey, byte[] itemKeyIv, AsymmetricCipherKeyPair key)
+        {
+            try
+            {
+                byte[] decryptedItemKey = DecryptRsa(encryptedItemKey, key);
+
+                byte[] plainText = DecryptAesGcm(wrappedReceiptKey, itemKeyIv, decryptedItemKey);
+
+                return plainText;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to unwrap receipt key: {ex.Message}", ex);
+            }
+        }
+        
+        public static byte[] DecryptReceiptContent(byte[] content, byte[] receiptContentKey)
+        {
+            try
+            {
+                if (content == null)
+                {
+                    throw new ArgumentNullException("content", "Failed to decrypt receipt content: content is null");
+                }
+
+                var decodedData = new EncryptedData();
+                decodedData.MergeFrom(content);
+
+                return DecipherAes(receiptContentKey, decodedData.Iv.ToByteArray(), decodedData.CipherText.ToByteArray());
+            }
+            catch
+            {
+                return null;
+                //return (null, new Exception($"Failed to decrypt receipt content: {ex.Message}", ex));
+            }
         }
     }
 }
