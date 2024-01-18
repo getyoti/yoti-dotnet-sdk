@@ -344,6 +344,41 @@
                             </div>
                         }
 
+                        @if (document.ExpandedDocumentFields != null)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="expanded-document-fields-@idDocIndex">
+                                    <h4 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                data-target="#collapse-expanded-document-fields-@idDocIndex" aria-expanded="true"
+                                                aria-controls="collapse-expanded-document-fields-@idDocIndex">
+                                            Document Fields
+                                        </button>
+                                    </h4>
+                                </div>
+                                <div id="collapse-expanded-document-fields-@idDocIndex" class="collapse" aria-labelledby="expanded-document-fields-@idDocIndex">
+                                    <div class="card-body">
+                                        @if (document.ExpandedDocumentFields.Media != null)
+                                        {
+                                            <h5>Media</h5>
+                                            <table class="table table-striped table-light">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>ID</td>
+                                                        <td>
+                                                            <a href="/media/@document.ExpandedDocumentFields.Media.Id/@Model.SessionId">
+                                                                @document.ExpandedDocumentFields.Media.Id
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                         @if (document.DocumentIdPhoto != null)
                         {
                             <div class="card">
