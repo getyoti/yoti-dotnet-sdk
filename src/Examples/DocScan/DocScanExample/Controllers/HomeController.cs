@@ -84,6 +84,7 @@ namespace DocScanExample.Controllers
                     new RequestedTextExtractionTaskBuilder()
                     .WithManualCheckAlways()
                     .WithChipDataDesired()
+                    .WithCreateExpandedDocumentFields()
                     .Build()
                 )
                 .WithRequestedTask(
