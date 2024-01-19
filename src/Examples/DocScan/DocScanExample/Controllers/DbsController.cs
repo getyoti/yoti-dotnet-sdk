@@ -34,6 +34,30 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
+            string advancedIdentityProfileJson = @"
+            {
+                ""profiles"": [
+                    {
+                        ""trust_framework"": ""UK_TFIDA"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB912"",
+                                ""type"": ""RTW""
+                            }
+                        ]
+                    },
+                    {
+                        ""trust_framework"": ""YOTI_GLOBAL"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB321"",
+                                ""type"": ""IDENTITY"",
+                                ""objective"": ""AL_L1"",
+                            }
+                        ]
+                    }
+                ]
+            }";
 
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
@@ -55,7 +79,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 .WithCreateIdentityProfilePreview(true)
-                 .WithIdentityProfileRequirements(new
+                /* .WithIdentityProfileRequirements(new
                  {
                      trust_framework = "UK_TFIDA",
                      scheme = new
@@ -63,7 +87,8 @@ namespace DocScanExample.Controllers
                          type = "DBS",
                          objective = "BASIC"
                      }
-                 })
+                 })*/
+                .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileJson)
                 .WithSubject(new
                 {
                     subject_id = "some_subject_id_string"
