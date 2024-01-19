@@ -1,5 +1,4 @@
-﻿//using Yoti.Auth.DigitalIdentity;
-using Yoti.Auth.Profile;
+﻿using Yoti.Auth.Profile;
 using Yoti.Auth.Share;
 namespace Yoti.Auth.DigitalIdentity
 {
@@ -26,14 +25,4 @@ namespace Yoti.Auth.DigitalIdentity
         public YotiProfile UserProfile { get; set; }
         public ExtraData ExtraData { get; set; }
     }
-
-    /*public class ApplicationProfile
-    {
-        // Implement properties and methods for ApplicationProfile
-    }
-
-    public class UserProfile
-    {
-        // Implement properties and methods for UserProfile
-    }*/
 }
