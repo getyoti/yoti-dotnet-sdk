@@ -25,6 +25,9 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         [JsonProperty(PropertyName = "document_id_photo")]
         public DocumentIdPhotoResponse DocumentIdPhoto { get; internal set; }
 
+        [JsonProperty(PropertyName = "expanded_document_fields")]
+        public ExpandedDocumentFieldsResponse ExpandedDocumentFields { get; internal set; }
+
         /// <summary>
         /// Filters the tasks for the text extraction tasks associated with the ID document
         /// </summary>
