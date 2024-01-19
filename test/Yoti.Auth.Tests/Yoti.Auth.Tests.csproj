@@ -71,6 +71,7 @@
     <None Update="TestData\NestedJSON.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+
     <None Update="TestData\DynamicPolicy %28copy%29.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -80,5 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DigitalIdentity\" />
+    <None Update="TestData\GetSessionResultWithAdvancedIdentityProfile.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
