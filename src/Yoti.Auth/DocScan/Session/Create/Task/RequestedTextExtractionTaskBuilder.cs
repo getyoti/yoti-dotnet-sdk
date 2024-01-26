@@ -9,6 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Task
     {
         private string _manualCheck;
         private string _chipData;
+        private bool _createExpandedDocumentFields;
 
         /// <summary>
         /// Requires that a manual follow-up check is always performed
@@ -60,11 +61,21 @@ namespace Yoti.Auth.DocScan.Session.Create.Task
             return this;
         }
 
+        /// <summary>
+        /// Sets the value of createExpandedDocumentFields data to "true"
+        /// </summary>
+        /// <returns>The builder</returns>
+        public RequestedTextExtractionTaskBuilder WithCreateExpandedDocumentFields()
+        {
+            _createExpandedDocumentFields = true;
+            return this;
+        }
+       
         public RequestedTextExtractionTask Build()
         {
             Validation.NotNullOrEmpty(_manualCheck, nameof(_manualCheck));
 
-            RequestedTextExtractionTaskConfig config = new RequestedTextExtractionTaskConfig(_manualCheck, _chipData);
+            RequestedTextExtractionTaskConfig config = new RequestedTextExtractionTaskConfig(_manualCheck, _chipData, _createExpandedDocumentFields);
 
             return new RequestedTextExtractionTask(config);
         }
