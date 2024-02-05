@@ -67,7 +67,7 @@ namespace DocScanExample.Controllers
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
-                    .WithAllowsCameraAndUpload()
+                    .WithAllowsCamera()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
                     .WithFontColour("#FFFFFF")
