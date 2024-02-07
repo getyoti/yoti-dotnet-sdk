@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace Yoti.Auth.DocScan.Session.Create
-{
+{ 
+
     public class SessionSpecificationBuilder
     {
         private readonly List<BaseRequestedCheck> _requestedChecks = new List<BaseRequestedCheck>();
@@ -21,7 +23,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private object _identityProfileRequirements;
         private object _subject;
         private bool _createIdentityProfilePreview;
-        private object _advancedIdentityProfileRequirements;
+        private AdvancedIdentityProfile _advancedIdentityProfileRequirements;
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)
@@ -181,9 +183,9 @@ namespace Yoti.Auth.DocScan.Session.Create
         /// </summary>
         /// <param name="advancedIdentityProfileRequirements">The Advanced Identity Profile Requirements <see cref="object"/> for the session</param>
         /// <returns>the builder</returns>
-        public SessionSpecificationBuilder WithAdvancedIdentityProfileRequirements(object advancedIdentityProfileRequirements)
+        public SessionSpecificationBuilder WithAdvancedIdentityProfileRequirements(AdvancedIdentityProfile profile)
         {
-            _advancedIdentityProfileRequirements = advancedIdentityProfileRequirements;
+            _advancedIdentityProfileRequirements = profile; 
             return this;
         }
         
