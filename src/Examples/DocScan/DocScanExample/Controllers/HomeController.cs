@@ -82,14 +82,14 @@ namespace DocScanExample.Controllers
                 //Add Tasks (using builders)
                 .WithRequestedTask(
                     new RequestedTextExtractionTaskBuilder()
-                    .WithManualCheckAlways()
+                    .WithManualCheckFallback()
                     .WithChipDataDesired()
                     .WithCreateExpandedDocumentFields()
                     .Build()
                 )
                 .WithRequestedTask(
                     new RequestedSupplementaryDocTextExtractionTaskBuilder()
-                    .WithManualCheckAlways()
+                    .WithManualCheckFallback()
                     .Build()
                 )
                 .WithNotifications(notificationConfig)
