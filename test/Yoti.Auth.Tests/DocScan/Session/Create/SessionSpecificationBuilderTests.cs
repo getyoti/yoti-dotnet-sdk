@@ -346,7 +346,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfilePreview()
         {
-            object advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
+            AdvancedIdentityProfile advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
 
             SessionSpecification sessionSpec =
                 new SessionSpecificationBuilder()
@@ -360,7 +360,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfileRequirements()
         {
-            object advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
+            AdvancedIdentityProfile advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
 
             SessionSpecification sessionSpec =
                 new SessionSpecificationBuilder()

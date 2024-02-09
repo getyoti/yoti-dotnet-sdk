@@ -89,7 +89,7 @@ namespace DocScanExample.Controllers
                 )
                 .WithRequestedTask(
                     new RequestedSupplementaryDocTextExtractionTaskBuilder()
-                    .WithManualCheckFallback()
+                    .WithManualCheckAlways()
                     .Build()
                 )
                 .WithNotifications(notificationConfig)
