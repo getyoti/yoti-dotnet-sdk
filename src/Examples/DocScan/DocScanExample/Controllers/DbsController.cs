@@ -50,7 +50,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 .WithCreateIdentityProfilePreview(true)
-                 /*.WithIdentityProfileRequirements(new
+                .WithIdentityProfileRequirements(new
                  {
                      trust_framework = "UK_TFIDA",
                      scheme = new
@@ -58,7 +58,7 @@ namespace DocScanExample.Controllers
                          type = "DBS",
                          objective = "BASIC"
                      }
-                 })*/
+                 })
                 .WithSubject(new
                 {
                     subject_id = "some_subject_id_string"
