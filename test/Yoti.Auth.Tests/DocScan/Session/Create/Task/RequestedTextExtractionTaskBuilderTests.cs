@@ -78,7 +78,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             RequestedTextExtractionTask task =
               new RequestedTextExtractionTaskBuilder()
-              .WithManualCheckAlways()
+              .WithManualCheckFallback()
               .WithChipDataIgnore()
               .Build();
 
@@ -91,7 +91,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             RequestedTextExtractionTask task =
               new RequestedTextExtractionTaskBuilder()
-              .WithManualCheckAlways()
+              .WithManualCheckFallback()
               .WithCreateExpandedDocumentFields()
               .Build();
 
@@ -103,7 +103,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             RequestedTextExtractionTask task =
               new RequestedTextExtractionTaskBuilder()
-              .WithManualCheckAlways()
+              .WithManualCheckFallback()
               .Build();
 
             Assert.AreEqual(false, task.Config.CreateExpandedDocumentFields);
