@@ -82,7 +82,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
               .WithChipDataIgnore()
               .Build();
 
-            Assert.AreEqual("ALWAYS", task.Config.ManualCheck);
+            Assert.AreEqual("FALLBACK", task.Config.ManualCheck);
             Assert.AreEqual("IGNORE", task.Config.ChipData);
         }
 
