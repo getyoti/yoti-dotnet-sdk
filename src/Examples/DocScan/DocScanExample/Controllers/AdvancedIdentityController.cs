@@ -12,14 +12,14 @@ using Yoti.Auth.DocScan.Session.Create;
  
 namespace DocScanExample.Controllers
 {
-    public class DbsController : Controller
+    public class AdvancedIdentityProfileController : Controller
     {
         private readonly DocScanClient _client;
 
         private readonly string _baseUrl;
         private readonly Uri _apiUrl;
 
-        public DbsController(IHttpContextAccessor httpContextAccessor)
+        public AdvancedIdentityProfileController(IHttpContextAccessor httpContextAccessor)
         {
             var request = httpContextAccessor.HttpContext.Request;
             
@@ -30,6 +30,37 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
+            AdvancedIdentityProfile data = new AdvancedIdentityProfile
+            {
+                profiles = new List<Profile>
+            {
+                new Profile
+                {
+                    trust_framework = "UK_TFIDA",
+                    schemes = new List<Scheme>
+                    {
+                        new Scheme
+                        {
+                            label = "LB912",
+                            type = "RTW"
+                        }
+                    }
+                },
+                new Profile
+                {
+                    trust_framework = "YOTI_GLOBAL",
+                    schemes = new List<Scheme>
+                    {
+                        new Scheme
+                        {
+                            label = "LB321",
+                            type = "IDENTITY",
+                            objective = "AL_L1"
+                        }
+                    }
+                }
+            }
+            };
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
@@ -50,15 +81,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 .WithCreateIdentityProfilePreview(true)
-                 /*.WithIdentityProfileRequirements(new
-                 {
-                     trust_framework = "UK_TFIDA",
-                     scheme = new
-                     {
-                         type = "DBS",
-                         objective = "BASIC"
-                     }
-                 })*/
+                .WithAdvancedIdentityProfileRequirements(data)
                 .WithSubject(new
                 {
                     subject_id = "some_subject_id_string"
