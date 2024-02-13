@@ -1,4 +1,7 @@
-﻿namespace Yoti.Auth.Tests.TestData
+﻿using System.Collections.Generic;
+using Yoti.Auth.DocScan.Session.Create;
+
+namespace Yoti.Auth.Tests.TestData
 {
     internal static class IdentityProfiles
     {
@@ -21,6 +24,43 @@
             {
                 subject_id = "some_subject_id_string"
             };
+        }
+        
+        public static AdvancedIdentityProfile CreateStandardAdvancedIdentityProfileRequirements()
+        {
+            AdvancedIdentityProfile data = new AdvancedIdentityProfile
+            {
+                profiles = new List<Yoti.Auth.DocScan.Session.Create.Profile>
+            {
+                new Yoti.Auth.DocScan.Session.Create.Profile
+                {
+                    trust_framework = "UK_TFIDA",
+                    schemes = new List<Scheme>
+                    {
+                        new Scheme
+                        {
+                            label = "LB912",
+                            type = "RTW"
+                        }
+                    }
+                },
+                new Yoti.Auth.DocScan.Session.Create.Profile
+                {
+                    trust_framework = "YOTI_GLOBAL",
+                    schemes = new List<Scheme>
+                    {
+                        new Scheme
+                        {
+                            label = "LB321",
+                            type = "IDENTITY",
+                            objective = "AL_L1"
+                        }
+                    }
+                }
+            }
+            };
+
+            return data;
         }
     }
 }

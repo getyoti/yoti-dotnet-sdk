@@ -78,12 +78,35 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             RequestedTextExtractionTask task =
               new RequestedTextExtractionTaskBuilder()
-              .WithManualCheckAlways()
+              .WithManualCheckFallback()
               .WithChipDataIgnore()
               .Build();
 
-            Assert.AreEqual("ALWAYS", task.Config.ManualCheck);
+            Assert.AreEqual("FALLBACK", task.Config.ManualCheck);
             Assert.AreEqual("IGNORE", task.Config.ChipData);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithCreateExpandedDocumentFields()
+        {
+            RequestedTextExtractionTask task =
+              new RequestedTextExtractionTaskBuilder()
+              .WithManualCheckFallback()
+              .WithCreateExpandedDocumentFields()
+              .Build();
+
+            Assert.AreEqual(true, task.Config.CreateExpandedDocumentFields);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithouthCreateExpandedDocumentFields()
+        {
+            RequestedTextExtractionTask task =
+              new RequestedTextExtractionTaskBuilder()
+              .WithManualCheckFallback()
+              .Build();
+
+            Assert.AreEqual(false, task.Config.CreateExpandedDocumentFields);
         }
     }
 }

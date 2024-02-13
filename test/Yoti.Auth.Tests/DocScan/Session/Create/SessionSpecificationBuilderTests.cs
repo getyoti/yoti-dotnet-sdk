@@ -164,6 +164,61 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShoudBuildWithAdvancedIdentityProfileRequirements()
+        {
+            string advancedIdentityProfileJson = @"
+            {
+                ""profiles"": [
+                    {
+                        ""trust_framework"": ""UK_TFIDA"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB912"",
+                                ""type"": ""RTW""
+                            },
+                            {
+                                ""label"": ""LB777"",
+                                ""type"": ""DBS"",
+                                ""objective"": ""BASIC""
+                            }
+                        ]
+                    },
+                    {
+                        ""trust_framework"": ""YOTI_GLOBAL"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB321"",
+                                ""type"": ""IDENTITY"",
+                                ""objective"": ""AL_L1"",
+                                ""config"": {}
+                            }
+                        ]
+                    }
+                ]
+            }";
+            
+            var sessionSpec = new SessionSpecificationBuilder()
+                .WithIdentityProfileRequirements(advancedIdentityProfileJson)
+                .Build();
+
+            string sessionSpecJson = JsonConvert.SerializeObject(sessionSpec);
+            Assert.IsTrue(sessionSpecJson.Contains("UK_TFIDA"));
+            Assert.IsTrue(sessionSpecJson.Contains("YOTI_GLOBAL"));
+            Assert.IsTrue(sessionSpecJson.Contains("IDENTITY"));
+            
+        }
+        
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForAdvancedIdentityProfileRequirements()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                    .Build();
+
+            Assert.IsNull(sessionSpec.AdvancedIdentityProfileRequirements);
+        }
+        
+        [TestMethod]
         public void ShoudBuildWithSubject()
         {
             var sessionSpec = new SessionSpecificationBuilder()
@@ -286,6 +341,33 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                 .Build();
 
             Assert.AreEqual(identityProfileRequirements, sessionSpec.IdentityProfileRequirements);
+        }
+        
+        [TestMethod]
+        public void ShouldBuildWithAdvancedIdentityProfilePreview()
+        {
+            AdvancedIdentityProfile advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                    .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileRequirements)
+                    .WithCreateIdentityProfilePreview(true)
+                    .Build();
+
+            Assert.AreEqual(advancedIdentityProfileRequirements, sessionSpec.AdvancedIdentityProfileRequirements);
+        }
+        
+        [TestMethod]
+        public void ShouldBuildWithAdvancedIdentityProfileRequirements()
+        {
+            AdvancedIdentityProfile advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                    .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileRequirements)
+                    .Build();
+
+            Assert.AreEqual(advancedIdentityProfileRequirements, sessionSpec.AdvancedIdentityProfileRequirements);
         }
 
         [TestMethod]
