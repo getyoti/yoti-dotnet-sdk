@@ -38,5 +38,14 @@ namespace Yoti.Auth
 
             return result;
         }
+
+        public async Task<SharedReceiptResponse> GetShareReceipt(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string receiptId)
+        {
+            SharedReceiptResponse result = await Task.Run(async () => await DigitalIdentityService.GetShareReceipt(
+                _httpClient, sdkId, apiUrl, keyPair, receiptId).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
     }
 }

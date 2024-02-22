@@ -59,17 +59,17 @@ namespace Yoti.Auth
             _yotiDigitalClientEngine = new DigitalIdentityClientEngine(httpClient);
         }
 
-        
-        
-        
+
+
+
         /// <summary>
-        /// Initiate a sharing process based on a <see cref="DynamicScenario"/>.
+        /// Initiate a sharing process based on a <see cref="ShareSessionRequest"/>.
         /// </summary>
-        /// <param name="dynamicScenario">
+        /// <param name="shareSessionRequest">
         /// Details of the device's callback endpoint, <see
-        /// cref="Yoti.Auth.ShareUrl.Policy.DynamicPolicy"/> and extensions for the application
+        /// cref="Yoti.Auth.DigitalIdentity.Policy"/> and extensions for the application
         /// </param>
-        /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
+        /// <returns><see cref="ShareSessionResult"/></returns>
         public ShareSessionResult CreateShareSession(ShareSessionRequest shareSessionRequest)
         {
             Task<ShareSessionResult> task = Task.Run(async () => await CreateShareSessionAsync(shareSessionRequest).ConfigureAwait(false));
@@ -78,17 +78,24 @@ namespace Yoti.Auth
         }
 
         /// <summary>
-        /// Asynchronously initiate a sharing process based on a <see cref="DynamicScenario"/>.
+        /// Asynchronously initiate a sharing process based on a <see cref="ShareSessionRequest"/>.
         /// </summary>
-        /// <param name="dynamicScenario">
+        /// <param name="shareSessionRequest">
         /// Details of the device's callback endpoint, <see
-        /// cref="Yoti.Auth.ShareUrl.Policy.DynamicPolicy"/> and extensions for the application
+        /// cref="Yoti.Auth.DigitalIdentity.Policy"/> and extensions for the application
         /// </param>
-        /// <returns><see cref="ShareUrlResult"/> containing a Sharing URL and Reference ID</returns>
+        /// <returns><see cref="ShareSessionResult"/></returns>
         public async Task<ShareSessionResult> CreateShareSessionAsync(ShareSessionRequest shareSessionRequest)
         {
             return await _yotiDigitalClientEngine.CreateShareSessionAsync(_sdkId, _keyPair, ApiUri, shareSessionRequest).ConfigureAwait(false);
         }
+
+
+        public async Task<SharedReceiptResponse> GetShareReceipt(string receiptId)
+        {
+            return await _yotiDigitalClientEngine.GetShareReceipt(_sdkId, _keyPair, ApiUri, receiptId);
+        }
+
 
         internal void SetYotiApiUri()
         {
@@ -98,7 +105,7 @@ namespace Yoti.Auth
             }
             else
             {
-                ApiUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+                ApiUri = new Uri(Constants.Api.DefaultYotiShareApiUrl);
             }
         }
 

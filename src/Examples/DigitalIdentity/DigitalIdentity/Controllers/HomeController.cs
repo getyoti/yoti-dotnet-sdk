@@ -78,6 +78,42 @@ namespace CoreExample.Controllers
             }
         }
 
+        [Route("receipt-info")]
+        // GET: receipt-info?ReceiptID
+        public IActionResult ReceiptInfo(string ReceiptID)
+        {
+            try
+            {
+                string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
+                _logger.LogInformation(
+                    string.Format(
+                        "yotiKeyFilePath='{0}'",
+                        yotiKeyFilePath));
+
+                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+
+                var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
+
+
+                var ReceiptResult = yotiClient.GetShareReceipt(ReceiptID);
+
+                ViewBag.YotiClientSdkId = _clientSdkId;
+ //               ViewBag.sessionID = SessionResult.Id;
+
+                return View("DigitalIdentity", ReceiptResult);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(
+                     exception: e,
+                     message: e.Message);
+
+                TempData["Error"] = e.Message;
+                TempData["InnerException"] = e.InnerException?.Message;
+                return RedirectToAction("Error", "Account");
+            }
+        }
+
         // GET: /dbs-check
         [Route("dbs-check")]
         public IActionResult DBSStandard()

@@ -17,8 +17,10 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public static class DigitalIdentityService
     {
-        private const string identitySessionReceiptRetrieval = "/path/to/identity/session/receipt/retrieval/{0}";
-        private const string identitySessionReceiptKeyRetrieval = "/path/to/identity/session/receipt/key/retrieval/{0}";
+        private const string identitySessionReceiptRetrieval = "/v2/receipts/{0}";
+        private const string identitySessionReceiptKeyRetrieval = "/v2/wrapped-item-keys/{0}";
+        private const string digitalIdentitySessionCreationEndpoint = "/v2/sessions";
+
 
         internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequestPayload)
         {
@@ -40,8 +42,8 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
-                .WithEndpoint($"/v2/sessions")
-                .WithQueryParam("appId", sdkId)
+                .WithEndpoint(digitalIdentitySessionCreationEndpoint)
+                .WithQueryParam("sdkID", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
                 .Build();
@@ -74,7 +76,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
-                .WithEndpoint(string.Format($"/v2/sessions/{0}", sessionId))
+                .WithEndpoint(string.Format("{0}/{1}", digitalIdentitySessionCreationEndpoint, sessionId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();
@@ -176,7 +178,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
 
-            string receiptUrl = Convert.ToBase64String(Encoding.UTF8.GetBytes(receiptId));
+            string receiptUrl = Base64ToBase64URL(receiptId); 
             string endpoint = string.Format(identitySessionReceiptRetrieval, receiptUrl);
             
             Request ReceiptRequest = new RequestBuilder()
@@ -184,7 +186,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithBaseUri(apiUrl)
                 .WithHeader("X-Yoti-Auth-Id", sdkId)
                 .WithEndpoint(endpoint)
-                .WithQueryParam("appId", sdkId)
+                .WithQueryParam("sdkID", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();
 
@@ -202,7 +204,24 @@ namespace Yoti.Auth.DigitalIdentity
 
             }
         }
-       
+
+        public static string Base64ToBase64URL(string base64Str)
+        {
+            try
+            {
+                byte[] decodedBytes = Convert.FromBase64String(base64Str);
+                string base64URL = Convert.ToBase64String(decodedBytes)
+                    .Replace('+', '-')
+                    .Replace('/', '_')
+                    .TrimEnd('=');
+                return base64URL;
+            }
+            catch (FormatException)
+            {
+                return ""; 
+            }
+        }
+
         private static Dictionary<string, List<BaseAttribute>> ParseProfileContent(AsymmetricCipherKeyPair keyPair, string wrappedReceiptKey, string profileContent)
         {
             var parsedAttributes = new Dictionary<string, List<BaseAttribute>>();
@@ -220,7 +239,7 @@ namespace Yoti.Auth.DigitalIdentity
             return parsedAttributes;
         }
 
-        public static async Task<(SharedReceiptResponse, Exception)> GetShareReceipt(HttpClient httpClient, string receiptId, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key)
+        public static async Task<SharedReceiptResponse> GetShareReceipt(HttpClient httpClient, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key, string receiptId)
         {
             try
             {
@@ -234,7 +253,7 @@ namespace Yoti.Auth.DigitalIdentity
                 var (attrData, aextra, decryptAttrDataError) = DecryptReceiptContent(receiptResponse.Content, receiptContentKey);
                 if (decryptAttrDataError != null)
                 {
-                    return (null, new Exception($"failed to decrypt receipt content: {decryptAttrDataError.Message}"));
+                    //return (null, new Exception($"failed to decrypt receipt content: {decryptAttrDataError.Message}"));
                 }
 
 
@@ -277,12 +296,13 @@ namespace Yoti.Auth.DigitalIdentity
                     Error = receiptResponse.Error
                 };
 
-                return (sharedReceiptResponse, null);
+                return sharedReceiptResponse;
             }
-            catch (Exception ex)
+            catch  //(Exception ex)
             {
-                return (null, new Exception($"An unexpected error occurred: {ex.Message}"));
+                //return (null, new Exception($"An unexpected error occurred: {ex.Message}"));
             }
+            return new SharedReceiptResponse();
         }
 
         private static async Task<ReceiptItemKeyResponse> GetReceiptItemKey(HttpClient httpClient, string receiptItemKeyId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)

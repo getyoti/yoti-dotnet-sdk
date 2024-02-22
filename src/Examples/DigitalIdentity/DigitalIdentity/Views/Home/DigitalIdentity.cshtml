@@ -57,7 +57,7 @@
 
         async function completionHandler(receivedReceiptId) {
             console.log('completion handler:', receivedReceiptId)
-            const url = '/v2/receipt-info?ReceiptID=' + encodeURIComponent(receivedReceiptId);
+            const url = '/receipt-info?ReceiptID=' + encodeURIComponent(receivedReceiptId);
 
             window.location.href = url;
         }
