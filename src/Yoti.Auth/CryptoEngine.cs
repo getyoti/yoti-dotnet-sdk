@@ -190,10 +190,9 @@ namespace Yoti.Auth
 
                 return DecipherAes(receiptContentKey, decodedData.Iv.ToByteArray(), decodedData.CipherText.ToByteArray());
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
-                //return (null, new Exception($"Failed to decrypt receipt content: {ex.Message}", ex));
+                throw new Exception($"Failed to decrypt receipt content: {ex.Message}", ex);
             }
         }
     }

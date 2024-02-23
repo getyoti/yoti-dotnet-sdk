@@ -245,10 +245,11 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 var receiptResponse = await GetReceipt(httpClient, receiptId, clientSdkId, apiUrl, key);
                 var itemKeyId = receiptResponse.WrappedItemKeyId;
-
-                var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
                 
-                var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
+                var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
+
+                var wrappedKey = Encoding.ASCII.GetBytes(receiptResponse.WrappedKey);
+                var receiptContentKey = CryptoEngine.UnwrapReceiptKey(wrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
  
                 var (attrData, aextra, decryptAttrDataError) = DecryptReceiptContent(receiptResponse.Content, receiptContentKey);
                 if (decryptAttrDataError != null)
@@ -256,23 +257,22 @@ namespace Yoti.Auth.DigitalIdentity
                     //return (null, new Exception($"failed to decrypt receipt content: {decryptAttrDataError.Message}"));
                 }
 
-
-                var userProfile = new YotiProfile(
-                ParseProfileContent(key, Encoding.UTF8.GetString(receiptResponse.WrappedKey), Encoding.UTF8.GetString(receiptResponse.OtherPartyContent.Profile)));
+                var parsedProfile = ParseProfileContent(key, receiptResponse.WrappedKey, receiptResponse.OtherPartyContent.Profile);
+                var userProfile = new YotiProfile(parsedProfile
+                );
        
                 var applicationProfile = new ApplicationProfile(
-                    ParseProfileContent(key, Encoding.UTF8.GetString(receiptResponse.WrappedKey), Encoding.UTF8.GetString(receiptResponse.Content.Profile)));
+                    ParseProfileContent(key, receiptResponse.WrappedKey,  receiptResponse.Content.Profile));
 
                 ExtraData userExtraData = new ExtraData();
-                userExtraData = CryptoEngine.DecryptExtraData(
-                        Encoding.UTF8.GetString(receiptResponse.WrappedKey),
-                        Encoding.UTF8.GetString(receiptResponse.OtherPartyContent.ExtraData),
+                userExtraData = CryptoEngine.DecryptExtraData(receiptResponse.WrappedKey,
+                        receiptResponse.OtherPartyContent.ExtraData,
                         key);
 
                 ExtraData appExtraData = new ExtraData();
                 appExtraData = CryptoEngine.DecryptExtraData(
-                        Encoding.UTF8.GetString(receiptResponse.WrappedKey),
-                        Encoding.UTF8.GetString(receiptResponse.Content.ExtraData),
+                        receiptResponse.WrappedKey,
+                        receiptResponse.Content.ExtraData,
                         key);
 
 
@@ -298,11 +298,12 @@ namespace Yoti.Auth.DigitalIdentity
 
                 return sharedReceiptResponse;
             }
-            catch  //(Exception ex)
+            catch  (Exception ex)
             {
-                //return (null, new Exception($"An unexpected error occurred: {ex.Message}"));
+                throw new Exception($"An unexpected error occurred: {ex.Message}");
+           
             }
-            return new SharedReceiptResponse();
+           
         }
 
         private static async Task<ReceiptItemKeyResponse> GetReceiptItemKey(HttpClient httpClient, string receiptItemKeyId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)
@@ -350,7 +351,7 @@ namespace Yoti.Auth.DigitalIdentity
                 {
                     try
                     {
-                        byte[] aattr = CryptoEngine.DecryptReceiptContent(content.Profile, key);
+                        byte[] aattr = CryptoEngine.DecryptReceiptContent(Encoding.ASCII.GetBytes(content.Profile), key);
                         attrData = new AttributeList();
                         attrData.MergeFrom(aattr);
                     }
@@ -365,7 +366,7 @@ namespace Yoti.Auth.DigitalIdentity
                 {
                     try
                     {
-                        aextra = CryptoEngine.DecryptReceiptContent(content.ExtraData, key);
+                        aextra = CryptoEngine.DecryptReceiptContent(Encoding.ASCII.GetBytes(content.ExtraData), key);
                     }
                     catch (Exception ex)
                     {
