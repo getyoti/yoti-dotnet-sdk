@@ -85,5 +85,23 @@ namespace Yoti.Auth.Tests
             Assert.IsTrue(exception.Message.Contains("Failed to decrypt receipt content"));
         }
 
+        [TestMethod]
+        public void DecryptReceiptContent_NullContentThrowsError()
+        {
+            byte[] content = null; // Example content
+            byte[] receiptContentKey = new byte[] { 0x01, 0x02, 0x03 }; // Example receipt content key
+
+
+            var exception = Assert.ThrowsException<Exception>(() =>
+            {
+                byte[] unwrappedKey = CryptoEngine.DecryptReceiptContent(content, receiptContentKey);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Failed to decrypt receipt content: Failed to decrypt receipt content: content is null "));
+        }
+
+
+
+
     }
 }
