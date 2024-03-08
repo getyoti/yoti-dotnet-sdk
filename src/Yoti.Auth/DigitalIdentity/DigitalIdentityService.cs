@@ -255,7 +255,8 @@ namespace Yoti.Auth.DigitalIdentity
                 var (attrData, aextra, decryptAttrDataError) = DecryptReceiptContent(receiptResponse.Content, receiptContentKey);
                 if (decryptAttrDataError != null)
                 {
-                    //return (null, new Exception($"failed to decrypt receipt content: {decryptAttrDataError.Message}"));
+                    throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
+                   
                 }
 
                 var parsedProfile = ParseProfileContent(key, receiptResponse.WrappedKey, receiptResponse.OtherPartyContent.Profile);

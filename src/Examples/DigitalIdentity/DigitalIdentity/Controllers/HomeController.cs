@@ -98,7 +98,7 @@ namespace CoreExample.Controllers
                 var ReceiptResult = yotiClient.GetShareReceipt(ReceiptID);
 
                 ViewBag.YotiClientSdkId = _clientSdkId;
- //               ViewBag.sessionID = SessionResult.Id;
+ 
 
                 return View("DigitalIdentity", ReceiptResult);
             }
@@ -114,58 +114,5 @@ namespace CoreExample.Controllers
             }
         }
 
-        // GET: /dbs-check
-        [Route("dbs-check")]
-        public IActionResult DBSStandard()
-        {
-            try
-            {
-                string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
-                _logger.LogInformation(
-                    string.Format(
-                        "yotiKeyFilePath='{0}'",
-                        yotiKeyFilePath));
-
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
-
-                var yotiClient = new YotiClient(_clientSdkId, privateKeyStream);
-
-                DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
-                    .WithIdentityProfileRequirements(new
-                     {
-                         trust_framework = "UK_TFIDA",
-                         scheme = new
-                         {
-                             type = "DBS",
-                             objective = "BASIC"
-                         }
-                     })
-                    .Build();
-
-                var dynamicScenario = new DynamicScenarioBuilder()
-                    .WithCallbackEndpoint("/account/connect")
-                    .WithPolicy(dynamicPolicy)
-                    .WithSubject(new
-                    {
-                        subject_id = "some_subject_id_string"
-                    })
-                    .Build();
-                ShareUrlResult shareUrlResult = yotiClient.CreateShareUrl(dynamicScenario);
-
-                ViewBag.YotiClientSdkId = _clientSdkId;
-
-                return View("DBSCheck", shareUrlResult);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(
-                     exception: e,
-                     message: e.Message);
-
-                TempData["Error"] = e.Message;
-                TempData["InnerException"] = e.InnerException?.Message;
-                return RedirectToAction("Error", "Account");
-            }
-        }
     }
 }
