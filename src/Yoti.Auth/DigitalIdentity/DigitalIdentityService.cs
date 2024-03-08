@@ -241,6 +241,7 @@ namespace Yoti.Auth.DigitalIdentity
 
         public static async Task<SharedReceiptResponse> GetShareReceipt(HttpClient httpClient, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key, string receiptId)
         {
+            Validation.NotNullOrEmpty(receiptId, nameof(receiptId));
             try
             {
                 var receiptResponse = await GetReceipt(httpClient, receiptId, clientSdkId, apiUrl, key);
