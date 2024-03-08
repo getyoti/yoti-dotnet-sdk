@@ -49,7 +49,7 @@ namespace CoreExample.Controllers
                     .WithNationality()
                     .WithGender()
                     .WithDocumentDetails()
-                    .WithDocumentImages()
+                    .WithDocumentImages()           
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
