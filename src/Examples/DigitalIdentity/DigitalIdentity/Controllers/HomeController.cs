@@ -111,5 +111,5 @@ namespace CoreExample.Controllers
             }
         }
 
-    }
+    } 
 }
