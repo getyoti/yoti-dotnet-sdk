@@ -110,6 +110,5 @@ namespace CoreExample.Controllers
                 return RedirectToAction("Error", "Account");
             }
         }
-
     } 
 }
