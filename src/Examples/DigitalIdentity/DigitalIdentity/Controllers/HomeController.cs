@@ -60,7 +60,6 @@ namespace CoreExample.Controllers
 
                 var SessionResult = yotiClient.CreateShareSession(sessionReq);
 
-
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 ViewBag.sessionID = SessionResult.Id;
 
