@@ -9,7 +9,7 @@ WORKDIR /src
 COPY Examples/Profile/CoreExample/CoreExample.csproj Examples/Profile/CoreExample/
 COPY Yoti.Auth/Yoti.Auth.csproj Yoti.Auth/
 COPY . .
-WORKDIR /src/Examples/Profile/CoreExample
+WORKDIR /src/Examples/DigitalIdentity/DigitalIdentity
 
 FROM build AS publish
 RUN dotnet publish CoreExample.csproj -c Release -r linux-x64 -o /app -p:TargetFrameworks=netcoreapp3.1 -f netcoreapp3.1
