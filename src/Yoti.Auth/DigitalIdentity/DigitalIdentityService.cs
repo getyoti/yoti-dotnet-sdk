@@ -17,10 +17,10 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public static class DigitalIdentityService
     {
-        private const string identitySessionReceiptRetrieval = "/v2/receipts/{0}";
-        private const string identitySessionReceiptKeyRetrieval = "/v2/wrapped-item-keys/{0}";
-        private const string digitalIdentitySessionCreationEndpoint = "/v2/sessions";
-
+        private const string receiptRetrieval = "/v2/receipts/{0}";
+        private const string receiptKeyRetrieval = "/v2/wrapped-item-keys/{0}";
+        private const string sessionCreation = "/v2/sessions";
+        private const string yotiAuthId = "X-Yoti-Auth-Id";
 
         internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequestPayload)
         {
@@ -41,8 +41,8 @@ namespace Yoti.Auth.DigitalIdentity
             Request shareSessionRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
-                .WithEndpoint(digitalIdentitySessionCreationEndpoint)
+                .WithHeader(yotiAuthId, sdkId)
+                .WithEndpoint(sessionCreation)
                 .WithQueryParam("sdkID", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
@@ -75,8 +75,8 @@ namespace Yoti.Auth.DigitalIdentity
             Request getSessionRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
-                .WithEndpoint(string.Format("{0}/{1}", digitalIdentitySessionCreationEndpoint, sessionId))
+                .WithHeader(yotiAuthId, sdkId)
+                .WithEndpoint(string.Format("{0}/{1}", sessionCreation, sessionId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();
@@ -115,7 +115,7 @@ namespace Yoti.Auth.DigitalIdentity
             Request createQrRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
@@ -150,7 +150,7 @@ namespace Yoti.Auth.DigitalIdentity
             Request QrCodeRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(string.Format($"/v2/qr-codes/{0}", qrCodeId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
@@ -179,12 +179,12 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(keyPair, nameof(keyPair));
 
             string receiptUrl = Base64ToBase64URL(receiptId); 
-            string endpoint = string.Format(identitySessionReceiptRetrieval, receiptUrl);
+            string endpoint = string.Format(receiptRetrieval, receiptUrl);
             
             Request ReceiptRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(endpoint)
                 .WithQueryParam("sdkID", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
@@ -314,13 +314,13 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            string endpoint = string.Format(identitySessionReceiptKeyRetrieval, receiptItemKeyId);
+            string endpoint = string.Format(receiptKeyRetrieval, receiptItemKeyId);
 
 
             Request ReceiptItemKeyRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
-                .WithHeader("X-Yoti-Auth-Id", sdkId)
+                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(endpoint)
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Get)

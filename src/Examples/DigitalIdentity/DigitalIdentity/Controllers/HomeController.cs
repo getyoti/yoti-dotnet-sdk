@@ -72,7 +72,7 @@ namespace CoreExample.Controllers
                      exception: e,
                      message: e.Message);
 
-                TempData["Error"] = e.Message;
+                TempData["Error"] = e.Message; 
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error", "Account");
             }
@@ -93,13 +93,11 @@ namespace CoreExample.Controllers
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
-
-
+                
                 var ReceiptResult = yotiClient.GetShareReceipt(ReceiptID);
 
                 ViewBag.YotiClientSdkId = _clientSdkId;
- 
-
+                
                 return View("DigitalIdentity", ReceiptResult);
             }
             catch (Exception e)
