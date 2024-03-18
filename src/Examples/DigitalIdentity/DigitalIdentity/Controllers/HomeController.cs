@@ -15,6 +15,7 @@ namespace CoreExample.Controllers
         private readonly string _clientSdkId;
         private readonly ILogger _logger;
 
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -109,5 +110,5 @@ namespace CoreExample.Controllers
                 return RedirectToAction("Error", "Account");
             }
         }
-    } 
+    }
 }
