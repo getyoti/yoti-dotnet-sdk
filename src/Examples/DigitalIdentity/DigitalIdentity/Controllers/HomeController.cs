@@ -14,7 +14,6 @@ namespace CoreExample.Controllers
     {
         private readonly string _clientSdkId;
         private readonly ILogger _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -23,7 +22,6 @@ namespace CoreExample.Controllers
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
 
-       
         // GET: /generate-share
         [Route("generate-share")]
         public IActionResult DigitalIdentity()

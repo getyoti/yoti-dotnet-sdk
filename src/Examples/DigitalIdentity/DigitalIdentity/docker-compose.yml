@@ -6,4 +6,3 @@ services:
     build:
       context: ../../../
       dockerfile: Examples/DigitalIdentity/DigitalIdentity/Dockerfile
-
