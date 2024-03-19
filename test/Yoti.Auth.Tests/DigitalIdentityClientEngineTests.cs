@@ -61,9 +61,7 @@ namespace Yoti.Auth.Tests
             });
 
         }
-
-
-
+        
         [DataTestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
