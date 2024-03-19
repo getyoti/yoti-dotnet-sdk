@@ -26,7 +26,6 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void DigitalIdentityException_WithMessageAndInnerException_MessageAndInnerExceptionAreSet()
         {
-
             var message = "Test message";
             var innerException = new Exception("Inner exception message");
             var exception = new DigitalIdentityException(message, innerException);
