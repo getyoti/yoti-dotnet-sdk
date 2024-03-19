@@ -115,7 +115,6 @@ namespace Yoti.Auth.Tests
             Uri expectedApiUri = new Uri("https://envapiuri.com");
             Assert.AreEqual(expectedApiUri, client.ApiUri);
         }
-
         private static DigitalIdentityClient CreateDigitalIdentityClient()
         {
             StreamReader privateStreamKey = KeyPair.GetValidKeyStream();
