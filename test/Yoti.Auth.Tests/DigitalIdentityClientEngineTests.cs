@@ -109,4 +109,4 @@ namespace Yoti.Auth.Tests
 			return handlerMock;
 		}
 	}
-}  
+}
