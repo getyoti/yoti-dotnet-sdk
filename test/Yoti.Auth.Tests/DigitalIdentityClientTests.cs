@@ -140,7 +140,7 @@ namespace Yoti.Auth.Tests
             DigitalIdentityClient yotiClient = new DigitalIdentityClient(_someSdkId, privateStreamKey);
 
             Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
-        }
+        }  
 
         [TestMethod]
         public void ApiUriSetForStreamInitialisationHttpClient()
