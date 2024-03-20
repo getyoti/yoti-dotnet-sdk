@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;netstandard2.1;netcoreapp1.1;netcoreapp2.2;netcoreapp3.1;net6.0;net452;net462;net472;net48;</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;netstandard2.1;netcoreapp3.1;net6.0;net452;net462;net472;net48;</TargetFrameworks>
     <AssemblyName>Yoti.Auth</AssemblyName>
     <PackageId>Yoti</PackageId>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
@@ -48,6 +48,7 @@
     <PackageReference Include="NLog" Version="5.0.1" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,8 +71,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DigitalIdentity\" />
   </ItemGroup>
 </Project>
