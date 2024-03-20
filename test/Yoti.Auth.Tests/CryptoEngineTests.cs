@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Tests.Common;
 
 namespace Yoti.Auth.Tests
@@ -27,6 +28,66 @@ namespace Yoti.Auth.Tests
             });
 
             Assert.IsTrue(exception.Message.Contains("one time use token"));
+        }
+
+        [TestMethod]
+        public void DecryptAesGcm_EmptySecretsThrowsError()
+        {
+            byte[] iv = new byte[12];
+            byte[] secret = new byte[16];
+            byte[] cipherText = new byte[32];
+            
+            var exception = Assert.ThrowsException<Exception>(() =>
+            {
+                CryptoEngine.DecryptAesGcm(cipherText, iv, secret);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Failed to decrypt receipt key"));
+        }
+
+        [TestMethod]
+        public void UnwrapReceiptKey_EmptySecretsThrowsError()
+        {
+            byte[] wrappedReceiptKey = new byte[32];
+            byte[] encryptedItemKey = new byte[32];
+            byte[] itemKeyIv = new byte[12];
+            AsymmetricCipherKeyPair key = null;
+
+            var exception = Assert.ThrowsException<Exception>(() =>
+            {
+                byte[] unwrappedKey = CryptoEngine.UnwrapReceiptKey(wrappedReceiptKey, encryptedItemKey, itemKeyIv, key);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Failed to unwrap receipt key"));
+        }
+
+        [TestMethod]
+        public void DecryptContent_EmptySecretsThrowsError()
+        {
+            byte[] content = new byte[] { 0x01, 0x02, 0x03 }; // Example content
+            byte[] receiptContentKey = new byte[16]; // Example receipt content key
+
+            var exception = Assert.ThrowsException<Exception>(() =>
+            {
+                byte[] decryptedContent = CryptoEngine.DecryptReceiptContent(content, receiptContentKey);
+
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Failed to decrypt receipt content"));
+        }
+
+        [TestMethod]
+        public void DecryptReceiptContent_NullContentThrowsError()
+        {
+            byte[] content = null; // Example content
+            byte[] receiptContentKey = new byte[] { 0x01, 0x02, 0x03 }; // Example receipt content key
+
+            var exception = Assert.ThrowsException<Exception>(() =>
+            {
+                byte[] unwrappedKey = CryptoEngine.DecryptReceiptContent(content, receiptContentKey);
+            });
+
+            Assert.IsTrue(exception.Message.Contains("Failed to decrypt receipt content: Failed to decrypt receipt content: content is null "));
         }
     }
 }
