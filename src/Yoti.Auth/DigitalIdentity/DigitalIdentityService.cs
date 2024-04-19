@@ -167,7 +167,7 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
         
-        /*private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId,  string sdkId,Uri apiUrl, AsymmetricCipherKeyPair keyPair)
+        private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId,  string sdkId,Uri apiUrl, AsymmetricCipherKeyPair keyPair)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
@@ -198,45 +198,8 @@ namespace Yoti.Auth.DigitalIdentity
 
                 return deserialized;
             }
-        }*/
-        
-        private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId,  string sdkId,Uri apiUrl, AsymmetricCipherKeyPair keyPair)
-        {
-            Validation.NotNull(httpClient, nameof(httpClient));
-            Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
-
-            string receiptUrl = Base64ToBase64URL(receiptId); 
-            string endpoint = string.Format(receiptRetrieval, receiptUrl);
-            
-            Request ReceiptRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
-                .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(endpoint)
-                .WithQueryParam("sdkID", sdkId)
-                .WithHttpMethod(HttpMethod.Get)
-                .Build();
-
-            using (HttpResponseMessage response = await ReceiptRequest.Execute(httpClient).ConfigureAwait(false))
-            {
-                if (!response.IsSuccessStatusCode)
-                {
-                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
-
-                var responseObject = await response.Content.ReadAsStringAsync();
-                
-                string jsonFilePath = "response.json";
-                //File.WriteAllText(jsonFilePath, responseObject);
-                string jsonData = File.ReadAllText(jsonFilePath);
-                
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptResponse>(jsonData));
-
-                return deserialized;
-            }
         }
+        
 
         public static string Base64ToBase64URL(string base64Str)
         {
