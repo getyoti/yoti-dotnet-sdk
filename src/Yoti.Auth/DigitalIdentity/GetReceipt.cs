@@ -5,10 +5,10 @@ namespace Yoti.Auth.DigitalIdentity
     public class Content
     {
         [JsonProperty("profile")]
-        public string Profile { get; set; }
+        public byte[] Profile { get; set; }
 
         [JsonProperty("extraData")]
-        public string ExtraData { get; set; }
+        public byte[] ExtraData { get; set; }
     }
 
     public class ReceiptResponse
@@ -38,7 +38,7 @@ namespace Yoti.Auth.DigitalIdentity
         public string WrappedItemKeyId { get; set; }
 
         [JsonProperty("wrappedKey")]
-        public string WrappedKey { get; set; }
+        public byte[] WrappedKey { get; set; }
 
         [JsonProperty("error")]
         public string Error { get; set; }

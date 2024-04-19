@@ -48,4 +48,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\static\assets\icons\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Success\SuccessResult.cshtml" />
+  </ItemGroup>
 </Project>

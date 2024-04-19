@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using Google.Protobuf;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
@@ -42,10 +43,10 @@ namespace Yoti.Auth
 
             var result = new byte[numOutputBytes];
             Array.Copy(outputBuffer, result, numOutputBytes);
-
+            
             return result;
         }
-
+       
         internal static byte[] DecryptRsa(byte[] cipherBytes, AsymmetricCipherKeyPair keypair)
         {
             // decrypt using rsa with private key and PKCS 1 v1.5 padding
@@ -83,7 +84,6 @@ namespace Yoti.Auth
         internal static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
         {
             Validation.NotNullOrEmpty(encryptedConnectToken, "one time use token");
-
             // token was encoded as a URL-safe base64 so it can be transferred in a URL
             byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
 

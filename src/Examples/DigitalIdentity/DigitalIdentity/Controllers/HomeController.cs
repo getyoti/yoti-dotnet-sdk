@@ -6,7 +6,7 @@ using Yoti.Auth;
 using Yoti.Auth.DigitalIdentity;
 using Yoti.Auth.DigitalIdentity.Policy;
 
-namespace CoreExample.Controllers
+namespace DigitalIdentityExample.Controllers
 {
     public class HomeController : Controller
     {
@@ -19,7 +19,7 @@ namespace CoreExample.Controllers
             _clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
-
+       
         // GET: /generate-share
         [Route("generate-share")]
         public IActionResult DigitalIdentity()
@@ -56,10 +56,11 @@ namespace CoreExample.Controllers
 
                 var SessionResult = yotiClient.CreateShareSession(sessionReq);
 
+                var sharedReceiptResponse = new SharedReceiptResponse();
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 ViewBag.sessionID = SessionResult.Id;
 
-                return View("DigitalIdentity", SessionResult);
+                return View("DigitalIdentity", sharedReceiptResponse);
             }
             catch (Exception e)
             {
@@ -69,41 +70,7 @@ namespace CoreExample.Controllers
 
                 TempData["Error"] = e.Message; 
                 TempData["InnerException"] = e.InnerException?.Message;
-                return RedirectToAction("Error", "Account");
-            }
-        }
-
-        [Route("receipt-info")]
-        // GET: receipt-info?ReceiptID
-        public IActionResult ReceiptInfo(string ReceiptID)
-        {
-            try
-            {
-                string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
-                _logger.LogInformation(
-                    string.Format(
-                        "yotiKeyFilePath='{0}'",
-                        yotiKeyFilePath));
-
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
-
-                var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
-                
-                var ReceiptResult = yotiClient.GetShareReceipt(ReceiptID);
-
-                ViewBag.YotiClientSdkId = _clientSdkId;
-                
-                return View("DigitalIdentity", ReceiptResult);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(
-                     exception: e,
-                     message: e.Message);
-
-                TempData["Error"] = e.Message;
-                TempData["InnerException"] = e.InnerException?.Message;
-                return RedirectToAction("Error", "Account");
+                return RedirectToAction("Error", "Success");
             }
         }
     } 

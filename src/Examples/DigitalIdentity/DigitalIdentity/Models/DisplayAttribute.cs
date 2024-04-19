@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Yoti.Auth.Anchors;
 
-namespace CoreExample.Models
+namespace DigitalIdentity.Models
 {
     public class DisplayAttribute
     {

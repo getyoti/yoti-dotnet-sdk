@@ -86,9 +86,10 @@ namespace Yoti.Auth
             return await _yotiDigitalClientEngine.CreateShareSessionAsync(_sdkId, _keyPair, ApiUri, shareSessionRequest).ConfigureAwait(false);
         }
 
-        public async Task<SharedReceiptResponse> GetShareReceipt(string receiptId)
+        public SharedReceiptResponse GetShareReceipt(string receiptId)
         {
-            return await _yotiDigitalClientEngine.GetShareReceipt(_sdkId, _keyPair, ApiUri, receiptId);
+            Task<SharedReceiptResponse> task = Task.Run(async () => await _yotiDigitalClientEngine.GetShareReceipt(_sdkId, _keyPair, ApiUri, receiptId).ConfigureAwait(false));
+            return task.Result;
         }
 
         internal void SetYotiApiUri()
