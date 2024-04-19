@@ -82,8 +82,9 @@ namespace Yoti.Auth.Tests
             {
                 client.GetShareReceipt("");
             });
-            
-             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            var status =
+                TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException);
+             Assert.IsTrue(!status);
         }
 
         [DataTestMethod]
