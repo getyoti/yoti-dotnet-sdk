@@ -78,8 +78,12 @@ namespace Yoti.Auth.Tests
         public void EmptyReceiptShouldThrowException()
         {
             DigitalIdentityClient client = CreateDigitalIdentityClient();
-            var result =  client.GetShareReceipt("SOME_RECEIPT_ID");
-            Assert.IsNotNull(result);
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                client.GetShareReceipt("");
+            });
+            
+             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
         }
 
         [DataTestMethod]
