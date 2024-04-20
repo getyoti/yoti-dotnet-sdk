@@ -10,6 +10,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
     {
         private const string _someName = "some name";
         private const string _someDerivation = "some derivation";
+        private const bool _someOptional = true;
 
         [TestMethod]
         public void BuildsAnAttribute()
@@ -22,11 +23,13 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
                 .WithName(_someName)
                 .WithDerivation(_someDerivation)
                 .WithConstraint(sourceConstraint)
+                .WithOptional(_someOptional)
                 .Build();
 
             Assert.AreEqual(1, result.Constraints.Count);
             Assert.AreEqual(_someName, result.Name);
             Assert.AreEqual(_someDerivation, result.Derivation);
+            Assert.AreEqual(_someOptional, result.Optional);
         }
 
         [TestMethod]
