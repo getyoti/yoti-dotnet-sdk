@@ -326,6 +326,17 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
 
             Assert.AreEqual(identityProfileRequirements, result.IdentityProfileRequirements);
         }
+        
+        [TestMethod]
+        public void ShouldBuildWithAdvancedIdentityProfileRequirements()
+        {
+            object advancedIdentityProfileRequirements = IdentityProfiles.CreateAdvancedIdentityProfileRequirements();
+            Auth.DigitalIdentity.Policy.Policy result = new PolicyBuilder()
+                    .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileRequirements)
+                    .Build();
+
+            Assert.AreEqual(advancedIdentityProfileRequirements, result.AdvancedIdentityProfileRequirements);
+        }
     }
 
     
