@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  coreexample:
+  digitalidentityexample:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -10,7 +10,7 @@ services:
       - YOTI_CLIENT_SDK_ID=${YOTI_CLIENT_SDK_ID}
       - YOTI_KEY_FILE_PATH=/YotiKey.pem
       - ASPNETCORE_Kestrel__Certificates__Default__Password=b0a3e118-0420-4e3c-920c-c2623296ffbf
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=https/CoreExample.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=https/DigitalIdentityExample.pfx
     ports:
       - "55000:80"
       - "44380:443"

@@ -49,6 +49,14 @@ namespace DigitalIdentityExample.Controllers
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
+                    .WithNotification(new Notification
+                    {
+                        Headers = { },
+                        Url = "https://example.com/webhook",
+                        Method = "POST",
+                        VerifyTls = true
+                        
+                    })
                     .WithRedirectUri("https:/www.yoti.com").WithSubject(new
                     {
                         subject_id = "some_subject_id_string"

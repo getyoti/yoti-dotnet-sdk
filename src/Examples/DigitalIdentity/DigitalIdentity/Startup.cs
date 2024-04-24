@@ -61,7 +61,6 @@ namespace CoreExample
             }
 
             app.UseRouting();
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
@@ -72,6 +71,16 @@ namespace CoreExample
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path == "/")
+                {
+                    context.Response.Redirect("/generate-share");
+                    return;
+                }
+
+                await next();
             });
         }
     }

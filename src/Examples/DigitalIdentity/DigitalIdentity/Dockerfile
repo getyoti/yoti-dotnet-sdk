@@ -1,20 +1,20 @@
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY Examples/Profile/CoreExample/CoreExample.csproj Examples/Profile/CoreExample/
+COPY Examples/DigitalIdentity/DigitalIdentity/DigitalIdentityExample.csproj Examples/DigitalIdentity/DigitalIdentity/
 COPY Yoti.Auth/Yoti.Auth.csproj Yoti.Auth/
 COPY . .
 WORKDIR /src/Examples/DigitalIdentity/DigitalIdentity
 
 FROM build AS publish
-RUN dotnet publish CoreExample.csproj -c Release -r linux-x64 -o /app -p:TargetFrameworks=netcoreapp3.1 -f netcoreapp3.1
+RUN dotnet publish DigitalIdentityExample.csproj -c Release -r linux-x64 -o /app -p:TargetFrameworks=netcoreapp6.0 -f netcoreapp6.0
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "CoreExample.dll"]
+ENTRYPOINT ["dotnet", "./DigitalIdentityExample.dll"]

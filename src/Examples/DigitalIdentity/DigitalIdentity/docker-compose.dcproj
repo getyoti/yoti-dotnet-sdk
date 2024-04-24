@@ -6,7 +6,7 @@
     <ProjectGuid>85f77b23-0b47-448a-a498-fc0aa1a7b46a</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>coreexample</DockerServiceName>
+    <DockerServiceName>digitalidentity</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
