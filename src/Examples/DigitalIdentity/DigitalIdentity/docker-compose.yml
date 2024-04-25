@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  digitalidentityexample:
+    image: ${DOCKER_REGISTRY-}digitalidentityexample
+    build:
+      context: ../../../
+      dockerfile: Examples/DigitalIdentity/DigitalIdentity/Dockerfile

@@ -2,9 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
-using Yoti.Auth.Aml;
 using Yoti.Auth.Tests.Common;
 
 namespace Yoti.Auth.Tests
@@ -13,7 +11,7 @@ namespace Yoti.Auth.Tests
     public class DigitalIdentityClientTests
     {
         private const string _someSdkId = "some-sdk-id";
-        private readonly Uri _expectedDefaultUri = new Uri(Constants.Api.DefaultYotiApiUrl);
+        private readonly Uri _expectedDefaultUri = new Uri(Constants.Api.DefaultYotiShareApiUrl);
 
         [TestInitialize]
         public void BeforeTests()
@@ -76,6 +74,19 @@ namespace Yoti.Auth.Tests
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
         }
 
+        [TestMethod]
+        public void EmptyReceiptShouldThrowException()
+        {
+            DigitalIdentityClient client = CreateDigitalIdentityClient();
+            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            {
+                client.GetShareReceipt("");
+            });
+            var status =
+                TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException);
+             Assert.IsTrue(!status);
+        }
+
         [DataTestMethod]
         [DataRow("")]
         [DataRow(null)]
@@ -107,7 +118,6 @@ namespace Yoti.Auth.Tests
             Uri expectedApiUri = new Uri("https://envapiuri.com");
             Assert.AreEqual(expectedApiUri, client.ApiUri);
         }
-
         private static DigitalIdentityClient CreateDigitalIdentityClient()
         {
             StreamReader privateStreamKey = KeyPair.GetValidKeyStream();
@@ -133,7 +143,7 @@ namespace Yoti.Auth.Tests
             DigitalIdentityClient yotiClient = new DigitalIdentityClient(_someSdkId, privateStreamKey);
 
             Assert.AreEqual(_expectedDefaultUri, yotiClient.ApiUri);
-        }
+        }  
 
         [TestMethod]
         public void ApiUriSetForStreamInitialisationHttpClient()

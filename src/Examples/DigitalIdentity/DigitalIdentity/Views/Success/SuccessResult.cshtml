@@ -1,0 +1,171 @@
+@{
+    ViewData["Title"] = "Connect";
+}
+@using System.Globalization;
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq;
+@using Yoti.Auth.Document;
+@using Yoti.Auth.Images;
+@model DigitalIdentity.Models.DisplayAttributes
+<!DOCTYPE html>
+<html class="yoti-html">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Yoti client example</title>
+    <link rel="stylesheet" type="text/css" href="~/static/profile.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+</head>
+<body class="yoti-body">
+    <main class="yoti-profile-layout">
+        <section class="yoti-profile-user-section">
+
+            <div class="yoti-profile-picture-powered-section">
+                <span class="yoti-profile-picture-powered">Powered by</span>
+                <img class="yoti-logo-image" src="~/static/assets/logo.png" srcset="~/static/assets/logo@2x.png 2x" alt="Yoti" />
+            </div>
+
+            <div class="yoti-profile-picture-section">
+                @if (!string.IsNullOrEmpty(Model.Base64Selfie))
+                {
+                    <div class="yoti-profile-picture-area">
+                        <img src=@Model.Base64Selfie class="yoti-profile-picture-image" alt="Yoti" />
+
+                        <i class="yoti-profile-picture-verified-icon"></i>
+                    </div>
+                }
+
+                <div class="yoti-profile-name">
+                    @Model.FullName
+                </div>
+            </div>
+        </section>
+
+        <section class="yoti-attributes-section">
+            <img class="yoti-company-logo" src="~/static/assets/company-logo.jpg" alt="company logo" />
+
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute">Attribute</div>
+                <div class="yoti-attribute-list-header-value">Value</div>
+                <div>Anchors</div>
+            </div>
+
+            <div class="yoti-attribute-list-subheader">
+                <div class="yoti-attribute-list-subhead-layout">
+                    <div>S / V</div>
+                    <div>Value</div>
+                    <div>Sub type</div>
+                </div>
+            </div>
+
+            <div class="yoti-attribute-list">
+                @foreach (DigitalIdentity.Models.DisplayAttribute a in Model.AttributeList)
+                {
+                    <div class="yoti-attribute-list-item">
+                        <div class="yoti-attribute-name">
+                            <div class="yoti-attribute-name-cell">
+                                <i class="@a.GetIcon()"></i>
+                                <span class="yoti-attribute-name-cell-text">@a.GetDisplayName()</span>
+                            </div>
+                        </div>
+
+                        <div class="yoti-attribute-value">
+                            <div class="yoti-attribute-value-text">
+                                @switch (a.GetDisplayName())
+                                {
+                                    case "Structured Postal Address":
+                                        <table>
+                                            @foreach (var item in (Dictionary<string, JToken>)a.GetValue())
+                                            {
+                                                <tr>
+                                                    <td>@item.Key</td>
+                                                    <td>@item.Value</td>
+                                                </tr>
+                                            }
+                                        </table>
+                                        break;
+
+                                    case "Identity Profile Report":
+                                        <table>
+                                            @foreach (var item in (Dictionary<string, JToken>)a.GetValue())
+                                            {
+                                                <tr>
+
+                                                    <td>@item.Key</td>
+                                                    <td>
+                                                        <pre>
+                                                            @Html.Raw(@item.Value.ToString(Formatting.Indented))
+                                                        </pre>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                        break;
+
+                                    case "Document Details":
+                                        {
+                                            DocumentDetails documentDetailsValue = (DocumentDetails)a.GetValue();
+                                            <table>
+                                                <tr>
+                                                    <td>Type</td>
+                                                    <td>@documentDetailsValue.DocumentType</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Issuing Country</td>
+                                                    <td>@documentDetailsValue.IssuingCountry</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Issuing Authority</td>
+                                                    <td>@documentDetailsValue.IssuingAuthority</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Document Number</td>
+                                                    <td>@documentDetailsValue.DocumentNumber</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Expiration Date</td>
+                                                    <td>@documentDetailsValue.ExpirationDate.ToString()</td>
+                                                </tr>
+                                            </table>
+                                        }
+                                        break;
+
+                                    case "Document Images":
+                                        foreach (var image in (List<Image>)a.GetValue())
+                                        {
+                                            <img src="@image.GetBase64URI()" />
+                                        }
+                                        break;
+
+                                    default:
+                                        @a.GetDisplayValue()
+                                        break;
+                                }
+                            </div>
+                        </div>
+
+                        <div class="yoti-attribute-anchors-layout">
+                            <div class="yoti-attribute-anchors-head -s-v">S / V</div>
+                            <div class="yoti-attribute-anchors-head -value">Value</div>
+                            <div class="yoti-attribute-anchors-head -subtype">Sub type</div>
+
+                            @foreach (var source in a.GetAnchors().Where(s => s.GetAnchorType() == Yoti.Auth.Anchors.AnchorType.SOURCE))
+                            {
+                                <div class="yoti-attribute-anchors -s-v">Source</div>
+                                <div class="yoti-attribute-anchors -value">@string.Join(", ", source.GetValue())</div>
+                                <div class="yoti-attribute-anchors -subtype">@source.GetSubType()</div>
+                            }
+                            @foreach (var verifier in a.GetAnchors().Where(v => v.GetAnchorType() == Yoti.Auth.Anchors.AnchorType.VERIFIER))
+                            {
+                                <div class="yoti-attribute-anchors -s-v">Verifier</div>
+                                <div class="yoti-attribute-anchors -value">@string.Join(", ", verifier.GetValue())</div>
+                                <div class="yoti-attribute-anchors -subtype">@verifier.GetSubType()</div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </main>
+</body>
+</html>
