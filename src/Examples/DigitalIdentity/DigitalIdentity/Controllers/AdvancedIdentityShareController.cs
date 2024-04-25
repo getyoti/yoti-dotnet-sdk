@@ -21,7 +21,7 @@ namespace DigitalIdentityExample.Controllers
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
        
-        // GET: /generate-share
+        // GET: /advanced-identity-share
         [Route("advanced-identity-share")]
         public IActionResult DigitalIdentity()
         {
