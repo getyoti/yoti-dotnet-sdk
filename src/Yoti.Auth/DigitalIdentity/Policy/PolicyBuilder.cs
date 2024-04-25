@@ -9,6 +9,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         private readonly HashSet<int> _wantedAuthTypes = new HashSet<int>();
         private bool _wantedRememberMeId;
         private object _identityProfileRequirements;
+        private object _advandedIdentityProfileRequirements;
 
         public PolicyBuilder WithWantedAttribute(WantedAttribute wantedAttribute)
         {
@@ -157,10 +158,21 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
+        
+        /// <summary>
+        /// Use an Advanced Identity Profile Requirement object for the share
+        /// </summary>
+        /// <param name="advancedIdentityProfileRequirements"> object describing the advanced identity profile requirements to use</param>
+        /// <returns><see cref="PolicyBuilder"/> with the advanced identity profile requirements</returns>
+        public PolicyBuilder WithAdvancedIdentityProfileRequirements(object advancedIdentityProfileRequirements)
+        {
+            _advandedIdentityProfileRequirements = advancedIdentityProfileRequirements;
+            return this;
+        }
 
         public Policy Build()
         {
-            return new Policy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements);
+            return new Policy(_wantedAttributes.Values, _wantedAuthTypes, _wantedRememberMeId, _identityProfileRequirements, _advandedIdentityProfileRequirements);
         }
     }
 }

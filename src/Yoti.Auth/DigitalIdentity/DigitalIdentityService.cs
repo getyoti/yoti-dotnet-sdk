@@ -246,9 +246,13 @@ namespace Yoti.Auth.DigitalIdentity
                     throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
                 }
 
-                var  parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
-                var userProfile = new YotiProfile(parsedAttributesUser
-                );
+                var userProfile = new YotiProfile();
+                if (attrOtherData != null)
+                {
+                    var  parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
+                    userProfile = new YotiProfile(parsedAttributesUser);
+                }
+                
                 
                 ExtraData userExtraData = new ExtraData();
                 if (aOtherExtra != null)
