@@ -37,9 +37,11 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
         {
             WantedAttribute result = new WantedAttributeBuilder()
                 .WithName("name")
+                .WithOptional(true)
                 .Build();
 
             Assert.AreEqual(null, result.AcceptSelfAsserted);
+            Assert.AreEqual(true, result.Optional);
         }
 
         [TestMethod]

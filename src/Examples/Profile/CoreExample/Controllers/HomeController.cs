@@ -50,6 +50,7 @@ namespace CoreExample.Controllers
 
                 var givenNamesWantedAttribute = new WantedAttributeBuilder()
                     .WithName("given_names")
+                    .WithOptional(false)
                     .Build();
 
                 DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()

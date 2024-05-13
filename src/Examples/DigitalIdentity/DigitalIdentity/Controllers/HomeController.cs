@@ -36,7 +36,13 @@ namespace DigitalIdentityExample.Controllers
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
+                var givenNamesWantedAttribute = new WantedAttributeBuilder()
+                    .WithName("given_names")
+                    .WithOptional(false)
+                    .Build();
+                
                 var policy = new PolicyBuilder()
+                    .WithWantedAttribute(givenNamesWantedAttribute)
                     .WithFullName()
                     .WithEmail()
                     .WithPhoneNumber()
