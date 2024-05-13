@@ -41,21 +41,6 @@ namespace DigitalIdentityExample.Controllers
             {
                 ""profiles"": [
                     {
-                        ""trust_framework"": ""UK_TFIDA"",
-                        ""schemes"": [
-                            {
-                                ""label"": ""dbs-standard"",
-                                ""objective"": ""STANDARD"",
-                                ""type"": ""DBS"",
-                            },
-                            {
-                                ""label"": ""rtw"",
-                                ""type"": ""RTW"",
-                                ""objective"": """"
-                            }
-                        ]
-                    },
-                    {
                         ""trust_framework"": ""YOTI_GLOBAL"",
                         ""schemes"": [
                             {
@@ -76,9 +61,10 @@ namespace DigitalIdentityExample.Controllers
 
             }";
                 
-                string sessionSpecJson = JsonConvert.SerializeObject(advancedIdentityProfileJson);
+                var advancedIdentituProfile = JsonConvert.DeserializeObject<AdvancedIdentityProfile>(advancedIdentityProfileJson);
+                
                 var policy = new PolicyBuilder()
-                    .WithAdvancedIdentityProfileRequirements(sessionSpecJson)
+                    .WithAdvancedIdentityProfileRequirements(advancedIdentituProfile)
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
