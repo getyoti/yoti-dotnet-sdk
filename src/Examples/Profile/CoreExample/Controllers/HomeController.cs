@@ -21,7 +21,7 @@ namespace CoreExample.Controllers
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
 
-        public IActionResult Index()q
+        public IActionResult Index()
         {
             ViewBag.YotiClientSdKId = _clientSdkId;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DigitalIdentity.Policy;
 using Yoti.Auth.Tests.TestData;
@@ -330,7 +331,8 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfileRequirements()
         {
-            object advancedIdentityProfileRequirements = IdentityProfiles.CreateAdvancedIdentityProfileRequirements();
+            var advancedIdentityProfileRequirements = IdentityProfiles.CreateAdvancedIdentityProfileRequirements();
+           
             Auth.DigitalIdentity.Policy.Policy result = new PolicyBuilder()
                     .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileRequirements)
                     .Build();
