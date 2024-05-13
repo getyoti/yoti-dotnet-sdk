@@ -30,7 +30,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         [JsonProperty(PropertyName = "identity_profile_requirements")]
         private readonly object _identityProfileRequirements;
 
-        [JsonProperty(PropertyName = "advanded_identity_profile_requirements")]
+        [JsonProperty(PropertyName = "advanced_identity_profile_requirements")]
         private readonly object _advancedIdentityProfileRequirements;
         
         public Policy(

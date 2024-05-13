@@ -37,6 +37,7 @@ namespace Yoti.Auth.Tests.ShareUrl
                 .WithPolicy(somePolicy)
                 .WithExtension(extension1)
                 .WithExtension(extension2)
+                
                 .WithSubject(someSubject)
                 .Build();
 

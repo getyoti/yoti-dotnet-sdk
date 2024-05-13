@@ -2,23 +2,19 @@
   "policy": {
     "wanted": [
       {
-        "name": "date_of_birth",
-        "optional": false
+        "name": "date_of_birth"
       },
       {
         "name": "date_of_birth",
-        "derivation": "age_over:18",
-        "optional": false
+        "derivation": "age_over:18"
       },
       {
         "name": "date_of_birth",
-        "derivation": "age_under:30",
-        "optional": false
+        "derivation": "age_under:30"
       },
       {
         "name": "date_of_birth",
-        "derivation": "age_under:40",
-        "optional": false
+        "derivation": "age_under:40"
       }
     ],
     "wanted_auth_types": [ 2 ],

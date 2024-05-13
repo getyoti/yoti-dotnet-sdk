@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Yoti.Auth.DigitalIdentity.Policy;
 
 namespace Yoti.Auth.Tests.TestData
 {
@@ -17,7 +18,7 @@ namespace Yoti.Auth.Tests.TestData
             };
         }
         
-        public static object CreateAdvancedIdentityProfileRequirements()
+        public static AdvancedIdentityProfile CreateAdvancedIdentityProfileRequirements()
         {
             string advancedIdentityProfileJson = @"
             {
@@ -49,8 +50,8 @@ namespace Yoti.Auth.Tests.TestData
                     }
                 ]
             }";
-            string sessionSpecJson = JsonConvert.SerializeObject(advancedIdentityProfileJson);
-            return sessionSpecJson;
+            var advancedIdentityProfile = JsonConvert.DeserializeObject<AdvancedIdentityProfile>(advancedIdentityProfileJson);
+            return advancedIdentityProfile;
         }
 
         public static object CreateStandardSubject()

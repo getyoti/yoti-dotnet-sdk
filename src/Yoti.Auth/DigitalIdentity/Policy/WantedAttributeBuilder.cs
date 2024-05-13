@@ -8,6 +8,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         private string _derivation;
         private List<Constraint> _constraints = new List<Constraint>();
         private bool? _acceptSelfAsserted;
+        private bool? _optional;
 
         public WantedAttributeBuilder WithName(string name)
         {
@@ -15,6 +16,12 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             return this;
         }
 
+        public WantedAttributeBuilder WithOptional(bool optional)
+        {
+            _optional = optional;
+            return this;
+        }
+        
         public WantedAttributeBuilder WithDerivation(string derivation)
         {
             _derivation = derivation;
@@ -56,7 +63,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         {
             Validation.NotNullOrEmpty(_name, nameof(_name));
 
-            return new WantedAttribute(_name, _derivation, _constraints, _acceptSelfAsserted);
+            return new WantedAttribute(_name, _derivation, _constraints, _acceptSelfAsserted, _optional);
         }
     }
 }
