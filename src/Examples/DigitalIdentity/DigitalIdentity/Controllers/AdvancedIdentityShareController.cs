@@ -61,10 +61,10 @@ namespace DigitalIdentityExample.Controllers
 
             }";
                 
-                var advancedIdentituProfile = JsonConvert.DeserializeObject<AdvancedIdentityProfile>(advancedIdentityProfileJson);
+                var advancedIdentityProfile = JsonConvert.DeserializeObject<AdvancedIdentityProfile>(advancedIdentityProfileJson);
                 
                 var policy = new PolicyBuilder()
-                    .WithAdvancedIdentityProfileRequirements(advancedIdentituProfile)
+                    .WithAdvancedIdentityProfileRequirements(advancedIdentityProfile)
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
