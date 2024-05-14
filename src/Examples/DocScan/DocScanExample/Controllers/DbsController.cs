@@ -9,10 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Yoti.Auth;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
-using Yoti.Auth.DocScan.Session.Create.Check;
-using Yoti.Auth.DocScan.Session.Create.Filter;
-using Yoti.Auth.DocScan.Session.Create.Objectives;
-using Yoti.Auth.DocScan.Session.Create.Task;
  
 namespace DocScanExample.Controllers
 {
@@ -34,7 +30,6 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
-
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
@@ -43,7 +38,7 @@ namespace DocScanExample.Controllers
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
-                    .WithAllowsCameraAndUpload()
+                    .WithAllowsCamera()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
                     .WithFontColour("#FFFFFF")
@@ -55,7 +50,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 .WithCreateIdentityProfilePreview(true)
-                 .WithIdentityProfileRequirements(new
+                .WithIdentityProfileRequirements(new
                  {
                      trust_framework = "UK_TFIDA",
                      scheme = new

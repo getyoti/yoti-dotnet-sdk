@@ -151,7 +151,7 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-                if (response.Content == null)
+                if (response.Content == null || response.Content.Headers.ContentType == null)
                 {
                     return null;
                 }
