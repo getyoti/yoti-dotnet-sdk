@@ -30,6 +30,7 @@ namespace Yoti.Auth.ShareUrl.Policy
         {
             WantedAttribute wantedAttribute = new WantedAttributeBuilder()
                     .WithName(name)
+                    .WithOptional(false)
                     .WithConstraints(constraints)
                     .Build();
             return WithWantedAttribute(wantedAttribute);
