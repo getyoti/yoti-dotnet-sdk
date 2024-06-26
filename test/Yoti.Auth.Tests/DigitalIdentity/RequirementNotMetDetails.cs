@@ -1,7 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using Yoti.DigitalIdentity;
 
 namespace Yoti.DigitalIdentity.Tests
 {
@@ -11,7 +9,6 @@ namespace Yoti.DigitalIdentity.Tests
         [TestMethod]
         public void DeserializeValidJsonCreatesRequirementNotMetDetails()
         {
-            // Arrange
             var json = @"
             {
                 ""failure_type"": ""DOCUMENT_EXPIRED"",
@@ -20,24 +17,21 @@ namespace Yoti.DigitalIdentity.Tests
                 ""document_country_iso_code"": ""USA"",
                 ""document_type"": ""PASSPORT""
             }";
-
-            // Act
+            
             var details = JsonConvert.DeserializeObject<RequirementNotMetDetails>(json);
 
-            // Assert
             Assert.IsNotNull(details);
-            Assert.AreEqual("DOCUMENT_EXPIRED", details.GetFailureType());
-            Assert.AreEqual("The document has expired.", details.GetDetails());
-            Assert.AreEqual("AUDIT123", details.GetAuditId());
-            Assert.AreEqual("USA", details.GetDocumentCountryIsoCode());
-            Assert.AreEqual("PASSPORT", details.GetDocumentType());
+            Assert.AreEqual("DOCUMENT_EXPIRED", details.FailureType);
+            Assert.AreEqual("The document has expired.", details.Details);
+            Assert.AreEqual("AUDIT123", details.AuditId);
+            Assert.AreEqual("USA", details.DocumentCountryIsoCode);
+            Assert.AreEqual("PASSPORT", details.DocumentType);
         }
         
 
         [TestMethod]
         public void PropertyGettersReturnCorrectValues()
         {
-            // Arrange
             var json = @"
             {
                 ""failure_type"": ""DOCUMENT_EXPIRED"",
@@ -48,13 +42,12 @@ namespace Yoti.DigitalIdentity.Tests
             }";
 
             var details = JsonConvert.DeserializeObject<RequirementNotMetDetails>(json);
-
-            // Act & Assert
-            Assert.AreEqual("DOCUMENT_EXPIRED", details.GetFailureType());
-            Assert.AreEqual("The document has expired.", details.GetDetails());
-            Assert.AreEqual("AUDIT123", details.GetAuditId());
-            Assert.AreEqual("USA", details.GetDocumentCountryIsoCode());
-            Assert.AreEqual("PASSPORT", details.GetDocumentType());
+            
+            Assert.AreEqual("DOCUMENT_EXPIRED", details.FailureType);
+            Assert.AreEqual("The document has expired.", details.Details);
+            Assert.AreEqual("AUDIT123", details.AuditId);
+            Assert.AreEqual("USA", details.DocumentCountryIsoCode);
+            Assert.AreEqual("PASSPORT", details.DocumentType);
         }
     }
 }

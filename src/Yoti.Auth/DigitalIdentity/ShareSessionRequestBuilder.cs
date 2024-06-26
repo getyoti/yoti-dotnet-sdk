@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Yoti.Auth.DigitalIdentity.Extensions;
 using Yoti.Auth.DigitalIdentity.Policy;
-using Yoti.Auth.ShareUrl.Policy;
 
 namespace Yoti.Auth.DigitalIdentity
 {

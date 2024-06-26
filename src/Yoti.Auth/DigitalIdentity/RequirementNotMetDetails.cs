@@ -19,11 +19,5 @@ namespace Yoti.DigitalIdentity
 
         [JsonProperty(PropertyName = "document_type")]
         public string DocumentType { get; private set; }
-
-        public string GetFailureType() => FailureType;
-        public string GetDetails() => Details;
-        public string GetAuditId() => AuditId;
-        public string GetDocumentCountryIsoCode() => DocumentCountryIsoCode;
-        public string GetDocumentType() => DocumentType;
     }
 }
