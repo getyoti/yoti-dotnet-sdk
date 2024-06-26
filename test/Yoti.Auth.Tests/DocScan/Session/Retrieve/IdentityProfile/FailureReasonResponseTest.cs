@@ -28,11 +28,11 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile.Tests
             Assert.IsNotNull(response);
             Assert.AreEqual("CODE123", response.ReasonCode);
             Assert.IsNotNull(response.RequirementNotMetDetails);
-            Assert.AreEqual("DOCUMENT_EXPIRED", response.RequirementNotMetDetails.GetFailureType());
-            Assert.AreEqual("The document has expired.", response.RequirementNotMetDetails.GetDetails());
-            Assert.AreEqual("AUDIT123", response.RequirementNotMetDetails.GetAuditId());
-            Assert.AreEqual("USA", response.RequirementNotMetDetails.GetDocumentCountryIsoCode());
-            Assert.AreEqual("PASSPORT", response.RequirementNotMetDetails.GetDocumentType());
+            Assert.AreEqual("DOCUMENT_EXPIRED", response.RequirementNotMetDetails.FailureType);
+            Assert.AreEqual("The document has expired.", response.RequirementNotMetDetails.Details);
+            Assert.AreEqual("AUDIT123", response.RequirementNotMetDetails.AuditId);
+            Assert.AreEqual("USA", response.RequirementNotMetDetails.DocumentCountryIsoCode);
+            Assert.AreEqual("PASSPORT", response.RequirementNotMetDetails.DocumentType);
         }
     }
 

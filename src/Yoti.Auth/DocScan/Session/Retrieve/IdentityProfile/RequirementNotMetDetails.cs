@@ -14,9 +14,4 @@ public class RequirementNotMetDetails
     public string AuditId { get; private set; }
     [JsonProperty(PropertyName = "details")]
     public string Details { get; private set; }
-    public string GetFailureType() => FailureType;
-    public string GetDetails() => Details;
-    public string GetAuditId() => AuditId;
-    public string GetDocumentCountryIsoCode() => DocumentCountryIsoCode;
-    public string GetDocumentType() => DocumentType;
 }

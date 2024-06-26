@@ -9,7 +9,5 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile
         
         [JsonProperty(PropertyName = "requirements_not_met_details")]
         public RequirementNotMetDetails RequirementNotMetDetails { get; private set; }
-        
-        
     }
 }
