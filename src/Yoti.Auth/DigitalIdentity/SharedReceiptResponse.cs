@@ -11,6 +11,7 @@ namespace Yoti.Auth.DigitalIdentity
         public string ParentRememberMeID { get; set; }
         public string Timestamp { get; set; }
         public string Error { get; set; }
+        public ErrorDetails ErrorDetails { get; set; }
         public UserContent UserContent { get; set; }
         public ApplicationContent ApplicationContent { get; set; }
     }
