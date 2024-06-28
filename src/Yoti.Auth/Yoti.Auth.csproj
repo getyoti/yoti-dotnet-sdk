@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;netstandard2.1;netcoreapp3.1;net452;net462;net472;net48;</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;netstandard2.1;netcoreapp3.1;net6.0;net452;net462;net472;net48;</TargetFrameworks>
     <AssemblyName>Yoti.Auth</AssemblyName>
     <PackageId>Yoti</PackageId>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
@@ -19,7 +19,7 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <Version>3.14.0</Version>
+    <Version>3.16.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -37,17 +37,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.21.3" />
+    <PackageReference Include="Google.Protobuf" Version="3.26.1" />
     <PackageReference Include="JsonSubTypes" Version="1.9.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NLog" Version="5.0.1" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +60,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DigitalIdentity\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Yoti.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
@@ -67,5 +71,33 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
   </ItemGroup>
 </Project>

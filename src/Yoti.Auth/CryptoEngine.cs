@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
+using Google.Protobuf;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
@@ -41,10 +43,10 @@ namespace Yoti.Auth
 
             var result = new byte[numOutputBytes];
             Array.Copy(outputBuffer, result, numOutputBytes);
-
+            
             return result;
         }
-
+       
         internal static byte[] DecryptRsa(byte[] cipherBytes, AsymmetricCipherKeyPair keypair)
         {
             // decrypt using rsa with private key and PKCS 1 v1.5 padding
@@ -82,7 +84,6 @@ namespace Yoti.Auth
         internal static string DecryptToken(string encryptedConnectToken, AsymmetricCipherKeyPair keyPair)
         {
             Validation.NotNullOrEmpty(encryptedConnectToken, "one time use token");
-
             // token was encoded as a URL-safe base64 so it can be transferred in a URL
             byte[] cipherBytes = Conversion.UrlSafeBase64ToBytes(encryptedConnectToken);
 
@@ -131,6 +132,63 @@ namespace Yoti.Auth
             byte[] publicKey = GetDerEncodedPublicKey(keyPair);
 
             return Conversion.BytesToBase64(publicKey);
+        }
+        
+        public static byte[] DecryptAesGcm(byte[] cipherText, byte[] iv, byte[] secret)
+        {
+            try
+            {
+                GcmBlockCipher cipher = new GcmBlockCipher(new Org.BouncyCastle.Crypto.Engines.AesEngine());
+                ParametersWithIV parameters = new ParametersWithIV(new KeyParameter(secret), iv);
+            
+                cipher.Init(false, parameters);
+
+                byte[] plainText = new byte[cipher.GetOutputSize(cipherText.Length)];
+                int length = cipher.ProcessBytes(cipherText, 0, cipherText.Length, plainText, 0);
+                cipher.DoFinal(plainText, length);
+
+                return plainText;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to decrypt receipt key: {ex.Message}", ex);
+            }
+        }
+        
+        public static byte[] UnwrapReceiptKey(byte[] wrappedReceiptKey, byte[] encryptedItemKey, byte[] itemKeyIv, AsymmetricCipherKeyPair key)
+        {
+            try
+            {
+                byte[] decryptedItemKey = DecryptRsa(encryptedItemKey, key);
+
+                byte[] plainText = DecryptAesGcm(wrappedReceiptKey, itemKeyIv, decryptedItemKey);
+
+                return plainText;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to unwrap receipt key: {ex.Message}", ex);
+            }
+        }
+        
+        public static byte[] DecryptReceiptContent(byte[] content, byte[] receiptContentKey)
+        {
+            try
+            {
+                if (content == null)
+                {
+                    throw new ArgumentNullException("content", "Failed to decrypt receipt content: content is null");
+                }
+
+                var decodedData = new EncryptedData();
+                decodedData.MergeFrom(content);
+
+                return DecipherAes(receiptContentKey, decodedData.Iv.ToByteArray(), decodedData.CipherText.ToByteArray());
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Failed to decrypt receipt content: {ex.Message}", ex);
+            }
         }
     }
 }

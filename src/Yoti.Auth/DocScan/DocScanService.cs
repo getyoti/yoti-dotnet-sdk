@@ -160,7 +160,7 @@ namespace Yoti.Auth.DocScan
                 {
                     return null;
                 }
-
+              
                 string contentType = response.Content.Headers.ContentType.MediaType;
 
                 var responseObject = await response.Content.ReadAsByteArrayAsync();

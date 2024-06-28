@@ -40,6 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DigitalIdentity\" />
+    <None Remove="TestData\DigitalIdentity %28copy%29.json" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="test-key-invalid-format.pem">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -65,6 +69,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\NestedJSON.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\DynamicPolicy %28copy%29.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\DigitalIdentity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
