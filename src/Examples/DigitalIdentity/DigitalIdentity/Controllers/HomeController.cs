@@ -41,6 +41,12 @@ namespace DigitalIdentityExample.Controllers
                     .WithOptional(false)
                     .Build();
                 
+                var notification = new NotificationBuilder()
+                    .WithUrl("https://example.com/webhook")
+                    .WithMethod("POST")
+                    .WithVerifyTls(true)
+                    .Build();
+                
                 var policy = new PolicyBuilder()
                     .WithWantedAttribute(givenNamesWantedAttribute)
                     .WithFullName()
@@ -55,14 +61,7 @@ namespace DigitalIdentityExample.Controllers
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
-                    .WithNotification(new Notification
-                    {
-                        Headers = { },
-                        Url = "https://example.com/webhook",
-                        Method = "POST",
-                        VerifyTls = true
-                        
-                    })
+                    .WithNotification(notification)
                     .WithRedirectUri("https:/www.yoti.com").WithSubject(new
                     {
                         subject_id = "some_subject_id_string"
