@@ -283,7 +283,9 @@ namespace Yoti.Auth.DigitalIdentity
                         ApplicationProfile = appProfile,
                         ExtraData = appExtraData
                     },
-                    Error = receiptResponse.Error
+                    Error = receiptResponse.Error,
+                    ErrorDetails = receiptResponse.ErrorDetails
+                    
                 };
 
                 return sharedReceiptResponse;
