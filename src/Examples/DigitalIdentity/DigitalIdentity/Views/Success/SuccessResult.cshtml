@@ -41,6 +41,35 @@
             </div>
         </section>
 
+        @if (Model.ErrorDetails != null)
+        {
+            <section class="yoti-attributes-section">
+                <div class="yoti-attribute-list-header">
+                    <div class="yoti-attribute-list-header-attribute"><b>Errors</b></div>
+                    <div class="yoti-attribute-list-header-value"></div>
+                </div>
+                <div class="yoti-attribute-list-header">
+                    <div class="yoti-attribute-list-header-attribute">Audit Id</div>
+                    <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.ErrorReason.RequirementNotMetDetails.AuditId</div>
+                </div>
+                <div class="yoti-attribute-list-header">
+                    <div class="yoti-attribute-list-header-attribute">Details</div>
+                    <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.ErrorReason.RequirementNotMetDetails.Details</div>
+                </div>
+                <div class="yoti-attribute-list-header">
+                    <div class="yoti-attribute-list-header-attribute">Failure Type</div>
+                    <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.ErrorReason.RequirementNotMetDetails.FailureType</div>
+                </div>
+                <div class="yoti-attribute-list-header">
+                    <div class="yoti-attribute-list-header-attribute">Document Type</div>
+                    <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.ErrorReason.RequirementNotMetDetails.DocumentType</div>
+                </div>
+                <div class="yoti-attribute-list-header">
+                    <div class="yoti-attribute-list-header-attribute">Country</div>
+                    <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.ErrorReason.RequirementNotMetDetails.DocumentCountryIsoCode</div>
+                </div>
+            </section>
+        }
         <section class="yoti-attributes-section">
             <img class="yoti-company-logo" src="~/static/assets/company-logo.jpg" alt="company logo" />
 
