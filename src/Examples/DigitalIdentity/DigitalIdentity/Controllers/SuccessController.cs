@@ -57,6 +57,9 @@ namespace DigitalIdentityExample.Controllers
                 {
                     displayAttributes.Base64Selfie = selfie.GetValue().GetBase64URI();
                 }
+
+                displayAttributes.ErrorDetails = ReceiptResult.ErrorDetails;
+                
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 
                 return View("SuccessResult", displayAttributes);
