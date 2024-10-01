@@ -26,7 +26,7 @@ namespace DocScanExample.Controllers
             TempData.Keep("sessionId");
 
             GetSessionResult getSessionResult = _client.GetSession(sessionId);
-
+            
             return View(getSessionResult);
         }
 
