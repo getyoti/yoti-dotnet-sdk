@@ -43,7 +43,7 @@ namespace DocScanExample.Controllers
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
-                .WithResourcesTtl(86400)
+                .WithResourcesTtl(96400)
                 .WithUserTrackingId("some-user-tracking-id")
                 //Add Checks (using builders)
                 .WithRequestedCheck(
@@ -107,6 +107,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 //Add Required Documents (with builders)
+                .WithCreateIdentityProfilePreview(true)
                 .WithRequiredDocument(
                     new RequiredIdDocumentBuilder()
                     .WithFilter(
