@@ -108,6 +108,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 //Add Required Documents (with builders)
+                .WithCreateIdentityProfilePreview(true)
                 .WithRequiredDocument(
                     new RequiredIdDocumentBuilder()
                     .WithFilter(

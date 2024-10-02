@@ -24,7 +24,7 @@ namespace DocScanExample.Controllers
         {
             string sessionId = TempData["sessionId"].ToString();
             TempData.Keep("sessionId");
-            sessionId = "f7a509ba-5722-424e-bbbc-17ac4a4a4656";
+
             GetSessionResult getSessionResult = _client.GetSession(sessionId);
             
             return View(getSessionResult);
