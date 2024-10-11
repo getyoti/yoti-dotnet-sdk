@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile
 {
@@ -8,6 +9,6 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile
         public string ReasonCode { get; private set; }
         
         [JsonProperty(PropertyName = "requirements_not_met_details")]
-        public RequirementNotMetDetails RequirementNotMetDetails { get; private set; }
+        public List<RequirementNotMetDetails> RequirementNotMetDetails { get; private set; }
     }
 }

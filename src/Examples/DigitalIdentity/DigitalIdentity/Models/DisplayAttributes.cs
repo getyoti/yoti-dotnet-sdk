@@ -9,7 +9,7 @@ namespace DigitalIdentity.Models
         public List<DisplayAttribute> AttributeList { get; internal set; }
         public string Base64Selfie { get; internal set; }
         public string FullName { get; internal set; }
-        public ErrorDetails ErrorDetails { get; internal set; }
+        public ErrorReason ErrorDetails { get; internal set; }
 
         internal DisplayAttributes()
         {
