@@ -51,11 +51,9 @@ namespace Yoti.Auth.Tests
                 "{\"id\":\"" + refId + "\",\"status\":\"SOME_STATUS\",\"expiry\":\"SOME_EXPIRY\",\"created\":\"SOME_CREATED\",\"updated\":\"SOME_UPDATED\",\"qrCode\":{\"id\":\"SOME_QRCODE_ID\"},\"receipt\":{\"id\":\"SOME_RECEIPT_ID\"}}");
             
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
-
-            Assert.ThrowsException<AggregateException>(() =>
-            {
-                SharedReceiptResponse response =  engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Result;
-            });
+ 
+            SharedReceiptResponse response =  engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Result;
+            Assert.IsNull(response.Error);
         }
         
         [DataTestMethod]
