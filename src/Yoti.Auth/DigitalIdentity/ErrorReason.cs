@@ -7,7 +7,8 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public class ErrorReason
     {
-        public RequirementNotMetDetails RequirementNotMetDetails { get; private set; }
+        [JsonProperty("requirements_not_met_details")]
+        public List<RequirementNotMetDetails> RequirementNotMetDetails { get; private set; }
         
     }
     
