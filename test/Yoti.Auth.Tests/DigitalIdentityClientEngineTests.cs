@@ -42,20 +42,18 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void TestGetShareReceipt()
         {
-            Uri apiUrl = new Uri("https://example.com/api");
-            string receiptId = "some_receiptid";
-            string refId = "NpdmVVGC-28356678-c236-4518-9de4-7a93009ccaf0-c5f92f2a-5539-453e-babc-9b06e1d6b7de";
+	        Uri apiUrl = new Uri("https://example.com/api");
+	        string receiptId = "some_receiptid";
+	        string refId = "NpdmVVGC-28356678-c236-4518-9de4-7a93009ccaf0-c5f92f2a-5539-453e-babc-9b06e1d6b7de";
 
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                HttpStatusCode.OK,
-                "{\"id\":\"" + refId + "\",\"status\":\"SOME_STATUS\",\"expiry\":\"SOME_EXPIRY\",\"created\":\"SOME_CREATED\",\"updated\":\"SOME_UPDATED\",\"qrCode\":{\"id\":\"SOME_QRCODE_ID\"},\"receipt\":{\"id\":\"SOME_RECEIPT_ID\"}}");
+	        Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+		        HttpStatusCode.OK,
+		        "{\"id\":\"" + refId + "\",\"status\":\"SOME_STATUS\",\"expiry\":\"SOME_EXPIRY\",\"created\":\"SOME_CREATED\",\"updated\":\"SOME_UPDATED\",\"qrCode\":{\"id\":\"SOME_QRCODE_ID\"},\"receipt\":{\"id\":\"SOME_RECEIPT_ID\"}}");
             
-            var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
-
-            Assert.ThrowsException<AggregateException>(() =>
-            {
-                SharedReceiptResponse response =  engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Result;
-            });
+	        var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
+ 
+	        SharedReceiptResponse response =  engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Result;
+	        Assert.IsNull(response.Error);
         }
         
         [DataTestMethod]
