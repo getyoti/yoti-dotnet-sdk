@@ -38,14 +38,6 @@
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="OpenCover" Version="4.7.1221" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
-
-  <ItemGroup>
-    <None Remove="DigitalIdentity\" />
-    <None Remove="TestData\DigitalIdentity %28copy%29.json" />
-  </ItemGroup>
->>>>>>> c2735ea (SDK:2238 refatoring tests)
   <ItemGroup>
     <None Update="test-key-invalid-format.pem">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -74,11 +66,7 @@
     <None Update="TestData\NestedJSON.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-<<<<<<< HEAD
     <None Update="TestData\DigitalIdentity.json">
-=======
-    <None Update="TestData\DynamicPolicy %28copy%29.json">
->>>>>>> c2735ea (SDK:2238 refatoring tests)
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\DigitalIdentity.json">

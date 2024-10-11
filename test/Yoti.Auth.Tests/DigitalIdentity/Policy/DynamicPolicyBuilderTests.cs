@@ -340,10 +340,4 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
             Assert.AreEqual(advancedIdentityProfileRequirements, result.AdvancedIdentityProfileRequirements);
         }
     }
-
-    
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c2735ea (SDK:2238 refatoring tests)
