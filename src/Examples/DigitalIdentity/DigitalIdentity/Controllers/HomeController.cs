@@ -60,9 +60,11 @@ namespace DigitalIdentityExample.Controllers
                     .WithDocumentImages()           
                     .Build();
 
-                var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
+                var sessionReq = new ShareSessionRequestBuilder()
+                    .WithPolicy(policy)
                     .WithNotification(notification)
-                    .WithRedirectUri("https:/www.yoti.com").WithSubject(new
+                    .WithRedirectUri("https:/www.yoti.com")
+                    .WithSubject(new
                     {
                         subject_id = "some_subject_id_string"
                     }).Build();
