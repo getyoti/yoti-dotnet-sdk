@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
+
 using System.Net.Http;
+using System.Security;
 using System.Text;
+
 using System.Threading.Tasks;
+
 using Google.Protobuf;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto;
@@ -41,14 +43,14 @@ namespace Yoti.Auth.DigitalIdentity
             byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
             Request shareSessionRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
-                .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(sessionCreation)
-                .WithQueryParam("sdkID", sdkId)
-                .WithHttpMethod(HttpMethod.Post)
-                .WithContent(body)
-                .Build();
+                    .WithKeyPair(keyPair)
+                    .WithBaseUri(apiUrl)
+                    .WithHeader(yotiAuthId, sdkId)
+                    .WithEndpoint(sessionCreation)
+                    .WithQueryParam("sdkID", sdkId)
+                    .WithHttpMethod(HttpMethod.Post)
+                    .WithContent(body)
+                    .Build();
 
             using (HttpResponseMessage response = await shareSessionRequest.Execute(httpClient).ConfigureAwait(false))
             {
@@ -205,7 +207,23 @@ namespace Yoti.Auth.DigitalIdentity
         {
             try
             {
-                byte[] decodedBytes = Convert.FromBase64String(base64Str);
+                byte[] temp = null;
+                try
+                {
+                    temp = Convert.FromBase64String(base64Str);
+                }
+                catch (Exception)
+                {
+                    //6m4SclMZ34mgaCebIPeFu/ZdJRoS2ZKk/LBNCKuv5MjfcBrIAMMvfjAeH+zIKoMV
+                    //6m4SclMZ34mgaCebIPeFu/ZdJRoS2ZKk/LBNCKuv5MjfcBrIAMMvfjAeH+zIKoMV
+                    //6m4SclMZ34mgaCebIPeFu%2FZdJRoS2ZKk%2FLBNCKuv5MjfcBrIAMMvfjAeH%2BzIKoMV
+                    //EYRTuyFdeMGtW%2FVjL%2FoqGPiNVBWphTGydZWvLmd52z7k7Fr5MJdzmRV57reh94sU
+                    var tempBase64Str = Uri.UnescapeDataString(base64Str);
+                    temp = Convert.FromBase64String(tempBase64Str);
+                }
+
+                
+                byte[] decodedBytes = temp;//Convert.FromBase64String(base64Str);
                 string base64URL = Convert.ToBase64String(decodedBytes)
                     .Replace('+', '-')
                     .Replace('/', '_')
@@ -225,8 +243,9 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 var receiptResponse = await GetReceipt(httpClient, receiptId, clientSdkId, apiUrl, key);
                 var itemKeyId = receiptResponse.WrappedItemKeyId;
-                
-                var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
+                if (itemKeyId != null)
+                {
+                    var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
 
                 var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
 
@@ -283,10 +302,40 @@ namespace Yoti.Auth.DigitalIdentity
                         ApplicationProfile = appProfile,
                         ExtraData = appExtraData
                     },
-                    Error = receiptResponse.Error
-                };
-
+                    Error = receiptResponse.Error,
+                    ErrorDetails = receiptResponse.ErrorDetails
+                    
+                    };
                 return sharedReceiptResponse;
+                }
+                else
+                {
+                    var sharedReceiptResponse = new SharedReceiptResponse
+                    {
+                        ID = receiptResponse.ID,
+                        SessionID = receiptResponse.SessionID,
+                        RememberMeID = receiptResponse.RememberMeID,
+                        ParentRememberMeID = receiptResponse.ParentRememberMeID,
+                        Timestamp = receiptResponse.Timestamp,
+                        UserContent = new UserContent
+                        {
+                            UserProfile = new YotiProfile(),
+                            ExtraData = new ExtraData()
+                        },
+                        ApplicationContent = new ApplicationContent
+                        {
+                            ApplicationProfile = new ApplicationProfile(),
+                            ExtraData = new ExtraData()
+                        },
+                        Error = receiptResponse.Error,
+                        ErrorDetails = receiptResponse.ErrorDetails
+                    
+                    };
+                    return sharedReceiptResponse;
+                }
+                
+
+                
             }
             catch  (Exception ex)
             {

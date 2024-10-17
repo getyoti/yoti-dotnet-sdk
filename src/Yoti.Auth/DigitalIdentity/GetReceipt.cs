@@ -42,5 +42,7 @@ namespace Yoti.Auth.DigitalIdentity
 
         [JsonProperty("error")]
         public string Error { get; set; }
+        [JsonProperty("errorReason")]
+        public ErrorReason ErrorDetails { get; set; }
     }
 }

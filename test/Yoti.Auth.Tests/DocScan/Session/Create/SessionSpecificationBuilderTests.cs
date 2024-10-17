@@ -370,7 +370,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             Assert.AreEqual(advancedIdentityProfileRequirements, sessionSpec.AdvancedIdentityProfileRequirements);
         }
 
-        [TestMethod]
+        [TestMethod]    
         public void ShouldNotImplicitlySetAValueForIdentityProfileRequirements()
         {
             SessionSpecification sessionSpec =

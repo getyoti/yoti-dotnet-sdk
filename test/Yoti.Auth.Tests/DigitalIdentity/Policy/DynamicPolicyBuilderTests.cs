@@ -340,6 +340,4 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
             Assert.AreEqual(advancedIdentityProfileRequirements, result.AdvancedIdentityProfileRequirements);
         }
     }
-
-    
 }

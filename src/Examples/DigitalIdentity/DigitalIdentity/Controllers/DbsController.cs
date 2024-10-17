@@ -8,11 +8,11 @@ using Yoti.Auth.DigitalIdentity.Policy;
 
 namespace DigitalIdentityExample.Controllers
 {
-    public class HomeController : Controller
+    public class DbsController : Controller
     {
         private readonly string _clientSdkId;
         private readonly ILogger _logger;
-        public HomeController(ILogger<HomeController> logger)
+        public DbsController(ILogger<DbsController> logger)
         {
             _logger = logger;
 
@@ -21,7 +21,7 @@ namespace DigitalIdentityExample.Controllers
         }
        
         // GET: /generate-share
-        [Route("generate-share")]
+        [Route("dbs-share")]
         public IActionResult DigitalIdentity()
         {
             try
@@ -48,16 +48,15 @@ namespace DigitalIdentityExample.Controllers
                     .Build();
                 
                 var policy = new PolicyBuilder()
-                    .WithWantedAttribute(givenNamesWantedAttribute)
-                    .WithFullName()
-                    .WithEmail()
-                    .WithPhoneNumber()
-                    .WithSelfie()
-                    .WithAgeOver(18)
-                    .WithNationality()
-                    .WithGender()
-                    .WithDocumentDetails()
-                    .WithDocumentImages()           
+                    .WithIdentityProfileRequirements(new
+                    {
+                        trust_framework = "UK_TFIDA",
+                        scheme = new
+                        {
+                            type = "DBS",
+                            objective = "BASIC"
+                        }
+                    })
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder()
@@ -72,10 +71,11 @@ namespace DigitalIdentityExample.Controllers
                 var SessionResult = yotiClient.CreateShareSession(sessionReq);
 
                 var sharedReceiptResponse = new SharedReceiptResponse();
+                
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 ViewBag.sessionID = SessionResult.Id;
 
-                return View("DigitalIdentity", sharedReceiptResponse);
+                return View("Dbs", sharedReceiptResponse);
             }
             catch (Exception e)
             {

@@ -41,7 +41,38 @@
             </div>
         </section>
 
+        @if (Model.ErrorDetails != null)
+        {
         <section class="yoti-attributes-section">
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute"><b>Errors</b></div>
+                <div class="yoti-attribute-list-header-value"></div>
+            </div>
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute">Audit Id</div>
+                <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.RequirementNotMetDetails[0].AuditId</div>
+            </div>
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute">Details</div>
+                <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.RequirementNotMetDetails[0].Details</div>
+            </div>
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute">Failure Type</div>
+                <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.RequirementNotMetDetails[0].FailureType</div>
+            </div>
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute">Document Type</div>
+                <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.RequirementNotMetDetails[0].DocumentType</div>
+            </div>
+            <div class="yoti-attribute-list-header">
+                <div class="yoti-attribute-list-header-attribute">Country</div>
+                <div class="yoti-attribute-list-header-value">@Model.ErrorDetails.RequirementNotMetDetails[0].DocumentCountryIsoCode</div>
+            </div>
+        </section>
+        }
+        else
+        {
+            <section class="yoti-attributes-section">
             <img class="yoti-company-logo" src="~/static/assets/company-logo.jpg" alt="company logo" />
 
             <div class="yoti-attribute-list-header">
@@ -58,6 +89,7 @@
                 </div>
             </div>
 
+            
             <div class="yoti-attribute-list">
                 @foreach (DigitalIdentity.Models.DisplayAttribute a in Model.AttributeList)
                 {
@@ -167,6 +199,8 @@
                 }
             </div>
         </section>
+        }
+        
     </main>
 </body>
 </html>

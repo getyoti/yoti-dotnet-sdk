@@ -42,7 +42,6 @@ namespace Yoti.Auth.DigitalIdentity
         /// <returns><see cref="ShareSessionRequestBuilder"/> with a Notification added</returns>
         public ShareSessionRequestBuilder WithNotification(Notification notification)
         {
-
             _notification = notification;
             return this;
         }
