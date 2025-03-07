@@ -57,5 +57,14 @@ namespace Yoti.Auth
 
             return result;
         }
+        
+        public async Task<GetSessionResult> GetSession(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionId)
+        {
+            var result = await Task.Run(async () => await DigitalIdentityService.GetSession(
+                    _httpClient, apiUrl, sdkId, keyPair, sessionId).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
     }
 }

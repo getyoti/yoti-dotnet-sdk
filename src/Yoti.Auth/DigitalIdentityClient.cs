@@ -102,6 +102,11 @@ namespace Yoti.Auth
         {
             return await _yotiDigitalClientEngine.GetQrCodeAsync(_sdkId, _keyPair, ApiUri, qrCodeId).ConfigureAwait(false);
         }
+        
+        public async Task<GetSessionResult> GetSession(string sessionId)
+        {
+            return await _yotiDigitalClientEngine.GetSession(_sdkId, _keyPair, ApiUri, sessionId).ConfigureAwait(false);
+        }
 
         internal void SetYotiApiUri()
         {
