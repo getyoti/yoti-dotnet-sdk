@@ -31,7 +31,7 @@ steps:
     organization: 'getyoti'
     scannerMode: 'MSBuild'
     projectKey: 'getyoti:dotnet'
-    projectName: '.NET SDK'
+    projectName: 'dotnet-sdk'
     projectVersion: '3.13.0'
     extraProperties: |
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
