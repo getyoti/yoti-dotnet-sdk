@@ -125,7 +125,9 @@ namespace Yoti.Auth.Tests
 			});
 
 			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
-		}        [DataTestMethod]
+		}
+
+		[DataTestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
