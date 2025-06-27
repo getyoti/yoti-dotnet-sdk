@@ -28,11 +28,11 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
-    organization: 'getyoti'
+    organization: 'yoti'
     scannerMode: 'MSBuild'
     projectKey: 'getyoti:dotnet'
     projectName: 'dotnet-sdk'
-    projectVersion: '3.13.0'
+    projectVersion: '3.18.0'
     extraProperties: |
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
