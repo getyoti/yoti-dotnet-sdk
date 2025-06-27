@@ -147,7 +147,7 @@ namespace Yoti.Auth.Tests
 				engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Wait();
 			});
 
-			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<Exception>(aggregateException));
+			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
 		}
 
         [DataTestMethod]
