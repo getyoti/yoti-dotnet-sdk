@@ -28,10 +28,10 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
-    organization: 'yoti'
+    organization: 'getyoti'
     scannerMode: 'MSBuild'
     projectKey: 'getyoti:dotnet'
-    projectName: 'dotnet-sdk'
+    projectName: '.NET SDK'
     projectVersion: '3.18.0'
     extraProperties: |
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
