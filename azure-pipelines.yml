@@ -22,7 +22,7 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Release' 
 
 steps:
 - task: SonarCloudPrepare@1
