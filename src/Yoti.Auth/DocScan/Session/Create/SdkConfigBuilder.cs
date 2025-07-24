@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private IList<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -237,6 +238,17 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
+        /// Sets the screens to suppress during the document scanning flow
+        /// </summary>
+        /// <param name="suppressedScreens">List of screen names to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(IList<string> suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -253,7 +265,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }

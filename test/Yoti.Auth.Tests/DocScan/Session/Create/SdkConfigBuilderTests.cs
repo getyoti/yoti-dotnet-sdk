@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
 
@@ -230,6 +231,108 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpReclassificationAttempts);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpUsersChoiceOfCategory);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericAttempts);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithSuppressedScreens()
+        {
+            var suppressedScreens = new List<string> { "welcome", "privacy_policy", "tutorial" };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(suppressedScreens)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            CollectionAssert.AreEqual(suppressedScreens, sdkConfig.SuppressedScreens.ToList());
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithEmptySuppressedScreens()
+        {
+            var suppressedScreens = new List<string>();
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(suppressedScreens)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(0, sdkConfig.SuppressedScreens.Count);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            Assert.IsNull(sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldHandleNullSuppressedScreens()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(null)
+                .Build();
+
+            Assert.IsNull(sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithSingleSuppressedScreen()
+        {
+            var suppressedScreens = new List<string> { "welcome" };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(suppressedScreens)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(1, sdkConfig.SuppressedScreens.Count);
+            Assert.AreEqual("welcome", sdkConfig.SuppressedScreens[0]);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithMultipleSuppressedScreens()
+        {
+            var suppressedScreens = new List<string> 
+            { 
+                "welcome", 
+                "privacy_policy", 
+                "document_selection", 
+                "instructions", 
+                "tutorial" 
+            };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(suppressedScreens)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(5, sdkConfig.SuppressedScreens.Count);
+            CollectionAssert.AreEqual(suppressedScreens, sdkConfig.SuppressedScreens.ToList());
+        }
+
+        [TestMethod]
+        public void ShouldRetainLatestSuppressedScreensWithMultipleCalls()
+        {
+            var firstScreens = new List<string> { "welcome", "tutorial" };
+            var secondScreens = new List<string> { "privacy_policy", "instructions" };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(firstScreens)
+                .WithSuppressedScreens(secondScreens)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            CollectionAssert.AreEqual(secondScreens, sdkConfig.SuppressedScreens.ToList());
         }
     }
 }

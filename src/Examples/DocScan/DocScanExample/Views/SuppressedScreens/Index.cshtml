@@ -1,0 +1,153 @@
+@{
+    ViewBag.Title = "Suppressed Screens Examples";
+}
+
+<div class="container">
+    <h1>Suppressed Screens Configuration Examples</h1>
+    <p class="lead">These examples demonstrate how to use the <code>suppressed_screens</code> configuration to customize the ID verification flow.</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Shortened Flow</h5>
+                </div>
+                <div class="card-body">
+                    <p>Optimized flow for returning users with common screens suppressed:</p>
+                    <ul>
+                        <li>Welcome screen</li>
+                        <li>Privacy policy</li>
+                        <li>Document selection</li>
+                        <li>Instructions</li>
+                        <li>Tutorial</li>
+                    </ul>
+                    <a href="@Url.Action("ShortenedFlow", "SuppressedScreens")" class="btn btn-primary">Try Shortened Flow</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Custom Flow</h5>
+                </div>
+                <div class="card-body">
+                    <p>Highly customized experience with advanced screen suppression:</p>
+                    <ul>
+                        <li>Welcome screen</li>
+                        <li>Document selection</li>
+                        <li>Instructions</li>
+                        <li>Tutorial</li>
+                        <li>Preview screen</li>
+                        <li>Confirmation screen</li>
+                    </ul>
+                    <a href="@Url.Action("CustomFlow", "SuppressedScreens")" class="btn btn-warning">Try Custom Flow</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Standard Flow</h5>
+                </div>
+                <div class="card-body">
+                    <p>Standard flow with no screens suppressed for comparison:</p>
+                    <ul>
+                        <li>All screens shown</li>
+                        <li>Complete user guidance</li>
+                        <li>Full instructional flow</li>
+                    </ul>
+                    <a href="@Url.Action("StandardFlow", "SuppressedScreens")" class="btn btn-secondary">Try Standard Flow</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3>Code Examples</h3>
+            <p>Here's how to configure suppressed screens in your application:</p>
+
+            <h4>Basic Usage</h4>
+            <pre><code class="language-csharp">
+// Define screens to suppress
+var suppressedScreens = new List&lt;string&gt;
+{
+    "welcome",
+    "privacy_policy", 
+    "document_selection",
+    "instructions",
+    "tutorial"
+};
+
+// Use in SdkConfig
+var sdkConfig = new SdkConfigBuilder()
+    .WithAllowsCameraAndUpload()
+    .WithPrimaryColour("#2d9fff")
+    .WithSuppressedScreens(suppressedScreens)  // Add suppressed screens
+    .Build();
+            </code></pre>
+
+            <h4>Integration with Session Specification</h4>
+            <pre><code class="language-csharp">
+var sessionSpec = new SessionSpecificationBuilder()
+    .WithClientSessionTokenTtl(600)
+    .WithResourcesTtl(96400)
+    .WithUserTrackingId("shortened-flow-user")
+    
+    // Add checks and tasks...
+    .WithRequestedCheck(new RequestedDocumentAuthenticityCheckBuilder().Build())
+    .WithRequestedTask(new RequestedTextExtractionTaskBuilder().Build())
+    
+    // Configure SDK with suppressed screens
+    .WithSdkConfig(
+        new SdkConfigBuilder()
+        .WithAllowsCameraAndUpload()
+        .WithSuppressedScreens(suppressedScreens)
+        .Build()
+    )
+    .Build();
+
+CreateSessionResult result = docScanClient.CreateSession(sessionSpec);
+            </code></pre>
+
+            <h4>Supported Screen Names</h4>
+            <p>Common screen names that can be suppressed include:</p>
+            <ul>
+                <li><code>welcome</code> - Initial welcome/introduction screen</li>
+                <li><code>privacy_policy</code> - Privacy policy acceptance screen</li>
+                <li><code>document_selection</code> - Document type selection screen</li>
+                <li><code>instructions</code> - Detailed instruction screens</li>
+                <li><code>tutorial</code> - Tutorial/guidance screens</li>
+                <li><code>preview_screen</code> - Document preview confirmation</li>
+                <li><code>confirmation_screen</code> - Final confirmation screens</li>
+            </ul>
+            
+            <div class="alert alert-info">
+                <strong>Note:</strong> The exact screen names may vary depending on your Yoti configuration and the specific flow being used. 
+                Consult with your Yoti integration team to determine the appropriate screen names for your use case.
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+pre {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+.language-csharp {
+    color: #333;
+}
+</style>
