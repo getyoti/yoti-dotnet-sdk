@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;netstandard2.1;netcoreapp3.1;net6.0;net452;net462;net472;net48;</TargetFrameworks>
@@ -100,4 +101,11 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
   </ItemGroup>
+
+  <!-- New Helper Method Implementation -->
+  <ItemGroup>
+    <Compile Include="Helpers\AgeRequestHelper.cs" />
+  </ItemGroup>
+
 </Project>
+```
