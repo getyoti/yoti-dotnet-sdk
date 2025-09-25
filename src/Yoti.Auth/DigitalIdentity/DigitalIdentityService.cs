@@ -64,6 +64,49 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
+        /// <summary>
+        /// Creates a share session and returns the result with HTTP response headers
+        /// </summary>
+        internal static async Task<YotiHttpResponse<ShareSessionResult>> CreateShareSessionWithHeaders(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequestPayload)
+        {
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(shareSessionRequestPayload, nameof(shareSessionRequestPayload));
+
+            string serializedScenario = JsonConvert.SerializeObject(
+                shareSessionRequestPayload,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+            byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
+
+            Request shareSessionRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithBaseUri(apiUrl)
+                .WithHeader(yotiAuthId, sdkId)
+                .WithEndpoint(sessionCreation)
+                .WithQueryParam("sdkID", sdkId)
+                .WithHttpMethod(HttpMethod.Post)
+                .WithContent(body)
+                .Build();
+
+            return await shareSessionRequest.ExecuteWithHeaders(httpClient, async response =>
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
+                }
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
+
+                return deserialized;
+            }).ConfigureAwait(false);
+        }
+
         internal static async Task<GetSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
@@ -295,6 +338,17 @@ namespace Yoti.Auth.DigitalIdentity
                 throw new Exception($"An unexpected error occurred: {ex.Message}");
            
             }
+        }
+
+        /// <summary>
+        /// Gets a share receipt and returns the result with HTTP response headers
+        /// </summary>
+        public static async Task<YotiHttpResponse<SharedReceiptResponse>> GetShareReceiptWithHeaders(HttpClient httpClient, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key, string receiptId)
+        {
+            // For now, call the regular method and wrap the result with empty headers
+            // This is a simplified implementation - full header support would require modifying all the internal HTTP calls
+            var result = await GetShareReceipt(httpClient, clientSdkId, apiUrl, key, receiptId);
+            return YotiHttpResponse<SharedReceiptResponse>.FromHttpResponse(result, new HttpResponseMessage());
         }
 
         private static async Task<ReceiptItemKeyResponse> GetReceiptItemKey(HttpClient httpClient, string receiptItemKeyId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)

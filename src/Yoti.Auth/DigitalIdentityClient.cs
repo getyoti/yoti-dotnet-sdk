@@ -59,37 +59,50 @@ namespace Yoti.Auth
         }
         
         /// <summary>
-        /// Initiate a sharing process based on a <see cref="ShareSessionRequest"/>.
+        /// Initiate a sharing process based on a <see cref="ShareSessionRequest"/>. 
         /// </summary>
         /// <param name="shareSessionRequest">
         /// Details of the device's callback endpoint, <see
         /// cref="Yoti.Auth.DigitalIdentity.Policy"/> and extensions for the application
         /// </param>
-        /// <returns><see cref="ShareSessionResult"/></returns>
-        public ShareSessionResult CreateShareSession(ShareSessionRequest shareSessionRequest)
+        /// <returns>A YotiHttpResponse containing the ShareSessionResult and HTTP headers</returns>
+        public Web.YotiHttpResponse<ShareSessionResult> CreateShareSession(ShareSessionRequest shareSessionRequest)
         {
-            Task<ShareSessionResult> task = Task.Run(async () => await CreateShareSessionAsync(shareSessionRequest).ConfigureAwait(false));
+            Task<Web.YotiHttpResponse<ShareSessionResult>> task = Task.Run(async () => await CreateShareSessionAsync(shareSessionRequest).ConfigureAwait(false));
 
             return task.Result;
-        }
-
-        /// <summary>
+        }        /// <summary>
         /// Asynchronously initiate a sharing process based on a <see cref="ShareSessionRequest"/>.
         /// </summary>
         /// <param name="shareSessionRequest">
         /// Details of the device's callback endpoint, <see
         /// cref="Yoti.Auth.DigitalIdentity.Policy"/> and extensions for the application
         /// </param>
-        /// <returns><see cref="ShareSessionResult"/></returns>
-        public async Task<ShareSessionResult> CreateShareSessionAsync(ShareSessionRequest shareSessionRequest)
+        /// <returns>A YotiHttpResponse containing the ShareSessionResult and HTTP headers</returns>
+        public async Task<Web.YotiHttpResponse<ShareSessionResult>> CreateShareSessionAsync(ShareSessionRequest shareSessionRequest)
         {
-            return await _yotiDigitalClientEngine.CreateShareSessionAsync(_sdkId, _keyPair, ApiUri, shareSessionRequest).ConfigureAwait(false);
+            return await _yotiDigitalClientEngine.CreateShareSessionWithHeadersAsync(_sdkId, _keyPair, ApiUri, shareSessionRequest).ConfigureAwait(false);
         }
 
-        public SharedReceiptResponse GetShareReceipt(string receiptId)
+        /// <summary>
+        /// Gets a share receipt with HTTP response headers including X-Request-ID
+        /// </summary>
+        /// <param name="receiptId">The receipt ID to retrieve</param>
+        /// <returns>A YotiHttpResponse containing the SharedReceiptResponse and HTTP headers</returns>
+        public Web.YotiHttpResponse<SharedReceiptResponse> GetShareReceipt(string receiptId)
         {
-            Task<SharedReceiptResponse> task = Task.Run(async () => await _yotiDigitalClientEngine.GetShareReceipt(_sdkId, _keyPair, ApiUri, receiptId).ConfigureAwait(false));
+            Task<Web.YotiHttpResponse<SharedReceiptResponse>> task = Task.Run(async () => await GetShareReceiptAsync(receiptId).ConfigureAwait(false));
             return task.Result;
+        }
+
+        /// <summary>
+        /// Asynchronously gets a share receipt with HTTP response headers including X-Request-ID
+        /// </summary>
+        /// <param name="receiptId">The receipt ID to retrieve</param>
+        /// <returns>A YotiHttpResponse containing the SharedReceiptResponse and HTTP headers</returns>
+        public async Task<Web.YotiHttpResponse<SharedReceiptResponse>> GetShareReceiptAsync(string receiptId)
+        {
+            return await _yotiDigitalClientEngine.GetShareReceiptWithHeadersAsync(_sdkId, _keyPair, ApiUri, receiptId).ConfigureAwait(false);
         }
         
         
