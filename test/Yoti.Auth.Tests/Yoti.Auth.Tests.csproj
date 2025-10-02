@@ -9,6 +9,11 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <DebugType>Full</DebugType>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
@@ -25,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\test\Yoti.Auth.Tests.Common\Yoti.Auth.Tests.Common.csproj" />
     <ProjectReference Include="..\..\src\Yoti.Auth\Yoti.Auth.csproj" />
+    <ProjectReference Include="..\..\src\Examples\DigitalIdentity\DigitalIdentity\DigitalIdentityExample.csproj" />
   </ItemGroup>
 
   <ItemGroup>
