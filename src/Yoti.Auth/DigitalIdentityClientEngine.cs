@@ -17,11 +17,11 @@ namespace Yoti.Auth
         {
             _httpClient = httpClient;
 
-            #if NET452 || NET462 || NET472 || NET48
+#if NET452 || NET462 || NET472 || NET48
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            #endif
+#endif
         }
-        
+
         public async Task<ShareSessionResult> CreateShareSessionAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, ShareSessionRequest shareSessionRequest)
         {
             ShareSessionResult result = await Task.Run(async () => await DigitalIdentityService.CreateShareSession(
@@ -35,6 +35,33 @@ namespace Yoti.Auth
         {
             SharedReceiptResponse result = await Task.Run(async () => await DigitalIdentityService.GetShareReceipt(
                 _httpClient, sdkId, apiUrl, keyPair, receiptId).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
+        
+        public async Task<CreateQrResult> CreateQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionid)
+        {
+            CreateQrResult result = await Task.Run(async () => await DigitalIdentityService.CreateQrCode(
+                    _httpClient, apiUrl, sdkId, keyPair, sessionid).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
+        
+        public async Task<GetQrCodeResult> GetQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string qrcodeId)
+        {
+            GetQrCodeResult result = await Task.Run(async () => await DigitalIdentityService.GetQrCode(
+                    _httpClient, apiUrl, sdkId, keyPair, qrcodeId).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
+        
+        public async Task<GetSessionResult> GetSession(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionId)
+        {
+            var result = await Task.Run(async () => await DigitalIdentityService.GetSession(
+                    _httpClient, apiUrl, sdkId, keyPair, sessionId).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;

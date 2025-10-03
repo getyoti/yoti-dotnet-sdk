@@ -92,6 +92,22 @@ namespace Yoti.Auth
             return task.Result;
         }
 
+        public async Task<CreateQrResult> CreateQrCode(string sessionId)
+        {
+            return await _yotiDigitalClientEngine.CreateQrCodeAsync(_sdkId, _keyPair, ApiUri, sessionId).ConfigureAwait(false);
+        }
+        
+        public async Task<GetQrCodeResult> GetQrCode(string qrCodeId)
+        {
+            return await _yotiDigitalClientEngine.GetQrCodeAsync(_sdkId, _keyPair, ApiUri, qrCodeId).ConfigureAwait(false);
+        }
+        
+        public async Task<GetSessionResult> GetSession(string sessionId)
+        {
+            return await _yotiDigitalClientEngine.GetSession(_sdkId, _keyPair, ApiUri, sessionId).ConfigureAwait(false);
+        }
+
+
         internal void SetYotiApiUri()
         {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_API_URL")))

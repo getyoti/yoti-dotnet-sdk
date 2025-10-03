@@ -61,7 +61,7 @@ namespace CoreExample
             }
 
             app.UseRouting();
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection(); // Temporarily disabled for development
             app.UseStaticFiles();
             app.UseSession();
             app.UseCookiePolicy();
