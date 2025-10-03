@@ -74,6 +74,10 @@ namespace DigitalIdentityExample.Controllers
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 ViewBag.sessionID = SessionResult.Id;
 
+                // CreateQrCode metodunun başına
+                Console.WriteLine($"[DEBUG] CreateQrCode called - sessionId: {SessionResult.Id}");
+                Console.WriteLine($"[DEBUG] Endpoint: /v2/sessions/{SessionResult.Id}/qr-codes");
+
                 return View("DigitalIdentity", sharedReceiptResponse);
             }
             catch (Exception e)
@@ -88,25 +92,44 @@ namespace DigitalIdentityExample.Controllers
             }
         }
 
-        // GET: /create-qr/{sessionId}
+        // POST: /create-qr/{sessionId}
+        
         [Route("create-qr/{sessionId}")]
         public async Task<IActionResult> CreateQrCode(string sessionId)
         {
             try
             {
+                // Validate session ID format
+                if (string.IsNullOrWhiteSpace(sessionId))
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        error = "Session ID is required",
+                        message = "Please provide a valid session ID. Use /generate-share endpoint first to get a session ID."
+                    });
+                }
+
+                if (!sessionId.StartsWith("ss.v2."))
+                {
+                    return BadRequest(new
+                    {
+                        sessionId = sessionId,  
+                        success = false,
+                        error = "Invalid session ID format",
+                        message = "Session ID must start with 'ss.v2.'. Use /generate-share endpoint first to get a valid session ID.",
+                        expectedFormat = "ss.v2.xxxxx..."
+                    });
+                }
+
                 string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
                 _logger.LogInformation("Creating QR code for session: {SessionId}", sessionId);
 
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
-                // Create QR request with default settings
-                var qrRequest = new QrRequestBuilder()
-                    .WithTransport("INLINE")
-                    .WithDisplayMode("QR_CODE")
-                    .Build();
 
-                var qrResult = await yotiClient.CreateQrCode(sessionId, qrRequest);
+                var qrResult = await yotiClient.CreateQrCode(sessionId);
 
                 _logger.LogInformation("QR code created with ID: {QrId}", qrResult.Id);
 
@@ -128,7 +151,8 @@ namespace DigitalIdentityExample.Controllers
                     sessionId = sessionId,
                     success = false,
                     error = e.Message,
-                    innerError = e.InnerException?.Message
+                    innerError = e.InnerException?.Message,
+                    hint = "If you're getting 'UNKNOWN_SESSION' error, make sure to use a valid session ID from /generate-share endpoint"
                 });
             }
         }

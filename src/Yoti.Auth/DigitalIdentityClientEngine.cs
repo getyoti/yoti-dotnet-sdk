@@ -40,10 +40,10 @@ namespace Yoti.Auth
             return result;
         }
         
-        public async Task<CreateQrResult> CreateQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionid, QrRequest qRRequest)
+        public async Task<CreateQrResult> CreateQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionid)
         {
             CreateQrResult result = await Task.Run(async () => await DigitalIdentityService.CreateQrCode(
-                    _httpClient, apiUrl, sdkId, keyPair, sessionid, qRRequest).ConfigureAwait(false))
+                    _httpClient, apiUrl, sdkId, keyPair, sessionid).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;

@@ -93,9 +93,9 @@ namespace Yoti.Auth
         }
         
         
-        public async Task<CreateQrResult> CreateQrCode(string sessionId, QrRequest qrRequest)
+        public async Task<CreateQrResult> CreateQrCode(string sessionId)
         {
-            return await _yotiDigitalClientEngine.CreateQrCodeAsync(_sdkId, _keyPair, ApiUri, sessionId, qrRequest).ConfigureAwait(false);
+            return await _yotiDigitalClientEngine.CreateQrCodeAsync(_sdkId, _keyPair, ApiUri, sessionId).ConfigureAwait(false);
         }
         
         public async Task<GetQrCodeResult> GetQrCode(string qrCodeId)

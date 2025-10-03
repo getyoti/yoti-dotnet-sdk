@@ -50,10 +50,9 @@ namespace Yoti.Auth.Tests
                 "{\"id\":\"" + qrCodeId + "\",\"uri\":\"" + qrCodeUri + "\"}");
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
-            QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
-            CreateQrResult result = await engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest);
+            CreateQrResult result = await engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(qrCodeId, result.Id);
@@ -166,12 +165,11 @@ namespace Yoti.Auth.Tests
 				"{\"status\":\"bad\"}");
 
 			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
-            QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
 			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
 			{
-				engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest).Wait();
+				engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId).Wait();
 			});
 
 			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
@@ -290,10 +288,9 @@ namespace Yoti.Auth.Tests
                 "{}");
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
-            QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
-            CreateQrResult result = await engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest);
+            CreateQrResult result = await engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
 
             Assert.IsNotNull(result);
         }

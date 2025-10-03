@@ -96,30 +96,20 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId,QrRequest qrRequestPayload)
+        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
 
-            string serializedQrCode = JsonConvert.SerializeObject(
-                qrRequestPayload,
-                new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                });
-            byte[] body = Encoding.UTF8.GetBytes(serializedQrCode);
-
-
             Request createQrRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
+                .WithEndpoint(string.Format("/v2/sessions/{0}/qr-codes", sessionId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
-                .WithContent(body)
                 .Build();
             
             using (HttpResponseMessage response = await createQrRequest.Execute(httpClient).ConfigureAwait(false))
