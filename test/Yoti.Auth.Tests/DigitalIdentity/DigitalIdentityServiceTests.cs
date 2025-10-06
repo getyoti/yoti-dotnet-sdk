@@ -128,7 +128,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DigitalIdentityService.CreateQrCode(null, _apiURL, _sdkID, _keyPair, _sessionID, _someCreateQrRequest).Wait();
+                DigitalIdentityService.CreateQrCode(null, _apiURL, _sdkID, _keyPair, _sessionID).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -140,7 +140,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DigitalIdentityService.CreateQrCode(_httpClient, null, _sdkID, _keyPair, _sessionID, _someCreateQrRequest).Wait();
+                DigitalIdentityService.CreateQrCode(_httpClient, null, _sdkID, _keyPair, _sessionID).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -152,7 +152,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, null, _keyPair, _sessionID, _someCreateQrRequest).Wait();
+                DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, null, _keyPair, _sessionID).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -164,7 +164,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         {
             var aggregateException = Assert.ThrowsException<AggregateException>(() =>
             {
-                DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, _sdkID, null, _sessionID, _someCreateQrRequest).Wait();
+                DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, _sdkID, null, _sessionID).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
