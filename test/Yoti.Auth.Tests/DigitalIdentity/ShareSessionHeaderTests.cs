@@ -203,9 +203,9 @@ namespace Yoti.Auth.Tests.DigitalIdentity
             Console.WriteLine($"✓ Case-insensitive header lookup working: {result.RequestId}");
         }
 
-        [Ignore("Complex test requiring multiple HTTP mocks - needs refactoring")]
         [TestMethod]
-        public async Task GetShareReceipt_ShouldReturnXRequestIdHeader()
+        [Ignore("GetShareReceipt requires complex multi-step mocking - needs separate implementation")]
+        public void GetShareReceipt_ShouldReturnXRequestIdHeader()
         {
             // Arrange
             string requestId = "receipt-request-id-789";
@@ -245,7 +245,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
                 KeyPair.Get());
 
             // Act
-            var result = await yotiClient.GetShareReceiptAsync("test-receipt-id");
+            var result = yotiClient.GetShareReceipt("test-receipt-id");
 
             // Assert
             Assert.IsNotNull(result);

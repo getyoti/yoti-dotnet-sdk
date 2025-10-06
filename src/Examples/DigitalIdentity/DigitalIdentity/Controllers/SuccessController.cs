@@ -46,19 +46,19 @@ namespace DigitalIdentityExample.Controllers
                 
                 var ReceiptResult = yotiClient.GetShareReceipt(ReceiptID);
                 
-                DisplayAttributes displayAttributes = CreateDisplayAttributes(ReceiptResult.UserContent.UserProfile.AttributeCollection);
-                if (ReceiptResult.UserContent.UserProfile.FullName != null)
+                DisplayAttributes displayAttributes = CreateDisplayAttributes(ReceiptResult.Data.UserContent.UserProfile.AttributeCollection);
+                if (ReceiptResult.Data.UserContent.UserProfile.FullName != null)
                 {
-                    displayAttributes.FullName = ReceiptResult.UserContent.UserProfile.FullName.GetValue();
+                    displayAttributes.FullName = ReceiptResult.Data.UserContent.UserProfile.FullName.GetValue();
                 }
 
-                YotiAttribute<Image> selfie = ReceiptResult.UserContent.UserProfile.Selfie;
-                if (ReceiptResult.UserContent.UserProfile.Selfie != null)
+                YotiAttribute<Image> selfie = ReceiptResult.Data.UserContent.UserProfile.Selfie;
+                if (ReceiptResult.Data.UserContent.UserProfile.Selfie != null)
                 {
                     displayAttributes.Base64Selfie = selfie.GetValue().GetBase64URI();
                 }
 
-                displayAttributes.ErrorDetails = ReceiptResult.ErrorDetails;
+                displayAttributes.ErrorDetails = ReceiptResult.Data.ErrorDetails;
                 
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 
