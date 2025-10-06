@@ -46,8 +46,8 @@ namespace Yoti.Auth.DocScan
         /// Creates a Doc Scan session using the supplied session specification
         /// </summary>
         /// <param name="sessionSpec">the Doc Scan session specification</param>
-        /// <returns>the session creation result</returns>
-        public async Task<CreateSessionResult> CreateSessionAsync(SessionSpecification sessionSpec)
+        /// <returns>A YotiHttpResponse containing the session creation result and HTTP headers</returns>
+        public async Task<Web.YotiHttpResponse<CreateSessionResult>> CreateSessionAsync(SessionSpecification sessionSpec)
         {
             _logger.Debug("Creating a Yoti Doc Scan session...");
 
@@ -58,8 +58,8 @@ namespace Yoti.Auth.DocScan
         /// Creates a Doc Scan session using the supplied session specification
         /// </summary>
         /// <param name="sessionSpec">the Doc Scan session specification</param>
-        /// <returns>the session creation result</returns>
-        public CreateSessionResult CreateSession(SessionSpecification sessionSpec)
+        /// <returns>A YotiHttpResponse containing the session creation result and HTTP headers</returns>
+        public Web.YotiHttpResponse<CreateSessionResult> CreateSession(SessionSpecification sessionSpec)
         {
             return CreateSessionAsync(sessionSpec).Result;
         }
@@ -68,8 +68,8 @@ namespace Yoti.Auth.DocScan
         /// Retrieves the state of a previously created Yoti Doc Scan session
         /// </summary>
         /// <param name="sessionId">The ID of the session</param>
-        /// <returns>The session state</returns>
-        public async Task<GetSessionResult> GetSessionAsync(string sessionId)
+        /// <returns>A YotiHttpResponse containing the session state and HTTP headers</returns>
+        public async Task<Web.YotiHttpResponse<GetSessionResult>> GetSessionAsync(string sessionId)
         {
             _logger.Debug($"Retrieving session '{sessionId}'");
 
@@ -80,8 +80,8 @@ namespace Yoti.Auth.DocScan
         /// Retrieves the state of a previously created Yoti Doc Scan session
         /// </summary>
         /// <param name="sessionId">The ID of the session</param>
-        /// <returns>The session state</returns>
-        public GetSessionResult GetSession(string sessionId)
+        /// <returns>A YotiHttpResponse containing the session state and HTTP headers</returns>
+        public Web.YotiHttpResponse<GetSessionResult> GetSession(string sessionId)
         {
             return GetSessionAsync(sessionId).Result;
         }
