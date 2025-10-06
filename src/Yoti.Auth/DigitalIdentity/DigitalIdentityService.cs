@@ -345,10 +345,99 @@ namespace Yoti.Auth.DigitalIdentity
         /// </summary>
         public static async Task<YotiHttpResponse<SharedReceiptResponse>> GetShareReceiptWithHeaders(HttpClient httpClient, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key, string receiptId)
         {
-            // For now, call the regular method and wrap the result with empty headers
-            // This is a simplified implementation - full header support would require modifying all the internal HTTP calls
-            var result = await GetShareReceipt(httpClient, clientSdkId, apiUrl, key, receiptId);
-            return YotiHttpResponse<SharedReceiptResponse>.FromHttpResponse(result, new HttpResponseMessage());
+            Validation.NotNullOrEmpty(receiptId, nameof(receiptId));
+            
+            string receiptUrl = Base64ToBase64URL(receiptId);
+            string endpoint = string.Format(receiptRetrieval, receiptUrl);
+            
+            Request receiptRequest = new RequestBuilder()
+                .WithKeyPair(key)
+                .WithBaseUri(apiUrl)
+                .WithHeader(yotiAuthId, clientSdkId)
+                .WithEndpoint(endpoint)
+                .WithQueryParam("sdkID", clientSdkId)
+                .WithHttpMethod(HttpMethod.Get)
+                .Build();
+
+            // Use ExecuteWithHeaders to capture the response headers
+            return await receiptRequest.ExecuteWithHeaders(httpClient, async response =>
+            {
+                try
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
+                    }
+
+                    var responseObject = await response.Content.ReadAsStringAsync();
+                    var receiptResponse = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptResponse>(responseObject));
+                    
+                    var itemKeyId = receiptResponse.WrappedItemKeyId;
+                    var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
+                    var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
+
+                    var (attrData, aextra, decryptAttrDataError) = DecryptReceiptContent(receiptResponse.Content, receiptContentKey);
+                    if (decryptAttrDataError != null)
+                    {
+                        throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
+                    }
+
+                    var parsedAttributesApp = AttributeConverter.ConvertToBaseAttributes(attrData);
+                    var appProfile = new ApplicationProfile(parsedAttributesApp);
+                    
+                    var (attrOtherData, aOtherExtra, decryptOtherAttrDataError) = DecryptReceiptContent(receiptResponse.OtherPartyContent, receiptContentKey);
+                    if (decryptOtherAttrDataError != null)
+                    {
+                        throw new Exception($"An unexpected error occurred: {decryptOtherAttrDataError.Message}");
+                    }
+
+                    var userProfile = new YotiProfile();
+                    if (attrOtherData != null)
+                    {
+                        var parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
+                        userProfile = new YotiProfile(parsedAttributesUser);
+                    }
+
+                    ExtraData userExtraData = new ExtraData();
+                    if (aOtherExtra != null)
+                    {
+                        userExtraData = ExtraDataConverter.ParseExtraDataProto(aOtherExtra);
+                    }
+                    
+                    ExtraData appExtraData = new ExtraData();
+                    if (aextra != null)
+                    {
+                        appExtraData = ExtraDataConverter.ParseExtraDataProto(aextra);
+                    }
+
+                    var sharedReceiptResponse = new SharedReceiptResponse
+                    {
+                        ID = receiptResponse.ID,
+                        SessionID = receiptResponse.SessionID,
+                        RememberMeID = receiptResponse.RememberMeID,
+                        ParentRememberMeID = receiptResponse.ParentRememberMeID,
+                        Timestamp = receiptResponse.Timestamp,
+                        UserContent = new UserContent
+                        {
+                            UserProfile = userProfile,
+                            ExtraData = userExtraData
+                        },
+                        ApplicationContent = new ApplicationContent
+                        {
+                            ApplicationProfile = appProfile,
+                            ExtraData = appExtraData
+                        },
+                        Error = receiptResponse.Error,
+                        ErrorDetails = receiptResponse.ErrorDetails
+                    };
+
+                    return sharedReceiptResponse;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An unexpected error occurred: {ex.Message}");
+                }
+            }).ConfigureAwait(false);
         }
 
         private static async Task<ReceiptItemKeyResponse> GetReceiptItemKey(HttpClient httpClient, string receiptItemKeyId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)
