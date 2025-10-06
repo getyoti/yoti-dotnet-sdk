@@ -66,6 +66,49 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
+        /// <summary>
+        /// Creates a share session and returns the result with HTTP response headers
+        /// </summary>
+        internal static async Task<YotiHttpResponse<ShareSessionResult>> CreateShareSessionWithHeaders(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequestPayload)
+        {
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(shareSessionRequestPayload, nameof(shareSessionRequestPayload));
+
+            string serializedScenario = JsonConvert.SerializeObject(
+                shareSessionRequestPayload,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+            byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
+
+            Request shareSessionRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithBaseUri(apiUrl)
+                .WithHeader(yotiAuthId, sdkId)
+                .WithEndpoint(sessionCreation)
+                .WithQueryParam("sdkID", sdkId)
+                .WithHttpMethod(HttpMethod.Post)
+                .WithContent(body)
+                .Build();
+
+            return await shareSessionRequest.ExecuteWithHeaders(httpClient, async response =>
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
+                }
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
+
+                return deserialized;
+            }).ConfigureAwait(false);
+        }
+
         internal static async Task<GetSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
@@ -190,6 +233,42 @@ namespace Yoti.Auth.DigitalIdentity
 
                 return deserialized;
             }
+        }
+        
+        /// <summary>
+        /// Gets a receipt with HTTP response headers
+        /// </summary>
+        private static async Task<YotiHttpResponse<ReceiptResponse>> GetReceiptWithHeaders(HttpClient httpClient, string receiptId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)
+        {
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNull(keyPair, nameof(keyPair));
+
+            string receiptUrl = Base64ToBase64URL(receiptId);
+            string endpoint = string.Format(receiptRetrieval, receiptUrl);
+
+            Request ReceiptRequest = new RequestBuilder()
+                .WithKeyPair(keyPair)
+                .WithBaseUri(apiUrl)
+                .WithHeader(yotiAuthId, sdkId)
+                .WithEndpoint(endpoint)
+                .WithQueryParam("sdkID", sdkId)
+                .WithHttpMethod(HttpMethod.Get)
+                .Build();
+
+            return await ReceiptRequest.ExecuteWithHeaders(httpClient, async response =>
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
+                }
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptResponse>(responseObject));
+
+                return deserialized;
+            }).ConfigureAwait(false);
         }
         
 
@@ -331,6 +410,110 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 throw new Exception($"An unexpected error occurred: {ex.Message}");
            
+            }
+        }
+
+        /// <summary>
+        /// Gets a share receipt and returns the result with HTTP response headers
+        /// </summary>
+        public static async Task<YotiHttpResponse<SharedReceiptResponse>> GetShareReceiptWithHeaders(HttpClient httpClient, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key, string receiptId)
+        {
+            Validation.NotNullOrEmpty(receiptId, nameof(receiptId));
+            try
+            {
+                var receiptResponse = await GetReceiptWithHeaders(httpClient, receiptId, clientSdkId, apiUrl, key);
+                var itemKeyId = receiptResponse.Data.WrappedItemKeyId;
+                if (itemKeyId != null)
+                {
+                    var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
+
+                    var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.Data.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
+
+                    var (attrData, aextra, decryptAttrDataError) = DecryptReceiptContent(receiptResponse.Data.Content, receiptContentKey);
+                    if (decryptAttrDataError != null)
+                    {
+                        throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
+                    }
+
+                    var parsedAttributesApp = AttributeConverter.ConvertToBaseAttributes(attrData);
+                    var appProfile = new ApplicationProfile(parsedAttributesApp);
+
+                    var (attrOtherData, aOtherExtra, decryptOtherAttrDataError) = DecryptReceiptContent(receiptResponse.Data.OtherPartyContent, receiptContentKey);
+                    if (decryptAttrDataError != null)
+                    {
+                        throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
+                    }
+
+                    var userProfile = new YotiProfile();
+                    if (attrOtherData != null)
+                    {
+                        var parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
+                        userProfile = new YotiProfile(parsedAttributesUser);
+                    }
+
+                    ExtraData userExtraData = new ExtraData();
+                    if (aOtherExtra != null)
+                    {
+                        userExtraData = ExtraDataConverter.ParseExtraDataProto(aOtherExtra);
+                    }
+                    ExtraData appExtraData = new ExtraData();
+                    if (aextra != null)
+                    {
+                        appExtraData = ExtraDataConverter.ParseExtraDataProto(aextra);
+                    }
+
+                    var sharedReceiptResponse = new SharedReceiptResponse
+                    {
+                        ID = receiptResponse.Data.ID,
+                        SessionID = receiptResponse.Data.SessionID,
+                        RememberMeID = receiptResponse.Data.RememberMeID,
+                        ParentRememberMeID = receiptResponse.Data.ParentRememberMeID,
+                        Timestamp = receiptResponse.Data.Timestamp,
+                        UserContent = new UserContent
+                        {
+                            UserProfile = userProfile,
+                            ExtraData = userExtraData
+                        },
+                        ApplicationContent = new ApplicationContent
+                        {
+                            ApplicationProfile = appProfile,
+                            ExtraData = appExtraData
+                        },
+                        Error = receiptResponse.Data.Error,
+                        ErrorDetails = receiptResponse.Data.ErrorDetails
+                    };
+                    
+                    return YotiHttpResponse<SharedReceiptResponse>.FromHttpResponse(sharedReceiptResponse, receiptResponse);
+                }
+                else
+                {
+                    var sharedReceiptResponse = new SharedReceiptResponse
+                    {
+                        ID = receiptResponse.Data.ID,
+                        SessionID = receiptResponse.Data.SessionID,
+                        RememberMeID = receiptResponse.Data.RememberMeID,
+                        ParentRememberMeID = receiptResponse.Data.ParentRememberMeID,
+                        Timestamp = receiptResponse.Data.Timestamp,
+                        UserContent = new UserContent
+                        {
+                            UserProfile = new YotiProfile(),
+                            ExtraData = new ExtraData()
+                        },
+                        ApplicationContent = new ApplicationContent
+                        {
+                            ApplicationProfile = new ApplicationProfile(),
+                            ExtraData = new ExtraData()
+                        },
+                        Error = receiptResponse.Data.Error,
+                        ErrorDetails = receiptResponse.Data.ErrorDetails
+                    };
+                    
+                    return YotiHttpResponse<SharedReceiptResponse>.FromHttpResponse(sharedReceiptResponse, receiptResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An unexpected error occurred: {ex.Message}");
             }
         }
 
