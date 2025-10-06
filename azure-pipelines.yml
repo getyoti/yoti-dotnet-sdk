@@ -39,6 +39,12 @@ steps:
       sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
   displayName: SonarCloud Prepare Analysis
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
+  displayName: 'Install .NET 6.0 SDK'
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
