@@ -75,7 +75,7 @@ namespace DigitalIdentityExample.Controllers
 
                 var sharedReceiptResponse = new SharedReceiptResponse();
                 ViewBag.YotiClientSdkId = _clientSdkId;
-                ViewBag.sessionID = SessionResult.Id;
+                ViewBag.sessionID = SessionResult.Data.Id;
 
                 return View("AdvancedIdentityShare", sharedReceiptResponse);
             }

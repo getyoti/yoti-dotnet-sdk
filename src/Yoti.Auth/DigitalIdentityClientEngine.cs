@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DigitalIdentity;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth
 {
@@ -22,18 +23,18 @@ namespace Yoti.Auth
 #endif
         }
 
-        public async Task<ShareSessionResult> CreateShareSessionAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, ShareSessionRequest shareSessionRequest)
+        public async Task<YotiHttpResponse<ShareSessionResult>> CreateShareSessionAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, ShareSessionRequest shareSessionRequest)
         {
-            ShareSessionResult result = await Task.Run(async () => await DigitalIdentityService.CreateShareSession(
+            YotiHttpResponse<ShareSessionResult> result = await Task.Run(async () => await DigitalIdentityService.CreateShareSessionWithHeaders(
                 _httpClient, apiUrl, sdkId, keyPair, shareSessionRequest).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return result;
         }
 
-        public async Task<SharedReceiptResponse> GetShareReceipt(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string receiptId)
+        public async Task<YotiHttpResponse<SharedReceiptResponse>> GetShareReceipt(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string receiptId)
         {
-            SharedReceiptResponse result = await Task.Run(async () => await DigitalIdentityService.GetShareReceipt(
+            YotiHttpResponse<SharedReceiptResponse> result = await Task.Run(async () => await DigitalIdentityService.GetShareReceiptWithHeaders(
                 _httpClient, sdkId, apiUrl, keyPair, receiptId).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
