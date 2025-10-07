@@ -14,6 +14,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+# 1. Install tools first
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
@@ -22,6 +23,21 @@ steps:
 
 - task: NuGetToolInstaller@1
 
+# 2. SonarCloud PREPARE must come BEFORE build
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Yoti SonarCloud'
+    organization: 'getyoti'
+    scannerMode: 'MSBuild'
+    projectKey: 'yoti-dotnet-sdk'
+    projectName: 'Yoti .NET SDK'
+    projectVersion: '3.18.0'
+    extraProperties: |
+      sonar.verbose=true
+      sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll
+  displayName: 'SonarCloud Prepare (BEFORE build)'
+
+# 3. Restore and build AFTER SonarCloud prepare
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -34,19 +50,6 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArgs: '/p:SkipInvalidConfigurations=false'
   displayName: 'Build solution'
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'Yoti SonarCloud'
-    organization: 'getyoti'
-    scannerMode: 'MSBuild'
-    projectKey: 'yoti-dotnet-sdk'
-    projectName: 'Yoti .NET SDK'
-    projectVersion: '3.18.0'
-    extraProperties: |
-      sonar.verbose=true
-      sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll
-  displayName: 'SonarCloud Prepare'
 
 - task: SonarCloudAnalyze@1
   displayName: 'SonarCloud Analyze'
