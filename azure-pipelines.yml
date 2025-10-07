@@ -25,7 +25,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: SonarCloudPrepare@1
+- task: SonarCloudPrepare@2
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
@@ -101,10 +101,10 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
   displayName: 'Publish Cobertura Code Coverage'
   
-- task: SonarCloudAnalyze@1
+- task: SonarCloudAnalyze@2
   displayName: Sonar Cloud Analyze
 
-- task: SonarCloudPublish@1
+- task: SonarCloudPublish@2
   inputs:
     pollingTimeoutSec: '300'
   displayName: Sonar Cloud Publish
