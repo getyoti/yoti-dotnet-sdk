@@ -1,7 +1,9 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+# Complete CI/CD Pipeline with SonarCloud integration for SDK-2713-net-sdk-request-header-new
+# Fixed SonarCloud issues:
+# ✅ Organization: 'yoti' (was 'getyoti')  
+# ✅ Project Key: 'dotnet-sdk' (correct project in SonarCloud)
+# ✅ Step Order: SonarCloudPrepare → Build → SonarCloudAnalyze (MSBuild integration)
+# ✅ Task Version: @1 (stable version, was @2)
 
 trigger:
   branches:
@@ -25,19 +27,30 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: SonarCloudPrepare@2
+# 1. Install tools first
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+  displayName: 'Install .NET 8.0 SDK'
+
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet tools'
+
+# 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
+- task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
-    organization: 'getyoti'
+    organization: 'yoti'
     scannerMode: 'MSBuild'
-    projectKey: 'getyoti:dotnet'
-    projectName: '.NET SDK'
-    projectVersion: '3.13.0'
+    projectKey: 'dotnet-sdk'
+    projectName: 'dotnet-sdk'
+    projectVersion: '3.18.0'
     extraProperties: |
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
-      sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
-  displayName: SonarCloud Prepare Analysis
+      sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
+  displayName: 'SonarCloud Prepare Analysis'
 
 - task: UseDotNet@2
   inputs:
@@ -101,10 +114,12 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
   displayName: 'Publish Cobertura Code Coverage'
   
-- task: SonarCloudAnalyze@2
-  displayName: Sonar Cloud Analyze
+# 5. SonarCloud ANALYZE (must be AFTER build)
+- task: SonarCloudAnalyze@1
+  displayName: 'SonarCloud Code Analysis'
 
-- task: SonarCloudPublish@2
+# 6. Publish results
+- task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-  displayName: Sonar Cloud Publish
+  displayName: 'SonarCloud Publish Quality Gate Result'
