@@ -23,7 +23,25 @@ steps:
 
 - task: NuGetToolInstaller@1
 
-# 2. SonarCloud PREPARE must come BEFORE build
+# 2. Check what projects exist in SonarCloud first
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "Checking SonarCloud projects in getyoti organization..."
+      $headers = @{
+        'Authorization' = 'Bearer $(SONARCLOUD_TOKEN)'
+      }
+      try {
+        $response = Invoke-RestMethod -Uri 'https://sonarcloud.io/api/projects/search?organization=getyoti' -Headers $headers
+        Write-Host "Found projects:"
+        $response.components | ForEach-Object { Write-Host "- Key: $($_.key), Name: $($_.name)" }
+      } catch {
+        Write-Host "Error checking projects: $($_.Exception.Message)"
+      }
+  displayName: 'Debug: List SonarCloud Projects'
+
+# 3. SonarCloud PREPARE must come BEFORE build  
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
