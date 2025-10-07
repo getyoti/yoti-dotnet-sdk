@@ -1,4 +1,9 @@
-# Minimal SonarCloud test pipeline for release/3.18.0
+# Complete CI/CD Pipeline with SonarCloud integration for release/3.18.0
+# Fixed issues:
+# ✅ Organization: 'yoti' (was 'getyoti')  
+# ✅ Project Key: 'dotnet-sdk' (correct project in SonarCloud)
+# ✅ Step Order: SonarCloudPrepare → Build → SonarCloudAnalyze (MSBuild integration)
+# ✅ Task Version: @1 (stable version)
 
 trigger:
   branches:
@@ -14,7 +19,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-# 1. Install tools first
+# 1. Install tools
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
@@ -22,26 +27,9 @@ steps:
   displayName: 'Install .NET 8.0 SDK'
 
 - task: NuGetToolInstaller@1
+  displayName: 'Install NuGet tools'
 
-# 2. Check what projects exist in SonarCloud first
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      Write-Host "Checking SonarCloud projects in YOTI organization..."
-      $headers = @{
-        'Authorization' = 'Bearer $(SONARCLOUD_TOKEN)'
-      }
-      try {
-        $response = Invoke-RestMethod -Uri 'https://sonarcloud.io/api/projects/search?organization=yoti' -Headers $headers
-        Write-Host "Found projects:"
-        $response.components | ForEach-Object { Write-Host "- Key: $($_.key), Name: $($_.name)" }
-      } catch {
-        Write-Host "Error checking projects: $($_.Exception.Message)"
-      }
-  displayName: 'Debug: List SonarCloud Projects'
-
-# 3. SonarCloud PREPARE must come BEFORE build  
+# 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
@@ -51,11 +39,10 @@ steps:
     projectName: 'dotnet-sdk'
     projectVersion: '3.18.0'
     extraProperties: |
-      sonar.verbose=true
       sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll
-  displayName: 'SonarCloud Prepare (BEFORE build)'
+  displayName: 'SonarCloud Prepare Analysis'
 
-# 3. Restore and build AFTER SonarCloud prepare
+# 3. Build steps
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -69,10 +56,39 @@ steps:
     msbuildArgs: '/p:SkipInvalidConfigurations=false'
   displayName: 'Build solution'
 
-- task: SonarCloudAnalyze@1
-  displayName: 'SonarCloud Analyze'
+# 4. Run tests with code coverage
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    codeCoverageEnabled: true
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+  displayName: 'Run Tests with Code Coverage'
 
+# 5. SonarCloud ANALYZE (must be AFTER build)
+- task: SonarCloudAnalyze@1
+  displayName: 'SonarCloud Code Analysis'
+
+# 6. Publish results
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-  displayName: 'SonarCloud Publish'
+  displayName: 'SonarCloud Publish Quality Gate Result'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/*.trx'
+    failTaskOnFailedTests: true
+  displayName: 'Publish Test Results'
+  condition: always()
+
+- task: PublishCodeCoverageResults@2
+  inputs:
+    summaryFileLocation: '$(Agent.TempDirectory)/**/*.coverage'
+    codeCoverageRunConfigurationFile: '$(Agent.TempDirectory)/**/*.runsettings'
+  displayName: 'Publish Code Coverage Results'
+  condition: always()
