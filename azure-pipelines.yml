@@ -28,12 +28,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Write-Host "Checking SonarCloud projects in getyoti organization..."
+      Write-Host "Checking SonarCloud projects in YOTI organization..."
       $headers = @{
         'Authorization' = 'Bearer $(SONARCLOUD_TOKEN)'
       }
       try {
-        $response = Invoke-RestMethod -Uri 'https://sonarcloud.io/api/projects/search?organization=getyoti' -Headers $headers
+        $response = Invoke-RestMethod -Uri 'https://sonarcloud.io/api/projects/search?organization=yoti' -Headers $headers
         Write-Host "Found projects:"
         $response.components | ForEach-Object { Write-Host "- Key: $($_.key), Name: $($_.name)" }
       } catch {
@@ -45,7 +45,7 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
-    organization: 'getyoti'
+    organization: 'yoti'
     scannerMode: 'MSBuild'
     projectKey: 'dotnet-sdk'
     projectName: 'dotnet-sdk'
