@@ -31,7 +31,9 @@ steps:
   displayName: 'Install NuGet tools'
 
 # 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
+# Only run SonarCloud on master branch to avoid GitHub status check issues on other branches
 - task: SonarCloudPrepare@1
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'yoti'
@@ -109,10 +111,12 @@ steps:
   
 # 5. SonarCloud ANALYZE (must be AFTER build)
 - task: SonarCloudAnalyze@1
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   displayName: 'SonarCloud Code Analysis'
 
 # 6. Publish results
 - task: SonarCloudPublish@1
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   inputs:
     pollingTimeoutSec: '300'
   displayName: 'SonarCloud Publish Quality Gate Result'
