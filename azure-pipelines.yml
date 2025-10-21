@@ -36,7 +36,7 @@ steps:
   displayName: 'Install NuGet tools'
 
 # 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
-- task: SonarCloudPrepare@1
+- task: SonarCloudPrepare@3
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
@@ -113,11 +113,11 @@ steps:
   displayName: 'Publish Cobertura Code Coverage'
   
 # 5. SonarCloud ANALYZE (must be AFTER build)
-- task: SonarCloudAnalyze@1
+- task: SonarCloudAnalyze@3
   displayName: 'SonarCloud Code Analysis'
 
 # 6. Publish results
-- task: SonarCloudPublish@1
+- task: SonarCloudPublish@3
   inputs:
     pollingTimeoutSec: '300'
   displayName: 'SonarCloud Publish Quality Gate Result'
