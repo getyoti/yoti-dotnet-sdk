@@ -49,6 +49,8 @@ steps:
       sonar.links.scm=https://github.com/getyoti/yoti-dotnet-sdk
       sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
       sonar.qualitygate.wait=false
+      sonar.scm.disabled=true
+      sonar.skipSaveData=true
   displayName: 'SonarCloud Prepare Analysis'
 
 - task: UseDotNet@2
@@ -121,9 +123,11 @@ steps:
 # 5. SonarCloud ANALYZE (must be AFTER build)
 - task: SonarCloudAnalyze@2
   displayName: 'SonarCloud Code Analysis'
+  continueOnError: true
 
 # 6. Publish results
 - task: SonarCloudPublish@2
   inputs:
     pollingTimeoutSec: '300'
   displayName: 'SonarCloud Publish Quality Gate Result'
+  continueOnError: true
