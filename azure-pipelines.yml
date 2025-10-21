@@ -36,18 +36,19 @@ steps:
   displayName: 'Install NuGet tools'
 
 # 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
-- task: SonarCloudPrepare@3
+- task: SonarCloudPrepare@2
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
-    scannerMode: 'dotnet'
+    scannerMode: 'MSBuild'
     projectKey: 'getyoti:dotnet'
     projectName: '.NET SDK'
     projectVersion: '3.18.0'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-      sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
+      sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
+      sonar.links.scm=https://github.com/getyoti/yoti-dotnet-sdk
       sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
+      sonar.qualitygate.wait=false
   displayName: 'SonarCloud Prepare Analysis'
 
 - task: UseDotNet@2
@@ -113,11 +114,11 @@ steps:
   displayName: 'Publish Cobertura Code Coverage'
   
 # 5. SonarCloud ANALYZE (must be AFTER build)
-- task: SonarCloudAnalyze@3
+- task: SonarCloudAnalyze@2
   displayName: 'SonarCloud Code Analysis'
 
 # 6. Publish results
-- task: SonarCloudPublish@3
+- task: SonarCloudPublish@2
   inputs:
     pollingTimeoutSec: '300'
   displayName: 'SonarCloud Publish Quality Gate Result'
