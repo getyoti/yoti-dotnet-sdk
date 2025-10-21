@@ -119,15 +119,11 @@ namespace DigitalIdentityExample.Controllers
                 }
 
                 string yotiKeyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
-                _logger.LogInformation("Creating QR code for session: {SessionId}", sessionId);
 
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
-
                 var qrResult = await yotiClient.CreateQrCode(sessionId);
-
-                _logger.LogInformation("QR code created with ID: {QrId}", qrResult.Id);
 
                 return Ok(new
                 {
