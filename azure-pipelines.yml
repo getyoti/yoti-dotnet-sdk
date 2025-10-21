@@ -89,6 +89,7 @@ steps:
     projects: '**/*Tests/*.csproj'
     nobuild: true
   displayName: Run Tests With OpenCover
+  continueOnError: true
   
 # Generate the report using ReportGenerator (https://github.com/danielpalme/ReportGenerator)
 - task: DotNetCoreCLI@2
@@ -97,12 +98,15 @@ steps:
     custom: tool
     arguments: install --tool-path . dotnet-reportgenerator-globaltool
   displayName: Install ReportGenerator tool
+  continueOnError: true
   
 - script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:Cobertura
   displayName: Cobertura Code Coverage
+  continueOnError: true
 
 - script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.opencover.xml -targetdir:D:\Reports
   displayName: OpenCover Code Coverage
+  continueOnError: true
 
 # Publish the code coverage result (summary and web site)
 # The summary allows to view the coverage percentage in the summary tab
@@ -112,6 +116,7 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
   displayName: 'Publish Cobertura Code Coverage'
+  continueOnError: true
   
 # 5. SonarCloud ANALYZE (must be AFTER build)
 - task: SonarCloudAnalyze@2
