@@ -31,7 +31,9 @@ steps:
   displayName: 'Install NuGet tools'
 
 # 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
+# Disabled for non-master branches to prevent GitHub status check blocking
 - task: SonarCloudPrepare@1
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'yoti'
@@ -43,7 +45,7 @@ steps:
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
       sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
-  displayName: 'SonarCloud Prepare Analysis'
+  displayName: 'SonarCloud Prepare Analysis (Master Branch Only)'
 
 - task: UseDotNet@2
   inputs:
@@ -109,10 +111,12 @@ steps:
   
 # 5. SonarCloud ANALYZE (must be AFTER build)
 - task: SonarCloudAnalyze@1
-  displayName: 'SonarCloud Code Analysis'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  displayName: 'SonarCloud Code Analysis (Master Branch Only)'
 
 # 6. Publish results
 - task: SonarCloudPublish@1
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   inputs:
     pollingTimeoutSec: '300'
-  displayName: 'SonarCloud Publish Quality Gate Result'
+  displayName: 'SonarCloud Publish Quality Gate Result (Master Branch Only)'
