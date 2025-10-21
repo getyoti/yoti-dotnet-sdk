@@ -1,3 +1,8 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
 trigger:
   branches:
     include:
@@ -20,38 +25,19 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-# 1. Install tools first
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '8.x'
-  displayName: 'Install .NET 8.0 SDK'
-
-- task: NuGetToolInstaller@1
-  displayName: 'Install NuGet tools'
-
-# 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
-# Disabled for non-master branches to prevent GitHub status check blocking
 - task: SonarCloudPrepare@1
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   inputs:
     SonarCloud: 'Yoti SonarCloud'
-    organization: 'yoti'
+    organization: 'getyoti'
     scannerMode: 'MSBuild'
-    projectKey: 'dotnet-sdk'
-    projectName: 'dotnet-sdk'
-    projectVersion: '3.18.0'
+    projectKey: 'getyoti:dotnet'
+    projectName: '.NET SDK'
+    projectVersion: '3.13.0'
     extraProperties: |
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
-      sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
-  displayName: 'SonarCloud Prepare Analysis (Master Branch Only)'
-
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '6.x'
-  displayName: 'Install .NET 6.0 SDK'
+      sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
+  displayName: SonarCloud Prepare Analysis
 
 - task: NuGetToolInstaller@1
 
@@ -109,14 +95,10 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
   displayName: 'Publish Cobertura Code Coverage'
   
-# 5. SonarCloud ANALYZE (must be AFTER build)
 - task: SonarCloudAnalyze@1
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  displayName: 'SonarCloud Code Analysis (Master Branch Only)'
+  displayName: Sonar Cloud Analyze
 
-# 6. Publish results
 - task: SonarCloudPublish@1
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   inputs:
     pollingTimeoutSec: '300'
-  displayName: 'SonarCloud Publish Quality Gate Result (Master Branch Only)'
+  displayName: Sonar Cloud Publish
