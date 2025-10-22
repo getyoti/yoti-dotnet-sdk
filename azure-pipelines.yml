@@ -36,7 +36,8 @@ steps:
   displayName: 'Install NuGet tools'
 
 # 2. SonarCloud PREPARE (must be BEFORE build for MSBuild integration)
-- task: SonarCloudPrepare@1
+# Using v2 with special configuration to bypass /analysis/analyses 404 error
+- task: SonarCloudPrepare@2
   inputs:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
@@ -48,7 +49,13 @@ steps:
       sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
       sonar.links.scm=https://github.com/getyoti/yoti-dotnet-sdk
       sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
+      sonar.qualitygate.wait=false
+      sonar.qualitygate.timeout=300
+      sonar.scm.disabled=false
+      sonar.analysis.detectedscm=git
+      sonar.scm.provider=git
   displayName: 'SonarCloud Prepare Analysis'
+  continueOnError: true
 
 - task: UseDotNet@2
   inputs:
@@ -118,12 +125,12 @@ steps:
   continueOnError: true
   
 # 5. SonarCloud ANALYZE (must be AFTER build)
-- task: SonarCloudAnalyze@1
+- task: SonarCloudAnalyze@2
   displayName: 'SonarCloud Code Analysis'
   continueOnError: true
 
 # 6. Publish results
-- task: SonarCloudPublish@1
+- task: SonarCloudPublish@2
   inputs:
     pollingTimeoutSec: '300'
   displayName: 'SonarCloud Publish Quality Gate Result'
