@@ -35,7 +35,7 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet tools'
 
-# 2. SonarCloud PREPARE (using v2)
+# 2. SonarCloud PREPARE
 - task: SonarCloudPrepare@2
   inputs:
     SonarCloud: 'Yoti SonarCloud'
@@ -118,12 +118,12 @@ steps:
   displayName: 'Publish Cobertura Code Coverage'
   continueOnError: true
   
-# 5. SonarCloud ANALYZE (must be AFTER build)
+# 5. SonarCloud ANALYZE
 - task: SonarCloudAnalyze@2
   displayName: 'SonarCloud Code Analysis'
   continueOnError: true
 
-# 6. Publish results
+# 6. SonarCloud PUBLISH
 - task: SonarCloudPublish@2
   inputs:
     pollingTimeoutSec: '300'
