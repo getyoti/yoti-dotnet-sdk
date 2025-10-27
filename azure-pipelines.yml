@@ -1,20 +1,9 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+# Minimal SonarCloud test pipeline for release/3.18.0
 
 trigger:
   branches:
     include:
-    - '*'  # must quote since "*" is a YAML reserved character; we want a string
-
-schedules:
-- cron: "0 12 * * 0"
-  displayName: Weekly Sunday build
-  branches:
-    include:
-    - master
-  always: true
+    - release/3.18.0
 
 pool:
   vmImage: 'windows-latest'
@@ -25,80 +14,65 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: SonarCloudPrepare@1
+# 1. Install tools first
+- task: UseDotNet@2
   inputs:
-    SonarCloud: 'Yoti SonarCloud'
-    organization: 'getyoti'
-    scannerMode: 'MSBuild'
-    projectKey: 'getyoti:dotnet'
-    projectName: '.NET SDK'
-    projectVersion: '3.13.0'
-    extraProperties: |
-      sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-      sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
-      sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
-  displayName: SonarCloud Prepare Analysis
+    packageType: 'sdk'
+    version: '8.x'
+  displayName: 'Install .NET 8.0 SDK'
 
 - task: NuGetToolInstaller@1
 
+# 2. Check what projects exist in SonarCloud first
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "Checking SonarCloud projects in YOTI organization..."
+      $headers = @{
+        'Authorization' = 'Bearer $(SONARCLOUD_TOKEN)'
+      }
+      try {
+        $response = Invoke-RestMethod -Uri 'https://sonarcloud.io/api/projects/search?organization=yoti' -Headers $headers
+        Write-Host "Found projects:"
+        $response.components | ForEach-Object { Write-Host "- Key: $($_.key), Name: $($_.name)" }
+      } catch {
+        Write-Host "Error checking projects: $($_.Exception.Message)"
+      }
+  displayName: 'Debug: List SonarCloud Projects'
+
+# 3. SonarCloud PREPARE must come BEFORE build  
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Yoti SonarCloud'
+    organization: 'yoti'
+    scannerMode: 'MSBuild'
+    projectKey: 'dotnet-sdk'
+    projectName: 'dotnet-sdk'
+    projectVersion: '3.18.0'
+    extraProperties: |
+      sonar.verbose=true
+      sonar.exclusions=src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll
+  displayName: 'SonarCloud Prepare (BEFORE build)'
+
+# 3. Restore and build AFTER SonarCloud prepare
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-  displayName: Restore Solution
+  displayName: 'Restore NuGet packages'
 
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=false /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-  displayName: Build Solution
+    msbuildArgs: '/p:SkipInvalidConfigurations=false'
+  displayName: 'Build solution'
 
-# Cobertura is used to display tests and code coverage in Azure
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[*]Yoti.Auth.ProtoBuf.*" /p:ExcludeByAttribute="GeneratedCodeAttribute"'
-    projects: '**/*Tests/*.csproj'
-    nobuild: true
-  displayName: Run Tests With Cobertura
-    
-# OpenCover is used to display code coverage in SonarCloud
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    arguments: '--logger trx --configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude="[*]Yoti.Auth.ProtoBuf.*" /p:ExcludeByAttribute="GeneratedCodeAttribute"'
-    projects: '**/*Tests/*.csproj'
-    nobuild: true
-  displayName: Run Tests With OpenCover
-  
-# Generate the report using ReportGenerator (https://github.com/danielpalme/ReportGenerator)
-- task: DotNetCoreCLI@2
-  inputs:
-    command: custom
-    custom: tool
-    arguments: install --tool-path . dotnet-reportgenerator-globaltool
-  displayName: Install ReportGenerator tool
-  
-- script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:Cobertura
-  displayName: Cobertura Code Coverage
-
-- script: reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.opencover.xml -targetdir:D:\Reports
-  displayName: OpenCover Code Coverage
-
-# Publish the code coverage result (summary and web site)
-# The summary allows to view the coverage percentage in the summary tab
-# The web site allows to view which lines are covered directly in Azure Pipeline
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-  displayName: 'Publish Cobertura Code Coverage'
-  
 - task: SonarCloudAnalyze@1
-  displayName: Sonar Cloud Analyze
+  displayName: 'SonarCloud Analyze'
 
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-  displayName: Sonar Cloud Publish
+  displayName: 'SonarCloud Publish'
