@@ -6,7 +6,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 	{
 		public override RequestedWatchlistAdvancedCaCheck Build()
 		{
-			var config = new RequestedWatchlistAdvancedCaConfigYotiAccount(_removeDeceased, _shareUrl, _sources, _matchingStrategy);
+			var config = new RequestedWatchlistAdvancedCaConfigYotiAccount(_removeDeceased, _shareUrl, _sources, _matchingStrategy, _handledCheckLimit);
 
 			return new RequestedWatchlistAdvancedCaCheck(config);
 		}
