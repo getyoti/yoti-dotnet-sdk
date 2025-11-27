@@ -14,6 +14,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 	public class RequestedWatchlistScreeningCheckBuilder
 	{
 		private readonly List<string> _categories = new List<string>();
+		private int? _handledCheckLimit;
 
 		/// <summary>
 		/// Adds SANCTIONS to the list of categories to check in the watchlist screening check
@@ -46,9 +47,20 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 			return this;
 		}
 
+		/// <summary>
+		/// Sets the number of times a check response should return a handled result before switching to success (for sandbox testing)
+		/// </summary>
+		/// <param name="handledCheckLimit">The number of handled check responses before success</param>
+		/// <returns>The <see cref="RequestedWatchlistScreeningCheckBuilder"/></returns>
+		public RequestedWatchlistScreeningCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
+		{
+			_handledCheckLimit = handledCheckLimit;
+			return this;
+		}
+
 		public RequestedWatchlistScreeningCheck Build()
 		{
-			var config = new RequestedWatchlistScreeningConfig(_categories);
+			var config = new RequestedWatchlistScreeningConfig(_categories, _handledCheckLimit);
 
 			return new RequestedWatchlistScreeningCheck(config);
 		}

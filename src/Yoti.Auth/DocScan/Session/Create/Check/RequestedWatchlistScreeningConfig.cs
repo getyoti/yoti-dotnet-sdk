@@ -8,9 +8,10 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         [JsonProperty(PropertyName = "categories")]
         public List<string> Categories { get; }
 
-        public RequestedWatchlistScreeningConfig(List<string> categories)
+        public RequestedWatchlistScreeningConfig(List<string> categories, int? handledCheckLimit = null)
         {
             Categories = categories;
+            HandledCheckLimit = handledCheckLimit;
         }
     }
 }
