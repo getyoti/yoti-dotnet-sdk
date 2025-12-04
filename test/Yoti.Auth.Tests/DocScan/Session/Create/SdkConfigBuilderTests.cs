@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
@@ -257,13 +258,15 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.ArgumentException))]
         public void ShouldThrowExceptionWhenEnforceHandoffIsTrueAndAllowHandoffIsFalse()
         {
-            new SdkConfigBuilder()
-             .WithAllowHandoff(false)
-             .WithEnforceHandoff(true)
-             .Build();
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                new SdkConfigBuilder()
+                 .WithAllowHandoff(false)
+                 .WithEnforceHandoff(true)
+                 .Build();
+            });
         }
 
         [TestMethod]

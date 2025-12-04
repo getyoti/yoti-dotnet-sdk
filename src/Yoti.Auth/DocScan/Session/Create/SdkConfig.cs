@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -71,7 +72,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             // Validate enforce_handoff can only be true when allow_handoff is not false
             if (enforceHandoff == true && allowHandoff == false)
             {
-                throw new System.ArgumentException("enforce_handoff cannot be true when allow_handoff is false");
+                throw new ArgumentException("enforce_handoff cannot be true when allow_handoff is false");
             }
             EnforceHandoff = enforceHandoff;
 
