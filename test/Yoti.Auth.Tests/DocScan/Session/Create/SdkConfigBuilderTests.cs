@@ -170,6 +170,78 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShouldBuildWithEnforceHandoff()
+        {
+            bool enforceHandoff = true;
+
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .WithAllowHandoff(true)
+             .WithEnforceHandoff(enforceHandoff)
+             .Build();
+
+            Assert.AreEqual(enforceHandoff, sdkConfig.EnforceHandoff);
+        }
+
+        [TestMethod]
+        public void EnforceHandoffShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .Build();
+
+            Assert.IsNull(sdkConfig.EnforceHandoff);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentException))]
+        public void ShouldThrowExceptionWhenEnforceHandoffIsTrueAndAllowHandoffIsFalse()
+        {
+            new SdkConfigBuilder()
+                .WithAllowHandoff(false)
+                .WithEnforceHandoff(true)
+                .Build();
+        }
+
+        [TestMethod]
+        public void ShouldAllowEnforceHandoffTrueWhenAllowHandoffIsTrue()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithAllowHandoff(true)
+                .WithEnforceHandoff(true)
+                .Build();
+
+            Assert.AreEqual(true, sdkConfig.AllowHandoff);
+            Assert.AreEqual(true, sdkConfig.EnforceHandoff);
+        }
+
+        [TestMethod]
+        public void ShouldAllowEnforceHandoffFalseWhenAllowHandoffIsFalse()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithAllowHandoff(false)
+                .WithEnforceHandoff(false)
+                .Build();
+
+            Assert.AreEqual(false, sdkConfig.AllowHandoff);
+            Assert.AreEqual(false, sdkConfig.EnforceHandoff);
+        }
+
+        [TestMethod]
+        public void ShouldAllowEnforceHandoffTrueWhenAllowHandoffIsNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithEnforceHandoff(true)
+                .Build();
+
+            Assert.IsNull(sdkConfig.AllowHandoff);
+            Assert.AreEqual(true, sdkConfig.EnforceHandoff);
+        }
+
+        [TestMethod]
         public void ShouldBuildWithIdDocumentTextExtractionCategoryAttempts()
         {
             string category = "someCategory";
