@@ -38,6 +38,9 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "allow_handoff")]
         public bool? AllowHandoff { get; }
 
+        [JsonProperty(PropertyName = "enforce_handoff")]
+        public bool? EnforceHandoff { get; }
+
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
 
@@ -51,6 +54,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
+                            bool? enforceHandoff = null,
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
@@ -63,6 +67,13 @@ namespace Yoti.Auth.DocScan.Session.Create
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
+
+            // Validate enforce_handoff can only be true when allow_handoff is not false
+            if (enforceHandoff == true && allowHandoff == false)
+            {
+                throw new System.ArgumentException("enforce_handoff cannot be true when allow_handoff is false");
+            }
+            EnforceHandoff = enforceHandoff;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {

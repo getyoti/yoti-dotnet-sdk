@@ -15,6 +15,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _errorUrl;
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
+        private bool? _enforceHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
 
         /// <summary>
@@ -154,6 +155,25 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets if mobile handoff is enforced for the session
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         When enforce_handoff is set to true, the user must complete the session on a mobile device.
+        ///     </para>
+        ///     <para>
+        ///         Note: enforce_handoff can only be set to true when allow_handoff is not false. Validation will occur during the Build() call.
+        ///     </para>
+        /// </remarks>
+        /// <param name="enforceHandoff">If mobile handoff is enforced</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithEnforceHandoff(bool enforceHandoff)
+        {
+            _enforceHandoff = enforceHandoff;
+            return this;
+        }
+
+        /// <summary>
         /// Allows configuring the number of attempts permitted for text extraction on an ID document
         /// </summary>
         /// <remarks>
@@ -253,6 +273,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
+                _enforceHandoff,
                 _idDocumentTextDataExtractionAttemptsConfig);
         }
     }
