@@ -28,6 +28,9 @@ namespace Yoti.Auth.DigitalIdentity
         [JsonProperty("receipt")]
         public receipt Receipt { get; set; }
 
+        [JsonProperty("resources")]
+        public Resource.DigitalIdentityResourceContainer Resources { get; set; }
+
 #pragma warning restore 0649
 
     }

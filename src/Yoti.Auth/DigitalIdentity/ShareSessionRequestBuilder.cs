@@ -11,6 +11,7 @@ namespace Yoti.Auth.DigitalIdentity
         private Notification _notification;
         private readonly List<BaseExtension> _extensions = new List<BaseExtension>();
         private object _subject;
+        private readonly List<Policy.RequiredShareCode> _requiredShareCodes = new List<Policy.RequiredShareCode>();
 
         /// <summary>
         /// The device's redirect url. Must be a URL relative to the Application Domain
@@ -68,9 +69,21 @@ namespace Yoti.Auth.DigitalIdentity
             return this;
         }
 
+        /// <summary>
+        /// Adds a required share code to the session request
+        /// </summary>
+        /// <param name="requiredShareCode">The required share code to add</param>
+        /// <returns><see cref="ShareSessionRequestBuilder"/> with a required share code added</returns>
+        public ShareSessionRequestBuilder WithRequiredShareCode(Policy.RequiredShareCode requiredShareCode)
+        {
+            _requiredShareCodes.Add(requiredShareCode);
+            return this;
+        }
+
         public ShareSessionRequest Build()
         {
-            return new ShareSessionRequest(_dynamicPolicy, _redirectUri, _notification, _extensions, _subject);
+            List<Policy.RequiredShareCode> requiredShareCodes = _requiredShareCodes.Count > 0 ? _requiredShareCodes : null;
+            return new ShareSessionRequest(_dynamicPolicy, _redirectUri, _notification, _extensions, _subject, requiredShareCodes);
         }
     }
 }

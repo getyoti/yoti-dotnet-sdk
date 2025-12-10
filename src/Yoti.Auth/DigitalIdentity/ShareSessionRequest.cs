@@ -21,9 +21,10 @@ namespace Yoti.Auth.DigitalIdentity
         public string _redirectUri { get; set; } 
 
         [JsonProperty(PropertyName = "notification")]
-        public Notification _notification { get; set; } 
+        public Notification _notification { get; set; }
 
-      
+        [JsonProperty(PropertyName = "required_share_codes", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        private readonly List<Policy.RequiredShareCode> _requiredShareCodes;
 
         [JsonIgnore]
         public Policy.Policy DynamicPolicy
@@ -71,13 +72,23 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        public ShareSessionRequest(Policy.Policy dynamicPolicy, string redirectUri, Notification notification = null, List<BaseExtension> extensions = null, object subject = null)
+        [JsonIgnore]
+        public List<Policy.RequiredShareCode> RequiredShareCodes
+        {
+            get
+            {
+                return _requiredShareCodes;
+            }
+        }
+
+        public ShareSessionRequest(Policy.Policy dynamicPolicy, string redirectUri, Notification notification = null, List<BaseExtension> extensions = null, object subject = null, List<Policy.RequiredShareCode> requiredShareCodes = null)
         {
             _redirectUri = redirectUri;
             _notification = notification;
             _dynamicPolicy = dynamicPolicy;
             _extensions = extensions ?? new List<BaseExtension>();
             _subject = subject;
+            _requiredShareCodes = requiredShareCodes;
         }
     }
 }
