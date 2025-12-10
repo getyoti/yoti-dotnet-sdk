@@ -11,6 +11,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Task
     [JsonConverter(typeof(JsonSubtypes), "type")]
     [JsonSubtypes.KnownSubType(typeof(TextExtractionTaskResponse), Constants.DocScanConstants.IdDocumentTextDataExtraction)]
     [JsonSubtypes.KnownSubType(typeof(SupplementaryDocTextExtractionTaskResponse), Constants.DocScanConstants.SupplementaryDocumentTextDataExtraction)]
+    [JsonSubtypes.KnownSubType(typeof(VerifyShareCodeTaskResponse), Constants.DocScanConstants.VerifyShareCodeTask)]
     public class TaskResponse
     {
         [JsonProperty(PropertyName = "id")]

@@ -402,5 +402,60 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.IsNull(sessionSpec.Subject);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithRequiredShareCode()
+        {
+            string issuer = "test_issuer";
+            string scheme = "test_scheme";
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithRequiredShareCode(
+                    new RequiredShareCodeBuilder()
+                    .WithIssuer(issuer)
+                    .WithScheme(scheme)
+                    .Build())
+                .Build();
+
+            Assert.AreEqual(1, sessionSpec.RequiredShareCodes.Count);
+            Assert.AreEqual(issuer, sessionSpec.RequiredShareCodes[0].Issuer);
+            Assert.AreEqual(scheme, sessionSpec.RequiredShareCodes[0].Scheme);
+        }
+
+        [TestMethod]
+        public void ShouldSerializeRequiredShareCodesCorrectly()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithRequiredShareCode(
+                    new RequiredShareCodeBuilder()
+                    .WithIssuer("issuer1")
+                    .WithScheme("scheme1")
+                    .Build())
+                .WithRequiredShareCode(
+                    new RequiredShareCodeBuilder()
+                    .WithIssuer("issuer2")
+                    .WithScheme("scheme2")
+                    .Build())
+                .Build();
+
+            string sessionSpecJson = JsonConvert.SerializeObject(sessionSpec);
+            Assert.IsTrue(sessionSpecJson.Contains("\"required_share_codes\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"issuer1\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"scheme1\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"issuer2\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"scheme2\""));
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForRequiredShareCodes()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.RequiredShareCodes);
+        }
     }
 }
