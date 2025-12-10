@@ -402,5 +402,84 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.IsNull(sessionSpec.Subject);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithRequiredShareCode()
+        {
+            string issuer = "test-issuer";
+            string scheme = "test-scheme";
+
+            RequiredShareCode shareCode = new RequiredShareCodeBuilder()
+                .WithIssuer(issuer)
+                .WithScheme(scheme)
+                .Build();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithRequiredShareCode(shareCode)
+                .Build();
+
+            Assert.IsNotNull(sessionSpec.RequiredShareCodes);
+            Assert.AreEqual(1, sessionSpec.RequiredShareCodes.Count);
+            Assert.AreEqual("SHARE_CODE", sessionSpec.RequiredShareCodes[0].Type);
+            Assert.AreEqual(issuer, sessionSpec.RequiredShareCodes[0].Issuer);
+            Assert.AreEqual(scheme, sessionSpec.RequiredShareCodes[0].Scheme);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithMultipleRequiredShareCodes()
+        {
+            RequiredShareCode shareCode1 = new RequiredShareCodeBuilder()
+                .WithIssuer("issuer1")
+                .WithScheme("scheme1")
+                .Build();
+
+            RequiredShareCode shareCode2 = new RequiredShareCodeBuilder()
+                .WithIssuer("issuer2")
+                .WithScheme("scheme2")
+                .Build();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithRequiredShareCode(shareCode1)
+                .WithRequiredShareCode(shareCode2)
+                .Build();
+
+            Assert.IsNotNull(sessionSpec.RequiredShareCodes);
+            Assert.AreEqual(2, sessionSpec.RequiredShareCodes.Count);
+            Assert.AreEqual("issuer1", sessionSpec.RequiredShareCodes[0].Issuer);
+            Assert.AreEqual("issuer2", sessionSpec.RequiredShareCodes[1].Issuer);
+        }
+
+        [TestMethod]
+        public void ShouldCorrectlySerialiseRequiredShareCodes()
+        {
+            RequiredShareCode shareCode = new RequiredShareCodeBuilder()
+                .WithIssuer("test-issuer")
+                .WithScheme("test-scheme")
+                .Build();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithRequiredShareCode(shareCode)
+                .Build();
+
+            string sessionSpecJson = JsonConvert.SerializeObject(sessionSpec);
+
+            Assert.IsTrue(sessionSpecJson.Contains("\"required_share_codes\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"type\":\"SHARE_CODE\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"issuer\":\"test-issuer\""));
+            Assert.IsTrue(sessionSpecJson.Contains("\"scheme\":\"test-scheme\""));
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForRequiredShareCodes()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.RequiredShareCodes);
+        }
     }
 }

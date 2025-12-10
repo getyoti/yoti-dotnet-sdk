@@ -24,6 +24,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private object _subject;
         private bool _createIdentityProfilePreview;
         private AdvancedIdentityProfile _advancedIdentityProfileRequirements;
+        private List<RequiredShareCode> _requiredShareCodes;
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)
@@ -188,6 +189,20 @@ namespace Yoti.Auth.DocScan.Session.Create
             _advancedIdentityProfileRequirements = profile; 
             return this;
         }
+
+        /// <summary>
+        /// Sets a required share code for the session
+        /// </summary>
+        /// <param name="requiredShareCode">The <see cref="RequiredShareCode"/></param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithRequiredShareCode(RequiredShareCode requiredShareCode)
+        {
+            if (_requiredShareCodes == null)
+                _requiredShareCodes = new List<RequiredShareCode>();
+
+            _requiredShareCodes.Add(requiredShareCode);
+            return this;
+        }
         
         /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder
@@ -209,7 +224,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _identityProfileRequirements,
                 _subject,
                 _createIdentityProfilePreview,
-                _advancedIdentityProfileRequirements
+                _advancedIdentityProfileRequirements,
+                _requiredShareCodes
                 );
         }
     }

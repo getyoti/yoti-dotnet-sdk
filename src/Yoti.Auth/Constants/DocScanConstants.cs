@@ -47,6 +47,7 @@
         public const string Ignore = "IGNORE";
 
         public const string IdDocument = "ID_DOCUMENT";
+        public const string ShareCode = "SHARE_CODE";
         public const string OrthogonalRestrictions = "ORTHOGONAL_RESTRICTIONS";
         public const string DocumentRestrictions = "DOCUMENT_RESTRICTIONS";
         public const string SupplementaryDocument = "SUPPLEMENTARY_DOCUMENT";
