@@ -8,6 +8,6 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
     public class MediaContainerResponse : IResponseWithMediaProperty
     {
         [JsonProperty(PropertyName = "media")]
-        public MediaResponse Media { get; private set; }
+        public MediaResponse Media { get; internal set; }
     }
 }
