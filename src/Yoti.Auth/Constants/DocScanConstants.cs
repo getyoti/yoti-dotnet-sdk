@@ -9,6 +9,7 @@
         public const string IdDocumentFaceMatch = "ID_DOCUMENT_FACE_MATCH";
         public const string SupplementaryDocumentTextDataCheck = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_CHECK";
         public const string SupplementaryDocumentTextDataExtraction = "SUPPLEMENTARY_DOCUMENT_TEXT_DATA_EXTRACTION";
+        public const string VerifyShareCodeTask = "VERIFY_SHARE_CODE_TASK";
         public const string ThirdPartyIdentity = "THIRD_PARTY_IDENTITY";
         public const string ThirdPartyIdentityFraudOne = "THIRD_PARTY_IDENTITY_FRAUD_1";
         public const string WatchlistScreening = "WATCHLIST_SCREENING";
@@ -50,6 +51,7 @@
         public const string OrthogonalRestrictions = "ORTHOGONAL_RESTRICTIONS";
         public const string DocumentRestrictions = "DOCUMENT_RESTRICTIONS";
         public const string SupplementaryDocument = "SUPPLEMENTARY_DOCUMENT";
+        public const string ShareCode = "SHARE_CODE";
 
         public const string IncludeList = "WHITELIST";
         public const string ExcludeList = "BLACKLIST";
