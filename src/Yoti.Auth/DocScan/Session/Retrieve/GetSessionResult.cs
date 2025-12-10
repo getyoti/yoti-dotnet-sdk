@@ -147,5 +147,13 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
             return Checks.OfType<WatchlistAdvancedCaCheckResponse>().ToList();
         }
+
+        public List<ShareCodeResourceResponse> GetShareCodes()
+        {
+            if (Resources?.ShareCodes == null)
+                return new List<ShareCodeResourceResponse>();
+
+            return Resources.ShareCodes;
+        }
     }
 }

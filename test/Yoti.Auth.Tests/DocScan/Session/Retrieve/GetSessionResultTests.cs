@@ -8,6 +8,7 @@ using Yoti.Auth.DocScan.Session.Retrieve.AdvancedIdentityProfile;
 using Yoti.Auth.DocScan.Session.Retrieve.AdvancedIdentityProfilePreview;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
 using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfilePreview;
+using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 {
@@ -407,6 +408,46 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
             };
 
             Assert.AreEqual(2, getSessionResult.Checks.Count);
+        }
+
+        [TestMethod]
+        public void GetShareCodesShouldReturnEmptyListWhenResourcesIsNull()
+        {
+            var getSessionResult = new GetSessionResult();
+
+            Assert.AreEqual(0, getSessionResult.GetShareCodes().Count);
+        }
+
+        [TestMethod]
+        public void GetShareCodesShouldReturnEmptyListWhenShareCodesIsNull()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Resources = new ResourceContainer()
+            };
+
+            Assert.AreEqual(0, getSessionResult.GetShareCodes().Count);
+        }
+
+        [TestMethod]
+        public void GetShareCodesShouldReturnShareCodes()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Resources = new ResourceContainer
+                {
+                    ShareCodes = new List<ShareCodeResourceResponse>
+                    {
+                        new ShareCodeResourceResponse { Id = "share-1" },
+                        new ShareCodeResourceResponse { Id = "share-2" }
+                    }
+                }
+            };
+
+            var shareCodes = getSessionResult.GetShareCodes();
+            Assert.AreEqual(2, shareCodes.Count);
+            Assert.AreEqual("share-1", shareCodes[0].Id);
+            Assert.AreEqual("share-2", shareCodes[1].Id);
         }
     }
 }
