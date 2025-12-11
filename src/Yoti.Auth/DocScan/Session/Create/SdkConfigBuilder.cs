@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -234,7 +235,50 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
+
+        /// <summary>
+        /// Adds a screen to the list of suppressed screens in the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Suppressed screens will be omitted from the user's IDV flow, allowing for a shortened experience
+        ///     </para>
+        ///     <para>
+        ///         Multiple screens can be suppressed by calling this method multiple times
+        ///     </para>
+        /// </remarks>
+        /// <param name="screenName">The name of the screen to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreen(string screenName)
+        {
+            if (_suppressedScreens == null)
+                _suppressedScreens = new List<string>();
+
+            if (!_suppressedScreens.Contains(screenName))
+                _suppressedScreens.Add(screenName);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the list of suppressed screens in the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Suppressed screens will be omitted from the user's IDV flow, allowing for a shortened experience
+        ///     </para>
+        ///     <para>
+        ///         This method replaces any previously configured suppressed screens
+        ///     </para>
+        /// </remarks>
+        /// <param name="screenNames">The list of screen names to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> screenNames)
+        {
+            _suppressedScreens = screenNames != null ? new List<string>(screenNames) : null;
+            return this;
+        }
 
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
@@ -253,7 +297,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }
