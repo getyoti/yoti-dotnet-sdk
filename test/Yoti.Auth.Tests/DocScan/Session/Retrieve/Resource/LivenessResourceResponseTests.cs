@@ -14,6 +14,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     {
         [DataTestMethod]
         [DataRow(DocScanConstants.Zoom, typeof(ZoomLivenessResourceResponse))]
+        [DataRow(DocScanConstants.Static, typeof(StaticLivenessResourceResponse))]
         [DataRow("OTHER", typeof(LivenessResourceResponse))]
         [DataRow("", typeof(LivenessResourceResponse))]
         [DataRow(null, typeof(LivenessResourceResponse))]
@@ -40,6 +41,29 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
                 JsonConvert.DeserializeObject<GetSessionResult>(json);
 
             Assert.IsInstanceOfType(getSessionResultWithConverter.Resources.LivenessCapture.Single(), expectedType);
+        }
+
+        [TestMethod]
+        public void StaticLivenessResourceResponse_CaptureType_IsDeserialized()
+        {
+            string json = @"{
+                ""resources"": {
+                    ""liveness_capture"": [{
+                        ""liveness_type"": ""STATIC"",
+                        ""capture_type"": ""SELFIE"",
+                        ""id"": ""test-id""
+                    }]
+                }
+            }";
+
+            GetSessionResult result = JsonConvert.DeserializeObject<GetSessionResult>(json);
+
+            Assert.IsNotNull(result.Resources.LivenessCapture);
+            Assert.AreEqual(1, result.Resources.LivenessCapture.Count);
+            
+            var staticLiveness = result.Resources.LivenessCapture.Single() as StaticLivenessResourceResponse;
+            Assert.IsNotNull(staticLiveness);
+            Assert.AreEqual("SELFIE", staticLiveness.CaptureType);
         }
     }
 }
