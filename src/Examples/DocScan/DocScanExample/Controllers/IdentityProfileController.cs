@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,14 +16,14 @@ using Yoti.Auth.DocScan.Session.Create.Task;
  
 namespace DocScanExample.Controllers
 {
-    public class DbsController : Controller
+    public class IdentityProfileController : Controller
     {
         private readonly DocScanClient _client;
 
         private readonly string _baseUrl;
         private readonly Uri _apiUrl;
 
-        public DbsController(IHttpContextAccessor httpContextAccessor)
+        public IdentityProfileController(IHttpContextAccessor httpContextAccessor)
         {
             var request = httpContextAccessor.HttpContext.Request;
             
@@ -34,16 +34,40 @@ namespace DocScanExample.Controllers
 
         public IActionResult Index()
         {
+            // Build Structured Postal Address
+            var structuredPostalAddress = new StructuredPostalAddressBuilder()
+                .WithAddressFormat(1)
+                .WithBuildingNumber("74")
+                .WithAddressLine1("AddressLine1")
+                .WithTownCity("CityName")
+                .WithPostalCode("E143RN")
+                .WithCountryIso("GBR")
+                .WithCountry("United Kingdom")
+                .WithFormattedAddress("74\nAddressLine1\nCityName\nE143RN\nGBR")
+                .Build();
+
+            // Build Applicant Profile
+            var applicantProfile = new ApplicantProfileBuilder()
+                .WithFullName("John Doe")
+                .WithDateOfBirth("1988-11-02")
+                .WithNamePrefix("Mr")
+                .WithStructuredPostalAddress(structuredPostalAddress)
+                .Build();
+
+            // Build Resource Creation Container
+            var resources = new ResourceCreationContainerBuilder()
+                .WithApplicantProfile(applicantProfile)
+                .Build();
 
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
-                .WithResourcesTtl(90000)
+                .WithResourcesTtl(96400)
                 .WithUserTrackingId("some-user-tracking-id")
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
-                    .WithAllowsCameraAndUpload()
+                    //.WithAllowsCameraAndUpload()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
                     .WithFontColour("#FFFFFF")
@@ -67,7 +91,9 @@ namespace DocScanExample.Controllers
                 .WithSubject(new
                 {
                     subject_id = "some_subject_id_string"
-                })    
+                })
+                // Add Resources with Applicant Profile
+                .WithResources(resources)
             .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
