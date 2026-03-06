@@ -26,8 +26,8 @@ namespace DocScanExample.Controllers
         public IdentityProfileController(IHttpContextAccessor httpContextAccessor)
         {
             var request = httpContextAccessor.HttpContext.Request;
-            
-            _baseUrl = $"{request.Scheme}://{request.Host}"; ;
+
+            _baseUrl = $"{request.Scheme}://{request.Host}";
             _apiUrl = GetApiUrl();
             _client = GetDocScanClient(_apiUrl);
         }
@@ -126,12 +126,13 @@ namespace DocScanExample.Controllers
             if (apiUrl == null)
                 apiUrl = GetApiUrl();
 
-            StreamReader privateKeyStream = System.IO.File.OpenText(Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH"));
-            var key = CryptoEngine.LoadRsaKey(privateKeyStream);
-
-            string clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
-
-            return new DocScanClient(clientSdkId, key, new HttpClient(), apiUrl);
+            string keyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
+            using (StreamReader privateKeyStream = System.IO.File.OpenText(keyFilePath))
+            {
+                var key = CryptoEngine.LoadRsaKey(privateKeyStream);
+                string clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
+                return new DocScanClient(clientSdkId, key, new HttpClient(), apiUrl);
+            }
         }
 
         internal static Uri GetApiUrl()
