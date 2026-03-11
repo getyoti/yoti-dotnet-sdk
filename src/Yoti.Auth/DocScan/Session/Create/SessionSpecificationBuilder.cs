@@ -21,6 +21,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private object _identityProfileRequirements;
         private object _subject;
         private bool _createIdentityProfilePreview;
+        private object _advancedIdentityProfileRequirements;
 
         /// <summary>
         /// Sets the client session token TTL (time-to-live)
@@ -151,6 +152,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
+        
 
         /// <summary>
         /// Sets the Subject object for the session
@@ -175,6 +177,17 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the Advanced Identity Profile Requirements for the session
+        /// </summary>
+        /// <param name="advancedIdentityProfileRequirements">The Advanced Identity Profile Requirements <see cref="object"/> for the session</param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithAdvancedIdentityProfileRequirements(object advancedIdentityProfileRequirements)
+        {
+            _advancedIdentityProfileRequirements = advancedIdentityProfileRequirements;
+            return this;
+        }
+        
+        /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SessionSpecification"/></returns>
@@ -193,7 +206,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _sessionDeadline,
                 _identityProfileRequirements,
                 _subject,
-                _createIdentityProfilePreview
+                _createIdentityProfilePreview,
+                _advancedIdentityProfileRequirements
                 );
         }
     }

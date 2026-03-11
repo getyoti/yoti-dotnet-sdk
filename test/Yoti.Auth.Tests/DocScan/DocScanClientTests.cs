@@ -686,6 +686,37 @@ namespace Yoti.Auth.Tests.DocScan
 
             Assert.AreEqual(mediaId, result.IdentityProfile.Report["media"]["id"]);
         }
+        
+        [TestMethod]
+        public void ShouldParseAdvancedIdentityProfileResponse()
+        {
+            string mediaId = "c69ff2db-6caf-4e74-8386-037711bbc8d7";
+            string getSessionResult;
+            using (StreamReader r = File.OpenText("TestData/GetSessionResultWithAdvancedIdentityProfile.json"))
+            {
+                getSessionResult = r.ReadToEnd();
+            }
+
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(getSessionResult),
+            };
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            GetSessionResult result = docScanClient.GetSession("some-session-id");
+            
+            Assert.AreEqual("DONE", result.AdvancedIdentityProfile.Result);
+            Assert.AreEqual("someStringHere", result.AdvancedIdentityProfile.SubjectId);
+            Assert.AreEqual("MANDATORY_DOCUMENT_COULD_NOT_BE_PROVIDED", result.AdvancedIdentityProfile.FailureReason.ReasonCode);
+
+            Assert.AreEqual("UK_TFIDA", result.AdvancedIdentityProfile.Report["compliance"][0]["trust_framework"]);
+            Assert.AreEqual(mediaId, result.AdvancedIdentityProfile.Report["media"]["id"].Value<string>());
+        }
 
         private DocScanClient SetupDocScanClient(dynamic responseContent)
         {
