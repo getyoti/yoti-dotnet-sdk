@@ -10,9 +10,6 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
     /// </summary>
     public class ShareCodeResourceResponse : ResourceResponse
     {
-        [JsonProperty(PropertyName = "source")]
-        public new string Source { get; internal set; }
-
         [JsonProperty(PropertyName = "created_at")]
         public string CreatedAt { get; internal set; }
 

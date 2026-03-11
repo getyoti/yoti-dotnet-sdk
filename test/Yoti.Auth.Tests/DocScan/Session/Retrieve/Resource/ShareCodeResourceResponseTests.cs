@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.DocScan.Session.Retrieve;
+using Yoti.Auth.DocScan.Session.Retrieve.Configuration.Capture.Source;
 using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 using Yoti.Auth.DocScan.Session.Retrieve.Task;
 
@@ -103,10 +104,11 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Resource
             var returnedMedia = new ShareCodeMediaResponse();
             var idPhotoMedia = new ShareCodeMediaResponse();
             var fileMedia = new ShareCodeMediaResponse();
+            var source = new EndUserAllowedSourceResponse();
 
             var shareCode = new ShareCodeResourceResponse
             {
-                Source = "some-source",
+                Source = source,
                 CreatedAt = "2026-01-01T00:00:00Z",
                 LastUpdated = "2026-01-02T00:00:00Z",
                 LookupProfile = lookupMedia,
@@ -115,7 +117,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Resource
                 File = fileMedia,
             };
 
-            Assert.AreEqual("some-source", shareCode.Source);
+            Assert.AreEqual(source, shareCode.Source);
             Assert.AreEqual("2026-01-01T00:00:00Z", shareCode.CreatedAt);
             Assert.AreEqual("2026-01-02T00:00:00Z", shareCode.LastUpdated);
             Assert.IsNotNull(shareCode.LookupProfile);
@@ -131,7 +133,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Resource
             {
                 new ShareCodeResourceResponse
                 {
-                    Source = "test-source",
+                    Source = new EndUserAllowedSourceResponse(),
                     CreatedAt = "2026-01-01T00:00:00Z",
                     LastUpdated = "2026-01-02T00:00:00Z",
                     Tasks = new List<TaskResponse>
