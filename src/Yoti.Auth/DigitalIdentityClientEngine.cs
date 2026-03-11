@@ -66,5 +66,29 @@ namespace Yoti.Auth
 
             return result;
         }
+
+        /// <summary>
+        /// Creates a share session and returns the result with HTTP response headers
+        /// </summary>
+        public async Task<Web.YotiHttpResponse<ShareSessionResult>> CreateShareSessionWithHeadersAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, ShareSessionRequest shareSessionRequest)
+        {
+            Web.YotiHttpResponse<ShareSessionResult> result = await Task.Run(async () => await DigitalIdentityService.CreateShareSessionWithHeaders(
+                _httpClient, apiUrl, sdkId, keyPair, shareSessionRequest).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a share receipt and returns the result with HTTP response headers
+        /// </summary>
+        public async Task<Web.YotiHttpResponse<SharedReceiptResponse>> GetShareReceiptWithHeadersAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string receiptId)
+        {
+            Web.YotiHttpResponse<SharedReceiptResponse> result = await Task.Run(async () => await DigitalIdentityService.GetShareReceiptWithHeaders(
+                _httpClient, sdkId, apiUrl, keyPair, receiptId).ConfigureAwait(false))
+                .ConfigureAwait(false);
+
+            return result;
+        }
     }
 }

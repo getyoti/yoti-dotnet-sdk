@@ -36,7 +36,7 @@ namespace Yoti.Auth.DocScan
             ApiUri = apiUri;
         }
 
-        public async Task<CreateSessionResult> CreateSession(string sdkId, AsymmetricCipherKeyPair keyPair, SessionSpecification sessionSpec)
+        public async Task<YotiHttpResponse<CreateSessionResult>> CreateSession(string sdkId, AsymmetricCipherKeyPair keyPair, SessionSpecification sessionSpec)
         {
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
@@ -49,13 +49,13 @@ namespace Yoti.Auth.DocScan
                 .WithKeyPair(keyPair)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithBaseUri(ApiUri)
-                .WithEndpoint("/sessions")
+                .WithEndpoint("sessions")
                 .WithQueryParam("sdkId", sdkId)
                 .WithContent(body)
                 .WithContentHeader(Api.ContentTypeHeader, Api.ContentTypeJson)
                 .Build();
 
-            using (HttpResponseMessage response = await createSessionRequest.Execute(_httpClient).ConfigureAwait(false))
+            return await createSessionRequest.ExecuteWithHeaders(_httpClient, async response =>
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -66,10 +66,8 @@ namespace Yoti.Auth.DocScan
                 var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateSessionResult>(responseObject));
 
                 return deserialized;
-            }
-        }
-
-        public async Task<GetSessionResult> GetSession(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+            }).ConfigureAwait(false);
+        }        public async Task<YotiHttpResponse<GetSessionResult>> GetSession(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
         {
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
@@ -86,7 +84,7 @@ namespace Yoti.Auth.DocScan
                 .WithQueryParam("sdkId", sdkId)
                 .Build();
 
-            using (HttpResponseMessage response = await sessionRequest.Execute(_httpClient).ConfigureAwait(false))
+            return await sessionRequest.ExecuteWithHeaders(_httpClient, async response =>
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -97,7 +95,7 @@ namespace Yoti.Auth.DocScan
                 var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
 
                 return deserialized;
-            }
+            }).ConfigureAwait(false);
         }
 
         public async Task DeleteSession(string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)

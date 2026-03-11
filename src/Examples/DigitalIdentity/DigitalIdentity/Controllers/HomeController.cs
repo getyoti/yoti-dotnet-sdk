@@ -69,9 +69,18 @@ namespace DigitalIdentityExample.Controllers
 
                 var SessionResult = yotiClient.CreateShareSession(sessionReq);
 
+                // Log all headers
+                _logger.LogInformation("=== CreateSession Headers ===");
+                foreach (var header in SessionResult.Headers)
+                {
+                    _logger.LogInformation($"Header: {header.Key} = {string.Join(", ", header.Value)}");
+                }
+                _logger.LogInformation($"X-Request-ID from helper: {SessionResult.RequestId}");
+                _logger.LogInformation("=== End Headers ===");
+
                 var sharedReceiptResponse = new SharedReceiptResponse();
                 ViewBag.YotiClientSdkId = _clientSdkId;
-                ViewBag.sessionID = SessionResult.Id;
+                ViewBag.sessionID = SessionResult.Data.Id;
 
                 return View("DigitalIdentity", sharedReceiptResponse);
             }
