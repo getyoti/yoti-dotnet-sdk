@@ -43,7 +43,7 @@ namespace DocScanExample.Controllers
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
-                .WithResourcesTtl(86400)
+                .WithResourcesTtl(90400)
                 .WithUserTrackingId("some-user-tracking-id")
                 //Add Checks (using builders)
                 .WithRequestedCheck(

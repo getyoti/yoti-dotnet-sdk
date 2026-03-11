@@ -821,5 +821,90 @@
             }
         }
 
+        @if (Model.Resources.ApplicantProfiles != null && Model.Resources.ApplicantProfiles.Count > 0)
+        {
+            <div class="row pt-4">
+                <div class="col">
+                    <h2>Applicant Profiles</h2>
+                </div>
+            </div>
+
+            @foreach (var applicantProfile in Model.Resources.ApplicantProfiles)
+            {
+                var profileIndex = Model.Resources.ApplicantProfiles.IndexOf(applicantProfile);
+                <div class="row pt-4">
+                    <div class="col">
+                        <h3>Applicant Profile @(profileIndex + 1)</h3>
+                        <table class="table table-striped table-light">
+                            <tbody>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>@applicantProfile.Id</td>
+                                </tr>
+                                @if (applicantProfile.Source != null)
+                                {
+                                    <tr>
+                                        <td>Source Type</td>
+                                        <td>@applicantProfile.Source.Type</td>
+                                    </tr>
+                                }
+                                @if (applicantProfile.CreatedAt.HasValue)
+                                {
+                                    <tr>
+                                        <td>Created At</td>
+                                        <td>@applicantProfile.CreatedAt.Value.ToString("o")</td>
+                                    </tr>
+                                }
+                                @if (applicantProfile.LastUpdated.HasValue)
+                                {
+                                    <tr>
+                                        <td>Last Updated</td>
+                                        <td>@applicantProfile.LastUpdated.Value.ToString("o")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        @if (applicantProfile.Media != null)
+                        {
+                            <div class="accordion mt-3">
+                                <div class="card">
+                                    <div class="card-header" id="applicant-profile-@profileIndex-media">
+                                        <h4 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapse-applicant-profile-@profileIndex-media" aria-expanded="true"
+                                                    aria-controls="collapse-applicant-profile-@profileIndex-media">
+                                                Media
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-applicant-profile-@profileIndex-media" class="collapse" aria-labelledby="applicant-profile-@profileIndex-media">
+                                        <div class="card-body">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>ID</td>
+                                                        <td>
+                                                            <a href="/media/@applicantProfile.Media.Id/@Model.SessionId">
+                                                                @applicantProfile.Media.Id
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Type</td>
+                                                        <td>@applicantProfile.Media.Type</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+
     }
 </div>

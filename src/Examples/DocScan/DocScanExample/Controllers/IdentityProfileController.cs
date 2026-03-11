@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,58 +16,58 @@ using Yoti.Auth.DocScan.Session.Create.Task;
  
 namespace DocScanExample.Controllers
 {
-    public class DbsController : Controller
+    public class IdentityProfileController : Controller
     {
         private readonly DocScanClient _client;
 
         private readonly string _baseUrl;
         private readonly Uri _apiUrl;
 
-        public DbsController(IHttpContextAccessor httpContextAccessor)
+        public IdentityProfileController(IHttpContextAccessor httpContextAccessor)
         {
             var request = httpContextAccessor.HttpContext.Request;
-            
-            _baseUrl = $"{request.Scheme}://{request.Host}"; ;
+
+            _baseUrl = $"{request.Scheme}://{request.Host}";
             _apiUrl = GetApiUrl();
             _client = GetDocScanClient(_apiUrl);
         }
 
         public IActionResult Index()
         {
-            string advancedIdentityProfileJson = @"
-            {
-                ""profiles"": [
-                    {
-                        ""trust_framework"": ""UK_TFIDA"",
-                        ""schemes"": [
-                            {
-                                ""label"": ""LB912"",
-                                ""type"": ""RTW""
-                            }
-                        ]
-                    },
-                    {
-                        ""trust_framework"": ""YOTI_GLOBAL"",
-                        ""schemes"": [
-                            {
-                                ""label"": ""LB321"",
-                                ""type"": ""IDENTITY"",
-                                ""objective"": ""AL_L1"",
-                            }
-                        ]
-                    }
-                ]
-            }";
+            // Build Structured Postal Address
+            var structuredPostalAddress = new StructuredPostalAddressBuilder()
+                .WithAddressFormat(1)
+                .WithBuildingNumber("74")
+                .WithAddressLine1("AddressLine1")
+                .WithTownCity("CityName")
+                .WithPostalCode("E143RN")
+                .WithCountryIso("GBR")
+                .WithCountry("United Kingdom")
+                .WithFormattedAddress("74\nAddressLine1\nCityName\nE143RN\nGBR")
+                .Build();
+
+            // Build Applicant Profile
+            var applicantProfile = new ApplicantProfileBuilder()
+                .WithFullName("John Doe")
+                .WithDateOfBirth("1988-11-02")
+                .WithNamePrefix("Mr")
+                .WithStructuredPostalAddress(structuredPostalAddress)
+                .Build();
+
+            // Build Resource Creation Container
+            var resources = new ResourceCreationContainerBuilder()
+                .WithApplicantProfile(applicantProfile)
+                .Build();
 
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
-                .WithResourcesTtl(90000)
+                .WithResourcesTtl(96400)
                 .WithUserTrackingId("some-user-tracking-id")
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
-                    .WithAllowsCameraAndUpload()
+                    //.WithAllowsCameraAndUpload()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
                     .WithFontColour("#FFFFFF")
@@ -79,7 +79,7 @@ namespace DocScanExample.Controllers
                     .Build()
                     )
                 .WithCreateIdentityProfilePreview(true)
-                /* .WithIdentityProfileRequirements(new
+                 .WithIdentityProfileRequirements(new
                  {
                      trust_framework = "UK_TFIDA",
                      scheme = new
@@ -87,12 +87,13 @@ namespace DocScanExample.Controllers
                          type = "DBS",
                          objective = "BASIC"
                      }
-                 })*/
-                .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileJson)
+                 })
                 .WithSubject(new
                 {
                     subject_id = "some_subject_id_string"
-                })    
+                })
+                // Add Resources with Applicant Profile
+                .WithResources(resources)
             .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
@@ -125,12 +126,13 @@ namespace DocScanExample.Controllers
             if (apiUrl == null)
                 apiUrl = GetApiUrl();
 
-            StreamReader privateKeyStream = System.IO.File.OpenText(Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH"));
-            var key = CryptoEngine.LoadRsaKey(privateKeyStream);
-
-            string clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
-
-            return new DocScanClient(clientSdkId, key, new HttpClient(), apiUrl);
+            string keyFilePath = Environment.GetEnvironmentVariable("YOTI_KEY_FILE_PATH");
+            using (StreamReader privateKeyStream = System.IO.File.OpenText(keyFilePath))
+            {
+                var key = CryptoEngine.LoadRsaKey(privateKeyStream);
+                string clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
+                return new DocScanClient(clientSdkId, key, new HttpClient(), apiUrl);
+            }
         }
 
         internal static Uri GetApiUrl()
