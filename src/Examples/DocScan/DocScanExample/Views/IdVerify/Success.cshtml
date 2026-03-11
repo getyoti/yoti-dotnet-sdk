@@ -289,6 +289,31 @@
                             </div>
                         </div>
                     }
+                    @if (Model.AdvancedIdentityProfilePreviewResponse != null && Model.AdvancedIdentityProfilePreviewResponse.Media != null)
+                                        {
+                                            <div class="row pt-4">
+                                                <div class="col">
+                                                    <h2>Advanced Identity Profile Preview</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-4">
+                                                <div class="col">
+                                                    <table class="table table-striped table-light">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>ID</td>
+                                                                <td>
+                                                                    <a href="/media/@Model.AdvancedIdentityProfilePreviewResponse.Media.Id/@Model.SessionId">
+                                                                        @Model.AdvancedIdentityProfilePreviewResponse.Media.Id
+                                                                    </a>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        }
                 </div>
             </div>
         </div>

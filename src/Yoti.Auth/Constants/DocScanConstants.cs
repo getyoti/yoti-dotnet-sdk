@@ -72,5 +72,7 @@
 
         public const string Reclassification = "RECLASSIFICATION";
         public const string Generic = "GENERIC";
+
+        public const string VerifyShareCodeTask = "VERIFY_SHARE_CODE_TASK";
     }
 }

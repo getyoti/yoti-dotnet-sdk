@@ -29,12 +29,16 @@ namespace Yoti.Auth.ShareUrl.Policy
 
         [JsonProperty(PropertyName = "identity_profile_requirements")]
         private readonly object _identityProfileRequirements;
+        
+        [JsonProperty(PropertyName = "advanced_identity_profile_requirements")]
+        private readonly object _advancedIdentityProfileRequirements;
 
         public DynamicPolicy(
                  ICollection<WantedAttribute> wantedAttributes,
                  HashSet<int> wantedAuthTypes,
                  bool wantedRememberMeId,
-                 object identityProfileRequirements = null
+                 object identityProfileRequirements = null,
+                 object advancedIdentityProfileRequirements = null
             )
         {
             _wantedAttributes = wantedAttributes;
@@ -42,6 +46,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             _wantedRememberMeId = wantedRememberMeId;
             _isWantedRememberMeIdOptional = false;
             _identityProfileRequirements = identityProfileRequirements;
+            _advancedIdentityProfileRequirements = advancedIdentityProfileRequirements;
         }
 
         /// <summary>
@@ -89,6 +94,18 @@ namespace Yoti.Auth.ShareUrl.Policy
             get
             {
                 return _identityProfileRequirements;
+            }
+        }
+        
+        /// <summary>
+        /// AdvancedIdentityProfileRequirements requested in the policy
+        /// </summary>
+        [JsonIgnore]
+        public object AdvancedIdentityProfileRequirements
+        {
+            get
+            {
+                return _advancedIdentityProfileRequirements;
             }
         }
     }

@@ -9,7 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Create
 {
     public class SessionSpecification
     {
-        internal SessionSpecification(int? clientSessionTokenTtl, int? resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent, DateTimeOffset? sessionDeadline, object identityProfileRequirements, object subject, bool createIdentityProfilePreview, ResourceCreationContainer resources)
+        internal SessionSpecification(int? clientSessionTokenTtl, int? resourcesTtl, string userTrackingId, NotificationConfig notifications, List<BaseRequestedCheck> requestedChecks, List<BaseRequestedTask> requestedTasks, SdkConfig sdkConfig, List<RequiredDocument> requiredDocuments, bool? blockBiometricConsent, DateTimeOffset? sessionDeadline, object identityProfileRequirements, object subject, bool createIdentityProfilePreview, object advancedIdentityProfileRequirements, ResourceCreationContainer resources)
         {
             ClientSessionTokenTtl = clientSessionTokenTtl;
             ResourcesTtl = resourcesTtl;
@@ -24,6 +24,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             IdentityProfileRequirements = identityProfileRequirements;
             Subject = subject;
             CreateIdentityProfilePreview = createIdentityProfilePreview;
+            AdvancedIdentityProfileRequirements = advancedIdentityProfileRequirements;
             Resources = resources;
         }
 
@@ -65,6 +66,9 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "subject")]
         public object Subject { get; }
+        
+        [JsonProperty(PropertyName = "advanced_identity_profile_requirements")]
+        public object AdvancedIdentityProfileRequirements { get; }
 
         [JsonProperty(PropertyName = "resources")]
         public ResourceCreationContainer Resources { get; }

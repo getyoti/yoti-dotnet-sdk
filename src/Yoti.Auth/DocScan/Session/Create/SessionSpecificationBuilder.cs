@@ -21,6 +21,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private object _identityProfileRequirements;
         private object _subject;
         private bool _createIdentityProfilePreview;
+        private object _advancedIdentityProfileRequirements;
         private ResourceCreationContainer _resources;
 
         /// <summary>
@@ -152,6 +153,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
+        
 
         /// <summary>
         /// Sets the Subject object for the session
@@ -172,6 +174,17 @@ namespace Yoti.Auth.DocScan.Session.Create
         public SessionSpecificationBuilder WithCreateIdentityProfilePreview(bool createIdentityProfilePreview)
         {
             _createIdentityProfilePreview = createIdentityProfilePreview;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the Advanced Identity Profile Requirements for the session
+        /// </summary>
+        /// <param name="advancedIdentityProfileRequirements">The Advanced Identity Profile Requirements <see cref="object"/> for the session</param>
+        /// <returns>the builder</returns>
+        public SessionSpecificationBuilder WithAdvancedIdentityProfileRequirements(object advancedIdentityProfileRequirements)
+        {
+            _advancedIdentityProfileRequirements = advancedIdentityProfileRequirements;
             return this;
         }
 
@@ -206,6 +219,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _identityProfileRequirements,
                 _subject,
                 _createIdentityProfilePreview,
+                _advancedIdentityProfileRequirements,
                 _resources
                 );
         }
