@@ -38,12 +38,12 @@ namespace DocScanExample.Controllers
             var structuredPostalAddress = new StructuredPostalAddressBuilder()
                 .WithAddressFormat(1)
                 .WithBuildingNumber("74")
-                .WithAddressLine1("AddressLine1")
+                .WithAddressLine1("74 AddressLine1")
                 .WithTownCity("CityName")
                 .WithPostalCode("E143RN")
                 .WithCountryIso("GBR")
                 .WithCountry("United Kingdom")
-                .WithFormattedAddress("74\nAddressLine1\nCityName\nE143RN\nGBR")
+                .WithFormattedAddress("74 AddressLine1\nCityName\nE143RN\nGBR")
                 .Build();
 
             // Build Applicant Profile
