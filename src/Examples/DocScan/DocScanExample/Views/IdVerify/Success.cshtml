@@ -68,26 +68,29 @@
             <td>Reason Code</td>
             <td>@Model.IdentityProfile.FailureReason.ReasonCode</td>
         </tr>
+        @foreach (var detail in Model.IdentityProfile.FailureReason.RequirementsNotMetDetails)
+        {
         <tr>
             <td>Failure Type</td>
-            <td>@Model.IdentityProfile.FailureReason.RequirementNotMetDetails.FailureType</td>
+            <td>@detail.FailureType</td>
         </tr>
         <tr>
             <td>Details</td>
-            <td>@Model.IdentityProfile.FailureReason.RequirementNotMetDetails.Details</td>
+            <td>@detail.Details</td>
         </tr>
         <tr>
             <td>Audit Id</td>
-            <td>@Model.IdentityProfile.FailureReason.RequirementNotMetDetails.AuditId</td>
+            <td>@detail.AuditId</td>
         </tr>
         <tr>
             <td>Country ISO Code</td>
-            <td>@Model.IdentityProfile.FailureReason.RequirementNotMetDetails.DocumentCountryIsoCode</td>
+            <td>@detail.DocumentCountryIsoCode</td>
         </tr>
         <tr>
             <td>Document Type</td>
-            <td>@Model.IdentityProfile.FailureReason.RequirementNotMetDetails.DocumentType</td>
+            <td>@detail.DocumentType</td>
         </tr>
+        }
         </tbody>
     </table>
     }
