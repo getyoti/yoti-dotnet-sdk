@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create
@@ -51,14 +52,15 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                 .Build();
 
             string json = JsonConvert.SerializeObject(container);
+            var jObject = JObject.Parse(json);
 
-            Assert.IsTrue(json.Contains("\"applicant_profile\""));
-            Assert.IsTrue(json.Contains("\"full_name\":\"John Doe\""));
-            Assert.IsTrue(json.Contains("\"date_of_birth\":\"1988-11-02\""));
-            Assert.IsTrue(json.Contains("\"name_prefix\":\"Mr\""));
-            Assert.IsTrue(json.Contains("\"structured_postal_address\""));
-            Assert.IsTrue(json.Contains("\"building_number\":\"74\""));
-            Assert.IsTrue(json.Contains("\"country_iso\":\"GBR\""));
+            Assert.IsNotNull(jObject["applicant_profile"]);
+            Assert.AreEqual("John Doe", jObject["applicant_profile"]["full_name"].ToString());
+            Assert.AreEqual("1988-11-02", jObject["applicant_profile"]["date_of_birth"].ToString());
+            Assert.AreEqual("Mr", jObject["applicant_profile"]["name_prefix"].ToString());
+            Assert.IsNotNull(jObject["applicant_profile"]["structured_postal_address"]);
+            Assert.AreEqual("74", jObject["applicant_profile"]["structured_postal_address"]["building_number"].ToString());
+            Assert.AreEqual("GBR", jObject["applicant_profile"]["structured_postal_address"]["country_iso"].ToString());
         }
 
         [TestMethod]

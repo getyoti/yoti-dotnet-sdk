@@ -829,9 +829,12 @@
                 </div>
             </div>
 
-            @foreach (var applicantProfile in Model.Resources.ApplicantProfiles)
+            @{
+                var applicantProfiles = Model.Resources.ApplicantProfiles;
+            }
+            @for (var profileIndex = 0; profileIndex < applicantProfiles.Count; profileIndex++)
             {
-                var profileIndex = Model.Resources.ApplicantProfiles.IndexOf(applicantProfile);
+                var applicantProfile = applicantProfiles[profileIndex];
                 <div class="row pt-4">
                     <div class="col">
                         <h3>Applicant Profile @(profileIndex + 1)</h3>

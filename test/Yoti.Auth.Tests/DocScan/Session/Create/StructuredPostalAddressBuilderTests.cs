@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Yoti.Auth.DocScan.Session.Create;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create
@@ -104,15 +105,16 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                 .Build();
 
             string json = JsonConvert.SerializeObject(address);
+            var jObject = JObject.Parse(json);
 
-            Assert.IsTrue(json.Contains("\"address_format\":1"));
-            Assert.IsTrue(json.Contains("\"building_number\":\"74\""));
-            Assert.IsTrue(json.Contains("\"address_line1\":\"AddressLine1\""));
-            Assert.IsTrue(json.Contains("\"town_city\":\"CityName\""));
-            Assert.IsTrue(json.Contains("\"postal_code\":\"E143RN\""));
-            Assert.IsTrue(json.Contains("\"country_iso\":\"GBR\""));
-            Assert.IsTrue(json.Contains("\"country\":\"United Kingdom\""));
-            Assert.IsTrue(json.Contains("\"formatted_address\""));
+            Assert.AreEqual(1, jObject["address_format"].Value<int>());
+            Assert.AreEqual("74", jObject["building_number"].ToString());
+            Assert.AreEqual("AddressLine1", jObject["address_line1"].ToString());
+            Assert.AreEqual("CityName", jObject["town_city"].ToString());
+            Assert.AreEqual("E143RN", jObject["postal_code"].ToString());
+            Assert.AreEqual("GBR", jObject["country_iso"].ToString());
+            Assert.AreEqual("United Kingdom", jObject["country"].ToString());
+            Assert.IsNotNull(jObject["formatted_address"]);
         }
     }
 }

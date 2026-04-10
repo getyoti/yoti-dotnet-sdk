@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -62,7 +61,7 @@ namespace DocScanExample.Controllers
             //Build Session Spec
             var sessionSpec = new SessionSpecificationBuilder()
                 .WithClientSessionTokenTtl(600)
-                .WithResourcesTtl(96400)
+                .WithResourcesTtl(90000)
                 .WithUserTrackingId("some-user-tracking-id")
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
