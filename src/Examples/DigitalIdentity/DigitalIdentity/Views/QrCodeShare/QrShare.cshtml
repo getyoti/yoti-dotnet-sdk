@@ -1,0 +1,439 @@
+@{
+    ViewData["Title"] = "QR Code Share";
+}
+
+<!DOCTYPE html>
+<html class="yoti-html">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Yoti QR Code Share - Step by Step</title>
+    <link rel="stylesheet" type="text/css" href="~/static/index.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+    <style>
+        .steps-container {
+            max-width: 700px;
+            margin: 30px auto;
+            text-align: left;
+        }
+        .step-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .step-card.active {
+            border-color: #2d9fff;
+            box-shadow: 0 2px 12px rgba(45,159,255,0.15);
+        }
+        .step-card.done {
+            border-color: #28a745;
+        }
+        .step-card.error {
+            border-color: #dc3545;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .step-card.active .step-number { background: #2d9fff; color: #fff; }
+        .step-card.done .step-number { background: #28a745; color: #fff; }
+        .step-card.error .step-number { background: #dc3545; color: #fff; }
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+        .step-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #fff;
+            background: #2d9fff;
+            transition: background 0.2s;
+        }
+        .step-btn:hover { background: #1a8fe6; }
+        .step-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .step-btn.green { background: #28a745; }
+        .step-btn.green:hover { background: #218838; }
+        .step-btn.orange { background: #fd7e14; }
+        .step-btn.orange:hover { background: #e8690b; }
+        .step-response {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .step-response.visible { display: block; }
+        .step-response.error-response { background: #fff5f5; color: #dc3545; }
+        .qr-display {
+            text-align: center;
+            margin-top: 16px;
+            display: none;
+        }
+        .qr-display.visible { display: block; }
+        .qr-wrapper {
+            display: inline-block;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        #qr-canvas { display: block; }
+        .poll-status {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+        .badge-pending { background: #fff3cd; color: #856404; }
+        .badge-success { background: #d4edda; color: #155724; }
+        .badge-error { background: #f8d7da; color: #721c24; }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ccc;
+            border-top-color: #2d9fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @@keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+
+<body class="yoti-body">
+
+    <main>
+        <section class="yoti-top-section">
+            <div class="yoti-logo-section">
+                <img class="yoti-logo-image"
+                     src="~/static/assets/logo.png"
+                     srcset="~/static/assets/logo@2x.png 2x"
+                     alt="Yoti" />
+            </div>
+
+            <h1 class="yoti-top-header">QR Code Share - Step by Step</h1>
+        </section>
+
+        <div class="steps-container">
+
+            <!-- Step 1: Create Session -->
+            <div id="step1" class="step-card active">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Create Share Session</div>
+                </div>
+                <p style="margin:0 0 12px;color:#666;font-size:14px;">
+                    POST /v2/sessions — Creates a new Digital Identity share session with the requested policy (name, email, phone, selfie, etc.)
+                </p>
+                <button id="btn-create-session" class="step-btn" onclick="createSession()">Create Session</button>
+                <div id="resp-session" class="step-response"></div>
+            </div>
+
+            <!-- Step 2: Create QR Code -->
+            <div id="step2" class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Generate QR Code</div>
+                </div>
+                <p style="margin:0 0 12px;color:#666;font-size:14px;">
+                    POST /v2/sessions/{sessionId}/qr-codes — Generates a QR code URI for the session.
+                </p>
+                <button id="btn-create-qr" class="step-btn green" onclick="createQrCode()" disabled>Generate QR Code</button>
+                <div id="resp-qr" class="step-response"></div>
+                <div id="qr-display" class="qr-display">
+                    <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+                        <div style="text-align:center;">
+                            <div class="qr-wrapper" id="qr-target"></div>
+                            <p style="margin-top:8px;font-size:12px;color:#888;">JS Library (qrcodejs)</p>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="qr-wrapper">
+                                <img id="qr-image" alt="QR Code" style="width:280px;height:280px;display:block;" />
+                            </div>
+                            <p style="margin-top:8px;font-size:12px;color:#888;">Image API (goqr.me)</p>
+                        </div>
+                    </div>
+                    <p style="margin-top:12px;color:#333;font-size:14px;">Scan either QR code with the Yoti app</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Check Session / Poll -->
+            <div id="step3" class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Check Session Status</div>
+                </div>
+                <p style="margin:0 0 12px;color:#666;font-size:14px;">
+                    GET /v2/sessions/{sessionId} — Poll session to check if the user has completed the share. Auto-polls every 3 seconds, or click manually.
+                </p>
+                <button id="btn-check-session" class="step-btn orange" onclick="checkSession()" disabled>Check Session</button>
+                <button id="btn-auto-poll" class="step-btn" onclick="toggleAutoPoll()" disabled style="margin-left:8px;">Start Auto-Poll</button>
+                <span id="poll-indicator" style="display:none;margin-left:10px;"><span class="spinner"></span>Polling...</span>
+                <div id="resp-status" class="step-response"></div>
+            </div>
+
+            <!-- Step 4: Get Receipt -->
+            <div id="step4" class="step-card">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Get Receipt</div>
+                </div>
+                <p style="margin:0 0 12px;color:#666;font-size:14px;">
+                    GET /v2/receipts/{receiptId} — Fetches and decrypts the share receipt containing user attributes. Or redirects to the full receipt page.
+                </p>
+                <button id="btn-get-receipt" class="step-btn green" onclick="getReceipt()" disabled>Get Receipt (JSON)</button>
+                <button id="btn-view-receipt" class="step-btn" onclick="viewReceipt()" disabled style="margin-left:8px;">View Full Receipt Page</button>
+                <div id="resp-receipt" class="step-response"></div>
+            </div>
+
+        </div>
+
+        <section class="yoti-sponsor-app-section">
+            <h3 class="yoti-sponsor-app-header">The Yoti app is free to download and use:</h3>
+            <div class="yoti-store-buttons-section">
+                <a href="https://itunes.apple.com/us/app/yoti/id983980808?ls=1&mt=8" class="yoti-app-button-link">
+                    <img src="~/static/assets/app-store-badge.png"
+                         srcset="~/static/assets/app-store-badge@2x.png 2x"
+                         alt="Download on the App Store" />
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.yoti.mobile.android.live" class="yoti-app-button-link">
+                    <img src="~/static/assets/google-play-badge.png"
+                         srcset="~/static/assets/google-play-badge@2x.png 2x"
+                         alt="get it on Google Play" />
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/davidshimjs-qrcodejs@0.0.2/qrcode.min.js"></script>
+    <script>
+        var state = {
+            sessionId: null,
+            qrId: null,
+            qrUri: null,
+            receiptId: null,
+            pollTimer: null
+        };
+
+        function showResponse(elementId, data, isError) {
+            var el = document.getElementById(elementId);
+            el.textContent = JSON.stringify(data, null, 2);
+            el.className = 'step-response visible' + (isError ? ' error-response' : '');
+        }
+
+        function setStepState(stepId, className) {
+            var el = document.getElementById(stepId);
+            el.className = 'step-card ' + className;
+        }
+
+        // Step 1: Create Session
+        function createSession() {
+            var btn = document.getElementById('btn-create-session');
+            btn.disabled = true;
+            btn.textContent = 'Creating...';
+
+            fetch('/qr-share/create-session', { method: 'POST' })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.error) {
+                        showResponse('resp-session', data, true);
+                        setStepState('step1', 'error');
+                        btn.disabled = false;
+                        btn.textContent = 'Retry';
+                        return;
+                    }
+                    state.sessionId = data.sessionId;
+                    showResponse('resp-session', data, false);
+                    setStepState('step1', 'done');
+                    setStepState('step2', 'active');
+                    btn.textContent = 'Session Created';
+                    document.getElementById('btn-create-qr').disabled = false;
+                })
+                .catch(function (err) {
+                    showResponse('resp-session', { error: err.message }, true);
+                    setStepState('step1', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Retry';
+                });
+        }
+
+        // Step 2: Create QR Code
+        function createQrCode() {
+            var btn = document.getElementById('btn-create-qr');
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+
+            fetch('/qr-share/create-qr?sessionId=' + encodeURIComponent(state.sessionId), { method: 'POST' })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.error) {
+                        showResponse('resp-qr', data, true);
+                        setStepState('step2', 'error');
+                        btn.disabled = false;
+                        btn.textContent = 'Retry';
+                        return;
+                    }
+                    state.qrId = data.qrId;
+                    state.qrUri = data.qrUri;
+                    showResponse('resp-qr', data, false);
+                    setStepState('step2', 'done');
+                    setStepState('step3', 'active');
+                    btn.textContent = 'QR Generated';
+
+                    // Render QR code - JS library
+                    var qrDisplay = document.getElementById('qr-display');
+                    qrDisplay.className = 'qr-display visible';
+                    var qrTarget = document.getElementById('qr-target');
+                    qrTarget.innerHTML = '';
+                    new QRCode(qrTarget, {
+                        text: data.qrUri,
+                        width: 280,
+                        height: 280,
+                        colorDark: '#2d9fff',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.M
+                    });
+
+                    // Render QR code - Image API alternate
+                    var qrImage = document.getElementById('qr-image');
+                    qrImage.src = 'https://api.qrserver.com/v1/create-qr-code/?size=280x280&color=2d9fff&data=' + encodeURIComponent(data.qrUri);
+
+                    document.getElementById('btn-check-session').disabled = false;
+                    document.getElementById('btn-auto-poll').disabled = false;
+                })
+                .catch(function (err) {
+                    showResponse('resp-qr', { error: err.message }, true);
+                    setStepState('step2', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Retry';
+                });
+        }
+
+        // Step 3: Check Session
+        function checkSession() {
+            fetch('/qr-share/get-session?sessionId=' + encodeURIComponent(state.sessionId))
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.error) {
+                        showResponse('resp-status', data, true);
+                        return;
+                    }
+                    showResponse('resp-status', data, false);
+
+                    if (data.receiptId) {
+                        state.receiptId = data.receiptId;
+                        stopAutoPoll();
+                        setStepState('step3', 'done');
+                        setStepState('step4', 'active');
+                        document.getElementById('btn-get-receipt').disabled = false;
+                        document.getElementById('btn-view-receipt').disabled = false;
+                    }
+                })
+                .catch(function (err) {
+                    showResponse('resp-status', { error: err.message }, true);
+                });
+        }
+
+        // Auto-poll toggle
+        function toggleAutoPoll() {
+            if (state.pollTimer) {
+                stopAutoPoll();
+            } else {
+                startAutoPoll();
+            }
+        }
+
+        function startAutoPoll() {
+            var btn = document.getElementById('btn-auto-poll');
+            btn.textContent = 'Stop Auto-Poll';
+            document.getElementById('poll-indicator').style.display = 'inline';
+            checkSession();
+            state.pollTimer = setInterval(checkSession, 3000);
+        }
+
+        function stopAutoPoll() {
+            if (state.pollTimer) {
+                clearInterval(state.pollTimer);
+                state.pollTimer = null;
+            }
+            var btn = document.getElementById('btn-auto-poll');
+            btn.textContent = 'Start Auto-Poll';
+            document.getElementById('poll-indicator').style.display = 'none';
+        }
+
+        // Step 4: Get Receipt
+        function getReceipt() {
+            var btn = document.getElementById('btn-get-receipt');
+            btn.disabled = true;
+            btn.textContent = 'Fetching...';
+
+            fetch('/qr-share/get-receipt?receiptId=' + encodeURIComponent(state.receiptId))
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    showResponse('resp-receipt', data, !!data.error);
+                    if (!data.error) {
+                        setStepState('step4', 'done');
+                        btn.textContent = 'Receipt Retrieved';
+                    } else {
+                        btn.disabled = false;
+                        btn.textContent = 'Retry';
+                    }
+                })
+                .catch(function (err) {
+                    showResponse('resp-receipt', { error: err.message }, true);
+                    btn.disabled = false;
+                    btn.textContent = 'Retry';
+                });
+        }
+
+        // View full receipt page (existing Success controller)
+        function viewReceipt() {
+            window.location.href = '/receipt-info?ReceiptID=' + encodeURIComponent(state.receiptId);
+        }
+    </script>
+
+</body>
+</html>

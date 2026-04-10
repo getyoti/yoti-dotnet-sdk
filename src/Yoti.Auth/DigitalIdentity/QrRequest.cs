@@ -7,10 +7,10 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public class QrRequest
     {
-        [JsonProperty(PropertyName = "transport")]
+        [JsonProperty(PropertyName = "transport", NullValueHandling = NullValueHandling.Ignore)]
         private readonly string _transport;
 
-        [JsonProperty(PropertyName = "displayMode")]
+        [JsonProperty(PropertyName = "displayMode", NullValueHandling = NullValueHandling.Ignore)]
         private readonly string _displayMode;
 
         [JsonIgnore]

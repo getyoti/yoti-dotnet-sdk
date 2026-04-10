@@ -58,7 +58,10 @@ namespace Yoti.Auth.DigitalIdentity
                 }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"[YOTI DEBUG] CreateShareSession raw response: {responseObject}");
+                Console.WriteLine($"[YOTI DEBUG] CreateShareSession raw response: {responseObject}");
                 var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
+                Console.WriteLine($"[YOTI DEBUG] Deserialized Id='{deserialized?.Id}', Status='{deserialized?.Status}'");
 
                 return deserialized;
             }
@@ -116,7 +119,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
+                .WithEndpoint(string.Format("/v2/sessions/{0}/qr-codes", sessionId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
@@ -148,7 +151,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/qr-codes/{0}", qrCodeId))
+                .WithEndpoint(string.Format("/v2/qr-codes/{0}", qrCodeId))
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();

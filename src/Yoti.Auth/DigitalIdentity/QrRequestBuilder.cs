@@ -6,8 +6,8 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public class QrRequestBuilder
     {
-        private string _transport = "";
-        private string _displayMode = "";
+        private string _transport = null;
+        private string _displayMode = null;
 
         /// <summary>
         /// Transport property. Optional - default is 'INLINE'
