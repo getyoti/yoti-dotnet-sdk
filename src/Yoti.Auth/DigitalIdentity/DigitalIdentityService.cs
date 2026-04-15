@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -116,7 +116,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
+                .WithEndpoint($"/v2/sessions/{sessionId}/qr-codes")
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
@@ -148,7 +148,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/qr-codes/{0}", qrCodeId))
+                .WithEndpoint($"/v2/qr-codes/{qrCodeId}")
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Get)
                 .Build();
