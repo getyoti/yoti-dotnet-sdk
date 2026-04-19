@@ -16,6 +16,18 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
+
+        private static readonly HashSet<string> _validSuppressedScreens = new HashSet<string>
+        {
+            DocScanConstants.IdDocumentEducation,
+            DocScanConstants.IdDocumentRequirements,
+            DocScanConstants.SupplementaryDocumentEducation,
+            DocScanConstants.ZoomLivenessEducation,
+            DocScanConstants.StaticLivenessEducation,
+            DocScanConstants.FaceCaptureEducation,
+            DocScanConstants.FlowCompletion
+        };
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -234,7 +246,60 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
+
+        /// <summary>
+        /// Adds a screen identifier to be suppressed (omitted) by the web/native client during the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Unknown/unsupported identifiers are ignored so that new backend values don't cause failures
+        ///     </para>
+        /// </remarks>
+        /// <param name="suppressedScreen">The screen identifier to suppress (e.g. <see cref="DocScanConstants.IdDocumentEducation"/>)</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreen(string suppressedScreen)
+        {
+            if (string.IsNullOrEmpty(suppressedScreen) || !_validSuppressedScreens.Contains(suppressedScreen))
+                return this;
+
+            if (_suppressedScreens == null)
+                _suppressedScreens = new List<string>();
+
+            if (!_suppressedScreens.Contains(suppressedScreen))
+                _suppressedScreens.Add(suppressedScreen);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the full list of screen identifiers to be suppressed by the web/native client during the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Unknown/unsupported identifiers are ignored so that new backend values don't cause failures
+        ///     </para>
+        ///     <para>
+        ///         Passing <c>null</c> clears any previously configured suppressed screens
+        ///     </para>
+        /// </remarks>
+        /// <param name="suppressedScreens">The screen identifiers to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
+        {
+            if (suppressedScreens == null)
+            {
+                _suppressedScreens = null;
+                return this;
+            }
+
+            _suppressedScreens = null;
+            foreach (string suppressedScreen in suppressedScreens)
+            {
+                WithSuppressedScreen(suppressedScreen);
+            }
+            return this;
+        }
 
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
@@ -253,7 +318,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }
