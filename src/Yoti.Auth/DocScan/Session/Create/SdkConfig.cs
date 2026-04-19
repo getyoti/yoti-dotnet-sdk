@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -41,6 +41,14 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
 
+        [JsonProperty(PropertyName = "suppressed_screens", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SuppressedScreens { get; }
+
+        public bool ShouldSerializeSuppressedScreens()
+        {
+            return SuppressedScreens != null && SuppressedScreens.Count > 0;
+        }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -51,7 +59,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
-                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null,
+                            List<string> suppressedScreens = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -70,6 +79,11 @@ namespace Yoti.Auth.DocScan.Session.Create
                 {
                     IdDocumentTextDataExtraction = idDocumentTextDataExtractionRetriesConfig
                 };
+            }
+
+            if (suppressedScreens != null)
+            {
+                SuppressedScreens = new List<string>(suppressedScreens);
             }
         }
     }
