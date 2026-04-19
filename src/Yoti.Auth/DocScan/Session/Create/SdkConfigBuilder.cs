@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -234,7 +235,40 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
+
+        /// <summary>
+        /// Sets the list of screen identifiers to be suppressed in the IDV flow (e.g. for the shortened flow)
+        /// </summary>
+        /// <remarks>
+        /// Replaces any list previously set on the builder. Valid identifiers are defined as constants on <see cref="DocScanConstants"/>
+        /// (for example <see cref="DocScanConstants.SuppressedScreenIdDocumentEducation"/>). Unknown identifiers are sent to the Yoti API as-is.
+        /// </remarks>
+        /// <param name="suppressedScreens">The list of screen identifiers to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a single screen identifier to the list of screens to be suppressed in the IDV flow
+        /// </summary>
+        /// <remarks>
+        /// Multiple calls accumulate. Valid identifiers are defined as constants on <see cref="DocScanConstants"/>
+        /// (for example <see cref="DocScanConstants.SuppressedScreenFlowCompletion"/>).
+        /// </remarks>
+        /// <param name="suppressedScreen">The screen identifier to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreen(string suppressedScreen)
+        {
+            if (_suppressedScreens == null)
+                _suppressedScreens = new List<string>();
+
+            _suppressedScreens.Add(suppressedScreen);
+            return this;
+        }
 
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
@@ -253,7 +287,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }

@@ -74,5 +74,13 @@
         public const string Generic = "GENERIC";
 
         public const string VerifyShareCodeTask = "VERIFY_SHARE_CODE_TASK";
+
+        public const string SuppressedScreenIdDocumentEducation = "ID_DOCUMENT_EDUCATION";
+        public const string SuppressedScreenIdDocumentRequirements = "ID_DOCUMENT_REQUIREMENTS";
+        public const string SuppressedScreenSupplementaryDocumentEducation = "SUPPLEMENTARY_DOCUMENT_EDUCATION";
+        public const string SuppressedScreenZoomLivenessEducation = "ZOOM_LIVENESS_EDUCATION";
+        public const string SuppressedScreenStaticLivenessEducation = "STATIC_LIVENESS_EDUCATION";
+        public const string SuppressedScreenFaceCaptureEducation = "FACE_CAPTURE_EDUCATION";
+        public const string SuppressedScreenFlowCompletion = "FLOW_COMPLETION";
     }
 }
