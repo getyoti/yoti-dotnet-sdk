@@ -41,6 +41,12 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
 
+        /// <summary>
+        /// The list of screens that should be omitted from the IDV flow
+        /// </summary>
+        [JsonProperty(PropertyName = "suppressed_screens", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SuppressedScreens { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -51,7 +57,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
-                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null,
+                            List<string> suppressedScreens = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -63,6 +70,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
+            SuppressedScreens = suppressedScreens;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {
@@ -71,6 +79,16 @@ namespace Yoti.Auth.DocScan.Session.Create
                     IdDocumentTextDataExtraction = idDocumentTextDataExtractionRetriesConfig
                 };
             }
+        }
+
+        /// <summary>
+        /// Returns the list of screens configured to be suppressed from the IDV flow.
+        /// Returns an empty list when no screens are configured.
+        /// </summary>
+        /// <returns>The list of suppressed screen identifiers, never null.</returns>
+        public List<string> GetSuppressedScreens()
+        {
+            return SuppressedScreens ?? new List<string>();
         }
     }
 }

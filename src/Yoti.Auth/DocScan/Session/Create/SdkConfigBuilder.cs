@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -237,6 +238,45 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
+        ///     <para>
+        ///         Sets the list of screens that should be suppressed from the IDV flow
+        ///     </para>
+        ///     <para>
+        ///         Valid values are defined in <see cref="DocScanConstants"/>:
+        ///         <see cref="DocScanConstants.IdDocumentEducation"/>,
+        ///         <see cref="DocScanConstants.IdDocumentRequirements"/>,
+        ///         <see cref="DocScanConstants.SupplementaryDocumentEducation"/>,
+        ///         <see cref="DocScanConstants.ZoomLivenessEducation"/>,
+        ///         <see cref="DocScanConstants.StaticLivenessEducation"/>,
+        ///         <see cref="DocScanConstants.FaceCaptureEducation"/>,
+        ///         <see cref="DocScanConstants.FlowCompletion"/>.
+        ///     </para>
+        /// </summary>
+        /// <param name="suppressedScreens">The list of screens to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a single screen to the list of screens to suppress from the IDV flow
+        /// </summary>
+        /// <param name="suppressedScreen">The screen identifier to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreen(string suppressedScreen)
+        {
+            if (_suppressedScreens == null)
+                _suppressedScreens = new List<string>();
+
+            if (!_suppressedScreens.Contains(suppressedScreen))
+                _suppressedScreens.Add(suppressedScreen);
+
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -253,7 +293,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }
