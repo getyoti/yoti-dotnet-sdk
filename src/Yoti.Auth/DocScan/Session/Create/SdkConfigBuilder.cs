@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -237,6 +238,39 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
+        /// Sets the list of screens to suppress from the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         See <see cref="SuppressedScreen"/> for the set of valid screen identifiers.
+        ///     </para>
+        ///     <para>
+        ///         Unknown values are sent through to the backend as-is; the backend is responsible for validation.
+        ///     </para>
+        /// </remarks>
+        /// <param name="suppressedScreens">The list of screen identifiers to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the list of screens to suppress from the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     See <see cref="SuppressedScreen"/> for the set of valid screen identifiers.
+        /// </remarks>
+        /// <param name="suppressedScreens">The screen identifiers to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(params string[] suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens == null ? null : new List<string>(suppressedScreens);
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -253,7 +287,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }
