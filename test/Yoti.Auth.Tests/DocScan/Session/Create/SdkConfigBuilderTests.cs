@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
@@ -230,6 +231,85 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpReclassificationAttempts);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpUsersChoiceOfCategory);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericAttempts);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig = new SdkConfigBuilder().Build();
+
+            Assert.IsNull(sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithSuppressedScreens()
+        {
+            var screens = new List<string>
+            {
+                DocScanConstants.SuppressedScreenIdDocumentEducation,
+                DocScanConstants.SuppressedScreenFlowCompletion,
+            };
+
+            SdkConfig sdkConfig = new SdkConfigBuilder()
+                .WithSuppressedScreens(screens)
+                .Build();
+
+            CollectionAssert.AreEquivalent(screens, sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithEmptySuppressedScreens()
+        {
+            SdkConfig sdkConfig = new SdkConfigBuilder()
+                .WithSuppressedScreens(new List<string>())
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(0, sdkConfig.SuppressedScreens.Count);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithAllSuppressedScreens()
+        {
+            var allScreens = new List<string>
+            {
+                DocScanConstants.SuppressedScreenIdDocumentEducation,
+                DocScanConstants.SuppressedScreenIdDocumentRequirements,
+                DocScanConstants.SuppressedScreenSupplementaryDocumentEducation,
+                DocScanConstants.SuppressedScreenZoomLivenessEducation,
+                DocScanConstants.SuppressedScreenStaticLivenessEducation,
+                DocScanConstants.SuppressedScreenFaceCaptureEducation,
+                DocScanConstants.SuppressedScreenFlowCompletion,
+            };
+
+            SdkConfig sdkConfig = new SdkConfigBuilder()
+                .WithSuppressedScreens(allScreens)
+                .Build();
+
+            CollectionAssert.AreEquivalent(allScreens, sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldThrowForUnknownSuppressedScreen()
+        {
+            Assert.ThrowsException<ArgumentException>(() =>
+                new SdkConfigBuilder()
+                    .WithSuppressedScreens(new List<string> { "UNKNOWN_SCREEN" })
+                    .Build());
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldOverridePreviousCallToWithSuppressedScreens()
+        {
+            var first = new List<string> { DocScanConstants.SuppressedScreenIdDocumentEducation };
+            var second = new List<string> { DocScanConstants.SuppressedScreenFlowCompletion };
+
+            SdkConfig sdkConfig = new SdkConfigBuilder()
+                .WithSuppressedScreens(first)
+                .WithSuppressedScreens(second)
+                .Build();
+
+            CollectionAssert.AreEquivalent(second, sdkConfig.SuppressedScreens);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -16,6 +17,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -234,7 +236,36 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
+
+        private static readonly IReadOnlyList<string> AllowedSuppressedScreens = new List<string>
+        {
+            DocScanConstants.SuppressedScreenIdDocumentEducation,
+            DocScanConstants.SuppressedScreenIdDocumentRequirements,
+            DocScanConstants.SuppressedScreenSupplementaryDocumentEducation,
+            DocScanConstants.SuppressedScreenZoomLivenessEducation,
+            DocScanConstants.SuppressedScreenStaticLivenessEducation,
+            DocScanConstants.SuppressedScreenFaceCaptureEducation,
+            DocScanConstants.SuppressedScreenFlowCompletion,
+        };
+
+        /// <summary>
+        /// Sets the list of screens to suppress in the IDV flow
+        /// </summary>
+        /// <param name="screens">Screen identifiers to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        /// <exception cref="System.ArgumentException">Thrown if any screen identifier is not a recognised value</exception>
+        public SdkConfigBuilder WithSuppressedScreens(IEnumerable<string> screens)
+        {
+            var screenList = screens?.ToList() ?? new List<string>();
+            var unknown = screenList.Except(AllowedSuppressedScreens).ToList();
+            if (unknown.Count > 0)
+                throw new System.ArgumentException(
+                    $"Unknown suppressed screen identifier(s): {string.Join(", ", unknown)}");
+
+            _suppressedScreens = screenList;
+            return this;
+        }
 
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
@@ -253,7 +284,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }
