@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -41,6 +41,9 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
 
+        [JsonProperty(PropertyName = "suppressed_screens", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SuppressedScreens { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -51,7 +54,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
-                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null,
+                            List<string> suppressedScreens = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -63,6 +67,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
+            SuppressedScreens = suppressedScreens;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {
@@ -71,6 +76,17 @@ namespace Yoti.Auth.DocScan.Session.Create
                     IdDocumentTextDataExtraction = idDocumentTextDataExtractionRetriesConfig
                 };
             }
+        }
+
+        /// <summary>
+        /// Returns true if the given screen identifier is listed in <see cref="SuppressedScreens"/>.
+        /// Matching is case-sensitive against the exact string value.
+        /// </summary>
+        /// <param name="screenId">The screen identifier to check (see <see cref="SuppressedScreen"/>)</param>
+        /// <returns>True if the screen is suppressed, false otherwise</returns>
+        public bool IsScreenSuppressed(string screenId)
+        {
+            return SuppressedScreens != null && SuppressedScreens.Contains(screenId);
         }
     }
 }
