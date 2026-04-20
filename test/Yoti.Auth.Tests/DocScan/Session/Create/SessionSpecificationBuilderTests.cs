@@ -102,6 +102,28 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void SdkConfigSuppressedScreensShouldBeSerializedInSessionSpecification()
+        {
+            SessionSpecification sessionSpec =
+              new SessionSpecificationBuilder()
+              .WithSdkConfig(
+                  new SdkConfigBuilder()
+                  .WithSuppressedScreens(new List<string>
+                  {
+                      SuppressedScreen.IdDocumentEducation,
+                      SuppressedScreen.FlowCompletion
+                  })
+                  .Build())
+              .Build();
+
+            string json = JsonConvert.SerializeObject(sessionSpec);
+
+            Assert.IsTrue(json.Contains("\"suppressed_screens\""));
+            Assert.IsTrue(json.Contains("ID_DOCUMENT_EDUCATION"));
+            Assert.IsTrue(json.Contains("FLOW_COMPLETION"));
+        }
+
+        [TestMethod]
         public void ShouldBuildWithUserTrackingId()
         {
             string userTrackingId = "someTrackingId";

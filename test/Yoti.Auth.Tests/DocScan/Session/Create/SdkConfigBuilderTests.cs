@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
@@ -208,6 +210,189 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.AreEqual(1, sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction.Count);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvp);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            Assert.IsNull(sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithSuppressedScreens()
+        {
+            var screens = new List<string>
+            {
+                SuppressedScreen.IdDocumentEducation,
+                SuppressedScreen.FlowCompletion
+            };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(screens)
+                .Build();
+
+            CollectionAssert.AreEqual(screens, sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithAllKnownSuppressedScreens()
+        {
+            var screens = new List<string>
+            {
+                SuppressedScreen.IdDocumentEducation,
+                SuppressedScreen.IdDocumentRequirements,
+                SuppressedScreen.SupplementaryDocumentEducation,
+                SuppressedScreen.ZoomLivenessEducation,
+                SuppressedScreen.StaticLivenessEducation,
+                SuppressedScreen.FaceCaptureEducation,
+                SuppressedScreen.FlowCompletion
+            };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(screens)
+                .Build();
+
+            Assert.AreEqual(7, sdkConfig.SuppressedScreens.Count);
+            Assert.AreEqual("ID_DOCUMENT_EDUCATION", sdkConfig.SuppressedScreens[0]);
+            Assert.AreEqual("ID_DOCUMENT_REQUIREMENTS", sdkConfig.SuppressedScreens[1]);
+            Assert.AreEqual("SUPPLEMENTARY_DOCUMENT_EDUCATION", sdkConfig.SuppressedScreens[2]);
+            Assert.AreEqual("ZOOM_LIVENESS_EDUCATION", sdkConfig.SuppressedScreens[3]);
+            Assert.AreEqual("STATIC_LIVENESS_EDUCATION", sdkConfig.SuppressedScreens[4]);
+            Assert.AreEqual("FACE_CAPTURE_EDUCATION", sdkConfig.SuppressedScreens[5]);
+            Assert.AreEqual("FLOW_COMPLETION", sdkConfig.SuppressedScreens[6]);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithSingleSuppressedScreen()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreen(SuppressedScreen.FlowCompletion)
+                .WithSuppressedScreen(SuppressedScreen.IdDocumentRequirements)
+                .Build();
+
+            Assert.AreEqual(2, sdkConfig.SuppressedScreens.Count);
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "FLOW_COMPLETION");
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "ID_DOCUMENT_REQUIREMENTS");
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithEmptySuppressedScreensList()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(new List<string>())
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(0, sdkConfig.SuppressedScreens.Count);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldSerializeToJson()
+        {
+            var screens = new List<string>
+            {
+                SuppressedScreen.IdDocumentEducation,
+                SuppressedScreen.FlowCompletion
+            };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(screens)
+                .Build();
+
+            string json = JsonConvert.SerializeObject(sdkConfig);
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsNotNull(parsed["suppressed_screens"]);
+            var serializedScreens = parsed["suppressed_screens"].ToObject<List<string>>();
+            CollectionAssert.AreEqual(screens, serializedScreens);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldNotSerializeWhenNull()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+            string json = JsonConvert.SerializeObject(sdkConfig, settings);
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsNull(parsed["suppressed_screens"]);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldDeserializeFromJson()
+        {
+            string json = @"{
+                ""allowed_capture_methods"": ""CAMERA"",
+                ""suppressed_screens"": [""ID_DOCUMENT_EDUCATION"", ""FLOW_COMPLETION""]
+            }";
+
+            SdkConfig sdkConfig = JsonConvert.DeserializeObject<SdkConfig>(json);
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(2, sdkConfig.SuppressedScreens.Count);
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "ID_DOCUMENT_EDUCATION");
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "FLOW_COMPLETION");
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldDeserializeWhenAbsent()
+        {
+            string json = @"{ ""allowed_capture_methods"": ""CAMERA"" }";
+
+            SdkConfig sdkConfig = JsonConvert.DeserializeObject<SdkConfig>(json);
+
+            Assert.IsNull(sdkConfig.SuppressedScreens);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldDeserializeEmptyArray()
+        {
+            string json = @"{ ""suppressed_screens"": [] }";
+
+            SdkConfig sdkConfig = JsonConvert.DeserializeObject<SdkConfig>(json);
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(0, sdkConfig.SuppressedScreens.Count);
+        }
+
+        [TestMethod]
+        public void SuppressedScreensShouldDeserializeUnknownValuesGracefully()
+        {
+            string json = @"{
+                ""suppressed_screens"": [""ID_DOCUMENT_EDUCATION"", ""SOME_FUTURE_SCREEN"", ""FLOW_COMPLETION""]
+            }";
+
+            SdkConfig sdkConfig = JsonConvert.DeserializeObject<SdkConfig>(json);
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(3, sdkConfig.SuppressedScreens.Count);
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "ID_DOCUMENT_EDUCATION");
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "SOME_FUTURE_SCREEN");
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, "FLOW_COMPLETION");
+        }
+
+        [TestMethod]
+        public void SuppressedScreenConstantsShouldMatchExpectedValues()
+        {
+            Assert.AreEqual("ID_DOCUMENT_EDUCATION", SuppressedScreen.IdDocumentEducation);
+            Assert.AreEqual("ID_DOCUMENT_REQUIREMENTS", SuppressedScreen.IdDocumentRequirements);
+            Assert.AreEqual("SUPPLEMENTARY_DOCUMENT_EDUCATION", SuppressedScreen.SupplementaryDocumentEducation);
+            Assert.AreEqual("ZOOM_LIVENESS_EDUCATION", SuppressedScreen.ZoomLivenessEducation);
+            Assert.AreEqual("STATIC_LIVENESS_EDUCATION", SuppressedScreen.StaticLivenessEducation);
+            Assert.AreEqual("FACE_CAPTURE_EDUCATION", SuppressedScreen.FaceCaptureEducation);
+            Assert.AreEqual("FLOW_COMPLETION", SuppressedScreen.FlowCompletion);
         }
 
         [TestMethod]

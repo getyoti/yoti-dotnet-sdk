@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -41,6 +41,14 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
 
+        /// <summary>
+        /// The screens to suppress from the IDV flow. Each value should be one of the
+        /// constants defined in <see cref="SuppressedScreen"/>. The field is optional —
+        /// when <c>null</c> or empty, no screens are suppressed.
+        /// </summary>
+        [JsonProperty(PropertyName = "suppressed_screens")]
+        public List<string> SuppressedScreens { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -51,7 +59,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
-                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null,
+                            List<string> suppressedScreens = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -63,6 +72,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
+            SuppressedScreens = suppressedScreens;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {
