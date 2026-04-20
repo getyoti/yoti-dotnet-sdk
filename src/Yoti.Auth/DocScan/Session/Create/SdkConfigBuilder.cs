@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -234,7 +235,26 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
+
+        /// <summary>
+        /// Sets the list of screens to suppress from the IDV flow
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Valid values are defined as constants on <see cref="DocScanConstants"/>:
+        ///         <c>ID_DOCUMENT_EDUCATION</c>, <c>ID_DOCUMENT_REQUIREMENTS</c>,
+        ///         <c>SUPPLEMENTARY_DOCUMENT_EDUCATION</c>, <c>ZOOM_LIVENESS_EDUCATION</c>,
+        ///         <c>STATIC_LIVENESS_EDUCATION</c>, <c>FACE_CAPTURE_EDUCATION</c>, <c>FLOW_COMPLETION</c>.
+        ///     </para>
+        /// </remarks>
+        /// <param name="suppressedScreens">The list of screens to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens;
+            return this;
+        }
 
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
@@ -253,7 +273,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _suppressedScreens);
         }
     }
 }
