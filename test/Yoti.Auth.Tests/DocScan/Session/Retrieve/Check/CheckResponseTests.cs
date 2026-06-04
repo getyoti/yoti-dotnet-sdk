@@ -107,6 +107,24 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         }
 
         [TestMethod]
+        public void CheckBreakdownResponseWithExpertReviewProcessIsParsed()
+        {
+            dynamic breakdownResponse = GetBreakdownResponse();
+            breakdownResponse = new
+            {
+                sub_check = breakdownResponse.sub_check,
+                result = breakdownResponse.result,
+                process = "EXPERT_REVIEW",
+                details = breakdownResponse.details
+            };
+
+            string json = JsonConvert.SerializeObject(breakdownResponse);
+            BreakdownResponse response =
+                JsonConvert.DeserializeObject<BreakdownResponse>(json);
+            AssertBreakdownResponseValuesCorrect(breakdownResponse, response);
+        }
+
+        [TestMethod]
         public void CheckReportResponseIsParsed()
         {
             dynamic reportResponse = new
@@ -253,6 +271,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
             {
                 sub_check = "issuing_authority_verification",
                 result = "PASS",
+                process = "AUTOMATED",
                 details = new List<dynamic> {
                     new { name = "n1", value = "v1" },
                     new { name = "n2", value = "v2" }
@@ -272,6 +291,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         {
             Assert.AreEqual(breakdownResponse.sub_check, response.SubCheck);
             Assert.AreEqual(breakdownResponse.result, response.Result);
+            Assert.AreEqual(breakdownResponse.process, response.Process);
 
             var detailsList = (breakdownResponse.details as IEnumerable<dynamic>);
             Assert.AreEqual(detailsList.First().name, response.Details.First().Name);
