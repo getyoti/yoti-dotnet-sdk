@@ -346,7 +346,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfilePreview()
         {
-            AdvancedIdentityProfile advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
+            object advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
 
             SessionSpecification sessionSpec =
                 new SessionSpecificationBuilder()
@@ -360,7 +360,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfileRequirements()
         {
-            AdvancedIdentityProfile advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
+            object advancedIdentityProfileRequirements = IdentityProfiles.CreateStandardAdvancedIdentityProfileRequirements();
 
             SessionSpecification sessionSpec =
                 new SessionSpecificationBuilder()
@@ -401,6 +401,63 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                 .Build();
 
             Assert.IsNull(sessionSpec.Subject);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithResources()
+        {
+            var applicantProfile = new ApplicantProfileBuilder()
+                .WithFullName("John Doe")
+                .WithDateOfBirth("1988-11-02")
+                .Build();
+
+            ResourceCreationContainer resources =
+                new ResourceCreationContainerBuilder()
+                .WithApplicantProfile(applicantProfile)
+                .Build();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithResources(resources)
+                .Build();
+
+            Assert.AreEqual(resources, sessionSpec.Resources);
+            Assert.AreEqual("John Doe", sessionSpec.Resources.ApplicantProfile.FullName);
+        }
+
+        [TestMethod]
+        public void ShouldNotImplicitlySetAValueForResources()
+        {
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .Build();
+
+            Assert.IsNull(sessionSpec.Resources);
+        }
+
+        [TestMethod]
+        public void ShouldCorrectlySerializeResources()
+        {
+            var applicantProfile = new ApplicantProfileBuilder()
+                .WithFullName("John Doe")
+                .WithDateOfBirth("1988-11-02")
+                .Build();
+
+            ResourceCreationContainer resources =
+                new ResourceCreationContainerBuilder()
+                .WithApplicantProfile(applicantProfile)
+                .Build();
+
+            SessionSpecification sessionSpec =
+                new SessionSpecificationBuilder()
+                .WithResources(resources)
+                .Build();
+
+            string json = JsonConvert.SerializeObject(sessionSpec);
+
+            Assert.IsTrue(json.Contains("\"resources\":{\"applicant_profile\":{"));
+            Assert.IsTrue(json.Contains("\"full_name\":\"John Doe\""));
+            Assert.IsTrue(json.Contains("\"date_of_birth\":\"1988-11-02\""));
         }
     }
 }

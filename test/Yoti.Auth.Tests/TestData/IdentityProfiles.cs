@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Yoti.Auth.DigitalIdentity.Policy;
 
 namespace Yoti.Auth.Tests.TestData
@@ -63,41 +62,40 @@ namespace Yoti.Auth.Tests.TestData
             };
         }
         
-        public static Yoti.Auth.DocScan.Session.Create.AdvancedIdentityProfile CreateStandardAdvancedIdentityProfileRequirements()
+        public static object CreateStandardAdvancedIdentityProfileRequirements()
         {
-            Yoti.Auth.DocScan.Session.Create.AdvancedIdentityProfile data = new Yoti.Auth.DocScan.Session.Create.AdvancedIdentityProfile
+            string advancedIdentityProfileJson = @"
             {
-                profiles = new List<Yoti.Auth.DocScan.Session.Create.Profile>
-            {
-                new Yoti.Auth.DocScan.Session.Create.Profile
-                {
-                    trust_framework = "UK_TFIDA",
-                    schemes = new List<Yoti.Auth.DocScan.Session.Create.Scheme>
+                ""profiles"": [
                     {
-                        new Yoti.Auth.DocScan.Session.Create.Scheme
-                        {
-                            label = "LB912",
-                            type = "RTW"
-                        }
-                    }
-                },
-                new Yoti.Auth.DocScan.Session.Create.Profile
-                {
-                    trust_framework = "YOTI_GLOBAL",
-                    schemes = new List<Yoti.Auth.DocScan.Session.Create.Scheme>
+                        ""trust_framework"": ""UK_TFIDA"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB912"",
+                                ""type"": ""RTW""
+                            },
+                            {
+                                ""label"": ""LB777"",
+                                ""type"": ""DBS"",
+                                ""objective"": ""BASIC""
+                            }
+                        ]
+                    },
                     {
-                        new Yoti.Auth.DocScan.Session.Create.Scheme
-                        {
-                            label = "LB321",
-                            type = "IDENTITY",
-                            objective = "AL_L1"
-                        }
+                        ""trust_framework"": ""YOTI_GLOBAL"",
+                        ""schemes"": [
+                            {
+                                ""label"": ""LB321"",
+                                ""type"": ""IDENTITY"",
+                                ""objective"": ""AL_L1"",
+                                ""config"": {}
+                            }
+                        ]
                     }
-                }
-            }
-            };
+                ]
+            }";
 
-            return data;
+            return advancedIdentityProfileJson;
         }
     }
 }
