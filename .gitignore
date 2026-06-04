@@ -19,6 +19,9 @@ secrets.config
 .DS_Store
 .idea/
 
+# Language server cache
+*.lscache
+
 # PEM files in Examples
 /src/Examples/**/*.pem
 
