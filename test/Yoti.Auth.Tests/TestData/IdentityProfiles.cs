@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Yoti.Auth.DigitalIdentity.Policy;
-using System.Collections.Generic;
 
 namespace Yoti.Auth.Tests.TestData
 {
