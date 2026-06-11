@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -238,36 +239,44 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
-        /// Sets the list of screens that should be suppressed (omitted) from the IDV flow.
+        /// Replaces the suppressed screens list with the provided collection, filtering out any null or whitespace entries.
         /// </summary>
         /// <remarks>
         ///     <para>
-        ///         Valid screen identifier values are defined on <see cref="SuppressedScreen"/>.
+        ///         Valid screen identifier values are defined in <see cref="Constants.DocScanConstants"/>.
         ///     </para>
         ///     <para>
         ///         Passing null or omitting this call leaves <c>suppressed_screens</c> out of the
         ///         serialized config, so the flow shows all screens by default.
+        ///     </para>
+        ///     <para>
+        ///         To append a single screen without replacing the list, use <see cref="WithSuppressedScreen"/>.
         ///     </para>
         /// </remarks>
         /// <param name="suppressedScreens">The list of screen identifiers to suppress</param>
         /// <returns>The <see cref="SdkConfigBuilder"/></returns>
         public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
         {
-            _suppressedScreens = suppressedScreens;
+            _suppressedScreens = suppressedScreens?.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
             return this;
         }
 
         /// <summary>
-        /// Appends a single screen identifier to the list of suppressed screens.
+        /// Appends a single screen identifier to the suppressed screens list, ignoring duplicates.
         /// </summary>
-        /// <param name="suppressedScreen">The screen identifier to suppress (see <see cref="SuppressedScreen"/>)</param>
+        /// <remarks>Use <see cref="WithSuppressedScreens"/> to replace the entire list at once.</remarks>
+        /// <param name="suppressedScreen">The screen identifier to suppress; use constants from <see cref="Constants.DocScanConstants"/></param>
         /// <returns>The <see cref="SdkConfigBuilder"/></returns>
         public SdkConfigBuilder WithSuppressedScreen(string suppressedScreen)
         {
+            Validation.NotNullOrWhiteSpace(suppressedScreen, nameof(suppressedScreen));
+
             if (_suppressedScreens == null)
                 _suppressedScreens = new List<string>();
 
-            _suppressedScreens.Add(suppressedScreen);
+            if (!_suppressedScreens.Contains(suppressedScreen))
+                _suppressedScreens.Add(suppressedScreen);
+
             return this;
         }
 
