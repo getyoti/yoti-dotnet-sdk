@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -238,13 +239,33 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
-        /// Sets the screens to suppress during the document scanning flow
+        /// Replaces the suppressed screens list with the provided collection, filtering out any null or whitespace entries.
         /// </summary>
+        /// <remarks>Subsequent calls replace the entire list. To append a single screen, use <see cref="WithSuppressedScreen"/>.</remarks>
         /// <param name="suppressedScreens">List of screen names to suppress</param>
         /// <returns>The <see cref="SdkConfigBuilder"/></returns>
         public SdkConfigBuilder WithSuppressedScreens(IList<string> suppressedScreens)
         {
-            _suppressedScreens = suppressedScreens;
+            _suppressedScreens = suppressedScreens?.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+            return this;
+        }
+
+        /// <summary>
+        /// Appends a single screen to the suppressed screens list, ignoring duplicates.
+        /// </summary>
+        /// <remarks>Use <see cref="WithSuppressedScreens"/> to replace the entire list at once.</remarks>
+        /// <param name="suppressedScreen">Screen name to suppress; use constants from <see cref="Constants.DocScanConstants"/></param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreen(string suppressedScreen)
+        {
+            Validation.NotNullOrWhiteSpace(suppressedScreen, nameof(suppressedScreen));
+
+            if (_suppressedScreens == null)
+                _suppressedScreens = new List<string>();
+
+            if (!_suppressedScreens.Contains(suppressedScreen))
+                _suppressedScreens.Add(suppressedScreen);
+
             return this;
         }
 

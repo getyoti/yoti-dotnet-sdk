@@ -334,5 +334,77 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             Assert.IsNotNull(sdkConfig.SuppressedScreens);
             CollectionAssert.AreEqual(secondScreens, sdkConfig.SuppressedScreens.ToList());
         }
+
+        [TestMethod]
+        public void WithSuppressedScreensShouldFilterNullAndWhitespaceEntries()
+        {
+            var screens = new List<string> { DocScanConstants.IdDocumentEducation, null, "   ", DocScanConstants.FlowCompletion };
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreens(screens)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(2, sdkConfig.SuppressedScreens.Count);
+            Assert.IsTrue(sdkConfig.SuppressedScreens.Contains(DocScanConstants.IdDocumentEducation));
+            Assert.IsTrue(sdkConfig.SuppressedScreens.Contains(DocScanConstants.FlowCompletion));
+        }
+
+        [TestMethod]
+        public void ShouldAppendSingleSuppressedScreen()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreen(DocScanConstants.IdDocumentEducation)
+                .WithSuppressedScreen(DocScanConstants.FlowCompletion)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(2, sdkConfig.SuppressedScreens.Count);
+            Assert.IsTrue(sdkConfig.SuppressedScreens.Contains(DocScanConstants.IdDocumentEducation));
+            Assert.IsTrue(sdkConfig.SuppressedScreens.Contains(DocScanConstants.FlowCompletion));
+        }
+
+        [TestMethod]
+        public void WithSuppressedScreenShouldDeduplicateEntries()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreen(DocScanConstants.IdDocumentEducation)
+                .WithSuppressedScreen(DocScanConstants.IdDocumentEducation)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(1, sdkConfig.SuppressedScreens.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.InvalidOperationException))]
+        public void WithSuppressedScreenShouldThrowForNullInput()
+        {
+            new SdkConfigBuilder().WithSuppressedScreen(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.InvalidOperationException))]
+        public void WithSuppressedScreenShouldThrowForWhitespaceInput()
+        {
+            new SdkConfigBuilder().WithSuppressedScreen("   ");
+        }
+
+        [TestMethod]
+        public void WithSuppressedScreenShouldAccumulateAcrossMixedCalls()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithSuppressedScreen(DocScanConstants.IdDocumentEducation)
+                .WithSuppressedScreen(DocScanConstants.ZoomLivenessEducation)
+                .WithSuppressedScreen(DocScanConstants.IdDocumentEducation)
+                .Build();
+
+            Assert.IsNotNull(sdkConfig.SuppressedScreens);
+            Assert.AreEqual(2, sdkConfig.SuppressedScreens.Count);
+        }
     }
 }
