@@ -23,7 +23,7 @@ namespace Yoti.Auth.Web
         /// <summary>
         /// Gets the X-Request-ID header value if present
         /// </summary>
-        public string RequestId => GetHeaderValue("X-Request-ID") ?? GetHeaderValue("X-Request-Id");
+        public string RequestId => GetHeaderValue("X-Request-ID");
 
         /// <summary>
         /// Creates a new YotiHttpResponse

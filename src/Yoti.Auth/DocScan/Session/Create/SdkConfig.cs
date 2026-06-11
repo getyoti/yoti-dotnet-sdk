@@ -82,7 +82,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         /// Returns true if the given screen identifier is listed in <see cref="SuppressedScreens"/>.
         /// Matching is case-sensitive against the exact string value.
         /// </summary>
-        /// <param name="screenId">The screen identifier to check (see <see cref="SuppressedScreen"/>)</param>
+        /// <param name="screenId">The screen identifier to check (see <see cref="Yoti.Auth.Constants.DocScanConstants"/>)</param>
         /// <returns>True if the screen is suppressed, false otherwise</returns>
         public bool IsScreenSuppressed(string screenId)
         {

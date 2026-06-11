@@ -55,7 +55,7 @@
 
    
 
-    @if (Model.IdentityProfile != null && Model.IdentityProfile.FailureReason != null &&Model.IdentityProfile.FailureReason.ReasonCode != null)
+    @if (Model.IdentityProfile != null && Model.IdentityProfile.FailureReason != null && Model.IdentityProfile.FailureReason.ReasonCode != null && Model.IdentityProfile.FailureReason.RequirementNotMetDetails != null)
     {
         <div class="row pt-4">
             <div class="col">
@@ -68,7 +68,7 @@
             <td>Reason Code</td>
             <td>@Model.IdentityProfile.FailureReason.ReasonCode</td>
         </tr>
-        @foreach (var detail in Model.IdentityProfile.FailureReason.RequirementsNotMetDetails)
+        @foreach (var detail in new[] { Model.IdentityProfile.FailureReason.RequirementNotMetDetails })
         {
         <tr>
             <td>Failure Type</td>

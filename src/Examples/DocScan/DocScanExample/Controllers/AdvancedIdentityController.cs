@@ -23,7 +23,7 @@ namespace DocScanExample.Controllers
         {
             var request = httpContextAccessor.HttpContext.Request;
             
-            _baseUrl = $"{request.Scheme}://{request.Host}"; ;
+            _baseUrl = $"{request.Scheme}://{request.Host}";
             _apiUrl = GetApiUrl();
             _client = GetDocScanClient(_apiUrl);
         }
@@ -32,30 +32,30 @@ namespace DocScanExample.Controllers
         {
             AdvancedIdentityProfile data = new AdvancedIdentityProfile
             {
-                profiles = new List<Profile>
+                Profiles = new List<Profile>
             {
                 new Profile
                 {
-                    trust_framework = "UK_TFIDA",
-                    schemes = new List<Scheme>
+                    TrustFramework = "UK_TFIDA",
+                    Schemes = new List<Scheme>
                     {
                         new Scheme
                         {
-                            label = "LB912",
-                            type = "RTW"
+                            Label = "LB912",
+                            Type = "RTW"
                         }
                     }
                 },
                 new Profile
                 {
-                    trust_framework = "YOTI_GLOBAL",
-                    schemes = new List<Scheme>
+                    TrustFramework = "YOTI_GLOBAL",
+                    Schemes = new List<Scheme>
                     {
                         new Scheme
                         {
-                            label = "LB321",
-                            type = "IDENTITY",
-                            objective = "AL_L1"
+                            Label = "LB321",
+                            Type = "IDENTITY",
+                            Objective = "AL_L1"
                         }
                     }
                 }
