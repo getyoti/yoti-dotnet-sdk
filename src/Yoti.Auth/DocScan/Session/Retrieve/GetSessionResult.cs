@@ -61,7 +61,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "advanced_identity_profile_preview")]
         public IdentityProfilePreviewResponse AdvancedIdentityProfilePreviewResponse { get; internal set; }
-        
+
         public List<AuthenticityCheckResponse> GetAuthenticityChecks()
         {
             if (Checks == null)
