@@ -32,7 +32,7 @@ namespace DigitalIdentityExample.Controllers
                         "yotiKeyFilePath='{0}'",
                         yotiKeyFilePath));
 
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+                using StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 

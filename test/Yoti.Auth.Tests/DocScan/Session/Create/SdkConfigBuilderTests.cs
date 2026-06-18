@@ -227,8 +227,8 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             var screens = new List<string>
             {
-                DocScanConstants.IdDocumentEducation,
-                DocScanConstants.FlowCompletion,
+                SuppressedScreen.IdDocumentEducation,
+                SuppressedScreen.FlowCompletion,
             };
 
             SdkConfig sdkConfig =
@@ -258,7 +258,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithSuppressedScreens(new List<string> { DocScanConstants.IdDocumentEducation })
+                .WithSuppressedScreens(new List<string> { SuppressedScreen.IdDocumentEducation })
                 .WithSuppressedScreens(null)
                 .Build();
 
@@ -270,25 +270,25 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithSuppressedScreen(DocScanConstants.IdDocumentEducation)
-                .WithSuppressedScreen(DocScanConstants.ZoomLivenessEducation)
+                .WithSuppressedScreen(SuppressedScreen.IdDocumentEducation)
+                .WithSuppressedScreen(SuppressedScreen.ZoomLivenessEducation)
                 .Build();
 
             Assert.AreEqual(2, sdkConfig.SuppressedScreens.Count);
-            CollectionAssert.Contains(sdkConfig.SuppressedScreens, DocScanConstants.IdDocumentEducation);
-            CollectionAssert.Contains(sdkConfig.SuppressedScreens, DocScanConstants.ZoomLivenessEducation);
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, SuppressedScreen.IdDocumentEducation);
+            CollectionAssert.Contains(sdkConfig.SuppressedScreens, SuppressedScreen.ZoomLivenessEducation);
         }
 
         [TestMethod]
-        public void SuppressedScreenConstantsShouldHaveExpectedValues()
+        public void SuppressedScreensConstantsShouldHaveExpectedValues()
         {
-            Assert.AreEqual("ID_DOCUMENT_EDUCATION", DocScanConstants.IdDocumentEducation);
-            Assert.AreEqual("ID_DOCUMENT_REQUIREMENTS", DocScanConstants.IdDocumentRequirements);
-            Assert.AreEqual("SUPPLEMENTARY_DOCUMENT_EDUCATION", DocScanConstants.SupplementaryDocumentEducation);
-            Assert.AreEqual("ZOOM_LIVENESS_EDUCATION", DocScanConstants.ZoomLivenessEducation);
-            Assert.AreEqual("STATIC_LIVENESS_EDUCATION", DocScanConstants.StaticLivenessEducation);
-            Assert.AreEqual("FACE_CAPTURE_EDUCATION", DocScanConstants.FaceCaptureEducation);
-            Assert.AreEqual("FLOW_COMPLETION", DocScanConstants.FlowCompletion);
+            Assert.AreEqual("ID_DOCUMENT_EDUCATION", SuppressedScreen.IdDocumentEducation);
+            Assert.AreEqual("ID_DOCUMENT_REQUIREMENTS", SuppressedScreen.IdDocumentRequirements);
+            Assert.AreEqual("SUPPLEMENTARY_DOCUMENT_EDUCATION", SuppressedScreen.SupplementaryDocumentEducation);
+            Assert.AreEqual("ZOOM_LIVENESS_EDUCATION", SuppressedScreen.ZoomLivenessEducation);
+            Assert.AreEqual("STATIC_LIVENESS_EDUCATION", SuppressedScreen.StaticLivenessEducation);
+            Assert.AreEqual("FACE_CAPTURE_EDUCATION", SuppressedScreen.FaceCaptureEducation);
+            Assert.AreEqual("FLOW_COMPLETION", SuppressedScreen.FlowCompletion);
         }
 
         [TestMethod]
@@ -296,10 +296,10 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithSuppressedScreens(new List<string> { DocScanConstants.IdDocumentEducation })
+                .WithSuppressedScreens(new List<string> { SuppressedScreen.IdDocumentEducation })
                 .Build();
 
-            Assert.IsTrue(sdkConfig.IsScreenSuppressed(DocScanConstants.IdDocumentEducation));
+            Assert.IsTrue(sdkConfig.IsScreenSuppressed(SuppressedScreen.IdDocumentEducation));
         }
 
         [TestMethod]
@@ -307,10 +307,10 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithSuppressedScreens(new List<string> { DocScanConstants.IdDocumentEducation })
+                .WithSuppressedScreens(new List<string> { SuppressedScreen.IdDocumentEducation })
                 .Build();
 
-            Assert.IsFalse(sdkConfig.IsScreenSuppressed(DocScanConstants.FlowCompletion));
+            Assert.IsFalse(sdkConfig.IsScreenSuppressed(SuppressedScreen.FlowCompletion));
         }
 
         [TestMethod]
@@ -320,7 +320,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
                 new SdkConfigBuilder()
                 .Build();
 
-            Assert.IsFalse(sdkConfig.IsScreenSuppressed(DocScanConstants.IdDocumentEducation));
+            Assert.IsFalse(sdkConfig.IsScreenSuppressed(SuppressedScreen.IdDocumentEducation));
         }
 
         [TestMethod]
@@ -328,7 +328,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             SdkConfig sdkConfig =
                 new SdkConfigBuilder()
-                .WithSuppressedScreens(new List<string> { DocScanConstants.IdDocumentEducation })
+                .WithSuppressedScreens(new List<string> { SuppressedScreen.IdDocumentEducation })
                 .Build();
 
             Assert.IsFalse(sdkConfig.IsScreenSuppressed("id_document_education"));
@@ -339,8 +339,8 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         {
             var screens = new List<string>
             {
-                DocScanConstants.IdDocumentEducation,
-                DocScanConstants.FlowCompletion,
+                SuppressedScreen.IdDocumentEducation,
+                SuppressedScreen.FlowCompletion,
             };
 
             SdkConfig sdkConfig =

@@ -44,20 +44,21 @@ namespace Yoti.Auth.Web
         /// <returns>A new YotiHttpResponse</returns>
         internal static YotiHttpResponse<T> FromHttpResponse(T data, HttpResponseMessage httpResponse)
         {
+            if (httpResponse == null)
+                throw new System.ArgumentNullException(nameof(httpResponse));
+
             var headers = new Dictionary<string, IEnumerable<string>>();
 
-            // Add response headers
             foreach (var header in httpResponse.Headers)
             {
-                headers[header.Key] = header.Value;
+                headers[header.Key] = header.Value.ToList();
             }
 
-            // Add content headers if present
             if (httpResponse.Content?.Headers != null)
             {
                 foreach (var header in httpResponse.Content.Headers)
                 {
-                    headers[header.Key] = header.Value;
+                    headers[header.Key] = header.Value.ToList();
                 }
             }
 
