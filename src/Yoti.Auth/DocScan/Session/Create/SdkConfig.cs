@@ -56,8 +56,25 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
-                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null,
-                            bool? enforceHandoff = null)
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+            : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
+                   presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null)
+        {
+        }
+
+        public SdkConfig(string allowedCaptureMethods,
+                            string primaryColour,
+                            string secondaryColour,
+                            string fontColour,
+                            string locale,
+                            string presetIssuingCountry,
+                            string successUrl,
+                            string errorUrl,
+                            string privacyPolicyUrl,
+                            bool? allowHandoff,
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
+                            bool? enforceHandoff)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;

@@ -238,8 +238,10 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
              .WithEnforceHandoff(true)
              .Build();
 
-            Assert.IsTrue(sdkConfig.AllowHandoff);
-            Assert.IsTrue(sdkConfig.EnforceHandoff);
+            Assert.IsTrue(sdkConfig.AllowHandoff.HasValue);
+            Assert.IsTrue(sdkConfig.AllowHandoff.Value);
+            Assert.IsTrue(sdkConfig.EnforceHandoff.HasValue);
+            Assert.IsTrue(sdkConfig.EnforceHandoff.Value);
 
             string json = JsonConvert.SerializeObject(
                 sdkConfig,
