@@ -96,13 +96,14 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId,QrRequest qrRequestPayload)
+        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, QrRequest qrRequestPayload)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(sessionId, nameof(sessionId));
+            Validation.NotNullOrEmpty(sessionId, nameof(sessionId));
+            Validation.NotNull(qrRequestPayload, nameof(qrRequestPayload));
 
             string serializedQrCode = JsonConvert.SerializeObject(
                 qrRequestPayload,
