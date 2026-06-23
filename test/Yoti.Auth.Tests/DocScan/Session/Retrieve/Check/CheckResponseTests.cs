@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     [TestClass]
     public class CheckResponseTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(DocScanConstants.IdDocumentAuthenticity, typeof(AuthenticityCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentFaceMatch, typeof(FaceMatchCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentTextDataCheck, typeof(TextDataCheckResponse))]
@@ -126,7 +126,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
             AssertBreakdownResponseValuesCorrect((reportResponse.breakdown as IEnumerable<dynamic>).First(), response.Breakdown.First());
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(typeof(DocumentFieldsResponse))]
         [DataRow(typeof(DocumentIdPhotoResponse))]
         [DataRow(typeof(FaceMapResponse))]

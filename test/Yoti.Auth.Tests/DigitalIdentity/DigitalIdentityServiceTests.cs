@@ -33,7 +33,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullHttpClient()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(null, _apiURL, _sdkID, _keyPair, _someShareSessionRequest).Wait();
             });
@@ -45,7 +45,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullApiUrl()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, null, _sdkID, _keyPair, _someShareSessionRequest).Wait();
             });
@@ -57,19 +57,19 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullSdkId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, _apiURL, null, _keyPair, _someShareSessionRequest).Wait();
             });
 
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<InvalidOperationException>(aggregateException));
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
         }
 
         [TestMethod]
         public void ShouldFailWithNullKeyPair()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, _apiURL, _sdkID, null, _someShareSessionRequest).Wait();
             });
@@ -81,7 +81,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullDynamicScenario()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, _apiURL, _sdkID, _keyPair, null).Wait();
             });
@@ -93,18 +93,18 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForMissingSdkId()
         {
-            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
                 await DigitalIdentityService.GetSession(_httpClient, _apiURL, null, _keyPair, _sessionID);
-            });
+            }).Result;
 
-            Assert.IsTrue(exception.Exception.InnerException.Message.Contains("sdkId"));
+            Assert.IsTrue(exception.Message.Contains("sdkId"));
         }
 
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForMissingKeyPair()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await DigitalIdentityService.GetSession(_httpClient, _apiURL, _sdkID, null, _sessionID);
             }).Result;
@@ -115,7 +115,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await DigitalIdentityService.GetSession(_httpClient, _apiURL, _sdkID, _keyPair, null);
             }).Result;
@@ -126,7 +126,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullHttpClient()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(null, _apiURL, _sdkID, _keyPair, _sessionID, _someCreateQrRequest).Wait();
             });
@@ -138,7 +138,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullApiUrl()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(_httpClient, null, _sdkID, _keyPair, _sessionID, _someCreateQrRequest).Wait();
             });
@@ -150,19 +150,19 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullSdkId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, null, _keyPair, _sessionID, _someCreateQrRequest).Wait();
             });
 
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<InvalidOperationException>(aggregateException));
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
         }
 
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullKeyPair()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, _sdkID, null, _sessionID, _someCreateQrRequest).Wait();
             });
@@ -174,18 +174,18 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveQrShouldThrowExceptionForMissingSdkId()
         {
-            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
                 await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, null, _keyPair, _sessionID);
-            });
+            }).Result;
 
-            Assert.IsTrue(exception.Exception.InnerException.Message.Contains("sdkId"));
+            Assert.IsTrue(exception.Message.Contains("sdkId"));
         }
 
         [TestMethod]
         public void RetrieveQrCodeShouldThrowExceptionForMissingKeyPair()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, _sdkID, null, _sessionID);
             }).Result;
@@ -196,13 +196,12 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveQrCodeShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, _sdkID, _keyPair, null);
             }).Result;
 
             Assert.IsTrue(exception.Message.Contains("qrCodeId"));
         }
-
     }
 }

@@ -11,7 +11,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void NonBase64TokenThrowsError()
         {
-            var exception = Assert.ThrowsException<FormatException>(() =>
+            var exception = Assert.ThrowsExactly<FormatException>(() =>
             {
                 CryptoEngine.DecryptToken("_aasi", KeyPair.Get());
             });
@@ -22,7 +22,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void EmptyOneTimeUseTokenThrowsError()
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 CryptoEngine.DecryptToken("", KeyPair.Get());
             });
@@ -37,7 +37,7 @@ namespace Yoti.Auth.Tests
             byte[] secret = new byte[16];
             byte[] cipherText = new byte[32];
             
-            var exception = Assert.ThrowsException<Exception>(() =>
+            var exception = Assert.ThrowsExactly<Exception>(() =>
             {
                 CryptoEngine.DecryptAesGcm(cipherText, iv, secret);
             });
@@ -53,7 +53,7 @@ namespace Yoti.Auth.Tests
             byte[] itemKeyIv = new byte[12];
             AsymmetricCipherKeyPair key = null;
 
-            var exception = Assert.ThrowsException<Exception>(() =>
+            var exception = Assert.ThrowsExactly<Exception>(() =>
             {
                 byte[] unwrappedKey = CryptoEngine.UnwrapReceiptKey(wrappedReceiptKey, encryptedItemKey, itemKeyIv, key);
             });
@@ -67,7 +67,7 @@ namespace Yoti.Auth.Tests
             byte[] content = new byte[] { 0x01, 0x02, 0x03 }; // Example content
             byte[] receiptContentKey = new byte[16]; // Example receipt content key
 
-            var exception = Assert.ThrowsException<Exception>(() =>
+            var exception = Assert.ThrowsExactly<Exception>(() =>
             {
                 byte[] decryptedContent = CryptoEngine.DecryptReceiptContent(content, receiptContentKey);
 
@@ -82,7 +82,7 @@ namespace Yoti.Auth.Tests
             byte[] content = null; // Example content
             byte[] receiptContentKey = new byte[] { 0x01, 0x02, 0x03 }; // Example receipt content key
 
-            var exception = Assert.ThrowsException<Exception>(() =>
+            var exception = Assert.ThrowsExactly<Exception>(() =>
             {
                 byte[] unwrappedKey = CryptoEngine.DecryptReceiptContent(content, receiptContentKey);
             });

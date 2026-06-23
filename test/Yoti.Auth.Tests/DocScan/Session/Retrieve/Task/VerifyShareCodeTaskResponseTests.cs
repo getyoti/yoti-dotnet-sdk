@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Task
     [TestClass]
     public class VerifyShareCodeTaskResponseTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(DocScanConstants.VerifyShareCodeTask, typeof(VerifyShareCodeTaskResponse))]
         [DataRow("OTHER", typeof(TaskResponse))]
         [DataRow("", typeof(TaskResponse))]
