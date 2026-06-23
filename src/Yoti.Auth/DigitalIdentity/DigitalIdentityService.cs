@@ -28,7 +28,7 @@ namespace Yoti.Auth.DigitalIdentity
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(shareSessionRequestPayload, nameof(shareSessionRequestPayload));
 
@@ -68,9 +68,9 @@ namespace Yoti.Auth.DigitalIdentity
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(sessionId, nameof(sessionId));           
+            Validation.NotNull(sessionId, nameof(sessionId));
 
 
             Request getSessionRequest = new RequestBuilder()
@@ -100,7 +100,7 @@ namespace Yoti.Auth.DigitalIdentity
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(sessionId, nameof(sessionId));
 
@@ -141,7 +141,7 @@ namespace Yoti.Auth.DigitalIdentity
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
+            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
             Validation.NotNull(qrCodeId, nameof(qrCodeId));
 

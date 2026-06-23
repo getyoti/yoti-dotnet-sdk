@@ -23,14 +23,14 @@ namespace Yoti.Auth.Tests
 		private static HttpRequestMessage _httpRequestMessage;
 		private const string SdkId = "fake-sdk-id";
 
-		[DataTestMethod]
+		[TestMethod]
 		[DataRow(null)]
 		[DataRow("")]
 		public void InvalidTokenShouldThrowException(string encryptedToken)
 		{
 			var engine = new YotiClientEngine(new HttpClient());
 
-			var profileException = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+			var profileException = Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
 			{
 				await engine.GetActivityDetailsAsync(encryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
 			}).Result;
@@ -47,7 +47,7 @@ namespace Yoti.Auth.Tests
 
 			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			var profileException = Assert.ThrowsExactlyAsync<YotiProfileException>(async () =>
 			{
 				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
 			}).Result;
@@ -65,7 +65,7 @@ namespace Yoti.Auth.Tests
 
 			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			var profileException = Assert.ThrowsExactlyAsync<YotiProfileException>(async () =>
 			{
 				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
 			}).Result;
@@ -84,7 +84,7 @@ namespace Yoti.Auth.Tests
 
 			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			var profileException = Assert.ThrowsExactlyAsync<YotiProfileException>(async () =>
 			{
 				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
 			}).Result;
@@ -104,7 +104,7 @@ namespace Yoti.Auth.Tests
 
 			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			var profileException = Assert.ThrowsExactlyAsync<YotiProfileException>(async () =>
 			{
 				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
 			}).Result;
@@ -156,7 +156,7 @@ namespace Yoti.Auth.Tests
 
 			var engine = new YotiClientEngine(new HttpClient(handlerMock.Object));
 
-			var profileException = Assert.ThrowsExceptionAsync<YotiProfileException>(async () =>
+			var profileException = Assert.ThrowsExactlyAsync<YotiProfileException>(async () =>
 			{
 				await engine.GetActivityDetailsAsync(EncryptedToken, SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl));
 			}).Result;
@@ -278,14 +278,14 @@ namespace Yoti.Auth.Tests
 			Assert.IsFalse(amlResult.IsOnWatchList());
 		}
 
-		[DataTestMethod]
+		[TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
 		[DataRow(HttpStatusCode.RequestTimeout)]
 		[DataRow(HttpStatusCode.NotFound)]
 		[DataRow(HttpStatusCode.Forbidden)]
-		public void AmlBadRequestShouldThrowException(HttpStatusCode httpStatusCode)
+		public async Task AmlBadRequestShouldThrowException(HttpStatusCode httpStatusCode)
 		{
 			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
 				httpStatusCode,
@@ -295,7 +295,7 @@ namespace Yoti.Auth.Tests
 
 			AmlProfile amlProfile = TestTools.Aml.CreateStandardAmlProfile();
 
-			Assert.ThrowsExceptionAsync<AmlException>(async () =>
+			await Assert.ThrowsExactlyAsync<AmlException>(async () =>
 			{
 				await engine.PerformAmlCheckAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), amlProfile);
 			});
@@ -321,7 +321,7 @@ namespace Yoti.Auth.Tests
 			Assert.AreEqual(refId, shareUrlResult.RefId);
 		}
 
-		[DataTestMethod]
+		[TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
@@ -338,7 +338,7 @@ namespace Yoti.Auth.Tests
 
 			DynamicScenario dynamicScenario = TestTools.ShareUrl.CreateStandardDynamicScenario();
 
-			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
 				engine.CreateShareURLAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), dynamicScenario).Wait();
 			});

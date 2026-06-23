@@ -117,7 +117,7 @@ namespace Yoti.Auth.Tests
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            Assert.ThrowsException<InvalidCastException>(() =>
+            Assert.ThrowsExactly<InvalidCastException>(() =>
             {
                 applicationProfile.GetAttributeByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
             });
@@ -133,7 +133,7 @@ namespace Yoti.Auth.Tests
 
             ApplicationProfile applicationProfile = TestTools.Profile.CreateApplicationProfileWithSingleAttribute(initialAttribute);
 
-            Assert.ThrowsException<InvalidCastException>(() =>
+            Assert.ThrowsExactly<InvalidCastException>(() =>
             {
                 applicationProfile.GetAttributesByName<Image>(Constants.ApplicationProfile.ApplicationNameAttribute);
             });

@@ -8,7 +8,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
     [TestClass]
     public class IssuingAuthoritySubCheckBuilderTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
         public void ShouldBuildWithCorrectRequestedValue(bool requested)

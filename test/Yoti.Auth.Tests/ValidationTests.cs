@@ -35,7 +35,7 @@ namespace Yoti.Auth.Tests
         public void IsNotDefaultShouldThrowForDefaultType()
         {
             int defaultValue = 0;
-            Assert.ThrowsException<System.InvalidOperationException>(() =>
+            Assert.ThrowsExactly<System.InvalidOperationException>(() =>
             {
                 Validation.IsNotDefault(defaultValue, nameof(defaultValue));
             });
