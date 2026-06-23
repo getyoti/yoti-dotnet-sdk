@@ -102,6 +102,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(sessionId, nameof(sessionId));
 
             string serializedQrCode = JsonConvert.SerializeObject(
                 qrRequestPayload,
@@ -116,7 +117,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
                 .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/sessions/{0}/qr-codes", sessionId))
+                .WithEndpoint($"/v2/sessions/{sessionId}/qr-codes")
                 .WithQueryParam("appId", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
