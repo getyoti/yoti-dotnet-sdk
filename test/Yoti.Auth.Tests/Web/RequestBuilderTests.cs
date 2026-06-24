@@ -29,7 +29,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ShouldNotBuildWithoutKeyPair()
         {
-            var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
+            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
             {
                 new RequestBuilder()
                     .WithBaseUri(_testBaseUri)
@@ -38,7 +38,7 @@ namespace Yoti.Auth.Tests.Web
                     .Build();
             });
 
-            Assert.IsTrue(argumentNullException.Message.Contains("_keyPair"));
+            Assert.IsTrue(exception.Message.Contains("WithAuthStrategy") || exception.Message.Contains("WithKeyPair"));
         }
 
         [TestMethod]
