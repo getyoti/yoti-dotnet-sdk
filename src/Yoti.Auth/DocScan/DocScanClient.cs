@@ -9,6 +9,7 @@ using Yoti.Auth.DocScan.Session.Retrieve;
 using Yoti.Auth.DocScan.Session.Retrieve.Configuration;
 using Yoti.Auth.DocScan.Session.Retrieve.CreateFaceCaptureResourceResponse;
 using Yoti.Auth.DocScan.Support;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.DocScan
 {
@@ -17,8 +18,7 @@ namespace Yoti.Auth.DocScan
     /// </summary>
     public class DocScanClient
     {
-        private readonly string _sdkId;
-        private readonly AsymmetricCipherKeyPair _keyPair;
+        private readonly IAuthStrategy _authStrategy;
         private readonly DocScanService _docScanService;
         private readonly NLog.Logger _logger;
 
@@ -37,9 +37,28 @@ namespace Yoti.Auth.DocScan
             if (httpClient == null)
                 httpClient = new HttpClient();
 
-            _sdkId = sdkId;
-            _keyPair = keyPair;
+            _authStrategy = new SignedRequestAuthStrategy(keyPair, sdkId);
             _docScanService = new DocScanService(httpClient, apiUrl);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="DocScanClient"/> using central auth bearer token authentication.
+        /// Use this factory method instead of a constructor to avoid ambiguity with the sdkId overloads.
+        /// </summary>
+        /// <param name="authToken">The bearer token supplied by the relying business.</param>
+        /// <param name="httpClient">Optional <see cref="HttpClient"/> to use.</param>
+        /// <param name="apiUri">Optional API URI override.</param>
+        public static DocScanClient FromBearerToken(string authToken, HttpClient httpClient = null, Uri apiUri = null)
+        {
+            Validation.NotNullOrEmpty(authToken, nameof(authToken));
+            return new DocScanClient(new BearerTokenAuthStrategy(authToken), httpClient ?? new HttpClient(), apiUri);
+        }
+
+        private DocScanClient(IAuthStrategy authStrategy, HttpClient httpClient, Uri apiUri)
+        {
+            _logger = NLog.LogManager.GetCurrentClassLogger();
+            _authStrategy = authStrategy;
+            _docScanService = new DocScanService(httpClient, apiUri);
         }
 
         /// <summary>
@@ -51,7 +70,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug("Creating a Yoti Doc Scan session...");
 
-            return await _docScanService.CreateSession(_sdkId, _keyPair, sessionSpec).ConfigureAwait(false);
+            return await _docScanService.CreateSession(_authStrategy, sessionSpec).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -73,7 +92,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Retrieving session '{sessionId}'");
 
-            return await _docScanService.GetSession(_sdkId, _keyPair, sessionId).ConfigureAwait(false);
+            return await _docScanService.GetSession(_authStrategy, sessionId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -94,7 +113,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Deleting session '{sessionId}'");
 
-            await _docScanService.DeleteSession(_sdkId, _keyPair, sessionId).ConfigureAwait(false);
+            await _docScanService.DeleteSession(_authStrategy, sessionId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -116,7 +135,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Retrieving media content '{mediaId}' in session '{sessionId}'");
 
-            return await _docScanService.GetMediaContent(_sdkId, _keyPair, sessionId, mediaId).ConfigureAwait(false);
+            return await _docScanService.GetMediaContent(_authStrategy, sessionId, mediaId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -148,7 +167,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Deleting media content '{mediaId}' in session '{sessionId}'");
 
-            await _docScanService.DeleteMediaContent(_sdkId, _keyPair, sessionId, mediaId).ConfigureAwait(false);
+            await _docScanService.DeleteMediaContent(_authStrategy, sessionId, mediaId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -168,7 +187,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug("Retrieving supported documents");
 
-            return await _docScanService.GetSupportedDocuments(_sdkId, _keyPair, isStrictlyLatin).ConfigureAwait(false);
+            return await _docScanService.GetSupportedDocuments(_authStrategy, isStrictlyLatin).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -192,7 +211,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Creating Face Capture resource in session '{sessionId}' for requirement '{createFaceCaptureResourcePayload.RequirementId}'");
 
-            return await _docScanService.CreateFaceCaptureResource(_sdkId, _keyPair, sessionId, createFaceCaptureResourcePayload).ConfigureAwait(false);
+            return await _docScanService.CreateFaceCaptureResource(_authStrategy, sessionId, createFaceCaptureResourcePayload).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -216,7 +235,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Uploading image to Face Capture resource '{resourceId}' for session '{sessionId}'");
 
-            await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, sessionId, resourceId, uploadFaceCaptureImagePayload).ConfigureAwait(false);
+            await _docScanService.UploadFaceCaptureImage(_authStrategy, sessionId, resourceId, uploadFaceCaptureImagePayload).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -238,7 +257,7 @@ namespace Yoti.Auth.DocScan
         {
             _logger.Debug($"Getting configuration for session '{sessionId}'");
 
-            return await _docScanService.GetSessionConfiguration(_sdkId, _keyPair, sessionId).ConfigureAwait(false);
+            return await _docScanService.GetSessionConfiguration(_authStrategy, sessionId).ConfigureAwait(false);
         }
     }
 }

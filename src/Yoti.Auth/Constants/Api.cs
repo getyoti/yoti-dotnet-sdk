@@ -23,5 +23,8 @@ namespace Yoti.Auth.Constants
         public const string ContentTypeJson = "application/json";
 
         public const string SdkIdentifier = ".NET";
+
+        public const string AuthorizationHeader = "Authorization";
+        public const string DefaultAuthApiUrl = "https://auth.api.yoti.com/v1/oauth/token";
     }
 }
