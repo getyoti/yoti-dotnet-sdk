@@ -26,6 +26,7 @@ namespace Yoti.Auth.CentralAuth
 
         public async Task<AuthenticationTokenResponse> GetToken(HttpClient httpClient)
         {
+            Validation.NotNull(httpClient, nameof(httpClient));
             string jwt = BuildJwt();
             string scope = string.Join(" ", _scopes);
 

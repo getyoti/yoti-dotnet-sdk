@@ -38,12 +38,17 @@ namespace Yoti.Auth.CentralAuth
         {
             if (scopes == null)
                 throw new ArgumentNullException(nameof(scopes));
-            _scopes.AddRange(scopes);
+            foreach (var scope in scopes)
+            {
+                Validation.NotNullOrWhiteSpace(scope, nameof(scopes));
+                _scopes.Add(scope);
+            }
             return this;
         }
 
         public AuthenticationTokenGeneratorBuilder WithScope(string scope)
         {
+            Validation.NotNullOrWhiteSpace(scope, nameof(scope));
             _scopes.Add(scope);
             return this;
         }

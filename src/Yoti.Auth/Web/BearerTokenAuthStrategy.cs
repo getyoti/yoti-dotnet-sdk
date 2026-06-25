@@ -13,8 +13,8 @@ namespace Yoti.Auth.Web
 
         public BearerTokenAuthStrategy(string token)
         {
-            if (string.IsNullOrEmpty(token))
-                throw new ArgumentException("Authentication token must not be null or empty.", nameof(token));
+            if (string.IsNullOrWhiteSpace(token))
+                throw new ArgumentException("Authentication token must not be null, empty, or whitespace.", nameof(token));
 
             _token = token;
         }

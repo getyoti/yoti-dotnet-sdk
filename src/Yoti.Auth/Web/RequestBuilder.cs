@@ -317,9 +317,7 @@ namespace Yoti.Auth.Web
                 {
                     endpointBuilder.Append($"{param.Key}={param.Value}&");
                 }
-                // Trim trailing '&' or '?'
-                string result = endpointBuilder.ToString().TrimEnd('&').TrimEnd('?');
-                return result.EndsWith("?", StringComparison.Ordinal) ? result.TrimEnd('?') : result;
+                return endpointBuilder.ToString().TrimEnd('&').TrimEnd('?');
             }
 
             endpointBuilder.Append($"timestamp={GetTimestamp()}&nonce={CryptoEngine.GenerateNonce()}");
