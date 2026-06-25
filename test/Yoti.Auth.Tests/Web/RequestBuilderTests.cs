@@ -42,6 +42,36 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
+        public void ShouldNotBuildWithBothKeyPairAndAuthStrategy()
+        {
+            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                new RequestBuilder()
+                    .WithBaseUri(_testBaseUri)
+                    .WithEndpoint("/a")
+                    .WithHttpMethod(HttpMethod.Get)
+                    .WithKeyPair(KeyPair.Get())
+                    .WithAuthStrategy(new Yoti.Auth.Web.NoAuthStrategy())
+                    .Build();
+            });
+
+            Assert.IsTrue(exception.Message.Contains("mutually exclusive"));
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithAuthStrategy()
+        {
+            var request = new RequestBuilder()
+                .WithBaseUri(_testBaseUri)
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Get)
+                .WithAuthStrategy(new Yoti.Auth.Web.NoAuthStrategy())
+                .Build();
+
+            Assert.IsNotNull(request);
+        }
+
+        [TestMethod]
         public void ShouldNotBuildWithoutBaseUri()
         {
             var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
