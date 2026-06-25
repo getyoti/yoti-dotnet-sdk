@@ -58,7 +58,8 @@ namespace Yoti.Auth.CentralAuth
         public AuthenticationTokenGenerator Build()
         {
             Validation.NotNullOrEmpty(_sdkId, nameof(_sdkId));
-            Validation.NotNull(_keyPair, nameof(_keyPair));
+            if (_keyPair == null)
+                throw new InvalidOperationException("A key pair must be provided via WithKey before calling Build().");
 
             if (_scopes.Count == 0)
                 throw new InvalidOperationException("At least one scope must be added via WithScope or WithScopes before calling Build().");
