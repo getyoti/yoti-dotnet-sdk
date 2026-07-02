@@ -50,5 +50,28 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
                 new RequestedFaceMatchCheckBuilder().Build();
             });
         }
+
+        [TestMethod]
+        public void ShouldBuildWithHandledCheckLimit()
+        {
+            RequestedFaceMatchCheck check =
+              new RequestedFaceMatchCheckBuilder()
+              .WithManualCheckNever()
+              .WithHandledCheckLimit(5)
+              .Build();
+
+            Assert.AreEqual(5, check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithoutHandledCheckLimit()
+        {
+            RequestedFaceMatchCheck check =
+              new RequestedFaceMatchCheckBuilder()
+              .WithManualCheckNever()
+              .Build();
+
+            Assert.IsNull(check.Config.HandledCheckLimit);
+        }
     }
 }

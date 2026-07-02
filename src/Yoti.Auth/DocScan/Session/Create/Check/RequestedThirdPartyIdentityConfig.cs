@@ -2,8 +2,9 @@
 {
     public class RequestedThirdPartyIdentityCheckConfig : RequestedCheckConfig
     {
-        public RequestedThirdPartyIdentityCheckConfig()
+        public RequestedThirdPartyIdentityCheckConfig(int? handledCheckLimit = null)
         {
+            HandledCheckLimit = handledCheckLimit;
         }
     }
 }

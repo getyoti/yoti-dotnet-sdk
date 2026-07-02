@@ -85,5 +85,28 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
                 new RequestedLivenessCheckBuilder().Build();
             });
         }
+
+        [TestMethod]
+        public void ShouldBuildWithHandledCheckLimit()
+        {
+            RequestedLivenessCheck check =
+              new RequestedLivenessCheckBuilder()
+              .ForZoomLiveness()
+              .WithHandledCheckLimit(2)
+              .Build();
+
+            Assert.AreEqual(2, check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithoutHandledCheckLimit()
+        {
+            RequestedLivenessCheck check =
+              new RequestedLivenessCheckBuilder()
+              .ForStaticLiveness()
+              .Build();
+
+            Assert.IsNull(check.Config.HandledCheckLimit);
+        }
     }
 }
