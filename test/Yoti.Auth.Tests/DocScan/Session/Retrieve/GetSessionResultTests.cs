@@ -339,7 +339,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         {
             dynamic identityProfilePreviewResponse = new
             {
-                 media = GetMediaResponse() 
+                media = GetMediaResponse()
             };
 
             string json = JsonConvert.SerializeObject(identityProfilePreviewResponse);
@@ -348,13 +348,13 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             AssertMediaValuesCorrect(identityProfilePreviewResponse.media, response.Media, typeof(MediaResponse));
         }
-        
+
         [TestMethod]
         public void CheckAdvancedIdentityProfilePreviewResponseIsParsed()
         {
             dynamic advancedIdentityProfilePreviewResponse = new
             {
-                media = GetMediaResponse() 
+                media = GetMediaResponse()
             };
 
             string json = JsonConvert.SerializeObject(advancedIdentityProfilePreviewResponse);

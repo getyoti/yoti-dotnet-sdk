@@ -70,7 +70,7 @@ namespace Yoti.Auth.DigitalIdentity
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
-            Validation.NotNull(sessionId, nameof(sessionId));           
+            Validation.NotNull(sessionId, nameof(sessionId));
 
 
             Request getSessionRequest = new RequestBuilder()
@@ -96,7 +96,7 @@ namespace Yoti.Auth.DigitalIdentity
             }
         }
 
-        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId,QrRequest qrRequestPayload)
+        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, QrRequest qrRequestPayload)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
@@ -121,7 +121,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body)
                 .Build();
-            
+
             using (HttpResponseMessage response = await createQrRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
@@ -135,7 +135,7 @@ namespace Yoti.Auth.DigitalIdentity
                 return deserialized;
             }
         }
-        
+
         internal static async Task<GetQrCodeResult> GetQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string qrCodeId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
@@ -166,17 +166,17 @@ namespace Yoti.Auth.DigitalIdentity
                 return deserialized;
             }
         }
-        
-        private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId,  string sdkId,Uri apiUrl, AsymmetricCipherKeyPair keyPair)
+
+        private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
             Validation.NotNull(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
 
-            string receiptUrl = Base64ToBase64URL(receiptId); 
+            string receiptUrl = Base64ToBase64URL(receiptId);
             string endpoint = string.Format(receiptRetrieval, receiptUrl);
-            
+
             Request ReceiptRequest = new RequestBuilder()
                 .WithKeyPair(keyPair)
                 .WithBaseUri(apiUrl)
@@ -199,7 +199,7 @@ namespace Yoti.Auth.DigitalIdentity
                 return deserialized;
             }
         }
-        
+
 
         public static string Base64ToBase64URL(string base64Str)
         {
@@ -214,7 +214,7 @@ namespace Yoti.Auth.DigitalIdentity
             }
             catch (FormatException)
             {
-                return ""; 
+                return "";
             }
         }
 
@@ -225,7 +225,7 @@ namespace Yoti.Auth.DigitalIdentity
             {
                 var receiptResponse = await GetReceipt(httpClient, receiptId, clientSdkId, apiUrl, key);
                 var itemKeyId = receiptResponse.WrappedItemKeyId;
-                
+
                 var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
 
                 var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
@@ -236,10 +236,10 @@ namespace Yoti.Auth.DigitalIdentity
                     throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
                 }
 
-                var  parsedAttributesApp = AttributeConverter.ConvertToBaseAttributes(attrData);
+                var parsedAttributesApp = AttributeConverter.ConvertToBaseAttributes(attrData);
                 var appProfile = new ApplicationProfile(parsedAttributesApp
                 );
-                
+
                 var (attrOtherData, aOtherExtra, decryptOtherAttrDataError) = DecryptReceiptContent(receiptResponse.OtherPartyContent, receiptContentKey);
                 if (decryptAttrDataError != null)
                 {
@@ -249,11 +249,11 @@ namespace Yoti.Auth.DigitalIdentity
                 var userProfile = new YotiProfile();
                 if (attrOtherData != null)
                 {
-                    var  parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
+                    var parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
                     userProfile = new YotiProfile(parsedAttributesUser);
                 }
-                
-                
+
+
                 ExtraData userExtraData = new ExtraData();
                 if (aOtherExtra != null)
                 {
@@ -262,10 +262,10 @@ namespace Yoti.Auth.DigitalIdentity
                 ExtraData appExtraData = new ExtraData();
                 if (aextra != null)
                 {
-                   
+
                     appExtraData = ExtraDataConverter.ParseExtraDataProto(aextra);
                 }
-                
+
                 var sharedReceiptResponse = new SharedReceiptResponse
                 {
                     ID = receiptResponse.ID,
@@ -285,15 +285,15 @@ namespace Yoti.Auth.DigitalIdentity
                     },
                     Error = receiptResponse.Error,
                     ErrorDetails = receiptResponse.ErrorDetails
-                    
+
                 };
 
                 return sharedReceiptResponse;
             }
-            catch  (Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"An unexpected error occurred: {ex.Message}");
-           
+
             }
         }
 
@@ -364,10 +364,10 @@ namespace Yoti.Auth.DigitalIdentity
                     }
                 }
             }
-            
+
             return (attrData, aextra, null);
         }
     }
-    
-    
+
+
 }
