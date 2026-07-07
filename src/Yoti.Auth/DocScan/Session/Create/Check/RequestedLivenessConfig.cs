@@ -4,6 +4,11 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 {
     public class RequestedLivenessConfig : RequestedCheckConfig
     {
+        public RequestedLivenessConfig(int maxRetries, string livenessType, string manualCheck)
+            : this(maxRetries, livenessType, manualCheck, null)
+        {
+        }
+
         public RequestedLivenessConfig(int maxRetries, string livenessType, string manualCheck, int? handledCheckLimit = null)
         {
             MaxRetries = maxRetries;

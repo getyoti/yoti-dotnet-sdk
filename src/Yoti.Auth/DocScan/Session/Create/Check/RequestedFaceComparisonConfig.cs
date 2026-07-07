@@ -4,6 +4,11 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
 {
     public class RequestedFaceComparisonConfig : RequestedCheckConfig
     {
+        public RequestedFaceComparisonConfig(string manualCheck)
+            : this(manualCheck, null)
+        {
+        }
+
         public RequestedFaceComparisonConfig(string manualCheck, int? handledCheckLimit = null)
         {
             ManualCheck = manualCheck;

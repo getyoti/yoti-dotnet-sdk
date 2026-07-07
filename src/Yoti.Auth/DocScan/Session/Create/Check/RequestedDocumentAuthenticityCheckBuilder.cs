@@ -71,6 +71,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         /// <returns>The <see cref="RequestedDocumentAuthenticityCheckBuilder"/></returns>
         public RequestedDocumentAuthenticityCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
         {
+            Validation.NotLessThan(handledCheckLimit, 0, nameof(handledCheckLimit));
             _handledCheckLimit = handledCheckLimit;
             return this;
         }

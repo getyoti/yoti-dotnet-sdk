@@ -41,6 +41,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         /// <returns>The builder</returns>
         public RequestedWatchlistAdvancedCaCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
         {
+            Validation.NotLessThan(handledCheckLimit, 0, nameof(handledCheckLimit));
             _handledCheckLimit = handledCheckLimit;
             return this;
         }

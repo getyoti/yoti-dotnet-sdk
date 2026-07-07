@@ -11,6 +11,7 @@
         /// <returns>The <see cref="RequestedIdDocumentComparisonCheckBuilder"/></returns>
         public RequestedIdDocumentComparisonCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
         {
+            Validation.NotLessThan(handledCheckLimit, 0, nameof(handledCheckLimit));
             _handledCheckLimit = handledCheckLimit;
             return this;
         }

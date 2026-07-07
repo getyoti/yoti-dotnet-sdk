@@ -3,6 +3,11 @@
     public class RequestedIdDocumentComparisonConfig
         : RequestedCheckConfig
     {
+        public RequestedIdDocumentComparisonConfig()
+            : this(null)
+        {
+        }
+
         public RequestedIdDocumentComparisonConfig(int? handledCheckLimit = null)
         {
             HandledCheckLimit = handledCheckLimit;
