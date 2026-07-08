@@ -17,7 +17,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
         [JsonProperty(PropertyName = "frames")]
         public List<FrameResponse> Frames { get; internal set; }
 
-        [JsonProperty(PropertyName = "extraction_image_ids")]
+        [JsonProperty(PropertyName = "extraction_image_ids", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> ExtractionImageIds { get; private set; } = new List<string>();
     }
 }
