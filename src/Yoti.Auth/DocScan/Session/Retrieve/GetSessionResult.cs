@@ -61,7 +61,23 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "advanced_identity_profile_preview")]
         public IdentityProfilePreviewResponse AdvancedIdentityProfilePreviewResponse { get; internal set; }
-        
+
+        /// <summary>
+        /// Returns the resources used by the check with the given check id
+        /// </summary>
+        /// <param name="checkId">The id of the check to find resources for</param>
+        /// <returns>A ResourceContainer containing only the resources used by the check</returns>
+        /// <exception cref="ArgumentException">Thrown when no check with the given id is present</exception>
+        public ResourceContainer GetResourcesForCheck(string checkId)
+        {
+            CheckResponse checkResponse = Checks?.FirstOrDefault(check => check.Id != null && check.Id == checkId);
+
+            if (checkResponse == null)
+                throw new ArgumentException($"Check not found for check id: {checkId}");
+
+            return Resources?.FilterForCheck(checkResponse) ?? new ResourceContainer();
+        }
+
         public List<AuthenticityCheckResponse> GetAuthenticityChecks()
         {
             if (Checks == null)
