@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
@@ -74,7 +75,10 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         /// <returns>A ResourceContainer containing only the resources used by the check</returns>
         internal ResourceContainer FilterForCheck(CheckResponse checkResponse)
         {
-            List<string> resourceIds = checkResponse.ResourcesUsed ?? new List<string>();
+            if (checkResponse == null)
+                throw new ArgumentNullException(nameof(checkResponse));
+
+            HashSet<string> resourceIds = new HashSet<string>(checkResponse.ResourcesUsed ?? new List<string>());
 
             return new ResourceContainer
             {
@@ -87,7 +91,7 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
             };
         }
 
-        private static List<T> FilterResources<T>(List<T> resources, List<string> resourceIds) where T : ResourceResponse
+        private static List<T> FilterResources<T>(List<T> resources, HashSet<string> resourceIds) where T : ResourceResponse
         {
             if (resources == null)
                 return new List<T>();

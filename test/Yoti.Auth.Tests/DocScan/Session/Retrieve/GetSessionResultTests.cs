@@ -411,6 +411,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         }
 
         [TestMethod]
+        public void GetResourcesForCheckShouldThrowWhenCheckIdIsNullOrWhitespace()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse { Id = "check-1" }
+                }
+            };
+
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(string.Empty));
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("   "));
+        }
+
+        [TestMethod]
         public void GetResourcesForCheckShouldThrowWhenCheckIdNotFound()
         {
             var getSessionResult = new GetSessionResult
@@ -450,20 +466,6 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             Assert.AreEqual(1, result.IdDocuments.Count);
             Assert.AreEqual("id-document-1", result.IdDocuments.First().Id);
-        }
-
-        [TestMethod]
-        public void GetResourcesForCheckShouldThrowWhenCheckIdIsNullEvenIfACheckHasNullId()
-        {
-            var getSessionResult = new GetSessionResult
-            {
-                Checks = new List<CheckResponse>
-                {
-                    new AuthenticityCheckResponse()
-                }
-            };
-
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
         }
 
         [TestMethod]

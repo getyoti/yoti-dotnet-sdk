@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.DocScan.Session.Retrieve;
@@ -9,6 +10,14 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Resource
     [TestClass]
     public class ResourceContainerTests
     {
+        [TestMethod]
+        public void FilterForCheckShouldThrowWhenCheckResponseIsNull()
+        {
+            var resourceContainer = new ResourceContainer();
+
+            Assert.ThrowsException<ArgumentNullException>(() => resourceContainer.FilterForCheck(null));
+        }
+
         [TestMethod]
         public void FilterForCheckShouldHandleNullResourceLists()
         {

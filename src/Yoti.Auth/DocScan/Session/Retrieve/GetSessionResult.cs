@@ -67,13 +67,16 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
         /// </summary>
         /// <param name="checkId">The id of the check to find resources for</param>
         /// <returns>A ResourceContainer containing only the resources used by the check</returns>
-        /// <exception cref="ArgumentException">Thrown when no check with the given id is present</exception>
+        /// <exception cref="ArgumentException">Thrown when checkId is null or empty, or when no check with the given id is present</exception>
         public ResourceContainer GetResourcesForCheck(string checkId)
         {
-            CheckResponse checkResponse = Checks?.FirstOrDefault(check => check.Id != null && check.Id == checkId);
+            if (string.IsNullOrWhiteSpace(checkId))
+                throw new ArgumentException("Check id must not be null or empty", nameof(checkId));
+
+            CheckResponse checkResponse = Checks?.FirstOrDefault(check => check.Id == checkId);
 
             if (checkResponse == null)
-                throw new ArgumentException($"Check not found for check id: {checkId}");
+                throw new ArgumentException($"Check not found for check id: {checkId}", nameof(checkId));
 
             return Resources?.FilterForCheck(checkResponse) ?? new ResourceContainer();
         }
