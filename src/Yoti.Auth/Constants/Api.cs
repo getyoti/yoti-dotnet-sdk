@@ -16,6 +16,7 @@ namespace Yoti.Auth.Constants
         public readonly static Uri DefaultYotiDocsUrl = new Uri(string.Join("/", DefaultYotiHost, YotiDocsPathPrefix));
 
         public const string AuthKeyHeader = "X-Yoti-Auth-Key";
+        public const string AuthIdHeader = "X-Yoti-Auth-Id";
         public const string DigestHeader = "X-Yoti-Auth-Digest";
         public const string YotiSdkHeader = "X-Yoti-SDK";
         public const string YotiSdkVersionHeader = YotiSdkHeader + "-Version";

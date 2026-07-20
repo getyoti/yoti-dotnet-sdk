@@ -48,10 +48,11 @@ namespace Yoti.Auth.DocScan
         /// <param name="authToken">The bearer token supplied by the relying business.</param>
         /// <param name="httpClient">Optional <see cref="HttpClient"/> to use.</param>
         /// <param name="apiUri">Optional API URI override.</param>
-        public static DocScanClient FromBearerToken(string authToken, HttpClient httpClient = null, Uri apiUri = null)
+        /// <param name="sdkId">The SDK ID to include in the X-Yoti-Auth-Id header and sdkId query parameter.</param>
+        public static DocScanClient FromBearerToken(string authToken, HttpClient httpClient = null, Uri apiUri = null, string sdkId = null)
         {
             Validation.NotNullOrEmpty(authToken, nameof(authToken));
-            return new DocScanClient(new BearerTokenAuthStrategy(authToken), httpClient ?? new HttpClient(), apiUri);
+            return new DocScanClient(new BearerTokenAuthStrategy(authToken, sdkId), httpClient ?? new HttpClient(), apiUri);
         }
 
         private DocScanClient(IAuthStrategy authStrategy, HttpClient httpClient, Uri apiUri)

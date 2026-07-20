@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.Web
 {
@@ -118,6 +119,23 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithHeader(string name, string value)
         {
             _customHeaders[name] = value;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the X-Yoti-Auth-Id header and the given query parameter using the auth strategy's SdkId, if present.
+        /// </summary>
+        /// <param name="authStrategy">The auth strategy to read the SdkId from.</param>
+        /// <param name="queryParamName">The name of the query parameter to set with the SdkId.</param>
+        /// <returns><see cref="RequestBuilder"/></returns>
+        public RequestBuilder WithSdkId(IAuthStrategy authStrategy, string queryParamName)
+        {
+            if (authStrategy.SdkId != null)
+            {
+                WithHeader(Api.AuthIdHeader, authStrategy.SdkId);
+                WithQueryParam(queryParamName, authStrategy.SdkId);
+            }
+
             return this;
         }
 

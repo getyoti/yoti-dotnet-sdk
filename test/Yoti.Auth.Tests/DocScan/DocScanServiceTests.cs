@@ -1,7 +1,12 @@
 using System;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.Protected;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan;
@@ -286,6 +291,35 @@ namespace Yoti.Auth.Tests.DocScan
             });
 
             Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
+        }
+
+        [TestMethod]
+        public async Task CreateSessionShouldIncludeAuthIdHeaderAndQueryParamWhenAuthStrategyHasSdkId()
+        {
+            HttpRequestMessage capturedRequest = null;
+            var handlerMock = new Mock<HttpMessageHandler>();
+            handlerMock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{}")
+                });
+
+            var bearerTokenAuthStrategy = new BearerTokenAuthStrategy("some-bearer-token", _sdkId);
+            var service = new DocScanService(new HttpClient(handlerMock.Object), apiUri: null);
+
+            await service.CreateSession(bearerTokenAuthStrategy, new SessionSpecificationBuilder().Build());
+
+            Assert.IsNotNull(capturedRequest);
+            Assert.IsTrue(capturedRequest.Headers.Contains(Api.AuthIdHeader));
+            Assert.AreEqual(_sdkId, capturedRequest.Headers.GetValues(Api.AuthIdHeader).First());
+            Assert.IsTrue(capturedRequest.RequestUri.Query.Contains($"sdkId={_sdkId}"));
         }
     }
 }

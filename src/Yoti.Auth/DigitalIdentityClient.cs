@@ -48,18 +48,20 @@ namespace Yoti.Auth
         /// Use this factory method instead of a constructor to avoid ambiguity with the sdkId overloads.
         /// </summary>
         /// <param name="authToken">The bearer token supplied by the relying business.</param>
-        public static DigitalIdentityClient FromBearerToken(string authToken)
-            => FromBearerToken(new HttpClient(), authToken);
+        /// <param name="sdkId">The SDK ID to include in the X-Yoti-Auth-Id header and sdkID query parameter.</param>
+        public static DigitalIdentityClient FromBearerToken(string authToken, string sdkId = null)
+            => FromBearerToken(new HttpClient(), authToken, sdkId);
 
         /// <summary>
         /// Creates a <see cref="DigitalIdentityClient"/> using central auth bearer token authentication with a specified <see cref="HttpClient"/>.
         /// </summary>
         /// <param name="httpClient">The <see cref="HttpClient"/> to use.</param>
         /// <param name="authToken">The bearer token supplied by the relying business.</param>
-        public static DigitalIdentityClient FromBearerToken(HttpClient httpClient, string authToken)
+        /// <param name="sdkId">The SDK ID to include in the X-Yoti-Auth-Id header and sdkID query parameter.</param>
+        public static DigitalIdentityClient FromBearerToken(HttpClient httpClient, string authToken, string sdkId = null)
         {
             Validation.NotNullOrEmpty(authToken, nameof(authToken));
-            return new DigitalIdentityClient(new BearerTokenAuthStrategy(authToken), httpClient);
+            return new DigitalIdentityClient(new BearerTokenAuthStrategy(authToken, sdkId), httpClient);
         }
 
         private DigitalIdentityClient(IAuthStrategy authStrategy, HttpClient httpClient)

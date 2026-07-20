@@ -21,10 +21,29 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
-        public void SdkIdShouldBeNull()
+        public void SdkIdShouldBeNullWhenNotProvided()
         {
             var strategy = new BearerTokenAuthStrategy("some-token");
             Assert.IsNull(strategy.SdkId);
+        }
+
+        [TestMethod]
+        public void SdkIdShouldBeSetWhenProvided()
+        {
+            var strategy = new BearerTokenAuthStrategy("some-token", "my-sdk-id");
+            Assert.AreEqual("my-sdk-id", strategy.SdkId);
+        }
+
+        [TestMethod]
+        public void EmptySdkIdShouldThrow()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new BearerTokenAuthStrategy("some-token", string.Empty));
+        }
+
+        [TestMethod]
+        public void WhitespaceSdkIdShouldThrow()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new BearerTokenAuthStrategy("some-token", "   "));
         }
 
         [TestMethod]

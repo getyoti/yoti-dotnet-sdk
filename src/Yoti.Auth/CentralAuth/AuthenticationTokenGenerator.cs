@@ -53,10 +53,11 @@ namespace Yoti.Auth.CentralAuth
         {
             var header = new { alg = "PS384", typ = "JWT" };
             long now = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+            string sdkIdentity = "sdk:" + _sdkId;
             var payload = new
             {
-                iss = _sdkId,
-                sub = _sdkId,
+                iss = sdkIdentity,
+                sub = sdkIdentity,
                 aud = _authApiUrl,
                 iat = now,
                 exp = now + 300,

@@ -45,8 +45,7 @@ namespace Yoti.Auth.DocScan
                 .WithContent(body)
                 .WithContentHeader(Api.ContentTypeHeader, Api.ContentTypeJson);
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -72,8 +71,7 @@ namespace Yoti.Auth.DocScan
                 .WithBaseUri(ApiUri)
                 .WithEndpoint(sessionEndpoint);
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -99,8 +97,7 @@ namespace Yoti.Auth.DocScan
                 .WithBaseUri(ApiUri)
                 .WithEndpoint(sessionEndpoint);
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -124,8 +121,7 @@ namespace Yoti.Auth.DocScan
                 .WithBaseUri(ApiUri)
                 .WithEndpoint(mediaContentPath);
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -156,8 +152,7 @@ namespace Yoti.Auth.DocScan
                 .WithBaseUri(ApiUri)
                 .WithEndpoint(mediaContentPath);
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -178,8 +173,7 @@ namespace Yoti.Auth.DocScan
                 .WithEndpoint("/supported-documents")
                 .WithQueryParam("includeNonLatin", isStrictlyLatin ? "1" : "0");
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -210,8 +204,7 @@ namespace Yoti.Auth.DocScan
                 .WithContent(body)
                 .WithContentHeader(Api.ContentTypeHeader, Api.ContentTypeJson);
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -244,8 +237,7 @@ namespace Yoti.Auth.DocScan
                 .WithBaseUri(ApiUri)
                 .WithEndpoint($"/sessions/{sessionId}/resources/face-capture/{resourceId}/image");
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {
@@ -267,8 +259,7 @@ namespace Yoti.Auth.DocScan
                 .WithBaseUri(ApiUri)
                 .WithEndpoint($"/sessions/{sessionId}/configuration");
 
-            if (authStrategy.SdkId != null)
-                builder = builder.WithQueryParam("sdkId", authStrategy.SdkId);
+            builder = builder.WithSdkId(authStrategy, "sdkId");
 
             using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
             {

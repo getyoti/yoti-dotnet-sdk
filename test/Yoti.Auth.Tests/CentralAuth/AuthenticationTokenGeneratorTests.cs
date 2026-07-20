@@ -1,11 +1,13 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.CentralAuth;
 using Yoti.Auth.Tests.Common;
@@ -118,6 +120,62 @@ namespace Yoti.Auth.Tests.CentralAuth
             string body = await capturedRequest.Content.ReadAsStringAsync();
             Assert.IsTrue(body.Contains("client_assertion_type"));
             Assert.IsTrue(body.Contains("grant_type=client_credentials"));
+        }
+
+        [TestMethod]
+        public async Task GetToken_JwtClaimsShouldPrefixSdkIdWithSdkColon()
+        {
+            HttpRequestMessage capturedRequest = null;
+            var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            handlerMock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"access_token\":\"t\",\"expires_in\":3600,\"token_type\":\"Bearer\",\"scope\":\"s\"}")
+                })
+                .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
+                .Verifiable();
+
+            var generator = BuildGenerator();
+            await generator.GetToken(new HttpClient(handlerMock.Object));
+
+            string body = await capturedRequest.Content.ReadAsStringAsync();
+            string jwt = ExtractFormValue(body, "client_assertion");
+            string payloadJson = DecodeJwtPayload(jwt);
+            var payload = JObject.Parse(payloadJson);
+
+            Assert.AreEqual("sdk:" + _sdkId, payload["iss"].Value<string>());
+            Assert.AreEqual("sdk:" + _sdkId, payload["sub"].Value<string>());
+        }
+
+        private static string ExtractFormValue(string formEncodedBody, string key)
+        {
+            foreach (string pair in formEncodedBody.Split('&'))
+            {
+                string[] parts = pair.Split('=');
+                if (parts[0] == key)
+                    return Uri.UnescapeDataString(parts[1]);
+            }
+
+            throw new InvalidOperationException($"Key '{key}' not found in form body.");
+        }
+
+        private static string DecodeJwtPayload(string jwt)
+        {
+            string base64UrlPayload = jwt.Split('.')[1];
+            string base64 = base64UrlPayload.Replace('-', '+').Replace('_', '/');
+            switch (base64.Length % 4)
+            {
+                case 2: base64 += "=="; break;
+                case 3: base64 += "="; break;
+            }
+
+            return Encoding.UTF8.GetString(Convert.FromBase64String(base64));
         }
     }
 }

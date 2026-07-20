@@ -22,7 +22,6 @@ namespace Yoti.Auth.DigitalIdentity
         private const string receiptRetrieval = "/v2/receipts/{0}";
         private const string receiptKeyRetrieval = "/v2/wrapped-item-keys/{0}";
         private const string sessionCreation = "/v2/sessions";
-        private const string yotiAuthId = "X-Yoti-Auth-Id";
 
         internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, IAuthStrategy authStrategy, ShareSessionRequest shareSessionRequestPayload)
         {
@@ -43,12 +42,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body);
 
-            if (authStrategy.SdkId != null)
-            {
-                builder = builder
-                    .WithHeader(yotiAuthId, authStrategy.SdkId)
-                    .WithQueryParam("sdkID", authStrategy.SdkId);
-            }
+            builder = builder.WithSdkId(authStrategy, "sdkID");
 
             Request shareSessionRequest = builder.Build();
 
@@ -75,12 +69,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithEndpoint(string.Format("{0}/{1}", sessionCreation, sessionId))
                 .WithHttpMethod(HttpMethod.Get);
 
-            if (authStrategy.SdkId != null)
-            {
-                builder = builder
-                    .WithHeader(yotiAuthId, authStrategy.SdkId)
-                    .WithQueryParam("appId", authStrategy.SdkId);
-            }
+            builder = builder.WithSdkId(authStrategy, "appId");
 
             Request getSessionRequest = builder.Build();
 
@@ -114,12 +103,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithHttpMethod(HttpMethod.Post)
                 .WithContent(body);
 
-            if (authStrategy.SdkId != null)
-            {
-                builder = builder
-                    .WithHeader(yotiAuthId, authStrategy.SdkId)
-                    .WithQueryParam("appId", authStrategy.SdkId);
-            }
+            builder = builder.WithSdkId(authStrategy, "appId");
 
             Request createQrRequest = builder.Build();
 
@@ -146,12 +130,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithEndpoint(string.Format("/v2/qr-codes/{0}", qrCodeId))
                 .WithHttpMethod(HttpMethod.Get);
 
-            if (authStrategy.SdkId != null)
-            {
-                builder = builder
-                    .WithHeader(yotiAuthId, authStrategy.SdkId)
-                    .WithQueryParam("appId", authStrategy.SdkId);
-            }
+            builder = builder.WithSdkId(authStrategy, "appId");
 
             Request qrCodeRequest = builder.Build();
 
@@ -250,12 +229,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithEndpoint(endpoint)
                 .WithHttpMethod(HttpMethod.Get);
 
-            if (authStrategy.SdkId != null)
-            {
-                builder = builder
-                    .WithHeader(yotiAuthId, authStrategy.SdkId)
-                    .WithQueryParam("sdkID", authStrategy.SdkId);
-            }
+            builder = builder.WithSdkId(authStrategy, "sdkID");
 
             Request receiptRequest = builder.Build();
 
@@ -283,12 +257,7 @@ namespace Yoti.Auth.DigitalIdentity
                 .WithEndpoint(endpoint)
                 .WithHttpMethod(HttpMethod.Get);
 
-            if (authStrategy.SdkId != null)
-            {
-                builder = builder
-                    .WithHeader(yotiAuthId, authStrategy.SdkId)
-                    .WithQueryParam("appId", authStrategy.SdkId);
-            }
+            builder = builder.WithSdkId(authStrategy, "appId");
 
             Request receiptItemKeyRequest = builder.Build();
 

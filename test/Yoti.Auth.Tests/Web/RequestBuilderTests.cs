@@ -148,6 +148,41 @@ namespace Yoti.Auth.Tests.Web
         }
 
         [TestMethod]
+        public void WithSdkIdShouldAddHeaderAndQueryParamWhenAuthStrategyHasSdkId()
+        {
+            var authStrategy = new BearerTokenAuthStrategy("some-token", _sdkId);
+
+            Request request = new RequestBuilder()
+                .WithBaseUri(_testBaseUri)
+                .WithAuthStrategy(authStrategy)
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Get)
+                .WithSdkId(authStrategy, "sdkId")
+                .Build();
+
+            request.RequestMessage.Headers.TryGetValues(Api.AuthIdHeader, out IEnumerable<string> headers);
+            Assert.IsTrue(headers.Contains(_sdkId));
+            Assert.IsTrue(request.RequestMessage.RequestUri.Query.Contains($"sdkId={_sdkId}"));
+        }
+
+        [TestMethod]
+        public void WithSdkIdShouldNotAddHeaderOrQueryParamWhenAuthStrategyHasNoSdkId()
+        {
+            var authStrategy = new BearerTokenAuthStrategy("some-token");
+
+            Request request = new RequestBuilder()
+                .WithBaseUri(_testBaseUri)
+                .WithAuthStrategy(authStrategy)
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Get)
+                .WithSdkId(authStrategy, "sdkId")
+                .Build();
+
+            Assert.IsFalse(request.RequestMessage.Headers.Contains(Api.AuthIdHeader));
+            Assert.IsFalse(request.RequestMessage.RequestUri.Query.Contains("sdkId="));
+        }
+
+        [TestMethod]
         public void ErrorThrownWhenContentHeaderIsAddedWithoutContent()
         {
             var exception = Assert.ThrowsException<InvalidOperationException>(() =>
