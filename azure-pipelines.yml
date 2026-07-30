@@ -25,6 +25,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- script: |
+    echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_21_X64)"
+  displayName: 'Select Java 21 for SonarCloud (Java 17 is no longer supported by SonarQube Cloud)'
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Yoti SonarCloud'
