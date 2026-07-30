@@ -25,10 +25,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: |
-    echo Resolved JAVA_HOME_21_X64=$(JAVA_HOME_21_X64)
-    echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_21_X64)"
-    echo "##vso[task.setvariable variable=PATH]$(JAVA_HOME_21_X64)\bin;%PATH%"
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '21'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
   displayName: 'Select Java 21 for SonarCloud (Java 17 is no longer supported by SonarQube Cloud)'
 
 - task: SonarCloudPrepare@1
