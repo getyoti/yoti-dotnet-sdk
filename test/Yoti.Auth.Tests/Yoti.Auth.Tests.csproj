@@ -37,7 +37,6 @@
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="DigitalIdentity\" />
     <None Remove="TestData\DigitalIdentity %28copy%29.json" />
@@ -76,6 +75,12 @@
     <None Update="TestData\DigitalIdentity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\GetSessionResultWithAdvancedIdentityProfile.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DigitalIdentity\" />
     <None Update="TestData\GetSessionResultWithAdvancedIdentityProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -195,6 +195,19 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShouldBuildWithBrandId()
+        {
+            string brandid = "some_brand_id";
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                    .WithBrandId(brandid)
+                    .Build();
+
+            Assert.AreEqual(brandid, sdkConfig.BrandId);
+        }
+        
+        [TestMethod]
         public void AttemptsConfigurationShouldResetSameValueWithRepeatedCalls()
         {
             var kvp = new KeyValuePair<string, int>(DocScanConstants.Reclassification, 4);
