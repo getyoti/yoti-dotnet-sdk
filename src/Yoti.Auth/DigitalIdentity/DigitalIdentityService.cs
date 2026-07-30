@@ -285,7 +285,6 @@ namespace Yoti.Auth.DigitalIdentity
                     },
                     Error = receiptResponse.Error,
                     ErrorDetails = receiptResponse.ErrorDetails
-                    
                 };
 
                 return sharedReceiptResponse;
