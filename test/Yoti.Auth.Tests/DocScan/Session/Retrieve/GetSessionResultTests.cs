@@ -8,6 +8,7 @@ using Yoti.Auth.DocScan.Session.Retrieve.AdvancedIdentityProfile;
 using Yoti.Auth.DocScan.Session.Retrieve.AdvancedIdentityProfilePreview;
 using Yoti.Auth.DocScan.Session.Retrieve.Check;
 using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfilePreview;
+using Yoti.Auth.DocScan.Session.Retrieve.Resource;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 {
@@ -407,6 +408,80 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
             };
 
             Assert.AreEqual(2, getSessionResult.Checks.Count);
+        }
+
+        [TestMethod]
+        public void GetResourcesForCheckShouldThrowWhenCheckIdIsNullOrWhitespace()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse { Id = "check-1" }
+                }
+            };
+
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(string.Empty));
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("   "));
+        }
+
+        [TestMethod]
+        public void GetResourcesForCheckShouldThrowWhenCheckIdNotFound()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse { Id = "check-1" }
+                }
+            };
+
+            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("unknown-check-id"));
+        }
+
+        [TestMethod]
+        public void GetResourcesForCheckShouldReturnOnlyResourcesUsedByCheck()
+        {
+            var idDocument = new IdDocumentResourceResponse { Id = "id-document-1" };
+            var otherIdDocument = new IdDocumentResourceResponse { Id = "id-document-2" };
+
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse
+                    {
+                        Id = "check-1",
+                        ResourcesUsed = new List<string> { "id-document-1" }
+                    }
+                },
+                Resources = new ResourceContainer
+                {
+                    IdDocuments = new List<IdDocumentResourceResponse> { idDocument, otherIdDocument }
+                }
+            };
+
+            var result = getSessionResult.GetResourcesForCheck("check-1");
+
+            Assert.AreEqual(1, result.IdDocuments.Count);
+            Assert.AreEqual("id-document-1", result.IdDocuments.First().Id);
+        }
+
+        [TestMethod]
+        public void GetResourcesForCheckShouldReturnEmptyResourceContainerWhenResourcesIsNull()
+        {
+            var getSessionResult = new GetSessionResult
+            {
+                Checks = new List<CheckResponse>
+                {
+                    new AuthenticityCheckResponse { Id = "check-1" }
+                }
+            };
+
+            var result = getSessionResult.GetResourcesForCheck("check-1");
+
+            Assert.IsNotNull(result);
         }
     }
 }
