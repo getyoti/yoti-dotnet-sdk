@@ -170,6 +170,45 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         }
 
         [TestMethod]
+        public void CheckStaticLivenessResourceResponseCaptureTypeIsParsed()
+        {
+            dynamic staticLivenessResourceResponse = new
+            {
+                liveness_type = DocScanConstants.Static,
+                capture_type = "MULTI_FRAME",
+                image = new { media = GetMediaResponse() }
+            };
+
+            string json = JsonConvert.SerializeObject(staticLivenessResourceResponse);
+            StaticLivenessResourceResponse response =
+                JsonConvert.DeserializeObject<StaticLivenessResourceResponse>(json);
+
+            Assert.AreEqual("MULTI_FRAME", response.CaptureType);
+            AssertMediaValuesCorrect(staticLivenessResourceResponse.image.media, response.image, typeof(StaticLivenessImageResponse));
+        }
+
+        [TestMethod]
+        public void CheckStaticLivenessResourceResponseDeserializedViaSessionResult()
+        {
+            dynamic staticLivenessResource = new
+            {
+                liveness_type = DocScanConstants.Static,
+                capture_type = "SINGLE_FRAME"
+            };
+
+            var livenessCapture = new List<dynamic> { staticLivenessResource };
+            var resources = new { liveness_capture = livenessCapture };
+            var sessionResult = new { resources };
+
+            string json = JsonConvert.SerializeObject(sessionResult);
+            GetSessionResult result = JsonConvert.DeserializeObject<GetSessionResult>(json);
+
+            var staticResource = result.Resources.StaticLivenessResources.Single();
+            Assert.IsInstanceOfType(staticResource, typeof(StaticLivenessResourceResponse));
+            Assert.AreEqual("SINGLE_FRAME", staticResource.CaptureType);
+        }
+
+        [TestMethod]
         public void CheckPageResponseIsParsed()
         {
             dynamic pageResponse = new
