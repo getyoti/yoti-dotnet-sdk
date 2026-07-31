@@ -44,6 +44,7 @@ steps:
       sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
       sonar.links.scm = https://github.com/getyoti/yoti-dotnet-sdk
       sonar.exclusions = src/Yoti.Auth/ProtoBuf/**,src/Examples/**,**/obj/**,**/*.dll,src/Yoti.Auth/DigitalIdentity/**
+      sonar.scanner.skipJreProvisioning=true
   displayName: SonarCloud Prepare Analysis
 
 - task: NuGetToolInstaller@1
