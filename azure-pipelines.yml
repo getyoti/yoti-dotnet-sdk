@@ -37,6 +37,7 @@ steps:
     SonarCloud: 'Yoti SonarCloud'
     organization: 'getyoti'
     scannerMode: 'MSBuild'
+    jdkversion: 'JAVA_HOME_21_X64'
     projectKey: 'getyoti:dotnet'
     projectName: '.NET SDK'
     projectVersion: '3.19.0'
@@ -104,6 +105,8 @@ steps:
   displayName: 'Publish Cobertura Code Coverage'
   
 - task: SonarCloudAnalyze@2
+  inputs:
+    jdkversion: 'JAVA_HOME_21_X64'
   displayName: Sonar Cloud Analyze
 
 - task: SonarCloudPublish@2
