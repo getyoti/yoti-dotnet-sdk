@@ -22,11 +22,8 @@ namespace Yoti.Auth.Anchors
                 var extensions = new List<string>();
                 X509Certificate2 certificate = new X509Certificate2(byteString.ToByteArray());
 
-                // certificate is only disposable in .NET 4.6+
-#if !NET452
                 using (certificate)
                 {
-#endif
                     foreach (X509Extension x509Extension in certificate.Extensions.OfType<X509Extension>())
                     {
                         var extensionOid = x509Extension.Oid.Value;
@@ -46,9 +43,7 @@ namespace Yoti.Auth.Anchors
 
                         extensions = GetListOfStringsFromExtension(certificate, extensionOid);
                     }
-#if !NET452
                 }
-#endif
                 if (extensions.Count == 0)
                 {
                     return new AnchorVerifierSourceData(new HashSet<string> { "" }, AnchorType.UNKNOWN);
@@ -79,7 +74,7 @@ namespace Yoti.Auth.Anchors
                     foreach (object innerObj in obj)
                     {
                         Asn1TaggedObject seqObject = (Asn1TaggedObject)innerObj;
-                        Asn1OctetString octetString = Asn1OctetString.GetInstance(obj: seqObject, isExplicit: false);
+                        Asn1OctetString octetString = Asn1OctetString.GetInstance(seqObject, false);
 
                         extensionStrings.Add(System.Text.Encoding.UTF8.GetString(octetString.GetOctets()));
                     }
