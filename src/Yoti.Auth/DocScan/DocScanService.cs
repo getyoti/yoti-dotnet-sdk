@@ -151,7 +151,7 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-                if (response.Content == null || response.Content.Headers.ContentType == null)
+                if (response.Content == null)
                 {
                     return null;
                 }
@@ -160,17 +160,7 @@ namespace Yoti.Auth.DocScan
                 {
                     return null;
                 }
-                
-                if (response.Content.Headers.ContentType == null)
-                {
-                    return null;
-                }
 
-                if (response.Content.Headers.ContentType == null)
-                {
-                    return null;
-                }
-              
                 string contentType = response.Content.Headers.ContentType.MediaType;
 
                 var responseObject = await response.Content.ReadAsByteArrayAsync();
