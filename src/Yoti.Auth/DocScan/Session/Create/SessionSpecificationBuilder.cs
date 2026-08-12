@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Task;
 
 namespace Yoti.Auth.DocScan.Session.Create
-{
+{ 
+
     public class SessionSpecificationBuilder
     {
         private readonly List<BaseRequestedCheck> _requestedChecks = new List<BaseRequestedCheck>();
@@ -198,6 +200,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             _resources = resources;
             return this;
         }
+
 
         /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder

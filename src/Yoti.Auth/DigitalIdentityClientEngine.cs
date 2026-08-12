@@ -17,11 +17,11 @@ namespace Yoti.Auth
         {
             _httpClient = httpClient;
 
-#if NET452 || NET462 || NET472 || NET48
+            #if NET452 || NET462 || NET472 || NET48
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-#endif
+            #endif
         }
-
+        
         public async Task<ShareSessionResult> CreateShareSessionAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, ShareSessionRequest shareSessionRequest)
         {
             ShareSessionResult result = await Task.Run(async () => await DigitalIdentityService.CreateShareSession(
@@ -39,7 +39,6 @@ namespace Yoti.Auth
 
             return result;
         }
-
         public async Task<CreateQrResult> CreateQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionid, QrRequest qRRequest)
         {
             CreateQrResult result = await Task.Run(async () => await DigitalIdentityService.CreateQrCode(
