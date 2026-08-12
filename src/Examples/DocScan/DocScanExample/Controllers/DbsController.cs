@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Yoti.Auth;
 using Yoti.Auth.DocScan;
 using Yoti.Auth.DocScan.Session.Create;
+using Yoti.Auth.DocScan.Session.Create.Check;
+using Yoti.Auth.DocScan.Session.Create.Filter;
+using Yoti.Auth.DocScan.Session.Create.Objectives;
+using Yoti.Auth.DocScan.Session.Create.Task;
  
 namespace DocScanExample.Controllers
 {
@@ -63,7 +67,7 @@ namespace DocScanExample.Controllers
                 //Add Sdk Config (with builder)
                 .WithSdkConfig(
                     new SdkConfigBuilder()
-                    .WithAllowsCamera()
+                    .WithAllowsCameraAndUpload()
                     .WithPrimaryColour("#2d9fff")
                     .WithSecondaryColour("#FFFFFF")
                     .WithFontColour("#FFFFFF")

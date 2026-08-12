@@ -91,6 +91,7 @@ namespace Yoti.Auth
             Task<SharedReceiptResponse> task = Task.Run(async () => await _yotiDigitalClientEngine.GetShareReceipt(_sdkId, _keyPair, ApiUri, receiptId).ConfigureAwait(false));
             return task.Result;
         }
+
         public async Task<CreateQrResult> CreateQrCode(string sessionId, QrRequest qrRequest)
         {
             return await _yotiDigitalClientEngine.CreateQrCodeAsync(_sdkId, _keyPair, ApiUri, sessionId, qrRequest).ConfigureAwait(false);

@@ -81,8 +81,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DigitalIdentity\" />
-    <None Update="TestData\GetSessionResultWithAdvancedIdentityProfile.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

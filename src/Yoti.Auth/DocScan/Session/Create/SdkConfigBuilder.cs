@@ -15,6 +15,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _errorUrl;
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
+        private bool? _enforceHandoff;
         private string _brandId;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
 
@@ -155,6 +156,26 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets if mobile handoff is enforced for the user
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         When enabled, the user is required to perform mobile handoff to upload their resources.
+        ///     </para>
+        ///     <para>
+        ///         Note: <c>enforce_handoff</c> cannot be set to <c>true</c> if <c>allow_handoff</c> is <c>false</c>.
+        ///         Validation is enforced server-side by the IDV API (see DOCS-3523).
+        ///     </para>
+        /// </remarks>
+        /// <param name="enforceHandoff">If mobile handoff is enforced</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithEnforceHandoff(bool enforceHandoff)
+        {
+            _enforceHandoff = enforceHandoff;
+            return this;
+        }
+
+        /// <summary>
         /// Allows configuring the number of attempts permitted for text extraction on an ID document
         /// </summary>
         /// <remarks>
@@ -265,7 +286,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig, _brandId);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _enforceHandoff,
+                _brandId);
         }
     }
 }
