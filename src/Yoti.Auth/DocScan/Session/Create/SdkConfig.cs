@@ -38,6 +38,11 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "allow_handoff")]
         public bool? AllowHandoff { get; }
 
+        // enforce_handoff cannot be set to true if allow_handoff is false.
+        // Validation is enforced server-side by the IDV API (see DOCS-3523).
+        [JsonProperty(PropertyName = "enforce_handoff")]
+        public bool? EnforceHandoff { get; }
+
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
 
@@ -60,7 +65,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
             : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
                    presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
-                   idDocumentTextDataExtractionRetriesConfig, suppressedScreens: null, brandId: "")
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, suppressedScreens: null, brandId: "")
         {
         }
 
@@ -75,6 +80,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string privacyPolicyUrl,
                             bool? allowHandoff,
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
+                            bool? enforceHandoff,
                             List<string> suppressedScreens,
                             string brandId)
         {
@@ -88,6 +94,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
+            EnforceHandoff = enforceHandoff;
             SuppressedScreens = suppressedScreens;
             BrandId = brandId;
 

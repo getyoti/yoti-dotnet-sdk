@@ -199,7 +199,6 @@ namespace Yoti.Auth.DocScan.Session.Create
             return this;
         }
 
-
         /// <summary>
         /// Builds the <see cref="SessionSpecification"/> based on the values supplied to the builder
         /// </summary>

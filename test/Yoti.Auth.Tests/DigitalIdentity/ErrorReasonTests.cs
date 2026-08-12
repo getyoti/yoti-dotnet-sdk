@@ -12,35 +12,42 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         {
             var json = @"
             {
-                ""requirements_not_met_details"": {
-                    ""failure_type"": ""ID_DOCUMENT_COUNTRY"",
-                    ""details"": ""NOT_APPLICABLE_FOR_SCHEME"",
-                    ""audit_id"": ""97001564-a18a-4afd-bf19-3ffacc88abbb"",
-                    ""document_country_iso_code"": ""IRL"",
-                    ""document_type"": ""PASSPORT""
-                }
+                ""requirements_not_met_details"": [
+                    {
+                        ""failure_type"": ""ID_DOCUMENT_COUNTRY"",
+                        ""details"": ""NOT_APPLICABLE_FOR_SCHEME"",
+                        ""audit_id"": ""97001564-a18a-4afd-bf19-3ffacc88abbb"",
+                        ""document_country_iso_code"": ""IRL"",
+                        ""document_type"": ""PASSPORT""
+                    }
+                ]
             }";
 
             var errorReason = JsonConvert.DeserializeObject<ErrorReason>(json);
 
             Assert.IsNotNull(errorReason);
-            Assert.IsNotNull(errorReason.RequirementNotMetDetails);
-            Assert.AreEqual("ID_DOCUMENT_COUNTRY", errorReason.RequirementNotMetDetails.FailureType);
-            Assert.AreEqual("NOT_APPLICABLE_FOR_SCHEME", errorReason.RequirementNotMetDetails.Details);
-            Assert.AreEqual("97001564-a18a-4afd-bf19-3ffacc88abbb", errorReason.RequirementNotMetDetails.AuditId);
-            Assert.AreEqual("IRL", errorReason.RequirementNotMetDetails.DocumentCountryIsoCode);
-            Assert.AreEqual("PASSPORT", errorReason.RequirementNotMetDetails.DocumentType);
+            Assert.IsNotNull(errorReason.RequirementsNotMetDetails);
+            Assert.AreEqual(1, errorReason.RequirementsNotMetDetails.Count);
+            Assert.AreEqual("ID_DOCUMENT_COUNTRY", errorReason.RequirementsNotMetDetails[0].FailureType);
+            Assert.AreEqual("NOT_APPLICABLE_FOR_SCHEME", errorReason.RequirementsNotMetDetails[0].Details);
+            Assert.AreEqual("97001564-a18a-4afd-bf19-3ffacc88abbb", errorReason.RequirementsNotMetDetails[0].AuditId);
+            Assert.AreEqual("IRL", errorReason.RequirementsNotMetDetails[0].DocumentCountryIsoCode);
+            Assert.AreEqual("PASSPORT", errorReason.RequirementsNotMetDetails[0].DocumentType);
         }
 
         [TestMethod]
-        public void Deserialize_NullDetails_LeavesDetailsNull()
+        public void Deserialize_EmptyArray_CreatesEmptyList()
         {
-            var json = @"{ ""requirements_not_met_details"": null }";
+            var json = @"
+            {
+                ""requirements_not_met_details"": []
+            }";
 
             var errorReason = JsonConvert.DeserializeObject<ErrorReason>(json);
 
             Assert.IsNotNull(errorReason);
-            Assert.IsNull(errorReason.RequirementNotMetDetails);
+            Assert.IsNotNull(errorReason.RequirementsNotMetDetails);
+            Assert.AreEqual(0, errorReason.RequirementsNotMetDetails.Count);
         }
     }
 }
