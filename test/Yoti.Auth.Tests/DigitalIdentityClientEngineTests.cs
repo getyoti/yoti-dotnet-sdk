@@ -269,9 +269,9 @@ namespace Yoti.Auth.Tests
         public void ConstructorShouldAcceptHttpClient()
         {
             var httpClient = new HttpClient();
-            
+
             var engine = new DigitalIdentityClientEngine(httpClient);
-            
+
             Assert.IsNotNull(engine);
         }
 

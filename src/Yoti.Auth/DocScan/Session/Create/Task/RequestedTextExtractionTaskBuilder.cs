@@ -9,7 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Task
     {
         private string _manualCheck;
         private string _chipData;
-        private bool _createExpandedDocumentFields;
+        private bool? _createExpandedDocumentFields;
 
         /// <summary>
         /// Requires that a manual follow-up check is always performed
