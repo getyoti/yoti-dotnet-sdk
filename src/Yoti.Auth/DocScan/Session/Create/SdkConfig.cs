@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -45,9 +45,13 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
-        
+
+        [JsonProperty(PropertyName = "suppressed_screens", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SuppressedScreens { get; }
+
         [JsonProperty(PropertyName = "brand_id")]
         public string BrandId { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -61,7 +65,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
             : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
                    presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
-                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, brandId: "")
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, suppressedScreens: null, brandId: "")
         {
         }
 
@@ -77,6 +81,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             bool? allowHandoff,
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
                             bool? enforceHandoff,
+                            List<string> suppressedScreens,
                             string brandId)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
@@ -90,6 +95,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
             EnforceHandoff = enforceHandoff;
+            SuppressedScreens = suppressedScreens;
             BrandId = brandId;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
@@ -99,6 +105,17 @@ namespace Yoti.Auth.DocScan.Session.Create
                     IdDocumentTextDataExtraction = idDocumentTextDataExtractionRetriesConfig
                 };
             }
+        }
+
+        /// <summary>
+        /// Returns true if the given screen identifier is listed in <see cref="SuppressedScreens"/>.
+        /// Matching is case-sensitive against the exact string value.
+        /// </summary>
+        /// <param name="screenId">The screen identifier to check (see <see cref="Yoti.Auth.Constants.DocScanConstants"/>)</param>
+        /// <returns>True if the screen is suppressed, false otherwise</returns>
+        public bool IsScreenSuppressed(string screenId)
+        {
+            return SuppressedScreens != null && SuppressedScreens.Contains(screenId);
         }
     }
 }
