@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -15,8 +16,10 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _errorUrl;
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
+        private bool? _enforceHandoff;
         private string _brandId;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
+        private List<string> _suppressedScreens;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -155,6 +158,26 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets if mobile handoff is enforced for the user
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         When enabled, the user is required to perform mobile handoff to upload their resources.
+        ///     </para>
+        ///     <para>
+        ///         Note: <c>enforce_handoff</c> cannot be set to <c>true</c> if <c>allow_handoff</c> is <c>false</c>.
+        ///         Validation is enforced server-side by the IDV API (see DOCS-3523).
+        ///     </para>
+        /// </remarks>
+        /// <param name="enforceHandoff">If mobile handoff is enforced</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithEnforceHandoff(bool enforceHandoff)
+        {
+            _enforceHandoff = enforceHandoff;
+            return this;
+        }
+
+        /// <summary>
         /// Allows configuring the number of attempts permitted for text extraction on an ID document
         /// </summary>
         /// <remarks>
@@ -238,6 +261,48 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
+        /// Replaces the suppressed screens list with the provided collection, filtering out any null or whitespace entries.
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Valid screen identifier values are defined in <see cref="Constants.DocScanConstants"/>.
+        ///     </para>
+        ///     <para>
+        ///         Passing null or omitting this call leaves <c>suppressed_screens</c> out of the
+        ///         serialized config, so the flow shows all screens by default.
+        ///     </para>
+        ///     <para>
+        ///         To append a single screen without replacing the list, use <see cref="WithSuppressedScreen"/>.
+        ///     </para>
+        /// </remarks>
+        /// <param name="suppressedScreens">The list of screen identifiers to suppress</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreens(List<string> suppressedScreens)
+        {
+            _suppressedScreens = suppressedScreens?.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+            return this;
+        }
+
+        /// <summary>
+        /// Appends a single screen identifier to the suppressed screens list, ignoring duplicates.
+        /// </summary>
+        /// <remarks>Use <see cref="WithSuppressedScreens"/> to replace the entire list at once.</remarks>
+        /// <param name="suppressedScreen">The screen identifier to suppress; use constants from <see cref="Constants.DocScanConstants"/></param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithSuppressedScreen(string suppressedScreen)
+        {
+            Validation.NotNullOrWhiteSpace(suppressedScreen, nameof(suppressedScreen));
+
+            if (_suppressedScreens == null)
+                _suppressedScreens = new List<string>();
+
+            if (!_suppressedScreens.Contains(suppressedScreen))
+                _suppressedScreens.Add(suppressedScreen);
+
+            return this;
+        }
+
+        /// <summary>
         /// Sets the Brand Id
         /// </summary>
         /// <param name="brandId">BrandID</param>
@@ -247,7 +312,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             _brandId = brandId;
             return this;
         }
-        
+
         /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
@@ -265,7 +330,10 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _errorUrl,
                 _privacyPolicyUrl,
                 _allowHandoff,
-                _idDocumentTextDataExtractionAttemptsConfig, _brandId);
+                _idDocumentTextDataExtractionAttemptsConfig,
+                _enforceHandoff,
+                _suppressedScreens,
+                _brandId);
         }
     }
 }
