@@ -104,6 +104,7 @@ namespace DocScanExample.Controllers
                     .WithErrorUrl($"{_baseUrl}/idverify/error")
                     .WithPrivacyPolicyUrl($"{_baseUrl}/privacy-policy")
                     .WithAllowHandoff(false)
+                    .WithBrandId("brand_id")
                     .Build()
                     )
                 //Add Required Documents (with builders)

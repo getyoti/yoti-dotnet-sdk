@@ -94,7 +94,7 @@ namespace Yoti.Auth.Tests.TestData
                     }
                 ]
             }";
-            
+
             return advancedIdentityProfileJson;
         }
     }

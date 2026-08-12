@@ -16,6 +16,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _privacyPolicyUrl;
         private bool? _allowHandoff;
         private bool? _enforceHandoff;
+        private string _brandId;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
 
         /// <summary>
@@ -258,6 +259,17 @@ namespace Yoti.Auth.DocScan.Session.Create
         }   
 
         /// <summary>
+        /// Sets the Brand Id
+        /// </summary>
+        /// <param name="brandId">BrandID</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithBrandId(string brandId)
+        {
+            _brandId = brandId;
+            return this;
+        }
+        
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -275,7 +287,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _privacyPolicyUrl,
                 _allowHandoff,
                 _idDocumentTextDataExtractionAttemptsConfig,
-                _enforceHandoff);
+                _enforceHandoff,
+                _brandId);
         }
     }
 }

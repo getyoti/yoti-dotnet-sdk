@@ -45,7 +45,9 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
-
+        
+        [JsonProperty(PropertyName = "brand_id")]
+        public string BrandId { get; }
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -59,7 +61,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
             : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
                    presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
-                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null)
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, brandId: "")
         {
         }
 
@@ -74,7 +76,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string privacyPolicyUrl,
                             bool? allowHandoff,
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
-                            bool? enforceHandoff)
+                            bool? enforceHandoff,
+                            string brandId)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -87,6 +90,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
             EnforceHandoff = enforceHandoff;
+            BrandId = brandId;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {
