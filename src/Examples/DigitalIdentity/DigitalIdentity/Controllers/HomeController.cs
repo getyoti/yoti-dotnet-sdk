@@ -46,7 +46,7 @@ namespace DigitalIdentityExample.Controllers
                     .WithMethod("POST")
                     .WithVerifyTls(true)
                     .Build();
-                
+
                 var policy = new PolicyBuilder()
                     .WithWantedAttribute(givenNamesWantedAttribute)
                     .WithFullName()

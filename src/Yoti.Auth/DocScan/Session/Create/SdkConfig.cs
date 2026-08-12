@@ -44,6 +44,9 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "suppressed_screens", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> SuppressedScreens { get; }
 
+        [JsonProperty(PropertyName = "brand_id")]
+        public string BrandId { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -54,8 +57,26 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string errorUrl,
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
-                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null,
-                            List<string> suppressedScreens = null)
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+            : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
+                   presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
+                   idDocumentTextDataExtractionRetriesConfig, suppressedScreens: null, brandId: "")
+        {
+        }
+
+        public SdkConfig(string allowedCaptureMethods,
+                            string primaryColour,
+                            string secondaryColour,
+                            string fontColour,
+                            string locale,
+                            string presetIssuingCountry,
+                            string successUrl,
+                            string errorUrl,
+                            string privacyPolicyUrl,
+                            bool? allowHandoff,
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
+                            List<string> suppressedScreens,
+                            string brandId)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -68,6 +89,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
             SuppressedScreens = suppressedScreens;
+            BrandId = brandId;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {
