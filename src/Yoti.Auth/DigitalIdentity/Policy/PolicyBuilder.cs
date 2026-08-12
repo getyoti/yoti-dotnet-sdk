@@ -158,7 +158,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
-        
+
         /// <summary>
         /// Use an Advanced Identity Profile Requirement object for the share
         /// </summary>

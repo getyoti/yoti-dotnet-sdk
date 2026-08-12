@@ -16,11 +16,17 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         public abstract string Type { get; }
 
         protected RequestedWatchlistAdvancedCaConfig(bool removeDeceased, bool shareUrl, RequestedCaSources sources, RequestedCaMatchingStrategy matchingStrategy)
+            : this(removeDeceased, shareUrl, sources, matchingStrategy, null)
+        {
+        }
+
+        protected RequestedWatchlistAdvancedCaConfig(bool removeDeceased, bool shareUrl, RequestedCaSources sources, RequestedCaMatchingStrategy matchingStrategy, int? handledCheckLimit)
         {
             RemoveDeceased = removeDeceased;
             ShareUrl = shareUrl;
             Sources = sources;
             MatchingStrategy = matchingStrategy;
+            HandledCheckLimit = handledCheckLimit;
         }
 
         [JsonProperty(PropertyName = "remove_deceased")]

@@ -174,5 +174,47 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
             Assert.AreEqual(clientRef, ((RequestedWatchlistAdvancedCaConfigCustomAccount)jsonRoundTripObj.Config).ClientRef);
             Assert.AreEqual(DocScanConstants.WithCustomAccount, jsonRoundTripObj.Config.Type);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithHandledCheckLimitForYotiAccount()
+        {
+            RequestedWatchlistAdvancedCaCheck check =
+                new RequestedWatchlistAdvancedCaCheckBuilderYotiAccount()
+                .WithHandledCheckLimit(5)
+                .Build();
+
+            Assert.AreEqual(5, check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithoutHandledCheckLimitForYotiAccount()
+        {
+            RequestedWatchlistAdvancedCaCheck check =
+                new RequestedWatchlistAdvancedCaCheckBuilderYotiAccount()
+                .Build();
+
+            Assert.IsNull(check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithHandledCheckLimitForCustomAccount()
+        {
+            RequestedWatchlistAdvancedCaCheck check =
+                new RequestedWatchlistAdvancedCaCheckBuilderCustomAccount()
+                .WithHandledCheckLimit(5)
+                .Build();
+
+            Assert.AreEqual(5, check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithoutHandledCheckLimitForCustomAccount()
+        {
+            RequestedWatchlistAdvancedCaCheck check =
+                new RequestedWatchlistAdvancedCaCheckBuilderCustomAccount()
+                .Build();
+
+            Assert.IsNull(check.Config.HandledCheckLimit);
+        }
     }
 }

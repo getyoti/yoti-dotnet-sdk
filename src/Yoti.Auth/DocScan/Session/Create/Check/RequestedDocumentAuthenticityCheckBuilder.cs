@@ -6,6 +6,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
     {
         private string _manualCheck;
         private IssuingAuthoritySubCheck _issuingAuthoritySubCheck;
+        private int? _handledCheckLimit;
 
         /// <summary>
         /// Requires that a manual follow-up check is always performed
@@ -63,9 +64,21 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
             return this;
         }
 
+        /// <summary>
+        /// Sets the number of times a check response should return a handled result before switching to success (for sandbox testing)
+        /// </summary>
+        /// <param name="handledCheckLimit">The number of handled check responses before success</param>
+        /// <returns>The <see cref="RequestedDocumentAuthenticityCheckBuilder"/></returns>
+        public RequestedDocumentAuthenticityCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
+        {
+            Validation.NotLessThan(handledCheckLimit, 0, nameof(handledCheckLimit));
+            _handledCheckLimit = handledCheckLimit;
+            return this;
+        }
+
         public RequestedDocumentAuthenticityCheck Build()
         {
-            var config = new RequestedDocumentAuthenticityConfig(_manualCheck, _issuingAuthoritySubCheck);
+            var config = new RequestedDocumentAuthenticityConfig(_manualCheck, _issuingAuthoritySubCheck, _handledCheckLimit);
 
             return new RequestedDocumentAuthenticityCheck(config);
         }

@@ -235,7 +235,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
 
         /// <summary>
         /// Sets the Brand Id

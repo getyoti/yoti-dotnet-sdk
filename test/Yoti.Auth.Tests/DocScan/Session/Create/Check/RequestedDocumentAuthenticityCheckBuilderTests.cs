@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
@@ -89,6 +90,58 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
             Assert.IsTrue(check.Config.IssuingAuthoritySubCheck.Requested);
             Assert.IsNotNull(check.Config.IssuingAuthoritySubCheck.Filter);
             Assert.AreEqual(filter, check.Config.IssuingAuthoritySubCheck.Filter);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithHandledCheckLimit()
+        {
+            RequestedDocumentAuthenticityCheck check =
+              new RequestedDocumentAuthenticityCheckBuilder()
+              .WithManualCheckNever()
+              .WithHandledCheckLimit(3)
+              .Build();
+
+            Assert.AreEqual(3, check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithoutHandledCheckLimit()
+        {
+            RequestedDocumentAuthenticityCheck check =
+              new RequestedDocumentAuthenticityCheckBuilder()
+              .WithManualCheckNever()
+              .Build();
+
+            Assert.IsNull(check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldSerializeHandledCheckLimitToJson()
+        {
+            RequestedDocumentAuthenticityCheck check =
+              new RequestedDocumentAuthenticityCheckBuilder()
+              .WithManualCheckNever()
+              .WithHandledCheckLimit(3)
+              .Build();
+
+            string jsonData = JsonConvert.SerializeObject(check);
+            Assert.IsTrue(jsonData.Contains("\"handled_check_limit\":3"));
+
+            var jsonRoundTripObj = JsonConvert.DeserializeObject<RequestedDocumentAuthenticityCheck>(jsonData);
+            Assert.AreEqual(3, jsonRoundTripObj.Config.HandledCheckLimit);
+            Assert.AreEqual("NEVER", jsonRoundTripObj.Config.ManualCheck);
+        }
+
+        [TestMethod]
+        public void ShouldNotSerializeHandledCheckLimitWhenNull()
+        {
+            RequestedDocumentAuthenticityCheck check =
+              new RequestedDocumentAuthenticityCheckBuilder()
+              .WithManualCheckNever()
+              .Build();
+
+            string jsonData = JsonConvert.SerializeObject(check);
+            Assert.IsFalse(jsonData.Contains("handled_check_limit"));
         }
     }
 }

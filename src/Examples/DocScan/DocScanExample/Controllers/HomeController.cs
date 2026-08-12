@@ -13,7 +13,7 @@ using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Objectives;
 using Yoti.Auth.DocScan.Session.Create.Task;
- 
+
 namespace DocScanExample.Controllers
 {
     public class HomeController : Controller
@@ -26,7 +26,7 @@ namespace DocScanExample.Controllers
         public HomeController(IHttpContextAccessor httpContextAccessor)
         {
             var request = httpContextAccessor.HttpContext.Request;
-            
+
             _baseUrl = $"{request.Scheme}://{request.Host}"; ;
             _apiUrl = GetApiUrl();
             _client = GetDocScanClient(_apiUrl);
@@ -128,16 +128,16 @@ namespace DocScanExample.Controllers
                     .Build()
                 )
                 .WithRequiredDocument(
-                    new RequiredSupplementaryDocumentBuilder()  
+                    new RequiredSupplementaryDocumentBuilder()
                     .WithObjective(
                         new ProofOfAddressObjectiveBuilder().Build())
                     .Build()
-                )          
+                )
             .Build();
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;
-           
+
             string path = $"web/index.html?sessionID={sessionId}&sessionToken={createSessionResult.ClientSessionToken}";
             Uri uri = new Uri(_apiUrl, path);
 

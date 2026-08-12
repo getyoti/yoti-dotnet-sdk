@@ -160,7 +160,7 @@ namespace Yoti.Auth.DocScan
                 {
                     return null;
                 }
-                
+
                 if (response.Content.Headers.ContentType == null)
                 {
                     return null;
@@ -170,7 +170,7 @@ namespace Yoti.Auth.DocScan
                 {
                     return null;
                 }
-              
+
                 string contentType = response.Content.Headers.ContentType.MediaType;
 
                 var responseObject = await response.Content.ReadAsByteArrayAsync();
@@ -218,7 +218,7 @@ namespace Yoti.Auth.DocScan
                 .WithHttpMethod(HttpMethod.Get)
                 .WithBaseUri(ApiUri)
                 .WithEndpoint("/supported-documents")
-                .WithQueryParam("includeNonLatin", isStrictlyLatin ? "1": "0")
+                .WithQueryParam("includeNonLatin", isStrictlyLatin ? "1" : "0")
                 .WithQueryParam("sdkId", sdkId)
                 .Build();
 
@@ -265,7 +265,7 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-              
+
                 var responseObject = await response.Content.ReadAsStringAsync();
                 var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateFaceCaptureResourceResponse>(responseObject));
 
