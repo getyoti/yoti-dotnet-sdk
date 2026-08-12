@@ -38,9 +38,16 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "allow_handoff")]
         public bool? AllowHandoff { get; }
 
+        // enforce_handoff cannot be set to true if allow_handoff is false.
+        // Validation is enforced server-side by the IDV API (see DOCS-3523).
+        [JsonProperty(PropertyName = "enforce_handoff")]
+        public bool? EnforceHandoff { get; }
+
         [JsonProperty(PropertyName = "attempts_configuration")]
         public AttemptsConfiguration AttemptsConfiguration { get; }
-
+        
+        [JsonProperty(PropertyName = "brand_id")]
+        public string BrandId { get; }
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -52,6 +59,25 @@ namespace Yoti.Auth.DocScan.Session.Create
                             string privacyPolicyUrl,
                             bool? allowHandoff = null,
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
+            : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
+                   presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, brandId: "")
+        {
+        }
+
+        public SdkConfig(string allowedCaptureMethods,
+                            string primaryColour,
+                            string secondaryColour,
+                            string fontColour,
+                            string locale,
+                            string presetIssuingCountry,
+                            string successUrl,
+                            string errorUrl,
+                            string privacyPolicyUrl,
+                            bool? allowHandoff,
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
+                            bool? enforceHandoff,
+                            string brandId)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -63,6 +89,8 @@ namespace Yoti.Auth.DocScan.Session.Create
             ErrorUrl = errorUrl;
             PrivacyPolicyUrl = privacyPolicyUrl;
             AllowHandoff = allowHandoff;
+            EnforceHandoff = enforceHandoff;
+            BrandId = brandId;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {

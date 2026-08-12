@@ -14,6 +14,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     {
         [TestMethod]
         [DataRow(DocScanConstants.Zoom, typeof(ZoomLivenessResourceResponse))]
+        [DataRow(DocScanConstants.Static, typeof(StaticLivenessResourceResponse))]
         [DataRow("OTHER", typeof(LivenessResourceResponse))]
         [DataRow("", typeof(LivenessResourceResponse))]
         [DataRow(null, typeof(LivenessResourceResponse))]

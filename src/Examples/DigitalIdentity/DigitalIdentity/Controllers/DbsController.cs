@@ -8,11 +8,11 @@ using Yoti.Auth.DigitalIdentity.Policy;
 
 namespace DigitalIdentityExample.Controllers
 {
-    public class HomeController : Controller
+    public class DbsController : Controller
     {
         private readonly string _clientSdkId;
         private readonly ILogger _logger;
-        public HomeController(ILogger<HomeController> logger)
+        public DbsController(ILogger<DbsController> logger)
         {
             _logger = logger;
 
@@ -21,7 +21,7 @@ namespace DigitalIdentityExample.Controllers
         }
        
         // GET: /generate-share
-        [Route("generate-share")]
+        [Route("dbs-share")]
         public IActionResult DigitalIdentity()
         {
             try
@@ -32,7 +32,7 @@ namespace DigitalIdentityExample.Controllers
                         "yotiKeyFilePath='{0}'",
                         yotiKeyFilePath));
 
-                using StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
@@ -46,22 +46,24 @@ namespace DigitalIdentityExample.Controllers
                     .WithMethod("POST")
                     .WithVerifyTls(true)
                     .Build();
+                
                 var policy = new PolicyBuilder()
-                    .WithWantedAttribute(givenNamesWantedAttribute)
-                    .WithFullName()
-                    .WithEmail()
-                    .WithPhoneNumber()
-                    .WithSelfie()
-                    .WithAgeOver(18)
-                    .WithNationality()
-                    .WithGender()
-                    .WithDocumentDetails()
-                    .WithDocumentImages()           
+                    .WithIdentityProfileRequirements(new
+                    {
+                        trust_framework = "UK_TFIDA",
+                        scheme = new
+                        {
+                            type = "DBS",
+                            objective = "BASIC"
+                        }
+                    })
                     .Build();
 
-                var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
+                var sessionReq = new ShareSessionRequestBuilder()
+                    .WithPolicy(policy)
                     .WithNotification(notification)
-                    .WithRedirectUri("https://www.yoti.com").WithSubject(new
+                    .WithRedirectUri("https:/www.yoti.com")
+                    .WithSubject(new
                     {
                         subject_id = "some_subject_id_string"
                     }).Build();
@@ -69,10 +71,11 @@ namespace DigitalIdentityExample.Controllers
                 var SessionResult = yotiClient.CreateShareSession(sessionReq);
 
                 var sharedReceiptResponse = new SharedReceiptResponse();
+                
                 ViewBag.YotiClientSdkId = _clientSdkId;
                 ViewBag.sessionID = SessionResult.Id;
 
-                return View("DigitalIdentity", sharedReceiptResponse);
+                return View("Dbs", sharedReceiptResponse);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan.Session.Create;
@@ -170,6 +171,86 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         }
 
         [TestMethod]
+        public void ShouldBuildWithEnforceHandoffTrue()
+        {
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithEnforceHandoff(true);
+
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.IsTrue(sdkConfig.EnforceHandoff.HasValue);
+            Assert.IsTrue(sdkConfig.EnforceHandoff.Value);
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            StringAssert.Contains(json, "\"enforce_handoff\":true");
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithEnforceHandoffFalse()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .WithEnforceHandoff(false)
+             .Build();
+
+            Assert.IsTrue(sdkConfig.EnforceHandoff.HasValue);
+            Assert.IsFalse(sdkConfig.EnforceHandoff.Value);
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            StringAssert.Contains(json, "\"enforce_handoff\":false");
+        }
+
+        [TestMethod]
+        public void EnforceHandoffShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .Build();
+
+            Assert.IsNull(sdkConfig.EnforceHandoff);
+        }
+
+        [TestMethod]
+        public void EnforceHandoffShouldBeOmittedFromJsonWhenNotSet()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .Build();
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+
+            Assert.IsFalse(json.Contains("enforce_handoff"));
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithBothAllowHandoffAndEnforceHandoff()
+        {
+            SdkConfig sdkConfig =
+             new SdkConfigBuilder()
+             .WithAllowHandoff(true)
+             .WithEnforceHandoff(true)
+             .Build();
+
+            Assert.IsTrue(sdkConfig.AllowHandoff.HasValue);
+            Assert.IsTrue(sdkConfig.AllowHandoff.Value);
+            Assert.IsTrue(sdkConfig.EnforceHandoff.HasValue);
+            Assert.IsTrue(sdkConfig.EnforceHandoff.Value);
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            StringAssert.Contains(json, "\"allow_handoff\":true");
+            StringAssert.Contains(json, "\"enforce_handoff\":true");
+        }
+
+        [TestMethod]
         public void ShouldBuildWithIdDocumentTextExtractionCategoryAttempts()
         {
             string category = "someCategory";
@@ -194,6 +275,19 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             Assert.IsNull(sdkConfig.AttemptsConfiguration);
         }
 
+        [TestMethod]
+        public void ShouldBuildWithBrandId()
+        {
+            string brandid = "some_brand_id";
+
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                    .WithBrandId(brandid)
+                    .Build();
+
+            Assert.AreEqual(brandid, sdkConfig.BrandId);
+        }
+        
         [TestMethod]
         public void AttemptsConfigurationShouldResetSameValueWithRepeatedCalls()
         {

@@ -39,7 +39,7 @@ namespace Yoti.Auth
 
             return result;
         }
-        
+
         public async Task<CreateQrResult> CreateQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionid, QrRequest qRRequest)
         {
             CreateQrResult result = await Task.Run(async () => await DigitalIdentityService.CreateQrCode(
@@ -48,7 +48,7 @@ namespace Yoti.Auth
 
             return result;
         }
-        
+
         public async Task<GetQrCodeResult> GetQrCodeAsync(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string qrcodeId)
         {
             GetQrCodeResult result = await Task.Run(async () => await DigitalIdentityService.GetQrCode(
@@ -57,7 +57,7 @@ namespace Yoti.Auth
 
             return result;
         }
-        
+
         public async Task<GetSessionResult> GetSession(string sdkId, AsymmetricCipherKeyPair keyPair, Uri apiUrl, string sessionId)
         {
             var result = await Task.Run(async () => await DigitalIdentityService.GetSession(

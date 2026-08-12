@@ -1,9 +1,11 @@
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
 namespace Yoti.Auth.DigitalIdentity
 {
     public class ErrorReason
     {
-        public RequirementNotMetDetails RequirementNotMetDetails { get; private set; }
-        
+        [JsonProperty(PropertyName = "requirements_not_met_details")]
+        public List<RequirementNotMetDetails> RequirementsNotMetDetails { get; private set; }
     }
-    
 }
