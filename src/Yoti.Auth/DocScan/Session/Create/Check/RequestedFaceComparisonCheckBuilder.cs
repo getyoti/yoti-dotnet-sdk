@@ -24,6 +24,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         /// <returns>The <see cref="RequestedFaceComparisonCheckBuilder"/></returns>
         public RequestedFaceComparisonCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
         {
+            Validation.NotLessThan(handledCheckLimit, 0, nameof(handledCheckLimit));
             _handledCheckLimit = handledCheckLimit;
             return this;
         }

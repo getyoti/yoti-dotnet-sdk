@@ -141,5 +141,28 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
             Assert.IsTrue(check.Config.Categories.Contains(DocScanConstants.AdverseMedia));
             Assert.AreEqual(1, check.Config.Categories.Count);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithHandledCheckLimit()
+        {
+            RequestedWatchlistScreeningCheck check =
+              new RequestedWatchlistScreeningCheckBuilder()
+              .ForSanctions()
+              .WithHandledCheckLimit(5)
+              .Build();
+
+            Assert.AreEqual(5, check.Config.HandledCheckLimit);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithoutHandledCheckLimit()
+        {
+            RequestedWatchlistScreeningCheck check =
+              new RequestedWatchlistScreeningCheckBuilder()
+              .ForSanctions()
+              .Build();
+
+            Assert.IsNull(check.Config.HandledCheckLimit);
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         {
         }
 
+        [JsonConstructor]
         public RequestedFaceComparisonConfig(string manualCheck, int? handledCheckLimit = null)
         {
             ManualCheck = manualCheck;

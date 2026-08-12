@@ -10,7 +10,13 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         [JsonProperty(PropertyName = "issuing_authority_sub_check")]
         public IssuingAuthoritySubCheck IssuingAuthoritySubCheck { get; }
 
-        public RequestedDocumentAuthenticityConfig(string manualCheck, IssuingAuthoritySubCheck issuingAuthoritySubCheck = null, int? handledCheckLimit = null)
+        public RequestedDocumentAuthenticityConfig(string manualCheck, IssuingAuthoritySubCheck issuingAuthoritySubCheck = null)
+            : this(manualCheck, issuingAuthoritySubCheck, null)
+        {
+        }
+
+        [JsonConstructor]
+        public RequestedDocumentAuthenticityConfig(string manualCheck, IssuingAuthoritySubCheck issuingAuthoritySubCheck, int? handledCheckLimit)
         {
             ManualCheck = manualCheck;
             IssuingAuthoritySubCheck = issuingAuthoritySubCheck;

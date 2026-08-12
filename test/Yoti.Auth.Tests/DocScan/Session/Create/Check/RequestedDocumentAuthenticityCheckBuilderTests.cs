@@ -129,6 +129,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
 
             var jsonRoundTripObj = JsonConvert.DeserializeObject<RequestedDocumentAuthenticityCheck>(jsonData);
             Assert.AreEqual(3, jsonRoundTripObj.Config.HandledCheckLimit);
+            Assert.AreEqual("NEVER", jsonRoundTripObj.Config.ManualCheck);
         }
 
         [TestMethod]

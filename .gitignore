@@ -36,6 +36,7 @@ Backup*/
 
 # Coverage
 OpenCover/
+test/Yoti.Auth.Tests/coverage_*.xml
 
 # .NET tools
 src/tools/

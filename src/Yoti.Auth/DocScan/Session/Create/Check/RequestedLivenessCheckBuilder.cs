@@ -52,6 +52,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
         /// <returns>The <see cref="RequestedLivenessCheckBuilder"/></returns>
         public RequestedLivenessCheckBuilder WithHandledCheckLimit(int handledCheckLimit)
         {
+            Validation.NotLessThan(handledCheckLimit, 0, nameof(handledCheckLimit));
             _handledCheckLimit = handledCheckLimit;
             return this;
         }
