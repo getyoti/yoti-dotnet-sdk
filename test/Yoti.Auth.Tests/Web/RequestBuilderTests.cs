@@ -29,7 +29,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ShouldNotBuildWithoutKeyPair()
         {
-            var exception = Assert.ThrowsExactly<ArgumentNullException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new RequestBuilder()
                     .WithBaseUri(_testBaseUri)
@@ -38,7 +38,37 @@ namespace Yoti.Auth.Tests.Web
                     .Build();
             });
 
-            Assert.IsTrue(exception.Message.Contains("_keyPair"));
+            Assert.IsTrue(exception.Message.Contains("WithAuthStrategy") || exception.Message.Contains("WithKeyPair"));
+        }
+
+        [TestMethod]
+        public void ShouldNotBuildWithBothKeyPairAndAuthStrategy()
+        {
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                new RequestBuilder()
+                    .WithBaseUri(_testBaseUri)
+                    .WithEndpoint("/a")
+                    .WithHttpMethod(HttpMethod.Get)
+                    .WithKeyPair(KeyPair.Get())
+                    .WithAuthStrategy(new Yoti.Auth.Web.NoAuthStrategy())
+                    .Build();
+            });
+
+            Assert.IsTrue(exception.Message.Contains("mutually exclusive"));
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithAuthStrategy()
+        {
+            var request = new RequestBuilder()
+                .WithBaseUri(_testBaseUri)
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Get)
+                .WithAuthStrategy(new Yoti.Auth.Web.NoAuthStrategy())
+                .Build();
+
+            Assert.IsNotNull(request);
         }
 
         [TestMethod]
@@ -115,6 +145,41 @@ namespace Yoti.Auth.Tests.Web
 
             request.RequestMessage.Headers.TryGetValues("key", out IEnumerable<string> headers);
             Assert.IsTrue(headers.Contains("value"));
+        }
+
+        [TestMethod]
+        public void WithSdkIdShouldAddHeaderAndQueryParamWhenAuthStrategyHasSdkId()
+        {
+            var authStrategy = new BearerTokenAuthStrategy("some-token", _sdkId);
+
+            Request request = new RequestBuilder()
+                .WithBaseUri(_testBaseUri)
+                .WithAuthStrategy(authStrategy)
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Get)
+                .WithSdkId(authStrategy, "sdkId")
+                .Build();
+
+            request.RequestMessage.Headers.TryGetValues(Api.AuthIdHeader, out IEnumerable<string> headers);
+            Assert.IsTrue(headers.Contains(_sdkId));
+            Assert.IsTrue(request.RequestMessage.RequestUri.Query.Contains($"sdkId={_sdkId}"));
+        }
+
+        [TestMethod]
+        public void WithSdkIdShouldNotAddHeaderOrQueryParamWhenAuthStrategyHasNoSdkId()
+        {
+            var authStrategy = new BearerTokenAuthStrategy("some-token");
+
+            Request request = new RequestBuilder()
+                .WithBaseUri(_testBaseUri)
+                .WithAuthStrategy(authStrategy)
+                .WithEndpoint("/a")
+                .WithHttpMethod(HttpMethod.Get)
+                .WithSdkId(authStrategy, "sdkId")
+                .Build();
+
+            Assert.IsFalse(request.RequestMessage.Headers.Contains(Api.AuthIdHeader));
+            Assert.IsFalse(request.RequestMessage.RequestUri.Query.Contains("sdkId="));
         }
 
         [TestMethod]

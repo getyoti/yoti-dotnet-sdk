@@ -10,16 +10,24 @@ using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DigitalIdentity;
 using Yoti.Auth.Exceptions;
 using Yoti.Auth.Tests.Common;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth.Tests
 {
-    [TestClass]
-    public class DigitalIdentityClientEngineTests
-    {
-        private const string EncryptedToken = "b6H19bUCJhwh6WqQX/sEHWX9RP+A/ANr1fkApwA4Dp2nJQFAjrF9e6YCXhNBpAIhfHnN0iXubyXxXZMNwNMSQ5VOxkqiytrvPykfKQWHC6ypSbfy0ex8ihndaAXG5FUF+qcU8QaFPMy6iF3x0cxnY0Ij0kZj0Ng2t6oiNafb7AhT+VGXxbFbtZu1QF744PpWMuH0LVyBsAa5N5GJw2AyBrnOh67fWMFDKTJRziP5qCW2k4h5vJfiYr/EOiWKCB1d/zINmUm94ZffGXxcDAkq+KxhN1ZuNhGlJ2fKcFh7KxV0BqlUWPsIEiwS0r9CJ2o1VLbEs2U/hCEXaqseEV7L29EnNIinEPVbL4WR7vkF6zQCbK/cehlk2Qwda+VIATqupRO5grKZN78R9lBitvgilDaoE7JB/VFcPoljGQ48kX0wje1mviX4oJHhuO8GdFITS5LTbojGVQWT7LUNgAUe0W0j+FLHYYck3v84OhWTqads5/jmnnLkp9bdJSRuJF0e8pNdePnn2lgF+GIcyW/0kyGVqeXZrIoxnObLpF+YeUteRBKTkSGFcy7a/V/DLiJMPmH8UXDLOyv8TVt3ppzqpyUrLN2JVMbL5wZ4oriL2INEQKvw/boDJjZDGeRlu5m1y7vGDNBRDo64+uQM9fRUULPw+YkABNwC0DeShswzT00=";
-        private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
-        private static HttpRequestMessage _httpRequestMessage;
-        private const string SdkId = "fake-sdk-id";
+	[TestClass]
+	public class DigitalIdentityClientEngineTests
+	{
+		private const string EncryptedToken = "b6H19bUCJhwh6WqQX/sEHWX9RP+A/ANr1fkApwA4Dp2nJQFAjrF9e6YCXhNBpAIhfHnN0iXubyXxXZMNwNMSQ5VOxkqiytrvPykfKQWHC6ypSbfy0ex8ihndaAXG5FUF+qcU8QaFPMy6iF3x0cxnY0Ij0kZj0Ng2t6oiNafb7AhT+VGXxbFbtZu1QF744PpWMuH0LVyBsAa5N5GJw2AyBrnOh67fWMFDKTJRziP5qCW2k4h5vJfiYr/EOiWKCB1d/zINmUm94ZffGXxcDAkq+KxhN1ZuNhGlJ2fKcFh7KxV0BqlUWPsIEiwS0r9CJ2o1VLbEs2U/hCEXaqseEV7L29EnNIinEPVbL4WR7vkF6zQCbK/cehlk2Qwda+VIATqupRO5grKZN78R9lBitvgilDaoE7JB/VFcPoljGQ48kX0wje1mviX4oJHhuO8GdFITS5LTbojGVQWT7LUNgAUe0W0j+FLHYYck3v84OhWTqads5/jmnnLkp9bdJSRuJF0e8pNdePnn2lgF+GIcyW/0kyGVqeXZrIoxnObLpF+YeUteRBKTkSGFcy7a/V/DLiJMPmH8UXDLOyv8TVt3ppzqpyUrLN2JVMbL5wZ4oriL2INEQKvw/boDJjZDGeRlu5m1y7vGDNBRDo64+uQM9fRUULPw+YkABNwC0DeShswzT00=";
+		private readonly AsymmetricCipherKeyPair _keyPair = KeyPair.Get();
+		private static HttpRequestMessage _httpRequestMessage;
+		private const string SdkId = "fake-sdk-id";
+		private IAuthStrategy _authStrategy;
+
+		[TestInitialize]
+		public void Setup()
+		{
+			_authStrategy = new SignedRequestAuthStrategy(_keyPair, SdkId);
+		}
 
         [TestMethod]
         public async Task CreateSessionAsyncShouldReturnCorrectValues()
@@ -33,7 +41,7 @@ namespace Yoti.Auth.Tests
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             ShareSessionRequest shareSessionRequest = TestTools.ShareSession.CreateStandardShareSessionRequest();
 
-            ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
+			ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
 
             Assert.IsNotNull(shareSessionResult);
             Assert.AreEqual(refId, shareSessionResult.Id);
@@ -54,7 +62,7 @@ namespace Yoti.Auth.Tests
 
             Assert.ThrowsExactly<AggregateException>(() =>
             {
-                SharedReceiptResponse response = engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Result;
+                SharedReceiptResponse response = engine.GetShareReceipt(_authStrategy, apiUrl, receiptId).Result;
             });
         }
 
@@ -72,7 +80,7 @@ namespace Yoti.Auth.Tests
             QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
-            CreateQrResult result = await engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest);
+            CreateQrResult result = await engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(qrCodeId, result.Id);
@@ -86,9 +94,9 @@ namespace Yoti.Auth.Tests
             var engine = new DigitalIdentityClientEngine(new HttpClient());
             QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             await Assert.ThrowsExactlyAsync<InvalidOperationException>(
-                () => engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), null, qrRequest));
+                () => engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), null, qrRequest));
             await Assert.ThrowsExactlyAsync<InvalidOperationException>(
-                () => engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), "", qrRequest));
+                () => engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), "", qrRequest));
         }
 
         [TestMethod]
@@ -104,7 +112,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            GetQrCodeResult result = await engine.GetQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId);
+            GetQrCodeResult result = await engine.GetQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(qrCodeId, result.Id);
@@ -125,7 +133,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            GetSessionResult result = await engine.GetSession(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
+            GetSessionResult result = await engine.GetSession(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(sessionId, result.Id);
@@ -152,7 +160,7 @@ namespace Yoti.Auth.Tests
 
 			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
-				engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), shareSessionRequest).Wait();
+				engine.CreateShareSessionAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiApiUrl), shareSessionRequest).Wait();
 			});
 
 			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
@@ -177,7 +185,7 @@ namespace Yoti.Auth.Tests
 
 			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
-				engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Wait();
+				engine.GetShareReceipt(_authStrategy, apiUrl, receiptId).Wait();
 			});
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<Exception>(aggregateException));
@@ -202,7 +210,7 @@ namespace Yoti.Auth.Tests
 
 			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
-				engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest).Wait();
+				engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest).Wait();
 			});
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
@@ -226,7 +234,7 @@ namespace Yoti.Auth.Tests
 
 			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
-				engine.GetQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId).Wait();
+				engine.GetQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId).Wait();
 			});
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
@@ -250,7 +258,7 @@ namespace Yoti.Auth.Tests
 
 			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
-				engine.GetSession(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId).Wait();
+				engine.GetSession(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId).Wait();
 			});
 
 			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
@@ -295,7 +303,7 @@ namespace Yoti.Auth.Tests
             Uri apiUrl = new Uri("https://example.com/api");
 
             await Assert.ThrowsExactlyAsync<InvalidOperationException>(() =>
-                engine.GetShareReceipt(SdkId, _keyPair, apiUrl, ""));
+                engine.GetShareReceipt(_authStrategy, apiUrl, ""));
         }
 
         [TestMethod]
@@ -308,7 +316,7 @@ namespace Yoti.Auth.Tests
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             ShareSessionRequest shareSessionRequest = TestTools.ShareSession.CreateStandardShareSessionRequest();
 
-            ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
+            ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
 
             Assert.IsNotNull(shareSessionResult);
         }
@@ -324,7 +332,7 @@ namespace Yoti.Auth.Tests
             QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
-            CreateQrResult result = await engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest);
+            CreateQrResult result = await engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest);
 
             Assert.IsNotNull(result);
         }
@@ -340,7 +348,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            GetQrCodeResult result = await engine.GetQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId);
+            GetQrCodeResult result = await engine.GetQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId);
 
             Assert.IsNotNull(result);
         }
@@ -356,7 +364,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            GetSessionResult result = await engine.GetSession(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
+            GetSessionResult result = await engine.GetSession(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
 
             Assert.IsNotNull(result);
         }
@@ -373,7 +381,7 @@ namespace Yoti.Auth.Tests
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             ShareSessionRequest shareSessionRequest = TestTools.ShareSession.CreateStandardShareSessionRequest();
 
-            ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
+            ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
 
             Assert.IsNotNull(shareSessionResult);
             Assert.AreEqual(refId, shareSessionResult.Id);
@@ -390,7 +398,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            GetQrCodeResult result = await engine.GetQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId);
+            GetQrCodeResult result = await engine.GetQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(qrCodeId, result.Id);
@@ -408,7 +416,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            GetSessionResult result = await engine.GetSession(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
+            GetSessionResult result = await engine.GetSession(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(sessionId, result.Id);

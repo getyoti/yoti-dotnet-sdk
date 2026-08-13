@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -22,253 +22,172 @@ namespace Yoti.Auth.DigitalIdentity
         private const string receiptRetrieval = "/v2/receipts/{0}";
         private const string receiptKeyRetrieval = "/v2/wrapped-item-keys/{0}";
         private const string sessionCreation = "/v2/sessions";
-        private const string yotiAuthId = "X-Yoti-Auth-Id";
 
-        internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, ShareSessionRequest shareSessionRequestPayload)
+        internal static async Task<ShareSessionResult> CreateShareSession(HttpClient httpClient, Uri apiUrl, IAuthStrategy authStrategy, ShareSessionRequest shareSessionRequestPayload)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(authStrategy, nameof(authStrategy));
             Validation.NotNull(shareSessionRequestPayload, nameof(shareSessionRequestPayload));
 
             string serializedScenario = JsonConvert.SerializeObject(
                 shareSessionRequestPayload,
-                new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                });
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             byte[] body = Encoding.UTF8.GetBytes(serializedScenario);
 
-            Request shareSessionRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
+            var builder = new RequestBuilder()
+                .WithAuthStrategy(authStrategy)
                 .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(sessionCreation)
-                .WithQueryParam("sdkID", sdkId)
                 .WithHttpMethod(HttpMethod.Post)
-                .WithContent(body)
-                .Build();
+                .WithContent(body);
+
+            builder = builder.WithSdkId(authStrategy, "sdkID");
+
+            Request shareSessionRequest = builder.Build();
 
             using (HttpResponseMessage response = await shareSessionRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                {
                     Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
-
-                return deserialized;
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ShareSessionResult>(responseObject));
             }
         }
 
-        internal static async Task<GetSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId)
+        internal static async Task<GetSessionResult> GetSession(HttpClient httpClient, Uri apiUrl, IAuthStrategy authStrategy, string sessionId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(authStrategy, nameof(authStrategy));
             Validation.NotNull(sessionId, nameof(sessionId));
 
-
-            Request getSessionRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
+            var builder = new RequestBuilder()
+                .WithAuthStrategy(authStrategy)
                 .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(string.Format("{0}/{1}", sessionCreation, sessionId))
-                .WithQueryParam("appId", sdkId)
-                .WithHttpMethod(HttpMethod.Get)
-                .Build();
+                .WithHttpMethod(HttpMethod.Get);
+
+            builder = builder.WithSdkId(authStrategy, "appId");
+
+            Request getSessionRequest = builder.Build();
 
             using (HttpResponseMessage response = await getSessionRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                {
                     Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
-
-                return deserialized;
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetSessionResult>(responseObject));
             }
         }
 
-        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string sessionId, QrRequest qrRequestPayload)
+        internal static async Task<CreateQrResult> CreateQrCode(HttpClient httpClient, Uri apiUrl, IAuthStrategy authStrategy, string sessionId, QrRequest qrRequestPayload)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(authStrategy, nameof(authStrategy));
             Validation.NotNullOrEmpty(sessionId, nameof(sessionId));
             Validation.NotNull(qrRequestPayload, nameof(qrRequestPayload));
 
             string serializedQrCode = JsonConvert.SerializeObject(
                 qrRequestPayload,
-                new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                });
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             byte[] body = Encoding.UTF8.GetBytes(serializedQrCode);
 
-
-            Request createQrRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
+            var builder = new RequestBuilder()
+                .WithAuthStrategy(authStrategy)
                 .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint($"/v2/sessions/{sessionId}/qr-codes")
-                .WithQueryParam("appId", sdkId)
+                .WithEndpoint(string.Format("/v2/sessions/{0}/qr-codes", sessionId))
                 .WithHttpMethod(HttpMethod.Post)
-                .WithContent(body)
-                .Build();
-            
+                .WithContent(body);
+
+            builder = builder.WithSdkId(authStrategy, "appId");
+
+            Request createQrRequest = builder.Build();
+
             using (HttpResponseMessage response = await createQrRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                {
                     Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateQrResult>(responseObject));
-
-                return deserialized;
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateQrResult>(responseObject));
             }
         }
-        
-        internal static async Task<GetQrCodeResult> GetQrCode(HttpClient httpClient, Uri apiUrl, string sdkId, AsymmetricCipherKeyPair keyPair, string qrCodeId)
+
+        internal static async Task<GetQrCodeResult> GetQrCode(HttpClient httpClient, Uri apiUrl, IAuthStrategy authStrategy, string qrCodeId)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
+            Validation.NotNull(authStrategy, nameof(authStrategy));
             Validation.NotNull(qrCodeId, nameof(qrCodeId));
 
-            Request QrCodeRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
+            var builder = new RequestBuilder()
+                .WithAuthStrategy(authStrategy)
                 .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(string.Format($"/v2/qr-codes/{0}", qrCodeId))
-                .WithQueryParam("appId", sdkId)
-                .WithHttpMethod(HttpMethod.Get)
-                .Build();
+                .WithEndpoint(string.Format("/v2/qr-codes/{0}", qrCodeId))
+                .WithHttpMethod(HttpMethod.Get);
 
-            using (HttpResponseMessage response = await QrCodeRequest.Execute(httpClient).ConfigureAwait(false))
+            builder = builder.WithSdkId(authStrategy, "appId");
+
+            Request qrCodeRequest = builder.Build();
+
+            using (HttpResponseMessage response = await qrCodeRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                {
                     Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetQrCodeResult>(responseObject));
-
-                return deserialized;
-            }
-        }
-        
-        private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId,  string sdkId,Uri apiUrl, AsymmetricCipherKeyPair keyPair)
-        {
-            Validation.NotNull(httpClient, nameof(httpClient));
-            Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
-
-            string receiptUrl = Base64ToBase64URL(receiptId); 
-            string endpoint = string.Format(receiptRetrieval, receiptUrl);
-            
-            Request ReceiptRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
-                .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
-                .WithEndpoint(endpoint)
-                .WithQueryParam("sdkID", sdkId)
-                .WithHttpMethod(HttpMethod.Get)
-                .Build();
-
-            using (HttpResponseMessage response = await ReceiptRequest.Execute(httpClient).ConfigureAwait(false))
-            {
-                if (!response.IsSuccessStatusCode)
-                {
-                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
-
-                var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptResponse>(responseObject));
-
-                return deserialized;
-            }
-        }
-        
-
-        public static string Base64ToBase64URL(string base64Str)
-        {
-            try
-            {
-                byte[] decodedBytes = Convert.FromBase64String(base64Str);
-                string base64URL = Convert.ToBase64String(decodedBytes)
-                    .Replace('+', '-')
-                    .Replace('/', '_')
-                    .TrimEnd('=');
-                return base64URL;
-            }
-            catch (FormatException)
-            {
-                return ""; 
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<GetQrCodeResult>(responseObject));
             }
         }
 
-        public static async Task<SharedReceiptResponse> GetShareReceipt(HttpClient httpClient, string clientSdkId, Uri apiUrl, AsymmetricCipherKeyPair key, string receiptId)
+        public static async Task<SharedReceiptResponse> GetShareReceipt(HttpClient httpClient, Uri apiUrl, IAuthStrategy authStrategy, string receiptId)
         {
             Validation.NotNullOrEmpty(receiptId, nameof(receiptId));
+
+            var keyPair = (authStrategy as SignedRequestAuthStrategy)?.KeyPair;
+            if (keyPair == null)
+                throw new InvalidOperationException("GetShareReceipt requires a signed-request strategy with a private key for receipt decryption.");
+
             try
             {
-                var receiptResponse = await GetReceipt(httpClient, receiptId, clientSdkId, apiUrl, key);
+                var receiptResponse = await GetReceipt(httpClient, receiptId, apiUrl, authStrategy);
                 var itemKeyId = receiptResponse.WrappedItemKeyId;
-                
-                var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, clientSdkId, apiUrl, key);
 
-                var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, key);
+                var encryptedItemKeyResponse = await GetReceiptItemKey(httpClient, itemKeyId, apiUrl, authStrategy);
+
+                var receiptContentKey = CryptoEngine.UnwrapReceiptKey(receiptResponse.WrappedKey, encryptedItemKeyResponse.Value, encryptedItemKeyResponse.Iv, keyPair);
 
                 var (attrData, aextra, decryptAttrDataError) = DecryptReceiptContent(receiptResponse.Content, receiptContentKey);
                 if (decryptAttrDataError != null)
-                {
                     throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
-                }
 
-                var  parsedAttributesApp = AttributeConverter.ConvertToBaseAttributes(attrData);
-                var appProfile = new ApplicationProfile(parsedAttributesApp
-                );
-                
+                var parsedAttributesApp = AttributeConverter.ConvertToBaseAttributes(attrData);
+                var appProfile = new ApplicationProfile(parsedAttributesApp);
+
                 var (attrOtherData, aOtherExtra, decryptOtherAttrDataError) = DecryptReceiptContent(receiptResponse.OtherPartyContent, receiptContentKey);
-                if (decryptAttrDataError != null)
-                {
-                    throw new Exception($"An unexpected error occurred: {decryptAttrDataError.Message}");
-                }
+                if (decryptOtherAttrDataError != null)
+                    throw new Exception($"An unexpected error occurred: {decryptOtherAttrDataError.Message}");
 
                 var userProfile = new YotiProfile();
                 if (attrOtherData != null)
                 {
-                    var  parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
+                    var parsedAttributesUser = AttributeConverter.ConvertToBaseAttributes(attrOtherData);
                     userProfile = new YotiProfile(parsedAttributesUser);
                 }
-                
-                
+
                 ExtraData userExtraData = new ExtraData();
                 if (aOtherExtra != null)
-                {
                     userExtraData = ExtraDataConverter.ParseExtraDataProto(aOtherExtra);
-                }
+
                 ExtraData appExtraData = new ExtraData();
                 if (aextra != null)
-                {
-                   
                     appExtraData = ExtraDataConverter.ParseExtraDataProto(aextra);
-                }
-                
-                var sharedReceiptResponse = new SharedReceiptResponse
+
+                return new SharedReceiptResponse
                 {
                     ID = receiptResponse.ID,
                     SessionID = receiptResponse.SessionID,
@@ -288,44 +207,83 @@ namespace Yoti.Auth.DigitalIdentity
                     Error = receiptResponse.Error,
                     ErrorDetails = receiptResponse.ErrorDetails
                 };
-
-                return sharedReceiptResponse;
             }
-            catch  (Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"An unexpected error occurred: {ex.Message}");
-           
             }
         }
 
-        private static async Task<ReceiptItemKeyResponse> GetReceiptItemKey(HttpClient httpClient, string receiptItemKeyId, string sdkId, Uri apiUrl, AsymmetricCipherKeyPair keyPair)
+        private static async Task<ReceiptResponse> GetReceipt(HttpClient httpClient, string receiptId, Uri apiUrl, IAuthStrategy authStrategy)
         {
             Validation.NotNull(httpClient, nameof(httpClient));
             Validation.NotNull(apiUrl, nameof(apiUrl));
-            Validation.NotNull(sdkId, nameof(sdkId));
-            Validation.NotNull(keyPair, nameof(keyPair));
-            string endpoint = string.Format(receiptKeyRetrieval, receiptItemKeyId);
+            Validation.NotNull(authStrategy, nameof(authStrategy));
 
-            Request ReceiptItemKeyRequest = new RequestBuilder()
-                .WithKeyPair(keyPair)
+            string receiptUrl = Base64ToBase64URL(receiptId);
+            string endpoint = string.Format(receiptRetrieval, receiptUrl);
+
+            var builder = new RequestBuilder()
+                .WithAuthStrategy(authStrategy)
                 .WithBaseUri(apiUrl)
-                .WithHeader(yotiAuthId, sdkId)
                 .WithEndpoint(endpoint)
-                .WithQueryParam("appId", sdkId)
-                .WithHttpMethod(HttpMethod.Get)
-                .Build();
+                .WithHttpMethod(HttpMethod.Get);
 
-            using (HttpResponseMessage response = await ReceiptItemKeyRequest.Execute(httpClient).ConfigureAwait(false))
+            builder = builder.WithSdkId(authStrategy, "sdkID");
+
+            Request receiptRequest = builder.Build();
+
+            using (HttpResponseMessage response = await receiptRequest.Execute(httpClient).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                {
                     Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
-                }
 
                 var responseObject = await response.Content.ReadAsStringAsync();
-                var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptItemKeyResponse>(responseObject));
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptResponse>(responseObject));
+            }
+        }
 
-                return deserialized;
+        private static async Task<ReceiptItemKeyResponse> GetReceiptItemKey(HttpClient httpClient, string receiptItemKeyId, Uri apiUrl, IAuthStrategy authStrategy)
+        {
+            Validation.NotNull(httpClient, nameof(httpClient));
+            Validation.NotNull(apiUrl, nameof(apiUrl));
+            Validation.NotNull(authStrategy, nameof(authStrategy));
+
+            string endpoint = string.Format(receiptKeyRetrieval, receiptItemKeyId);
+
+            var builder = new RequestBuilder()
+                .WithAuthStrategy(authStrategy)
+                .WithBaseUri(apiUrl)
+                .WithEndpoint(endpoint)
+                .WithHttpMethod(HttpMethod.Get);
+
+            builder = builder.WithSdkId(authStrategy, "appId");
+
+            Request receiptItemKeyRequest = builder.Build();
+
+            using (HttpResponseMessage response = await receiptItemKeyRequest.Execute(httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                    Response.CreateYotiExceptionFromStatusCode<DigitalIdentityException>(response);
+
+                var responseObject = await response.Content.ReadAsStringAsync();
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ReceiptItemKeyResponse>(responseObject));
+            }
+        }
+
+        public static string Base64ToBase64URL(string base64Str)
+        {
+            try
+            {
+                byte[] decodedBytes = Convert.FromBase64String(base64Str);
+                return Convert.ToBase64String(decodedBytes)
+                    .Replace('+', '-')
+                    .Replace('/', '_')
+                    .TrimEnd('=');
+            }
+            catch (FormatException)
+            {
+                return "";
             }
         }
 
@@ -333,7 +291,6 @@ namespace Yoti.Auth.DigitalIdentity
         {
             AttributeList attrData = null;
             byte[] aextra = null;
-            Exception error = null;
 
             if (content != null)
             {
@@ -347,8 +304,7 @@ namespace Yoti.Auth.DigitalIdentity
                     }
                     catch (Exception ex)
                     {
-                        error = new Exception($"failed to decrypt content profile: {ex.Message}", ex);
-                        return (null, null, error);
+                        return (null, null, new Exception($"failed to decrypt content profile: {ex.Message}", ex));
                     }
                 }
 
@@ -360,15 +316,12 @@ namespace Yoti.Auth.DigitalIdentity
                     }
                     catch (Exception ex)
                     {
-                        error = new Exception($"failed to decrypt receipt content extra data: {ex.Message}", ex);
-                        return (null, null, error);
+                        return (null, null, new Exception($"failed to decrypt receipt content extra data: {ex.Message}", ex));
                     }
                 }
             }
-            
+
             return (attrData, aextra, null);
         }
     }
-    
-    
 }

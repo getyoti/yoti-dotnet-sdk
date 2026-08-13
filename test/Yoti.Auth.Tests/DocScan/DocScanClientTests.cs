@@ -66,6 +66,34 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
+        public void FromBearerToken_NullTokenShouldThrow()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                DocScanClient.FromBearerToken(null));
+        }
+
+        [TestMethod]
+        public void FromBearerToken_EmptyTokenShouldThrow()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                DocScanClient.FromBearerToken(string.Empty));
+        }
+
+        [TestMethod]
+        public void FromBearerToken_ValidTokenShouldCreateClient()
+        {
+            var client = DocScanClient.FromBearerToken("my-bearer-token");
+            Assert.IsNotNull(client);
+        }
+
+        [TestMethod]
+        public void FromBearerToken_WithHttpClient_ValidTokenShouldCreateClient()
+        {
+            var client = DocScanClient.FromBearerToken("my-bearer-token", new HttpClient());
+            Assert.IsNotNull(client);
+        }
+
+        [TestMethod]
         public void ShouldFailForNullKeyPair()
         {
             var exception = Assert.ThrowsExactly<ArgumentNullException>(() =>
