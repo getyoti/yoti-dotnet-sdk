@@ -340,7 +340,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
         {
             dynamic identityProfilePreviewResponse = new
             {
-                 media = GetMediaResponse() 
+                media = GetMediaResponse()
             };
 
             string json = JsonConvert.SerializeObject(identityProfilePreviewResponse);
@@ -349,13 +349,13 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
 
             AssertMediaValuesCorrect(identityProfilePreviewResponse.media, response.Media, typeof(MediaResponse));
         }
-        
+
         [TestMethod]
         public void CheckAdvancedIdentityProfilePreviewResponseIsParsed()
         {
             dynamic advancedIdentityProfilePreviewResponse = new
             {
-                media = GetMediaResponse() 
+                media = GetMediaResponse()
             };
 
             string json = JsonConvert.SerializeObject(advancedIdentityProfilePreviewResponse);
@@ -421,9 +421,9 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 }
             };
 
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(string.Empty));
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("   "));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck(string.Empty));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck("   "));
         }
 
         [TestMethod]
@@ -437,7 +437,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 }
             };
 
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("unknown-check-id"));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck("unknown-check-id"));
         }
 
         [TestMethod]

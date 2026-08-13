@@ -11,13 +11,13 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void NullTokenShouldThrow()
         {
-            Assert.ThrowsException<ArgumentException>(() => new BearerTokenAuthStrategy(null));
+            Assert.ThrowsExactly<ArgumentException>(() => new BearerTokenAuthStrategy(null));
         }
 
         [TestMethod]
         public void EmptyTokenShouldThrow()
         {
-            Assert.ThrowsException<ArgumentException>(() => new BearerTokenAuthStrategy(string.Empty));
+            Assert.ThrowsExactly<ArgumentException>(() => new BearerTokenAuthStrategy(string.Empty));
         }
 
         [TestMethod]
@@ -37,13 +37,13 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void EmptySdkIdShouldThrow()
         {
-            Assert.ThrowsException<ArgumentException>(() => new BearerTokenAuthStrategy("some-token", string.Empty));
+            Assert.ThrowsExactly<ArgumentException>(() => new BearerTokenAuthStrategy("some-token", string.Empty));
         }
 
         [TestMethod]
         public void WhitespaceSdkIdShouldThrow()
         {
-            Assert.ThrowsException<ArgumentException>(() => new BearerTokenAuthStrategy("some-token", "   "));
+            Assert.ThrowsExactly<ArgumentException>(() => new BearerTokenAuthStrategy("some-token", "   "));
         }
 
         [TestMethod]

@@ -70,7 +70,7 @@ namespace Yoti.Auth.Tests.CentralAuth
             var handlerMock = SetupMockHandler(HttpStatusCode.Unauthorized, "Unauthorized");
 
             var generator = BuildGenerator();
-            await Assert.ThrowsExceptionAsync<HttpRequestException>(() =>
+            await Assert.ThrowsExactlyAsync<HttpRequestException>(() =>
                 generator.GetToken(new HttpClient(handlerMock.Object)));
         }
 
@@ -80,7 +80,7 @@ namespace Yoti.Auth.Tests.CentralAuth
             var handlerMock = SetupMockHandler(HttpStatusCode.InternalServerError, "Server Error");
 
             var generator = BuildGenerator();
-            await Assert.ThrowsExceptionAsync<HttpRequestException>(() =>
+            await Assert.ThrowsExactlyAsync<HttpRequestException>(() =>
                 generator.GetToken(new HttpClient(handlerMock.Object)));
         }
 
@@ -90,7 +90,7 @@ namespace Yoti.Auth.Tests.CentralAuth
             var handlerMock = SetupMockHandler(HttpStatusCode.OK, "null");
 
             var generator = BuildGenerator();
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(() =>
                 generator.GetToken(new HttpClient(handlerMock.Object)));
         }
 

@@ -36,7 +36,7 @@ namespace Yoti.Auth.Tests.Web
         {
             var request = new Request(new HttpRequestMessage(HttpMethod.Get, "https://example.com"));
 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() =>
+            await Assert.ThrowsExactlyAsync<ArgumentNullException>(() =>
                 request.ExecuteWithHeaders<string>(null, response => response.Content.ReadAsStringAsync()));
         }
 
@@ -45,7 +45,7 @@ namespace Yoti.Auth.Tests.Web
         {
             var request = new Request(new HttpRequestMessage(HttpMethod.Get, "https://example.com"));
 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() =>
+            await Assert.ThrowsExactlyAsync<ArgumentNullException>(() =>
                 request.ExecuteWithHeaders<string>(new HttpClient(), null));
         }
     }

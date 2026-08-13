@@ -41,7 +41,7 @@ namespace Yoti.Auth.Tests.DocScan
             _uploadFaceCaptureImagePayload = new UploadFaceCaptureImagePayload(DocScanConstants.MimeTypePng, new byte[] { 0x00, 0x21, 0x60, 0x1F, 0xA1 });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
         [DataRow(null)]
         public void ApiUriDefaultIsUsedForNullOrEmpty(string envVar)
@@ -77,7 +77,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void CreateSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.CreateSession(null, new SessionSpecificationBuilder().Build());
             }).Result;
@@ -88,7 +88,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void CreateSessionShouldThrowExceptionForMissingSessionSpec()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.CreateSession(_authStrategy, null);
             }).Result;
@@ -99,7 +99,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.GetSession(null, _someSessionId);
             }).Result;
@@ -110,7 +110,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.GetSession(_authStrategy, null);
             }).Result;
@@ -121,7 +121,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 _docScanService.DeleteSession(null, _someSessionId).Wait();
             });
@@ -133,7 +133,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteSessionShouldThrowExceptionForMissingSessionId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 _docScanService.DeleteSession(_authStrategy, null).Wait();
             });
@@ -145,7 +145,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void GetMediaContentShouldThrowExceptionForNullAuthStrategy()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.GetMediaContent(null, _someSessionId, _someMediaId);
             }).Result;
@@ -156,7 +156,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void GetMediaContentShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.GetMediaContent(_authStrategy, null, _someMediaId);
             }).Result;
@@ -167,7 +167,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void GetMediaContentShouldThrowExceptionForMissingMediaId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.GetMediaContent(_authStrategy, _someSessionId, null);
             }).Result;
@@ -178,7 +178,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 _docScanService.DeleteMediaContent(null, _someSessionId, _someMediaId).Wait();
             });
@@ -190,7 +190,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingSessionId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 _docScanService.DeleteMediaContent(_authStrategy, null, _someMediaId).Wait();
             });
@@ -202,7 +202,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingMediaId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 _docScanService.DeleteMediaContent(_authStrategy, _someSessionId, null).Wait();
             });
@@ -211,14 +211,14 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(aggregateException.InnerException.Message.Contains("mediaId"));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
                 await _docScanService.CreateFaceCaptureResource(_authStrategy, sessionId, _createFaceCaptureResourcePayload);
             });
@@ -229,7 +229,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenCreateFaceCaptureResourcePayloadIsNull()
         {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.CreateFaceCaptureResource(_authStrategy, _someSessionId, null);
             });
@@ -237,14 +237,14 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(exception.Message.Contains("createFaceCaptureResourcePayload"));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task UploadFaceCaptureImageShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
                 await _docScanService.UploadFaceCaptureImage(_authStrategy, sessionId, _someResourceId, _uploadFaceCaptureImagePayload);
             });
@@ -252,14 +252,14 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task UploadFaceCaptureImageShouldThrowExceptionWhenResourceIdIsNullEmptyOrWhitespace(string resourceId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
                 await _docScanService.UploadFaceCaptureImage(_authStrategy, _someSessionId, resourceId, _uploadFaceCaptureImagePayload);
             });
@@ -270,7 +270,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public async Task UploadFaceCaptureImageShouldThrowExceptionWhenUploadFaceCaptureImagePayloadIsNull()
         {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await _docScanService.UploadFaceCaptureImage(_authStrategy, _someSessionId, _someResourceId, null);
             });
@@ -278,14 +278,14 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(exception.Message.Contains("uploadFaceCaptureImagePayload"));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task GetSessionConfigurationShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
                 await _docScanService.GetSessionConfiguration(_authStrategy, sessionId);
             });

@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     [TestClass]
     public class CheckResponseTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(DocScanConstants.IdDocumentAuthenticity, typeof(AuthenticityCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentFaceMatch, typeof(FaceMatchCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentTextDataCheck, typeof(TextDataCheckResponse))]
@@ -176,7 +176,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
             AssertBreakdownResponseValuesCorrect((reportResponse.breakdown as IEnumerable<dynamic>).First(), response.Breakdown.First());
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(typeof(DocumentFieldsResponse))]
         [DataRow(typeof(DocumentIdPhotoResponse))]
         [DataRow(typeof(FaceMapResponse))]
@@ -278,6 +278,77 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
 
             AssertMediaValuesCorrect(pageResponse.media, response, typeof(PageResponse));
             AssertMediaValuesCorrect((pageResponse.frames as IEnumerable<dynamic>).First().media, response.Frames.First(), typeof(FrameResponse));
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsParsedWithSingleId()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = new List<string> { "a1b2c3d4-0000-0000-0000-000000000001" }
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            CollectionAssert.AreEqual(new List<string> { "a1b2c3d4-0000-0000-0000-000000000001" }, response.ExtractionImageIds);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsParsedWithMultipleIds()
+        {
+            var expectedIds = new List<string>
+            {
+                "a1b2c3d4-0000-0000-0000-000000000001",
+                "a1b2c3d4-0000-0000-0000-000000000002"
+            };
+
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = expectedIds
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            CollectionAssert.AreEqual(expectedIds, response.ExtractionImageIds);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsDefaultsToEmptyListWhenEmptyArray()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = new List<string>()
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            Assert.IsNotNull(response.ExtractionImageIds);
+            Assert.AreEqual(0, response.ExtractionImageIds.Count);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsDefaultsToEmptyListWhenFieldAbsent()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse()
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            Assert.IsNotNull(response.ExtractionImageIds);
+            Assert.AreEqual(0, response.ExtractionImageIds.Count);
         }
 
         [TestMethod]

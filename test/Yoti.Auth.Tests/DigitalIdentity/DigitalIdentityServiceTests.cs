@@ -34,7 +34,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullHttpClient()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(null, _apiURL, _authStrategy, _someShareSessionRequest).Wait();
             });
@@ -46,7 +46,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullApiUrl()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, null, _authStrategy, _someShareSessionRequest).Wait();
             });
@@ -58,7 +58,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, _apiURL, null, _someShareSessionRequest).Wait();
             });
@@ -70,7 +70,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void ShouldFailWithNullDynamicScenario()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateShareSession(_httpClient, _apiURL, _authStrategy, null).Wait();
             });
@@ -82,7 +82,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.GetSession(_httpClient, _apiURL, null, _sessionID).Wait();
             });
@@ -94,7 +94,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await DigitalIdentityService.GetSession(_httpClient, _apiURL, _authStrategy, null);
             }).Result;
@@ -105,7 +105,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullHttpClient()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(null, _apiURL, _authStrategy, _sessionID, _someCreateQrRequest).Wait();
             });
@@ -117,7 +117,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullApiUrl()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(_httpClient, null, _authStrategy, _sessionID, _someCreateQrRequest).Wait();
             });
@@ -129,7 +129,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void CreateQrCodeShouldFailWithNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.CreateQrCode(_httpClient, _apiURL, null, _sessionID, _someCreateQrRequest).Wait();
             });
@@ -141,7 +141,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveQrShouldThrowExceptionForNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DigitalIdentityService.GetQrCode(_httpClient, _apiURL, null, _sessionID).Wait();
             });
@@ -153,7 +153,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
         [TestMethod]
         public void RetrieveQrCodeShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
                 await DigitalIdentityService.GetQrCode(_httpClient, _apiURL, _authStrategy, null);
             }).Result;

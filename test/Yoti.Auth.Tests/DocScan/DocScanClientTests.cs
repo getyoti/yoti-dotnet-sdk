@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -56,7 +57,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void ShouldFailForNullSdkId()
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new DocScanClient(null, _keyPair);
             });
@@ -67,14 +68,14 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void FromBearerToken_NullTokenShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 DocScanClient.FromBearerToken(null));
         }
 
         [TestMethod]
         public void FromBearerToken_EmptyTokenShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 DocScanClient.FromBearerToken(string.Empty));
         }
 
@@ -95,7 +96,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void ShouldFailForNullKeyPair()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var exception = Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new DocScanClient(_sdkId, keyPair: null);
             });
@@ -106,7 +107,7 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void ShouldFailForInvalidKeyPair()
         {
-            Assert.ThrowsException<FormatException>(() =>
+            Assert.ThrowsExactly<FormatException>(() =>
             {
                 new DocScanClient(_sdkId, KeyPair.GetInvalidFormatKeyStream());
             });
@@ -154,7 +155,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.AreEqual(sessionId, result.SessionId);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -165,7 +166,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 CreateSessionResult result = docScanClient.CreateSession(
                     new SessionSpecificationBuilder().Build());
@@ -174,7 +175,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -185,7 +186,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.DeleteMediaContent("someSessionId", "someMediaId");
             });
@@ -193,24 +194,24 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
         [DataRow(HttpStatusCode.RequestTimeout)]
         [DataRow(HttpStatusCode.NotFound)]
         [DataRow(HttpStatusCode.Forbidden)]
-        public void DeleteMediaContentAsyncShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        public async Task DeleteMediaContentAsyncShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            Assert.ThrowsExceptionAsync<DocScanException>(async () =>
+            await Assert.ThrowsExactlyAsync<DocScanException>(async () =>
             {
                 await docScanClient.DeleteMediaContentAsync("someSessionId", "someMediaId");
             });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -221,7 +222,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.DeleteSession("someSessionId");
             });
@@ -229,24 +230,24 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
         [DataRow(HttpStatusCode.RequestTimeout)]
         [DataRow(HttpStatusCode.NotFound)]
         [DataRow(HttpStatusCode.Forbidden)]
-        public void DeleteSessionAsyncShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        public async Task DeleteSessionAsyncShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            Assert.ThrowsExceptionAsync<DocScanException>(async () =>
+            await Assert.ThrowsExactlyAsync<DocScanException>(async () =>
             {
                 await docScanClient.DeleteSessionAsync("someSessionId");
             });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -257,7 +258,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.GetMediaContent("someSessionId", "someMediaId");
             });
@@ -265,7 +266,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -276,7 +277,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.GetSession("someSessionId");
             });
@@ -495,7 +496,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.AreEqual("DRIVING_LICENCE", result.SupportedCountries[0].SupportedDocuments[1].Type);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -506,7 +507,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.GetSupportedDocuments(false);
             });
@@ -535,7 +536,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.AreEqual(frames, result.Frames);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -546,7 +547,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.CreateFaceCaptureResource(_someSessionId, _createFaceCaptureResourcePayload);
             });
@@ -564,7 +565,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.That.DoesNotThrowException(act);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -575,7 +576,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.UploadFaceCaptureImage(_someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
             });
@@ -589,22 +590,17 @@ namespace Yoti.Auth.Tests.DocScan
             int clientSessionTokenTtl = 3600;
             var requestedChecks = new List<string> { "check1", "check2" };
             string biometricConsent = "someBiometricConsent";
-            var requiredIdDocumentResourceResponse = Mock.Of<RequiredIdDocumentResourceResponse>(ctx => ctx.Type == DocScanConstants.IdDocument);
-            var requiredSupplementaryDocumentResourceResponse = Mock.Of<RequiredSupplementaryDocumentResourceResponse>(ctx => ctx.Type == DocScanConstants.SupplementaryDocument);
-            var requiredLivenessResourceResponse = Mock.Of<RequiredLivenessResourceResponse>(ctx => ctx.Type == DocScanConstants.Liveness);
-            var requiredZoomLivenessResourceResponse = Mock.Of<RequiredZoomLivenessResourceResponse>(ctx => ctx.Type == DocScanConstants.Liveness
-                && ctx.LivenessType == DocScanConstants.Zoom);
-            var relyingBusinessAllowedSourceResponse = Mock.Of<AllowedSourceResponse>(ctx => ctx.Type == DocScanConstants.RelyingBusiness);
-            var allowedSources = new List<AllowedSourceResponse> {
-               relyingBusinessAllowedSourceResponse
-            };
+            // Use plain anonymous objects instead of Moq proxies to avoid OOM during JSON serialization
+            var requiredIdDocumentResourceResponse = new { type = DocScanConstants.IdDocument };
+            var requiredSupplementaryDocumentResourceResponse = new { type = DocScanConstants.SupplementaryDocument };
+            var requiredLivenessResourceResponse = new { type = DocScanConstants.Liveness, liveness_type = "UNKNOWN" };
+            var requiredZoomLivenessResourceResponse = new { type = DocScanConstants.Liveness, liveness_type = DocScanConstants.Zoom };
+            var relyingBusinessAllowedSourceResponse = new { type = DocScanConstants.RelyingBusiness };
+            var allowedSources = new List<object> { relyingBusinessAllowedSourceResponse };
             var id = "someId";
             var state = "someState";
-            var requiredFaceCaptureResourceResponse = Mock.Of<RequiredFaceCaptureResourceResponse>(ctx => ctx.Type == DocScanConstants.FaceCapture
-                && ctx.AllowedSources == allowedSources
-                && ctx.Id == id
-                && ctx.State == state);
-            List<RequiredResourceResponse> requiredResourceResponses = new List<RequiredResourceResponse>
+            var requiredFaceCaptureResourceResponse = new { type = DocScanConstants.FaceCapture, allowed_sources = allowedSources, id, state };
+            var requiredResourceResponses = new List<object>
             {
                 requiredIdDocumentResourceResponse,
                 requiredSupplementaryDocumentResourceResponse,
@@ -646,7 +642,7 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.AreEqual(state, faceCaptureResourceRequirement.State);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(HttpStatusCode.BadRequest)]
         [DataRow(HttpStatusCode.Unauthorized)]
         [DataRow(HttpStatusCode.InternalServerError)]
@@ -657,7 +653,7 @@ namespace Yoti.Auth.Tests.DocScan
         {
             DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 docScanClient.GetSessionConfiguration(_someSessionId);
             });
@@ -714,7 +710,7 @@ namespace Yoti.Auth.Tests.DocScan
 
             Assert.AreEqual(mediaId, result.IdentityProfile.Report["media"]["id"]);
         }
-        
+
         [TestMethod]
         public void ShouldParseAdvancedIdentityProfileResponse()
         {
@@ -737,7 +733,7 @@ namespace Yoti.Auth.Tests.DocScan
             DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
 
             GetSessionResult result = docScanClient.GetSession("some-session-id");
-            
+
             Assert.AreEqual("DONE", result.AdvancedIdentityProfile.Result);
             Assert.AreEqual("someStringHere", result.AdvancedIdentityProfile.SubjectId);
             Assert.AreEqual("MANDATORY_DOCUMENT_COULD_NOT_BE_PROVIDED", result.AdvancedIdentityProfile.FailureReason.ReasonCode);
@@ -746,12 +742,14 @@ namespace Yoti.Auth.Tests.DocScan
             Assert.AreEqual(mediaId, result.AdvancedIdentityProfile.Report["media"]["id"].Value<string>());
         }
 
+
         private DocScanClient SetupDocScanClient(dynamic responseContent)
         {
             string jsonResponse = JsonConvert.SerializeObject(responseContent,
                 new JsonSerializerSettings()
                 {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    MaxDepth = 32
                 }
                 );
             var successResponse = new HttpResponseMessage

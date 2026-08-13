@@ -22,7 +22,7 @@ namespace Yoti.Auth.Tests.Share.ThirdParty
             Assert.IsNull(result.ExpiryDate);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("2019-01-02T03:04:05.678Z")]
         [DataRow("2019-01-02T04:04:05.678+01:00")]
         [DataRow("2019-01-02T15:04:05.678+12:00")]
@@ -36,7 +36,7 @@ namespace Yoti.Auth.Tests.Share.ThirdParty
             Assert.AreEqual(new DateTime(2019, 1, 2, 3, 4, 5, 678, DateTimeKind.Utc), result.ExpiryDate);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("2006-01-02", "2006-01-02T00:00:00.000000Z")]
         [DataRow("2006-01-02T22:04:05Z", "2006-01-02T22:04:05.000000Z")]
         [DataRow("2006-01-02T22:04:05.1Z", "2006-01-02T22:04:05.100000Z")]
@@ -62,7 +62,7 @@ namespace Yoti.Auth.Tests.Share.ThirdParty
         {
             byte[] byteValue = CreateSerializedThirdPartyAttribute("", expiryDate: _someExpiryDate);
 
-            Assert.ThrowsException<ExtraDataException>(() =>
+            Assert.ThrowsExactly<ExtraDataException>(() =>
             {
                 ThirdPartyAttributeConverter.ParseThirdPartyAttribute(byteValue);
             });

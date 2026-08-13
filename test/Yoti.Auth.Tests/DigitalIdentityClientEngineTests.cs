@@ -29,13 +29,13 @@ namespace Yoti.Auth.Tests
 			_authStrategy = new SignedRequestAuthStrategy(_keyPair, SdkId);
 		}
 
-		[TestMethod]
-		public async Task CreateSessionAsyncShouldReturnCorrectValues()
-		{
-			string refId = "NpdmVVGC-28356678-c236-4518-9de4-7a93009ccaf0-c5f92f2a-5539-453e-babc-9b06e1d6b7de";
+        [TestMethod]
+        public async Task CreateSessionAsyncShouldReturnCorrectValues()
+        {
+            string refId = "NpdmVVGC-28356678-c236-4518-9de4-7a93009ccaf0-c5f92f2a-5539-453e-babc-9b06e1d6b7de";
 
-			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-				HttpStatusCode.OK,
+            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+                HttpStatusCode.OK,
                 "{\"id\":\"" + refId + "\",\"status\":\"SOME_STATUS\",\"expiry\":\"SOME_EXPIRY\",\"created\":\"SOME_CREATED\",\"updated\":\"SOME_UPDATED\",\"qrCode\":{\"id\":\"SOME_QRCODE_ID\"},\"receipt\":{\"id\":\"SOME_RECEIPT_ID\"}}");
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
@@ -43,9 +43,9 @@ namespace Yoti.Auth.Tests
 
 			ShareSessionResult shareSessionResult = await engine.CreateShareSessionAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), shareSessionRequest);
 
-			Assert.IsNotNull(shareSessionResult);
-			Assert.AreEqual(refId, shareSessionResult.Id);
-		}
+            Assert.IsNotNull(shareSessionResult);
+            Assert.AreEqual(refId, shareSessionResult.Id);
+        }
 
         [TestMethod]
         public void TestGetShareReceipt()
@@ -60,7 +60,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.ThrowsException<AggregateException>(() =>
+            Assert.ThrowsExactly<AggregateException>(() =>
             {
                 SharedReceiptResponse response = engine.GetShareReceipt(_authStrategy, apiUrl, receiptId).Result;
             });
@@ -85,6 +85,18 @@ namespace Yoti.Auth.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(qrCodeId, result.Id);
             Assert.AreEqual(qrCodeUri, result.Uri);
+            Assert.IsTrue(_httpRequestMessage.RequestUri.AbsolutePath.EndsWith($"/v2/sessions/{sessionId}/qr-codes"));
+        }
+
+        [TestMethod]
+        public async Task CreateQrCodeAsyncShouldThrowWhenSessionIdIsNullOrEmpty()
+        {
+            var engine = new DigitalIdentityClientEngine(new HttpClient());
+            QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                () => engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), null, qrRequest));
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                () => engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), "", qrRequest));
         }
 
         [TestMethod]
@@ -129,7 +141,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(expiry, result.Expiry);
         }
         
-        [DataTestMethod]
+        [TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
@@ -146,7 +158,7 @@ namespace Yoti.Auth.Tests
 
             ShareSessionRequest shareSessionRequest = TestTools.ShareSession.CreateStandardShareSessionRequest();
 
-			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
 				engine.CreateShareSessionAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiApiUrl), shareSessionRequest).Wait();
 			});
@@ -154,7 +166,7 @@ namespace Yoti.Auth.Tests
 			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
 		}
 
-		[DataTestMethod]
+		[TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
@@ -171,15 +183,15 @@ namespace Yoti.Auth.Tests
             Uri apiUrl = new Uri("https://example.com/api");
             string receiptId = "some_receiptid";
 
-			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
 				engine.GetShareReceipt(_authStrategy, apiUrl, receiptId).Wait();
 			});
 
-			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<Exception>(aggregateException));
-		}
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<Exception>(aggregateException));
+        }
 
-        [DataTestMethod]
+        [TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
@@ -196,15 +208,15 @@ namespace Yoti.Auth.Tests
             QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
-			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
 				engine.CreateQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest).Wait();
 			});
 
-			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
-		}
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
+        }
 
-        [DataTestMethod]
+        [TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
@@ -220,15 +232,15 @@ namespace Yoti.Auth.Tests
 			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             string qrCodeId = "test-qr-code-id";
 
-			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
 				engine.GetQrCodeAsync(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId).Wait();
 			});
 
-			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
-		}
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
+        }
 
-        [DataTestMethod]
+        [TestMethod]
 		[DataRow(HttpStatusCode.BadRequest)]
 		[DataRow(HttpStatusCode.Unauthorized)]
 		[DataRow(HttpStatusCode.InternalServerError)]
@@ -244,7 +256,7 @@ namespace Yoti.Auth.Tests
 			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             string sessionId = "test-session-id";
 
-			var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
 			{
 				engine.GetSession(_authStrategy, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId).Wait();
 			});
@@ -290,7 +302,7 @@ namespace Yoti.Auth.Tests
             var engine = new DigitalIdentityClientEngine(httpClient);
             Uri apiUrl = new Uri("https://example.com/api");
 
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(() =>
                 engine.GetShareReceipt(_authStrategy, apiUrl, ""));
         }
 
@@ -411,5 +423,5 @@ namespace Yoti.Auth.Tests
             Assert.IsNull(result.QrCode);
             Assert.IsNull(result.Receipt);
         }
-	}
+    }
 }

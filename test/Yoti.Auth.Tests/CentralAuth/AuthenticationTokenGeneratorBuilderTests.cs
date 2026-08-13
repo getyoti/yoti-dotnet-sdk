@@ -18,56 +18,56 @@ namespace Yoti.Auth.Tests.CentralAuth
         [TestMethod]
         public void WithSdkId_NullShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithSdkId(null));
         }
 
         [TestMethod]
         public void WithSdkId_EmptyShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithSdkId(string.Empty));
         }
 
         [TestMethod]
         public void WithKey_NullKeyPairShouldThrow()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithKey((AsymmetricCipherKeyPair)null));
         }
 
         [TestMethod]
         public void WithKey_NullStreamReaderShouldThrow()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithKey((StreamReader)null));
         }
 
         [TestMethod]
         public void WithScopes_NullShouldThrow()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithScopes(null));
         }
 
         [TestMethod]
         public void WithAuthApiUrl_NullShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithAuthApiUrl(null));
         }
 
         [TestMethod]
         public void WithAuthApiUrl_EmptyShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder().WithAuthApiUrl(string.Empty));
         }
 
         [TestMethod]
         public void Build_MissingSdkIdShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder()
                     .WithKey(_keyPair)
                     .WithScope(_scope)
@@ -77,7 +77,7 @@ namespace Yoti.Auth.Tests.CentralAuth
         [TestMethod]
         public void Build_MissingKeyPairShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder()
                     .WithSdkId(_sdkId)
                     .WithScope(_scope)
@@ -87,7 +87,7 @@ namespace Yoti.Auth.Tests.CentralAuth
         [TestMethod]
         public void Build_EmptyScopesShouldThrow()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
                 new AuthenticationTokenGeneratorBuilder()
                     .WithSdkId(_sdkId)
                     .WithKey(_keyPair)

@@ -16,21 +16,21 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void NullKeyPairShouldThrow()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
                 new SignedRequestAuthStrategy(null, _sdkId));
         }
 
         [TestMethod]
         public void NullSdkIdShouldThrow()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsExactly<ArgumentException>(() =>
                 new SignedRequestAuthStrategy(_keyPair, null));
         }
 
         [TestMethod]
         public void EmptySdkIdShouldThrow()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsExactly<ArgumentException>(() =>
                 new SignedRequestAuthStrategy(_keyPair, string.Empty));
         }
 
