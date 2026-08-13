@@ -7,7 +7,7 @@ namespace Yoti.Auth.DigitalIdentity
 {
     public class ShareSessionRequest
     {
-        
+
         [JsonProperty(PropertyName = "policy")]
         private readonly Policy.Policy _dynamicPolicy;
 
@@ -18,12 +18,12 @@ namespace Yoti.Auth.DigitalIdentity
         private readonly object _subject;
 
         [JsonProperty(PropertyName = "redirectUri")]
-        public string _redirectUri { get; set; } 
+        public string _redirectUri { get; set; }
 
         [JsonProperty(PropertyName = "notification")]
-        public Notification _notification { get; set; } 
+        public Notification _notification { get; set; }
 
-      
+
 
         [JsonIgnore]
         public Policy.Policy DynamicPolicy

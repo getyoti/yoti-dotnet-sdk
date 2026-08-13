@@ -1,0 +1,4465 @@
+version=1
+
+# This file caches language service data to improve the performance of C# Dev Kit.
+# It is not intended for manual editing. It can safely be deleted and will be
+# regenerated automatically. For more information, see https://aka.ms/lscache
+#
+# To control where cache files are stored, use the following VS Code setting:
+#   "dotnet.projectsystem.cacheInProjectFolder": true
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=net452
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=7.3
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETFramework
+TargetPath=<PATH>bin/Debug/net452/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=net452
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/warn:4
+/define:TRACE;DEBUG;NETFRAMEWORK;NET452;NET20_OR_GREATER;NET30_OR_GREATER;NET35_OR_GREATER;NET40_OR_GREATER;NET45_OR_GREATER;NET451_OR_GREATER;NET452_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/net452/Yoti.Auth.dll
+/subsystemversion:6.00
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/net452/
+ .NETFramework,Version=v4.5.2.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<NUGET>/
+ google.protobuf/3.26.1/lib/net45/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/net45/JsonSubTypes.dll
+ microsoft.netframework.referenceassemblies.net452/1.0.3/build/.NETFramework/v4.5.2/Facades/
+  System.Collections.Concurrent.dll
+  System.Collections.dll
+  System.ComponentModel.Annotations.dll
+  System.ComponentModel.dll
+  System.ComponentModel.EventBasedAsync.dll
+  System.Diagnostics.Contracts.dll
+  System.Diagnostics.Debug.dll
+  System.Diagnostics.Tools.dll
+  System.Diagnostics.Tracing.dll
+  System.Dynamic.Runtime.dll
+  System.Globalization.dll
+  System.IO.dll
+  System.Linq.dll
+  System.Linq.Expressions.dll
+  System.Linq.Parallel.dll
+  System.Linq.Queryable.dll
+  System.Net.NetworkInformation.dll
+  System.Net.Primitives.dll
+  System.Net.Requests.dll
+  System.ObjectModel.dll
+  System.Reflection.dll
+  System.Reflection.Emit.dll
+  System.Reflection.Emit.ILGeneration.dll
+  System.Reflection.Emit.Lightweight.dll
+  System.Reflection.Extensions.dll
+  System.Reflection.Primitives.dll
+  System.Resources.ResourceManager.dll
+  System.Runtime.dll
+  System.Runtime.Extensions.dll
+  System.Runtime.InteropServices.dll
+  System.Runtime.InteropServices.WindowsRuntime.dll
+  System.Runtime.Numerics.dll
+  System.Runtime.Serialization.Json.dll
+  System.Runtime.Serialization.Primitives.dll
+  System.Runtime.Serialization.Xml.dll
+  System.Security.Principal.dll
+  System.ServiceModel.Duplex.dll
+  System.ServiceModel.Http.dll
+  System.ServiceModel.NetTcp.dll
+  System.ServiceModel.Primitives.dll
+  System.ServiceModel.Security.dll
+  System.Text.Encoding.dll
+  System.Text.Encoding.Extensions.dll
+  System.Text.RegularExpressions.dll
+  System.Threading.dll
+  System.Threading.Tasks.dll
+  System.Threading.Tasks.Parallel.dll
+  System.Threading.Timer.dll
+  System.Xml.ReaderWriter.dll
+  System.Xml.XDocument.dll
+  System.Xml.XmlSerializer.dll
+ microsoft.netframework.referenceassemblies.net452/1.0.3/build/.NETFramework/v4.5.2/
+  Microsoft.CSharp.dll
+  mscorlib.dll
+  System.Configuration.dll
+  System.Core.dll
+  System.Data.dll
+  System.dll
+  System.Drawing.dll
+  System.IO.Compression.dll
+  System.IO.Compression.FileSystem.dll
+  System.Net.Http.dll
+  System.Numerics.dll
+  System.Runtime.Serialization.dll
+  System.Xml.dll
+  System.Xml.Linq.dll
+ newtonsoft.json/13.0.3/lib/net45/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/net45/NLog.dll
+ portable.bouncycastle/1.8.5/lib/net40/BouncyCastle.Crypto.dll
+ system.buffers/4.4.0/ref/netstandard1.1/System.Buffers.dll
+ system.memory/4.5.3/lib/netstandard1.1/System.Memory.dll
+ system.runtime.compilerservices.unsafe/4.5.2/ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll
+ system.valuetuple/4.5.0/ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/net452/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=net462
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=7.3
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETFramework
+TargetPath=<PATH>bin/Debug/net462/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=net462
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/warn:4
+/define:TRACE;DEBUG;NETFRAMEWORK;NET462;NET20_OR_GREATER;NET30_OR_GREATER;NET35_OR_GREATER;NET40_OR_GREATER;NET45_OR_GREATER;NET451_OR_GREATER;NET452_OR_GREATER;NET46_OR_GREATER;NET461_OR_GREATER;NET462_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/net462/Yoti.Auth.dll
+/subsystemversion:6.00
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/net462/
+ .NETFramework,Version=v4.6.2.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<DOTNET>/sdk/8.0.414/Microsoft/Microsoft.NET.Build.Extensions/net461/lib/
+ Microsoft.Win32.Primitives.dll
+ netfx.force.conflicts.dll
+ netstandard.dll
+ System.AppContext.dll
+ System.Collections.Concurrent.dll
+ System.Collections.dll
+ System.Collections.NonGeneric.dll
+ System.Collections.Specialized.dll
+ System.ComponentModel.dll
+ System.ComponentModel.EventBasedAsync.dll
+ System.ComponentModel.Primitives.dll
+ System.ComponentModel.TypeConverter.dll
+ System.Console.dll
+ System.Data.Common.dll
+ System.Diagnostics.Contracts.dll
+ System.Diagnostics.Debug.dll
+ System.Diagnostics.FileVersionInfo.dll
+ System.Diagnostics.Process.dll
+ System.Diagnostics.StackTrace.dll
+ System.Diagnostics.TextWriterTraceListener.dll
+ System.Diagnostics.Tools.dll
+ System.Diagnostics.TraceSource.dll
+ System.Diagnostics.Tracing.dll
+ System.Drawing.Primitives.dll
+ System.Dynamic.Runtime.dll
+ System.Globalization.Calendars.dll
+ System.Globalization.dll
+ System.Globalization.Extensions.dll
+ System.IO.Compression.dll
+ System.IO.Compression.ZipFile.dll
+ System.IO.dll
+ System.IO.FileSystem.dll
+ System.IO.FileSystem.DriveInfo.dll
+ System.IO.FileSystem.Primitives.dll
+ System.IO.FileSystem.Watcher.dll
+ System.IO.IsolatedStorage.dll
+ System.IO.MemoryMappedFiles.dll
+ System.IO.Pipes.dll
+ System.IO.UnmanagedMemoryStream.dll
+ System.Linq.dll
+ System.Linq.Expressions.dll
+ System.Linq.Parallel.dll
+ System.Linq.Queryable.dll
+ System.Net.Http.dll
+ System.Net.NameResolution.dll
+ System.Net.NetworkInformation.dll
+ System.Net.Ping.dll
+ System.Net.Primitives.dll
+ System.Net.Requests.dll
+ System.Net.Security.dll
+ System.Net.Sockets.dll
+ System.Net.WebHeaderCollection.dll
+ System.Net.WebSockets.Client.dll
+ System.Net.WebSockets.dll
+ System.ObjectModel.dll
+ System.Reflection.dll
+ System.Reflection.Extensions.dll
+ System.Reflection.Primitives.dll
+ System.Resources.Reader.dll
+ System.Resources.ResourceManager.dll
+ System.Resources.Writer.dll
+ System.Runtime.CompilerServices.VisualC.dll
+ System.Runtime.dll
+ System.Runtime.Extensions.dll
+ System.Runtime.Handles.dll
+ System.Runtime.InteropServices.dll
+ System.Runtime.Numerics.dll
+ System.Runtime.Serialization.Formatters.dll
+ System.Runtime.Serialization.Json.dll
+ System.Runtime.Serialization.Primitives.dll
+ System.Runtime.Serialization.Xml.dll
+ System.Security.Claims.dll
+ System.Security.Cryptography.Algorithms.dll
+ System.Security.Cryptography.Csp.dll
+ System.Security.Cryptography.Encoding.dll
+ System.Security.Cryptography.Primitives.dll
+ System.Security.Cryptography.X509Certificates.dll
+ System.Security.Principal.dll
+ System.Security.SecureString.dll
+ System.Text.Encoding.dll
+ System.Text.Encoding.Extensions.dll
+ System.Text.RegularExpressions.dll
+ System.Threading.dll
+ System.Threading.Overlapped.dll
+ System.Threading.Tasks.dll
+ System.Threading.Tasks.Parallel.dll
+ System.Threading.Thread.dll
+ System.Threading.ThreadPool.dll
+ System.Threading.Timer.dll
+ System.Xml.ReaderWriter.dll
+ System.Xml.XDocument.dll
+ System.Xml.XmlDocument.dll
+ System.Xml.XmlSerializer.dll
+ System.Xml.XPath.dll
+ System.Xml.XPath.XDocument.dll
+<DOTNET>/sdk/8.0.414/Microsoft/Microsoft.NET.Build.Extensions/net462/lib/System.Runtime.InteropServices.RuntimeInformation.dll
+<NUGET>/
+ google.protobuf/3.26.1/lib/net45/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/net46/JsonSubTypes.dll
+ microsoft.netframework.referenceassemblies.net462/1.0.3/build/.NETFramework/v4.6.2/Facades/
+  System.ComponentModel.Annotations.dll
+  System.Reflection.Emit.dll
+  System.Reflection.Emit.ILGeneration.dll
+  System.Reflection.Emit.Lightweight.dll
+  System.Runtime.InteropServices.WindowsRuntime.dll
+  System.ServiceModel.Duplex.dll
+  System.ServiceModel.Http.dll
+  System.ServiceModel.NetTcp.dll
+  System.ServiceModel.Primitives.dll
+  System.ServiceModel.Security.dll
+ microsoft.netframework.referenceassemblies.net462/1.0.3/build/.NETFramework/v4.6.2/
+  Microsoft.CSharp.dll
+  mscorlib.dll
+  System.Configuration.dll
+  System.Core.dll
+  System.Data.dll
+  System.dll
+  System.Drawing.dll
+  System.IO.Compression.FileSystem.dll
+  System.Numerics.dll
+  System.Runtime.Serialization.dll
+  System.Xml.dll
+  System.Xml.Linq.dll
+ newtonsoft.json/13.0.3/lib/net45/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/net46/NLog.dll
+ portable.bouncycastle/1.8.5/lib/net40/BouncyCastle.Crypto.dll
+ system.buffers/4.4.0/ref/netstandard2.0/System.Buffers.dll
+ system.memory/4.5.3/lib/netstandard2.0/System.Memory.dll
+ system.numerics.vectors/4.4.0/ref/net46/System.Numerics.Vectors.dll
+ system.runtime.compilerservices.unsafe/4.5.2/ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll
+ system.valuetuple/4.5.0/ref/net461/System.ValueTuple.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/net462/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=net472
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=7.3
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETFramework
+TargetPath=<PATH>bin/Debug/net472/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=net472
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/warn:4
+/define:TRACE;DEBUG;NETFRAMEWORK;NET472;NET20_OR_GREATER;NET30_OR_GREATER;NET35_OR_GREATER;NET40_OR_GREATER;NET45_OR_GREATER;NET451_OR_GREATER;NET452_OR_GREATER;NET46_OR_GREATER;NET461_OR_GREATER;NET462_OR_GREATER;NET47_OR_GREATER;NET471_OR_GREATER;NET472_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/net472/Yoti.Auth.dll
+/subsystemversion:6.00
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/net472/
+ .NETFramework,Version=v4.7.2.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<NUGET>/
+ google.protobuf/3.26.1/lib/net45/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/net47/JsonSubTypes.dll
+ microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/Facades/
+  Microsoft.Win32.Primitives.dll
+  netstandard.dll
+  System.AppContext.dll
+  System.Collections.Concurrent.dll
+  System.Collections.dll
+  System.Collections.NonGeneric.dll
+  System.Collections.Specialized.dll
+  System.ComponentModel.Annotations.dll
+  System.ComponentModel.dll
+  System.ComponentModel.EventBasedAsync.dll
+  System.ComponentModel.Primitives.dll
+  System.ComponentModel.TypeConverter.dll
+  System.Console.dll
+  System.Data.Common.dll
+  System.Diagnostics.Contracts.dll
+  System.Diagnostics.Debug.dll
+  System.Diagnostics.FileVersionInfo.dll
+  System.Diagnostics.Process.dll
+  System.Diagnostics.StackTrace.dll
+  System.Diagnostics.TextWriterTraceListener.dll
+  System.Diagnostics.Tools.dll
+  System.Diagnostics.TraceSource.dll
+  System.Drawing.Primitives.dll
+  System.Dynamic.Runtime.dll
+  System.Globalization.Calendars.dll
+  System.Globalization.dll
+  System.Globalization.Extensions.dll
+  System.IO.Compression.ZipFile.dll
+  System.IO.dll
+  System.IO.FileSystem.dll
+  System.IO.FileSystem.DriveInfo.dll
+  System.IO.FileSystem.Primitives.dll
+  System.IO.FileSystem.Watcher.dll
+  System.IO.IsolatedStorage.dll
+  System.IO.MemoryMappedFiles.dll
+  System.IO.Pipes.dll
+  System.IO.UnmanagedMemoryStream.dll
+  System.Linq.dll
+  System.Linq.Expressions.dll
+  System.Linq.Parallel.dll
+  System.Linq.Queryable.dll
+  System.Net.Http.Rtc.dll
+  System.Net.NameResolution.dll
+  System.Net.NetworkInformation.dll
+  System.Net.Ping.dll
+  System.Net.Primitives.dll
+  System.Net.Requests.dll
+  System.Net.Security.dll
+  System.Net.Sockets.dll
+  System.Net.WebHeaderCollection.dll
+  System.Net.WebSockets.Client.dll
+  System.Net.WebSockets.dll
+  System.ObjectModel.dll
+  System.Reflection.dll
+  System.Reflection.Emit.dll
+  System.Reflection.Emit.ILGeneration.dll
+  System.Reflection.Emit.Lightweight.dll
+  System.Reflection.Extensions.dll
+  System.Reflection.Primitives.dll
+  System.Resources.Reader.dll
+  System.Resources.ResourceManager.dll
+  System.Resources.Writer.dll
+  System.Runtime.CompilerServices.VisualC.dll
+  System.Runtime.dll
+  System.Runtime.Extensions.dll
+  System.Runtime.Handles.dll
+  System.Runtime.InteropServices.dll
+  System.Runtime.InteropServices.RuntimeInformation.dll
+  System.Runtime.InteropServices.WindowsRuntime.dll
+  System.Runtime.Numerics.dll
+  System.Runtime.Serialization.Formatters.dll
+  System.Runtime.Serialization.Json.dll
+  System.Runtime.Serialization.Primitives.dll
+  System.Runtime.Serialization.Xml.dll
+  System.Security.Claims.dll
+  System.Security.Cryptography.Algorithms.dll
+  System.Security.Cryptography.Csp.dll
+  System.Security.Cryptography.Encoding.dll
+  System.Security.Cryptography.Primitives.dll
+  System.Security.Cryptography.X509Certificates.dll
+  System.Security.Principal.dll
+  System.Security.SecureString.dll
+  System.ServiceModel.Duplex.dll
+  System.ServiceModel.Http.dll
+  System.ServiceModel.NetTcp.dll
+  System.ServiceModel.Primitives.dll
+  System.ServiceModel.Security.dll
+  System.Text.Encoding.dll
+  System.Text.Encoding.Extensions.dll
+  System.Text.RegularExpressions.dll
+  System.Threading.dll
+  System.Threading.Overlapped.dll
+  System.Threading.Tasks.dll
+  System.Threading.Tasks.Parallel.dll
+  System.Threading.Thread.dll
+  System.Threading.ThreadPool.dll
+  System.Threading.Timer.dll
+  System.Xml.ReaderWriter.dll
+  System.Xml.XDocument.dll
+  System.Xml.XmlDocument.dll
+  System.Xml.XmlSerializer.dll
+  System.Xml.XPath.dll
+  System.Xml.XPath.XDocument.dll
+ microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/
+  Microsoft.CSharp.dll
+  mscorlib.dll
+  System.ComponentModel.Composition.dll
+  System.Configuration.dll
+  System.Core.dll
+  System.Data.dll
+  System.dll
+  System.Drawing.dll
+  System.IO.Compression.dll
+  System.IO.Compression.FileSystem.dll
+  System.Net.Http.dll
+  System.Numerics.dll
+  System.Runtime.Serialization.dll
+  System.Xml.dll
+  System.Xml.Linq.dll
+ newtonsoft.json/13.0.3/lib/net45/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/net46/NLog.dll
+ portable.bouncycastle/1.8.5/lib/net40/BouncyCastle.Crypto.dll
+ system.buffers/4.4.0/ref/netstandard2.0/System.Buffers.dll
+ system.memory/4.5.3/lib/netstandard2.0/System.Memory.dll
+ system.numerics.vectors/4.4.0/ref/net46/System.Numerics.Vectors.dll
+ system.runtime.compilerservices.unsafe/4.5.2/ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll
+ system.valuetuple/4.5.0/ref/net47/System.ValueTuple.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/net472/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=net48
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=7.3
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETFramework
+TargetPath=<PATH>bin/Debug/net48/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=net48
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/warn:4
+/define:TRACE;DEBUG;NETFRAMEWORK;NET48;NET20_OR_GREATER;NET30_OR_GREATER;NET35_OR_GREATER;NET40_OR_GREATER;NET45_OR_GREATER;NET451_OR_GREATER;NET452_OR_GREATER;NET46_OR_GREATER;NET461_OR_GREATER;NET462_OR_GREATER;NET47_OR_GREATER;NET471_OR_GREATER;NET472_OR_GREATER;NET48_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/net48/Yoti.Auth.dll
+/subsystemversion:6.00
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/net48/
+ .NETFramework,Version=v4.8.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<NUGET>/
+ google.protobuf/3.26.1/lib/net45/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/net47/JsonSubTypes.dll
+ microsoft.netframework.referenceassemblies.net48/1.0.3/build/.NETFramework/v4.8/Facades/
+  Microsoft.Win32.Primitives.dll
+  netstandard.dll
+  System.AppContext.dll
+  System.Collections.Concurrent.dll
+  System.Collections.dll
+  System.Collections.NonGeneric.dll
+  System.Collections.Specialized.dll
+  System.ComponentModel.Annotations.dll
+  System.ComponentModel.dll
+  System.ComponentModel.EventBasedAsync.dll
+  System.ComponentModel.Primitives.dll
+  System.ComponentModel.TypeConverter.dll
+  System.Console.dll
+  System.Data.Common.dll
+  System.Diagnostics.Contracts.dll
+  System.Diagnostics.Debug.dll
+  System.Diagnostics.FileVersionInfo.dll
+  System.Diagnostics.Process.dll
+  System.Diagnostics.StackTrace.dll
+  System.Diagnostics.TextWriterTraceListener.dll
+  System.Diagnostics.Tools.dll
+  System.Diagnostics.TraceSource.dll
+  System.Drawing.Primitives.dll
+  System.Dynamic.Runtime.dll
+  System.Globalization.Calendars.dll
+  System.Globalization.dll
+  System.Globalization.Extensions.dll
+  System.IO.Compression.ZipFile.dll
+  System.IO.dll
+  System.IO.FileSystem.dll
+  System.IO.FileSystem.DriveInfo.dll
+  System.IO.FileSystem.Primitives.dll
+  System.IO.FileSystem.Watcher.dll
+  System.IO.IsolatedStorage.dll
+  System.IO.MemoryMappedFiles.dll
+  System.IO.Pipes.dll
+  System.IO.UnmanagedMemoryStream.dll
+  System.Linq.dll
+  System.Linq.Expressions.dll
+  System.Linq.Parallel.dll
+  System.Linq.Queryable.dll
+  System.Net.Http.Rtc.dll
+  System.Net.NameResolution.dll
+  System.Net.NetworkInformation.dll
+  System.Net.Ping.dll
+  System.Net.Primitives.dll
+  System.Net.Requests.dll
+  System.Net.Security.dll
+  System.Net.Sockets.dll
+  System.Net.WebHeaderCollection.dll
+  System.Net.WebSockets.Client.dll
+  System.Net.WebSockets.dll
+  System.ObjectModel.dll
+  System.Reflection.dll
+  System.Reflection.Emit.dll
+  System.Reflection.Emit.ILGeneration.dll
+  System.Reflection.Emit.Lightweight.dll
+  System.Reflection.Extensions.dll
+  System.Reflection.Primitives.dll
+  System.Resources.Reader.dll
+  System.Resources.ResourceManager.dll
+  System.Resources.Writer.dll
+  System.Runtime.CompilerServices.VisualC.dll
+  System.Runtime.dll
+  System.Runtime.Extensions.dll
+  System.Runtime.Handles.dll
+  System.Runtime.InteropServices.dll
+  System.Runtime.InteropServices.RuntimeInformation.dll
+  System.Runtime.InteropServices.WindowsRuntime.dll
+  System.Runtime.Numerics.dll
+  System.Runtime.Serialization.Formatters.dll
+  System.Runtime.Serialization.Json.dll
+  System.Runtime.Serialization.Primitives.dll
+  System.Runtime.Serialization.Xml.dll
+  System.Security.Claims.dll
+  System.Security.Cryptography.Algorithms.dll
+  System.Security.Cryptography.Csp.dll
+  System.Security.Cryptography.Encoding.dll
+  System.Security.Cryptography.Primitives.dll
+  System.Security.Cryptography.X509Certificates.dll
+  System.Security.Principal.dll
+  System.Security.SecureString.dll
+  System.ServiceModel.Duplex.dll
+  System.ServiceModel.Http.dll
+  System.ServiceModel.NetTcp.dll
+  System.ServiceModel.Primitives.dll
+  System.ServiceModel.Security.dll
+  System.Text.Encoding.dll
+  System.Text.Encoding.Extensions.dll
+  System.Text.RegularExpressions.dll
+  System.Threading.dll
+  System.Threading.Overlapped.dll
+  System.Threading.Tasks.dll
+  System.Threading.Tasks.Parallel.dll
+  System.Threading.Thread.dll
+  System.Threading.ThreadPool.dll
+  System.Threading.Timer.dll
+  System.Xml.ReaderWriter.dll
+  System.Xml.XDocument.dll
+  System.Xml.XmlDocument.dll
+  System.Xml.XmlSerializer.dll
+  System.Xml.XPath.dll
+  System.Xml.XPath.XDocument.dll
+ microsoft.netframework.referenceassemblies.net48/1.0.3/build/.NETFramework/v4.8/
+  Microsoft.CSharp.dll
+  mscorlib.dll
+  System.ComponentModel.Composition.dll
+  System.Configuration.dll
+  System.Core.dll
+  System.Data.dll
+  System.dll
+  System.Drawing.dll
+  System.IO.Compression.dll
+  System.IO.Compression.FileSystem.dll
+  System.Net.Http.dll
+  System.Numerics.dll
+  System.Runtime.Serialization.dll
+  System.Xml.dll
+  System.Xml.Linq.dll
+ newtonsoft.json/13.0.3/lib/net45/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/net46/NLog.dll
+ portable.bouncycastle/1.8.5/lib/net40/BouncyCastle.Crypto.dll
+ system.buffers/4.4.0/ref/netstandard2.0/System.Buffers.dll
+ system.memory/4.5.3/lib/netstandard2.0/System.Memory.dll
+ system.numerics.vectors/4.4.0/ref/net46/System.Numerics.Vectors.dll
+ system.runtime.compilerservices.unsafe/4.5.2/ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll
+ system.valuetuple/4.5.0/ref/net47/System.ValueTuple.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/net48/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=net6.0
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=10.0
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETCoreApp
+TargetPath=<PATH>bin/Debug/net6.0/Yoti.Auth.dll
+TargetRefPath=<PATH>obj/Debug/net6.0/ref/Yoti.Auth.dll
+TemporaryDependencyNodeTargetIdentifier=net6.0
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/warn:6
+/define:TRACE;DEBUG;NET;NET6_0;NETCOREAPP;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NETCOREAPP1_0_OR_GREATER;NETCOREAPP1_1_OR_GREATER;NETCOREAPP2_0_OR_GREATER;NETCOREAPP2_1_OR_GREATER;NETCOREAPP2_2_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/net6.0/Yoti.Auth.dll
+/refout:obj/Debug/net6.0/refint/Yoti.Auth.dll
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/net6.0/
+ .NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<NUGET>/
+ google.protobuf/3.26.1/lib/net5.0/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/netstandard2.0/JsonSubTypes.dll
+ microsoft.netcore.app.ref/6.0.36/ref/net6.0/
+  Microsoft.CSharp.dll
+  Microsoft.VisualBasic.Core.dll
+  Microsoft.VisualBasic.dll
+  Microsoft.Win32.Primitives.dll
+  Microsoft.Win32.Registry.dll
+  mscorlib.dll
+  netstandard.dll
+  System.AppContext.dll
+  System.Buffers.dll
+  System.Collections.Concurrent.dll
+  System.Collections.dll
+  System.Collections.Immutable.dll
+  System.Collections.NonGeneric.dll
+  System.Collections.Specialized.dll
+  System.ComponentModel.Annotations.dll
+  System.ComponentModel.DataAnnotations.dll
+  System.ComponentModel.dll
+  System.ComponentModel.EventBasedAsync.dll
+  System.ComponentModel.Primitives.dll
+  System.ComponentModel.TypeConverter.dll
+  System.Configuration.dll
+  System.Console.dll
+  System.Core.dll
+  System.Data.Common.dll
+  System.Data.DataSetExtensions.dll
+  System.Data.dll
+  System.Diagnostics.Contracts.dll
+  System.Diagnostics.Debug.dll
+  System.Diagnostics.DiagnosticSource.dll
+  System.Diagnostics.FileVersionInfo.dll
+  System.Diagnostics.Process.dll
+  System.Diagnostics.StackTrace.dll
+  System.Diagnostics.TextWriterTraceListener.dll
+  System.Diagnostics.Tools.dll
+  System.Diagnostics.TraceSource.dll
+  System.Diagnostics.Tracing.dll
+  System.dll
+  System.Drawing.dll
+  System.Drawing.Primitives.dll
+  System.Dynamic.Runtime.dll
+  System.Formats.Asn1.dll
+  System.Globalization.Calendars.dll
+  System.Globalization.dll
+  System.Globalization.Extensions.dll
+  System.IO.Compression.Brotli.dll
+  System.IO.Compression.dll
+  System.IO.Compression.FileSystem.dll
+  System.IO.Compression.ZipFile.dll
+  System.IO.dll
+  System.IO.FileSystem.AccessControl.dll
+  System.IO.FileSystem.dll
+  System.IO.FileSystem.DriveInfo.dll
+  System.IO.FileSystem.Primitives.dll
+  System.IO.FileSystem.Watcher.dll
+  System.IO.IsolatedStorage.dll
+  System.IO.MemoryMappedFiles.dll
+  System.IO.Pipes.AccessControl.dll
+  System.IO.Pipes.dll
+  System.IO.UnmanagedMemoryStream.dll
+  System.Linq.dll
+  System.Linq.Expressions.dll
+  System.Linq.Parallel.dll
+  System.Linq.Queryable.dll
+  System.Memory.dll
+  System.Net.dll
+  System.Net.Http.dll
+  System.Net.Http.Json.dll
+  System.Net.HttpListener.dll
+  System.Net.Mail.dll
+  System.Net.NameResolution.dll
+  System.Net.NetworkInformation.dll
+  System.Net.Ping.dll
+  System.Net.Primitives.dll
+  System.Net.Requests.dll
+  System.Net.Security.dll
+  System.Net.ServicePoint.dll
+  System.Net.Sockets.dll
+  System.Net.WebClient.dll
+  System.Net.WebHeaderCollection.dll
+  System.Net.WebProxy.dll
+  System.Net.WebSockets.Client.dll
+  System.Net.WebSockets.dll
+  System.Numerics.dll
+  System.Numerics.Vectors.dll
+  System.ObjectModel.dll
+  System.Reflection.DispatchProxy.dll
+  System.Reflection.dll
+  System.Reflection.Emit.dll
+  System.Reflection.Emit.ILGeneration.dll
+  System.Reflection.Emit.Lightweight.dll
+  System.Reflection.Extensions.dll
+  System.Reflection.Metadata.dll
+  System.Reflection.Primitives.dll
+  System.Reflection.TypeExtensions.dll
+  System.Resources.Reader.dll
+  System.Resources.ResourceManager.dll
+  System.Resources.Writer.dll
+  System.Runtime.CompilerServices.Unsafe.dll
+  System.Runtime.CompilerServices.VisualC.dll
+  System.Runtime.dll
+  System.Runtime.Extensions.dll
+  System.Runtime.Handles.dll
+  System.Runtime.InteropServices.dll
+  System.Runtime.InteropServices.RuntimeInformation.dll
+  System.Runtime.Intrinsics.dll
+  System.Runtime.Loader.dll
+  System.Runtime.Numerics.dll
+  System.Runtime.Serialization.dll
+  System.Runtime.Serialization.Formatters.dll
+  System.Runtime.Serialization.Json.dll
+  System.Runtime.Serialization.Primitives.dll
+  System.Runtime.Serialization.Xml.dll
+  System.Security.AccessControl.dll
+  System.Security.Claims.dll
+  System.Security.Cryptography.Algorithms.dll
+  System.Security.Cryptography.Cng.dll
+  System.Security.Cryptography.Csp.dll
+  System.Security.Cryptography.Encoding.dll
+  System.Security.Cryptography.OpenSsl.dll
+  System.Security.Cryptography.Primitives.dll
+  System.Security.Cryptography.X509Certificates.dll
+  System.Security.dll
+  System.Security.Principal.dll
+  System.Security.Principal.Windows.dll
+  System.Security.SecureString.dll
+  System.ServiceModel.Web.dll
+  System.ServiceProcess.dll
+  System.Text.Encoding.CodePages.dll
+  System.Text.Encoding.dll
+  System.Text.Encoding.Extensions.dll
+  System.Text.Encodings.Web.dll
+  System.Text.Json.dll
+  System.Text.RegularExpressions.dll
+  System.Threading.Channels.dll
+  System.Threading.dll
+  System.Threading.Overlapped.dll
+  System.Threading.Tasks.Dataflow.dll
+  System.Threading.Tasks.dll
+  System.Threading.Tasks.Extensions.dll
+  System.Threading.Tasks.Parallel.dll
+  System.Threading.Thread.dll
+  System.Threading.ThreadPool.dll
+  System.Threading.Timer.dll
+  System.Transactions.dll
+  System.Transactions.Local.dll
+  System.ValueTuple.dll
+  System.Web.dll
+  System.Web.HttpUtility.dll
+  System.Windows.dll
+  System.Xml.dll
+  System.Xml.Linq.dll
+  System.Xml.ReaderWriter.dll
+  System.Xml.Serialization.dll
+  System.Xml.XDocument.dll
+  System.Xml.XmlDocument.dll
+  System.Xml.XmlSerializer.dll
+  System.Xml.XPath.dll
+  System.Xml.XPath.XDocument.dll
+  WindowsBase.dll
+ newtonsoft.json/13.0.3/lib/net6.0/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/netstandard2.0/NLog.dll
+ portable.bouncycastle/1.8.5/lib/netstandard2.0/BouncyCastle.Crypto.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+<NUGET>/microsoft.netcore.app.ref/6.0.36/analyzers/dotnet/cs/System.Text.Json.SourceGeneration.dll
+
+[analyzerConfigFiles]
+.editorconfig
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/build/config/analysislevel_6_default.editorconfig
+obj/Debug/net6.0/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=netcoreapp3.1
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=8.0
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETCoreApp
+TargetPath=<PATH>bin/Debug/netcoreapp3.1/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=netcoreapp3.1
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/warn:3
+/define:TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;NETCOREAPP1_0_OR_GREATER;NETCOREAPP1_1_OR_GREATER;NETCOREAPP2_0_OR_GREATER;NETCOREAPP2_1_OR_GREATER;NETCOREAPP2_2_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/netcoreapp3.1/Yoti.Auth.dll
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/netcoreapp3.1/
+ .NETCoreApp,Version=v3.1.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<NUGET>/
+ google.protobuf/3.26.1/lib/netstandard2.0/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/netstandard2.0/JsonSubTypes.dll
+ microsoft.netcore.app.ref/3.1.0/ref/netcoreapp3.1/
+  Microsoft.CSharp.dll
+  Microsoft.VisualBasic.Core.dll
+  Microsoft.VisualBasic.dll
+  Microsoft.Win32.Primitives.dll
+  mscorlib.dll
+  netstandard.dll
+  System.AppContext.dll
+  System.Buffers.dll
+  System.Collections.Concurrent.dll
+  System.Collections.dll
+  System.Collections.Immutable.dll
+  System.Collections.NonGeneric.dll
+  System.Collections.Specialized.dll
+  System.ComponentModel.Annotations.dll
+  System.ComponentModel.DataAnnotations.dll
+  System.ComponentModel.dll
+  System.ComponentModel.EventBasedAsync.dll
+  System.ComponentModel.Primitives.dll
+  System.ComponentModel.TypeConverter.dll
+  System.Configuration.dll
+  System.Console.dll
+  System.Core.dll
+  System.Data.Common.dll
+  System.Data.DataSetExtensions.dll
+  System.Data.dll
+  System.Diagnostics.Contracts.dll
+  System.Diagnostics.Debug.dll
+  System.Diagnostics.DiagnosticSource.dll
+  System.Diagnostics.FileVersionInfo.dll
+  System.Diagnostics.Process.dll
+  System.Diagnostics.StackTrace.dll
+  System.Diagnostics.TextWriterTraceListener.dll
+  System.Diagnostics.Tools.dll
+  System.Diagnostics.TraceSource.dll
+  System.Diagnostics.Tracing.dll
+  System.dll
+  System.Drawing.dll
+  System.Drawing.Primitives.dll
+  System.Dynamic.Runtime.dll
+  System.Globalization.Calendars.dll
+  System.Globalization.dll
+  System.Globalization.Extensions.dll
+  System.IO.Compression.Brotli.dll
+  System.IO.Compression.dll
+  System.IO.Compression.FileSystem.dll
+  System.IO.Compression.ZipFile.dll
+  System.IO.dll
+  System.IO.FileSystem.dll
+  System.IO.FileSystem.DriveInfo.dll
+  System.IO.FileSystem.Primitives.dll
+  System.IO.FileSystem.Watcher.dll
+  System.IO.IsolatedStorage.dll
+  System.IO.MemoryMappedFiles.dll
+  System.IO.Pipes.dll
+  System.IO.UnmanagedMemoryStream.dll
+  System.Linq.dll
+  System.Linq.Expressions.dll
+  System.Linq.Parallel.dll
+  System.Linq.Queryable.dll
+  System.Memory.dll
+  System.Net.dll
+  System.Net.Http.dll
+  System.Net.HttpListener.dll
+  System.Net.Mail.dll
+  System.Net.NameResolution.dll
+  System.Net.NetworkInformation.dll
+  System.Net.Ping.dll
+  System.Net.Primitives.dll
+  System.Net.Requests.dll
+  System.Net.Security.dll
+  System.Net.ServicePoint.dll
+  System.Net.Sockets.dll
+  System.Net.WebClient.dll
+  System.Net.WebHeaderCollection.dll
+  System.Net.WebProxy.dll
+  System.Net.WebSockets.Client.dll
+  System.Net.WebSockets.dll
+  System.Numerics.dll
+  System.Numerics.Vectors.dll
+  System.ObjectModel.dll
+  System.Reflection.DispatchProxy.dll
+  System.Reflection.dll
+  System.Reflection.Emit.dll
+  System.Reflection.Emit.ILGeneration.dll
+  System.Reflection.Emit.Lightweight.dll
+  System.Reflection.Extensions.dll
+  System.Reflection.Metadata.dll
+  System.Reflection.Primitives.dll
+  System.Reflection.TypeExtensions.dll
+  System.Resources.Reader.dll
+  System.Resources.ResourceManager.dll
+  System.Resources.Writer.dll
+  System.Runtime.CompilerServices.Unsafe.dll
+  System.Runtime.CompilerServices.VisualC.dll
+  System.Runtime.dll
+  System.Runtime.Extensions.dll
+  System.Runtime.Handles.dll
+  System.Runtime.InteropServices.dll
+  System.Runtime.InteropServices.RuntimeInformation.dll
+  System.Runtime.InteropServices.WindowsRuntime.dll
+  System.Runtime.Intrinsics.dll
+  System.Runtime.Loader.dll
+  System.Runtime.Numerics.dll
+  System.Runtime.Serialization.dll
+  System.Runtime.Serialization.Formatters.dll
+  System.Runtime.Serialization.Json.dll
+  System.Runtime.Serialization.Primitives.dll
+  System.Runtime.Serialization.Xml.dll
+  System.Security.Claims.dll
+  System.Security.Cryptography.Algorithms.dll
+  System.Security.Cryptography.Csp.dll
+  System.Security.Cryptography.Encoding.dll
+  System.Security.Cryptography.Primitives.dll
+  System.Security.Cryptography.X509Certificates.dll
+  System.Security.dll
+  System.Security.Principal.dll
+  System.Security.SecureString.dll
+  System.ServiceModel.Web.dll
+  System.ServiceProcess.dll
+  System.Text.Encoding.CodePages.dll
+  System.Text.Encoding.dll
+  System.Text.Encoding.Extensions.dll
+  System.Text.Encodings.Web.dll
+  System.Text.Json.dll
+  System.Text.RegularExpressions.dll
+  System.Threading.Channels.dll
+  System.Threading.dll
+  System.Threading.Overlapped.dll
+  System.Threading.Tasks.Dataflow.dll
+  System.Threading.Tasks.dll
+  System.Threading.Tasks.Extensions.dll
+  System.Threading.Tasks.Parallel.dll
+  System.Threading.Thread.dll
+  System.Threading.ThreadPool.dll
+  System.Threading.Timer.dll
+  System.Transactions.dll
+  System.Transactions.Local.dll
+  System.ValueTuple.dll
+  System.Web.dll
+  System.Web.HttpUtility.dll
+  System.Windows.dll
+  System.Xml.dll
+  System.Xml.Linq.dll
+  System.Xml.ReaderWriter.dll
+  System.Xml.Serialization.dll
+  System.Xml.XDocument.dll
+  System.Xml.XmlDocument.dll
+  System.Xml.XmlSerializer.dll
+  System.Xml.XPath.dll
+  System.Xml.XPath.XDocument.dll
+  WindowsBase.dll
+ newtonsoft.json/13.0.3/lib/netstandard2.0/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/netstandard2.0/NLog.dll
+ portable.bouncycastle/1.8.5/lib/netstandard2.0/BouncyCastle.Crypto.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/netcoreapp3.1/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+primary
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=netstandard1.6
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=7.3
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETStandard
+TargetPath=<PATH>bin/Debug/netstandard1.6/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=netstandard1.6
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/define:TRACE;DEBUG;NETSTANDARD;NETSTANDARD1_6;NETSTANDARD1_0_OR_GREATER;NETSTANDARD1_1_OR_GREATER;NETSTANDARD1_2_OR_GREATER;NETSTANDARD1_3_OR_GREATER;NETSTANDARD1_4_OR_GREATER;NETSTANDARD1_5_OR_GREATER;NETSTANDARD1_6_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/netstandard1.6/Yoti.Auth.dll
+/target:library
+/warnaserror+
+/utf8output
+/deterministic+
+/langversion:latest
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/netstandard1.6/
+ .NETStandard,Version=v1.6.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<NUGET>/
+ google.protobuf/3.26.1/lib/netstandard1.1/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/netstandard1.3/JsonSubTypes.dll
+ microsoft.csharp/4.7.0/ref/netstandard1.0/Microsoft.CSharp.dll
+ microsoft.win32.primitives/4.3.0/ref/netstandard1.3/Microsoft.Win32.Primitives.dll
+ newtonsoft.json/13.0.3/lib/netstandard1.3/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/netstandard1.5/NLog.dll
+ portable.bouncycastle/1.8.5/lib/netstandard1.3/BouncyCastle.Crypto.dll
+ system.appcontext/4.3.0/ref/netstandard1.6/System.AppContext.dll
+ system.buffers/4.4.0/ref/netstandard1.1/System.Buffers.dll
+ system.collections.concurrent/4.3.0/ref/netstandard1.3/System.Collections.Concurrent.dll
+ system.collections.nongeneric/4.3.0/ref/netstandard1.3/System.Collections.NonGeneric.dll
+ system.collections/4.3.0/ref/netstandard1.3/System.Collections.dll
+ system.componentmodel.primitives/4.3.0/ref/netstandard1.0/System.ComponentModel.Primitives.dll
+ system.componentmodel.typeconverter/4.3.0/ref/netstandard1.5/System.ComponentModel.TypeConverter.dll
+ system.componentmodel/4.3.0/ref/netstandard1.0/System.ComponentModel.dll
+ system.console/4.3.0/ref/netstandard1.3/System.Console.dll
+ system.data.common/4.3.0/ref/netstandard1.2/System.Data.Common.dll
+ system.diagnostics.debug/4.3.0/ref/netstandard1.3/System.Diagnostics.Debug.dll
+ system.diagnostics.process/4.3.0/ref/netstandard1.4/System.Diagnostics.Process.dll
+ system.diagnostics.stacktrace/4.3.0/ref/netstandard1.3/System.Diagnostics.StackTrace.dll
+ system.diagnostics.tools/4.3.0/ref/netstandard1.0/System.Diagnostics.Tools.dll
+ system.diagnostics.tracesource/4.3.0/ref/netstandard1.3/System.Diagnostics.TraceSource.dll
+ system.diagnostics.tracing/4.3.0/ref/netstandard1.5/System.Diagnostics.Tracing.dll
+ system.dynamic.runtime/4.3.0/ref/netstandard1.3/System.Dynamic.Runtime.dll
+ system.globalization.calendars/4.3.0/ref/netstandard1.3/System.Globalization.Calendars.dll
+ system.globalization/4.3.0/ref/netstandard1.3/System.Globalization.dll
+ system.io.compression.zipfile/4.3.0/ref/netstandard1.3/System.IO.Compression.ZipFile.dll
+ system.io.compression/4.3.0/ref/netstandard1.3/System.IO.Compression.dll
+ system.io.filesystem.primitives/4.3.0/ref/netstandard1.3/System.IO.FileSystem.Primitives.dll
+ system.io.filesystem.watcher/4.3.0/ref/netstandard1.3/System.IO.FileSystem.Watcher.dll
+ system.io.filesystem/4.3.0/ref/netstandard1.3/System.IO.FileSystem.dll
+ system.io/4.3.0/ref/netstandard1.5/System.IO.dll
+ system.linq.expressions/4.3.0/ref/netstandard1.6/System.Linq.Expressions.dll
+ system.linq/4.3.0/ref/netstandard1.6/System.Linq.dll
+ system.memory/4.5.3/lib/netstandard1.1/System.Memory.dll
+ system.net.http/4.3.4/ref/netstandard1.3/System.Net.Http.dll
+ system.net.nameresolution/4.3.0/ref/netstandard1.3/System.Net.NameResolution.dll
+ system.net.primitives/4.3.0/ref/netstandard1.3/System.Net.Primitives.dll
+ system.net.requests/4.3.0/ref/netstandard1.3/System.Net.Requests.dll
+ system.net.sockets/4.3.0/ref/netstandard1.3/System.Net.Sockets.dll
+ system.net.webheadercollection/4.3.0/ref/netstandard1.3/System.Net.WebHeaderCollection.dll
+ system.objectmodel/4.3.0/ref/netstandard1.3/System.ObjectModel.dll
+ system.reflection.extensions/4.3.0/ref/netstandard1.0/System.Reflection.Extensions.dll
+ system.reflection.primitives/4.3.0/ref/netstandard1.0/System.Reflection.Primitives.dll
+ system.reflection.typeextensions/4.7.0/ref/netstandard1.5/System.Reflection.TypeExtensions.dll
+ system.reflection/4.3.0/ref/netstandard1.5/System.Reflection.dll
+ system.resources.resourcemanager/4.3.0/ref/netstandard1.0/System.Resources.ResourceManager.dll
+ system.runtime.compilerservices.unsafe/4.5.2/ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll
+ system.runtime.extensions/4.3.1/ref/netstandard1.5/System.Runtime.Extensions.dll
+ system.runtime.handles/4.3.0/ref/netstandard1.3/System.Runtime.Handles.dll
+ system.runtime.interopservices.runtimeinformation/4.3.0/ref/netstandard1.1/System.Runtime.InteropServices.RuntimeInformation.dll
+ system.runtime.interopservices/4.3.0/ref/netstandard1.5/System.Runtime.InteropServices.dll
+ system.runtime.loader/4.3.0/ref/netstandard1.5/System.Runtime.Loader.dll
+ system.runtime.numerics/4.3.0/ref/netstandard1.1/System.Runtime.Numerics.dll
+ system.runtime.serialization.formatters/4.3.0/ref/netstandard1.3/System.Runtime.Serialization.Formatters.dll
+ system.runtime.serialization.primitives/4.3.0/ref/netstandard1.3/System.Runtime.Serialization.Primitives.dll
+ system.runtime/4.3.1/ref/netstandard1.5/System.Runtime.dll
+ system.security.cryptography.algorithms/4.3.0/ref/netstandard1.6/System.Security.Cryptography.Algorithms.dll
+ system.security.cryptography.encoding/4.3.0/ref/netstandard1.3/System.Security.Cryptography.Encoding.dll
+ system.security.cryptography.primitives/4.3.0/ref/netstandard1.3/System.Security.Cryptography.Primitives.dll
+ system.security.cryptography.x509certificates/4.3.0/ref/netstandard1.4/System.Security.Cryptography.X509Certificates.dll
+ system.text.encoding.extensions/4.3.0/ref/netstandard1.3/System.Text.Encoding.Extensions.dll
+ system.text.encoding/4.3.0/ref/netstandard1.3/System.Text.Encoding.dll
+ system.text.regularexpressions/4.3.1/ref/netstandard1.6/System.Text.RegularExpressions.dll
+ system.threading.tasks/4.3.0/ref/netstandard1.3/System.Threading.Tasks.dll
+ system.threading.thread/4.3.0/ref/netstandard1.3/System.Threading.Thread.dll
+ system.threading.timer/4.3.0/ref/netstandard1.2/System.Threading.Timer.dll
+ system.threading/4.3.0/ref/netstandard1.3/System.Threading.dll
+ system.valuetuple/4.5.0/lib/netstandard1.0/System.ValueTuple.dll
+ system.xml.readerwriter/4.3.0/ref/netstandard1.3/System.Xml.ReaderWriter.dll
+ system.xml.xdocument/4.3.0/ref/netstandard1.3/System.Xml.XDocument.dll
+ system.xml.xmldocument/4.3.0/ref/netstandard1.3/System.Xml.XmlDocument.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/netstandard1.6/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
+
+---
+
+[project]
+language=C#
+lastDtbSucceeded
+
+[sliceDimensions]
+TargetFramework=netstandard2.1
+
+[properties]
+AssemblyName=Yoti.Auth
+CommandLineArgsForDesignTimeEvaluation=-langversion:latest -define:TRACE
+CompilerGeneratedFilesOutputPath=
+MaxSupportedLangVersion=8.0
+ProjectAssetsFile=<PATH>obj/project.assets.json
+RootNamespace=Yoti.Auth
+RunAnalyzers=
+RunAnalyzersDuringLiveAnalysis=
+SolutionPath=*Undefined*
+TargetFrameworkIdentifier=.NETStandard
+TargetPath=<PATH>bin/Debug/netstandard2.1/Yoti.Auth.dll
+TargetRefPath=
+TemporaryDependencyNodeTargetIdentifier=netstandard2.1
+
+[commandLineArguments]
+/noconfig
+/unsafe-
+/checked-
+/nowarn:1701,1702,1701,1702
+/fullpaths
+/nostdlib+
+/errorreport:prompt
+/define:TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_1;NETSTANDARD1_0_OR_GREATER;NETSTANDARD1_1_OR_GREATER;NETSTANDARD1_2_OR_GREATER;NETSTANDARD1_3_OR_GREATER;NETSTANDARD1_4_OR_GREATER;NETSTANDARD1_5_OR_GREATER;NETSTANDARD1_6_OR_GREATER;NETSTANDARD2_0_OR_GREATER;NETSTANDARD2_1_OR_GREATER
+/highentropyva+
+/debug+
+/debug:Full
+/filealign:512
+/optimize-
+/out:obj/Debug/netstandard2.1/Yoti.Auth.dll
+/target:library
+/warnaserror-
+/utf8output
+/deterministic+
+/langversion:latest
+/warnaserror+:NU1605
+
+[sourceFiles]
+ActivityDetails.cs
+ActivityDetailsParser.cs
+Aml/
+ AmlAddress.cs
+ AmlProfile.cs
+ AmlResult.cs
+ IAmlAddress.cs
+ IAmlProfile.cs
+ IAmlResult.cs
+ IRemoteAmlService.cs
+ RemoteAmlService.cs
+Anchors/
+ Anchor.cs
+ AnchorCertificateParser.cs
+ AnchorType.cs
+ AnchorVerifierSourceData.cs
+ ExtensionOidAttribute.cs
+ SignedTimestamp.cs
+Attribute/
+ AttributeConverter.cs
+ BaseAttribute.cs
+ MultiValueItem.cs
+ YotiAttribute.cs
+Constants/
+ Api.cs
+ ApplicationProfile.cs
+ DocScanConstants.cs
+ DocumentDetails.cs
+ Extension.cs
+ Format.cs
+ UserProfile.cs
+Conversion.cs
+CryptoEngine.cs
+DataObjects/
+ ProfileDO.cs
+ ReceiptDO.cs
+DigitalIdentity/
+ CreateQrResult.cs
+ DigitalIdentityService.cs
+ ErrorDetails.cs
+ ErrorReason.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ GetQrCodeResult.cs
+ GetReceipt.cs
+ GetSessionResult.cs
+ Policy/
+  AdvancedIdentityProfile.cs
+  Constraint.cs
+  Notification.cs
+  NotificationBuilder.cs
+  Policy.cs
+  PolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ QrRequest.cs
+ QrRequestBuilder.cs
+ ReceiptItemKeyResponse.cs
+ RequirementNotMetDetails.cs
+ SharedReceiptResponse.cs
+ ShareSessionRequest.cs
+ ShareSessionRequestBuilder.cs
+ ShareSessionResult.cs
+DigitalIdentityClient.cs
+DigitalIdentityClientEngine.cs
+DocScan/
+ DocScanClient.cs
+ DocScanService.cs
+ Session/Create/
+  AdvancedIdentityProfile.cs
+  ApplicantProfile.cs
+  ApplicantProfileBuilder.cs
+  AttemptsConfiguration.cs
+  Check/Advanced/
+   RequestedCaMatchingStrategy.cs
+   RequestedCaSources.cs
+   RequestedExactMatchingStrategy.cs
+   RequestedFuzzyMatchingStrategy.cs
+   RequestedSearchProfileSources.cs
+   RequestedTypeListSources.cs
+   RequestedWatchlistAdvancedCaConfigCustomAccount.cs
+   RequestedWatchlistAdvancedCaConfigYotiAccount.cs
+  Check/
+   BaseRequestedCheck.cs
+   IssuingAuthoritySubCheck.cs
+   IssuingAuthoritySubCheckBuilder.cs
+   RequestedCheck.cs
+   RequestedCheckConfig.cs
+   RequestedDocumentAuthenticityCheck.cs
+   RequestedDocumentAuthenticityCheckBuilder.cs
+   RequestedDocumentAuthenticityConfig.cs
+   RequestedFaceComparisonCheck.cs
+   RequestedFaceComparisonCheckBuilder.cs
+   RequestedFaceComparisonConfig.cs
+   RequestedFaceMatchCheck.cs
+   RequestedFaceMatchCheckBuilder.cs
+   RequestedFaceMatchConfig.cs
+   RequestedIdDocumentComparisonCheck.cs
+   RequestedIdDocumentComparisonCheckBuilder.cs
+   RequestedIdDocumentComparisonConfig.cs
+   RequestedLivenessCheck.cs
+   RequestedLivenessCheckBuilder.cs
+   RequestedLivenessConfig.cs
+   RequestedThirdPartyIdentityCheck.cs
+   RequestedThirdPartyIdentityCheckBuilder.cs
+   RequestedThirdPartyIdentityConfig.cs
+   RequestedWatchlistAdvancedCaCheck.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.CustomAccount.cs
+   RequestedWatchlistAdvancedCaCheckBuilder.YotiAccount.cs
+   RequestedWatchlistAdvancedCaConfig.cs
+   RequestedWatchlistScreeningCheck.cs
+   RequestedWatchlistScreeningCheckBuilder.cs
+   RequestedWatchlistScreeningConfig.cs
+  CreateSessionResult.cs
+  FaceCapture/
+   CreateFaceCaptureResourcePayload.cs
+   CreateFaceCaptureResourcePayloadBuilder.cs
+   UploadFaceCaptureImagePayload.cs
+   UploadFaceCaptureImagePayloadBuilder.cs
+  Filter/
+   CountryRestriction.cs
+   DocumentFilter.cs
+   DocumentRestriction.cs
+   DocumentRestrictionBuilder.cs
+   DocumentRestrictionsFilter.cs
+   DocumentRestrictionsFilterBuilder.cs
+   OrthogonalRestrictionsFilter.cs
+   OrthogonalRestrictionsFilterBuilder.cs
+   RequiredDocument.cs
+   RequiredIdDocument.cs
+   RequiredIdDocumentBuilder.cs
+   RequiredSupplementaryDocument.cs
+   RequiredSupplementaryDocumentBuilder.cs
+   TypeRestriction.cs
+  NotificationConfig.cs
+  NotificationConfigBuilder.cs
+  Objectives/
+   Objective.cs
+   ProofOfAddressObjective.cs
+   ProofOfAddressObjectiveBuilder.cs
+  ResourceCreationContainer.cs
+  ResourceCreationContainerBuilder.cs
+  SdkConfig.cs
+  SdkConfigBuilder.cs
+  SessionSpecification.cs
+  SessionSpecificationBuilder.cs
+  StructuredPostalAddress.cs
+  StructuredPostalAddressBuilder.cs
+  Task/
+   BaseRequestedTask.cs
+   RequestedSupplementaryDocTextExtractionTask.cs
+   RequestedSupplementaryDocTextExtractionTaskBuilder.cs
+   RequestedSupplementaryDocTextExtractionTaskConfig.cs
+   RequestedTask.cs
+   RequestedTaskConfig.cs
+   RequestedTextExtractionTask.cs
+   RequestedTextExtractionTaskBuilder.cs
+   RequestedTextExtractionTaskConfig.cs
+ Session/Retrieve/AdvancedIdentityProfile/
+  AdvancedIdentityProfilePreviewResponse.cs
+  AdvancedIdentityProfileResponse.cs
+  FailureReasonResponse.cs
+ Session/Retrieve/
+  BreakdownResponse.cs
+  Check/
+   AuthenticityCheckResponse.cs
+   CheckResponse.cs
+   FaceMatchCheckResponse.cs
+   GeneratedProfileResponse.cs
+   IdDocumentComparisonCheckResponse.cs
+   LivenessCheckResponse.cs
+   ProfileCheckResponse.cs
+   ReportResponse.cs
+   SupplementaryDocTextDataCheckResponse.cs
+   TextDataCheckResponse.cs
+   ThirdPartyIdentityCheckResponse.cs
+   ThirdPartyIdentityFraudOneCheckResponse.cs
+   WatchlistAdvancedCaCheckResponse.cs
+   WatchlistScreeningCheckResponse.cs
+   WatchlistSummary/
+    CaMatchingStrategyResponse.cs
+    CaSourcesResponse.cs
+    ExactMatchingStrategyResponse.cs
+    FuzzyMatchingStrategyResponse.cs
+    ISearchConfig.cs
+    RawResults.cs
+    ReportResponseWithSummary.cs
+    SearchProfileSourcesResponse.cs
+    TypeListSourcesResponse.cs
+    WatchlistAdvancedCaSearchConfigResponse.cs
+    WatchlistAdvancedCaSearchConfigResponseCustomAccount.cs
+    WatchlistAdvancedCaSearchConfigResponseYotiAccount.cs
+    WatchlistScreeningConfig.cs
+    WatchlistSummary.cs
+   WatchlistSummaryReportBaseCheckResponse.cs
+  Configuration/Capture/
+   CaptureResponse.cs
+   Document/
+    ObjectiveResponse.cs
+    RequiredDocumentResourceResponse.cs
+    RequiredIdDocumentResourceResponse.cs
+    RequiredSupplementaryDocumentResourceResponse.cs
+    SupportedCountryResponse.cs
+    SupportedDocumentResponse.cs
+   FaceCapture/RequiredFaceCaptureResourceResponse.cs
+   Liveness/
+    RequiredLivenessResourceResponse.cs
+    RequiredZoomLivenessResourceResponse.cs
+    UnknownRequiredLivenessResourceResponse.cs
+   RequiredResourceResponse.cs
+   Source/
+    EndUserAllowedSourceResponse.cs
+    IbvAllowedSourceResponse.cs
+    RelyingBusinessAllowedSourceResponse.cs
+    UnknownAllowedSourceResponse.cs
+   Task/
+    RequestedIdDocTaskResponse.cs
+    RequestedSupplementaryDocTaskResponse.cs
+    RequestedTaskResponse.cs
+    UnknownRequestedTaskResponse.cs
+   UnknownRequiredResourceResponse.cs
+  Configuration/SessionConfigurationResponse.cs
+  CreateFaceCaptureResourceResponse.cs
+  DetailsResponse.cs
+  DocumentFieldsResponse.cs
+  DocumentIdPhotoResponse.cs
+  ExpandedDocumentFieldResponse.cs
+  FaceCaptureImageResponse.cs
+  FaceCaptureResourceResponse.cs
+  FaceMapResponse.cs
+  FileResponse.cs
+  FrameResponse.cs
+  GeneratedMedia.cs
+  GetSessionResult.cs
+  IdentityProfile/
+   FailureReasonResponse.cs
+   IdentityProfilePreviewResponse.cs
+   IdentityProfileResponse.cs
+   RequirementNotMetDetails.cs
+  IResponseWithMediaProperty.cs
+  MediaResponse.cs
+  PageResponse.cs
+  RecommendationResponse.cs
+  Resource/
+   AllowedSourceResponse.cs
+   ApplicantProfileResourceResponse.cs
+   IdDocumentResourceResponse.cs
+   LivenessResourceResponse.cs
+   ResourceContainer.cs
+   ResourceResponse.cs
+   ShareCodeResourceResponse.cs
+   SupplementaryDocResourceResponse.cs
+  ShareCodeMediaResponse.cs
+  StaticLivenessImageResponse.cs
+  StaticLivenessResourceResponse.cs
+  Task/
+   GeneratedCheckResponse.cs
+   GeneratedSupplementaryDocTextDataCheckResponse.cs
+   GeneratedTextDataCheckResponse.cs
+   SupplementaryDocTextExtractionTaskResponse.cs
+   TaskResponse.cs
+   TextExtractionTaskResponse.cs
+   VerifyShareCodeTaskResponse.cs
+  ZoomLivenessResourceResponse.cs
+ Support/
+  SupportedCountry.cs
+  SupportedDocument.cs
+  SupportedDocumentsResponse.cs
+Document/
+ DocumentDetails.cs
+ DocumentDetailsAttributeParser.cs
+ DocumentDetailsBuilder.cs
+Exceptions/
+ AmlException.cs
+ DigitalIdentityException.cs
+ DocScanException.cs
+ DynamicShareException.cs
+ ExtraDataException.cs
+ YotiException.cs
+ YotiProfileException.cs
+GlobalSuppressions.cs
+Images/
+ Image.cs
+ JpegImage.cs
+ PngImage.cs
+MediaValue.cs
+obj/Debug/netstandard2.1/
+ .NETStandard,Version=v2.1.AssemblyAttributes.cs
+ Yoti.Auth.AssemblyInfo.cs
+Profile/
+ ApplicationProfile.cs
+ BaseProfile.cs
+ IBaseProfile.cs
+ YotiProfile.cs
+Properties/
+ AssemblyInfo.cs
+ Resources.Designer.cs
+ProtoBuf/Attribute/
+ Attribute.cs
+ ContentType.cs
+ List.cs
+ Signing.cs
+ProtoBuf/Common/
+ EncryptedData.cs
+ SignedTimestamp.cs
+ProtoBuf/Share/
+ DataEntry.cs
+ ExtraData.cs
+ IssuingAttributes.cs
+ ThirdPartyAttribute.cs
+Share/
+ DataEntryConverter.cs
+ ExtraData.cs
+ ExtraDataConverter.cs
+ ThirdParty/
+  AttributeDefinition.cs
+  AttributeIssuanceDetails.cs
+  IssuingAttributes.cs
+  ThirdPartyAttributeConverter.cs
+ShareUrl/
+ DynamicScenario.cs
+ DynamicScenarioBuilder.cs
+ DynamicSharingService.cs
+ Extensions/
+  BaseExtension.cs
+  DeviceLocation.cs
+  Extension.cs
+  ExtensionBuilder.cs
+  LocationConstraintContent.cs
+  LocationConstraintExtensionBuilder.cs
+  ThirdPartyAttributeContent.cs
+  ThirdPartyAttributeExtensionBuilder.cs
+  TransactionalFlowExtensionBuilder.cs
+ Policy/
+  Constraint.cs
+  DynamicPolicy.cs
+  DynamicPolicyBuilder.cs
+  PreferredSources.cs
+  SourceConstraint.cs
+  SourceConstraintBuilder.cs
+  WantedAnchor.cs
+  WantedAnchorBuilder.cs
+  WantedAttribute.cs
+  WantedAttributeBuilder.cs
+ ShareUrlResult.cs
+Validation.cs
+Verifications/
+ AgeVerification.cs
+ AgeVerificationParser.cs
+Web/
+ HeadersFactory.cs
+ Request.cs
+ RequestBuilder.cs
+ Response.cs
+ SignedMessageFactory.cs
+ YotiHttpResponse.cs
+YotiClient.cs
+YotiClientEngine.cs
+
+[metadataReferences]
+<DOTNET>/packs/NETStandard.Library.Ref/2.1.0/ref/netstandard2.1/
+ Microsoft.Win32.Primitives.dll
+ mscorlib.dll
+ netstandard.dll
+ System.AppContext.dll
+ System.Buffers.dll
+ System.Collections.Concurrent.dll
+ System.Collections.dll
+ System.Collections.NonGeneric.dll
+ System.Collections.Specialized.dll
+ System.ComponentModel.Composition.dll
+ System.ComponentModel.dll
+ System.ComponentModel.EventBasedAsync.dll
+ System.ComponentModel.Primitives.dll
+ System.ComponentModel.TypeConverter.dll
+ System.Console.dll
+ System.Core.dll
+ System.Data.Common.dll
+ System.Data.dll
+ System.Diagnostics.Contracts.dll
+ System.Diagnostics.Debug.dll
+ System.Diagnostics.FileVersionInfo.dll
+ System.Diagnostics.Process.dll
+ System.Diagnostics.StackTrace.dll
+ System.Diagnostics.TextWriterTraceListener.dll
+ System.Diagnostics.Tools.dll
+ System.Diagnostics.TraceSource.dll
+ System.Diagnostics.Tracing.dll
+ System.dll
+ System.Drawing.dll
+ System.Drawing.Primitives.dll
+ System.Dynamic.Runtime.dll
+ System.Globalization.Calendars.dll
+ System.Globalization.dll
+ System.Globalization.Extensions.dll
+ System.IO.Compression.dll
+ System.IO.Compression.FileSystem.dll
+ System.IO.Compression.ZipFile.dll
+ System.IO.dll
+ System.IO.FileSystem.dll
+ System.IO.FileSystem.DriveInfo.dll
+ System.IO.FileSystem.Primitives.dll
+ System.IO.FileSystem.Watcher.dll
+ System.IO.IsolatedStorage.dll
+ System.IO.MemoryMappedFiles.dll
+ System.IO.Pipes.dll
+ System.IO.UnmanagedMemoryStream.dll
+ System.Linq.dll
+ System.Linq.Expressions.dll
+ System.Linq.Parallel.dll
+ System.Linq.Queryable.dll
+ System.Memory.dll
+ System.Net.dll
+ System.Net.Http.dll
+ System.Net.NameResolution.dll
+ System.Net.NetworkInformation.dll
+ System.Net.Ping.dll
+ System.Net.Primitives.dll
+ System.Net.Requests.dll
+ System.Net.Security.dll
+ System.Net.Sockets.dll
+ System.Net.WebHeaderCollection.dll
+ System.Net.WebSockets.Client.dll
+ System.Net.WebSockets.dll
+ System.Numerics.dll
+ System.Numerics.Vectors.dll
+ System.ObjectModel.dll
+ System.Reflection.DispatchProxy.dll
+ System.Reflection.dll
+ System.Reflection.Emit.dll
+ System.Reflection.Emit.ILGeneration.dll
+ System.Reflection.Emit.Lightweight.dll
+ System.Reflection.Extensions.dll
+ System.Reflection.Primitives.dll
+ System.Resources.Reader.dll
+ System.Resources.ResourceManager.dll
+ System.Resources.Writer.dll
+ System.Runtime.CompilerServices.VisualC.dll
+ System.Runtime.dll
+ System.Runtime.Extensions.dll
+ System.Runtime.Handles.dll
+ System.Runtime.InteropServices.dll
+ System.Runtime.InteropServices.RuntimeInformation.dll
+ System.Runtime.Numerics.dll
+ System.Runtime.Serialization.dll
+ System.Runtime.Serialization.Formatters.dll
+ System.Runtime.Serialization.Json.dll
+ System.Runtime.Serialization.Primitives.dll
+ System.Runtime.Serialization.Xml.dll
+ System.Security.Claims.dll
+ System.Security.Cryptography.Algorithms.dll
+ System.Security.Cryptography.Csp.dll
+ System.Security.Cryptography.Encoding.dll
+ System.Security.Cryptography.Primitives.dll
+ System.Security.Cryptography.X509Certificates.dll
+ System.Security.Principal.dll
+ System.Security.SecureString.dll
+ System.ServiceModel.Web.dll
+ System.Text.Encoding.dll
+ System.Text.Encoding.Extensions.dll
+ System.Text.RegularExpressions.dll
+ System.Threading.dll
+ System.Threading.Overlapped.dll
+ System.Threading.Tasks.dll
+ System.Threading.Tasks.Extensions.dll
+ System.Threading.Tasks.Parallel.dll
+ System.Threading.Thread.dll
+ System.Threading.ThreadPool.dll
+ System.Threading.Timer.dll
+ System.Transactions.dll
+ System.ValueTuple.dll
+ System.Web.dll
+ System.Windows.dll
+ System.Xml.dll
+ System.Xml.Linq.dll
+ System.Xml.ReaderWriter.dll
+ System.Xml.Serialization.dll
+ System.Xml.XDocument.dll
+ System.Xml.XmlDocument.dll
+ System.Xml.XmlSerializer.dll
+ System.Xml.XPath.dll
+ System.Xml.XPath.XDocument.dll
+<NUGET>/
+ google.protobuf/3.26.1/lib/netstandard2.0/Google.Protobuf.dll
+ jsonsubtypes/1.9.0/lib/netstandard2.0/JsonSubTypes.dll
+ microsoft.csharp/4.7.0/ref/netstandard2.0/Microsoft.CSharp.dll
+ newtonsoft.json/13.0.3/lib/netstandard2.0/Newtonsoft.Json.dll
+ nlog/5.0.1/lib/netstandard2.0/NLog.dll
+ portable.bouncycastle/1.8.5/lib/netstandard2.0/BouncyCastle.Crypto.dll
+ system.runtime.compilerservices.unsafe/4.5.2/ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll
+
+[analyzerReferences]
+<NUGET>/microsoft.codeanalysis.netanalyzers/7.0.3/analyzers/dotnet/cs/
+ Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+ Microsoft.CodeAnalysis.NetAnalyzers.dll
+
+[analyzerConfigFiles]
+.editorconfig
+obj/Debug/netstandard2.1/Yoti.Auth.GeneratedMSBuildEditorConfig.editorconfig
