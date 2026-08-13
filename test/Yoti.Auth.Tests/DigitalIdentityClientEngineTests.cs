@@ -118,6 +118,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(qrCodeId, result.Id);
             Assert.AreEqual(expiry, result.Expiry);
             Assert.AreEqual(policy, result.Policy);
+            Assert.IsTrue(_httpRequestMessage.RequestUri.AbsolutePath.EndsWith($"/v2/qr-codes/{qrCodeId}"));
         }
 
         [TestMethod]

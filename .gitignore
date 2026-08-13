@@ -43,3 +43,4 @@ src/tools/
 
 # Code Coverage Results
 src/TestResults/
+*.lscache
