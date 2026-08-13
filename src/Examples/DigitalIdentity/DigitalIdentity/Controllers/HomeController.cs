@@ -20,7 +20,7 @@ namespace DigitalIdentityExample.Controllers
             _clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
-       
+
         // GET: /generate-share
         [Route("generate-share")]
         public async Task<IActionResult> DigitalIdentity()
@@ -41,7 +41,7 @@ namespace DigitalIdentityExample.Controllers
                     .WithName("given_names")
                     .WithOptional(false)
                     .Build();
-                
+
                 var notification = new NotificationBuilder()
                     .WithUrl("https://example.com/webhook")
                     .WithMethod("POST")
@@ -58,7 +58,7 @@ namespace DigitalIdentityExample.Controllers
                     .WithNationality()
                     .WithGender()
                     .WithDocumentDetails()
-                    .WithDocumentImages()           
+                    .WithDocumentImages()
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
@@ -82,10 +82,10 @@ namespace DigitalIdentityExample.Controllers
                      exception: e,
                      message: e.Message);
 
-                TempData["Error"] = e.Message; 
+                TempData["Error"] = e.Message;
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error", "Success");
             }
         }
-    } 
+    }
 }

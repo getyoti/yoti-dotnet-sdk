@@ -36,7 +36,7 @@ namespace Yoti.Auth.Tests
             byte[] iv = new byte[12];
             byte[] secret = new byte[16];
             byte[] cipherText = new byte[32];
-            
+
             var exception = Assert.ThrowsException<Exception>(() =>
             {
                 CryptoEngine.DecryptAesGcm(cipherText, iv, secret);

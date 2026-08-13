@@ -258,7 +258,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         {
             WithIdDocumentTextExtractionCategoryAttempts(DocScanConstants.Generic, genericAttempts);
             return this;
-        }   
+        }
 
         /// <summary>
         /// Replaces the suppressed screens list with the provided collection, filtering out any null or whitespace entries.

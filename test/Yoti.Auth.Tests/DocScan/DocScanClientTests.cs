@@ -686,7 +686,7 @@ namespace Yoti.Auth.Tests.DocScan
 
             Assert.AreEqual(mediaId, result.IdentityProfile.Report["media"]["id"]);
         }
-        
+
         [TestMethod]
         public void ShouldParseAdvancedIdentityProfileResponse()
         {
@@ -709,7 +709,7 @@ namespace Yoti.Auth.Tests.DocScan
             DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
 
             GetSessionResult result = docScanClient.GetSession("some-session-id");
-            
+
             Assert.AreEqual("DONE", result.AdvancedIdentityProfile.Result);
             Assert.AreEqual("someStringHere", result.AdvancedIdentityProfile.SubjectId);
             Assert.AreEqual("MANDATORY_DOCUMENT_COULD_NOT_BE_PROVIDED", result.AdvancedIdentityProfile.FailureReason.ReasonCode);

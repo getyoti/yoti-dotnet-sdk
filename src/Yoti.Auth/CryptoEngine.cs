@@ -43,10 +43,10 @@ namespace Yoti.Auth
 
             var result = new byte[numOutputBytes];
             Array.Copy(outputBuffer, result, numOutputBytes);
-            
+
             return result;
         }
-       
+
         internal static byte[] DecryptRsa(byte[] cipherBytes, AsymmetricCipherKeyPair keypair)
         {
             // decrypt using rsa with private key and PKCS 1 v1.5 padding
@@ -133,14 +133,14 @@ namespace Yoti.Auth
 
             return Conversion.BytesToBase64(publicKey);
         }
-        
+
         public static byte[] DecryptAesGcm(byte[] cipherText, byte[] iv, byte[] secret)
         {
             try
             {
                 GcmBlockCipher cipher = new GcmBlockCipher(new Org.BouncyCastle.Crypto.Engines.AesEngine());
                 ParametersWithIV parameters = new ParametersWithIV(new KeyParameter(secret), iv);
-            
+
                 cipher.Init(false, parameters);
 
                 byte[] plainText = new byte[cipher.GetOutputSize(cipherText.Length)];
@@ -154,7 +154,7 @@ namespace Yoti.Auth
                 throw new Exception($"Failed to decrypt receipt key: {ex.Message}", ex);
             }
         }
-        
+
         public static byte[] UnwrapReceiptKey(byte[] wrappedReceiptKey, byte[] encryptedItemKey, byte[] itemKeyIv, AsymmetricCipherKeyPair key)
         {
             try
@@ -170,7 +170,7 @@ namespace Yoti.Auth
                 throw new Exception($"Failed to unwrap receipt key: {ex.Message}", ex);
             }
         }
-        
+
         public static byte[] DecryptReceiptContent(byte[] content, byte[] receiptContentKey)
         {
             try
@@ -185,7 +185,7 @@ namespace Yoti.Auth
 
                 return DecipherAes(receiptContentKey, decodedData.Iv.ToByteArray(), decodedData.CipherText.ToByteArray());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Failed to decrypt receipt content: {ex.Message}", ex);
             }

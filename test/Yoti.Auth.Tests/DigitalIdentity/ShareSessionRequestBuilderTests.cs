@@ -26,7 +26,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity
             .WithRadius(1500)
             .Build();
 
-        
+
         [TestMethod]
         public void ShouldBuildADynamicScenario()
         {
@@ -67,6 +67,6 @@ namespace Yoti.Auth.Tests.DigitalIdentity
 
             Assert.AreEqual(expectedJson, serializedScenario);
         }
-        
+
     }
 }

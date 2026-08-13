@@ -26,7 +26,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
             _sources = sources;
             return this;
         }
-      
+
         public RequestedWatchlistAdvancedCaCheckBuilder WithMatchingStrategy(RequestedCaMatchingStrategy matchingStrategy)
         {
             _matchingStrategy = matchingStrategy;

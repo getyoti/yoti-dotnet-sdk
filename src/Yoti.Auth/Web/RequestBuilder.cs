@@ -140,7 +140,7 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithContent(byte[] content)
         {
             Validation.IsNull(_multipartFormDataContent, nameof(_multipartFormDataContent));
-           
+
             _content = content;
             return this;
         }
@@ -158,7 +158,7 @@ namespace Yoti.Auth.Web
             Validation.NotNullOrWhiteSpace(multipartBoundaryName, nameof(multipartBoundaryName));
             Validation.IsNull(_content, nameof(_content));
 
-            _multipartFormDataContent = new MultipartFormDataContent(multipartBoundaryName); 
+            _multipartFormDataContent = new MultipartFormDataContent(multipartBoundaryName);
             return this;
         }
 
@@ -176,15 +176,15 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithMultipartBinaryContent(
             string name,
             byte[] payload,
-            string contentType, 
+            string contentType,
             string fileName)
         {
             Validation.NotNull(_multipartFormDataContent, nameof(_multipartFormDataContent));
             Validation.NotNullOrWhiteSpace(name, nameof(name));
             Validation.NotNull(payload, nameof(payload));
             Validation.NotNull(contentType, nameof(contentType));
-            Validation.NotNullOrWhiteSpace(fileName, nameof(fileName)); 
-            
+            Validation.NotNullOrWhiteSpace(fileName, nameof(fileName));
+
             var binaryContent = new ByteArrayContent(payload);
             binaryContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
             _multipartFormDataContent.Add(binaryContent, name, fileName);
@@ -221,7 +221,7 @@ namespace Yoti.Auth.Web
                 httpRequestMessage.Content = byteContent;
                 contentForHeaderCreation = byteContent.ReadAsByteArrayAsync().Result;
             }
-            else if(_multipartFormDataContent != null)
+            else if (_multipartFormDataContent != null)
             {
                 httpRequestMessage.Content = _multipartFormDataContent;
                 contentForHeaderCreation = _multipartFormDataContent.ReadAsByteArrayAsync().Result;

@@ -208,7 +208,7 @@ namespace Yoti.Auth.DocScan
                 .WithHttpMethod(HttpMethod.Get)
                 .WithBaseUri(ApiUri)
                 .WithEndpoint("/supported-documents")
-                .WithQueryParam("includeNonLatin", isStrictlyLatin ? "1": "0")
+                .WithQueryParam("includeNonLatin", isStrictlyLatin ? "1" : "0")
                 .WithQueryParam("sdkId", sdkId)
                 .Build();
 
@@ -255,7 +255,7 @@ namespace Yoti.Auth.DocScan
                     Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
                 }
 
-              
+
                 var responseObject = await response.Content.ReadAsStringAsync();
                 var deserialized = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<CreateFaceCaptureResourceResponse>(responseObject));
 

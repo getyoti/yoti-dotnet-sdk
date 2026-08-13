@@ -11,7 +11,7 @@ namespace Yoti.Auth.Tests.TestTools
         {
             return new ShareSessionRequest(CreateStandardPolicy(), "redirecturi");
         }
-       
+
         public static Policy CreateStandardPolicy()
         {
             return new PolicyBuilder()

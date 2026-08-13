@@ -102,14 +102,14 @@ namespace CoreExample.Controllers
 
                 DynamicPolicy dynamicPolicy = new DynamicPolicyBuilder()
                     .WithIdentityProfileRequirements(new
-                     {
-                         trust_framework = "UK_TFIDA",
-                         scheme = new
-                         {
-                             type = "DBS",
-                             objective = "BASIC"
-                         }
-                     })
+                    {
+                        trust_framework = "UK_TFIDA",
+                        scheme = new
+                        {
+                            type = "DBS",
+                            objective = "BASIC"
+                        }
+                    })
                     .Build();
 
                 var dynamicScenario = new DynamicScenarioBuilder()
