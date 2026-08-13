@@ -281,6 +281,77 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         }
 
         [TestMethod]
+        public void CheckPageResponseExtractionImageIdsParsedWithSingleId()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = new List<string> { "a1b2c3d4-0000-0000-0000-000000000001" }
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            CollectionAssert.AreEqual(new List<string> { "a1b2c3d4-0000-0000-0000-000000000001" }, response.ExtractionImageIds);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsParsedWithMultipleIds()
+        {
+            var expectedIds = new List<string>
+            {
+                "a1b2c3d4-0000-0000-0000-000000000001",
+                "a1b2c3d4-0000-0000-0000-000000000002"
+            };
+
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = expectedIds
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            CollectionAssert.AreEqual(expectedIds, response.ExtractionImageIds);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsDefaultsToEmptyListWhenEmptyArray()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = new List<string>()
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            Assert.IsNotNull(response.ExtractionImageIds);
+            Assert.AreEqual(0, response.ExtractionImageIds.Count);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsDefaultsToEmptyListWhenFieldAbsent()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse()
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            Assert.IsNotNull(response.ExtractionImageIds);
+            Assert.AreEqual(0, response.ExtractionImageIds.Count);
+        }
+
+        [TestMethod]
         public void CheckFaceCaptureResourceResponseIsParsed()
         {
             dynamic faceCaptureResourceResponse = new

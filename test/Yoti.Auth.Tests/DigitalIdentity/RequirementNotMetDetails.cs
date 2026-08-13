@@ -17,7 +17,7 @@ namespace Yoti.DigitalIdentity.Tests
                 ""document_country_iso_code"": ""USA"",
                 ""document_type"": ""PASSPORT""
             }";
-            
+
             var details = JsonConvert.DeserializeObject<RequirementNotMetDetails>(json);
 
             Assert.IsNotNull(details);
@@ -27,7 +27,7 @@ namespace Yoti.DigitalIdentity.Tests
             Assert.AreEqual("USA", details.DocumentCountryIsoCode);
             Assert.AreEqual("PASSPORT", details.DocumentType);
         }
-        
+
 
         [TestMethod]
         public void PropertyGettersReturnCorrectValues()
@@ -42,7 +42,7 @@ namespace Yoti.DigitalIdentity.Tests
             }";
 
             var details = JsonConvert.DeserializeObject<RequirementNotMetDetails>(json);
-            
+
             Assert.AreEqual("DOCUMENT_EXPIRED", details.FailureType);
             Assert.AreEqual("The document has expired.", details.Details);
             Assert.AreEqual("AUDIT123", details.AuditId);

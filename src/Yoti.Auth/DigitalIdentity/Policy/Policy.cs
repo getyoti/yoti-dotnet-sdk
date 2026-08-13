@@ -32,7 +32,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
 
         [JsonProperty(PropertyName = "advanced_identity_profile_requirements")]
         private readonly object _advancedIdentityProfileRequirements;
-        
+
         public Policy(
                  ICollection<WantedAttribute> wantedAttributes,
                  HashSet<int> wantedAuthTypes,
@@ -47,7 +47,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _isWantedRememberMeIdOptional = false;
             _identityProfileRequirements = identityProfileRequirements;
             _advancedIdentityProfileRequirements = advancedIdentityProfileRequirements;
-                
+
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
                 return _identityProfileRequirements;
             }
         }
-        
+
         /// <summary>
         /// AdvancedIdentityProfileRequirements requested in the policy
         /// </summary>

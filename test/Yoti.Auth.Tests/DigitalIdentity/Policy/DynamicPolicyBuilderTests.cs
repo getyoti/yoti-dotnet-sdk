@@ -7,7 +7,7 @@ using Yoti.Auth.Tests.TestData;
 
 namespace Yoti.Auth.Tests.DigitalIdentity.Policy
 {
-    
+
     [TestClass]
     public class DynamicPolicyBuilderTests
     {
@@ -327,12 +327,12 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
 
             Assert.AreEqual(identityProfileRequirements, result.IdentityProfileRequirements);
         }
-        
+
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfileRequirements()
         {
             var advancedIdentityProfileRequirements = IdentityProfiles.CreateAdvancedIdentityProfileRequirements();
-           
+
             Auth.DigitalIdentity.Policy.Policy result = new PolicyBuilder()
                     .WithAdvancedIdentityProfileRequirements(advancedIdentityProfileRequirements)
                     .Build();
@@ -341,5 +341,5 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Policy
         }
     }
 
-    
+
 }
