@@ -55,7 +55,7 @@
 
    
 
-    @if (Model.IdentityProfile != null && Model.IdentityProfile.FailureReason != null &&Model.IdentityProfile.FailureReason.ReasonCode != null)
+    @if (Model.IdentityProfile != null && Model.IdentityProfile.FailureReason != null && Model.IdentityProfile.FailureReason.ReasonCode != null && Model.IdentityProfile.FailureReason.RequirementsNotMetDetails != null && Model.IdentityProfile.FailureReason.RequirementsNotMetDetails.Count > 0)
     {
         <div class="row pt-4">
             <div class="col">

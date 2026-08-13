@@ -99,14 +99,14 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         }
 
         [TestMethod]
-        public void ShouldBuildWithouthCreateExpandedDocumentFields()
+        public void ShouldBuildWithoutCreateExpandedDocumentFields()
         {
             RequestedTextExtractionTask task =
               new RequestedTextExtractionTaskBuilder()
               .WithManualCheckFallback()
               .Build();
 
-            Assert.AreEqual(false, task.Config.CreateExpandedDocumentFields);
+            Assert.IsNull(task.Config.CreateExpandedDocumentFields);
         }
     }
 }
