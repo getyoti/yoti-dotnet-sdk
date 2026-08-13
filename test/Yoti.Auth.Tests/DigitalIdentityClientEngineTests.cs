@@ -52,7 +52,7 @@ namespace Yoti.Auth.Tests
 
             var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
-            Assert.ThrowsException<AggregateException>(() =>
+            Assert.ThrowsExactly<AggregateException>(() =>
             {
                 SharedReceiptResponse response = engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Result;
             });
@@ -77,6 +77,18 @@ namespace Yoti.Auth.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(qrCodeId, result.Id);
             Assert.AreEqual(qrCodeUri, result.Uri);
+            Assert.IsTrue(_httpRequestMessage.RequestUri.AbsolutePath.EndsWith($"/v2/sessions/{sessionId}/qr-codes"));
+        }
+
+        [TestMethod]
+        public async Task CreateQrCodeAsyncShouldThrowWhenSessionIdIsNullOrEmpty()
+        {
+            var engine = new DigitalIdentityClientEngine(new HttpClient());
+            QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                () => engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), null, qrRequest));
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                () => engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), "", qrRequest));
         }
 
         [TestMethod]
@@ -120,150 +132,150 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(status, result.Status);
             Assert.AreEqual(expiry, result.Expiry);
         }
+        
+        [TestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void CreateShareSessionNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"");
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void CreateShareSessionNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"");
-
-            var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
 
             ShareSessionRequest shareSessionRequest = TestTools.ShareSession.CreateStandardShareSessionRequest();
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), shareSessionRequest).Wait();
-            });
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
+			{
+				engine.CreateShareSessionAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiApiUrl), shareSessionRequest).Wait();
+			});
 
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
-        }
+			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
+		}
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void GetShareReceiptNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"}");
+		[TestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void GetShareReceiptNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"}");
 
-            var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             Uri apiUrl = new Uri("https://example.com/api");
             string receiptId = "some_receiptid";
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Wait();
-            });
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
+			{
+				engine.GetShareReceipt(SdkId, _keyPair, apiUrl, receiptId).Wait();
+			});
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<Exception>(aggregateException));
         }
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void CreateQrCodeAsyncNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"}");
+        [TestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void CreateQrCodeAsyncNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"}");
 
-            var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             QrRequest qrRequest = TestTools.CreateQr.CreateQrStandard();
             string sessionId = "test-session-id";
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest).Wait();
-            });
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
+			{
+				engine.CreateQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId, qrRequest).Wait();
+			});
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
         }
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void GetQrCodeAsyncNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"}");
+        [TestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void GetQrCodeAsyncNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"}");
 
-            var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             string qrCodeId = "test-qr-code-id";
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                engine.GetQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId).Wait();
-            });
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
+			{
+				engine.GetQrCodeAsync(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), qrCodeId).Wait();
+			});
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
         }
 
-        [DataTestMethod]
-        [DataRow(HttpStatusCode.BadRequest)]
-        [DataRow(HttpStatusCode.Unauthorized)]
-        [DataRow(HttpStatusCode.InternalServerError)]
-        [DataRow(HttpStatusCode.RequestTimeout)]
-        [DataRow(HttpStatusCode.NotFound)]
-        [DataRow(HttpStatusCode.Forbidden)]
-        public void GetSessionNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
-        {
-            Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
-                httpStatusCode,
-                "{\"status\":\"bad\"}");
+        [TestMethod]
+		[DataRow(HttpStatusCode.BadRequest)]
+		[DataRow(HttpStatusCode.Unauthorized)]
+		[DataRow(HttpStatusCode.InternalServerError)]
+		[DataRow(HttpStatusCode.RequestTimeout)]
+		[DataRow(HttpStatusCode.NotFound)]
+		[DataRow(HttpStatusCode.Forbidden)]
+		public void GetSessionNonSuccessStatusCodesShouldThrowException(HttpStatusCode httpStatusCode)
+		{
+			Mock<HttpMessageHandler> handlerMock = SetupMockMessageHandler(
+				httpStatusCode,
+				"{\"status\":\"bad\"}");
 
-            var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
+			var engine = new DigitalIdentityClientEngine(new HttpClient(handlerMock.Object));
             string sessionId = "test-session-id";
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                engine.GetSession(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId).Wait();
-            });
+			var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
+			{
+				engine.GetSession(SdkId, _keyPair, new Uri(Constants.Api.DefaultYotiShareApiUrl), sessionId).Wait();
+			});
 
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
-        }
+			Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DigitalIdentityException>(aggregateException));
+		}
 
-        private static Mock<HttpMessageHandler> SetupMockMessageHandler(HttpStatusCode httpStatusCode, string responseContent)
-        {
-            var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Loose);
-            handlerMock
-               .Protected()
-               .Setup<Task<HttpResponseMessage>>(
-                  "SendAsync",
-                  ItExpr.IsAny<HttpRequestMessage>(),
-                  ItExpr.IsAny<CancellationToken>()
-               )
-               .ReturnsAsync(new HttpResponseMessage()
-               {
-                   StatusCode = httpStatusCode,
-                   Content = new StringContent(responseContent)
-               })
-               .Callback<HttpRequestMessage, CancellationToken>((http, token) => _httpRequestMessage = http)
-               .Verifiable();
+		private static Mock<HttpMessageHandler> SetupMockMessageHandler(HttpStatusCode httpStatusCode, string responseContent)
+		{
+			var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Loose);
+			handlerMock
+			   .Protected()
+			   .Setup<Task<HttpResponseMessage>>(
+				  "SendAsync",
+				  ItExpr.IsAny<HttpRequestMessage>(),
+				  ItExpr.IsAny<CancellationToken>()
+			   )
+			   .ReturnsAsync(new HttpResponseMessage()
+			   {
+				   StatusCode = httpStatusCode,
+				   Content = new StringContent(responseContent)
+			   })
+			   .Callback<HttpRequestMessage, CancellationToken>((http, token) => _httpRequestMessage = http)
+			   .Verifiable();
 
-            return handlerMock;
-        }
+			return handlerMock;
+		}
 
         [TestMethod]
         public void ConstructorShouldAcceptHttpClient()
@@ -282,7 +294,7 @@ namespace Yoti.Auth.Tests
             var engine = new DigitalIdentityClientEngine(httpClient);
             Uri apiUrl = new Uri("https://example.com/api");
 
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(() =>
                 engine.GetShareReceipt(SdkId, _keyPair, apiUrl, ""));
         }
 

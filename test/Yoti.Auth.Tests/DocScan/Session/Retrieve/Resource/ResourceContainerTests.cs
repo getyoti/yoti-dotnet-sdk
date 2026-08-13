@@ -15,7 +15,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Resource
         {
             var resourceContainer = new ResourceContainer();
 
-            Assert.ThrowsException<ArgumentNullException>(() => resourceContainer.FilterForCheck(null));
+            Assert.ThrowsExactly<ArgumentNullException>(() => resourceContainer.FilterForCheck(null));
         }
 
         [TestMethod]

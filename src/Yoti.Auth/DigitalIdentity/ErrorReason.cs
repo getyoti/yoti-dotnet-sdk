@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using Yoti.DigitalIdentity;
 
 namespace Yoti.Auth.DigitalIdentity
 {

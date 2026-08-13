@@ -421,9 +421,9 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 }
             };
 
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck(string.Empty));
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("   "));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck(null));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck(string.Empty));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck("   "));
         }
 
         [TestMethod]
@@ -437,7 +437,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve
                 }
             };
 
-            Assert.ThrowsException<ArgumentException>(() => getSessionResult.GetResourcesForCheck("unknown-check-id"));
+            Assert.ThrowsExactly<ArgumentException>(() => getSessionResult.GetResourcesForCheck("unknown-check-id"));
         }
 
         [TestMethod]

@@ -24,7 +24,7 @@ namespace Yoti.Auth.Tests
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = null;
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new DigitalIdentityClient(sdkId, keystream);
             });
@@ -35,7 +35,7 @@ namespace Yoti.Auth.Tests
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = string.Empty;
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new DigitalIdentityClient(sdkId, keystream);
             });
@@ -45,7 +45,7 @@ namespace Yoti.Auth.Tests
         public void NoKeyStreamShouldThrowException()
         {
             StreamReader keystream = null;
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new DigitalIdentityClient(_someSdkId, keystream);
             });
@@ -55,7 +55,7 @@ namespace Yoti.Auth.Tests
         public void InvalidKeyStreamShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetInvalidFormatKeyStream();
-            Assert.ThrowsException<FormatException>(() =>
+            Assert.ThrowsExactly<FormatException>(() =>
             {
                 new DigitalIdentityClient(_someSdkId, keystream);
             });
@@ -66,7 +66,7 @@ namespace Yoti.Auth.Tests
         {
             DigitalIdentityClient client = CreateDigitalIdentityClient();
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.CreateShareSession(null);
             });
@@ -78,7 +78,7 @@ namespace Yoti.Auth.Tests
         public void EmptyReceiptShouldThrowException()
         {
             DigitalIdentityClient client = CreateDigitalIdentityClient();
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.GetShareReceipt("");
             });
@@ -87,7 +87,7 @@ namespace Yoti.Auth.Tests
             Assert.IsTrue(!status);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
         [DataRow(null)]
         public void ApiUriDefaultIsUsedForNullOrEmpty(string envVar)
@@ -118,6 +118,7 @@ namespace Yoti.Auth.Tests
             Uri expectedApiUri = new Uri("https://envapiuri.com");
             Assert.AreEqual(expectedApiUri, client.ApiUri);
         }
+
         private static DigitalIdentityClient CreateDigitalIdentityClient()
         {
             StreamReader privateStreamKey = KeyPair.GetValidKeyStream();

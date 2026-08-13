@@ -32,7 +32,7 @@ namespace DigitalIdentityExample.Controllers
                         "yotiKeyFilePath='{0}'",
                         yotiKeyFilePath));
 
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+                using StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
@@ -62,7 +62,7 @@ namespace DigitalIdentityExample.Controllers
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
                     .WithNotification(notification)
-                    .WithRedirectUri("https:/www.yoti.com").WithSubject(new
+                    .WithRedirectUri("https://www.yoti.com").WithSubject(new
                     {
                         subject_id = "some_subject_id_string"
                     }).Build();
