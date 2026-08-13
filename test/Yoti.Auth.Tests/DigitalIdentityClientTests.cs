@@ -118,6 +118,61 @@ namespace Yoti.Auth.Tests
             Uri expectedApiUri = new Uri("https://envapiuri.com");
             Assert.AreEqual(expectedApiUri, client.ApiUri);
         }
+        [TestMethod]
+        public void FromBearerToken_NullTokenShouldThrow()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                DigitalIdentityClient.FromBearerToken(null));
+        }
+
+        [TestMethod]
+        public void FromBearerToken_EmptyTokenShouldThrow()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                DigitalIdentityClient.FromBearerToken(string.Empty));
+        }
+
+        [TestMethod]
+        public void FromBearerToken_ValidTokenShouldCreateClient()
+        {
+            var client = DigitalIdentityClient.FromBearerToken("my-token");
+            Assert.IsNotNull(client);
+            Assert.AreEqual(_expectedDefaultUri, client.ApiUri);
+        }
+
+        [TestMethod]
+        public void FromBearerToken_WithHttpClient_NullTokenShouldThrow()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                DigitalIdentityClient.FromBearerToken(new HttpClient(), null));
+        }
+
+        [TestMethod]
+        public void FromBearerToken_WithHttpClient_ValidTokenShouldCreateClient()
+        {
+            var client = DigitalIdentityClient.FromBearerToken(new HttpClient(), "my-token");
+            Assert.IsNotNull(client);
+            Assert.AreEqual(_expectedDefaultUri, client.ApiUri);
+        }
+
+        [TestMethod]
+        public void FromBearerToken_GetShareReceiptShouldThrowInvalidOperation()
+        {
+            var client = DigitalIdentityClient.FromBearerToken("my-token");
+            var ex = Assert.ThrowsExactly<AggregateException>(() =>
+                client.GetShareReceipt("some-receipt-id"));
+
+            bool hasExpectedInner = false;
+            foreach (var inner in ex.InnerExceptions)
+            {
+                if (inner is InvalidOperationException ioe && ioe.Message.Contains("signed-request"))
+                {
+                    hasExpectedInner = true;
+                    break;
+                }
+            }
+            Assert.IsTrue(hasExpectedInner, "Expected InvalidOperationException about signed-request strategy.");
+        }
 
         private static DigitalIdentityClient CreateDigitalIdentityClient()
         {
