@@ -28,7 +28,7 @@ namespace Yoti.Auth.Tests.ShareUrl
         [TestMethod]
         public void ShouldFailWithNullHttpClient()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DynamicSharingService.CreateShareURL(null, _apiURL, _sdkID, _keyPair, _someDynamicScenario).Wait();
             });
@@ -40,7 +40,7 @@ namespace Yoti.Auth.Tests.ShareUrl
         [TestMethod]
         public void ShouldFailWithNullApiUrl()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DynamicSharingService.CreateShareURL(_httpClient, null, _sdkID, _keyPair, _someDynamicScenario).Wait();
             });
@@ -52,7 +52,7 @@ namespace Yoti.Auth.Tests.ShareUrl
         [TestMethod]
         public void ShouldFailWithNullSdkId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DynamicSharingService.CreateShareURL(_httpClient, _apiURL, null, _keyPair, _someDynamicScenario).Wait();
             });
@@ -64,7 +64,7 @@ namespace Yoti.Auth.Tests.ShareUrl
         [TestMethod]
         public void ShouldFailWithNullKeyPair()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DynamicSharingService.CreateShareURL(_httpClient, _apiURL, _sdkID, null, _someDynamicScenario).Wait();
             });
@@ -76,7 +76,7 @@ namespace Yoti.Auth.Tests.ShareUrl
         [TestMethod]
         public void ShouldFailWithNullDynamicScenario()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 DynamicSharingService.CreateShareURL(_httpClient, _apiURL, _sdkID, _keyPair, null).Wait();
             });

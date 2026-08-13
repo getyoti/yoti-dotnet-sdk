@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using Org.BouncyCastle.Crypto;
+using Yoti.Auth.Constants;
 
 namespace Yoti.Auth.Web
 {
@@ -16,6 +17,7 @@ namespace Yoti.Auth.Web
         private UriBuilder _baseUriBuilder;
         private string _endpoint;
         private AsymmetricCipherKeyPair _keyPair;
+        private IAuthStrategy _authStrategy;
         private HttpMethod _httpMethod;
         private byte[] _content;
         private MultipartFormDataContent _multipartFormDataContent;
@@ -92,6 +94,19 @@ namespace Yoti.Auth.Web
         }
 
         /// <summary>
+        /// Sets an <see cref="IAuthStrategy"/> for authentication. Mutually exclusive with
+        /// <see cref="WithKeyPair(AsymmetricCipherKeyPair)"/> — use one or the other.
+        /// </summary>
+        /// <param name="strategy"></param>
+        /// <returns><see cref="RequestBuilder"/></returns>
+        public RequestBuilder WithAuthStrategy(IAuthStrategy strategy)
+        {
+            Validation.NotNull(strategy, nameof(strategy));
+            _authStrategy = strategy;
+            return this;
+        }
+
+        /// <summary>
         /// Adds a custom header to the request. See <see cref="HeadersFactory.AddHeaders(
         /// HttpRequestMessage, AsymmetricCipherKeyPair, HttpMethod, string, byte[])"/>
         /// to see which headers are already added. To add headers pertaining to the
@@ -104,6 +119,25 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithHeader(string name, string value)
         {
             _customHeaders[name] = value;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the X-Yoti-Auth-Id header and the given query parameter using the auth strategy's SdkId, if present.
+        /// </summary>
+        /// <param name="authStrategy">The auth strategy to read the SdkId from.</param>
+        /// <param name="queryParamName">The name of the query parameter to set with the SdkId.</param>
+        /// <returns><see cref="RequestBuilder"/></returns>
+        public RequestBuilder WithSdkId(IAuthStrategy authStrategy, string queryParamName)
+        {
+            Validation.NotNull(authStrategy, nameof(authStrategy));
+
+            if (authStrategy.SdkId != null)
+            {
+                WithHeader(Api.AuthIdHeader, authStrategy.SdkId);
+                WithQueryParam(queryParamName, authStrategy.SdkId);
+            }
+
             return this;
         }
 
@@ -140,7 +174,7 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithContent(byte[] content)
         {
             Validation.IsNull(_multipartFormDataContent, nameof(_multipartFormDataContent));
-           
+
             _content = content;
             return this;
         }
@@ -158,7 +192,7 @@ namespace Yoti.Auth.Web
             Validation.NotNullOrWhiteSpace(multipartBoundaryName, nameof(multipartBoundaryName));
             Validation.IsNull(_content, nameof(_content));
 
-            _multipartFormDataContent = new MultipartFormDataContent(multipartBoundaryName); 
+            _multipartFormDataContent = new MultipartFormDataContent(multipartBoundaryName);
             return this;
         }
 
@@ -176,15 +210,15 @@ namespace Yoti.Auth.Web
         public RequestBuilder WithMultipartBinaryContent(
             string name,
             byte[] payload,
-            string contentType, 
+            string contentType,
             string fileName)
         {
             Validation.NotNull(_multipartFormDataContent, nameof(_multipartFormDataContent));
             Validation.NotNullOrWhiteSpace(name, nameof(name));
             Validation.NotNull(payload, nameof(payload));
             Validation.NotNull(contentType, nameof(contentType));
-            Validation.NotNullOrWhiteSpace(fileName, nameof(fileName)); 
-            
+            Validation.NotNullOrWhiteSpace(fileName, nameof(fileName));
+
             var binaryContent = new ByteArrayContent(payload);
             binaryContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
             _multipartFormDataContent.Add(binaryContent, name, fileName);
@@ -199,8 +233,13 @@ namespace Yoti.Auth.Web
         {
             Validation.NotNull(_baseUriBuilder, nameof(_baseUriBuilder));
             Validation.NotNullOrWhiteSpace(_endpoint, nameof(_endpoint));
-            Validation.NotNull(_keyPair, nameof(_keyPair));
             Validation.NotNull(_httpMethod, nameof(_httpMethod));
+
+            if (_authStrategy == null && _keyPair == null)
+                throw new InvalidOperationException("Either WithAuthStrategy or WithKeyPair must be called before Build().");
+
+            if (_authStrategy != null && _keyPair != null)
+                throw new InvalidOperationException("WithAuthStrategy and WithKeyPair are mutually exclusive.");
 
             if (!_baseUriBuilder.Path.EndsWith("/", StringComparison.Ordinal))
                 _baseUriBuilder.Path += "/";
@@ -221,18 +260,30 @@ namespace Yoti.Auth.Web
                 httpRequestMessage.Content = byteContent;
                 contentForHeaderCreation = byteContent.ReadAsByteArrayAsync().Result;
             }
-            else if(_multipartFormDataContent != null)
+            else if (_multipartFormDataContent != null)
             {
                 httpRequestMessage.Content = _multipartFormDataContent;
                 contentForHeaderCreation = _multipartFormDataContent.ReadAsByteArrayAsync().Result;
             }
 
-            httpRequestMessage = HeadersFactory.AddHeaders(
-                httpRequestMessage,
-                _keyPair,
-                _httpMethod,
-                endpointWithParameters,
-                contentForHeaderCreation);
+            if (_authStrategy != null)
+            {
+                httpRequestMessage = HeadersFactory.AddStrategyHeaders(
+                    httpRequestMessage,
+                    _authStrategy,
+                    _httpMethod,
+                    endpointWithParameters,
+                    contentForHeaderCreation);
+            }
+            else
+            {
+                httpRequestMessage = HeadersFactory.AddHeaders(
+                    httpRequestMessage,
+                    _keyPair,
+                    _httpMethod,
+                    endpointWithParameters,
+                    contentForHeaderCreation);
+            }
 
             AddCustomHeaders(httpRequestMessage);
             AddCustomContentHeaders(httpRequestMessage);
@@ -278,6 +329,17 @@ namespace Yoti.Auth.Web
                     endpointBuilder.Append($"{param.Key}={param.Value}&");
                 }
             }
+
+            if (_authStrategy != null)
+            {
+                var authParams = _authStrategy.CreateQueryParams();
+                foreach (var param in authParams)
+                {
+                    endpointBuilder.Append($"{param.Key}={param.Value}&");
+                }
+                return endpointBuilder.ToString().TrimEnd('&').TrimEnd('?');
+            }
+
             endpointBuilder.Append($"timestamp={GetTimestamp()}&nonce={CryptoEngine.GenerateNonce()}");
             return endpointBuilder.ToString();
         }

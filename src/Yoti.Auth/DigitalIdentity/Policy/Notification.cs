@@ -14,7 +14,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         public Dictionary<string, string> Headers { get; set; } // Optional
         [JsonProperty(PropertyName = "verifyTls")]
         public bool VerifyTls { get; set; } = true; // Optional, defaults to 'true' if URL is HTTPS
-        
+
         public Notification(string url, string method, Dictionary<string, string> headers, bool verifyTls)
         {
             Url = url;

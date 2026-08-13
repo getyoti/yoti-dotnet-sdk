@@ -16,7 +16,7 @@ namespace Yoti.Auth.Tests
                 Success = false
             };
 
-            Assert.ThrowsException<YotiProfileException>(() =>
+            Assert.ThrowsExactly<YotiProfileException>(() =>
             {
                 ActivityDetailsParser.HandleResponse(KeyPair.Get(), response.Content);
             });
@@ -31,7 +31,7 @@ namespace Yoti.Auth.Tests
                 Content = ""
             };
 
-            Assert.ThrowsException<YotiProfileException>(() =>
+            Assert.ThrowsExactly<YotiProfileException>(() =>
             {
                 ActivityDetailsParser.HandleResponse(KeyPair.Get(), response.Content);
             });

@@ -1,7 +1,12 @@
-﻿using System;
+using System;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.Protected;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.Constants;
 using Yoti.Auth.DocScan;
@@ -20,6 +25,7 @@ namespace Yoti.Auth.Tests.DocScan
         private const string _someMediaId = "someMediaId";
 
         private AsymmetricCipherKeyPair _keyPair;
+        private IAuthStrategy _authStrategy;
         private DocScanService _docScanService;
         private CreateFaceCaptureResourcePayload _createFaceCaptureResourcePayload;
         private string _someResourceId = "someResourceId";
@@ -29,12 +35,13 @@ namespace Yoti.Auth.Tests.DocScan
         public void Startup()
         {
             _keyPair = Tests.Common.KeyPair.Get();
+            _authStrategy = new SignedRequestAuthStrategy(_keyPair, _sdkId);
             _docScanService = new DocScanService(new HttpClient(), apiUri: null);
             _createFaceCaptureResourcePayload = new CreateFaceCaptureResourcePayload("someRequirementId");
             _uploadFaceCaptureImagePayload = new UploadFaceCaptureImagePayload(DocScanConstants.MimeTypePng, new byte[] { 0x00, 0x21, 0x60, 0x1F, 0xA1 });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
         [DataRow(null)]
         public void ApiUriDefaultIsUsedForNullOrEmpty(string envVar)
@@ -68,101 +75,67 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
-        public void CreateSessionShouldThrowExceptionForMissingSdkId()
+        public void CreateSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.CreateSession(null, _keyPair, new SessionSpecificationBuilder().Build());
+                await _docScanService.CreateSession(null, new SessionSpecificationBuilder().Build());
             }).Result;
 
-            Assert.IsTrue(exception.Message.Contains("sdkId"));
-        }
-
-        [TestMethod]
-        public void CreateSessionShouldThrowExceptionForMissingKeyPair()
-        {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
-            {
-                await _docScanService.CreateSession(_sdkId, null, new SessionSpecificationBuilder().Build());
-            }).Result;
-
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
+            Assert.IsTrue(exception.Message.Contains("authStrategy"));
         }
 
         [TestMethod]
         public void CreateSessionShouldThrowExceptionForMissingSessionSpec()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.CreateSession(_sdkId, _keyPair, null);
+                await _docScanService.CreateSession(_authStrategy, null);
             }).Result;
 
             Assert.IsTrue(exception.Message.Contains("sessionSpec"));
         }
 
         [TestMethod]
-        public void RetrieveSessionShouldThrowExceptionForMissingSdkId()
+        public void RetrieveSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.GetSession(null, _keyPair, _someSessionId);
+                await _docScanService.GetSession(null, _someSessionId);
             }).Result;
 
-            Assert.IsTrue(exception.Message.Contains("sdkId"));
-        }
-
-        [TestMethod]
-        public void RetrieveSessionShouldThrowExceptionForMissingKeyPair()
-        {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
-            {
-                await _docScanService.GetSession(_sdkId, null, _someSessionId);
-            }).Result;
-
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
+            Assert.IsTrue(exception.Message.Contains("authStrategy"));
         }
 
         [TestMethod]
         public void RetrieveSessionShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.GetSession(_sdkId, _keyPair, null);
+                await _docScanService.GetSession(_authStrategy, null);
             }).Result;
 
             Assert.IsTrue(exception.Message.Contains("sessionId"));
         }
 
         [TestMethod]
-        public void DeleteSessionShouldThrowExceptionForMissingSdkId()
+        public void DeleteSessionShouldThrowExceptionForNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
-                _docScanService.DeleteSession(null, _keyPair, _someSessionId).Wait();
-            });
-
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<InvalidOperationException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
-        }
-
-        [TestMethod]
-        public void DeleteSessionShouldThrowExceptionForMissingKeyPair()
-        {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                _docScanService.DeleteSession(_sdkId, null, _someSessionId).Wait();
+                _docScanService.DeleteSession(null, _someSessionId).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("authStrategy"));
         }
 
         [TestMethod]
         public void DeleteSessionShouldThrowExceptionForMissingSessionId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
-                _docScanService.DeleteSession(_sdkId, _keyPair, null).Wait();
+                _docScanService.DeleteSession(_authStrategy, null).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -170,33 +143,22 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
-        public void GetMediaContentShouldThrowExceptionForMissingSdkId()
+        public void GetMediaContentShouldThrowExceptionForNullAuthStrategy()
         {
-            var exception = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.GetMediaContent(null, _keyPair, _someSessionId, _someMediaId);
+                await _docScanService.GetMediaContent(null, _someSessionId, _someMediaId);
             }).Result;
 
-            Assert.IsTrue(exception.Message.Contains("sdkId"));
-        }
-
-        [TestMethod]
-        public void GetMediaContentShouldThrowExceptionForMissingKeyPair()
-        {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
-            {
-                await _docScanService.GetMediaContent(_sdkId, null, _someSessionId, _someMediaId);
-            }).Result;
-
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
+            Assert.IsTrue(exception.Message.Contains("authStrategy"));
         }
 
         [TestMethod]
         public void GetMediaContentShouldThrowExceptionForMissingSessionId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.GetMediaContent(_sdkId, _keyPair, null, _someMediaId);
+                await _docScanService.GetMediaContent(_authStrategy, null, _someMediaId);
             }).Result;
 
             Assert.IsTrue(exception.Message.Contains("sessionId"));
@@ -205,44 +167,32 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void GetMediaContentShouldThrowExceptionForMissingMediaId()
         {
-            var exception = Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.GetMediaContent(_sdkId, _keyPair, _someSessionId, null);
+                await _docScanService.GetMediaContent(_authStrategy, _someSessionId, null);
             }).Result;
 
             Assert.IsTrue(exception.Message.Contains("mediaId"));
         }
 
         [TestMethod]
-        public void DeleteMediaContentShouldThrowExceptionForMissingSdkId()
+        public void DeleteMediaContentShouldThrowExceptionForNullAuthStrategy()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(null, _keyPair, _someSessionId, _someMediaId).Wait();
-            });
-
-            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<InvalidOperationException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("sdkId"));
-        }
-
-        [TestMethod]
-        public void DeleteMediaContentShouldThrowExceptionForMissingKeyPair()
-        {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
-            {
-                _docScanService.DeleteMediaContent(_sdkId, null, _someSessionId, _someMediaId).Wait();
+                _docScanService.DeleteMediaContent(null, _someSessionId, _someMediaId).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
-            Assert.IsTrue(aggregateException.InnerException.Message.Contains("keyPair"));
+            Assert.IsTrue(aggregateException.InnerException.Message.Contains("authStrategy"));
         }
 
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingSessionId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(_sdkId, _keyPair, null, _someMediaId).Wait();
+                _docScanService.DeleteMediaContent(_authStrategy, null, _someMediaId).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -252,9 +202,9 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public void DeleteMediaContentShouldThrowExceptionForMissingMediaId()
         {
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
-                _docScanService.DeleteMediaContent(_sdkId, _keyPair, _someSessionId, null).Wait();
+                _docScanService.DeleteMediaContent(_authStrategy, _someSessionId, null).Wait();
             });
 
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
@@ -262,50 +212,15 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
-        public void GetSignedRequestBuilderShouldReturnNewInstance()
-        {
-            RequestBuilder requestBuilder1 = DocScanService.GetSignedRequestBuilder();
-            RequestBuilder requestBuilder2 = DocScanService.GetSignedRequestBuilder();
-
-            Assert.AreNotSame(requestBuilder1, requestBuilder2);
-        }
-
-        [DataTestMethod]
-        [DataRow(null)]
-        [DataRow("")]
-        [DataRow(" ")]
-        [DataRow("  ")]
-        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
-        {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
-            {
-                await _docScanService.CreateFaceCaptureResource(sdkId, _keyPair, _someSessionId, _createFaceCaptureResourcePayload);
-            });
-
-            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
-        }
-
-        [TestMethod]
-        public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenKeyPairIsNull()
-        {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
-            {
-                await _docScanService.CreateFaceCaptureResource(_sdkId, null, _someSessionId, _createFaceCaptureResourcePayload);
-            });
-
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
-        }
-
-        [DataTestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
-                await _docScanService.CreateFaceCaptureResource(_sdkId, _keyPair, sessionId, _createFaceCaptureResourcePayload);
+                await _docScanService.CreateFaceCaptureResource(_authStrategy, sessionId, _createFaceCaptureResourcePayload);
             });
 
             Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
@@ -314,65 +229,39 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public async Task CreateFaceCaptureResourceShouldThrowExceptionWhenCreateFaceCaptureResourcePayloadIsNull()
         {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.CreateFaceCaptureResource(_sdkId, _keyPair, _someSessionId, null);
+                await _docScanService.CreateFaceCaptureResource(_authStrategy, _someSessionId, null);
             });
 
             Assert.IsTrue(exception.Message.Contains("createFaceCaptureResourcePayload"));
         }
 
-        [DataTestMethod]
-        [DataRow(null)]
-        [DataRow("")]
-        [DataRow(" ")]
-        [DataRow("  ")]
-        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
-        {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
-            {
-                await _docScanService.UploadFaceCaptureImage(sdkId, _keyPair, _someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
-            });
-
-            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
-        }
-
         [TestMethod]
-        public async Task UploadFaceCaptureImageShouldThrowExceptionWhenKeyPairIsNull()
-        {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
-            {
-                await _docScanService.UploadFaceCaptureImage(_sdkId, null, _someSessionId, _someResourceId, _uploadFaceCaptureImagePayload);
-            });
-
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
-        }
-
-        [DataTestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task UploadFaceCaptureImageShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
-                await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, sessionId, _someResourceId, _uploadFaceCaptureImagePayload);
+                await _docScanService.UploadFaceCaptureImage(_authStrategy, sessionId, _someResourceId, _uploadFaceCaptureImagePayload);
             });
 
             Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task UploadFaceCaptureImageShouldThrowExceptionWhenResourceIdIsNullEmptyOrWhitespace(string resourceId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
-                await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, _someSessionId, resourceId, _uploadFaceCaptureImagePayload);
+                await _docScanService.UploadFaceCaptureImage(_authStrategy, _someSessionId, resourceId, _uploadFaceCaptureImagePayload);
             });
 
             Assert.IsTrue(exception.Message.Contains(nameof(resourceId)));
@@ -381,53 +270,56 @@ namespace Yoti.Auth.Tests.DocScan
         [TestMethod]
         public async Task UploadFaceCaptureImageShouldThrowExceptionWhenUploadFaceCaptureImagePayloadIsNull()
         {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<ArgumentNullException>(async () =>
             {
-                await _docScanService.UploadFaceCaptureImage(_sdkId, _keyPair, _someSessionId, _someResourceId, null);
+                await _docScanService.UploadFaceCaptureImage(_authStrategy, _someSessionId, _someResourceId, null);
             });
 
             Assert.IsTrue(exception.Message.Contains("uploadFaceCaptureImagePayload"));
         }
 
-        [DataTestMethod]
-        [DataRow(null)]
-        [DataRow("")]
-        [DataRow(" ")]
-        [DataRow("  ")]
-        public async Task GetSessionConfigurationShouldThrowExceptionWhenSdkIdIsNullEmptyOrWhitespace(string sdkId)
-        {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
-            {
-                await _docScanService.GetSessionConfiguration(sdkId, _keyPair, _someSessionId);
-            });
-
-            Assert.IsTrue(exception.Message.Contains(nameof(sdkId)));
-        }
-
         [TestMethod]
-        public async Task GetSessionConfigurationShouldThrowExceptionWhenKeyPairIsNull()
-        {
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
-            {
-                await _docScanService.GetSessionConfiguration(_sdkId, null, _someSessionId);
-            });
-
-            Assert.IsTrue(exception.Message.Contains("keyPair"));
-        }
-
-        [DataTestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow(" ")]
         [DataRow("  ")]
         public async Task GetSessionConfigurationShouldThrowExceptionWhenSessionIdIsNullEmptyOrWhitespace(string sessionId)
         {
-            var exception = await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () =>
             {
-                await _docScanService.GetSessionConfiguration(_sdkId, _keyPair, sessionId);
+                await _docScanService.GetSessionConfiguration(_authStrategy, sessionId);
             });
 
             Assert.IsTrue(exception.Message.Contains(nameof(sessionId)));
+        }
+
+        [TestMethod]
+        public async Task CreateSessionShouldIncludeAuthIdHeaderAndQueryParamWhenAuthStrategyHasSdkId()
+        {
+            HttpRequestMessage capturedRequest = null;
+            var handlerMock = new Mock<HttpMessageHandler>();
+            handlerMock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{}")
+                });
+
+            var bearerTokenAuthStrategy = new BearerTokenAuthStrategy("some-bearer-token", _sdkId);
+            var service = new DocScanService(new HttpClient(handlerMock.Object), apiUri: null);
+
+            await service.CreateSession(bearerTokenAuthStrategy, new SessionSpecificationBuilder().Build());
+
+            Assert.IsNotNull(capturedRequest);
+            Assert.IsTrue(capturedRequest.Headers.Contains(Api.AuthIdHeader));
+            Assert.AreEqual(_sdkId, capturedRequest.Headers.GetValues(Api.AuthIdHeader).First());
+            Assert.IsTrue(capturedRequest.RequestUri.Query.Contains($"sdkId={_sdkId}"));
         }
     }
 }

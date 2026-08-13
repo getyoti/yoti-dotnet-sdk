@@ -10,7 +10,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ShouldThrowExceptionForNullAttribute()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
 
                {
                    DocumentDetailsAttributeParser.ParseFrom(null);
@@ -20,18 +20,18 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ShouldThrowExceptionWhenAttributesAreMissing()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 DocumentDetailsAttributeParser.ParseFrom("PASSPORT GBR");
             });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
         [DataRow("''")]
         public void ShouldThrowExceptionForInvalidValues(string value)
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 DocumentDetailsAttributeParser.ParseFrom(value);
             });
@@ -115,7 +115,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual("UIDAI", result.IssuingAuthority);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("****")]
         [DataRow("~!@#$%^&*()-_=+[]{}|;':,./<>?")]
         [DataRow("\"\"")]
@@ -130,14 +130,14 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(documentNumber, result.DocumentNumber);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("PASSPORT  GBR 1234abc")]
         [DataRow("PASSPORT GBR  1234abc")]
         [DataRow("DRIVING_LICENCE GBR 1234abc  2016-05-01 DVLA")]
         [DataRow("DRIVING_LICENCE GBR 1234abc 2016-05-01  DVLA")]
         public void ShouldFailForMoreThanOneConsecutiveSpaces(string stringToParse)
         {
-            Assert.ThrowsException<FormatException>(() =>
+            Assert.ThrowsExactly<FormatException>(() =>
             {
                 DocumentDetails result = DocumentDetailsAttributeParser.ParseFrom(stringToParse);
             });
@@ -146,7 +146,7 @@ namespace Yoti.Auth.Tests
         [TestMethod]
         public void ShouldThrowExceptionForInvalidDate()
         {
-            Assert.ThrowsException<FormatException>(() =>
+            Assert.ThrowsExactly<FormatException>(() =>
             {
                 DocumentDetailsAttributeParser.ParseFrom("PASSPORT GBR 1234abc" + " X016-05-01");
             });

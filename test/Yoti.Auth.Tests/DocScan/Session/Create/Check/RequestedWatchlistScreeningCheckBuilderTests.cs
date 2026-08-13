@@ -6,7 +6,7 @@ using Yoti.Auth.DocScan.Session.Create.Check;
 
 namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
 {
-    [TestClass] 
+    [TestClass]
     public class RequestedWatchlistScreeningCheckBuilderTests
     {
         [TestMethod]
@@ -63,7 +63,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             string withCategory = null;
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 RequestedWatchlistScreeningCheck check =
                   new RequestedWatchlistScreeningCheckBuilder()
@@ -77,7 +77,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             string withCategory = "";
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 RequestedWatchlistScreeningCheck check =
                   new RequestedWatchlistScreeningCheckBuilder()
@@ -91,7 +91,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         {
             string withCategory = "     ";
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 RequestedWatchlistScreeningCheck check =
                   new RequestedWatchlistScreeningCheckBuilder()
