@@ -18,13 +18,13 @@ namespace Yoti.Auth.Tests.Share
                 Type = DataEntry.Types.Type.ThirdPartyAttribute
             };
 
-            Assert.ThrowsException<ExtraDataException>(() =>
+            Assert.ThrowsExactly<ExtraDataException>(() =>
             {
                 DataEntryConverter.ConvertDataEntry(dataEntry);
             });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(DataEntry.Types.Type.AgeVerificationSecret)]
         [DataRow(DataEntry.Types.Type.Invoice)]
         [DataRow(DataEntry.Types.Type.Location)]

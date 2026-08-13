@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yoti.Auth.ShareUrl.Extensions;
+using DigitalIdentityExtensions = Yoti.Auth.DigitalIdentity.Extensions;
 
 namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
 {
@@ -13,7 +14,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
         [TestMethod]
         public void ShouldFailForNullContent()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new TransactionalFlowExtensionBuilder<object>()
                 .WithContent(null)
@@ -39,6 +40,39 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
                 .Build();
 
             Assert.AreEqual(_dateTimeContent, extension.Content);
+        }
+
+        [TestMethod]
+        public void DigitalIdentityTransactionalFlowShouldFailForNullContent()
+        {
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
+            {
+                new DigitalIdentityExtensions.TransactionalFlowExtensionBuilder<object>()
+                    .WithContent(null)
+                    .Build();
+            });
+        }
+
+        [TestMethod]
+        public void DigitalIdentityTransactionalFlowShouldBuildWithContent()
+        {
+            var content = new object();
+            var extension = new DigitalIdentityExtensions.TransactionalFlowExtensionBuilder<object>()
+                .WithContent(content)
+                .Build();
+
+            Assert.AreEqual(content, extension.Content);
+        }
+
+        [TestMethod]
+        public void DigitalIdentityTransactionalFlowShouldBuildWithStringContent()
+        {
+            string content = "test-content";
+            var extension = new DigitalIdentityExtensions.TransactionalFlowExtensionBuilder<string>()
+                .WithContent(content)
+                .Build();
+
+            Assert.AreEqual(content, extension.Content);
         }
     }
 }

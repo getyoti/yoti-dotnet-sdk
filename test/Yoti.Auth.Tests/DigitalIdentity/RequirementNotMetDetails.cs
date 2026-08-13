@@ -1,7 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Yoti.Auth.DigitalIdentity;
 
-namespace Yoti.DigitalIdentity.Tests
+namespace Yoti.Auth.Tests.DigitalIdentity
 {
     [TestClass]
     public class RequirementNotMetDetailsTests

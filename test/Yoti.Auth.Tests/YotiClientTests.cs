@@ -26,7 +26,7 @@ namespace Yoti.Auth.Tests
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = null;
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new YotiClient(sdkId, keystream);
             });
@@ -37,7 +37,7 @@ namespace Yoti.Auth.Tests
         {
             StreamReader keystream = KeyPair.GetValidKeyStream();
             string sdkId = string.Empty;
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new YotiClient(sdkId, keystream);
             });
@@ -47,7 +47,7 @@ namespace Yoti.Auth.Tests
         public void NoKeyStreamShouldThrowException()
         {
             StreamReader keystream = null;
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new YotiClient(_someSdkId, keystream);
             });
@@ -57,7 +57,7 @@ namespace Yoti.Auth.Tests
         public void InvalidKeyStreamShouldThrowException()
         {
             StreamReader keystream = KeyPair.GetInvalidFormatKeyStream();
-            Assert.ThrowsException<FormatException>(() =>
+            Assert.ThrowsExactly<FormatException>(() =>
             {
                 new YotiClient(_someSdkId, keystream);
             });
@@ -68,7 +68,7 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.PerformAmlCheck(amlProfile: null);
             });
@@ -86,7 +86,7 @@ namespace Yoti.Auth.Tests
                            familyName: "Heath",
                            amlAddress: null);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -104,7 +104,7 @@ namespace Yoti.Auth.Tests
                 familyName: "Heath",
                 amlAddress: TestTools.Aml.CreateStandardAmlAddress());
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -122,7 +122,7 @@ namespace Yoti.Auth.Tests
                 familyName: null,
                 amlAddress: TestTools.Aml.CreateStandardAmlAddress());
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -143,7 +143,7 @@ namespace Yoti.Auth.Tests
                 familyName: "Heath",
                 amlAddress: amlAddress);
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.PerformAmlCheck(amlProfile: amlProfile);
             });
@@ -156,7 +156,7 @@ namespace Yoti.Auth.Tests
         {
             YotiClient client = CreateYotiClient();
 
-            var aggregateException = Assert.ThrowsException<AggregateException>(() =>
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 client.CreateShareUrl(null);
             });
@@ -164,7 +164,7 @@ namespace Yoti.Auth.Tests
             Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<ArgumentNullException>(aggregateException));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
         [DataRow(null)]
         public void ApiUriDefaultIsUsedForNullOrEmpty(string envVar)

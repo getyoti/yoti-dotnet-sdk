@@ -29,7 +29,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ShouldNotBuildWithoutKeyPair()
         {
-            var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
+            var exception = Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new RequestBuilder()
                     .WithBaseUri(_testBaseUri)
@@ -38,13 +38,13 @@ namespace Yoti.Auth.Tests.Web
                     .Build();
             });
 
-            Assert.IsTrue(argumentNullException.Message.Contains("_keyPair"));
+            Assert.IsTrue(exception.Message.Contains("_keyPair"));
         }
 
         [TestMethod]
         public void ShouldNotBuildWithoutBaseUri()
         {
-            var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
+            var argumentNullException = Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new RequestBuilder()
                     .WithKeyPair(KeyPair.Get())
@@ -59,7 +59,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ShouldNotBuildWithoutEndpoint()
         {
-            var invalidOperationException = Assert.ThrowsException<InvalidOperationException>(() =>
+            var invalidOperationException = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new RequestBuilder()
                     .WithBaseUri(_testBaseUri)
@@ -74,7 +74,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ShouldNotBuildWithoutHttpMethod()
         {
-            var argumentNullException = Assert.ThrowsException<ArgumentNullException>(() =>
+            var argumentNullException = Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new RequestBuilder()
                     .WithBaseUri(_testBaseUri)
@@ -120,7 +120,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ErrorThrownWhenContentHeaderIsAddedWithoutContent()
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 Request request = CreateRequestBuilder()
                 .WithContentHeader("key", "value")
