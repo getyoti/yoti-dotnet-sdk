@@ -52,6 +52,12 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "brand_id")]
         public string BrandId { get; }
 
+        [JsonProperty(PropertyName = "dark_mode", NullValueHandling = NullValueHandling.Ignore)]
+        public string DarkMode { get; }
+
+        [JsonProperty(PropertyName = "primary_colour_dark_mode", NullValueHandling = NullValueHandling.Ignore)]
+        public string PrimaryColourDarkMode { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -82,7 +88,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
                             bool? enforceHandoff,
                             List<string> suppressedScreens,
-                            string brandId)
+                            string brandId,
+                            string darkMode = null,
+                            string primaryColourDarkMode = null)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -97,6 +105,8 @@ namespace Yoti.Auth.DocScan.Session.Create
             EnforceHandoff = enforceHandoff;
             SuppressedScreens = suppressedScreens;
             BrandId = brandId;
+            DarkMode = darkMode;
+            PrimaryColourDarkMode = primaryColourDarkMode;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {

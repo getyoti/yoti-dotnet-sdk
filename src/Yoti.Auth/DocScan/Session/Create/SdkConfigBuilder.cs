@@ -20,6 +20,8 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _brandId;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
         private List<string> _suppressedScreens;
+        private string _darkMode;
+        private string _primaryColourDarkMode;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -314,6 +316,55 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the dark mode preference for the web/native client
+        /// </summary>
+        /// <param name="darkMode">The dark mode value (e.g. "ON", "OFF", "AUTO")</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithDarkMode(string darkMode)
+        {
+            _darkMode = darkMode;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the dark mode preference to "ON"
+        /// </summary>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithDarkModeOn()
+        {
+            return WithDarkMode("ON");
+        }
+
+        /// <summary>
+        /// Sets the dark mode preference to "OFF"
+        /// </summary>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithDarkModeOff()
+        {
+            return WithDarkMode("OFF");
+        }
+
+        /// <summary>
+        /// Sets the dark mode preference to "AUTO"
+        /// </summary>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithDarkModeAuto()
+        {
+            return WithDarkMode("AUTO");
+        }
+
+        /// <summary>
+        /// Sets the primary colour to be used by the web/native client in dark mode
+        /// </summary>
+        /// <param name="primaryColourDarkMode">the primary colour for dark mode, hexadecimal value e.g. #ff0000</param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithPrimaryColourDarkMode(string primaryColourDarkMode)
+        {
+            _primaryColourDarkMode = primaryColourDarkMode;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -333,7 +384,9 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _idDocumentTextDataExtractionAttemptsConfig,
                 _enforceHandoff,
                 _suppressedScreens,
-                _brandId);
+                _brandId,
+                _darkMode,
+                _primaryColourDarkMode);
         }
     }
 }
