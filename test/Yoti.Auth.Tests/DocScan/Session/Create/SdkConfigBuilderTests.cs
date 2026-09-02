@@ -485,5 +485,171 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpUsersChoiceOfCategory);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericAttempts);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithDarkModeOn()
+        {
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithDarkModeOn();
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.AreEqual("ON", sdkConfig.DarkMode);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithDarkModeOff()
+        {
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithDarkModeOff();
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.AreEqual("OFF", sdkConfig.DarkMode);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithDarkModeAuto()
+        {
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithDarkModeAuto();
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.AreEqual("AUTO", sdkConfig.DarkMode);
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithArbitraryDarkModeValue()
+        {
+            string arbitraryValue = "SOME_CUSTOM_VALUE";
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithDarkMode(arbitraryValue);
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.AreEqual(arbitraryValue, sdkConfig.DarkMode);
+        }
+
+        [TestMethod]
+        public void DarkModeShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            Assert.IsNull(sdkConfig.DarkMode);
+        }
+
+        [TestMethod]
+        public void DarkModeShouldBeOmittedFromJsonWhenNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsFalse(parsed.ContainsKey("dark_mode"));
+        }
+
+        [TestMethod]
+        public void DarkModeShouldSerializeToJsonWithCorrectKey()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithDarkModeOn()
+                .Build();
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsTrue(parsed.ContainsKey("dark_mode"));
+            Assert.AreEqual("ON", parsed["dark_mode"].ToString());
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithPrimaryColourDarkMode()
+        {
+            string colour = "#1a2b3c";
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithPrimaryColourDarkMode(colour);
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.AreEqual(colour, sdkConfig.PrimaryColourDarkMode);
+        }
+
+        [TestMethod]
+        public void PrimaryColourDarkModeShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            Assert.IsNull(sdkConfig.PrimaryColourDarkMode);
+        }
+
+        [TestMethod]
+        public void PrimaryColourDarkModeShouldBeOmittedFromJsonWhenNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsFalse(parsed.ContainsKey("primary_colour_dark_mode"));
+        }
+
+        [TestMethod]
+        public void PrimaryColourDarkModeShouldSerializeToJsonWithCorrectKey()
+        {
+            string colour = "#aabbcc";
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithPrimaryColourDarkMode(colour)
+                .Build();
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsTrue(parsed.ContainsKey("primary_colour_dark_mode"));
+            Assert.AreEqual(colour, parsed["primary_colour_dark_mode"].ToString());
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithBothDarkModeAndPrimaryColourDarkMode()
+        {
+            string colour = "#112233";
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithDarkModeAuto()
+                .WithPrimaryColourDarkMode(colour)
+                .Build();
+
+            Assert.AreEqual("AUTO", sdkConfig.DarkMode);
+            Assert.AreEqual(colour, sdkConfig.PrimaryColourDarkMode);
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsTrue(parsed.ContainsKey("dark_mode"));
+            Assert.AreEqual("AUTO", parsed["dark_mode"].ToString());
+            Assert.IsTrue(parsed.ContainsKey("primary_colour_dark_mode"));
+            Assert.AreEqual(colour, parsed["primary_colour_dark_mode"].ToString());
+        }
     }
 }
