@@ -52,6 +52,14 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "brand_id")]
         public string BrandId { get; }
 
+        /// <summary>
+        /// Controls where the biometric consent screen is shown during the IDV session.
+        /// Accepted values are defined in <see cref="BiometricConsentFlow"/>.
+        /// When not set, the backend applies its default of <see cref="BiometricConsentFlow.JustInTime"/>.
+        /// </summary>
+        [JsonProperty(PropertyName = "biometric_consent_flow", NullValueHandling = NullValueHandling.Ignore)]
+        public string BiometricConsentFlow { get; }
+
         public SdkConfig(string allowedCaptureMethods,
                             string primaryColour,
                             string secondaryColour,
@@ -83,6 +91,28 @@ namespace Yoti.Auth.DocScan.Session.Create
                             bool? enforceHandoff,
                             List<string> suppressedScreens,
                             string brandId)
+            : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
+                   presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff, suppressedScreens, brandId,
+                   biometricConsentFlow: null)
+        {
+        }
+
+        public SdkConfig(string allowedCaptureMethods,
+                            string primaryColour,
+                            string secondaryColour,
+                            string fontColour,
+                            string locale,
+                            string presetIssuingCountry,
+                            string successUrl,
+                            string errorUrl,
+                            string privacyPolicyUrl,
+                            bool? allowHandoff,
+                            Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig,
+                            bool? enforceHandoff,
+                            List<string> suppressedScreens,
+                            string brandId,
+                            string biometricConsentFlow)
         {
             AllowedCaptureMethods = allowedCaptureMethods;
             PrimaryColour = primaryColour;
@@ -97,6 +127,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             EnforceHandoff = enforceHandoff;
             SuppressedScreens = suppressedScreens;
             BrandId = brandId;
+            BiometricConsentFlow = biometricConsentFlow;
 
             if (idDocumentTextDataExtractionRetriesConfig != null)
             {

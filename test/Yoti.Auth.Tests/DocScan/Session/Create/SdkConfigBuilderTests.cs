@@ -485,5 +485,69 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpUsersChoiceOfCategory);
             CollectionAssert.Contains(sdkConfig.AttemptsConfiguration.IdDocumentTextDataExtraction, kvpGenericAttempts);
         }
+
+        [TestMethod]
+        public void ShouldBuildWithBiometricConsentFlowEarly()
+        {
+            SdkConfigBuilder builder = new SdkConfigBuilder();
+            SdkConfigBuilder returned = builder.WithBiometricConsentFlow(BiometricConsentFlow.Early);
+            SdkConfig sdkConfig = returned.Build();
+
+            Assert.AreSame(builder, returned);
+            Assert.AreEqual(BiometricConsentFlow.Early, sdkConfig.BiometricConsentFlow);
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            StringAssert.Contains(json, "\"biometric_consent_flow\":\"EARLY\"");
+        }
+
+        [TestMethod]
+        public void ShouldBuildWithBiometricConsentFlowJustInTime()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .WithBiometricConsentFlow(BiometricConsentFlow.JustInTime)
+                .Build();
+
+            Assert.AreEqual(BiometricConsentFlow.JustInTime, sdkConfig.BiometricConsentFlow);
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            StringAssert.Contains(json, "\"biometric_consent_flow\":\"JUST_IN_TIME\"");
+        }
+
+        [TestMethod]
+        public void BiometricConsentFlowShouldBeNullIfNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            Assert.IsNull(sdkConfig.BiometricConsentFlow);
+        }
+
+        [TestMethod]
+        public void BiometricConsentFlowShouldBeOmittedFromJsonWhenNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            string json = JsonConvert.SerializeObject(
+                sdkConfig,
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            JObject parsed = JObject.Parse(json);
+
+            Assert.IsFalse(parsed.ContainsKey("biometric_consent_flow"));
+        }
+
+        [TestMethod]
+        public void BiometricConsentFlowConstantsShouldHaveExpectedValues()
+        {
+            Assert.AreEqual("EARLY", BiometricConsentFlow.Early);
+            Assert.AreEqual("JUST_IN_TIME", BiometricConsentFlow.JustInTime);
+        }
     }
 }

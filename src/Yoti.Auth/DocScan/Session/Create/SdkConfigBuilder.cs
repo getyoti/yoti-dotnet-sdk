@@ -20,6 +20,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _brandId;
         private Dictionary<string, int> _idDocumentTextDataExtractionAttemptsConfig;
         private List<string> _suppressedScreens;
+        private string _biometricConsentFlow;
 
         /// <summary>
         /// Sets the allowed capture method to "CAMERA"
@@ -314,6 +315,26 @@ namespace Yoti.Auth.DocScan.Session.Create
         }
 
         /// <summary>
+        /// Sets the biometric consent flow, controlling where the biometric consent screen is shown.
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Accepted values are defined as constants in <see cref="BiometricConsentFlow"/>:
+        ///         <see cref="BiometricConsentFlow.Early"/> and <see cref="BiometricConsentFlow.JustInTime"/>.
+        ///     </para>
+        ///     <para>
+        ///         When not set, the backend applies its default of <c>JUST_IN_TIME</c>.
+        ///     </para>
+        /// </remarks>
+        /// <param name="biometricConsentFlow">The biometric consent flow value; use constants from <see cref="BiometricConsentFlow"/></param>
+        /// <returns>The <see cref="SdkConfigBuilder"/></returns>
+        public SdkConfigBuilder WithBiometricConsentFlow(string biometricConsentFlow)
+        {
+            _biometricConsentFlow = biometricConsentFlow;
+            return this;
+        }
+
+        /// <summary>
         /// Builds the <see cref="SdkConfig"/> based on values supplied to the builder
         /// </summary>
         /// <returns>The built <see cref="SdkConfig"/></returns>
@@ -333,7 +354,8 @@ namespace Yoti.Auth.DocScan.Session.Create
                 _idDocumentTextDataExtractionAttemptsConfig,
                 _enforceHandoff,
                 _suppressedScreens,
-                _brandId);
+                _brandId,
+                _biometricConsentFlow);
         }
     }
 }
