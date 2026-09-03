@@ -30,5 +30,11 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Configuration
         /// </summary>
         [JsonProperty(PropertyName = "capture")]
         public CaptureResponse Capture { get; private set; }
+
+        /// <summary>
+        /// The SDK configuration for the session, including settings such as biometric consent flow.
+        /// </summary>
+        [JsonProperty(PropertyName = "sdk_config")]
+        public SdkConfigResponse SdkConfig { get; private set; }
     }
 }
