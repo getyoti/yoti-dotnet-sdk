@@ -360,6 +360,40 @@
             </div>
         </div>
 
+        <div class="row pt-4">
+            <div class="col">
+                <h2>Resources For Check</h2>
+                <table class="table table-striped table-light">
+                    <thead>
+                        <tr>
+                            <th>Check Id</th>
+                            <th>Id Documents</th>
+                            <th>Supplementary Documents</th>
+                            <th>Liveness Captures</th>
+                            <th>Face Captures</th>
+                            <th>Share Codes</th>
+                            <th>Applicant Profiles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var check in Model.Checks)
+                        {
+                            var resourcesForCheck = Model.GetResourcesForCheck(check.Id);
+                            <tr>
+                                <td>@check.Id</td>
+                                <td>@resourcesForCheck.IdDocuments.Count</td>
+                                <td>@resourcesForCheck.SupplementaryDocuments.Count</td>
+                                <td>@resourcesForCheck.LivenessCapture.Count</td>
+                                <td>@resourcesForCheck.FaceCapture.Count</td>
+                                <td>@resourcesForCheck.ShareCodes.Count</td>
+                                <td>@resourcesForCheck.ApplicantProfiles.Count</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         if (Model.Resources.IdDocuments != null && Model.Resources.IdDocuments.Count > 0)
         {
             <div class="row pt-4">
