@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
@@ -20,10 +19,10 @@ namespace DigitalIdentityExample.Controllers
             _clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
-       
+
         // GET: /generate-share
         [Route("generate-share")]
-        public async Task<IActionResult> DigitalIdentity()
+        public IActionResult DigitalIdentity()
         {
             try
             {
@@ -33,7 +32,7 @@ namespace DigitalIdentityExample.Controllers
                         "yotiKeyFilePath='{0}'",
                         yotiKeyFilePath));
 
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+                using StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
@@ -41,13 +40,13 @@ namespace DigitalIdentityExample.Controllers
                     .WithName("given_names")
                     .WithOptional(false)
                     .Build();
-                
+
                 var notification = new NotificationBuilder()
                     .WithUrl("https://example.com/webhook")
                     .WithMethod("POST")
                     .WithVerifyTls(true)
                     .Build();
-                
+
                 var policy = new PolicyBuilder()
                     .WithWantedAttribute(givenNamesWantedAttribute)
                     .WithFullName()
@@ -58,12 +57,12 @@ namespace DigitalIdentityExample.Controllers
                     .WithNationality()
                     .WithGender()
                     .WithDocumentDetails()
-                    .WithDocumentImages()           
+                    .WithDocumentImages()
                     .Build();
 
                 var sessionReq = new ShareSessionRequestBuilder().WithPolicy(policy)
                     .WithNotification(notification)
-                    .WithRedirectUri("https:/www.yoti.com").WithSubject(new
+                    .WithRedirectUri("https://www.yoti.com").WithSubject(new
                     {
                         subject_id = "some_subject_id_string"
                     }).Build();
@@ -82,10 +81,10 @@ namespace DigitalIdentityExample.Controllers
                      exception: e,
                      message: e.Message);
 
-                TempData["Error"] = e.Message; 
+                TempData["Error"] = e.Message;
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error", "Success");
             }
         }
-    } 
+    }
 }

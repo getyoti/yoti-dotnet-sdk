@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Yoti.DigitalIdentity
+namespace Yoti.Auth.DigitalIdentity
 {
     public class RequirementNotMetDetails
     {

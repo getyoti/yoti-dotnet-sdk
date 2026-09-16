@@ -8,5 +8,8 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
     {
         [JsonProperty(PropertyName = "image")]
         public StaticLivenessImageResponse image { get; internal set; }
+
+        [JsonProperty(PropertyName = "capture_type")]
+        public string CaptureType { get; internal set; }
     }
 }

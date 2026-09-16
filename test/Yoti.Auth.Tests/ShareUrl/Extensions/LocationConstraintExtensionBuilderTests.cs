@@ -13,13 +13,12 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         private const double _someRadius = 3d;
         private const double _someUncertainty = 4d;
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(-91)]
         [DataRow(91)]
-        [TestMethod]
         public void ShouldFailForLatitudesOutsideOfRange(double latitude)
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithLatitude(latitude)
@@ -27,13 +26,12 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
             });
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(-181)]
         [DataRow(181)]
-        [TestMethod]
         public void ShouldFailForLongitudesOutsideOfRange(double longitude)
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithLongitude(longitude)
@@ -44,7 +42,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForRadiusLessThanZero()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithRadius(-1)
@@ -55,7 +53,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForUncertaintyLessThanZero()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() =>
             {
                 new LocationConstraintExtensionBuilder()
                 .WithMaxUncertainty(-1)

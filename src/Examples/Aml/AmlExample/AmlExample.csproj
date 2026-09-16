@@ -12,7 +12,10 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="2.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <!-- CVE fixes: GHSA-ghhp-997w-qr28 (Critical), GHSA-cmhx-cq75-c4mj (High) -->
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
   
   <ItemGroup>

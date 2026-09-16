@@ -14,6 +14,22 @@ namespace Yoti.Auth.Web
             return PutHeaders(httpRequestMessage, authDigest, SDKVersion);
         }
 
+        internal static HttpRequestMessage AddStrategyHeaders(HttpRequestMessage httpRequestMessage, IAuthStrategy authStrategy, HttpMethod httpMethod, string endpoint, byte[] httpContent)
+        {
+            string SDKVersion = typeof(YotiClientEngine).GetTypeInfo().Assembly.GetName().Version.ToString();
+
+            var authHeaders = authStrategy.CreateAuthHeaders(httpMethod, endpoint, httpContent);
+            foreach (var header in authHeaders)
+            {
+                httpRequestMessage.Headers.TryAddWithoutValidation(header.Key, header.Value);
+            }
+
+            httpRequestMessage.Headers.Add(Constants.Api.YotiSdkHeader, Constants.Api.SdkIdentifier);
+            httpRequestMessage.Headers.Add(Constants.Api.YotiSdkVersionHeader, $"{Constants.Api.SdkIdentifier}-{SDKVersion}");
+
+            return httpRequestMessage;
+        }
+
         internal static HttpRequestMessage PutHeaders(HttpRequestMessage httpRequestMessage, string authDigest, string SDKVersion)
         {
             httpRequestMessage.Headers.Add(Constants.Api.DigestHeader, authDigest);

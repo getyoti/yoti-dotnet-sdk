@@ -45,7 +45,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         [TestMethod]
         public void ShouldNotBuildWithOutManualCheckBeingSet()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new RequestedFaceMatchCheckBuilder().Build();
             });

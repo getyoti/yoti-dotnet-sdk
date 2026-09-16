@@ -16,7 +16,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
         [TestMethod]
         public void ShouldFailForNullDefinition()
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new ThirdPartyAttributeExtensionBuilder()
                 .WithDefinition(null)
@@ -26,12 +26,12 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
             Assert.IsTrue(exception.Message.Contains("definition"));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         public void ShouldFailForInvalidDefinitions(string definition)
         {
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new ThirdPartyAttributeExtensionBuilder()
                 .WithDefinition(definition)
@@ -60,7 +60,7 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
             Assert.AreEqual(_someDefinition, definitions[0].Name);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("2006-01-02T22:04:05Z", "2006-01-02T22:04:05.000Z")]
         [DataRow("2006-01-02T22:04:05.1Z", "2006-01-02T22:04:05.100Z")]
         [DataRow("2006-01-02T22:04:05.12Z", "2006-01-02T22:04:05.120Z")]
@@ -70,7 +70,6 @@ namespace Yoti.Auth.Tests.DigitalIdentity.Extensions
         [DataRow("2006-01-02T22:04:05.123456Z", "2006-01-02T22:04:05.123Z")]
         [DataRow("2002-10-02T10:00:00.1-05:00", "2002-10-02T15:00:00.100Z")]
         [DataRow("2002-10-02T10:00:00.12345+11:00", "2002-10-01T23:00:00.123Z")]
-        [TestMethod]
         public void ShouldBuildThirdPartyAttributeExtensionWithExpiryDates(string expiryDateInputString, string expectedExpiryDate)
         {
             bool parseSuccess = DateTime.TryParse(

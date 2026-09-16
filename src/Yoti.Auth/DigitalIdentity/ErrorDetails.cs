@@ -13,5 +13,5 @@ namespace Yoti.Auth.DigitalIdentity
             return ErrorReason;
         }
     }
-    
+
 }

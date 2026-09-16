@@ -11,4 +11,4 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
         [JsonProperty(PropertyName = "liveness_type")]
         public string LivenessType { get; internal set; }
     }
-}   
+}

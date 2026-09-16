@@ -2,13 +2,13 @@
 
 namespace Yoti.Auth.DocScan.Session.Create.Check
 {
-	public class RequestedWatchlistAdvancedCaCheckBuilderYotiAccount : RequestedWatchlistAdvancedCaCheckBuilder
-	{
-		public override RequestedWatchlistAdvancedCaCheck Build()
-		{
-			var config = new RequestedWatchlistAdvancedCaConfigYotiAccount(_removeDeceased, _shareUrl, _sources, _matchingStrategy);
+    public class RequestedWatchlistAdvancedCaCheckBuilderYotiAccount : RequestedWatchlistAdvancedCaCheckBuilder
+    {
+        public override RequestedWatchlistAdvancedCaCheck Build()
+        {
+            var config = new RequestedWatchlistAdvancedCaConfigYotiAccount(_removeDeceased, _shareUrl, _sources, _matchingStrategy);
 
-			return new RequestedWatchlistAdvancedCaCheck(config);
-		}
-	}
+            return new RequestedWatchlistAdvancedCaCheck(config);
+        }
+    }
 }

@@ -21,7 +21,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             _optional = optional;
             return this;
         }
-        
+
         public WantedAttributeBuilder WithDerivation(string derivation)
         {
             _derivation = derivation;

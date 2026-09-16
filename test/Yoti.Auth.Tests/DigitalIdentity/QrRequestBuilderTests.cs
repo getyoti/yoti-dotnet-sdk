@@ -21,10 +21,10 @@ namespace Yoti.Auth.Tests.DigitalIdentity
                 .WithTransport(_someTransportString)
                .Build();
 
-            
+
             Assert.AreEqual(_someDisplayMode, result.DisplayMode);
             Assert.AreEqual(_someTransportString, result.Transport);
         }
-        
+
     }
 }

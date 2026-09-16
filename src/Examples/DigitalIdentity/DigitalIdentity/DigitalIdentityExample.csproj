@@ -25,6 +25,10 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.16.1" />
+    <!-- CVE fix: GHSA-cmhx-cq75-c4mj (High) - System.Text.RegularExpressions -->
+    <!-- Note: System.Text.Encodings.Web pin below is a no-op on net6.0 SDK.Web; shared framework provides 6.0.x (GHSA-ghhp-997w-qr28 already mitigated by the framework) -->
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>

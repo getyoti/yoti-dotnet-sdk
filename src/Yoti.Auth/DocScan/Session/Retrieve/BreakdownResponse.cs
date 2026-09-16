@@ -16,5 +16,8 @@ namespace Yoti.Auth.DocScan.Session.Retrieve
 
         [JsonProperty(PropertyName = "details")]
         public List<DetailsResponse> Details { get; private set; }
+
+        [JsonProperty(PropertyName = "process")]
+        public string Process { get; private set; }
     }
 }

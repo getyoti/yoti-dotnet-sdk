@@ -20,5 +20,5 @@ namespace Yoti.Auth.DigitalIdentity
 
     }
 
-    
+
 }

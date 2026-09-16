@@ -12,7 +12,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.Task
     [TestClass]
     public class TaskResponseTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("ID_DOCUMENT_TEXT_DATA_CHECK", typeof(GeneratedTextDataCheckResponse))]
         [DataRow("OTHER", typeof(GeneratedCheckResponse))]
         [DataRow("", typeof(GeneratedCheckResponse))]

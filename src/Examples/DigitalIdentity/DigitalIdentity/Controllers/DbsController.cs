@@ -32,15 +32,10 @@ namespace DigitalIdentityExample.Controllers
                         "yotiKeyFilePath='{0}'",
                         yotiKeyFilePath));
 
-                StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
+                using StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
 
-                var givenNamesWantedAttribute = new WantedAttributeBuilder()
-                    .WithName("given_names")
-                    .WithOptional(false)
-                    .Build();
-                
                 var notification = new NotificationBuilder()
                     .WithUrl("https://example.com/webhook")
                     .WithMethod("POST")
@@ -62,7 +57,7 @@ namespace DigitalIdentityExample.Controllers
                 var sessionReq = new ShareSessionRequestBuilder()
                     .WithPolicy(policy)
                     .WithNotification(notification)
-                    .WithRedirectUri("https:/www.yoti.com")
+                    .WithRedirectUri("https://www.yoti.com")
                     .WithSubject(new
                     {
                         subject_id = "some_subject_id_string"

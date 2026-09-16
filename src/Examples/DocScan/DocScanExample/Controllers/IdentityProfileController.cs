@@ -13,7 +13,7 @@ using Yoti.Auth.DocScan.Session.Create.Check;
 using Yoti.Auth.DocScan.Session.Create.Filter;
 using Yoti.Auth.DocScan.Session.Create.Objectives;
 using Yoti.Auth.DocScan.Session.Create.Task;
- 
+
 namespace DocScanExample.Controllers
 {
     public class IdentityProfileController : Controller
@@ -38,12 +38,12 @@ namespace DocScanExample.Controllers
             var structuredPostalAddress = new StructuredPostalAddressBuilder()
                 .WithAddressFormat(1)
                 .WithBuildingNumber("74")
-                .WithAddressLine1("74 AddressLine1")
+                .WithAddressLine1("AddressLine1")
                 .WithTownCity("CityName")
                 .WithPostalCode("E143RN")
                 .WithCountryIso("GBR")
                 .WithCountry("United Kingdom")
-                .WithFormattedAddress("74 AddressLine1\nCityName\nE143RN\nGBR")
+                .WithFormattedAddress("74\nAddressLine1\nCityName\nE143RN\nGBR")
                 .Build();
 
             // Build Applicant Profile
@@ -98,7 +98,7 @@ namespace DocScanExample.Controllers
 
             CreateSessionResult createSessionResult = _client.CreateSession(sessionSpec);
             string sessionId = createSessionResult.SessionId;
-           
+
             string path = $"web/index.html?sessionID={sessionId}&sessionToken={createSessionResult.ClientSessionToken}";
             Uri uri = new Uri(_apiUrl, path);
 

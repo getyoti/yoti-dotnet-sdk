@@ -27,13 +27,13 @@ namespace Yoti.Auth.DigitalIdentity
         /// <returns><see cref="QrRequestBuilder"/> with a Display Mode added</returns>
         public QrRequestBuilder WithDisplayMode(string displayMode)
         {
-            _displayMode = displayMode ;
+            _displayMode = displayMode;
             return this;
         }
 
         public QrRequest Build()
         {
-            return new QrRequest(_transport,_displayMode);
+            return new QrRequest(_transport, _displayMode);
         }
     }
 }

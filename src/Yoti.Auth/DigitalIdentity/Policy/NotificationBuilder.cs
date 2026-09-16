@@ -8,7 +8,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
         private string _method;
         private Dictionary<string, string> _headers;
         private bool _verifyTls;
-        
+
         /// <summary>
         /// Set the URL for the notification, required if 'notification' is defined, required
         /// </summary>
@@ -19,7 +19,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _url = url;
             return this;
         }
-        
+
         /// <summary>
         /// Set the method for the notification, defaults to 'POST', optional
         /// </summary>
@@ -30,7 +30,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _method = method;
             return this;
         }
-        
+
         /// <summary>
         /// Set the headers for the notification, optional
         /// </summary>
@@ -41,7 +41,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _headers = headers;
             return this;
         }
-        
+
         /// <summary>
         /// Set to false to disable TLS verification, defaults to 'true' if URL is HTTPS, optional
         /// </summary>
@@ -52,7 +52,7 @@ namespace Yoti.Auth.DigitalIdentity.Policy
             _verifyTls = verifyTls;
             return this;
         }
-        
+
         public Notification Build()
         {
             Validation.NotNullOrEmpty(_url, nameof(_url));

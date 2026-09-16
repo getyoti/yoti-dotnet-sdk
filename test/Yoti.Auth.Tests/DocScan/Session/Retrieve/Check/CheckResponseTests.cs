@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     [TestClass]
     public class CheckResponseTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(DocScanConstants.IdDocumentAuthenticity, typeof(AuthenticityCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentFaceMatch, typeof(FaceMatchCheckResponse))]
         [DataRow(DocScanConstants.IdDocumentTextDataCheck, typeof(TextDataCheckResponse))]
@@ -107,6 +107,56 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         }
 
         [TestMethod]
+        public void CheckBreakdownResponseProcessIsAutomated()
+        {
+            dynamic breakdownResponse = new
+            {
+                sub_check = "issuing_authority_verification",
+                result = "PASS",
+                process = "AUTOMATED",
+                details = new List<dynamic>()
+            };
+
+            string json = JsonConvert.SerializeObject(breakdownResponse);
+            BreakdownResponse response = JsonConvert.DeserializeObject<BreakdownResponse>(json);
+
+            Assert.AreEqual("AUTOMATED", response.Process);
+        }
+
+        [TestMethod]
+        public void CheckBreakdownResponseProcessIsExpertReview()
+        {
+            dynamic breakdownResponse = new
+            {
+                sub_check = "issuing_authority_verification",
+                result = "PASS",
+                process = "EXPERT_REVIEW",
+                details = new List<dynamic>()
+            };
+
+            string json = JsonConvert.SerializeObject(breakdownResponse);
+            BreakdownResponse response = JsonConvert.DeserializeObject<BreakdownResponse>(json);
+
+            Assert.AreEqual("EXPERT_REVIEW", response.Process);
+        }
+
+        [TestMethod]
+        public void CheckBreakdownResponseProcessIsNullWhenAbsent()
+        {
+            dynamic breakdownResponse = new
+            {
+                sub_check = "issuing_authority_verification",
+                result = "PASS",
+                details = new List<dynamic>()
+            };
+
+            string json = JsonConvert.SerializeObject(breakdownResponse);
+            BreakdownResponse response = JsonConvert.DeserializeObject<BreakdownResponse>(json);
+
+            Assert.IsNull(response.Process);
+        }
+
+        [TestMethod]
         public void CheckReportResponseIsParsed()
         {
             dynamic reportResponse = new
@@ -126,7 +176,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
             AssertBreakdownResponseValuesCorrect((reportResponse.breakdown as IEnumerable<dynamic>).First(), response.Breakdown.First());
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(typeof(DocumentFieldsResponse))]
         [DataRow(typeof(DocumentIdPhotoResponse))]
         [DataRow(typeof(FaceMapResponse))]
@@ -170,6 +220,45 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         }
 
         [TestMethod]
+        public void CheckStaticLivenessResourceResponseCaptureTypeIsParsed()
+        {
+            dynamic staticLivenessResourceResponse = new
+            {
+                liveness_type = DocScanConstants.Static,
+                capture_type = "MULTI_FRAME",
+                image = new { media = GetMediaResponse() }
+            };
+
+            string json = JsonConvert.SerializeObject(staticLivenessResourceResponse);
+            StaticLivenessResourceResponse response =
+                JsonConvert.DeserializeObject<StaticLivenessResourceResponse>(json);
+
+            Assert.AreEqual("MULTI_FRAME", response.CaptureType);
+            AssertMediaValuesCorrect(staticLivenessResourceResponse.image.media, response.image, typeof(StaticLivenessImageResponse));
+        }
+
+        [TestMethod]
+        public void CheckStaticLivenessResourceResponseDeserializedViaSessionResult()
+        {
+            dynamic staticLivenessResource = new
+            {
+                liveness_type = DocScanConstants.Static,
+                capture_type = "SINGLE_FRAME"
+            };
+
+            var livenessCapture = new List<dynamic> { staticLivenessResource };
+            var resources = new { liveness_capture = livenessCapture };
+            var sessionResult = new { resources };
+
+            string json = JsonConvert.SerializeObject(sessionResult);
+            GetSessionResult result = JsonConvert.DeserializeObject<GetSessionResult>(json);
+
+            var staticResource = result.Resources.StaticLivenessResources.Single();
+            Assert.IsInstanceOfType(staticResource, typeof(StaticLivenessResourceResponse));
+            Assert.AreEqual("SINGLE_FRAME", staticResource.CaptureType);
+        }
+
+        [TestMethod]
         public void CheckPageResponseIsParsed()
         {
             dynamic pageResponse = new
@@ -189,6 +278,77 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
 
             AssertMediaValuesCorrect(pageResponse.media, response, typeof(PageResponse));
             AssertMediaValuesCorrect((pageResponse.frames as IEnumerable<dynamic>).First().media, response.Frames.First(), typeof(FrameResponse));
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsParsedWithSingleId()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = new List<string> { "a1b2c3d4-0000-0000-0000-000000000001" }
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            CollectionAssert.AreEqual(new List<string> { "a1b2c3d4-0000-0000-0000-000000000001" }, response.ExtractionImageIds);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsParsedWithMultipleIds()
+        {
+            var expectedIds = new List<string>
+            {
+                "a1b2c3d4-0000-0000-0000-000000000001",
+                "a1b2c3d4-0000-0000-0000-000000000002"
+            };
+
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = expectedIds
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            CollectionAssert.AreEqual(expectedIds, response.ExtractionImageIds);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsDefaultsToEmptyListWhenEmptyArray()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse(),
+                extraction_image_ids = new List<string>()
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            Assert.IsNotNull(response.ExtractionImageIds);
+            Assert.AreEqual(0, response.ExtractionImageIds.Count);
+        }
+
+        [TestMethod]
+        public void CheckPageResponseExtractionImageIdsDefaultsToEmptyListWhenFieldAbsent()
+        {
+            dynamic pageResponse = new
+            {
+                capture_method = "CAMERA",
+                media = GetMediaResponse()
+            };
+
+            string json = JsonConvert.SerializeObject(pageResponse);
+            PageResponse response = JsonConvert.DeserializeObject<PageResponse>(json);
+
+            Assert.IsNotNull(response.ExtractionImageIds);
+            Assert.AreEqual(0, response.ExtractionImageIds.Count);
         }
 
         [TestMethod]
@@ -253,6 +413,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
             {
                 sub_check = "issuing_authority_verification",
                 result = "PASS",
+                process = "AUTOMATED",
                 details = new List<dynamic> {
                     new { name = "n1", value = "v1" },
                     new { name = "n2", value = "v2" }
@@ -272,6 +433,7 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
         {
             Assert.AreEqual(breakdownResponse.sub_check, response.SubCheck);
             Assert.AreEqual(breakdownResponse.result, response.Result);
+            Assert.AreEqual(breakdownResponse.process, response.Process);
 
             var detailsList = (breakdownResponse.details as IEnumerable<dynamic>);
             Assert.AreEqual(detailsList.First().name, response.Details.First().Name);

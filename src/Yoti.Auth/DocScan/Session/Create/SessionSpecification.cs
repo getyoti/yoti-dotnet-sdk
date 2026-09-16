@@ -66,7 +66,7 @@ namespace Yoti.Auth.DocScan.Session.Create
 
         [JsonProperty(PropertyName = "subject")]
         public object Subject { get; }
-        
+
         [JsonProperty(PropertyName = "advanced_identity_profile_requirements")]
         public object AdvancedIdentityProfileRequirements { get; }
 

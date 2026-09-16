@@ -1,129 +1,119 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto;
 using Yoti.Auth.DigitalIdentity;
+using Yoti.Auth.Web;
 
 namespace Yoti.Auth
 {
     public class DigitalIdentityClient
     {
-        private readonly string _sdkId;
-        private readonly AsymmetricCipherKeyPair _keyPair;
+        private readonly IAuthStrategy _authStrategy;
         private readonly DigitalIdentityClientEngine _yotiDigitalClientEngine;
         internal Uri ApiUri { get; private set; }
 
         /// <summary>
-        /// Create a <see cref="YotiClient"/>
+        /// Create a <see cref="DigitalIdentityClient"/> using signed-request authentication.
         /// </summary>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
-        /// <param name="privateKeyStream">
-        /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
-        /// </param>
         public DigitalIdentityClient(string sdkId, StreamReader privateKeyStream)
             : this(new HttpClient(), sdkId, CryptoEngine.LoadRsaKey(privateKeyStream))
         {
         }
 
         /// <summary>
-        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// Create a <see cref="DigitalIdentityClient"/> using signed-request authentication with a specified <see cref="HttpClient"/>.
         /// </summary>
-        /// <param name="httpClient">Allows the specification of a HttpClient</param>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
-        /// <param name="privateKeyStream">
-        /// The private key file provided on the Yoti Hub as a <see cref="StreamReader"/>.
-        /// </param>
         public DigitalIdentityClient(HttpClient httpClient, string sdkId, StreamReader privateKeyStream)
             : this(httpClient, sdkId, CryptoEngine.LoadRsaKey(privateKeyStream))
         {
         }
 
         /// <summary>
-        /// Create a <see cref="YotiClient"/> with a specified <see cref="HttpClient"/>
+        /// Create a <see cref="DigitalIdentityClient"/> using signed-request authentication with a specified <see cref="HttpClient"/>.
         /// </summary>
-        /// <param name="httpClient">Allows the specification of a HttpClient</param>
-        /// <param name="sdkId">The client SDK ID provided on the Yoti Hub.</param>
-        /// <param name="keyPair">The key pair from the Yoti Hub.</param>
         public DigitalIdentityClient(HttpClient httpClient, string sdkId, AsymmetricCipherKeyPair keyPair)
         {
             Validation.NotNullOrEmpty(sdkId, nameof(sdkId));
             Validation.NotNull(keyPair, nameof(keyPair));
 
-            _sdkId = sdkId;
-            _keyPair = keyPair;
-
+            _authStrategy = new SignedRequestAuthStrategy(keyPair, sdkId);
             SetYotiApiUri();
-
             _yotiDigitalClientEngine = new DigitalIdentityClientEngine(httpClient);
         }
-        
+
         /// <summary>
-        /// Initiate a sharing process based on a <see cref="ShareSessionRequest"/>.
+        /// Creates a <see cref="DigitalIdentityClient"/> using central auth bearer token authentication.
+        /// Use this factory method instead of a constructor to avoid ambiguity with the sdkId overloads.
         /// </summary>
-        /// <param name="shareSessionRequest">
-        /// Details of the device's callback endpoint, <see
-        /// cref="Yoti.Auth.DigitalIdentity.Policy"/> and extensions for the application
-        /// </param>
-        /// <returns><see cref="ShareSessionResult"/></returns>
+        /// <param name="authToken">The bearer token supplied by the relying business.</param>
+        /// <param name="sdkId">The SDK ID to include in the X-Yoti-Auth-Id header and sdkID query parameter.</param>
+        public static DigitalIdentityClient FromBearerToken(string authToken, string sdkId = null)
+            => FromBearerToken(new HttpClient(), authToken, sdkId);
+
+        /// <summary>
+        /// Creates a <see cref="DigitalIdentityClient"/> using central auth bearer token authentication with a specified <see cref="HttpClient"/>.
+        /// </summary>
+        /// <param name="httpClient">The <see cref="HttpClient"/> to use.</param>
+        /// <param name="authToken">The bearer token supplied by the relying business.</param>
+        /// <param name="sdkId">The SDK ID to include in the X-Yoti-Auth-Id header and sdkID query parameter.</param>
+        public static DigitalIdentityClient FromBearerToken(HttpClient httpClient, string authToken, string sdkId = null)
+        {
+            Validation.NotNullOrEmpty(authToken, nameof(authToken));
+            return new DigitalIdentityClient(new BearerTokenAuthStrategy(authToken, sdkId), httpClient);
+        }
+
+        private DigitalIdentityClient(IAuthStrategy authStrategy, HttpClient httpClient)
+        {
+            _authStrategy = authStrategy;
+            SetYotiApiUri();
+            _yotiDigitalClientEngine = new DigitalIdentityClientEngine(httpClient);
+        }
+
         public ShareSessionResult CreateShareSession(ShareSessionRequest shareSessionRequest)
         {
             Task<ShareSessionResult> task = Task.Run(async () => await CreateShareSessionAsync(shareSessionRequest).ConfigureAwait(false));
-
             return task.Result;
         }
 
-        /// <summary>
-        /// Asynchronously initiate a sharing process based on a <see cref="ShareSessionRequest"/>.
-        /// </summary>
-        /// <param name="shareSessionRequest">
-        /// Details of the device's callback endpoint, <see
-        /// cref="Yoti.Auth.DigitalIdentity.Policy"/> and extensions for the application
-        /// </param>
-        /// <returns><see cref="ShareSessionResult"/></returns>
         public async Task<ShareSessionResult> CreateShareSessionAsync(ShareSessionRequest shareSessionRequest)
         {
-            return await _yotiDigitalClientEngine.CreateShareSessionAsync(_sdkId, _keyPair, ApiUri, shareSessionRequest).ConfigureAwait(false);
+            return await _yotiDigitalClientEngine.CreateShareSessionAsync(_authStrategy, ApiUri, shareSessionRequest).ConfigureAwait(false);
         }
 
         public SharedReceiptResponse GetShareReceipt(string receiptId)
         {
-            Task<SharedReceiptResponse> task = Task.Run(async () => await _yotiDigitalClientEngine.GetShareReceipt(_sdkId, _keyPair, ApiUri, receiptId).ConfigureAwait(false));
+            Task<SharedReceiptResponse> task = Task.Run(async () => await _yotiDigitalClientEngine.GetShareReceipt(_authStrategy, ApiUri, receiptId).ConfigureAwait(false));
             return task.Result;
         }
-        
-        
+
         public async Task<CreateQrResult> CreateQrCode(string sessionId, QrRequest qrRequest)
         {
-            return await _yotiDigitalClientEngine.CreateQrCodeAsync(_sdkId, _keyPair, ApiUri, sessionId, qrRequest).ConfigureAwait(false);
+            return await _yotiDigitalClientEngine.CreateQrCodeAsync(_authStrategy, ApiUri, sessionId, qrRequest).ConfigureAwait(false);
         }
-        
+
         public async Task<GetQrCodeResult> GetQrCode(string qrCodeId)
         {
-            return await _yotiDigitalClientEngine.GetQrCodeAsync(_sdkId, _keyPair, ApiUri, qrCodeId).ConfigureAwait(false);
+            return await _yotiDigitalClientEngine.GetQrCodeAsync(_authStrategy, ApiUri, qrCodeId).ConfigureAwait(false);
         }
-        
+
         public async Task<GetSessionResult> GetSession(string sessionId)
         {
-            return await _yotiDigitalClientEngine.GetSession(_sdkId, _keyPair, ApiUri, sessionId).ConfigureAwait(false);
+            return await _yotiDigitalClientEngine.GetSession(_authStrategy, ApiUri, sessionId).ConfigureAwait(false);
         }
 
         internal void SetYotiApiUri()
         {
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("YOTI_API_URL")))
-            {
-                ApiUri = new Uri(Environment.GetEnvironmentVariable("YOTI_API_URL"));
-            }
-            else
-            {
-                ApiUri = new Uri(Constants.Api.DefaultYotiShareApiUrl);
-            }
+            string envUrl = Environment.GetEnvironmentVariable("YOTI_API_URL");
+            ApiUri = !string.IsNullOrEmpty(envUrl)
+                ? new Uri(envUrl)
+                : new Uri(Constants.Api.DefaultYotiShareApiUrl);
         }
 
         public DigitalIdentityClient OverrideApiUri(Uri apiUri)
         {
             ApiUri = apiUri;
-
             return this;
         }
     }
