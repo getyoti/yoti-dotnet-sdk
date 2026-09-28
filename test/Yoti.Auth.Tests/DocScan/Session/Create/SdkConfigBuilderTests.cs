@@ -288,7 +288,19 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             Assert.AreEqual(brandid, sdkConfig.BrandId);
         }
-        
+
+        [TestMethod]
+        public void BrandIdShouldBeOmittedFromJsonWhenNotSet()
+        {
+            SdkConfig sdkConfig =
+                new SdkConfigBuilder()
+                .Build();
+
+            string json = JsonConvert.SerializeObject(sdkConfig);
+
+            Assert.IsFalse(json.Contains("brand_id"));
+        }
+
         [TestMethod]
         public void AttemptsConfigurationShouldResetSameValueWithRepeatedCalls()
         {

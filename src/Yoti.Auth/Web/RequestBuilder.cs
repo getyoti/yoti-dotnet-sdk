@@ -130,6 +130,8 @@ namespace Yoti.Auth.Web
         /// <returns><see cref="RequestBuilder"/></returns>
         public RequestBuilder WithSdkId(IAuthStrategy authStrategy, string queryParamName)
         {
+            Validation.NotNull(authStrategy, nameof(authStrategy));
+
             if (authStrategy.SdkId != null)
             {
                 WithHeader(Api.AuthIdHeader, authStrategy.SdkId);

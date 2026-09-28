@@ -49,7 +49,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         [JsonProperty(PropertyName = "suppressed_screens", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> SuppressedScreens { get; }
 
-        [JsonProperty(PropertyName = "brand_id")]
+        [JsonProperty(PropertyName = "brand_id", NullValueHandling = NullValueHandling.Ignore)]
         public string BrandId { get; }
 
         public SdkConfig(string allowedCaptureMethods,
@@ -65,7 +65,7 @@ namespace Yoti.Auth.DocScan.Session.Create
                             Dictionary<string, int> idDocumentTextDataExtractionRetriesConfig = null)
             : this(allowedCaptureMethods, primaryColour, secondaryColour, fontColour, locale,
                    presetIssuingCountry, successUrl, errorUrl, privacyPolicyUrl, allowHandoff,
-                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, suppressedScreens: null, brandId: "")
+                   idDocumentTextDataExtractionRetriesConfig, enforceHandoff: null, suppressedScreens: null, brandId: null)
         {
         }
 

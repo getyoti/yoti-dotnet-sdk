@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Yoti.Auth;
@@ -23,7 +22,7 @@ namespace DigitalIdentityExample.Controllers
 
         // GET: /generate-share
         [Route("generate-share")]
-        public async Task<IActionResult> DigitalIdentity()
+        public IActionResult DigitalIdentity()
         {
             try
             {

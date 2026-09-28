@@ -40,7 +40,7 @@ namespace Yoti.Auth.CentralAuth
                 throw new ArgumentNullException(nameof(scopes));
             foreach (var scope in scopes)
             {
-                Validation.NotNullOrWhiteSpace(scope, nameof(scopes));
+                Validation.NotNullOrWhiteSpace(scope, nameof(scope));
                 _scopes.Add(scope);
             }
             return this;
