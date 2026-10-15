@@ -1,8 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile;
 
-namespace Yoti.Auth.DocScan.Session.Retrieve.IdentityProfile.Tests
+namespace Yoti.Auth.Tests.DocScan.Session.Retrieve.IdentityProfile
 {
     [TestClass]
     public class FailureReasonResponseTests

@@ -159,7 +159,7 @@ namespace Yoti.Auth.ShareUrl.Policy
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
-        
+
         /// <summary>
         /// Use an AdvancedIdentity Profile Requirement object for the share
         /// </summary>

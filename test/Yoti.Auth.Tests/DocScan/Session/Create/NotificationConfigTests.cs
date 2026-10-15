@@ -11,7 +11,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldBeConstructableWithoutAuthType()
         {
-            string authToken = "someAuthToken"; 
+            string authToken = "someAuthToken";
             string endpoint = "someEndpoint";
             string topicName = "someTopic";
             List<string> topics = new List<string> { topicName };
@@ -32,7 +32,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             string authToken = "someAuthToken";
             string endpoint = "someEndpoint";
             string topicName = "someTopic";
-            List<string> topics = new List<string>{ topicName };
+            List<string> topics = new List<string> { topicName };
             string authType = "BASIC";
 
             NotificationConfig notificationConfig =

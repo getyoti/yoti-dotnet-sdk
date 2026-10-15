@@ -13,7 +13,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Extensions
         [TestMethod]
         public void ShouldFailForNullContent()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new TransactionalFlowExtensionBuilder<object>()
                 .WithContent(null)

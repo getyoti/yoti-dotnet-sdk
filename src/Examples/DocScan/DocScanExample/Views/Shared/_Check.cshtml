@@ -102,6 +102,13 @@
                                         <td>Result</td>
                                         <td>@breakdown.Result</td>
                                     </tr>
+                                    @if (breakdown.Process != null)
+                                    {
+                                        <tr>
+                                            <td>Process</td>
+                                            <td>@breakdown.Process</td>
+                                        </tr>
+                                    }
                                     @if (breakdown.Details.Count > 0)
                                     {
                                         <tr>

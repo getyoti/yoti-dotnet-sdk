@@ -11,7 +11,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         private string _authToken;
         private string _authType;
         private string _endpoint;
-        
+
         /// <summary>
         /// Sets the authorization token to be included in callback messages
         /// </summary>
@@ -19,7 +19,7 @@ namespace Yoti.Auth.DocScan.Session.Create
         /// <returns>The builder</returns>
         public NotificationConfigBuilder WithAuthToken(string authToken)
         {
-            _authToken = authToken;  
+            _authToken = authToken;
             return this;
         }
 
