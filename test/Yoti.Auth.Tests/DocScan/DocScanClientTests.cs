@@ -395,6 +395,74 @@ namespace Yoti.Auth.Tests.DocScan
         }
 
         [TestMethod]
+        public void CreateSessionOverviewPdfShouldReturnPdfBytes()
+        {
+            string contentTypePdf = "application/pdf";
+
+            byte[] pdfBytes = Encoding.UTF8.GetBytes("pdf-body");
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.Created,
+                Content = new ByteArrayContent(pdfBytes),
+            };
+            successResponse.Content.Headers.Add(Constants.Api.ContentTypeHeader, contentTypePdf);
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            MediaValue pdf = docScanClient.CreateSessionOverviewPdf(_someSessionId);
+
+            Assert.IsTrue(pdfBytes.SequenceEqual(pdf.GetContent()));
+            Assert.AreEqual(contentTypePdf, pdf.GetMIMEType());
+        }
+
+        [TestMethod]
+        public void CreateSessionOverviewPdfShouldReturnPdfBytesWithOptions()
+        {
+            string contentTypePdf = "application/pdf";
+
+            byte[] pdfBytes = Encoding.UTF8.GetBytes("pdf-body");
+            var successResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.Created,
+                Content = new ByteArrayContent(pdfBytes),
+            };
+            successResponse.Content.Headers.Add(Constants.Api.ContentTypeHeader, contentTypePdf);
+
+            Mock<HttpMessageHandler> handlerMock = Auth.Tests.Common.Http.SetupMockMessageHandler(successResponse);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            DocScanClient docScanClient = new DocScanClient(_sdkId, _keyPair, httpClient);
+
+            var payload = new SessionOverviewPdfPayload(includeImages: true, includeExtractedText: true, includeDeviceTracking: false);
+            MediaValue pdf = docScanClient.CreateSessionOverviewPdf(_someSessionId, payload);
+
+            Assert.IsTrue(pdfBytes.SequenceEqual(pdf.GetContent()));
+            Assert.AreEqual(contentTypePdf, pdf.GetMIMEType());
+        }
+
+        [TestMethod]
+        [DataRow(HttpStatusCode.BadRequest)]
+        [DataRow(HttpStatusCode.Unauthorized)]
+        [DataRow(HttpStatusCode.InternalServerError)]
+        [DataRow(HttpStatusCode.RequestTimeout)]
+        [DataRow(HttpStatusCode.NotFound)]
+        [DataRow(HttpStatusCode.Forbidden)]
+        public void CreateSessionOverviewPdfShouldThrowForNonSuccessStatusCode(HttpStatusCode httpStatusCode)
+        {
+            DocScanClient docScanClient = SetupDocScanClientResponse(httpStatusCode);
+
+            var aggregateException = Assert.ThrowsExactly<AggregateException>(() =>
+            {
+                docScanClient.CreateSessionOverviewPdf(_someSessionId);
+            });
+
+            Assert.IsTrue(TestTools.Exceptions.IsExceptionInAggregateException<DocScanException>(aggregateException));
+        }
+
+        [TestMethod]
         public void GetSupportedDocumentShouldSucceed()
         {
             var passport = new SupportedDocument("PASSPORT");

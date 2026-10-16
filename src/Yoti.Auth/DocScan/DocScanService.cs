@@ -271,6 +271,38 @@ namespace Yoti.Auth.DocScan
             }
         }
 
+        public async Task<MediaValue> CreateSessionOverviewPdf(IAuthStrategy authStrategy, string sessionId, SessionOverviewPdfPayload payload)
+        {
+            Validation.NotNull(authStrategy, nameof(authStrategy));
+            Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
+
+            string sessionOverviewPdfPath = SessionOverviewPdfEndpoint(sessionId);
+            _logger.Info($"Creating session overview PDF at '{sessionOverviewPdfPath}'");
+
+            string serializedPayload = JsonConvert.SerializeObject(payload ?? new SessionOverviewPdfPayload(), YotiDefaultJsonSettings);
+            byte[] body = Encoding.UTF8.GetBytes(serializedPayload);
+
+            var builder = GetRequestBuilder()
+                .WithAuthStrategy(authStrategy)
+                .WithHttpMethod(HttpMethod.Post)
+                .WithBaseUri(ApiUri)
+                .WithEndpoint(sessionOverviewPdfPath)
+                .WithContent(body)
+                .WithContentHeader(Api.ContentTypeHeader, Api.ContentTypeJson);
+
+            builder = builder.WithSdkId(authStrategy, "sdkId");
+
+            using (HttpResponseMessage response = await builder.Build().Execute(_httpClient).ConfigureAwait(false))
+            {
+                if (!response.IsSuccessStatusCode)
+                    Response.CreateYotiExceptionFromStatusCode<DocScanException>(response);
+
+                string contentType = response.Content?.Headers?.ContentType?.MediaType;
+                var responseBytes = await response.Content.ReadAsByteArrayAsync();
+                return await Task.Factory.StartNew(() => new MediaValue(contentType, responseBytes));
+            }
+        }
+
         private static Uri GetApiUri()
         {
             string envUrl = Environment.GetEnvironmentVariable("YOTI_DOC_SCAN_API_URL");
@@ -282,6 +314,8 @@ namespace Yoti.Auth.DocScan
         private static string SessionEndpoint(string sessionId) => $"sessions/{sessionId}";
 
         private static string MediaEndpoint(string sessionId, string mediaId) => $"sessions/{sessionId}/media/{mediaId}/content";
+
+        private static string SessionOverviewPdfEndpoint(string sessionId) => $"sessions/{sessionId}/pdf";
 
         private static JsonSerializerSettings YotiDefaultJsonSettings => new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
     }

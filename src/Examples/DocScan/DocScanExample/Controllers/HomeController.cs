@@ -153,6 +153,14 @@ namespace DocScanExample.Controllers
             return File(media.GetContent(), media.GetMIMEType());
         }
 
+        public IActionResult SessionOverviewPdf(string sessionId)
+        {
+            var payload = new SessionOverviewPdfPayload(includeImages: true, includeExtractedText: true, includeDeviceTracking: true);
+            MediaValue pdf = _client.CreateSessionOverviewPdf(sessionId, payload);
+
+            return File(pdf.GetContent(), pdf.GetMIMEType(), "session-overview.pdf");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
