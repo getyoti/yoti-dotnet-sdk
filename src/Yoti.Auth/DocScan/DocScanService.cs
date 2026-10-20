@@ -277,7 +277,7 @@ namespace Yoti.Auth.DocScan
             Validation.NotNullOrWhiteSpace(sessionId, nameof(sessionId));
 
             string sessionOverviewPdfPath = SessionOverviewPdfEndpoint(sessionId);
-            _logger.Info($"Creating session overview PDF at '{sessionOverviewPdfPath}'");
+            _logger.Info($"Creating session overview PDF at '{sessionOverviewPdfPath.Replace("\r", "").Replace("\n", "")}'");
 
             var request = new SessionOverviewPdfRequest(payload ?? new SessionOverviewPdfPayload());
             string serializedPayload = JsonConvert.SerializeObject(request, YotiDefaultJsonSettings);
