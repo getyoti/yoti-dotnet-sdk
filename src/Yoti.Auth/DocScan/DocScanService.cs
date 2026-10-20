@@ -279,7 +279,8 @@ namespace Yoti.Auth.DocScan
             string sessionOverviewPdfPath = SessionOverviewPdfEndpoint(sessionId);
             _logger.Info($"Creating session overview PDF at '{sessionOverviewPdfPath}'");
 
-            string serializedPayload = JsonConvert.SerializeObject(payload ?? new SessionOverviewPdfPayload(), YotiDefaultJsonSettings);
+            var request = new SessionOverviewPdfRequest(payload ?? new SessionOverviewPdfPayload());
+            string serializedPayload = JsonConvert.SerializeObject(request, YotiDefaultJsonSettings);
             byte[] body = Encoding.UTF8.GetBytes(serializedPayload);
 
             var builder = GetRequestBuilder()
