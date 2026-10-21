@@ -260,5 +260,35 @@ namespace Yoti.Auth.DocScan
 
             return await _docScanService.GetSessionConfiguration(_authStrategy, sessionId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Creates a PDF containing an overview of the supplied session.
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <param name="payload">
+        /// Optional <see cref="SessionOverviewPdfPayload"/> controlling which sections to include.
+        /// Any option left unset is omitted from the request and decided by the backend.
+        /// </param>
+        /// <returns>The PDF as a <see cref="MediaValue"/></returns>
+        public MediaValue CreateSessionOverviewPdf(string sessionId, SessionOverviewPdfPayload payload = null)
+        {
+            return CreateSessionOverviewPdfAsync(sessionId, payload).Result;
+        }
+
+        /// <summary>
+        /// Creates a PDF containing an overview of the supplied session.
+        /// </summary>
+        /// <param name="sessionId">The Session Id</param>
+        /// <param name="payload">
+        /// Optional <see cref="SessionOverviewPdfPayload"/> controlling which sections to include.
+        /// Any option left unset is omitted from the request and decided by the backend.
+        /// </param>
+        /// <returns>The PDF as a <see cref="MediaValue"/></returns>
+        public async Task<MediaValue> CreateSessionOverviewPdfAsync(string sessionId, SessionOverviewPdfPayload payload = null)
+        {
+            _logger.Debug($"Creating session overview PDF for session '{sessionId}'");
+
+            return await _docScanService.CreateSessionOverviewPdf(_authStrategy, sessionId, payload).ConfigureAwait(false);
+        }
     }
 }
