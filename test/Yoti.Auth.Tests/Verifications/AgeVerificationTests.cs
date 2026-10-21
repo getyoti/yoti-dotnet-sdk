@@ -138,7 +138,7 @@ namespace Yoti.Auth.Tests.Verifications
         [TestMethod]
         public void NullDerivedAttributeShouldThrowException()
         {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+            var exception = Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 new AgeVerification(derivedAttribute: null);
             });
@@ -147,7 +147,7 @@ namespace Yoti.Auth.Tests.Verifications
             Assert.IsTrue(exception.Message.Contains("Parameter 'derivedAttribute'"));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("invalid_name")]
         [DataRow("age_over::18")]
         [DataRow(":21")]
@@ -160,7 +160,7 @@ namespace Yoti.Auth.Tests.Verifications
                 value: "true",
                 anchors: null);
 
-            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new AgeVerification(attribute);
             });

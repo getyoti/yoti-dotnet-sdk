@@ -12,8 +12,9 @@ namespace Yoti.Auth.Tests.Docs.Session.Retrieve.Check
     [TestClass]
     public class LivenessResourceResponseTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(DocScanConstants.Zoom, typeof(ZoomLivenessResourceResponse))]
+        [DataRow(DocScanConstants.Static, typeof(StaticLivenessResourceResponse))]
         [DataRow("OTHER", typeof(LivenessResourceResponse))]
         [DataRow("", typeof(LivenessResourceResponse))]
         [DataRow(null, typeof(LivenessResourceResponse))]

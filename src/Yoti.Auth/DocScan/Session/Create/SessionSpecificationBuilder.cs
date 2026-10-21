@@ -153,7 +153,7 @@ namespace Yoti.Auth.DocScan.Session.Create
             _identityProfileRequirements = identityProfileRequirements;
             return this;
         }
-        
+
 
         /// <summary>
         /// Sets the Subject object for the session

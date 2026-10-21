@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
+using Yoti.Auth.DocScan.Session.Retrieve.Check;
 
 namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
 {
@@ -63,6 +66,37 @@ namespace Yoti.Auth.DocScan.Session.Retrieve.Resource
 
                 return staticResources;
             }
+        }
+
+        /// <summary>
+        /// Returns a new <see cref="ResourceContainer"/> containing only the resources referenced by the given check's ResourcesUsed
+        /// </summary>
+        /// <param name="checkResponse">The check to filter resources for</param>
+        /// <returns>A ResourceContainer containing only the resources used by the check</returns>
+        internal ResourceContainer FilterForCheck(CheckResponse checkResponse)
+        {
+            if (checkResponse == null)
+                throw new ArgumentNullException(nameof(checkResponse));
+
+            HashSet<string> resourceIds = new HashSet<string>(checkResponse.ResourcesUsed ?? new List<string>());
+
+            return new ResourceContainer
+            {
+                IdDocuments = FilterResources(IdDocuments, resourceIds),
+                SupplementaryDocuments = FilterResources(SupplementaryDocuments, resourceIds),
+                LivenessCapture = FilterResources(LivenessCapture, resourceIds),
+                FaceCapture = FilterResources(FaceCapture, resourceIds),
+                ShareCodes = FilterResources(ShareCodes, resourceIds),
+                ApplicantProfiles = FilterResources(ApplicantProfiles, resourceIds)
+            };
+        }
+
+        private static List<T> FilterResources<T>(List<T> resources, HashSet<string> resourceIds) where T : ResourceResponse
+        {
+            if (resources == null)
+                return new List<T>();
+
+            return resources.Where(resource => resourceIds.Contains(resource.Id)).ToList();
         }
     }
 }

@@ -325,7 +325,7 @@ namespace Yoti.Auth.Tests.ShareUrl.Policy
 
             Assert.AreEqual(identityProfileRequirements, result.IdentityProfileRequirements);
         }
-        
+
         [TestMethod]
         public void ShouldBuildWithAdvancedIdentityProfileRequirements()
         {

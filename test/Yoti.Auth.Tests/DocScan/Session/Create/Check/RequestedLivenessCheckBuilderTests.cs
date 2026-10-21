@@ -80,7 +80,7 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create.Check
         [TestMethod]
         public void ShouldNotBuildWithLivenessTypeNotBeingSet()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
             {
                 new RequestedLivenessCheckBuilder().Build();
             });

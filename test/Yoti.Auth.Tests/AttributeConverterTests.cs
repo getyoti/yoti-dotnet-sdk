@@ -91,7 +91,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(_id2, attributes[1].GetId());
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(ContentType.Date)]
         [DataRow(ContentType.Jpeg)]
         [DataRow(ContentType.Json)]
@@ -110,7 +110,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(0, convertedAttributes.Count);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(ContentType.Date)]
         [DataRow(ContentType.Jpeg)]
         [DataRow(ContentType.Json)]
@@ -122,7 +122,7 @@ namespace Yoti.Auth.Tests
         {
             ProtoBuf.Attribute.Attribute attribute = CreateProtobufAttribute("attributeName", _emptyByteStringValue, contentType);
 
-            Assert.ThrowsException<System.InvalidOperationException>(() =>
+            Assert.ThrowsExactly<System.InvalidOperationException>(() =>
             {
                 AttributeConverter.ConvertToBaseAttribute(attribute);
             });
@@ -224,7 +224,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(stringValue, attributeValue.Value);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("-10", -10)]
         [DataRow("-1", -1)]
         [DataRow("0", 0)]
@@ -247,7 +247,7 @@ namespace Yoti.Auth.Tests
             Assert.AreEqual(expectedIntegerValue, attribute.GetValue());
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("2147483648")]
         [DataRow("abcd")]
         [DataRow("1a")]
