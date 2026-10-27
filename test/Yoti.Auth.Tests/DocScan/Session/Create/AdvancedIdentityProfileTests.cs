@@ -11,16 +11,22 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
         [TestMethod]
         public void ShouldSerializeAndDeserializeAdvancedIdentityProfile()
         {
+            // Profile/Scheme are fully qualified here (not brought in via `using` or alias)
+            // because this file's own namespace is nested under Yoti.Auth, which also directly
+            // contains the unrelated Yoti.Auth.Profile namespace — enclosing-namespace member
+            // lookup resolves bare "Profile" to that namespace before any using directive (plain
+            // or alias) is considered, causing CS0118 ("Profile is a namespace but is used like a
+            // type") otherwise.
             var advancedIdentityProfile = new AdvancedIdentityProfile
             {
-                Profiles = new List<AdvancedIdentityProfile.Profile>
+                Profiles = new List<Yoti.Auth.DocScan.Session.Create.Profile>
                 {
-                    new AdvancedIdentityProfile.Profile
+                    new Yoti.Auth.DocScan.Session.Create.Profile
                     {
                         TrustFramework = "UK_TFIDA",
-                        Schemes = new List<AdvancedIdentityProfile.Scheme>
+                        Schemes = new List<Yoti.Auth.DocScan.Session.Create.Scheme>
                         {
-                            new AdvancedIdentityProfile.Scheme
+                            new Yoti.Auth.DocScan.Session.Create.Scheme
                             {
                                 Label = "LB912",
                                 Type = "RTW",
