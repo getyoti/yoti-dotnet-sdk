@@ -32,30 +32,30 @@ namespace DocScanExample.Controllers
         {
             AdvancedIdentityProfile data = new AdvancedIdentityProfile
             {
-                Profiles = new List<Profile>
+                profiles = new List<Profile>
             {
                 new Profile
                 {
-                    TrustFramework = "UK_TFIDA",
-                    Schemes = new List<Scheme>
+                    trust_framework = "UK_TFIDA",
+                    schemes = new List<Scheme>
                     {
                         new Scheme
                         {
-                            Label = "LB912",
-                            Type = "RTW"
+                            label = "LB912",
+                            type = "RTW"
                         }
                     }
                 },
                 new Profile
                 {
-                    TrustFramework = "YOTI_GLOBAL",
-                    Schemes = new List<Scheme>
+                    trust_framework = "YOTI_GLOBAL",
+                    schemes = new List<Scheme>
                     {
                         new Scheme
                         {
-                            Label = "LB321",
-                            Type = "IDENTITY",
-                            Objective = "AL_L1"
+                            label = "LB321",
+                            type = "IDENTITY",
+                            objective = "AL_L1"
                         }
                     }
                 }

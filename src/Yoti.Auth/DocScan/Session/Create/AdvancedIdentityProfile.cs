@@ -1,32 +1,23 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Yoti.Auth.DocScan.Session.Create
 {
-    public class AdvancedIdentityProfile
+    public class Scheme
     {
-        [JsonProperty(PropertyName = "profiles")]
-        public List<Profile> Profiles { get; set; }
+        public string label { get; set; }
+        public string type { get; set; }
+        public string objective { get; set; }
     }
 
     public class Profile
     {
-        [JsonProperty(PropertyName = "trust_framework")]
-        public string TrustFramework { get; set; }
-
-        [JsonProperty(PropertyName = "schemes")]
-        public List<Scheme> Schemes { get; set; }
+        public string trust_framework { get; set; }
+        public List<Scheme> schemes { get; set; }
     }
 
-    public class Scheme
+    public class AdvancedIdentityProfile
     {
-        [JsonProperty(PropertyName = "label")]
-        public string Label { get; set; }
-
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
-
-        [JsonProperty(PropertyName = "objective")]
-        public string Objective { get; set; }
+        public List<Profile> profiles { get; set; }
     }
 }

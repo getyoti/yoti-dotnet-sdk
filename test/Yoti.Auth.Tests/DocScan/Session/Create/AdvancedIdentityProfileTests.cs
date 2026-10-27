@@ -19,18 +19,18 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
             // type") otherwise.
             var advancedIdentityProfile = new AdvancedIdentityProfile
             {
-                Profiles = new List<Yoti.Auth.DocScan.Session.Create.Profile>
+                profiles = new List<Yoti.Auth.DocScan.Session.Create.Profile>
                 {
                     new Yoti.Auth.DocScan.Session.Create.Profile
                     {
-                        TrustFramework = "UK_TFIDA",
-                        Schemes = new List<Yoti.Auth.DocScan.Session.Create.Scheme>
+                        trust_framework = "UK_TFIDA",
+                        schemes = new List<Yoti.Auth.DocScan.Session.Create.Scheme>
                         {
                             new Yoti.Auth.DocScan.Session.Create.Scheme
                             {
-                                Label = "LB912",
-                                Type = "RTW",
-                                Objective = "STANDARD"
+                                label = "LB912",
+                                type = "RTW",
+                                objective = "STANDARD"
                             }
                         }
                     }
@@ -46,12 +46,12 @@ namespace Yoti.Auth.Tests.DocScan.Session.Create
 
             var deserialized = JsonConvert.DeserializeObject<AdvancedIdentityProfile>(json);
 
-            Assert.AreEqual(1, deserialized.Profiles.Count);
-            Assert.AreEqual("UK_TFIDA", deserialized.Profiles[0].TrustFramework);
-            Assert.AreEqual(1, deserialized.Profiles[0].Schemes.Count);
-            Assert.AreEqual("LB912", deserialized.Profiles[0].Schemes[0].Label);
-            Assert.AreEqual("RTW", deserialized.Profiles[0].Schemes[0].Type);
-            Assert.AreEqual("STANDARD", deserialized.Profiles[0].Schemes[0].Objective);
+            Assert.AreEqual(1, deserialized.profiles.Count);
+            Assert.AreEqual("UK_TFIDA", deserialized.profiles[0].trust_framework);
+            Assert.AreEqual(1, deserialized.profiles[0].schemes.Count);
+            Assert.AreEqual("LB912", deserialized.profiles[0].schemes[0].label);
+            Assert.AreEqual("RTW", deserialized.profiles[0].schemes[0].type);
+            Assert.AreEqual("STANDARD", deserialized.profiles[0].schemes[0].objective);
         }
     }
 }
