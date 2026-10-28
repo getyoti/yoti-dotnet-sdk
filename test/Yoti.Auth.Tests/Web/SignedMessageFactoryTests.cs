@@ -11,7 +11,7 @@ namespace Yoti.Auth.Tests.Web
         [TestMethod]
         public void ShouldThrowExceptionWhenHttpMethodIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
             {
                 SignedMessageFactory.SignMessage(null, "endpoint", KeyPair.Get(), null);
             });

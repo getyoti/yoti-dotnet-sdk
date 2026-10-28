@@ -36,6 +36,7 @@ Backup*/
 
 # Coverage
 OpenCover/
+**/coverage*.xml
 
 # .NET tools
 src/tools/

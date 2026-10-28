@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Yoti.Auth.DocScan.Session.Create
@@ -21,4 +21,3 @@ namespace Yoti.Auth.DocScan.Session.Create
         public List<Profile> profiles { get; set; }
     }
 }
-

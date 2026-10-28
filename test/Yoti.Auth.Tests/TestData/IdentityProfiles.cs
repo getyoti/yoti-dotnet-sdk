@@ -17,7 +17,7 @@ namespace Yoti.Auth.Tests.TestData
                 }
             };
         }
-        
+
         public static AdvancedIdentityProfile CreateAdvancedIdentityProfileRequirements()
         {
             string advancedIdentityProfileJson = @"
@@ -61,7 +61,7 @@ namespace Yoti.Auth.Tests.TestData
                 subject_id = "some_subject_id_string"
             };
         }
-        
+
         public static object CreateStandardAdvancedIdentityProfileRequirements()
         {
             string advancedIdentityProfileJson = @"
@@ -94,7 +94,7 @@ namespace Yoti.Auth.Tests.TestData
                     }
                 ]
             }";
-            
+
             return advancedIdentityProfileJson;
         }
     }

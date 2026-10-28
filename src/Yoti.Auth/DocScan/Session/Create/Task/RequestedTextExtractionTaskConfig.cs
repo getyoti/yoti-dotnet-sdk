@@ -4,7 +4,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Task
 {
     public class RequestedTextExtractionTaskConfig : RequestedTaskConfig
     {
-        public RequestedTextExtractionTaskConfig(string manualCheck, string chipData = null, bool? createExpandedDocumentFields = false)
+        public RequestedTextExtractionTaskConfig(string manualCheck, string chipData = null, bool? createExpandedDocumentFields = null)
         {
             ManualCheck = manualCheck;
             ChipData = chipData;

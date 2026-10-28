@@ -5,7 +5,7 @@ namespace Yoti.Auth.DocScan.Session.Create.Check
     public class RequestedFaceComparisonCheckBuilder
     {
         private string _manualCheck;
-            
+
         /// <summary>
         /// Requires that only an automated Check is performed.  No manual follow-up Check will ever be initiated
         /// </summary>

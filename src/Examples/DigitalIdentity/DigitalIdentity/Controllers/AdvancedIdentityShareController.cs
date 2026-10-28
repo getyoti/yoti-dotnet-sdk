@@ -20,7 +20,7 @@ namespace DigitalIdentityExample.Controllers
             _clientSdkId = Environment.GetEnvironmentVariable("YOTI_CLIENT_SDK_ID");
             _logger.LogInformation(string.Format("Yoti Client SDK ID='{0}'", _clientSdkId));
         }
-       
+
         // GET: /advanced-identity-share
         [Route("advanced-identity-share")]
         public IActionResult DigitalIdentity()
@@ -36,7 +36,7 @@ namespace DigitalIdentityExample.Controllers
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
-                
+
                 string advancedIdentityProfileJson = @"
             {
                 ""profiles"": [
@@ -60,9 +60,9 @@ namespace DigitalIdentityExample.Controllers
                 ]
 
             }";
-                
+
                 var advancedIdentityProfile = JsonConvert.DeserializeObject<AdvancedIdentityProfile>(advancedIdentityProfileJson);
-                
+
                 var policy = new PolicyBuilder()
                     .WithAdvancedIdentityProfileRequirements(advancedIdentityProfile)
                     .Build();
@@ -85,10 +85,10 @@ namespace DigitalIdentityExample.Controllers
                      exception: e,
                      message: e.Message);
 
-                TempData["Error"] = e.Message; 
+                TempData["Error"] = e.Message;
                 TempData["InnerException"] = e.InnerException?.Message;
                 return RedirectToAction("Error", "Success");
             }
         }
-    } 
+    }
 }

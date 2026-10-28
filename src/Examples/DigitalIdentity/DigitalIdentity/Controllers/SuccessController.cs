@@ -43,9 +43,9 @@ namespace DigitalIdentityExample.Controllers
                 StreamReader privateKeyStream = System.IO.File.OpenText(yotiKeyFilePath);
 
                 var yotiClient = new DigitalIdentityClient(_clientSdkId, privateKeyStream);
-                
+
                 var ReceiptResult = yotiClient.GetShareReceipt(ReceiptID);
-                
+
                 DisplayAttributes displayAttributes = CreateDisplayAttributes(ReceiptResult.UserContent.UserProfile.AttributeCollection);
                 if (ReceiptResult.UserContent.UserProfile.FullName != null)
                 {
@@ -58,7 +58,7 @@ namespace DigitalIdentityExample.Controllers
                     displayAttributes.Base64Selfie = selfie.GetValue().GetBase64URI();
                 }
                 ViewBag.YotiClientSdkId = _clientSdkId;
-                
+
                 return View("SuccessResult", displayAttributes);
             }
             catch (Exception e)
@@ -72,7 +72,7 @@ namespace DigitalIdentityExample.Controllers
                 return RedirectToAction("Error", "Success");
             }
         }
-        
+
         private static DisplayAttributes CreateDisplayAttributes(ReadOnlyCollection<BaseAttribute> attributes)
         {
             var displayAttributes = new DisplayAttributes();
@@ -159,5 +159,5 @@ namespace DigitalIdentityExample.Controllers
             if (baseAttribute is YotiAttribute<T> yotiAttribute)
                 displayAttributes.Add(name, icon, yotiAttribute.GetAnchors(), yotiAttribute.GetValue());
         }
-    } 
+    }
 }
